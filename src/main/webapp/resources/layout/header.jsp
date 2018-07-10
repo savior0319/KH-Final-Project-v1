@@ -8,6 +8,7 @@
 }
 </style>
 
+<!-- 메인 메뉴 -->
 <div style="background: rgb(235, 235, 235);">
 	<div class="ui right aligned basic segment" style="margin-bottom: 0; padding-top: 8px; padding-bottom: 8px;">
 		<span class="menu">로그인</span>
@@ -23,6 +24,7 @@
 <div class="ui menu" style="margin-top: 0;">
 	<div class="ui container">
 		<a href="/"><img class="logo" src="/resources/image/logo.gif" style="margin: 5px;"></a>
+
 		<div class="ui simple dropdown item">
 			<div style="font-weight: 600">
 				다이어트꿀팁 <i class="dropdown icon"></i>
@@ -101,6 +103,17 @@
 					</div>
 				</div>
 				<a class="item" href="#">다이어트</a>
+			</div>
+		</div>
+
+		<div class="ui simple dropdown item">
+			<div style="font-weight: 600">
+				고객센터 <i class="dropdown icon"></i>
+			</div>
+			<div class="menu">
+				<a class="item" href="#">공지사항</a>
+				<a class="item" href="#">자주 묻는 질문</a>
+				<a class="item" href="#">QnA</a>
 			</div>
 		</div>
 
