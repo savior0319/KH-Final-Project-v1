@@ -23,7 +23,6 @@
 	<br>
 	<div class="ui container">
 		<div class="ui center aligned segment">
-			<h1>관리자 페이지 메인입니다</h1>
 		</div>
 	</div>
 </div>
