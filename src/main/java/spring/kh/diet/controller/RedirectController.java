@@ -8,4 +8,6 @@ public interface RedirectController {
 
 	String RedirectMyInfo();
 
+	String RedirectMyInfoUpdate();
+
 }

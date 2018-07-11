@@ -21,11 +21,11 @@
 
    <!-- CONTENTS -->
    <div class="ui center aligned basic segment">
-		   <div class="ui container">
+		<div class="ui container">
 	            <div class="contents my">
-	                <div class="topBanner"></div>
-	                <div class="ui eight item menu"> 
-	                    <a class="active item" href="#">내 정보 변경</a> 
+	                <div class="topBanner"><h1>광고를 넣어요</h1></div>
+	                <div class="ui eight item menu" id="myInfoMenu"> 
+	                	<a class="item active" href="/myInfoUpdate.diet">내 정보 변경</a>
 	                    <a class="item" href="#">내 활동 정보</a> 
 	                    <a class="item" href="#">적립금</a> 
 	                    <a class="item" href="#">쿠폰</a> 
@@ -35,11 +35,21 @@
 	                    <a class="item" href="#">회원탈퇴</a> 
 	                </div>
 	            </div>
+	             <script>
+					 $(function(){
+					    var sBtn = $("#myInfoMenu");    
+					    sBtn.find('a').click(function(){   
+					    sBtn.find('a').removeClass("active");    
+					    $(this).addClass("active"); 
+					  });
+					 });
+				</script>
 	            <div class="sideBar">
 	                
 	          	</div>
-  		 </div>
-  		 </div>
+	    <!--  ui container 닫기  -->
+  		</div>
+  	</div>
 
 
    <!-- FOOTER -->
