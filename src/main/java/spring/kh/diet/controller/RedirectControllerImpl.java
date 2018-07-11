@@ -14,12 +14,11 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectAdminPage() {
 		return "admin/admin";
 	}
-	
+
 	@Override
 	@RequestMapping(value = "/noticeRegister.diet")
 	public String RedirectNoticeRegisterPage() {
 		return "admin/noticeRegister";
 	}
-
 
 }

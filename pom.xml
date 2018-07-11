@@ -24,6 +24,20 @@
 
 	<dependencies>
 
+		<!-- Mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+
+		<!-- Mybatis Spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
 		<!-- AOP -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -51,9 +65,6 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>5.0.6.RELEASE</version>
 		</dependency>
-
-
-
 
 		<!-- Spring -->
 		<dependency>
