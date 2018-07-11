@@ -4,4 +4,8 @@ public interface RedirectController {
 
 	String RedirectAdminPage();
 
+	String RedirectLoginPage();
+
+	String RedirectMyInfo();
+
 }

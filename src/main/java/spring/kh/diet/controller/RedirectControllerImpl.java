@@ -14,5 +14,17 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectAdminPage() {
 		return "admin/admin";
 	}
+	
+	@Override
+	@RequestMapping(value="/login.diet")
+	public String RedirectLoginPage() {
+		return "login/login";
+	}
+	
+	@Override
+	@RequestMapping(value="/myInfo.diet")
+	public String RedirectMyInfo(){
+		return "myInfo/myInfo";
+	}
 
 }
