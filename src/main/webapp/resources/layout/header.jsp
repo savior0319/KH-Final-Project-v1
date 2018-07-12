@@ -12,9 +12,9 @@
 <div style="background: rgb(235, 235, 235);">
 	<div class="ui right aligned basic segment" style="margin-bottom: 0; padding-top: 8px; padding-bottom: 8px;">
 		<span class="menu"><a href="/admin.diet">관리자 페이지</a></span>
-		<span class="menu"><a href="/login.diet">로그인</a></span>
-		<span class="menu">회원가입</span>
-		<span class="menu"><a href="/myInfo.diet">마이페이지</a></span>
+    <span class="menu"><a href="/login.diet">로그인</a></span>
+    <span class="menu">회원가입</span>
+    <span class="menu"><a href="/myInfo.diet">마이페이지</a></span>
 		<span class="menu">주문배송조회</span>
 		<span class="menu">장바구니</span>
 		<span class="menu">제휴·광고문의</span>
@@ -32,18 +32,11 @@
 				다이어트꿀팁 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="#">다이어트</a>
-				<a class="item" href="#">다이어트</a>
-				<div class="divider"></div>
-				<div class="header">다이어트</div>
-				<div class="item">
-					<i class="dropdown icon"></i> 다이어트
-					<div class="menu">
-						<a class="item" href="#">다이어트</a>
-						<a class="item" href="#">다이어트</a>
-					</div>
-				</div>
-				<a class="item" href="#">다이어트</a>
+				<a class="item" href="#">전체</a>
+				<a class="item" href="#">칼럼</a>
+				<a class="item" href="#">운동</a>
+				<a class="item" href="#">식단</a>
+				<a class="item" href="#">성공후기</a>
 			</div>
 		</div>
 
@@ -52,18 +45,8 @@
 				칼로리사전 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="#">다이어트</a>
-				<a class="item" href="#">다이어트</a>
-				<div class="divider"></div>
-				<div class="header">다이어트</div>
-				<div class="item">
-					<i class="dropdown icon"></i> 다이어트
-					<div class="menu">
-						<a class="item" href="#">다이어트</a>
-						<a class="item" href="#">다이어트</a>
-					</div>
-				</div>
-				<a class="item" href="#">다이어트</a>
+				<a class="item" href="#">음식칼로리</a>
+				<a class="item" href="#">운동칼로리</a>
 			</div>
 		</div>
 
@@ -72,18 +55,15 @@
 				홈트레이닝 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="#">다이어트</a>
-				<a class="item" href="#">다이어트</a>
-				<div class="divider"></div>
-				<div class="header">다이어트</div>
-				<div class="item">
-					<i class="dropdown icon"></i> 다이어트
-					<div class="menu">
-						<a class="item" href="#">다이어트</a>
-						<a class="item" href="#">다이어트</a>
-					</div>
-				</div>
-				<a class="item" href="#">다이어트</a>
+				<a class="item" href="#">전체</a>
+				<a class="item" href="#">전신</a>
+				<a class="item" href="#">복부</a>
+				<a class="item" href="#">상체</a>
+				<a class="item" href="#">하체</a>
+				<a class="item" href="#">스트레칭</a>
+				<a class="item" href="#">댄스</a>
+				<a class="item" href="#">요가</a>
+				<a class="item" href="#">4주챌린지</a>
 			</div>
 		</div>
 
@@ -93,18 +73,12 @@
 				커뮤니티 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="#">다이어트</a>
-				<a class="item" href="#">다이어트</a>
-				<div class="divider"></div>
-				<div class="header">다이어트</div>
-				<div class="item">
-					<i class="dropdown icon"></i> 다이어트
-					<div class="menu">
-						<a class="item" href="#">다이어트</a>
-						<a class="item" href="#">다이어트</a>
-					</div>
-				</div>
-				<a class="item" href="#">다이어트</a>
+				<a class="item" href="#">전체</a>
+				<a class="item" href="#">자유게시판</a>
+				<a class="item" href="#">레시피&식단</a>
+				<a class="item" href="#">팁&노하우</a>
+				<a class="item" href="#">고민&질문</a>
+				<a class="item" href="#">비포&애프터</a>
 			</div>
 		</div>
 

@@ -5,6 +5,7 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+	<script src="//cdn.ckeditor.com/4.10.0/basic/ckeditor.js"></script>
 	<title>다이어트</title>
 </head>
 
@@ -23,7 +24,7 @@
 	<br>
 	<div class="ui container">
 		<div class="ui center aligned segment">
-			<h1>관리자 페이지 메인입니다</h1>
+			
 		</div>
 	</div>
 </div>

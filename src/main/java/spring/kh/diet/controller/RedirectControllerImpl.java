@@ -14,8 +14,14 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectAdminPage() {
 		return "admin/admin";
 	}
-	
+
 	@Override
+	@RequestMapping(value = "/noticeRegister.diet")
+	public String RedirectNoticeRegisterPage() {
+		return "admin/noticeRegister";
+	}
+  
+  @Override
 	@RequestMapping(value="/login.diet")
 	public String RedirectLoginPage() {
 		return "login/login";
@@ -33,3 +39,4 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myInfoUpdate";
 	}
 }
+

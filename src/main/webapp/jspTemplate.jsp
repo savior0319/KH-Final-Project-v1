@@ -4,37 +4,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<title>다이어트</title>
 </head>
 
 <!-- CSS -->
 <style>
+
 </style>
 
 
 <body>
 	<!-- HEADER -->
-	<jsp:include page="/resources/layout/adminheader.jsp"></jsp:include>
-
+	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
 	<!-- CONTENTS -->
-	<br>
-	<br>
 	<div class="ui container">
-		<div class="ui center aligned segment">
-			<h1>관리자 페이지 메인입니다</h1>
+		<div class="ui center aligned basic segment">
+		
 		</div>
 	</div>
-</div>
-
-
-<!-- FOOTER -->
+	
+	<!-- FOOTER -->
+	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-
+	
 </script>
 
 </html>
