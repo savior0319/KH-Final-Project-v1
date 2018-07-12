@@ -12,9 +12,9 @@
 <div style="background: rgb(235, 235, 235);">
 	<div class="ui right aligned basic segment" style="margin-bottom: 0; padding-top: 8px; padding-bottom: 8px;">
 		<span class="menu"><a href="/admin.diet">관리자 페이지</a></span>
-		<span class="menu">로그인</span>
-		<span class="menu">회원가입</span>
-		<span class="menu">주문배송조회</span>
+    <span class="menu"><a href="/login.diet">로그인</a></span>
+    <span class="menu">회원가입</span>
+    <span class="menu"><a href="/myInfo.diet">마이페이지</a></span>
 		<span class="menu">주문배송조회</span>
 		<span class="menu">장바구니</span>
 		<span class="menu">제휴·광고문의</span>

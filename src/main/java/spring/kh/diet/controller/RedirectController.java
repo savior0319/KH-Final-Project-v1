@@ -5,5 +5,11 @@ public interface RedirectController {
 	String RedirectAdminPage();
 
 	String RedirectNoticeRegisterPage();
+  
+  String RedirectLoginPage();
+
+	String RedirectMyInfo();
+
+	String RedirectMyInfoUpdate();
 
 }

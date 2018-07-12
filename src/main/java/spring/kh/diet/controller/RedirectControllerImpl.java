@@ -20,5 +20,23 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectNoticeRegisterPage() {
 		return "admin/noticeRegister";
 	}
-
+  
+  @Override
+	@RequestMapping(value="/login.diet")
+	public String RedirectLoginPage() {
+		return "login/login";
+	}
+	
+	@Override
+	@RequestMapping(value="/myInfo.diet")
+	public String RedirectMyInfo(){
+		return "myInfo/myInfo";
+	}
+	
+	@Override
+	@RequestMapping(value="/myInfoUpdate.diet")
+	public String RedirectMyInfoUpdate(){
+		return "myInfo/myInfoUpdate";
+	}
 }
+

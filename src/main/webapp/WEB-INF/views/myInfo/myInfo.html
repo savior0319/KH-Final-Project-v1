@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/src/main/webapp/resources/SementicUI/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="/src/main/webapp/resources/SementicUI/semantic.min.js"></script>
+    <title>마이페이지</title>
+</head>
+
+<body>
+    <div class="ui center aligned basic segment">
+        <div class="ui container">
+            <div class="contents my">
+                <div class="topBanner"></div>
+                <div class="ui eight item menu" id="myInfoMenu"> 
+                    <a class="item" href="#">내 정보 변경</a> 
+                    <a class="item" href="#">내 활동 정보</a> 
+                    <a class="item" href="#">적립금</a> 
+                    <a class="item" href="#">쿠폰</a> 
+                    <a class="item" href="#">1:1 문의</a> 
+                    <a class="item" href="#">최근본상품</a> 
+                    <a class="item" href="#">찜한상품</a> 
+                    <a class="item" href="#">회원탈퇴</a> 
+                </div>
+            </div>
+            
+            <script>
+			 $(function(){
+			  var sBtn = $("#myInfoMenu");    //  ul > li 이를 sBtn으로 칭한다. (클릭이벤트는 li에 적용 된다.)
+			  sBtn.find("a").click(function(){   // sBtn에 속해 있는  a 찾아 클릭 하면.
+			   sBtn.removeClass("active");     // sBtn 속에 (active) 클래스를 삭제 한다.
+			   $(this).parent().addClass("active"); // 클릭한 a에 (active)클래스를 넣는다.
+			  })
+			 })
+			</script>
+
+
+
+            <div class="sideBar">
+                
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
