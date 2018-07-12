@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -50,15 +49,15 @@
 	margin-top: 5px;
 }
 
-#joinBtn{
+#joinBtn {
 	width: 350px;
 	height: 50px;
 	background-color: #fa2828;
 	margin-top: 5px;
 }
-    
-h3{
-    text-decoration-line: underline;
+
+h3 {
+	text-decoration-line: underline;
 }
 </style>
 
@@ -76,8 +75,9 @@ h3{
 					<h1>LOGIN</h1>
 				</div>
 				<div class="login box">
-					<p style="padding-top:20px; font-size:13px; font-weight:800;">
-						다이어트신의 다양한 서비스를 이용하시려면 로그인을 해주세요.<br>
+					<p style="padding-top: 20px; font-size: 13px; font-weight: 800;">
+						다이어트신의 다양한 서비스를 이용하시려면 로그인을 해주세요.
+						<br>
 						회원가입을 하시면 다양한 서비스를 받으실 수 있습니다.
 					</p>
 					<br>
@@ -92,12 +92,16 @@ h3{
 					<button class="ui button" id="loginBtn">로그인</button>
 					<br>
 					<br>
-					<a href="#"><h3>비밀번호재설정</h3></a>
+					<a href="#">
+						<h3>비밀번호재설정</h3>
+					</a>
 					<br>
-					<button class="ui negative basic button" id="joinBtn"><a href="#" style="color:#fa2828;">회원가입</a></button>
+					<button class="ui negative basic button" id="joinBtn">
+						<a href="#" style="color: #fa2828;">회원가입</a>
+					</button>
 					<br>
 					<br>
-					<jsp:include page="/WEB-INF/views/login/kakaoLogin.html"></jsp:include>
+					<jsp:include page="/resources/SNSLogin/kakaoLogin.jsp"></jsp:include>
 				</div>
 			</div>
 		</div>

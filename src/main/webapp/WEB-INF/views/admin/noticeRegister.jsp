@@ -24,7 +24,10 @@
 	<br>
 	<div class="ui container">
 		<div class="ui center aligned segment">
-			
+			<div class="ui medium message">
+			공지사항 등록
+
+			</div>
 		</div>
 	</div>
 </div>
