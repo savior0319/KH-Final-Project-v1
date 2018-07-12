@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>다이어트</title>
+	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+	<title>다이어트</title>
 </head>
 
 <!-- CSS -->
@@ -35,35 +35,43 @@
 				<div class="ui basic segment" align="center">
 					<table class="ui celled table" style="width: 100%; height: 100%;">
 						<tr align="center">
-							<td style="padding: 0px; width: 50px; color: white; background: rgb(250, 40, 40); font-weight: 600; font-size: 15px;">
-								<i class="large calculator icon"></i>
-								<br>
-								나의 BMI 지수는?
-								<br>
-								(비만도 계산)
+							<td style="padding: 0px; width: 70px;">
+								<button onclick="bmiCal();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color:white; font-weight: 600; font-size: 15px;">
+									<i class="large calculator icon"></i>
+									<br>
+									내 BMI 지수는?
+									<br>
+									(비만도 계산)
+								</button>
 							</td>
-							<td style="padding: 0px; width: 50px; color: white; background: orange; font-weight: 600; font-size: 15px;">
-								<i class="large sticky note outline icon"></i>
-								<br>
-								칼로리처방
-								<br>
-								받기
+							<td style="padding: 0px; width: 70px;">
+								<button type="button" style="height: 100%; width: 100%; background: orange; border: 0; color:white; font-weight: 600; font-size: 15px;">
+									<i class="large sticky note outline icon"></i>
+									<br>
+									칼로리처방
+									<br>
+									받기
+								</button>
 							</td>
 						</tr>
 						<tr align="center">
-							<td style="padding: 0px; width: 50px; color: white; background: rgb(171, 171, 171); font-weight: 600; font-size: 15px;">
-								<i class="large mobile alternate icon"></i>
-								<br>
-								다이어트
-								<br>
-								어플리케이션
+							<td style="padding: 0px; width: 70px;">
+								<button type="button" style="height: 100%; width: 100%; background: gray; border: 0; color:white; font-weight: 600; font-size: 15px;">
+									<i class="large mobile alternate icon"></i>
+									<br>
+									다이어트
+									<br>
+									어플리케이션
+								</button>
 							</td>
-							<td style="padding: 0px; width: 50px; color: white; background: rgb(250, 40, 40); font-weight: 600; font-size: 15px;">
-								<i class="large sistrix icon"></i>
-								<br>
-								인바디 측정
-								<br>
-								보건소 찾기
+							<td style="padding: 0px; width: 70px;">
+								<button type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color:white; font-weight: 600; font-size: 15px;">
+									<i class="large sistrix icon"></i>
+									<br>
+									인바디 측정
+									<br>
+									보건소 찾기
+								</button>
 							</td>
 						</tr>
 					</table>
@@ -108,8 +116,7 @@
 					<p>내용들어감</p>
 					<p>내용들어감</p>
 					<p>내용들어감</p>
-					<p>내용들어감</p>
-					<p>내용들어감</p>
+					<p>내용들어감</p> <p>내용들어감</p>
 					<p>내용들어감</p>
 					<p>내용들어감</p>
 					<p>내용들어감</p>
@@ -129,6 +136,11 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+	
+	function bmiCal(){
+		window.location.href="/bmiCal.diet";
+	}
+	
 	
 </script>
 
