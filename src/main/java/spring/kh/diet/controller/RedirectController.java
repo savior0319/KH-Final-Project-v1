@@ -6,10 +6,12 @@ public interface RedirectController {
 
 	String RedirectNoticeRegisterPage();
   
-  String RedirectLoginPage();
+	String RedirectLoginPage();
 
 	String RedirectMyInfo();
 
 	String RedirectMyInfoUpdate();
+
+	String RedirectMyActivityInfo();
 
 }

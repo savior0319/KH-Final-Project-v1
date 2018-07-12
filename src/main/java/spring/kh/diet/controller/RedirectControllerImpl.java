@@ -38,5 +38,11 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectMyInfoUpdate(){
 		return "myInfo/myInfoUpdate";
 	}
+	@Override
+	@RequestMapping(value="/myActivityInfo.diet")
+	public String RedirectMyActivityInfo(){
+		return "myInfo/myActivityInfo";
+	}
+	
 }
 

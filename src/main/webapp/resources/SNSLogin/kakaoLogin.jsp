@@ -8,13 +8,24 @@
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
     Kakao.init('7b287e68e4697fdbefefb672e3ed43de');
     // 카카오 로그인 버튼을 생성합니다.
-    Kakao.Auth.createLoginButton({
+     Kakao.Auth.createLoginButton({
       container: '#kakao-login-btn',
       success: function(authObj) {
-        alert(JSON.stringify(authObj));
+        // 로그인 성공시, API를 호출합니다.
+        Kakao.API.request({
+          url: '/v1/user/me',
+          success: function(res) {
+            //alert(JSON.stringify(res));
+            alert(res.properties.nickname+'님 환영합니다.');
+            location.href="./result?name="+res.propertise.nickname;
+          },
+          fail: function(error) {
+            alert(JSON.stringify(error));
+          }
+        });
       },
       fail: function(err) {
-         alert(JSON.stringify(err));
+        alert(JSON.stringify(err));
       }
     });
   //]]>

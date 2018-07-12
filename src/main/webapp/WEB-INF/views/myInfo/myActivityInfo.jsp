@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +8,6 @@
 <title>다이어트</title>
 </head>
 
-<!-- 카카오 로그인 JS -->
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <!-- CSS -->
 <style>
 

@@ -5,8 +5,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<!-- 카카오로그인 외부 JS -->
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <title>다이어트</title>
 </head>
 
@@ -97,7 +96,7 @@ h3 {
 					</a>
 					<br>
 					<button class="ui negative basic button" id="joinBtn">
-						<a href="#" style="color: #fa2828;">회원가입</a>
+						<a href="#" style="color:#fa2828;">회원가입</a>
 					</button>
 					<br>
 					<br>
