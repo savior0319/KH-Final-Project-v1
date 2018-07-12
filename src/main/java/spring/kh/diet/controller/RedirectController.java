@@ -5,7 +5,7 @@ public interface RedirectController {
 	String RedirectAdminPage();
 
 	String RedirectNoticeRegisterPage();
-  
+
 	String RedirectLoginPage();
 
 	String RedirectMyInfo();
@@ -14,4 +14,5 @@ public interface RedirectController {
 
 	String RedirectMyActivityInfo();
 
+	String RedirectBMICal();
 }

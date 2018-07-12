@@ -23,17 +23,16 @@
 	<br>
 	<br>
 	<div class="ui container">
-		<div class="ui center aligned segment">
+		<div class="ui center aligned basic segment">
 			<div class="ui medium message">
-			공지사항 등록
-
+				<div class="ui large header">공지사항 등록</div>
 			</div>
+			<button class="ui blue button">등록</button> 
 		</div>
 	</div>
-</div>
 
 
-<!-- FOOTER -->
+	<!-- FOOTER -->
 </body>
 
 <!-- SCRIPT -->

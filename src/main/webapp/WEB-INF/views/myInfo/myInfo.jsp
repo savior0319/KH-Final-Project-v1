@@ -29,7 +29,7 @@
 	                <div class="topBanner"><h1>광고를 넣어요</h1></div>
 	                <div class="ui eight item menu" id="myInfoMenu"> 
 	                	<a class="item active" href="/myInfoUpdate.diet">내 정보 변경</a>
-	                    <a class="item" href="#">내 활동 정보</a> 
+	                    <a class="item" href="#">내 활동 정보</a>
 	                    <a class="item" href="#">적립금</a> 
 	                    <a class="item" href="#">쿠폰</a> 
 	                    <a class="item" href="#">1:1 문의</a> 
