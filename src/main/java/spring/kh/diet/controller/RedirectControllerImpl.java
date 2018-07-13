@@ -47,6 +47,13 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectMyInfoUpdate() {
 		return "myInfo/myInfoUpdate";
 	}
+	
+	/*커뮤니티-자유게시판*/
+	@Override
+	@RequestMapping(value = "/bulletinBoard.diet")
+	public String RedirectBulletinBoard() {
+		return "community/bulletinBoard";
+	}
 
 	@Override
 	@RequestMapping(value="/myActivityInfo.diet")

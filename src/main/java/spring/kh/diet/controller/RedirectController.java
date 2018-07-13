@@ -15,4 +15,8 @@ public interface RedirectController {
 	String RedirectMyActivityInfo();
 
 	String RedirectBMICal();
+
+	String RedirectBulletinBoard();
+	
+
 }
