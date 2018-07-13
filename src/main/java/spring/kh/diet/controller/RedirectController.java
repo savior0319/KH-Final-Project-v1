@@ -12,8 +12,11 @@ public interface RedirectController {
 
 	String RedirectMyInfoUpdate();
 
+	String RedirectMyActivityInfo();
+
 	String RedirectBMICal();
 
 	String RedirectBulletinBoard();
 	
+
 }

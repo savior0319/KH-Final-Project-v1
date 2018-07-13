@@ -55,4 +55,13 @@ public class RedirectControllerImpl implements RedirectController {
 		return "community/bulletinBoard";
 	}
 
+	@Override
+	@RequestMapping(value="/myActivityInfo.diet")
+	public String RedirectMyActivityInfo(){
+		return "myInfo/myActivityInfo";
+	}
+	
 }
+
+
+
