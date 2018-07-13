@@ -74,7 +74,7 @@
 			</div>
 			<div class="menu">
 				<a class="item" href="#">전체</a>
-				<a class="item" href="#">자유게시판</a>
+				<a class="item" href="/bulletinBoard.diet">자유게시판</a>
 				<a class="item" href="#">레시피&식단</a>
 				<a class="item" href="#">팁&노하우</a>
 				<a class="item" href="#">고민&질문</a>

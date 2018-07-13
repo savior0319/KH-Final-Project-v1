@@ -14,4 +14,6 @@ public interface RedirectController {
 
 	String RedirectBMICal();
 
+	String RedirectBulletinBoard();
+	
 }
