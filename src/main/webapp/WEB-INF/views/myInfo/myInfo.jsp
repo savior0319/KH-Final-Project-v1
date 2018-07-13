@@ -35,7 +35,7 @@
 	                    <a class="item" href="#">1:1 문의</a> 
 	                    <a class="item" href="#">최근본상품</a> 
 	                    <a class="item" href="#">찜한상품</a> 
-	                    <a class="item" href="#">회원탈퇴</a> 
+	                    <a class="item" href="/secession.diet">회원탈퇴</a> 
 	                </div>
 	             </div>
 	             <script>

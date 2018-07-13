@@ -14,7 +14,7 @@
 list-style-type: none;
 float:left;
 margin-top:25px;
-margin-left:130px;
+margin-left:13%;  
 }
 
 .myActivity1{
@@ -24,7 +24,7 @@ width:100%;
 height:100px;
 background-color:red;
 
-}
+}  
 </style>
 
 
