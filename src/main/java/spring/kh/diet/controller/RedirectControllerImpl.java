@@ -61,6 +61,12 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myActivityInfo";
 	}
 	
+	@Override
+	@RequestMapping(value="/secession.diet")
+	public String RedirectSecession(){
+		return "myInfo/secession";
+	}
+	
 }
 
 
