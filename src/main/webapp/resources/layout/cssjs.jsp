@@ -9,7 +9,6 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <!-- JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
 <script type="text/javascript" src="/resources/SementicUI/semantic.min.js"></script>
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="/resources/SementicUI/semantic.min.css">
