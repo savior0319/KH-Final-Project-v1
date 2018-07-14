@@ -19,6 +19,7 @@ public interface RedirectController {
 	String RedirectBulletinBoard();
 
 	String RedirectSecession();
-	
+
+	Object RedirectBMICalResult(String[] gender, String age, String height, String weight);
 
 }
