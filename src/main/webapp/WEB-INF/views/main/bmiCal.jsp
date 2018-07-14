@@ -27,7 +27,7 @@
 			<div class="ui large message">
 				<div class="ui large header">BMI계산</div>
 			</div>
-			<form action="/bmiCalResult.diet" method="get">
+			<form action="/bmiCalResult.diet" method="POST">
 				<table class="ui celled table">
 					<thead>
 						<tr>
