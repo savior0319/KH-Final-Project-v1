@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>다이어트</title>
+	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+	<title>다이어트</title>
 </head>
 
 <!-- CSS -->
@@ -144,8 +144,11 @@
 						</tr>
 					</thead>
 				</table>
-
-				<button class="ui blue button" type="submit">전송</button>
+				<div class="ui red message">
+					<div class="ui medium header">※ 비만도 측정(BMI) 이란?</div>
+					<div class="ui small header" style="margin-top: 6px;">나이, 신장(cm)과 체중(kg)만으로 비만을 판정하는 비만 지수</div>
+				</div>
+				<button class="ui blue button" type="submit">BMI 계산하기</button>
 			</form>
 		</div>
 	</div>
@@ -159,38 +162,38 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function() {
 
-		var regExp = /^[0-9]*$/;
+	var regExp = /^[0-9]*$/;
 
-		$("#numberCheck1").focus(function() {
-			if (!regExp.test($("#numberCheck1").val())) {
-				alert("숫자만 입력하세요");
-				$("#numberCheck1").val("");
-			}
-		});
-
-		$("#numberCheck1").keyup(function() {
-			if (!regExp.test($("#numberCheck1").val())) {
-				alert("숫자만 입력하세요");
-				$("#numberCheck1").val("");
-			}
-		});
-
-		$("#numberCheck2").focus(function() {
-			if (!regExp.test($("#numberCheck2").val())) {
-				alert("숫자만 입력하세요");
-				$("#numberCheck2").val("");
-			}
-		});
-
-		$("#numberCheck2").keyup(function() {
-			if (!regExp.test($("#numberCheck2").val())) {
-				alert("숫자만 입력하세요");
-				$("#numberCheck2").val("");
-			}
-		});
+	$("#numberCheck1").focus(function() {
+		if (!regExp.test($("#numberCheck1").val())) {
+			alert("숫자만 입력하세요");
+			$("#numberCheck1").val("");
+		}
 	});
+
+	$("#numberCheck1").keyup(function() {
+		if (!regExp.test($("#numberCheck1").val())) {
+			alert("숫자만 입력하세요");
+			$("#numberCheck1").val("");
+		}
+	});
+
+	$("#numberCheck2").focus(function() {
+		if (!regExp.test($("#numberCheck2").val())) {
+			alert("숫자만 입력하세요");
+			$("#numberCheck2").val("");
+		}
+	});
+
+	$("#numberCheck2").keyup(function() {
+		if (!regExp.test($("#numberCheck2").val())) {
+			alert("숫자만 입력하세요");
+			$("#numberCheck2").val("");
+		}
+	});
+});
 </script>
 
 </html>
