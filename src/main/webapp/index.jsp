@@ -23,7 +23,8 @@
 				<div class="ui basic segment" style="padding: 0;">
 					<div class="ui left aligned basic segment" style="margin: 0;">
 						<div class="ui message">
-							<span class="ui small header"> <i class="book icon"></i>최고의 성형은 다이어트다
+							<span class="ui small header">
+								<i class="book icon"></i>최고의 성형은 다이어트다
 							</span>
 						</div>
 					</div>
@@ -35,7 +36,8 @@
 					<table class="ui celled table" style="width: 100%; height: 100%;">
 						<tr align="center">
 							<td style="padding: 0px; width: 70px;">
-								<button onclick="bmiCal();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+								<button onclick="bmiCal();" type="button"
+									style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
 									<i class="large calculator icon"></i>
 									<br>
 									내 BMI 지수는?
@@ -44,7 +46,8 @@
 								</button>
 							</td>
 							<td style="padding: 0px; width: 70px;">
-								<button type="button" style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px;">
+								<button onclick="calCal();" type="button"
+									style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px;">
 									<i class="large sticky note outline icon"></i>
 									<br>
 									칼로리처방
@@ -64,7 +67,8 @@
 								</button>
 							</td>
 							<td style="padding: 0px; width: 70px;">
-								<button type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+								<button type="button"
+									style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
 									<i class="large sistrix icon"></i>
 									<br>
 									인바디 측정
@@ -138,6 +142,10 @@
 <script type="text/javascript">
 	function bmiCal() {
 		window.location.href = "/bmiCal.diet";
+	}
+	
+	function calCal() {
+		window.location.href = "/calCal.diet";
 	}
 </script>
 
