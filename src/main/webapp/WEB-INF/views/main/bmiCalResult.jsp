@@ -12,7 +12,8 @@
 		$(document).ready(function() {
 
 
-			var bmiPoint = ${bmi.bmi}, color;
+			var bmiPoint = ${bmi.bmi}
+			var color;
 
 			if(18.5>= bmiPoint && bmiPoint >= 0){
 				color='lightgray';
