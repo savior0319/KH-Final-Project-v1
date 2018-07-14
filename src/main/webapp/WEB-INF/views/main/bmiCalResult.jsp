@@ -126,6 +126,7 @@
 
 	function back(){
 		location.href="/bmiCal.diet"
+		}
 	}
 
 </script>
