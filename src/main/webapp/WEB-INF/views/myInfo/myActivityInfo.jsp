@@ -21,10 +21,18 @@ margin-left:13%;
 border : 1px solid black;
 border-radius: 30px;
 width:100%;
-height:100px;
-background-color:red;
+height:130px;
+background-color:lightgray;
+position: relative;
 
 }  
+.myActivity2 a{
+width : 20%;
+margin :auto 0;
+}
+.clfix{height:117px}
+.clfix li{float:left;width:300px;}
+.clfix li strong{display:inline-block;padding-left:35px;margin-right:9px}
 </style>
 
 
@@ -36,51 +44,32 @@ background-color:red;
    <!-- CONTENTS -->
    <div class="ui center aligned basic segment">
 		<div class="ui container">
-	            <div class="contents my">
-	                <div class="topBanner"><h1>광고를 넣어요</h1></div>
-	                <div class="ui eight item menu" id="myInfoMenu"> 
-	                	<a class="item " href="/myInfoUpdate.diet">내 정보 변경</a>
-	                    <a class="item active" href="#">내 활동 정보</a> 
-	                    <a class="item" href="#">적립금</a> 
-	                    <a class="item" href="#">쿠폰</a> 
-	                    <a class="item" href="#">1:1 문의</a> 
-	                    <a class="item" href="#">최근본상품</a> 
-	                    <a class="item" href="#">찜한상품</a> 
-	                    <a class="item" href="#">회원탈퇴</a> 
-	                </div>
-	             </div>
-	             <script>
-					 $(function(){
-					    var sBtn = $("#myInfoMenu");    
-					    sBtn.find('a').click(function(){   
-					    sBtn.find('a').removeClass("active");    
-					    $(this).addClass("active"); 
-					  });
-					 });
-				</script>
+	           <jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 				<br>
-	            <div class="myActivity1">
+	         	<div class="myActivity1">
 	                <ul class="clfix">
-						<li class="mc1"><strong>출석</strong><em><span class="p-red">1</span>회</em></li>
-						<li class="mc2"><strong>게시물 작성수</strong><em><span class="p-red">0</span>회</em></li>
-						<li class="mc3"><strong>댓글작성수</strong><em><span class="p-red">1</span>회</em></li>
-						<li class="mc4"><strong>가입일</strong><em>2018.07.06</em></li>
+						<li class="mc1"><strong>출&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;석</strong><span class="p-red">1</span>회</li>
+						<li class="mc2"><strong>게시물 작성수</strong><span class="p-red">0</span>회</li>
+						<li class="mc3"><strong>댓글작성수</strong><span class="p-red">1</span>회</li>
+						<li class="mc4"><strong>가입일</strong>2018.07.06</li>
 					</ul>                
-	          	</div>
+	          	</div> 
+	          	
+	      
 	          	<br>
 	          	<div class="myActivity2">
-	          		<div class="ui five item menu" id="myActivity2">
-						  <a class="item active">작성한 게시물</a>
-						  <a class="item">작성한 댓글</a>
-						  <a class="item">북마크</a>
-						  <a class="item">나의 상품평</a>
-						  <a class="item">나의 상품문의</a>
+		          	<div class="ui tabular menu" id="myActivity2">
+					  	  <a class="item active" href="#">작성한 게시물</a>
+						  <a class="item" href="#">작성한 댓글</a>
+						  <a class="item" href="#">북마크</a>
+						  <a class="item" href="#">나의 상품평</a>
+						  <a class="item" href="#">나의 상품문의</a>
 					</div>
+					<jsp:include page="/WEB-INF/views/myInfo/notice.jsp"></jsp:include>
 	          	</div>
-	          	
-	          	<h1>공용게시판 만들기</h1>
-	          	<br>
-	          	<script>
+	          	 	
+	          	</div>
+	          	 <script>
 					 $(function(){
 					    var sBtn = $("#myActivity2");    
 					    sBtn.find('a').click(function(){   
@@ -89,11 +78,10 @@ background-color:red;
 					  });
 					 });
 				</script>
-	          	
-	          	
-	    <!--  ui container 닫기  -->
+	         
+		<!--  ui container 닫기  -->
   		</div>
-  	</div>
+
 
 
    <!-- FOOTER -->

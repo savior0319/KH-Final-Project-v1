@@ -22,4 +22,8 @@ public interface RedirectController {
 
 	Object RedirectBMICalResult(String[] gender, String age, String height, String weight);
 
+	String RedirectMyPoint();
+
+	String RedirectMyCoupon();
+
 }
