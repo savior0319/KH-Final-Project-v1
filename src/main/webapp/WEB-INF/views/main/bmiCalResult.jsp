@@ -124,22 +124,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		var regExp = /^[0-9]*$/;
-		$(".numberCheck").focus(function() {
-			if (!regExp.test($(".numberCheck").val())) {
-				alert("숫자만 입력하세요");
-				$(".numberCheck").val("");
-			}
-		});
-
-		$(".numberCheck").keyup(function() {
-			if (!regExp.test($(".numberCheck").val())) {
-				alert("숫자만 입력하세요");
-				$(".numberCheck").val("");
-			}
-		});
-	});
-
 	function back(){
 		location.href="/bmiCal.diet"
 	}
