@@ -21,9 +21,6 @@
 	<div class="ui container">
 		<div class="ui center aligned basic segment">
 			<br>
-			<br>
-			<br>
-			<br>
 			<div class="ui large message">
 				<div class="ui large header">칼로리 처방 받기</div>
 			</div>
@@ -172,14 +169,11 @@
 						</tr>
 					</thead>
 				</table>
-				
+
 				<button class="ui blue button" type="submit">전송</button>
 			</form>
 		</div>
 	</div>
-	<br>
-	<br>
-	<br>
 	<br>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>

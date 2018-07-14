@@ -21,9 +21,6 @@
 	<div class="ui container">
 		<div class="ui center aligned basic segment">
 			<br>
-			<br>
-			<br>
-			<br>
 			<div class="ui large message">
 				<div class="ui large header">BMI계산</div>
 			</div>
@@ -152,9 +149,6 @@
 			</form>
 		</div>
 	</div>
-	<br>
-	<br>
-	<br>
 	<br>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>

@@ -70,7 +70,7 @@ public class RedirectControllerImpl implements RedirectController {
 
 		return view;
 	}
-	
+
 	/* 메인 페이지 - 칼로리 처방 이동 */
 	@Override
 	@RequestMapping(value = "/calCal.diet")
