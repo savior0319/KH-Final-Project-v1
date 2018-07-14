@@ -39,7 +39,7 @@
 			<version>2.8.5</version>
 		</dependency>
 
-		<!-- json-simple -->
+		<!-- Json-simple -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
