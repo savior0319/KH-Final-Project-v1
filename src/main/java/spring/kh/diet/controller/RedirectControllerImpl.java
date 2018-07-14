@@ -13,6 +13,8 @@ import spring.kh.diet.model.vo.BMIVO;
 @Controller
 public class RedirectControllerImpl implements RedirectController {
 
+	private final String redirectMain = "redirect:/";
+
 	public RedirectControllerImpl() {
 	}
 
