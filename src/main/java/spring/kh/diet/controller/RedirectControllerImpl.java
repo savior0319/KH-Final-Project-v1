@@ -56,8 +56,8 @@ public class RedirectControllerImpl implements RedirectController {
 		double resultBMI = weightConvertDouble / (heightConvertMeter * heightConvertMeter);
 
 		String ageStrRs = String.valueOf(ageRs);
-		String weightStrRs = String.valueOf(weightConvertDouble);
-		String heightStrRs = String.valueOf(heightConvertMeter * 100);
+		String weightStrRs = String.valueOf((int) weightConvertDouble);
+		String heightStrRs = String.valueOf((int) (heightConvertMeter * 100));
 		String bmiStrRs = String.valueOf(Math.round(resultBMI * 10) / 10.0);
 
 		// 성별, 나이, 키, 몸무게, BMI
