@@ -33,7 +33,7 @@ body {
 	<div class="ui container">
 		<div class="ui left aligned basic segment">
 			<div class="ui medium message">
-				<div class="ui large header" align="center">공지사항 등록</div>
+				<div class="ui large header" align="center">공지사항 등록(사진 빼고 글 부터 테스트 중)</div>
 			</div>
 			<br>
 			<div class="ui form">
@@ -67,8 +67,22 @@ body {
 	function register(){
 		var title = $('#title').val();
 		var content = $('#summernote').summernote('code');
-		console.log('제목 : ' + title);
-		console.log('글 내용 : ' + content);
+
+		$.ajax({
+			url : '/noticeRegisterData.diet',
+			type : 'post',
+			data : {'title' : title, 'content' : content},
+
+			success : function(data){
+				if(data == 'success'){
+					alert('공지등록 완료');
+					location.href="/admin.diet"
+				}
+			}, 
+			error : function(){
+				alert('공지등록 실패');
+			}
+		});
 	}
 	
 </script>
