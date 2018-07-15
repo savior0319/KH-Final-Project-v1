@@ -10,6 +10,9 @@
 
 <!-- CSS -->
 <style>
+html,body{
+margin : 0 auto;
+}
 .clfix li{
 list-style-type: none;
 float:left;
@@ -18,17 +21,23 @@ margin-left:13%;
 }
 
 .myActivity1{
-border : 1px solid black;
+
 border-radius: 30px;
+
 width:100%;
-height:130px;
-background-color:lightgray;
+height:auto;
 position: relative;
+text-align: center;;
 
 }  
+
+.table>thead>tr:first-child{
+background-color: orange;
+}
 .myActivity2 a{
 width : 20%;
 margin :auto 0;
+
 }
 .clfix{height:117px}
 .clfix li{float:left;width:300px;}
@@ -47,12 +56,39 @@ margin :auto 0;
 	           <jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 				<br>
 	         	<div class="myActivity1">
-	                <ul class="clfix">
+	         	<table class="ui celled padded table">
+				  <thead>
+					     <tr>
+						    <th>출석횟수</th>
+						    <th>게시물 작성수</th>
+						    <th>댓글작성수</th>
+						    <th>가입일</th>
+						 </tr>
+				  </thead>
+				  <tbody>
+					    <tr>
+					      <td>
+					        <h2 class="ui center aligned header">A</h2>
+					      </td>
+					      <td class="single line">
+					        Power Output
+					      </td>
+					      <td>
+					        <div class="ui star rating" data-rating="3" data-max-rating="3"></div>
+					      </td>
+					      <td class="right aligned">
+					        80% <br>
+					        <a href="#">18 studies</a>
+					      </td> 
+					    </tr>	
+				  </tbody>
+				</table>
+	               <!--  <ul class="clfix">
 						<li class="mc1"><strong>출&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;석</strong><span class="p-red">1</span>회</li>
 						<li class="mc2"><strong>게시물 작성수</strong><span class="p-red">0</span>회</li>
 						<li class="mc3"><strong>댓글작성수</strong><span class="p-red">1</span>회</li>
 						<li class="mc4"><strong>가입일</strong>2018.07.06</li>
-					</ul>                
+					</ul>      -->           
 	          	</div> 
 	          	
 	      
