@@ -59,7 +59,7 @@
 }
 
 .firstTd{
-	background-color:#fa2828;
+	background-color:lightgray;
 }
 </style>
 
@@ -67,26 +67,12 @@
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
-
+	
 
 	<!-- CONTENTS -->
 	<div class="ui center aligned basic segment">
 		<div class="ui container">
-			<div class="contents my">
-				<div class="topBanner">
-					<h1>광고를 넣어요</h1>
-				</div>
-				<div class="ui eight item menu" id="myInfoMenu">
-						<a class="item active" href="/myInfoUpdate.diet">내 정보 변경</a> 
-						<a class="item" href="/myActivityInfo.diet">내 활동 정보</a> 
-						<a class="item" href="#">적립금</a> 
-						<a class="item" href="#">쿠폰</a> 
-						<a class="item" href="#">1:1 문의</a>
-						<a class="item" href="#">최근본상품</a>
-						<a class="item" href="#">찜한상품</a> 
-						<a class="item" href="#">회원탈퇴</a>
-				</div>
-			</div>
+		<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 			<br>
 			<div class="myInfoUpdateContents">
 				<div class="gender_Image">
@@ -157,7 +143,13 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	
+$(function(){
+   var sBtn = $("gender_Image");    
+   sBtn.find('div').click(function(){   
+   sBtn.find('div').removeClass("active");    
+   $(this).addClass("active"); 
+ });
+});
 </script>
 
 </html>
