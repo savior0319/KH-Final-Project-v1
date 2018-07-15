@@ -9,6 +9,7 @@ https://www.godo.co.kr/
 https://design.godo.co.kr/custom/free-font.php   
 ![default](https://user-images.githubusercontent.com/33758950/42720532-9225c7a6-8763-11e8-8ae5-ed314ad09127.PNG)
 ## 4. pom.xml에 추가한 dependency
+ㆍlombok  
 ㆍJavaMail API  
 ㆍGson  
 ㆍJson-simple  
@@ -20,5 +21,6 @@ https://design.godo.co.kr/custom/free-font.php
 ㆍspring-jdbc  
 ## 5. 사용 API
 CKEditor 4 https://ckeditor.com/ckeditor-4/  
-Google Charts https://developers.google.com/chart/
+Google Charts https://developers.google.com/chart/  
+Summernot https://summernote.org/  
 ## 6. 그리고 다들 화이팅!!! :)
