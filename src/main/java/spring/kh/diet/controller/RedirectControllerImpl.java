@@ -13,6 +13,7 @@ import spring.kh.diet.model.vo.BMIVO;
 @Controller
 public class RedirectControllerImpl implements RedirectController {
 
+	@SuppressWarnings("unused")
 	private final String redirectMain = "redirect:/";
 
 	public RedirectControllerImpl() {
@@ -128,27 +129,26 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectMyActivityInfo() {
 		return "myInfo/myActivityInfo";
 	}
-	
+
 	/* 마이페이지 - 내 적립금 */
 	@Override
 	@RequestMapping(value = "/myPoint.diet")
 	public String RedirectMyPoint() {
 		return "myInfo/myPoint";
 	}
-	
+
 	/* 마이페이지 - 회원 탈퇴 */
 	@Override
 	@RequestMapping(value = "/secession.diet")
 	public String RedirectSecession() {
 		return "myInfo/secession";
 	}
-	
+
 	/* 마이페이지 - 쿠폰 */
 	@Override
 	@RequestMapping(value = "/myCoupon.diet")
 	public String RedirectMyCoupon() {
 		return "myInfo/myCoupon";
 	}
-	
 
 }
