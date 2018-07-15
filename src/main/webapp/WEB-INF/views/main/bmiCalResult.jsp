@@ -128,12 +128,10 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-$(document).ready(function() {
 
 	function back(){
 		location.href="/bmiCal.diet"
 	}
-});
 
 </script>
 
