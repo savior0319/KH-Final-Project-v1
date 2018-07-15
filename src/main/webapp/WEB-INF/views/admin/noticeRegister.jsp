@@ -5,13 +5,21 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<script src="//cdn.ckeditor.com/4.10.0/basic/ckeditor.js"></script>
 	<title>다이어트</title>
+	<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
+	<script src="/resources/summernote/dist/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+</head>
 </head>
 
 <!-- CSS -->
 <style>
+body {
+	margin-left: 240px;
+}
 </style>
+
+
 
 
 <body>
@@ -23,11 +31,21 @@
 	<br>
 	<br>
 	<div class="ui container">
-		<div class="ui center aligned basic segment">
+		<div class="ui left aligned basic segment">
 			<div class="ui medium message">
-				<div class="ui large header">공지사항 등록</div>
+				<div class="ui large header" align="center">공지사항 등록</div>
 			</div>
-			<button class="ui blue button">등록</button> 
+			<br>
+			<div class="ui form">
+				<div class="ui medium header" style="margin-bottom: 5px;">제목</div>
+				<input type="text" id="title" placeholder="제목을 입력해주세요">
+			</div>
+			<br>
+			<div id="summernote"></div>
+			<br>
+			<div align="center">
+				<button class="ui blue button" onclick="register();">등록</button>
+			</div>
 		</div>
 	</div>
 
@@ -36,8 +54,24 @@
 </body>
 
 <!-- SCRIPT -->
-<script type="text/javascript">
-
+<script>
+	$(document).ready(function() {
+		$('#summernote').summernote({
+			lang : 'ko-KR',
+			placeholder : '내용을 입력해주세요',
+			tabsize : 2,
+			height : 500,
+		});
+	});
+	
+	function register(){
+		var title = $('#title').val();
+		var content = $('#summernote').summernote('code');
+		console.log('제목 : ' + title);
+		console.log('글 내용 : ' + content);
+	}
+	
 </script>
+
 
 </html>

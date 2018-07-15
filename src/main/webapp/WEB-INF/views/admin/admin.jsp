@@ -10,6 +10,9 @@
 
 <!-- CSS -->
 <style>
+body{
+	margin-left: 240px;
+}
 </style>
 
 

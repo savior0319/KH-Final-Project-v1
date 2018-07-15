@@ -1,16 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div class="ui visible inverted left vertical thin sidebar menu" style="width: 240px;">
 
-	<!--  관리자 페이지 메뉴 바  -->
+<div class="ui visible inverted left vertical thin sidebar menu" style="width: 240px;">
 	<a class="item" href="/admin.diet">
 		<h2>
 			<i class="cog icon"></i> 관리자 페이지
 		</h2>
 	</a>
-
-
 	<div class="item">
 		<h3>
 			<i class="clipboard iternate icon"></i> 페이지 설정
