@@ -26,7 +26,6 @@ body {
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/adminheader.jsp"></jsp:include>
 
-
 	<!-- CONTENTS -->
 	<br>
 	<br>

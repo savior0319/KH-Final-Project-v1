@@ -3,6 +3,8 @@
 <configuration>
 
 	<typeAliases>
+		<typeAlias type="spring.kh.diet.model.vo.NoticeVO"
+			alias="notice" />
 	</typeAliases>
 
 </configuration>

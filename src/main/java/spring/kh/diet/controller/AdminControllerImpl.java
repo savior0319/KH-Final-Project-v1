@@ -2,14 +2,21 @@ package spring.kh.diet.controller;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import spring.kh.diet.model.service.AdminService;
+import spring.kh.diet.model.vo.NoticeVO;
+
 @Controller
 public class AdminControllerImpl implements AdminController {
+
+	@Resource(name = "adminService")
+	private AdminService as;
 
 	@SuppressWarnings("unused")
 	private final String redirectMain = "redirect:/";
@@ -21,9 +28,19 @@ public class AdminControllerImpl implements AdminController {
 	@RequestMapping(value = "/noticeRegisterData.diet")
 	public void noticeRegisterData(@RequestParam String title, @RequestParam String content,
 			HttpServletResponse response) throws IOException {
+		
+		NoticeVO nv = new NoticeVO();
+		nv.setNoticeTitle(title);
+		nv.setNoticeContent(content);
 
-		System.out.println("글제목 : " + title);
-		System.out.println("글내용 : " + content);
+		int result = as.noticeRegisterData(nv);
+		
+
+		if (result > 0) {
+			System.out.println("공지등록 완료");
+		} else {
+			System.out.println("공지등록 실패");
+		}
 
 		response.getWriter().print("success");
 		response.getWriter().close();
