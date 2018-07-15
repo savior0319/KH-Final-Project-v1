@@ -13,6 +13,8 @@ import spring.kh.diet.model.vo.BMIVO;
 @Controller
 public class RedirectControllerImpl implements RedirectController {
 
+	private final String redirectMain = "redirect:/";
+
 	public RedirectControllerImpl() {
 	}
 
@@ -56,8 +58,8 @@ public class RedirectControllerImpl implements RedirectController {
 		double resultBMI = weightConvertDouble / (heightConvertMeter * heightConvertMeter);
 
 		String ageStrRs = String.valueOf(ageRs);
-		String weightStrRs = String.valueOf(weightConvertDouble);
-		String heightStrRs = String.valueOf(heightConvertMeter * 100);
+		String weightStrRs = String.valueOf((int) weightConvertDouble);
+		String heightStrRs = String.valueOf((int) (heightConvertMeter * 100));
 		String bmiStrRs = String.valueOf(Math.round(resultBMI * 10) / 10.0);
 
 		// 성별, 나이, 키, 몸무게, BMI
@@ -69,6 +71,13 @@ public class RedirectControllerImpl implements RedirectController {
 		view.setViewName("main/bmiCalResult");
 
 		return view;
+	}
+
+	/* 메인 페이지 - 칼로리 처방 이동 */
+	@Override
+	@RequestMapping(value = "/calCal.diet")
+	public String RedirectCalCal() {
+		return "main/calCal";
 	}
 
 	/* 관리자 페이지 - 이동 */

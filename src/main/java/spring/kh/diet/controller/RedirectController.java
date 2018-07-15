@@ -26,4 +26,6 @@ public interface RedirectController {
 
 	String RedirectMyCoupon();
 
+	String RedirectCalCal();
+  
 }
