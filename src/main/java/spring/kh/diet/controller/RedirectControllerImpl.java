@@ -122,6 +122,14 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectBulletinBoard() {
 		return "community/bulletinBoard";
 	}
+	
+	
+	/* 커뮤니티 - 비포&애프터 */
+	@Override
+	@RequestMapping(value = "/beforeAfterBoard.diet")
+	public String RedirectBeforeAfterBoard() {
+		return "community/beforeAfterBoard";
+	}
 
 	/* 마이페이지 - 내 활동 정보 */
 	@Override
