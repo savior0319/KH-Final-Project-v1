@@ -67,16 +67,14 @@
 							min: 0,
 							max: 35
 						},
-    				ticks: [0,5,10,15,20,25,30,35]
-    			}
-    		};
-    		var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-    		chart.draw(view, options);
-    	}
-
-
-    });
-</script>
+						ticks: [0,5,10,15,20,25,30,35]
+					}
+				};
+				var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+				chart.draw(view, options);
+			}
+		});
+	</script>
 </head>
 
 <!-- CSS -->
@@ -93,17 +91,16 @@
 		<div class="ui center aligned basic segment">
 			<br>
 			<div class="ui large message"><div class="ui large header">나의 BMI 지수 확인</div></div>
-			<br>
 			<table class="ui celled table">
 				<thead>
-					<tr>
+					<tr align="center">
 						<th>성별</th>
 						<th>나이</th>
 						<th>키</th>
 						<th>몸무게</th>
 						<th>BMI 지수</th>
 					</tr>
-					<tr>
+					<tr align="center">
 						<td>${bmi.gender}</td>
 						<td>만 ${bmi.age}세</td>
 						<td>${bmi.height}cm</td>
@@ -115,7 +112,28 @@
 			<div class="ui center aligned basic segment">
 				<div id="barchart_values" style="width: 100%; height: 150px;"></div>
 			</div>
-
+			<br>
+			<table class="ui celled table">
+				<thead>
+					<span class="ui medium header">BMI 표</span>(대한비만학회 기준)
+					<tr align="center">
+						<th>저체중</th>
+						<th>정상</th>
+						<th>비만 전단계</th>
+						<th>1단계 비만</th>
+						<th>2단계 비만</th>
+						<th>3단계 비만</th>
+					</tr>
+					<tr align="center">
+						<td>18.5미만</td>
+						<td>18.5이상 &nbsp; 23미만</td>
+						<td>23이상 &nbsp; 25미만</td>
+						<td>25이상 &nbsp; 30미만</td>
+						<td>30이상 &nbsp; 35미만</td>
+						<td>35이상</td>
+					</tr>
+				</thead>
+			</table>
 			<div class="ui gray message"><div class="ui medium header">당신의 BMI는 ${bmi.bmi}로 "<span id="bmiMsg"></span>"입니다</div></div>
 
 			<button type="button" class="ui blue button" onclick="back();">다시하기</button>
