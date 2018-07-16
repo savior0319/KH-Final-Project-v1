@@ -78,7 +78,7 @@
 				<a class="item" href="#">레시피&식단</a>
 				<a class="item" href="#">팁&노하우</a>
 				<a class="item" href="#">고민&질문</a>
-				<a class="item" href="#">비포&애프터</a>
+				<a class="item" href="/beforeAfterBoard.diet">비포&애프터</a>
 			</div>
 		</div>
 
