@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>다이어트</title>
+<title>마이페이지</title>
 </head>
 
 <!-- CSS -->
@@ -119,7 +119,7 @@
 				<div class="gender_Image">
 					<div class="gender_Img1">
 						<img id="femailImage"
-							src="https://st.depositphotos.com/1010146/4669/v/950/depositphotos_46693561-stock-illustration-formal-man-icon.jpg" />
+							src="https://st2.depositphotos.com/1432405/11185/v/950/depositphotos_111854370-stock-illustration-woman-icon-simple-style.jpg" />
 						<div class="ui radio checkbox">
 							<input type="radio" class="radio" id="female" name="gender"
 								value="F" checked="checked"> <label>여 자</label>
@@ -127,7 +127,8 @@
 					</div>
 					<div class="gender_Img1">
 						<img id="mailImage"
-							src="https://st2.depositphotos.com/1432405/11185/v/950/depositphotos_111854370-stock-illustration-woman-icon-simple-style.jpg" />
+						
+							src="https://st.depositphotos.com/1010146/4669/v/950/depositphotos_46693561-stock-illustration-formal-man-icon.jpg" />
 						<div class="ui radio checkbox">
 							<input type="radio" class="radio" id="male" name="gender"
 								value="M"> <label>남 자</label>
@@ -138,14 +139,14 @@
 					<button type="button" class="ui yellow button"
 						id="updatePictureBtn" style="width: 140px;">사진등록/변경</button>
 					<br>
-					<button type="button" class="ui button" id="deletePictureBtn"
+					<button type="button" class="ui button" id="deletePictureBtn" onclick="deletePictureBtn();"
 						style="margin-top: 10px; width: 140px;">사진 삭제</button>
 				</div>
 				<br>
+				
 				<div class="myInfoTable">
+				<form action = "/myInfoUpdate.do" method = "post">
 					<table class="ui celled table">
-						<thead>
-						</thead>
 						<tbody>
 							<tr>
 								<td class="firstTd" style="width: 250px;"><h3>
@@ -154,7 +155,8 @@
 								<td><strong>입문 다이어터&nbsp;&nbsp;</strong>
 									<button class="ui button">
 										<strong>등급안내</strong>
-									</button></td>
+									</button>
+								</td>
 							</tr>
 							<tr>
 								<td class="firstTd"><h3>
@@ -163,7 +165,7 @@
 								<td>
 									<div class="ui input focus">
 										<input type="text" id="account" name="account" value=""
-											placeholder="이메일 계정" style="width: 300px;">
+											readonly placeholder="이메일 계정" style="width: 300px;">
 									</div>
 								</td>
 							</tr>
@@ -204,8 +206,9 @@
 							</tr>
 						</tbody>
 					</table>
-					<button type="button" class="ui red button" id="updateInfoBtn">확인</button>
-					<button type="button" class="ui button" id="updateCancleBtn">취소</button>
+					<input type="submit" value = "수정" class="ui red button" id="updateInfoBtn" />
+					<input type="reset"  value = "취소" class="ui button" id="updateCancleBtn" /> 
+					</form>
 				</div>
 			</div>
 
@@ -233,7 +236,6 @@
 					업데이트 <i class="checkmark icon"></i>
 				</div>
 				<div class="ui black deny button">취소</div>
-
 			</div>
 		</div>
 	</div>
@@ -245,7 +247,7 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	/*사진등록,변경 이미지 클릭시*/
+	/*사진등록,변경 이미지 클릭시 배경색 변경*/
 	$(document).ready(function() {
 		$(".gender_Image>div").each(function() {
 			$(this).click(function() {
@@ -254,8 +256,7 @@
 			});
 		});
 	});
-
-	/* 사진등록,변경버튼 클릭시 모달 */
+	/* 사진등록,변경버튼 클릭시 모달 보여주기 */
 	$("#updatePictureBtn").click(function() {
 		$('#updateProfile').modal('show');
 	});
@@ -270,6 +271,17 @@
 		}
 		$(this).siblings('.fileName').val(filename);
 	});
+	
+	/* 프로필 사진 삭제  */
+	
+	function deletePictureBtn(){
+		var result = window.confirm("사진을 삭제하시겠습니까?");
+		if(result){
+			alert("사진 삭제가 완료되었습니다.");
+		}else{
+			alert("사진 삭제 취소하셨습니다.");
+		}
+	}
 </script>
 
 </html>
