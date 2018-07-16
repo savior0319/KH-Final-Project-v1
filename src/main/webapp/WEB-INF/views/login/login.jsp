@@ -94,7 +94,7 @@ a {
 						</div>
 						<br>
 						<div class="ui input"> 
-							<input type="text" placeholder="비밀번호.." name = "memberPwd" />
+							<input type="password" placeholder="비밀번호.." name = "memberPwd" />
 						</div>
 						<br>
 						<input type="submit" class="ui button loginBtn" id="loginBtn" value = "로그인" />
@@ -132,20 +132,18 @@ a {
 		<div class="image content">
 			<div class="description">
 				<div class="ui header">
-					<div class="ui input">
-						<input type="text" placeholder="비밀번호 입력..">
-					</div>
-					<br>
-					<div class="ui input">
-						<input type="text" placeholder="비밀번호 재입력">
-					</div>
-				</div>
-			</div>
-
-			<div class="actions">
-				<div class="ui black deny button">취소</div>
-				<div class="ui positive right labeled icon button">
-					비밀번호 변경 <i class="checkmark icon"></i>
+					<form action="/updatePass.diet" method="post">
+						<div class="ui input">
+							<input type="password" placeholder="비밀번호 입력..">
+						</div>
+						<br>
+						<div class="ui input">
+							<input type="password" placeholder="비밀번호 재입력">
+						</div>
+						<br><br>			
+						<button class="ui red button" type="submit" >비밀번호 변경</button>	
+					</form>
+						<button class="ui gray button" type="reset" >취소</button>
 				</div>
 			</div>
 		</div>

@@ -109,7 +109,8 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectMyDiary() {
 		return "myInfo/myDiary";
 	}
-
+	
+	
 	/* 다이어트팁 */
 	@Override
 	@RequestMapping(value = "/dietTipList.diet")

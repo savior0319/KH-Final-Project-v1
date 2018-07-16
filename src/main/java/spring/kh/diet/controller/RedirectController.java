@@ -47,5 +47,7 @@ public interface RedirectController {
 	String RedirectRegistCommunity();
 
 	String RedirectRecipeBoard();
+
+	
   
 }

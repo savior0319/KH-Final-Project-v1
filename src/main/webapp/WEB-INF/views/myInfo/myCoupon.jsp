@@ -41,15 +41,13 @@
 			      <td style="width:30%; padding-left:100px;">유효기간</td>
 			    </tr>
 			  </tbody>
-		
 		</table>
    		</div>			
 	</div>
 
    <!-- FOOTER -->
    <jsp:include page="/resources/layout/footer.jsp"></jsp:include>
-   
-   
+
 </body>
 
 <!-- SCRIPT -->
