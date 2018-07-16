@@ -34,6 +34,8 @@ public interface RedirectController {
 	
 	String RedirectBeforeAfterBoard();
 
+	String RedirectDietTipList();
+  
 	String RedirectWorryNQnABoard();
 
 	String RedirectTipKnowhowBoard();
