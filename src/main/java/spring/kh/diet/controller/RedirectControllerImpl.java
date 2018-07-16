@@ -157,14 +157,15 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectMyWishList() {
 		return "myInfo/myWishList";
 	}
-	
+
 	/* 마이페이지 - 나의 다이어리 */
 	@Override
-	@RequestMapping(value="/myDiary.diet")
+	@RequestMapping(value = "/myDiary.diet")
 	public String RedirectMyDiary() {
 		return "myInfo/myDiary";
 	}
 
+	/* 다이어트팁 */
 	@Override
 	@RequestMapping(value = "/dietTipList.diet")
 	public String RedirectDietTipList() {
