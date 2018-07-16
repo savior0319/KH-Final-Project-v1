@@ -36,4 +36,16 @@ public interface RedirectController {
 
 	String RedirectMyDiary();
   
+	String RedirectDietTipList();
+  
+	String RedirectWorryNQnABoard();
+
+	String RedirectTipKnowhowBoard();
+
+	String RedirectCommunityWholeBoard();
+
+	String RedirectPostedCommunity();
+
+	String RedirectRegistCommunity();
+  
 }

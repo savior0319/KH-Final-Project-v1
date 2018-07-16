@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>자유게시판</title>
+<title>커뮤니티(전체)</title>
 </head>
 
 <!-- CSS -->
@@ -25,7 +25,7 @@
 		<br>
 		<br>
 		<div class="ui left aligned container">
-			<h1>&emsp;&nbsp;&nbsp;자유게시판</h1>
+			<h1>&emsp;&nbsp;&nbsp;커뮤니티(전체)</h1>
 		</div>
 		<hr style="border: 2px solid #D5D5D5;">
 		<br>

@@ -116,21 +116,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myInfoUpdate";
 	}
 
-	/* 커뮤니티 - 자유게시판 */
-	@Override
-	@RequestMapping(value = "/bulletinBoard.diet")
-	public String RedirectBulletinBoard() {
-		return "community/bulletinBoard";
-	}
-	
-	
-	/* 커뮤니티 - 비포&애프터 */
-	@Override
-	@RequestMapping(value = "/beforeAfterBoard.diet")
-	public String RedirectBeforeAfterBoard() {
-		return "community/beforeAfterBoard";
-	}
-
 	/* 마이페이지 - 내 활동 정보 */
 	@Override
 	@RequestMapping(value = "/myActivityInfo.diet")
@@ -165,7 +150,7 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectMyOneToOneQuestion() {
 		return "myInfo/myOneToOneQuestion";
 	}
-	
+
 	/* 마이페이지 - 찜한 상품 */
 	@Override
 	@RequestMapping(value = "/myWishList.diet")
@@ -178,5 +163,60 @@ public class RedirectControllerImpl implements RedirectController {
 	@RequestMapping(value="/myDiary.diet")
 	public String RedirectMyDiary() {
 		return "myInfo/myDiary";
+	}
+
+	@Override
+	@RequestMapping(value = "/dietTipList.diet")
+	public String RedirectDietTipList() {
+		return "dietTip/dietTipList";
+	}
+
+	/* 커뮤니티 - 자유게시판 */
+	@Override
+	@RequestMapping(value = "/bulletinBoard.diet")
+	public String RedirectBulletinBoard() {
+		return "community/bulletinBoard";
+	}
+
+	/* 커뮤니티 - 비포&애프터 */
+	@Override
+	@RequestMapping(value = "/beforeAfterBoard.diet")
+	public String RedirectBeforeAfterBoard() {
+		return "community/beforeAfterBoard";
+	}
+
+	/* 커뮤니티 - 고민&질문 */
+	@Override
+	@RequestMapping(value = "/worryNQnABoard.diet")
+	public String RedirectWorryNQnABoard() {
+		return "community/worryNQnABoard";
+	}
+
+	/* 커뮤니티 - 팁&노하우 */
+	@Override
+	@RequestMapping(value = "/tipKnowhowBoard.diet")
+	public String RedirectTipKnowhowBoard() {
+		return "community/tipKnowhowBoard";
+	}
+
+	/* 커뮤니티 - 전체페이지 */
+	@Override
+	@RequestMapping(value = "/communityWholeBoard.diet")
+	public String RedirectCommunityWholeBoard() {
+		return "community/communityWholeBoard";
+	}
+
+	/* 커뮤니티 - 글등록된 페이지 */
+	@Override
+	@RequestMapping(value = "/postedCommunity.diet")
+	public String RedirectPostedCommunity() {
+		return "community/postedCommunity";
+	}
+
+	/* 커뮤니티 - 글등록할 페이지 */
+	@Override
+	@RequestMapping(value = "/registCommunity.diet")
+	public String RedirectRegistCommunity() {
+		return "community/registCommunity";
 	}
 }
