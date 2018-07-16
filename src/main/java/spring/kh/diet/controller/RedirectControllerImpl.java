@@ -172,5 +172,11 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectMyWishList() {
 		return "myInfo/myWishList";
 	}
+	
+	@Override
+	@RequestMapping(value = "/dietTipList.diet")
+	public String RedirectDietTipList() {
+		return "dietTip/dietTipList";
+	}
 
 }
