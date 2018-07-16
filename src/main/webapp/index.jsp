@@ -196,7 +196,7 @@ function bmiCal() {
 }
 
 function calCal() {
-	window.location.href = "/calCal.diet";
+	window.location.href = "/bmrCal.diet";
 }
 
 $(document).ready(function() {

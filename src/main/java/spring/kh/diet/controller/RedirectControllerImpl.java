@@ -21,9 +21,9 @@ public class RedirectControllerImpl implements RedirectController {
 
 	/* 메인 페이지 - 칼로리 처방 이동 */
 	@Override
-	@RequestMapping(value = "/calCal.diet")
+	@RequestMapping(value = "/bmrCal.diet")
 	public String RedirectCalCal() {
-		return "main/calCal";
+		return "main/bmrCal";
 	}
 
 	/* 관리자 페이지 - 이동 */
