@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -10,151 +11,281 @@
 
 <!-- CSS -->
 <style>
-
 </style>
 
 
 
 <body>
-   <!-- HEADER -->
-   <jsp:include page="/resources/layout/header.jsp"></jsp:include>
+	<!-- HEADER -->
+	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
 
-<div class="ui center aligned container">
-<div class="ui panorama test ad" data-text="Panorama"></div>
-<h1>성공후기 게시판</h1>
+	<div class="ui center aligned container">
+		<div class="ui panorama test ad" data-text="Panorama"></div>
+		<br>
+		<br>
+		<div class="ui left aligned container">
+			<h1>&emsp;&nbsp;&nbsp;성공 후기 게시판</h1>
+		</div>
+		<hr style="border: 2px solid #D5D5D5; ">
+		<br>
+		<!-- CONTENTS -->
+		<div class="ui center aligned basic segment">
 
-   <!-- CONTENTS -->
-   <div class="ui center aligned basic segment">
-<div class="ui card">
-  <div class="content">
-    <div class="right floated meta">14h</div>
-    <img class="ui avatar image" src="/resources/image/logo.png"> Elliot
-  </div>
-  <div class="image">
-    <img  src="/resources/image/mainPic.jpg">
-  </div>
-  <div class="content">
-    <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-    <i class="comment icon"></i>
-    3 comments
-  </div>
-  <div class="extra content">
-    <div class="ui large transparent left icon input">
-      <i class="heart outline icon"></i>
-      <input type="text" placeholder="Add Comment...">
-    </div>
-  </div>
-</div>
+			<div class="ui three column grid" align="center">
+				<div class="column">
+					<div class="ui card">
+						<div class="image">
+							<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+						</div>
+						<div class="content">
+							<a class="header">제목제목제목</a>
+							<div class="meta">
+								<span class="date">Joined in 2013</span>
+							</div>
+							<div class="description">Kristy is an art director living
+								in New York.</div>
+						</div>
+						<div class="extra content">
+							<a> <img class="ui avatar image"
+								src="/resources/image/mainPic.jpg"> 닉네임
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="ui card">
+						<div class="image">
+							<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+						</div>
+						<div class="content">
+							<a class="header">제목제목제목</a>
+							<div class="meta">
+								<span class="date">Joined in 2013</span>
+							</div>
+							<div class="description">Kristy is an art director living
+								in New York.</div>
+						</div>
+						<div class="extra content">
+							<a> <img class="ui avatar image"
+								src="/resources/image/mainPic.jpg"> 닉네임
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="ui card">
+						<div class="image">
+							<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+						</div>
+						<div class="content">
+							<a class="header">제목제목제목</a>
+							<div class="meta">
+								<span class="date">Joined in 2013</span>
+							</div>
+							<div class="description">Kristy is an art director living
+								in New York.</div>
+						</div>
+						<div class="extra content">
+							<a> <img class="ui avatar image"
+								src="/resources/image/mainPic.jpg"> 닉네임
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui three column grid" align="center">
+				<div class="column">
 
-
-<div class="ui card">
-  <div class="content">
-    <div class="right floated meta">14h</div>
-    <img class="ui avatar image" src="/resources/image/logo.png"> Elliot
-  </div>
-  <div class="image">
-    <img  src="/resources/image/mainPic.jpg">
-  </div>
-  <div class="content">
-    <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-    <i class="comment icon"></i>
-    3 comments
-  </div>
-  <div class="extra content">
-    <div class="ui large transparent left icon input">
-      <i class="heart outline icon"></i>
-      <input type="text" placeholder="Add Comment...">
-    </div>
-  </div>
-</div>
-
-
-<div class="ui card">
-  <div class="content">
-    <div class="right floated meta">14h</div>
-    <img class="ui avatar image" src="/resources/image/logo.png"> Elliot
-  </div>
-  <div class="image">
-    <img  src="/resources/image/mainPic.jpg">
-  </div>
-  <div class="content">
-    <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-    <i class="comment icon"></i>
-    3 comments
-  </div>
-  <div class="extra content">
-    <div class="ui large transparent left icon input">
-      <i class="heart outline icon"></i>
-      <input type="text" placeholder="Add Comment...">
-    </div>
-  </div>
-</div>
-
-
-
-
-<div class="ui pagination menu">
-  <a class="active item">
-    1
-  </a>
-  <a class="item">
-    2
-  </a>
-  <a class="item">
-    3
-  </a>
-  <div class="disabled item">
-    ...
-  </div>
-  <a class="item">
-    12
-  </a>
-</div>
-<button class="ui red basic button">Red</button>
-<br><br>
+					<div class="ui card" align="center">
+						<div class="image">
+							<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+						</div>
+						<div class="content">
+							<a class="header">제목제목제목</a>
+							<div class="meta">
+								<span class="date">Joined in 2013</span>
+							</div>
+							<div class="description">Kristy is an art director living
+								in New York.</div>
+						</div>
+						<div class="extra content">
+							<a> <img class="ui avatar image"
+								src="/resources/image/mainPic.jpg"> 닉네임
+							</a>
+						</div>
+					</div>
 
 
+				</div>
+				<div class="column">
+					<div class="ui card">
+						<div class="image">
+							<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+						</div>
+						<div class="content">
+							<a class="header">제목제목제목</a>
+							<div class="meta">
+								<span class="date">Joined in 2013</span>
+							</div>
+							<div class="description">Kristy is an art director living
+								in New York.</div>
+						</div>
+						<div class="extra content">
+							<a> <img class="ui avatar image"
+								src="/resources/image/mainPic.jpg"> 닉네임
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="ui card">
+						<div class="image">
+							<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+						</div>
+						<div class="content">
+							<a class="header">제목제목제목</a>
+							<div class="meta">
+								<span class="date">Joined in 2013</span>
+							</div>
+							<div class="description">Kristy is an art director living
+								in New York.</div>
+						</div>
+						<div class="extra content">
+							<a> <img class="ui avatar image"
+								src="/resources/image/mainPic.jpg"> 닉네임
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui three column grid" align="center">
+				<div class="column">
 
-<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
+					<div class="ui card" align="center">
+						<div class="image">
+							<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+						</div>
+						<div class="content">
+							<a class="header">제목제목제목</a>
+							<div class="meta">
+								<span class="date">Joined in 2013</span>
+							</div>
+							<div class="description">Kristy is an art director living
+								in New York.</div>
+						</div>
+						<div class="extra content">
+							<a> <img class="ui avatar image"
+								src="/resources/image/mainPic.jpg"> 닉네임
+							</a>
+						</div>
+					</div>
 
 
-<div class="ui right action left icon input">
-  <i class="search icon"></i>
-  <input type="text" placeholder="Search">
-  <div class="ui basic floating dropdown button">
-    <div class="text">선택</div>
-    <i class="dropdown icon"></i>
-    <div class="menu">
-      <div class="item">제목</div>
-      <div class="item">내용</div>
-      <div class="item">작성자</div>
-    </div>
-  </div>
-</div>
-</div>
+				</div>
+				<div class="column">
+					<div class="ui card">
+						<div class="image">
+							<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+						</div>
+						<div class="content">
+							<a class="header">제목제목제목</a>
+							<div class="meta">
+								<span class="date">Joined in 2013</span>
+							</div>
+							<div class="description">Kristy is an art director living
+								in New York.</div>
+						</div>
+						<div class="extra content">
+							<a> <img class="ui avatar image"
+								src="/resources/image/mainPic.jpg"> 닉네임
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="ui card">
+						<div class="image">
+							<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+						</div>
+						<div class="content">
+							<a class="header">제목제목제목</a>
+							<div class="meta">
+								<span class="date">Joined in 2013</span>
+							</div>
+							<div class="description">Kristy is an art director living
+								in New York.</div>
+						</div>
+						<div class="extra content">
+							<a> <img class="ui avatar image"
+								src="/resources/image/mainPic.jpg"> 닉네임
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-   <!-- FOOTER -->
-   <jsp:include page="/resources/layout/footer.jsp"></jsp:include>
+
+		<br> <br>
+
+		<div class="ui grid">
+			<div class="three column row">
+				<div class="column"></div>
+				<div class="column">
+					<div class="ui center aligned basic segment">
+						<div class="ui pagination menu">
+							<a class="icon item"> <i class="left chevron icon disabled"></i>
+							</a> <a class="item active"> 1 </a> <a class="item"> 2 </a> <a
+								class="item"> 3 </a> <a class="item"> 4 </a> <a
+								class="icon item"> <i class="right chevron icon"></i>
+							</a>
+
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="ui right aligned container">
+						<button class="ui right red basic button"
+							style="margin-top: 19px;" id="writeBtn">등록하기</button>
+					</div>
+				</div>
+			</div>
+			<br> <br>
+		</div>
+		<br>
+		<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
+		<div class="ui secondary segment">
+			<div class="ui right action left icon input">
+				<i class="search icon"></i> <input type="text" placeholder="Search">
+				<div class="ui basic floating dropdown button">
+					<div class="text">선택</div>
+					<i class="dropdown icon"></i>
+					<div class="menu">
+						<div class="item">제목</div>
+						<div class="item">내용</div>
+						<div class="item">작성자</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-$('.ui.dropdown')
-.dropdown({
-  allowAdditions: true,
-  allowCategorySelection: true
-})
-;
+	$('.ui.dropdown').dropdown({
+		allowAdditions : true,
+		allowCategorySelection : true
+	});
+	
+	$('#writeBtn').click(function(){
+		  location.href="/registCommunity.diet";
+	});
+	
 </script>
 
 </html>

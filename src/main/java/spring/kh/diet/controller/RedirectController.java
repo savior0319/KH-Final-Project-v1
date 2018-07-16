@@ -33,5 +33,15 @@ public interface RedirectController {
 	String RedirectMyWishList();
 	
 	String RedirectBeforeAfterBoard();
+
+	String RedirectWorryNQnABoard();
+
+	String RedirectTipKnowhowBoard();
+
+	String RedirectCommunityWholeBoard();
+
+	String RedirectPostedCommunity();
+
+	String RedirectRegistCommunity();
   
 }
