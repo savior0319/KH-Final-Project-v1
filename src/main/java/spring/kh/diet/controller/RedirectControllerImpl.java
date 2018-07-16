@@ -122,8 +122,7 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectBulletinBoard() {
 		return "community/bulletinBoard";
 	}
-	
-	
+
 	/* 커뮤니티 - 비포&애프터 */
 	@Override
 	@RequestMapping(value = "/beforeAfterBoard.diet")
@@ -165,12 +164,19 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectMyOneToOneQuestion() {
 		return "myInfo/myOneToOneQuestion";
 	}
-	
+
 	/* 마이페이지 - 찜한 상품 */
 	@Override
 	@RequestMapping(value = "/myWishList.diet")
 	public String RedirectMyWishList() {
 		return "myInfo/myWishList";
+	}
+
+	/* 홈트레이닝 - 전신*/
+	@Override
+	@RequestMapping(value = "/homeTrainingWholeBodyList.diet")
+	public String RedirectHomeTraining() {
+		return "homeTraining/homeTrainingWholeBodyList";
 	}
 
 }

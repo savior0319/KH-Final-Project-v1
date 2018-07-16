@@ -31,7 +31,9 @@ public interface RedirectController {
 	String RedirectMyOneToOneQuestion();
 
 	String RedirectMyWishList();
-	
+
 	String RedirectBeforeAfterBoard();
-  
+
+	String RedirectHomeTraining();
+
 }
