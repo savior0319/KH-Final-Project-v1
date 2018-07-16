@@ -83,7 +83,7 @@
 			<div class="menu">
 				<a class="item" href="/communityWholeBoard.diet">전체</a>
 				<a class="item" href="/bulletinBoard.diet">자유게시판</a>
-				<a class="item" href="#">레시피&식단</a>
+				<a class="item" href="/recipeBoard.diet">레시피&식단</a>
 				<a class="item" href="/tipKnowhowBoard.diet">팁&노하우</a>
 				<a class="item" href="/worryNQnABoard.diet">고민&질문</a>
 				<a class="item" href="/beforeAfterBoard.diet">비포&애프터</a>

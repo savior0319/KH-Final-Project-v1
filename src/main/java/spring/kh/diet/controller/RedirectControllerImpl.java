@@ -220,4 +220,12 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectRegistCommunity() {
 		return "community/registCommunity";
 	}
+
+	/* 커뮤니티 - 레시피&식단 */
+	@Override
+	@RequestMapping(value = "/recipeBoard.diet")
+	public String RedirectRecipeBoard() {
+		return "community/recipeBoard";
+	}
+	
 }
