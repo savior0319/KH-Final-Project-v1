@@ -27,6 +27,10 @@ public interface RedirectController {
 	String RedirectMyCoupon();
 
 	String RedirectCalCal();
+
+	String RedirectMyOneToOneQuestion();
+
+	String RedirectMyWishList();
 	
 	String RedirectBeforeAfterBoard();
   

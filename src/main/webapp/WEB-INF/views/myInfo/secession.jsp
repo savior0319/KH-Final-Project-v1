@@ -49,7 +49,7 @@
 							<strong>탈퇴동의</strong>
 							<em>
 								<div>
-									<input type="checkbox" class="checkbox" name = "agreeBtn" value="Y" />
+									<input type="checkbox" class="checkbox" id="agreeBtn" name="agreeBtn" value="Y" />
 									<label>탈퇴에 동의합니다.</label> 
 								</div>							
 							</em>
@@ -59,8 +59,8 @@
 				</div>
 			</div>
 			<div class="Btn">
-				<button class="ui red button" id="loginBtn">확인</button>
-				<button class="ui button" id="loginBtn">취소</button>
+				<button class="ui red button" id="loginBtn" type="button" onclick="okayBtn();">확인</button>
+				<button class="ui button" id="loginBtn" type="button">취소</button>
 			</div>
 	</div>
    </div>
@@ -72,7 +72,28 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-   
+function okayBtn() {
+	var checkBox = $("#agreeBtn").is(":checked");
+	if(checkBox){
+		var result = window.confirm("정말로 탈퇴 하시겠습니까?");
+		if(result){
+			var password = window.prompt("비밀번호를 입력해주세요");
+			if(password==userPwd){
+				alert("탈퇴가 완료되었습니다.");
+				location.href = "/index.jsp";
+			}
+			else{
+				alert("비밀번호를 재확인해주세요");
+				location.reload();
+			}
+		}else{
+			alert("탈퇴 취소 하셨습니다.");
+			location.reload();
+		}
+	}else{
+		alert("탈퇴 동의 체크해주세요.");
+	}
+}
 </script>
 
 </html>

@@ -12,7 +12,7 @@
 <!-- CSS -->
 <style>
 #myPoint1Table th{
-	padding-left:120px;
+	padding-left:130px;
 	font-size:15px;
 }
 
@@ -25,7 +25,7 @@
 }
 
 #myPoint2Table th{
-	padding-left:150px;
+	padding-left:130px;
 	font-size:15px;
 }
 
@@ -51,9 +51,9 @@
 				<table class="ui celled table" id="myPoint1Table">
 					<thead>
 						<tr>
-							<th>총 누적 적립금</th>
-							<th>총 사용 적립금</th>
-							<th>사용가능 적립금</th>
+							<th><i class="calendar check icon"></i>총누적적립금</th>
+							<th><i class="calendar check icon"></i>총사용 적립금</th>
+							<th><i class="calendar check icon"></i>사용가능 적립금</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -69,9 +69,10 @@
 			<div id="myPoint2">
 				 <table class="ui red table" id="myPoint2Table">
 					  <thead>
-					    <tr><th>날 짜</th>
-					    <th>내 용</th>
-					    <th>적립 금액</th>
+					    <tr>
+					    <th><i class="calendar check icon"></i>날 짜</th>
+					    <th><i class="calendar check icon"></i>내 용</th>
+					    <th><i class="calendar check icon"></i>적립 금액</th>
 					  </tr></thead><tbody>
 					    <tr>
 					      <td>Apples</td>

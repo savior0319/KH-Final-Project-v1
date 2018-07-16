@@ -159,4 +159,18 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myCoupon";
 	}
 
+	/* 마이페이지 - 일대일 문의 */
+	@Override
+	@RequestMapping(value = "/myOneToOneQuestion.diet")
+	public String RedirectMyOneToOneQuestion() {
+		return "myInfo/myOneToOneQuestion";
+	}
+	
+	/* 마이페이지 - 찜한 상품 */
+	@Override
+	@RequestMapping(value = "/myWishList.diet")
+	public String RedirectMyWishList() {
+		return "myInfo/myWishList";
+	}
+
 }

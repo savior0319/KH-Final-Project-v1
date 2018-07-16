@@ -58,13 +58,19 @@
 h3 {
 	text-decoration-line: underline;
 }
+
+ul li{
+list-style: none;
+float: left;
+margin-left:65px;
+}
+a{
+text-decoration: none;
+}
 </style>
-
-
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
-
 
 	<!-- CONTENTS -->
 	<div class="ui center aligned basic segment">
@@ -88,15 +94,19 @@ h3 {
 						<input type="text" placeholder="비밀번호.." />
 					</div>
 					<br>
-					<button class="ui button" id="loginBtn">로그인</button>
+					<button class="ui button loginBtn" id="loginBtn" onclick="loginBtn();">로그인</button>
 					<br>
 					<br>
-					<a href="#">
-						<h3>비밀번호재설정</h3>
-					</a>
+					<div>
+						<ul>
+							<li><a class="ui simple item findPwd" href="#"><h3>비밀번호재설정</h3></a></li>
+							<li><a class="ui simple item findId" href="#"><h3>아이디찾기</h3></a></li>				
+						</ul>
+					</div>
 					<br>
-					<button class="ui negative basic button" id="joinBtn">
-						<a href="#" style="color:#fa2828;">회원가입</a>
+					<br>
+					<button  type="button" class="ui negative basic button" id="joinBtn" onclick="joinBtn();">
+						회원가입
 					</button>
 					<br>
 					<br>
@@ -105,15 +115,82 @@ h3 {
 			</div>
 		</div>
 	</div>
-
-
+	
+	<!-- 비밀번호 찾기 모달 -->
+	
+	<div class="ui modal" id="findPwdModal">
+	  <i class="close icon"></i>
+	  <div class="header">
+	    비밀번호 재설정
+	  </div>
+	  <div class="image content">
+	    <div class="description">
+	      <div class="ui header">
+      		<div class="ui input">
+			   <input type="text" placeholder="비밀번호 입력..">
+			</div>
+			<br>
+			<div class="ui input">
+ 			   <input type="text" placeholder="비밀번호 재입력">
+			</div>
+	    </div>
+	  </div>
+	  <div class="actions">
+	    <div class="ui black deny button">
+	    	취소
+	    </div>
+	    <div class="ui positive right labeled icon button">
+	      	비밀번호 변경
+	      <i class="checkmark icon"></i>
+	    </div>
+	  </div>
+	  </div>
+	</div>
+	
+	
+	<!-- 아이디 찾기 모달 -->
+	<div class="ui modal" id="findIdModal">
+	  <i class="close icon"></i>
+		  <div class="header">
+		  	아이디 찾기
+		  </div>
+		  <div class="image content">
+		    <div class="description">
+		      <div class="ui header">
+				<div class="ui input">
+				   <input type="text" placeholder="이메일 주소 입력">
+				</div>
+				<br>
+				<div class="ui input">
+	 			   <input type="text" placeholder="이름 입력">
+				</div>
+		    </div>
+		  </div>
+		  <div class="actions">
+		    <div class="ui black deny button">
+		    	취소
+		    </div>
+		    <div class="ui positive right labeled icon button">
+		      	아이디 찾기
+		      <i class="checkmark icon"></i>
+		    </div>
+		  </div>
+	  	</div>
+	</div>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	
+/* 비밀번호 찾기 모달 */
+	$(".findPwd").click(function () {
+		$('#findPwdModal').modal('show');
+	});
+/* 아이디 찾기 모달 */	
+	$(".findId").click(function () {
+		$('#findIdModal').modal('show');
+	});
 </script>
 
 </html>
