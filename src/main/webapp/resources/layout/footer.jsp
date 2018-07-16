@@ -54,29 +54,50 @@
 	<div class="ui large header">관리자에게 문의하기</div>
 	<div class="ui left aligned basic segment">
 		<br>
-		<div class="ui form">
+		<div class="ui form" style="font-weight: 600;">
 			<label>제목</label>
-			<input type="text" placeholder="제목입력" name="title">
+			<input type="text" placeholder="제목입력" id="title" style="margin-top: 5px;">
 			<br>
 			<br>
 			<div class="field">
 				<label>내용</label>
-				<textarea placeholder="내용 입력" style="height: 312px;"></textarea>
+				<textarea placeholder="내용 입력" style="height: 312px;" id="content"></textarea>
 			</div>
 		</div>
 	</div>
 	<div class="ui right aligned basic segment" style="padding-top: 0px; margin-top: 0px;">
-		<button class="ui blue button">문의하기</button>
+		<button class="ui blue button" onclick="questionSub();">문의하기</button>
 	</div>
 </div>
 
 <script type="text/javascript">
 	function question(){
-		$('#questionModal')
-		.modal({
+		$('#questionModal').modal({
 			centered: false
-		})
-		.modal('show')
-		;
+		}).modal('show');
+	}
+
+	function questionSub(){
+
+		var title = $('#title').val();
+		var content = $('#content').val();
+
+		$.ajax({
+			url : '/question.diet',
+			type : 'post',
+			data : {'title' : title, 'content' : content},
+
+			success : function(data){
+				if(data == '1'){
+					alert('문의등록 완료');
+					location.href="/"
+				} else {
+					alert('문의등록 실패');
+				}
+			}, 
+			error : function(){
+				alert('문의등록 실패');
+			}
+		});
 	}
 </script>
