@@ -11,10 +11,16 @@
 <!-- 메인 메뉴 -->
 <div style="background: rgb(235, 235, 235);">
 	<div class="ui right aligned basic segment" style="margin-bottom: 0; padding-top: 8px; padding-bottom: 8px;">
-		<span class="menu"><a href="/admin.diet">관리자 페이지</a></span>
-    <span class="menu"><a href="/login.diet">로그인</a></span>
-    <span class="menu">회원가입</span>
-    <span class="menu"><a href="/myInfo.diet">마이페이지</a></span>
+		<span class="menu">
+			<a href="/admin.diet">관리자 페이지</a>
+		</span>
+		<span class="menu">
+			<a href="/login.diet">로그인</a>
+		</span>
+		<span class="menu">회원가입</span>
+		<span class="menu">
+			<a href="/myInfo.diet">마이페이지</a>
+		</span>
 		<span class="menu">주문배송조회</span>
 		<span class="menu">장바구니</span>
 		<span class="menu">제휴·광고문의</span>
@@ -25,7 +31,9 @@
 <!-- 네비게이션 -->
 <div class="ui menu" style="margin-top: 0;">
 	<div class="ui container">
-		<a href="/"><img class="logo" src="/resources/image/logo.gif" style="margin: 5px;"></a>
+		<a href="/">
+			<img class="logo" src="/resources/image/logo.gif" style="margin: 5px;">
+		</a>
 
 		<div class="ui simple dropdown item">
 			<div style="font-weight: 600">
@@ -73,11 +81,11 @@
 				커뮤니티 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="#">전체</a>
+				<a class="item" href="/communityWholeBoard.diet">전체</a>
 				<a class="item" href="/bulletinBoard.diet">자유게시판</a>
 				<a class="item" href="#">레시피&식단</a>
-				<a class="item" href="#">팁&노하우</a>
-				<a class="item" href="#">고민&질문</a>
+				<a class="item" href="/tipKnowhowBoard.diet">팁&노하우</a>
+				<a class="item" href="/worryNQnABoard.diet">고민&질문</a>
 				<a class="item" href="/beforeAfterBoard.diet">비포&애프터</a>
 			</div>
 		</div>
@@ -94,9 +102,7 @@
 		</div>
 
 		<div class="ui simple dropdown item">
-			<div style="font-weight: 600">
-				다이어트샵 
-			</div>
+			<div style="font-weight: 600">다이어트샵</div>
 		</div>
 	</div>
 </div>

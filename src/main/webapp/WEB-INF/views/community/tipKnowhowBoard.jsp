@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>자유게시판</title>
+<title>팁 & 노하우</title>
 </head>
 
 <!-- CSS -->
@@ -25,7 +25,7 @@
 		<br>
 		<br>
 		<div class="ui left aligned container">
-			<h1>&emsp;&nbsp;&nbsp;자유게시판</h1>
+			<h1>&emsp;&nbsp;&nbsp;팁 & 노하우</h1>
 		</div>
 		<hr style="border: 2px solid #D5D5D5;">
 		<br>
@@ -139,7 +139,7 @@
 				<div class="column">
 					<div class="ui right aligned container">
 						<button class="ui right red basic button"
-							style="margin-top: 19px;" id="writeBtn">등록하기</button>
+							style="margin-top: 19px;">등록하기</button>
 					</div>
 				</div>
 			</div>
