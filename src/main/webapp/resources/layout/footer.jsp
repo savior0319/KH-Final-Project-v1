@@ -13,7 +13,7 @@
 					문의사항은 관리자에게 게시판 또는 이메일 주소로<br>
 					연락주시면 빠른 시일내에 회신드리도록 하겠습니다<br>
 				</div>
-				<button class="ui gray button" style="margin-top: 15px;">괸리자에게</button>
+				<button class="ui gray button" style="margin-top: 15px;" onclick="question();">관리자에게</button>
 			</div>
 			<div class="six wide column">
 				<h3 class="ui header" style="text-decoration:underline;">사이트 정보</h3>
@@ -47,3 +47,36 @@
 		</div>
 	</div>
 </div>
+
+<!-- 1:1 문의하기 -->
+<div class="ui modal" id="questionModal">
+	<i class="close icon"></i>
+	<div class="ui large header">관리자에게 문의하기</div>
+	<div class="ui left aligned basic segment">
+		<br>
+		<div class="ui form">
+			<label>제목</label>
+			<input type="text" placeholder="제목입력" name="title">
+			<br>
+			<br>
+			<div class="field">
+				<label>내용</label>
+				<textarea placeholder="내용 입력" style="height: 312px;"></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="ui right aligned basic segment" style="padding-top: 0px; margin-top: 0px;">
+		<button class="ui blue button">문의하기</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function question(){
+		$('#questionModal')
+		.modal({
+			centered: false
+		})
+		.modal('show')
+		;
+	}
+</script>
