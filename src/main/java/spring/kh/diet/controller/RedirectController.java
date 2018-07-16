@@ -33,5 +33,7 @@ public interface RedirectController {
 	String RedirectMyWishList();
 	
 	String RedirectBeforeAfterBoard();
+
+	String RedirectMyDiary();
   
 }
