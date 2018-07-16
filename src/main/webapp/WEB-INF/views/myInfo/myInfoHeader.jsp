@@ -20,7 +20,7 @@
 					<a class="item" href="/myOneToOneQuestion.diet">1:1 문의</a>
 					<a class="item" href="#">최근본상품</a>
 					<a class="item" href="/myWishList.diet">찜한상품</a> 
-					<a class="item" href="#">나의다이어리</a> 
+					<a class="item" href="/myDiary.diet">나의다이어리</a> 
 					<a class="item" href="/secession.diet">회원탈퇴</a>
 			</div>
 		</div>

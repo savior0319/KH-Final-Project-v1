@@ -158,6 +158,13 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myWishList";
 	}
 	
+	/* 마이페이지 - 나의 다이어리 */
+	@Override
+	@RequestMapping(value="/myDiary.diet")
+	public String RedirectMyDiary() {
+		return "myInfo/myDiary";
+	}
+
 	@Override
 	@RequestMapping(value = "/dietTipList.diet")
 	public String RedirectDietTipList() {
@@ -212,5 +219,4 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectRegistCommunity() {
 		return "community/registCommunity";
 	}
-
 }
