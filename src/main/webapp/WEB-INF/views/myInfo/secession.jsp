@@ -10,7 +10,6 @@
 
 <!-- CSS -->
 <style>
-
 .secssionContents{border:1px solid #cacaca;margin-bottom:18px}
 .secssionContents ul{width:674px;margin:0 auto;padding:5px 0}
 .secssionContents li{padding:10px 0; border-top:1px solid #e3e3e3;font-weight:bold;overflow:hidden}
@@ -32,9 +31,9 @@
 		<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 			<br><br>
 			<div class="explan">
-				<strong>사용하고 계신 아이디<em style="color:red;">(계정넣기)</em>는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</strong> <br>
+				<strong>사용하고 계신 아이디<span style="font-size:20px;color:red;"><strong>[${sessionScope.member.mbId}]</strong></span>는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</strong> <br>
 				<strong>탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.</strong> <br>
-				<strong>탈퇴 후에는 아이디 <em style="color:red;">(계정넣기)</em> 로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수 없습니다.</strong> <br>
+				<strong>탈퇴 후에는 아이디 <span style="font-size:20px;color:red;"><strong>[${sessionScope.member.mbId}]</strong></span> 로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수 없습니다.</strong> <br>
 				<strong>게시판형 서비스에 남아 있는 게시글은 탈퇴 후 삭제할 수 없습니다. </strong><br>
 			</div>
 			<br>
@@ -43,16 +42,12 @@
 					<ul>
 						<li>
 							<strong>계정</strong>
-							<em>계정 불러오기</em>
+							<span style="font-size:20px;">[${sessionScope.member.mbId}]</span>
 						</li>
 						<li>
 							<strong>탈퇴동의</strong>
-							<em>
-								<div>
-									<input type="checkbox" class="checkbox" id="agreeBtn" name="agreeBtn" value="Y" />
-									<label>탈퇴에 동의합니다.</label> 
-								</div>							
-							</em>
+								<input type="checkbox" class="checkbox" id="agreeChk" value="Y" />
+								<label>탈퇴에 동의합니다.</label> 
 						</li>
 						
 					</ul>
@@ -62,6 +57,7 @@
 				<button class="ui red button" id="loginBtn" type="button" onclick="okayBtn();">확인</button>
 				<button class="ui button" id="loginBtn" type="button">취소</button>
 			</div>
+			<input type="hidden" value="${sessionScope.member.mbId}" id="memberId" />
 	</div>
    </div>
 
@@ -72,20 +68,32 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-function okayBtn() {
-	var checkBox = $("#agreeBtn").is(":checked");
+
+<!-- 회원 탈퇴 ajax --> 
+function okayBtn(){
+	var checkBox = $("#agreeChk").is(":checked");
+	var memberId = $("#memberId").val();
 	if(checkBox){
 		var result = window.confirm("정말로 탈퇴 하시겠습니까?");
 		if(result){
-			var password = window.prompt("비밀번호를 입력해주세요");
-			if(password==userPwd){
-				alert("탈퇴가 완료되었습니다.");
-				location.href = "/index.jsp";
-			}
-			else{
-				alert("비밀번호를 재확인해주세요");
-				location.reload();
-			}
+				$.ajax({
+					url : "/secessionMember.diet", 
+					data :{
+						memberId : memberId
+					},
+					type : "post",
+					success : function(data) {
+							if(data == '1'){
+								alert('회원탈퇴 성공하였습니다.');
+								location.href="/"
+							} else {
+								alert('회원탈퇴 실패하였습니다.');
+							}
+						}, 
+						error : function(){
+							alert("탈퇴가 실패 되었습니다.");
+						}
+				});
 		}else{
 			alert("탈퇴 취소 하셨습니다.");
 			location.reload();

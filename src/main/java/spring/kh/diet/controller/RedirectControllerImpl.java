@@ -1,14 +1,7 @@
 package spring.kh.diet.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import spring.kh.diet.model.vo.BMIVO;
 
 @Controller
 public class RedirectControllerImpl implements RedirectController {
@@ -26,59 +19,11 @@ public class RedirectControllerImpl implements RedirectController {
 		return "main/bmiCal";
 	}
 
-	/* 메인페이지 - BMI 계산결과 */
-	@Override
-	@RequestMapping(value = "/bmiCalResult.diet")
-	public Object RedirectBMICalResult(@RequestParam String[] gender, @RequestParam String age,
-			@RequestParam String height, @RequestParam String weight) {
-
-		String genderRs = "";
-
-		for (int i = 0; i < gender.length; i++) {
-			genderRs = gender[i];
-		}
-
-		if (genderRs.equals("f")) {
-			genderRs = "여자";
-		} else {
-			genderRs = "남자";
-		}
-
-		int heightD = Integer.parseInt(height);
-		int weightD = Integer.parseInt(weight);
-
-		double weightConvertDouble = (double) weightD;
-		double heightConvertMeter = (double) heightD / (double) 100;
-
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-		String ageStr = sdf.format(date);
-
-		int ageInt = Integer.parseInt(ageStr);
-		int ageRs = ageInt - Integer.parseInt(age);
-		double resultBMI = weightConvertDouble / (heightConvertMeter * heightConvertMeter);
-
-		String ageStrRs = String.valueOf(ageRs);
-		String weightStrRs = String.valueOf((int) weightConvertDouble);
-		String heightStrRs = String.valueOf((int) (heightConvertMeter * 100));
-		String bmiStrRs = String.valueOf(Math.round(resultBMI * 10) / 10.0);
-
-		// 성별, 나이, 키, 몸무게, BMI
-		ModelAndView view = new ModelAndView();
-
-		BMIVO bvo = new BMIVO(ageStrRs, genderRs, heightStrRs, weightStrRs, bmiStrRs);
-
-		view.addObject("bmi", bvo);
-		view.setViewName("main/bmiCalResult");
-
-		return view;
-	}
-
 	/* 메인 페이지 - 칼로리 처방 이동 */
 	@Override
-	@RequestMapping(value = "/calCal.diet")
+	@RequestMapping(value = "/bmrCal.diet")
 	public String RedirectCalCal() {
-		return "main/calCal";
+		return "main/bmrCal";
 	}
 
 	/* 관리자 페이지 - 이동 */
@@ -183,6 +128,75 @@ public class RedirectControllerImpl implements RedirectController {
 	@RequestMapping(value = "/homeTrainingInfo.diet")
 	public String RedirectHomeTrainingInfo() {
 		return "homeTraining/homeTrainingInfo";
+
+	/* 마이페이지 - 나의 다이어리 */
+	@Override
+	@RequestMapping(value = "/myDiary.diet")
+	public String RedirectMyDiary() {
+		return "myInfo/myDiary";
+	}
+
+	/* 다이어트팁 */
+	@Override
+	//@RequestMapping(value = "/dietTipList.diet")
+	public String RedirectDietTipList() {
+		return "dietTip/dietTipList";
+  }
+
+	/* 커뮤니티 - 자유게시판 */
+	@Override
+	@RequestMapping(value = "/bulletinBoard.diet")
+	public String RedirectBulletinBoard() {
+		return "community/bulletinBoard";
+	}
+
+	/* 커뮤니티 - 비포&애프터 */
+	@Override
+	@RequestMapping(value = "/beforeAfterBoard.diet")
+	public String RedirectBeforeAfterBoard() {
+		return "community/beforeAfterBoard";
+	}
+
+	/* 커뮤니티 - 고민&질문 */
+	@Override
+	@RequestMapping(value = "/worryNQnABoard.diet")
+	public String RedirectWorryNQnABoard() {
+		return "community/worryNQnABoard";
+	}
+
+	/* 커뮤니티 - 팁&노하우 */
+	@Override
+	@RequestMapping(value = "/tipKnowhowBoard.diet")
+	public String RedirectTipKnowhowBoard() {
+		return "community/tipKnowhowBoard";
+	}
+
+	/* 커뮤니티 - 전체페이지 */
+	@Override
+	@RequestMapping(value = "/communityWholeBoard.diet")
+	public String RedirectCommunityWholeBoard() {
+		return "community/communityWholeBoard";
+	}
+
+	/* 커뮤니티 - 글등록된 페이지 */
+	@Override
+	@RequestMapping(value = "/postedCommunity.diet")
+	public String RedirectPostedCommunity() {
+		return "community/postedCommunity";
+	}
+
+	/* 커뮤니티 - 글등록할 페이지 */
+	@Override
+	@RequestMapping(value = "/registCommunity.diet")
+	public String RedirectRegistCommunity() {
+		return "community/registCommunity";
+	}
+
+	/* 커뮤니티 - 레시피&식단 */
+	@Override
+	@RequestMapping(value = "/recipeBoard.diet")
+	public String RedirectRecipeBoard() {
+		return "community/recipeBoard";
 	}
 
 }

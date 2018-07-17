@@ -160,16 +160,17 @@
 							<td>
 								<span class="ui form">
 									<input type="radio" name="activeMass" value="step1" required> 활동안함<br>
-									<input type="radio" name="activeMass" value="step1" required> 가벼운 활동<br> 
-									<input type="radio" name="activeMass" value="step1" required> 보통 활동<br> 
-									<input type="radio" name="activeMass" value="step1" required> 많은 활동<br>
-									<input type="radio" name="activeMass" value="step1" required> 격심한 활동<br>
+									<input type="radio" name="activeMass" value="step2" required> 가벼운 활동<br> 
+									<input type="radio" name="activeMass" value="step3" required> 보통 활동<br> 
+									<input type="radio" name="activeMass" value="step4" required> 많은 활동<br>
+									<input type="radio" name="activeMass" value="step5" required> 격심한 활동<br>
 								</span>
 							</td>
 						</tr>
 					</thead>
 				</table>
-				<submit class="ui blue button" value="칼로리 처방!">
+
+				<button class="ui blue button" type="submit">칼로리 처방!</button>
 			</form>
 		</div>
 	</div>

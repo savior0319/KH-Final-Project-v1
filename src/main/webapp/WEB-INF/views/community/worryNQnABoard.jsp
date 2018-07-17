@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>자유게시판</title>
+<title>고민 & 질문</title>
 </head>
 
 <!-- CSS -->
@@ -25,7 +25,7 @@
 		<br>
 		<br>
 		<div class="ui left aligned container">
-			<h1>&emsp;&nbsp;&nbsp;자유게시판</h1>
+			<h1>&emsp;&nbsp;&nbsp;고민 & 질문</h1>
 		</div>
 		<hr style="border: 2px solid #D5D5D5;">
 		<br>
@@ -33,7 +33,7 @@
 		<br>
 		<div class="ui right aligned basic segment"
 			style="margin: 0px; padding: 0px;">
-			<div class="small ui basic buttons" >
+			<div class="small ui basic buttons">
 				<div class="ui button"
 					style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;">최신순</div>
 				<div class="ui button"
@@ -150,7 +150,7 @@
 				<div class="column">
 					<div class="ui right aligned container">
 						<button class="ui right red basic button"
-							style="margin-top: 19px;" id="writeBtn">
+							style="margin-top: 19px;">
 							<i class="edit icon"></i>
 							등록</button>
 					</div>

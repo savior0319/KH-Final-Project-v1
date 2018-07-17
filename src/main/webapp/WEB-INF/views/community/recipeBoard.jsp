@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>성공후기</title>
+<title>식단 & 레시피</title>
 </head>
 
 <!-- CSS -->
@@ -25,11 +25,13 @@
 
 
 	<div class="ui center aligned container">
-		<div class="ui panorama test ad" data-text="Panorama"></div>
+	
+		<div class="ui panorama test ad" data-text="광고광고광고"></div>
+		
 		<br>
 		<br>
 		<div class="ui left aligned container">
-			<h1>&emsp;&nbsp;&nbsp;성공 후기 게시판</h1>
+			<h1>&emsp;&nbsp;&nbsp;식단 & 레시피</h1>
 		</div>
 		<hr style="border: 2px solid #D5D5D5; ">
 		<br>
@@ -62,8 +64,8 @@
 								in New York.</div>
 						</div>
 						<div class="extra content">
-							<a> <img class="ui avatar image"
-								src="/resources/image/mainPic.jpg"> 닉네임
+							<a> 
+							<img class="ui avatar image" src="/resources/image/mainPic.jpg"> 닉네임
 							</a>
 						</div>
 					</div>
@@ -109,6 +111,7 @@
 					</div>
 				</div>
 			</div><br><br><br>
+			
 			
 			
 			<div class="ui three column grid" align="center">
@@ -176,6 +179,8 @@
 					</div>
 				</div>
 			</div><br><br><br>
+			
+			
 			
 			
 			<div class="ui three column grid" align="center">

@@ -3,8 +3,11 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias type="spring.kh.diet.model.vo.NoticeVO"
-			alias="notice" />
+		<typeAlias type="spring.kh.diet.model.vo.NoticeVO" alias="notice" />
+		<typeAlias type="spring.kh.diet.model.vo.QuestionVO" alias="question" />
+		<typeAlias type="spring.kh.diet.model.vo.MemberVO" alias="member" />
+		<typeAlias type="spring.kh.diet.model.vo.DietTipVO" alias="dietTip"/>
+		<typeAlias type="spring.kh.diet.model.vo.DietTipPageDataVO" alias="dietTipPage"/>
 	</typeAliases>
 
 </configuration>
