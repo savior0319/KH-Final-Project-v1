@@ -20,8 +20,6 @@ public interface RedirectController {
 
 	String RedirectSecession();
 
-	Object RedirectBMICalResult(String[] gender, String age, String height, String weight);
-
 	String RedirectMyPoint();
 
 	String RedirectMyCoupon();
@@ -34,6 +32,8 @@ public interface RedirectController {
 	
 	String RedirectBeforeAfterBoard();
 
+	String RedirectMyDiary();
+  
 	String RedirectDietTipList();
   
 	String RedirectWorryNQnABoard();
@@ -45,5 +45,9 @@ public interface RedirectController {
 	String RedirectPostedCommunity();
 
 	String RedirectRegistCommunity();
+
+	String RedirectRecipeBoard();
+
+	
   
 }

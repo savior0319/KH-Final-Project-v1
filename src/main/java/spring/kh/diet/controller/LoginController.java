@@ -9,4 +9,6 @@ public interface LoginController {
 	
 	String login(HttpServletRequest request, String memberId, String memberPwd);
 
+
+
 }

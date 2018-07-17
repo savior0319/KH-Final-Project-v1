@@ -139,7 +139,9 @@
 				<div class="column">
 					<div class="ui right aligned container">
 						<button class="ui right red basic button"
-							style="margin-top: 19px;" id="writeBtn">등록하기</button>
+							style="margin-top: 19px;" id="writeBtn">
+							<i class="edit icon"></i>
+							등록</button>
 					</div>
 				</div>
 			</div>

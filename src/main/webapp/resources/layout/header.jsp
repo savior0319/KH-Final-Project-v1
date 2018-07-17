@@ -14,10 +14,23 @@
 		<span class="menu">
 			<a href="/admin.diet">관리자 페이지</a>
 		</span>
-		<span class="menu">
-			<a href="/login.diet">로그인</a>
-		</span>
-		<span class="menu">회원가입</span>
+		
+		<!-- 로그인 , 로그아웃  --> 
+		<c:if test="${sessionScope.member==null}">
+			<span class="menu">
+				<a href="/login.diet">로그인</a>
+			</span>
+			<span class="menu">회원가입</span>
+		</c:if>
+		<c:if test ="${sessionScope.member!=null }">
+			<span class="menu">
+				${member.memberName}님 환영합니다 ^^
+			</span>
+			<span class="menu">
+				<a href="/logout.diet">로그아웃</a>
+			</span>
+		</c:if>
+		
 		<span class="menu">
 			<a href="/myInfo.diet">마이페이지</a>
 		</span>
@@ -83,7 +96,7 @@
 			<div class="menu">
 				<a class="item" href="/communityWholeBoard.diet">전체</a>
 				<a class="item" href="/bulletinBoard.diet">자유게시판</a>
-				<a class="item" href="#">레시피&식단</a>
+				<a class="item" href="/recipeBoard.diet">레시피&식단</a>
 				<a class="item" href="/tipKnowhowBoard.diet">팁&노하우</a>
 				<a class="item" href="/worryNQnABoard.diet">고민&질문</a>
 				<a class="item" href="/beforeAfterBoard.diet">비포&애프터</a>
