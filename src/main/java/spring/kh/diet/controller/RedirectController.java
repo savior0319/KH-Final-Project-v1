@@ -28,16 +28,6 @@ public interface RedirectController {
 
 	String redirectMyOneToOneQuestion();
 
-	String RedirectMyWishList();
-
-	String RedirectBeforeAfterBoard();
-
-	String RedirectMyDiary();
-
-	String RedirectDietTipList();
-
-	String RedirectWorryNQnABoard();
-
 	String redirectMyWishList();
 
 	String redirectBeforeAfterBoard();

@@ -103,19 +103,20 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myWishList";
 	}
 
-	/* 홈트레이닝 - 전신*/
+	/* 홈트레이닝 - 전신 */
 	@Override
 	@RequestMapping(value = "/homeTrainingList.diet")
 	public String redirectHomeTraining() {
 		return "homeTraining/homeTrainingList";
 	}
-	/* 홈트레이닝 - 전신*/
+
+	/* 홈트레이닝 - 전신 */
 	@Override
 	@RequestMapping(value = "/homeTrainingInfo.diet")
 	public String redirectHomeTrainingInfo() {
 		return "homeTraining/homeTrainingInfo";
 	}
-	
+
 	/* 마이페이지 - 나의 다이어리 */
 	@Override
 	@RequestMapping(value = "/myDiary.diet")
@@ -125,10 +126,10 @@ public class RedirectControllerImpl implements RedirectController {
 
 	/* 다이어트팁 */
 	@Override
-	//@RequestMapping(value = "/dietTipList.diet")
+	// @RequestMapping(value = "/dietTipList.diet")
 	public String redirectDietTipList() {
 		return "dietTip/dietTipList";
-  }
+	}
 
 	/* 커뮤니티 - 자유게시판 */
 	@Override
