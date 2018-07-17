@@ -13,9 +13,9 @@
 	<div class="ui right aligned basic segment" style="margin-bottom: 0; padding-top: 8px; padding-bottom: 8px;">
 
 		<c:if test="${sessionScope.member.mbId == 'admin'}">
-			<span class="menu">
-				<a href="/admin.diet">관리자 페이지</a>
-			</span>
+		<span class="menu">
+			<a href="/admin.diet">관리자 페이지</a>
+		</span>
 		</c:if>
 
 		<!-- 로그인 , 로그아웃  --> 
