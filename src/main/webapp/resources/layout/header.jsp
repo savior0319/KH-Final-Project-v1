@@ -24,16 +24,15 @@
 		</c:if>
 		<c:if test ="${sessionScope.member!=null }">
 			<span class="menu">
-				${member.memberName}님 환영합니다 ^^
+				${member.mbName}님 환영합니다 ^^
 			</span>
 			<span class="menu">
 				<a href="/logout.diet">로그아웃</a>
 			</span>
+			<span class="menu">
+				<a href="/myInfo.diet">마이페이지</a>
+			</span>
 		</c:if>
-		
-		<span class="menu">
-			<a href="/myInfo.diet">마이페이지</a>
-		</span>
 		<span class="menu">주문배송조회</span>
 		<span class="menu">장바구니</span>
 		<span class="menu">제휴·광고문의</span>
