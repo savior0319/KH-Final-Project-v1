@@ -29,13 +29,13 @@ public interface RedirectController {
 	String RedirectMyOneToOneQuestion();
 
 	String RedirectMyWishList();
-	
+
 	String RedirectBeforeAfterBoard();
 
 	String RedirectMyDiary();
-  
+
 	String RedirectDietTipList();
-  
+
 	String RedirectWorryNQnABoard();
 
 	String RedirectTipKnowhowBoard();
@@ -48,6 +48,4 @@ public interface RedirectController {
 
 	String RedirectRecipeBoard();
 
-	
-  
 }

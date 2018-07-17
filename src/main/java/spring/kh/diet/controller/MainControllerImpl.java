@@ -1,6 +1,7 @@
 package spring.kh.diet.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
+import spring.kh.diet.model.vo.HealthCenterVO;
 
 @Controller
 public class MainControllerImpl implements MainController {
@@ -167,5 +169,16 @@ public class MainControllerImpl implements MainController {
 
 		return view;
 
+	}
+	
+	/* 메인 페이지 - 인바디 보건소 */
+	@Override
+	@RequestMapping(value = "/healthCenter.diet")
+	public String RedirectHealthCenter() {
+		
+//		ArrayList<HealthCenterVO> aList =
+		
+		
+		return "main/healthCenter";
 	}
 }

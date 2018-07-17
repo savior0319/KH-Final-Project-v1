@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -23,7 +22,8 @@
 	<!-- CONTENTS -->
 	<div class="ui center aligned container">
 		<div class="ui panorama test ad" data-text="광고광고광고"></div>
-		<br> <br>
+		<br>
+		<br>
 
 		<!-- 상단 게시판 종류 -->
 		<h2 class="ui header">
@@ -35,61 +35,102 @@
 		</h2>
 
 		<hr style="border: 2px solid #D5D5D5;">
-		<br> <br>
+		<br>
+		<br>
 
 
 		<!-- 제목 -->
 
 		<h2>
-			<i class="quote left icon"></i>제목 제목 제목 제목<i class="quote right icon"></i>
+			<i class="quote left icon"></i>
+			제목 제목 제목 제목
+			<i class="quote right icon"></i>
 		</h2>
 
 
 		<!-- 닉네임, 날짜, 뷰수, 댓글 수 -->
 		<div class="ui black segment">
-			<span class="ui left aligned container" style=""> <span
-				class="ui left aligned"> <a> <img class="ui avatar image"
-						src="/resources/image/mainPic.jpg"> 닉네임
-				</a>
+			<span class="ui left aligned container" style="">
+				<span class="ui left aligned">
+					<a>
+						<img class="ui avatar image" src="/resources/image/mainPic.jpg">
+						닉네임
+					</a>
+				</span>
 			</span>
-			</span> <span class="ui right aligned container"> <!-- 날짜 --> <span
-				class="ui right aligned"> <i class="calendar icon"></i>
+			<span class="ui right aligned container">
+				<!-- 날짜 -->
+				<span class="ui right aligned">
+					<i class="calendar icon"></i>
 					2018.07.16
-			</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 뷰수 --> <span class="ui right aligned">
-					<i class="eye icon"></i> 3211561
-			</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 댓글수 --> <span
-				class="ui right aligned"> <i class="pen square icon"></i> 85
-			</span>
+				</span>
+				&nbsp;&nbsp;|&nbsp;&nbsp;
+				<!-- 뷰수 -->
+				<span class="ui right aligned">
+					<i class="eye icon"></i>
+					3211561
+				</span>
+				&nbsp;&nbsp;|&nbsp;&nbsp;
+				<!-- 댓글수 -->
+				<span class="ui right aligned">
+					<i class="pen square icon"></i>
+					85
+				</span>
 			</span>
 
 		</div>
 
 		<!-- 내용 들어가는 부분! -->
 		<div class="ui clearing segment">
-			서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! 서플리미트
-			체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단
-			신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! <br> 서플리미트 체험단 신청하기 Go!!! <br>
-			서플리미트 체험단 신청하기 Go!!! <br> 서플리미트 체험단 신청하기 Go!!! <br> 서플리미트
-			체험단 신청하기 Go!!! <br> 서플리미트 체험단 신청하기 Go!!! <br> 서플리미트 체험단
-			신청하기 Go!!! <br> 서플리미트 체험단 신청하기 Go!!! <br> <img
-				src="/resources/image/mainPic.jpg" style="height: 200px;"> <br>
-			서플리미트 체험단 신청하기 Go!!! <br> 서플리미트 체험단 신청하기 Go!!! <br> 서플리미트
-			체험단 신청하기 Go!!! <br> 서플리미트 체험단 신청하기 Go!!! <br> 서플리미트 체험단
-			신청하기 Go!!! <br> 서플리미트 체험단 신청하기 Go!!! <br> 서플리미트 체험단 신청하기
-			Go!!! <br> 서플리미트 체험단 신청하기 Go!!! <br>
+			서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!! 서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
+			서플리미트 체험단 신청하기 Go!!!
+			<br>
 		</div>
 
 		<br>
 		<!-- 북마크 버튼 -->
 		<button class="ui yellow button" id="bookMark" style="height: 40px;">
-			<i class="bookmark outline icon" id="emptyBookMark"></i> 북마크
+			<i class="bookmark outline icon" id="emptyBookMark"></i>
+			북마크
 		</button>
 
 
 		<!-- 좋아요 버튼 -->
 		<div class="ui labeled button" tabindex="0">
 			<button class="ui red button" id="heartBtn" style="height: 40px;">
-				<i class="heart outline icon" id="emptyHeart"></i> 공감
+				<i class="heart outline icon" id="emptyHeart"></i>
+				공감
 			</button>
 			<a class="ui basic red left pointing label"> 1,048 </a>
 		</div>
@@ -97,7 +138,8 @@
 
 		<!-- 신고 버튼 -->
 		<button class="ui black button" style="height: 40px;" id="reportBtn">
-			<i class="bullhorn icon"></i> 신고
+			<i class="bullhorn icon"></i>
+			신고
 		</button>
 
 		<br>
@@ -106,7 +148,8 @@
 
 		<div class="ui basic modal">
 			<div class="ui icon header">
-				<i class="exclamation triangle icon"></i> 신고하기
+				<i class="exclamation triangle icon"></i>
+				신고하기
 			</div>
 			<h5>(신고 사유를 선택해 주세요.)</h5>
 			<br>
@@ -124,38 +167,38 @@
 								</div>
 								<div class="field">
 									<div class="ui radio checkbox">
-										<input type="radio" name="example2"> <label
-											style="color: white;">비방/욕설 게시글</label>
+										<input type="radio" name="example2">
+										<label style="color: white;">비방/욕설 게시글</label>
 									</div>
 								</div>
 								<div class="field">
 									<div class="ui radio checkbox">
-										<input type="radio" name="example2"> <label
-											style="color: white;">개인정보 유출 게시물</label>
+										<input type="radio" name="example2">
+										<label style="color: white;">개인정보 유출 게시물</label>
 									</div>
 								</div>
 								<div class="field">
 									<div class="ui radio checkbox">
-										<input type="radio" name="example2"> <label
-											style="color: white;">청소년 유해(음란) 게시물</label>
+										<input type="radio" name="example2">
+										<label style="color: white;">청소년 유해(음란) 게시물</label>
 									</div>
 								</div>
 								<div class="field">
 									<div class="ui radio checkbox">
-										<input type="radio" name="example2"> <label
-											style="color: white;">명예훼손/저작권 침해 게시물</label>
+										<input type="radio" name="example2">
+										<label style="color: white;">명예훼손/저작권 침해 게시물</label>
 									</div>
 								</div>
 								<div class="field">
 									<div class="ui radio checkbox">
-										<input type="radio" name="example2"> <label
-											style="color: white;">도배성 게시물</label>
+										<input type="radio" name="example2">
+										<label style="color: white;">도배성 게시물</label>
 									</div>
 								</div>
 								<div class="field">
 									<div class="ui radio checkbox">
-										<input type="radio" name="example2"> <label
-											style="color: white;">불명확/추측성 게시물</label>
+										<input type="radio" name="example2">
+										<label style="color: white;">불명확/추측성 게시물</label>
 									</div>
 								</div>
 							</div>
@@ -168,10 +211,12 @@
 			<br>
 			<div class="actions">
 				<div class="ui red basic cancel inverted button">
-					<i class="remove icon"></i> 취소
+					<i class="remove icon"></i>
+					취소
 				</div>
 				<div class="ui red ok inverted button">
-					<i class="checkmark icon"></i> 신고
+					<i class="checkmark icon"></i>
+					신고
 				</div>
 			</div>
 
@@ -180,98 +225,99 @@
 	</div>
 
 
-		<div class="ui comments">
-			<h3 class="ui dividing header" style="margin-top: 8px">
-				<i class="chevron red circle right icon"> </i>댓글 쓰기
-			</h3>
+	<div class="ui comments">
+		<h3 class="ui dividing header" style="margin-top: 8px">
+			<i class="chevron red circle right icon"> </i>
+			댓글 쓰기
+		</h3>
 
 
-			<form class="ui reply form">
-				<div class="field">
-					<textarea style="resize: none;"></textarea>
-				</div>
-				<div class="ui labeled submit icon button"
-					style="background-color: #fa2828; color: white;">
-					<i class="icon edit"></i> Add Reply
-				</div>
-			</form>
-
-			<div class="comment">
-				<a class="avatar"> <img src="/images/avatar/small/matt.jpg">
-				</a>
-				<div class="content" style="width: 93%;">
-					<a class="author" style="width: 20%;">Matt</a>
-					<div class="metadata" style="width: 80%">
-						<span class="date" style="width: 30%; display: inline;">Today
-							at 5:42PM</span>
-						<div class="ui right aligned container" align="right"
-							style="width: 70%; float: right;">
-							<button class="ui red basic tiny button"
-								style="margin-right: 10px;">
-								<i class="thumbs up outline icon"></i>공감
-							</button>
-							<button class="ui black basic tiny button">
-								<i class="ban icon"></i>신고
-							</button>
-						</div>
-					</div>
-					<div class="text">How artistic!</div>
-					<div class="actions">
-						<a class="reply">답글</a>
-					</div>
-				</div>
+		<form class="ui reply form">
+			<div class="field">
+				<textarea style="resize: none;"></textarea>
 			</div>
-			<div class="comment">
-				<a class="avatar"> <img src="/images/avatar/small/matt.jpg">
-				</a>
-				<div class="content" style="width: 93%;">
-					<a class="author" style="width: 20%;">Matt</a>
-					<div class="metadata" style="width: 80%">
-						<span class="date" style="width: 30%; display: inline;">Today
-							at 5:42PM</span>
-						<div class="ui right aligned container" align="right"
-							style="width: 70%; float: right;">
-							<button class="ui red basic tiny button"
-								style="margin-right: 10px;">
-								<i class="thumbs up outline icon"></i>공감
-							</button>
-							<button class="ui black basic tiny button">
-								<i class="ban icon"></i>신고
-							</button>
-						</div>
-					</div>
-					<div class="text">How artistic!</div>
-					<div class="actions">
-						<a class="reply">답글</a>
+			<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;">
+				<i class="icon edit"></i>
+				Add Reply
+			</div>
+		</form>
+
+		<div class="comment">
+			<a class="avatar">
+				<img src="/images/avatar/small/matt.jpg">
+			</a>
+			<div class="content" style="width: 93%;">
+				<a class="author" style="width: 20%;">Matt</a>
+				<div class="metadata" style="width: 80%">
+					<span class="date" style="width: 30%; display: inline;">Today at 5:42PM</span>
+					<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+						<button class="ui red basic tiny button" style="margin-right: 10px;">
+							<i class="thumbs up outline icon"></i>
+							공감
+						</button>
+						<button class="ui black basic tiny button">
+							<i class="ban icon"></i>
+							신고
+						</button>
 					</div>
 				</div>
-			</div>
-			<div class="comment">
-				<a class="avatar"> <img src="/images/avatar/small/matt.jpg">
-				</a>
-				<div class="content" style="width: 93%;">
-					<a class="author" style="width: 20%;">Matt</a>
-					<div class="metadata" style="width: 80%">
-						<span class="date" style="width: 30%; display: inline;">Today
-							at 5:42PM</span>
-						<div class="ui right aligned container" align="right"
-							style="width: 70%; float: right;">
-							<button class="ui red basic tiny button"
-								style="margin-right: 10px;">
-								<i class="thumbs up outline icon"></i>공감
-							</button>
-							<button class="ui black basic tiny button">
-								<i class="ban icon"></i>신고
-							</button>
-						</div>
-					</div>
-					<div class="text">How artistic!</div>
-					<div class="actions">
-						<a class="reply">답글</a>
-					</div>
+				<div class="text">How artistic!</div>
+				<div class="actions">
+					<a class="reply">답글</a>
 				</div>
 			</div>
 		</div>
+		<div class="comment">
+			<a class="avatar">
+				<img src="/images/avatar/small/matt.jpg">
+			</a>
+			<div class="content" style="width: 93%;">
+				<a class="author" style="width: 20%;">Matt</a>
+				<div class="metadata" style="width: 80%">
+					<span class="date" style="width: 30%; display: inline;">Today at 5:42PM</span>
+					<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+						<button class="ui red basic tiny button" style="margin-right: 10px;">
+							<i class="thumbs up outline icon"></i>
+							공감
+						</button>
+						<button class="ui black basic tiny button">
+							<i class="ban icon"></i>
+							신고
+						</button>
+					</div>
+				</div>
+				<div class="text">How artistic!</div>
+				<div class="actions">
+					<a class="reply">답글</a>
+				</div>
+			</div>
+		</div>
+		<div class="comment">
+			<a class="avatar">
+				<img src="/images/avatar/small/matt.jpg">
+			</a>
+			<div class="content" style="width: 93%;">
+				<a class="author" style="width: 20%;">Matt</a>
+				<div class="metadata" style="width: 80%">
+					<span class="date" style="width: 30%; display: inline;">Today at 5:42PM</span>
+					<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+						<button class="ui red basic tiny button" style="margin-right: 10px;">
+							<i class="thumbs up outline icon"></i>
+							공감
+						</button>
+						<button class="ui black basic tiny button">
+							<i class="ban icon"></i>
+							신고
+						</button>
+					</div>
+				</div>
+				<div class="text">How artistic!</div>
+				<div class="actions">
+					<a class="reply">답글</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
