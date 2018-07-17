@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dietTip">
+	<select id="getList" parameterType="dietTipPage" resultType="dietTip">
+		select INDEX_NO as indexNo,
+		DT_NO as dtNo,
+		DT_TYPE as dtType,
+		DT_TITLE as dtTitle,
+		DT_MAIN_PHOTO as dtMainPhoto,
+		DT_WRITER_NO as dtWriterNo,
+		DT_EXPLAIN as dtExplain,
+		DT_DATE as dtDate,
+		DT_HITS as dtHits,
+		DT_SEE as dtSee
+		from (select DIETTIP_TB.*, row_number() over(order by DT_DATE desc) as num from DIETTIP_TB) where num between #{start} and #{end}
+	</select>
+</mapper>
