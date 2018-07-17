@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.kh.diet.model.service.MyInfoService;
@@ -26,6 +25,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	public MyInfoControllerImpl() {
 	}
+
 	
 	@Override
 	@RequestMapping(value = "/question.diet")
