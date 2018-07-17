@@ -11,6 +11,10 @@
 
 <!-- CSS -->
 <style>
+.ui.card{
+	width: 400px;
+}
+
 </style>
 
 
@@ -29,8 +33,19 @@
 		</div>
 		<hr style="border: 2px solid #D5D5D5; ">
 		<br>
-		<!-- CONTENTS -->
-		<div class="ui center aligned basic segment">
+				<!-- 최신순, 조회순 -->
+		<br>
+		<div class="ui right aligned basic segment"
+			style="margin: 0px; padding: 0px;">
+			<div class="small ui basic buttons">
+				<div class="ui button"
+					style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;">최신순</div>
+				<div class="ui button"
+					style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;">조회순</div>
+			</div>
+		</div><br>
+		<!-- 글목록 -->
+		<div class="ui center aligned basic segment" style="margin-top: 0px; padding:0px;">
 
 			<div class="ui three column grid" align="center">
 				<div class="column">
@@ -93,7 +108,9 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div><br><br><br>
+			
+			
 			<div class="ui three column grid" align="center">
 				<div class="column">
 
@@ -158,7 +175,9 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div><br><br><br>
+			
+			
 			<div class="ui three column grid" align="center">
 				<div class="column">
 
