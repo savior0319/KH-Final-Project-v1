@@ -26,7 +26,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public MyInfoControllerImpl() {
 	}
 
-	
 	@Override
 	@RequestMapping(value = "/question.diet")
 	public void question(@RequestParam String title, @RequestParam String content, HttpServletResponse response)
@@ -36,7 +35,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 		response.getWriter().print(String.valueOf(result));
 		response.getWriter().close();
 	}
-
 
 	@Override
 	@RequestMapping(value = "/secessionMember.diet")
@@ -54,5 +52,5 @@ public class MyInfoControllerImpl implements MyInfoController {
 			System.out.println("로그인 되어 있지 않습니다.");
 		}
 	}
-		
+
 }

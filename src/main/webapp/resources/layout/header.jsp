@@ -11,8 +11,33 @@
 <!-- 메인 메뉴 -->
 <div style="background: rgb(235, 235, 235);">
 	<div class="ui right aligned basic segment" style="margin-bottom: 0; padding-top: 8px; padding-bottom: 8px;">
+
+		<c:if test="${sessionScope.member.memberId == 'admin'}">
 		<span class="menu">
 			<a href="/admin.diet">관리자 페이지</a>
+		</span>
+      
+		</c:if>
+
+	<!-- 로그인 , 로그아웃  --> 
+	<c:if test="${sessionScope.member==null}">
+		<span class="menu">
+			<a href="/login.diet">로그인</a>
+		</span>
+		<span class="menu">회원가입</span>
+	</c:if>
+
+	<c:if test ="${sessionScope.member!=null }">
+		<span class="menu">
+			${member.memberName}님 환영합니다 ^^
+		</span>
+		<span class="menu">
+			<a href="/logout.diet">로그아웃</a>
+		</span>
+	</c:if>
+
+		<span class="menu">
+			<a href="/myInfo.diet">마이페이지</a>
 		</span>
 		
 		<!-- 로그인 , 로그아웃  --> 
@@ -33,6 +58,7 @@
 				<a href="/myInfo.diet">마이페이지</a>
 			</span>
 		</c:if>
+
 		<span class="menu">주문배송조회</span>
 		<span class="menu">장바구니</span>
 		<span class="menu">제휴·광고문의</span>
