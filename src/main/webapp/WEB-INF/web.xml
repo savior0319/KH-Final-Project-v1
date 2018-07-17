@@ -35,6 +35,8 @@
     <servlet-name>appServlet</servlet-name>
     <url-pattern>*.diet</url-pattern>
   </servlet-mapping>
+  
+<!--   컨트롤러 클래스 생성시 자동으로 기록되는 내용이므로 삭제 해주어야만 DispatcherServlet이 정상적으로 작동할 수 있음
   <servlet>
     <description></description>
     <display-name>MyInfoControllerImpl</display-name>
@@ -44,5 +46,5 @@
   <servlet-mapping>
     <servlet-name>MyInfoControllerImpl</servlet-name>
     <url-pattern>/myInfoControllerImpl</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
 </web-app>
