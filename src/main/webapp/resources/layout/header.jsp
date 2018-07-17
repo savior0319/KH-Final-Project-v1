@@ -16,7 +16,6 @@
 		<span class="menu">
 			<a href="/admin.diet">관리자 페이지</a>
 		</span>
-      
 		</c:if>
 
 		<!-- 로그인 , 로그아웃  --> 
