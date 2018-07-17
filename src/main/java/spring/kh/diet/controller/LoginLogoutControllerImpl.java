@@ -1,7 +1,10 @@
 package spring.kh.diet.controller;
 
+import java.io.PrintWriter;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -12,24 +15,21 @@ import spring.kh.diet.model.service.LoginService;
 import spring.kh.diet.model.vo.MemberVO;
 
 @Controller
-public class LoginControllerImpl implements LoginController {
+public class LoginLogoutControllerImpl implements LoginLogoutController {
 
 	@Resource(name = "loginService")
 	private LoginService loginService;
 
-	public LoginControllerImpl() {
+	public LoginLogoutControllerImpl() {
 	}
 
 	@Override
 	@RequestMapping(value = "/loginRequest.diet")
 	public String login(HttpServletRequest request,@RequestParam String memberId, @RequestParam String memberPwd) {
 
-		System.out.println(memberId);
-		System.out.println(memberPwd);
-
 		MemberVO mv = new MemberVO();
-		mv.setMemberId(memberId);
-		mv.setMemberPwd(memberPwd);
+		mv.setMbId(memberId);
+		mv.setMbPwd(memberPwd);
 
 		MemberVO m = loginService.login(mv);
 		
@@ -38,10 +38,22 @@ public class LoginControllerImpl implements LoginController {
 		if (m != null) {
 			session = request.getSession();
 			session.setAttribute("member", m);
-			return "redirect:/index.jsp";
+			return "redirect:/";
 		}else {
 			System.out.println("로그인 실패");
 			return "login/login";
 		}
+	}
+	
+	@Override
+	@RequestMapping(value = "/logout.diet")
+	public String logout(HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		if(session.getAttribute("member") != null)
+		{
+			session.invalidate();
+		}
+		return "redirect:/";
 	}
 }

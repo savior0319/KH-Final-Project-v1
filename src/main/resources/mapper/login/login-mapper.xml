@@ -3,20 +3,24 @@
 <mapper namespace="login">
 	<select id="login1" parameterType="member" resultType="member">
 		SELECT
-		MEMBER_ID AS memberId,
-		MEMBER_PWD AS memberPwd,
-		MEMBER_NAME AS memberName,
-		NICK_NAME AS nickName,
-		PROMISE AS promise,
-		AGE AS age,
-		EMAIL AS email,
-		PHONE AS phone,
-		ADDRESS AS address,
-		HOBBY AS hobby,
-		INTEREST AS interest,
-		MEMBER_STATE AS memberState,
-		MEMBER_GRADE AS memberGrade,
-		AD_AGREE AS adAgree
-		FROM MEMBERTB WHERE MEMBER_ID = #{memberId} AND MEMBER_PWD = #{memberPwd}
+		MB_ID AS mbId,
+		MB_PWD AS mbPwd,
+		MB_NAME AS mbName,
+		MB_NICKNAME AS mbNickName,
+		MB_GENDER AS mbGender,
+		MB_IMAGE AS mbImage,
+		MB_PROMISE AS mbPromise,
+		MB_AGE AS mbAge,
+		MB_PHONE AS mbPhone,
+		MB_ADDRESS AS mbAddress,
+		MB_HOBBY AS mbHobby,
+		MB_INTEREST AS mbInterest,
+		MB_STATE AS mbState,
+		MB_GRADE AS mbGrade,
+		MB_AD_AGREE AS mbAdAgree,
+		MB_HEIGHT AS mbHeight,
+		MB_WEIGHT AS mbWeight,
+		MB_ENROLLDATE AS mbEnrollDate
+		FROM MEMBER_TBL WHERE MB_ID = #{mbId} AND MB_PWD = #{mbPwd}
 	</select>
 </mapper>

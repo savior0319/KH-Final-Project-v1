@@ -115,11 +115,12 @@
 		<div class="ui container">
 			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 			<br>
+			<c:if test="${sessionScope.member!=null}">
 			<div class="myInfoUpdateContents">
 				<div class="gender_Image">
 					<div class="gender_Img1">
-						<img id="femailImage"
-							src="https://st2.depositphotos.com/1432405/11185/v/950/depositphotos_111854370-stock-illustration-woman-icon-simple-style.jpg" />
+						<img id="femailImage" 
+							src="${sessionScope.member.mbImage}" />
 						<div class="ui radio checkbox">
 							<input type="radio" class="radio" id="female" name="gender"
 								value="F" checked="checked"> <label>여 자</label>
@@ -127,8 +128,7 @@
 					</div>
 					<div class="gender_Img1">
 						<img id="mailImage"
-						
-							src="https://st.depositphotos.com/1010146/4669/v/950/depositphotos_46693561-stock-illustration-formal-man-icon.jpg" />
+							src="${sessionScope.member.mbImage}"/>
 						<div class="ui radio checkbox">
 							<input type="radio" class="radio" id="male" name="gender"
 								value="M"> <label>남 자</label>
@@ -136,14 +136,14 @@
 					</div>
 				</div>
 				<div class="Btn">
-					<button type="button" class="ui yellow button"
-						id="updatePictureBtn" style="width: 140px;">사진등록/변경</button>
+					<button type="button" class="ui yellow button" id="updatePictureBtn" onclick="updatePictureBtn();" 
+							style="width: 140px;">사진등록/변경</button>
 					<br>
 					<button type="button" class="ui button" id="deletePictureBtn" onclick="deletePictureBtn();"
 						style="margin-top: 10px; width: 140px;">사진 삭제</button>
 				</div>
 				<br>
-				
+
 				<div class="myInfoTable">
 				<form action = "/myInfoUpdate.do" method = "post">
 					<table class="ui celled table">
@@ -152,7 +152,7 @@
 								<td class="firstTd" style="width: 250px;"><h3>
 										<i class="shield alternate icon"></i>등급
 									</h3></td>
-								<td><strong>입문 다이어터&nbsp;&nbsp;</strong>
+								<td><strong>${sessionScope.member.mbGrade}&nbsp;&nbsp;</strong>
 									<button class="ui button">
 										<strong>등급안내</strong>
 									</button>
@@ -164,8 +164,8 @@
 									</h3></td>
 								<td>
 									<div class="ui input focus">
-										<input type="text" id="account" name="account" value=""
-											readonly placeholder="이메일 계정" style="width: 300px;">
+										<input type="text" id="account" name="account" value="${sessionScope.member.mbId}"
+											readonly placeholder="아이디.." style="width: 300px;">
 									</div>
 								</td>
 							</tr>
@@ -176,7 +176,7 @@
 								</td>
 								<td>
 									<div class="ui input focus">
-										<input type="password" placeholder="비밀번호" id="password"
+										<input type="password" placeholder="비밀번호.." id="password" value="${sessionScope.member.mbPwd}"
 											name="password" style="width: 300px;">
 									</div>
 								</td>
@@ -188,8 +188,19 @@
 								</td>
 								<td>
 									<div class="ui input focus">
-										<input type="text" placeholder="닉네임" id="nickName"
+										<input type="text" placeholder="닉네임.." id="nickName" value="${sessionScope.member.mbNickName}"
 											name="nickName" style="width: 300px;">
+									</div>
+								</td>
+							<tr>
+								<td class="firstTd"><h3>
+										<i class="shield alternate icon"></i>핸드폰번호
+									</h3>
+								</td>
+								<td>
+									<div class="ui input focus">
+										<input type="text" placeholder="폰번호.." id="phone" value="${sessionScope.member.mbPhone}"
+											name="phone" style="width: 300px;">
 									</div>
 								</td>
 							</tr>
@@ -199,19 +210,52 @@
 									</h3>
 								</td>
 								<td><div class="ui input focus">
-										<input type="text" placeholder="한 줄 다짐" id="promise"
+										<input type="text" placeholder="한 줄 다짐.." id="promise" value="${sessionScope.member.mbPromise}"
 											name="promise" style="width: 500px;">
+									</div>
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="firstTd"><h3>
+										<i class="shield alternate icon"></i>키
+									</h3>
+								</td>
+								<td><div class="ui input focus">
+										<input type="text" placeholder="키를 입력하세요.." id="heigth" value="${sessionScope.member.mbPromise}"
+											name="heigth" style="width: 200px;">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="firstTd"><h3>
+										<i class="shield alternate icon"></i>몸무게
+									</h3>
+								</td>
+								<td><div class="ui input focus">
+										<input type="text" placeholder="몸무게를 입력하세요.." id="weight" value="${sessionScope.member.mbWeight}"
+											name="weight" style="width: 200px;">
 									</div>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+					<h4>※ 키와 몸무게를 입력하시면 맞춤 정보를 제공해 드립니다~</h4>
 					<input type="submit" value = "수정" class="ui red button" id="updateInfoBtn" />
 					<input type="reset"  value = "취소" class="ui button" id="updateCancleBtn" /> 
 					</form>
 				</div>
+				
 			</div>
-
+			</c:if>
+			
+			<!-- 로그인이 안됐을 때 -->
+			<c:if test="${sessionScope.member==null }">
+				<script>
+				alert("로그인 후 이용해주세요 ~ ");
+				location.href="/";
+				</script>
+			</c:if>
 			<!--  ui container 닫기  -->
 		</div>
 	</div>
@@ -225,28 +269,63 @@
 			<div class="description">
 				<div class="ui header">
 					<div class="fileBox">
-						<input type="text" class="fileName" readonly="readonly"> <label
-							for="uploadBtn" class="btn_file">찾아보기</label> <input type="file"
-							id="uploadBtn" class="uploadBtn">
+						<input type="text" class="fileName" id="fileName" readonly="readonly"> 
+						<label
+							for="uploadBtn" class="btn_file">찾아보기
+						</label> 
+						<input type="file" id="uploadBtn" class="uploadBtn">
+							
 					</div>
 				</div>
 			</div>
 			<div class="actions">
-				<div class="ui positive right labeled icon button">
-					업데이트 <i class="checkmark icon"></i>
-				</div>
-				<div class="ui black deny button">취소</div>
+				<button class="ui yellow button" onclick = "updateProfileBtn();">
+					사진업데이트 <i class="checkmark icon"></i>
+				</button>
+				<button class="ui black button">
+					취소
+				</button>
+			<input type="hidden" value="${sessionScope.member.mbId}" id="memberId" />
 			</div>
 		</div>
 	</div>
-	<br>
-	<br>
+	
+	<br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+	/*사진등록,변경 */
+	function updateProfileBtn(){
+		var fileName = $("#fileName").val();
+		var memberId = $("#memberId").val();
+		
+		console.log('사진등록파일'+fileName);		
+		$.ajax({
+			url : "/updateMyProfile.diet", 
+			data:{
+				fileName : fileName,
+				memberId : memberId
+			},
+			type : "post",
+			success : function(data) {
+					if(data == '1'){
+						alert('사진업데이트 성공하였습니다.');
+						location.reload();
+					} else {
+						alert('사진업데이트 실패하였습니다.');
+					}
+				}, 
+				error : function(){
+					alert("사진업데이트 실패 되었습니다.");
+				}
+		});
+	}
+	
+
 	/*사진등록,변경 이미지 클릭시 배경색 변경*/
 	$(document).ready(function() {
 		$(".gender_Image>div").each(function() {
