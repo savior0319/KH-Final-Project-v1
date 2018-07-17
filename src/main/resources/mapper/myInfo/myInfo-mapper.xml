@@ -4,4 +4,9 @@
 	<insert id="question" parameterType="question">
 		INSERT INTO QUESTION VALUES(QUESTION_SEQ.NEXTVAL, #{title}, #{content})
 	</insert>
+	
+	<delete id="secessionMember" parameterType="member">
+		DELETE FROM MEMBER_TBL WHERE MB_ID = #{mbId}
+	</delete>
+
 </mapper>

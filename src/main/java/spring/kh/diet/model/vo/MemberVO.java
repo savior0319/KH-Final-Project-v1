@@ -1,5 +1,7 @@
 package spring.kh.diet.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class MemberVO {
-	private int memberIndex,age;
-	private String memberId,memberPwd,memberName,nickName,
-	promise,email,phone,address,hobby,interest,memberState,
-	memberGrade,adAgree;
+	private int mbAge;
+	private String mbId,mbPwd,mbName,mbNickName,mbGender,
+				   mbImage,mbPromise,mbPhone,mbAddress,mbHobby,
+				   mbInterest,mbState,mbGrade,mbAdAgree,mbHeight,
+				   mbWeight;
+	private Date mbEnrollDate;
+
 }
+	

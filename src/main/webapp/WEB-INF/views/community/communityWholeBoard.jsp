@@ -22,94 +22,126 @@
 
 	<div class="ui center aligned container">
 		<div class="ui panorama test ad" data-text="Panorama" align="center"></div>
-		<br>
-		<br>
+		<br> <br>
 		<div class="ui left aligned container">
 			<h1>&emsp;&nbsp;&nbsp;커뮤니티(전체)</h1>
 		</div>
 		<hr style="border: 2px solid #D5D5D5;">
 		<br>
 		<!-- CONTENTS -->
-		<div class="ui center aligned basic segment">
+
+		<!-- 최신순, 조회순 -->
+		<br>
+		<div class="ui right aligned basic segment"
+			style="margin: 0px; padding: 0px;">
+			<div class="small ui basic buttons">
+				<div class="ui button"
+					style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;">최신순</div>
+				<div class="ui button"
+					style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;">조회순</div>
+			</div>
+		</div><br>
+		<!-- 글목록 -->
+		<div class="ui center aligned basic segment" style="margin-top: 0px; padding:0px;">
 
 			<table class="ui very compact table">
 				<thead>
 					<tr align="center">
-						<th style="width:15%;">게시판</th>
-						<th style="width:50%;">제목</th>
-						<th style="width:15%;">작성자</th>
-						<th style="width:10%;">조회수</th>
-						<th style="width:10%;">작성일</th>
+						<th style="width: 15%;">게시판</th>
+						<th style="width: 50%;">제목</th>
+						<th style="width: 15%;">작성자</th>
+						<th style="width: 10%;">조회수</th>
+						<th style="width: 10%;">작성일</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr align="center" style="height:50px;">
+					<tr align="center" style="height: 50px;">
 						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은 27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image" src="/resources/image/mainPic.jpg"> ssomsomii</td>
+						<td><a class="item" href="/postedCommunity.diet">체지방은
+								27에서 19로 내려왔는데 몸무게는.. </a></td>
+						<td><img class="ui avatar image"
+							src="/resources/image/mainPic.jpg"> ssomsomii</td>
 						<td>212,192</td>
 						<td>2015.07.08</td>
 					</tr>
-					<tr align="center" style="height:50px;">
+					<tr align="center" style="height: 50px;">
 						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은 27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image" src="/resources/image/mainPic.jpg"> ssomsomii</td>
+						<td><a class="item" href="/postedCommunity.diet">체지방은
+								27에서 19로 내려왔는데 몸무게는.. </a></td>
+						<td><img class="ui avatar image"
+							src="/resources/image/mainPic.jpg"> ssomsomii</td>
 						<td>212,192</td>
 						<td>2015.07.08</td>
 					</tr>
-					<tr align="center" style="height:50px;">
+					<tr align="center" style="height: 50px;">
 						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은 27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image" src="/resources/image/mainPic.jpg"> ssomsomii</td>
+						<td><a class="item" href="/postedCommunity.diet">체지방은
+								27에서 19로 내려왔는데 몸무게는.. </a></td>
+						<td><img class="ui avatar image"
+							src="/resources/image/mainPic.jpg"> ssomsomii</td>
 						<td>212,192</td>
 						<td>2015.07.08</td>
 					</tr>
-					<tr align="center" style="height:50px;">
+					<tr align="center" style="height: 50px;">
 						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은 27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image" src="/resources/image/mainPic.jpg"> ssomsomii</td>
+						<td><a class="item" href="/postedCommunity.diet">체지방은
+								27에서 19로 내려왔는데 몸무게는.. </a></td>
+						<td><img class="ui avatar image"
+							src="/resources/image/mainPic.jpg"> ssomsomii</td>
 						<td>212,192</td>
 						<td>2015.07.08</td>
 					</tr>
-					<tr align="center" style="height:50px;">
+					<tr align="center" style="height: 50px;">
 						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은 27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image" src="/resources/image/mainPic.jpg"> ssomsomii</td>
+						<td><a class="item" href="/postedCommunity.diet">체지방은
+								27에서 19로 내려왔는데 몸무게는.. </a></td>
+						<td><img class="ui avatar image"
+							src="/resources/image/mainPic.jpg"> ssomsomii</td>
 						<td>212,192</td>
 						<td>2015.07.08</td>
 					</tr>
-					<tr align="center" style="height:50px;">
+					<tr align="center" style="height: 50px;">
 						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은 27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image" src="/resources/image/mainPic.jpg"> ssomsomii</td>
+						<td><a class="item" href="/postedCommunity.diet">체지방은
+								27에서 19로 내려왔는데 몸무게는.. </a></td>
+						<td><img class="ui avatar image"
+							src="/resources/image/mainPic.jpg"> ssomsomii</td>
 						<td>212,192</td>
 						<td>2015.07.08</td>
 					</tr>
-					<tr align="center" style="height:50px;">
+					<tr align="center" style="height: 50px;">
 						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은 27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image" src="/resources/image/mainPic.jpg"> ssomsomii</td>
+						<td><a class="item" href="/postedCommunity.diet">체지방은
+								27에서 19로 내려왔는데 몸무게는.. </a></td>
+						<td><img class="ui avatar image"
+							src="/resources/image/mainPic.jpg"> ssomsomii</td>
 						<td>212,192</td>
 						<td>2015.07.08</td>
 					</tr>
-					<tr align="center" style="height:50px;">
+					<tr align="center" style="height: 50px;">
 						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은 27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image" src="/resources/image/mainPic.jpg"> ssomsomii</td>
+						<td><a class="item" href="/postedCommunity.diet">체지방은
+								27에서 19로 내려왔는데 몸무게는.. </a></td>
+						<td><img class="ui avatar image"
+							src="/resources/image/mainPic.jpg"> ssomsomii</td>
 						<td>212,192</td>
 						<td>2015.07.08</td>
 					</tr>
-					<tr align="center" style="height:50px;">
+					<tr align="center" style="height: 50px;">
 						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은 27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image" src="/resources/image/mainPic.jpg"> ssomsomii</td>
+						<td><a class="item" href="/postedCommunity.diet">체지방은
+								27에서 19로 내려왔는데 몸무게는.. </a></td>
+						<td><img class="ui avatar image"
+							src="/resources/image/mainPic.jpg"> ssomsomii</td>
 						<td>212,192</td>
 						<td>2015.07.08</td>
 					</tr>
-					<tr align="center" style="height:50px;">
+					<tr align="center" style="height: 50px;">
 						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은 27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image" src="/resources/image/mainPic.jpg"> ssomsomii</td>
+						<td><a class="item" href="/postedCommunity.diet">체지방은
+								27에서 19로 내려왔는데 몸무게는.. </a></td>
+						<td><img class="ui avatar image"
+							src="/resources/image/mainPic.jpg"> ssomsomii</td>
 						<td>212,192</td>
 						<td>2015.07.08</td>
 					</tr>
@@ -140,8 +172,8 @@
 					<div class="ui right aligned container">
 						<button class="ui right red basic button"
 							style="margin-top: 19px;" id="writeBtn">
-							<i class="edit icon"></i>
-							등록</button>
+							<i class="edit icon"></i> 등록
+						</button>
 					</div>
 				</div>
 			</div>
@@ -149,7 +181,7 @@
 		</div>
 		<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 		<br>
-		<div class="ui secondary segment" >
+		<div class="ui secondary segment">
 			<div class="ui right action left icon input">
 				<i class="search icon"></i> <input type="text" placeholder="Search">
 				<div class="ui basic floating dropdown button">
@@ -177,11 +209,10 @@
 		allowAdditions : true,
 		allowCategorySelection : true
 	});
-	
-	$('#writeBtn').click(function(){
-		  location.href="/registCommunity.diet";
+
+	$('#writeBtn').click(function() {
+		location.href = "/registCommunity.diet";
 	});
-	
 </script>
 
 </html>

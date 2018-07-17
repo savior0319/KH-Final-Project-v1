@@ -16,6 +16,7 @@
 		<span class="menu">
 			<a href="/admin.diet">관리자 페이지</a>
 		</span>
+      
 		</c:if>
 
 	<!-- 로그인 , 로그아웃  --> 
@@ -38,6 +39,26 @@
 		<span class="menu">
 			<a href="/myInfo.diet">마이페이지</a>
 		</span>
+		
+		<!-- 로그인 , 로그아웃  --> 
+		<c:if test="${sessionScope.member==null}">
+			<span class="menu">
+				<a href="/login.diet">로그인</a>
+			</span>
+			<span class="menu">회원가입</span>
+		</c:if>
+		<c:if test ="${sessionScope.member!=null }">
+			<span class="menu">
+				${member.mbName}님 환영합니다 ^^
+			</span>
+			<span class="menu">
+				<a href="/logout.diet">로그아웃</a>
+			</span>
+			<span class="menu">
+				<a href="/myInfo.diet">마이페이지</a>
+			</span>
+		</c:if>
+
 		<span class="menu">주문배송조회</span>
 		<span class="menu">장바구니</span>
 		<span class="menu">제휴·광고문의</span>
@@ -57,8 +78,8 @@
 				다이어트꿀팁 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="#">전체</a>
-				<a class="item" href="#">칼럼</a>
+				<a class="item" href="/dietTipList.diet?type=all">전체</a>
+				<a class="item" href="/dietTipList.diet?type=column">칼럼</a>
 				<a class="item" href="#">운동</a>
 				<a class="item" href="#">식단</a>
 				<a class="item" href="#">성공후기</a>
@@ -81,7 +102,7 @@
 			</div>
 			<div class="menu">
 				<a class="item" href="#">전체</a>
-				<a class="item" href="#">전신</a>
+				<a class="item" href="/homeTrainingList.diet">전신</a>
 				<a class="item" href="#">복부</a>
 				<a class="item" href="#">상체</a>
 				<a class="item" href="#">하체</a>
