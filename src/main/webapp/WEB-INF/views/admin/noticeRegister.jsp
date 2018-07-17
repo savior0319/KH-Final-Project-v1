@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
-	<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
-	<script src="/resources/summernote/dist/summernote-lite.js"></script>
-	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<title>다이어트</title>
+<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
+<script src="/resources/summernote/dist/summernote-lite.js"></script>
+<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 </head>
 </head>
 
@@ -48,7 +48,6 @@ body {
 		</div>
 	</div>
 
-
 	<!-- FOOTER -->
 </body>
 
@@ -62,28 +61,30 @@ body {
 			height : 500,
 		});
 	});
-	
-	function register(){
+
+	function register() {
 		var title = $('#title').val();
 		var content = $('#summernote').summernote('code');
 
 		$.ajax({
 			url : '/noticeRegisterData.diet',
 			type : 'post',
-			data : {'title' : title, 'content' : content},
+			data : {
+				'title' : title,
+				'content' : content
+			},
 
-			success : function(data){
-				if(data == 'success'){
+			success : function(data) {
+				if (data == 'success') {
 					alert('공지등록 완료');
-					location.href="/admin.diet"
+					location.href = "/admin.diet"
 				}
-			}, 
-			error : function(){
+			},
+			error : function() {
 				alert('공지등록 실패');
 			}
 		});
 	}
-	
 </script>
 
 
