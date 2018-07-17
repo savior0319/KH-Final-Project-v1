@@ -76,7 +76,7 @@
 			</div>
 			<div class="menu">
 				<a class="item" href="#">전체</a>
-				<a class="item" href="#">전신</a>
+				<a class="item" href="/homeTrainingList.diet">전신</a>
 				<a class="item" href="#">복부</a>
 				<a class="item" href="#">상체</a>
 				<a class="item" href="#">하체</a>

@@ -61,6 +61,20 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myInfoUpdate";
 	}
 
+	/* 커뮤니티 - 자유게시판 */
+	@Override
+	@RequestMapping(value = "/bulletinBoard.diet")
+	public String RedirectBulletinBoard() {
+		return "community/bulletinBoard";
+	}
+
+	/* 커뮤니티 - 비포&애프터 */
+	@Override
+	@RequestMapping(value = "/beforeAfterBoard.diet")
+	public String RedirectBeforeAfterBoard() {
+		return "community/beforeAfterBoard";
+	}
+
 	/* 마이페이지 - 내 활동 정보 */
 	@Override
 	@RequestMapping(value = "/myActivityInfo.diet")
@@ -102,6 +116,18 @@ public class RedirectControllerImpl implements RedirectController {
 	public String RedirectMyWishList() {
 		return "myInfo/myWishList";
 	}
+
+	/* 홈트레이닝 - 전신*/
+	@Override
+	@RequestMapping(value = "/homeTrainingList.diet")
+	public String RedirectHomeTraining() {
+		return "homeTraining/homeTrainingList";
+	}
+	/* 홈트레이닝 - 전신*/
+	@Override
+	@RequestMapping(value = "/homeTrainingInfo.diet")
+	public String RedirectHomeTrainingInfo() {
+		return "homeTraining/homeTrainingInfo";
 
 	/* 마이페이지 - 나의 다이어리 */
 	@Override
