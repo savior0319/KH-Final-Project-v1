@@ -174,9 +174,15 @@ public class RedirectControllerImpl implements RedirectController {
 
 	/* 홈트레이닝 - 전신*/
 	@Override
-	@RequestMapping(value = "/homeTrainingWholeBodyList.diet")
+	@RequestMapping(value = "/homeTrainingList.diet")
 	public String RedirectHomeTraining() {
-		return "homeTraining/homeTrainingWholeBodyList";
+		return "homeTraining/homeTrainingList";
+	}
+	/* 홈트레이닝 - 전신*/
+	@Override
+	@RequestMapping(value = "/homeTrainingInfo.diet")
+	public String RedirectHomeTrainingInfo() {
+		return "homeTraining/homeTrainingInfo";
 	}
 
 }

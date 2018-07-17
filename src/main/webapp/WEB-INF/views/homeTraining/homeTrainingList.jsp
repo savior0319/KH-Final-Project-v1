@@ -26,15 +26,13 @@
 			<div class="ui panorama test ad" data-text="Panorama"></div>
 			<h1>홈트레이닝 > 전신</h1>
 
-			<!-- CONTENTS -->
-			<div class="ui center aligned basic segment">
-
+			
 				<!-- 제목 이미지 출력  -->
 				<div class="ui three column grid">
 					<div class="column">
 						<div class="ui card">
 							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
+								<a href="/homeTrainingInfo.diet"><img src="/resources/image/mainPic.jpg" style="width: 290px;height:200px;"></a>
 							</div>
 							<div class="content">
 								<a class="header">10분안에 지방 불태우기..</a>
@@ -252,7 +250,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
