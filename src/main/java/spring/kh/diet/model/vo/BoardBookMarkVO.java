@@ -1,6 +1,6 @@
 package spring.kh.diet.model.vo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NoticeVO {
-	private String noticeTitle, noticeContent;
-	private int noticeIndex;
-	private Date noticeWriteDay;
+public class BoardBookMarkVO {
+	private String postTitle;
+	private int bmkIndex, mbIndex, postIndex,postHit;
+	private Timestamp postDateTime;
 }
