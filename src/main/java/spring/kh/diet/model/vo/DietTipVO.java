@@ -1,15 +1,18 @@
 package spring.kh.diet.model.vo;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import oracle.sql.TIMESTAMP;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class DietTipVO {
-	private String indexNo, dtTitle, dtMainPhoto, dtExplain;
-	private int dtNo, dtType, dtWriterNo, dtHits, dtSee;
-	private TIMESTAMP dtDate;
+	private String dtTitle, dtMainPhoto, dtExplain;
+	private int dtIndex, dtNo, dtType, dtWriterNo, dtHits, dtSee;
+	private Timestamp dtDate;
 	
 	
 }
