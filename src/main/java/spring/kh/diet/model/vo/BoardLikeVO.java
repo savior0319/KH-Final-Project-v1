@@ -1,6 +1,5 @@
 package spring.kh.diet.model.vo;
 
-import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NoticeVO {
-	private String noticeTitle, noticeContent;
-	private int noticeIndex;
-	private Date noticeWriteDay;
+public class BoardLikeVO {
+	private int likeIndex, targetIndex, targetType, mbIndex, targetMbIndex;
 }
