@@ -44,8 +44,6 @@ public interface RedirectController {
   
 	String redirectTipKnowhowBoard();
 
-	String redirectCommunityWholeBoard();
-
 	String redirectPostedCommunity();
 
 	String redirectRegistCommunity();
