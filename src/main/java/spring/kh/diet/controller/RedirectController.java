@@ -2,54 +2,54 @@ package spring.kh.diet.controller;
 
 public interface RedirectController {
 
-	String RedirectAdminPage();
+	String redirectAdminPage();
 
-	String RedirectNoticeRegisterPage();
+	String redirectNoticeRegisterPage();
 
-	String RedirectLoginPage();
+	String redirectLoginPage();
 
-	String RedirectMyInfo();
+	String redirectMyInfo();
 
-	String RedirectMyInfoUpdate();
+	String redirectMyInfoUpdate();
 
-	String RedirectMyActivityInfo();
+	String redirectMyActivityInfo();
 
-	String RedirectBMICal();
+	String redirectBMICal();
 
-	String RedirectBulletinBoard();
+	String redirectBulletinBoard();
 
-	String RedirectSecession();
+	String redirectSecession();
 
-	String RedirectMyPoint();
+	String redirectMyPoint();
 
-	String RedirectMyCoupon();
+	String redirectMyCoupon();
 
-	String RedirectCalCal();
+	String redirectCalCal();
 
-	String RedirectMyOneToOneQuestion();
+	String redirectMyOneToOneQuestion();
 
-	String RedirectMyWishList();
+	String redirectMyWishList();
 
-	String RedirectBeforeAfterBoard();
+	String redirectBeforeAfterBoard();
 
-	String RedirectHomeTraining();
+	String redirectHomeTraining();
 
-	String RedirectHomeTrainingInfo();
+	String redirectHomeTrainingInfo();
 
-	String RedirectMyDiary();
+	String redirectMyDiary();
   
-	String RedirectDietTipList();
+	String redirectDietTipList();
   
-	String RedirectWorryNQnABoard();
+	String redirectWorryNQnABoard();
 
-	String RedirectTipKnowhowBoard();
+	String redirectTipKnowhowBoard();
 
-	String RedirectCommunityWholeBoard();
+	String redirectCommunityWholeBoard();
 
-	String RedirectPostedCommunity();
+	String redirectPostedCommunity();
 
-	String RedirectRegistCommunity();
+	String redirectRegistCommunity();
 
-	String RedirectRecipeBoard();
+	String redirectRecipeBoard();
 
 }
