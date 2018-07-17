@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="dietTip">
 	<select id="getList" parameterType="dietTipPage" resultType="dietTip">
-		select INDEX_NO as indexNo,
+		SELECT INDEX_NO as dtIndex,
 		DT_NO as dtNo,
 		DT_TYPE as dtType,
 		DT_TITLE as dtTitle,
@@ -12,6 +12,9 @@
 		DT_DATE as dtDate,
 		DT_HITS as dtHits,
 		DT_SEE as dtSee
-		from (select DIETTIP_TB.*, row_number() over(order by DT_DATE desc) as num from DIETTIP_TB) where num between #{start} and #{end}
+		FROM (SELECT DIETTIP_TB.*, ROW_NUMBER() OVER(ORDER BY DT_DATE DESC) AS NUM FROM DIETTIP_TB) WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+	<select id="getNavi" resultType="java.lang.Integer">
+		select count(*) as totalCount from DIETTIP_TB
 	</select>
 </mapper>

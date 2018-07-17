@@ -25,267 +25,49 @@
 		</div>
 		<div class="ui celled grid">
 			<div class="row" id="main_title" style="padding-bottom: 20px; border-bottom: 3px solid black">
-				<div class="ui large header">다이어트꿀팁</div>
-			</div>
-
-			<!-- 각각 게시물 -->
-			<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-				<div class="four wide column">
-					<img src="/resources/image/mainPic.jpg" style="width: 100%; height: 100%;">
-				</div>
-				<div class="twelve wide column">
-					<strong>작은제목</strong>
-					<p style="width: 100%; height: 50px; overflow: hidden; text-overflow: ellipsis; text-indent: 10px">saasdasdasdasd klsdfjlksdjfklsdjflksdjflkjsdlkfjklsdfjlks
-						djfklsdjflksdjflkjsdlkfjklsdfjlksdjfklsdjflksdjflkjsdlkfjklsdfjlksdjfklsdjflksdjflkjsdlkfjklsdfjlksdjfklsdjflksdjflkjsdlkfjdjfklsdjflksdjflkjsdlkfjklsdfjlksdjfklsdjflksdjflkjsdlkfjklsdfjlksdjfklsdjflksdjflkjsdlkfjklsdfjlksdjfklsdjflksdjflkjsdlkfj
-					</p>
-					<div class="ui grid">
-						<div class="four wide column">
-							<i class="clock outline icon"></i>
-							2018.07.13
-						</div>
-						<div class="four wide column">
-							<i class="eye icon"></i>
-							1190
-						</div>
-						<div class="four wide column">
-							<i class="comment icon"></i>
-							14
-						</div>
-					</div>
+				<div class="ui large header">다이어트꿀팁
+					<c:choose>
+						<c:when test="${requestScope.dtpd.type.equals('all') }"></c:when>
+						<c:when test="${requestScope.dtpd.type.equals('column') }">(칼럼)</c:when>
+					</c:choose>
 				</div>
 			</div>
 
-			<!-- 각각 게시물 -->
-			<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-				<div class="four wide column">
-					<img>
-				</div>
-				<div class="twelve wide column">
-					<strong>작은제목</strong>
-					<p>내용들</p>
-					<div class="ui grid">
-						<div class="four wide column">
-							<i class="clock outline icon"></i>
-							2018.07.13
-						</div>
-						<div class="four wide column">
-							<i class="eye icon"></i>
-							1190
-						</div>
-						<div class="four wide column">
-							<i class="comment icon"></i>
-							14
+			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
+
+				<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
+					<div class="four wide column">
+						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%;">
+					</div>
+					<div class="twelve wide column">
+						<strong>${dt.dtTitle }</strong>
+						<div style="width: 100%; height: 50px; overflow: hidden; text-overflow: ellipsis;">${dt.dtExplain }</div>
+						<div class="ui grid">
+							<div class="four wide column">
+								<i class="clock outline icon"></i>
+								${dt.dtDate }
+							</div>
+							<div class="four wide column">
+								<i class="eye icon"></i>
+								${dt.dtSee }
+							</div>
+							<div class="four wide column">
+								<i class="comment icon"></i>
+								10
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-				<div class="four wide column">
-					<img>
-				</div>
-				<div class="twelve wide column">
-					<strong>작은제목</strong>
-					<p>내용들</p>
-					<div class="ui grid">
-						<div class="four wide column">
-							<i class="clock outline icon"></i>
-							2018.07.13
-						</div>
-						<div class="four wide column">
-							<i class="eye icon"></i>
-							1190
-						</div>
-						<div class="four wide column">
-							<i class="comment icon"></i>
-							14
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-				<div class="four wide column">
-					<img>
-				</div>
-				<div class="twelve wide column">
-					<strong>작은제목</strong>
-					<p>내용들</p>
-					<div class="ui grid">
-						<div class="four wide column">
-							<i class="clock outline icon"></i>
-							2018.07.13
-						</div>
-						<div class="four wide column">
-							<i class="eye icon"></i>
-							1190
-						</div>
-						<div class="four wide column">
-							<i class="comment icon"></i>
-							14
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-				<div class="four wide column">
-					<img>
-				</div>
-				<div class="twelve wide column">
-					<strong>작은제목</strong>
-					<p>내용들</p>
-					<div class="ui grid">
-						<div class="four wide column">
-							<i class="clock outline icon"></i>
-							2018.07.13
-						</div>
-						<div class="four wide column">
-							<i class="eye icon"></i>
-							1190
-						</div>
-						<div class="four wide column">
-							<i class="comment icon"></i>
-							14
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-				<div class="four wide column">
-					<img>
-				</div>
-				<div class="twelve wide column">
-					<strong>작은제목</strong>
-					<p>내용들</p>
-					<div class="ui grid">
-						<div class="four wide column">
-							<i class="clock outline icon"></i>
-							2018.07.13
-						</div>
-						<div class="four wide column">
-							<i class="eye icon"></i>
-							1190
-						</div>
-						<div class="four wide column">
-							<i class="comment icon"></i>
-							14
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-				<div class="four wide column">
-					<img>
-				</div>
-				<div class="twelve wide column">
-					<strong>작은제목</strong>
-					<p>내용들</p>
-					<div class="ui grid">
-						<div class="four wide column">
-							<i class="clock outline icon"></i>
-							2018.07.13
-						</div>
-						<div class="four wide column">
-							<i class="eye icon"></i>
-							1190
-						</div>
-						<div class="four wide column">
-							<i class="comment icon"></i>
-							14
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-				<div class="four wide column">
-					<img>
-				</div>
-				<div class="twelve wide column">
-					<strong>작은제목</strong>
-					<p>내용들</p>
-					<div class="ui grid">
-						<div class="four wide column">
-							<i class="clock outline icon"></i>
-							2018.07.13
-						</div>
-						<div class="four wide column">
-							<i class="eye icon"></i>
-							1190
-						</div>
-						<div class="four wide column">
-							<i class="comment icon"></i>
-							14
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-				<div class="four wide column">
-					<img>
-				</div>
-				<div class="twelve wide column">
-					<strong>작은제목</strong>
-					<p>내용들</p>
-					<div class="ui grid">
-						<div class="four wide column">
-							<i class="clock outline icon"></i>
-							2018.07.13
-						</div>
-						<div class="four wide column">
-							<i class="eye icon"></i>
-							1190
-						</div>
-						<div class="four wide column">
-							<i class="comment icon"></i>
-							14
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
-				<div class="four wide column">
-					<img>
-				</div>
-				<div class="twelve wide column">
-					<strong>작은제목</strong>
-					<p>내용들</p>
-					<div class="ui grid">
-						<div class="four wide column">
-							<i class="clock outline icon"></i>
-							2018.07.13
-						</div>
-						<div class="four wide column">
-							<i class="eye icon"></i>
-							1190
-						</div>
-						<div class="four wide column">
-							<i class="comment icon"></i>
-							14
-						</div>
-					</div>
-				</div>
-			</div>
+
+			</c:forEach>
+
+
 		</div>
 		<div class="ui center aligned basic segment">
-			<div class="ui pagination menu">
-				<a class="item"> &lt; </a>
-				<a class="active item"> 1 </a>
-
-				<a class="item"> 2 </a>
-
-				<a class="item"> 3 </a>
-
-				<a class="item"> 4 </a>
-				<a class="item"> 5 </a>
-				<a class="item"> 6 </a>
-				<a class="item"> 7 </a>
-
-				<a class="item"> 8 </a>
-
-				<a class="item"> 9 </a>
-
-				<a class="item"> 10 </a>
-				<a class="item"> &gt; </a>
-			</div>
+			<div class="ui pagination menu">${requestScope.dtpd.pageNavi }</div>
 		</div>
+
+
 		<div class="ui center aligned basic segment">
 			<div class="ui action input">
 				<select class="ui compact selection dropdown" style="padding-top: 2%">
