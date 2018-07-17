@@ -33,10 +33,10 @@ public class LoginControllerImpl implements LoginController {
 
 		MemberVO m = loginService.login(mv);
 		
-		HttpSession session = request.getSession();
-
+		HttpSession session ;
 		
 		if (m != null) {
+			session = request.getSession();
 			session.setAttribute("member", m);
 			return "redirect:/index.jsp";
 		}else {
