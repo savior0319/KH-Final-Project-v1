@@ -1,12 +1,12 @@
 package spring.kh.diet.controller;
 
-
 import java.io.IOException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.kh.diet.model.service.MyInfoService;
@@ -21,6 +21,8 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public MyInfoControllerImpl() {
 	}
 
+	@Override
+	@RequestMapping(name = "/question.diet")
 	public void question(@RequestParam String title, @RequestParam String content, HttpServletResponse response)
 			throws IOException {
 		QuestionVO qv = new QuestionVO(title, content);
