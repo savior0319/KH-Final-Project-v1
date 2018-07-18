@@ -69,7 +69,7 @@
 				칼로리사전 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="#">음식칼로리</a>
+				<a class="item" href="/foodCalorieInfo.diet">음식칼로리</a>
 				<a class="item" href="#">운동칼로리</a>
 			</div>
 		</div>
