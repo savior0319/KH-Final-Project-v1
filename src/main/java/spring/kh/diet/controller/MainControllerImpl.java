@@ -1,7 +1,6 @@
 package spring.kh.diet.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
-import spring.kh.diet.model.vo.HealthCenterVO;
 
 @Controller
 public class MainControllerImpl implements MainController {
