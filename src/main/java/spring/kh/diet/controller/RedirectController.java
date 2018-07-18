@@ -26,8 +26,6 @@ public interface RedirectController {
 
 	String redirectMyOneToOneQuestion();
 
-	String redirectMyWishList();
-
 	String redirectHomeTraining();
 
 	String redirectHomeTrainingInfo();
