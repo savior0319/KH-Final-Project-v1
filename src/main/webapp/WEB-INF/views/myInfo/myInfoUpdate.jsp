@@ -28,7 +28,7 @@
 .myInfoTable {
 	margin-top: 180px;
 	width: 100%;
-	height: 60.5%;
+	height: auto;
 	border: 1px solid lightgray;
 	box-sizing: border-box;
 }
@@ -104,7 +104,6 @@
 }
 </style>
 
-
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
@@ -119,28 +118,55 @@
 			<form action = "/updateMyInfo.diet" method = "post">
 			<div class="myInfoUpdateContents">
 				<div class="gender_Image">
+				<c:if test="${sessionScope.member.mbGender=='여'}" >
 					<div class="gender_Img1">
-						<img id="femailImage" 
+						<img id="femailImage" class = "genderImage"
 							src="${sessionScope.member.mbImage}" />
+				
 						<div class="ui radio checkbox">
-							<input type="radio" class="radio" id="female" name="gender"
-								value="F" checked="checked"> <label>여 자</label>
+							<input type="radio" class="radioBtn" id="female" name="gender"
+								value="F" checked> <label>여 자</label>
 						</div>
 					</div>
 					<div class="gender_Img1">
-						<img id="mailImage"
-							src="${sessionScope.member.mbImage}"/>
+						<img id="mailImage" class = "genderImage"
+							src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 						<div class="ui radio checkbox">
-							<input type="radio" class="radio" id="male" name="gender"
+							<input type="radio" class="radioBtn" id="male" name="gender"
 								value="M"> <label>남 자</label>
 						</div>
 					</div>
+					<script>
+						$("#male").attr("disabled", true);
+					</script>
+				</c:if>
+				<c:if test="${sessionScope.member.mbGender=='남'}" >
+					<div class="gender_Img1">
+						<img id="mailImage" class = "genderImage"
+							src="${sessionScope.member.mbImage}" />
+						<div class="ui radio checkbox">
+							<input type="radio" class="radioBtn" id="male" name="gender"
+								value="M" checked> <label>남 자</label>
+						</div>
+					</div>
+					<div class="gender_Img1">
+						<img id="femailImage" class = "genderImage"
+							src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
+						<div class="ui radio checkbox">
+							<input type="radio" class="radioBtn" id="female" name="gender"
+								value="F" > <label>여 자</label>
+						</div>
+					</div>
+					<script>
+						$("#female").attr("disabled", true);
+					</script>
+				</c:if>
 				</div>
 				<div class="Btn">
-					<button type="button" class="ui yellow button" id="updatePictureBtn" onclick="updatePictureBtn();" 
+					<button type="button" class="ui yellow button" id="updatePictureBtn1" onclick="updatePictureBtn();" 
 							style="width: 140px;">사진등록/변경</button>
 					<br>
-					<button type="button" class="ui button" id="deletePictureBtn" onclick="deletePictureBtn();"
+					<button type="button" class="ui button" id="deletePictureBtn1" onclick="deletePictureBtn();"
 						style="margin-top: 10px; width: 140px;">사진 삭제</button>
 				</div>
 				<br>
@@ -222,8 +248,9 @@
 									</h3>
 								</td>
 								<td><div class="ui input focus">
-										<input type="text" placeholder="키를 입력하세요.." id="heigth" value="${sessionScope.member.mbPromise}"
-											name="mbHeigth" style="width: 200px;">
+										<input type="text" placeholder="키.." id="heigth" value="${sessionScope.member.mbHeight}"
+											name="mbHeight" style="width: 100px;">
+										<span style="margin-top:14px; font-size:18px; font-weight:800;"><strong>cm</strong></span>
 									</div>
 								</td>
 							</tr>
@@ -232,9 +259,11 @@
 										<i class="shield alternate icon"></i>몸무게
 									</h3>
 								</td>
-								<td><div class="ui input focus">
-										<input type="text" placeholder="몸무게를 입력하세요.." id="weight" value="${sessionScope.member.mbWeight}"
-											name="mbWeight" style="width: 200px;">
+								<td>
+									<div class="ui input focus">
+											<input type="text" placeholder="몸무게.." id="weight" value="${sessionScope.member.mbWeight}"
+												name="mbWeight" style="width: 100px;">
+											<span style="margin-top:14px; font-size:18px; font-weight:800;"><strong>Kg</strong></span>
 									</div>
 								</td>
 							</tr>
@@ -242,7 +271,8 @@
 					</table>
 					<h4>※ 키와 몸무게를 입력하시면 맞춤 정보를 제공해 드립니다~</h4>
 					<input type="submit" value = "수정" class="ui red button" id="updateInfoBtn" />
-					<input type="reset"  value = "취소" class="ui button" id="updateCancleBtn" /> 	
+					<input type="reset"  value = "취소" class="ui button" id="updateCancleBtn" /> 
+					<br><br><br>	
 				</div>	
 			</div>
 			</form>
@@ -283,21 +313,17 @@
 			</div>
 		</div>
 	</div>
+	<br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br> 
 	
-	<br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
+	
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	/* 회원 정보 수정  */
-	
-
-
 	/*사진등록,변경 */
-	
 	 function updateProfileBtn(){
 		 var formData = new FormData();
 		 formData.append("uploadFile",$("input[name=uploadFile]")[0].files[0]);
@@ -315,8 +341,7 @@
 				}
 	         });
 		} 
-
-
+	
 	/*사진등록,변경 이미지 클릭시 배경색 변경*/
 	$(document).ready(function() {
 		$(".gender_Image>div").each(function() {
@@ -326,9 +351,10 @@
 			});
 		});
 	});
+	
 	/* 사진등록,변경버튼 클릭시 모달 보여주기 */
-	$("#updatePictureBtn").click(function() {
-		$('#updateProfile').modal('show');
+	$("#updatePictureBtn1").click(function() {
+		$("#updateProfile").modal('show');
 	});
 	
 	/* 모달 파일 input 부분 스크립트 */
@@ -343,15 +369,46 @@
 	});
 	
 	/* 프로필 사진 삭제  */
-	
 	function deletePictureBtn(){
+		var chkRadio =  $(":input:radio[name=gender]:checked").val();
 		var result = window.confirm("사진을 삭제하시겠습니까?");
-		if(result){
-			alert("사진 삭제가 완료되었습니다.");
-		}else{
-			alert("사진 삭제 취소하셨습니다.");
-		}
-	}
+		var memberId = $("#memberId").val();
+		if(result==true){
+			if(chkRadio==='F'){
+				$("#femailImage").attr("src" , "");
+				 $.ajax({
+			            url: "/deleteMyPicture.diet",
+			            type: 'POST',
+			            data:{
+			            	mbId : memberId
+			            },
+			            success: function(data){
+			            
+			            },
+			            error : function(){
+						}
+			         });
+				alert("여자사진 삭제 성공 하셨습니다.");
+			}
+			else{
+			$("#mailImage").attr("src" , "");
+			$.ajax({
+		            url: "/deleteMyPicture.diet",
+		            type: 'POST',
+		            data:{
+		            	mbId : memberId
+		            },
+		            success: function(data){
+		            },
+		            error : function(){
+					}
+		         });
+			alert("남자사진 삭제 성공 하셨습니다.");	
+		   }
+	}else{
+		alert("사진 삭제 취소하셨습니다.");
+	} 
+}
 </script>
 
 </html>
