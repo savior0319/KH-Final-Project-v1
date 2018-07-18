@@ -7,13 +7,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.eclipse.jdt.internal.compiler.lookup.MemberTypeBinding;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.MyInfoService;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.ProductVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @Controller
@@ -29,7 +30,10 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/question.diet")
 	public void question(@RequestParam String title, @RequestParam String content, HttpServletResponse response)
 			throws IOException {
-		QuestionVO qv = new QuestionVO(title, content);
+		QuestionVO qv = new QuestionVO();
+		
+		qv.setContent(content);
+		qv.setTitle(title);
 		int result = myInfoService.question(qv);
 		response.getWriter().print(String.valueOf(result));
 		response.getWriter().close();
@@ -128,19 +132,34 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public Object allMyOneToOneQuestion(HttpSession session) {
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		ArrayList<QuestionVO> list = myInfoService.allMyOneToOneQuestion(mv);
-/*		ModelAndView view = new ModelAndView();*/
+		ModelAndView view = new ModelAndView();
+
 		if (!list.isEmpty()) {
-			// 정보를 넘겨주기 위해?! 세션이용 또는 모델이라는 객체를 이용
-			// 세션이랑 비슷하다고 생각하면 돼 , 세션은 계속적으로 유지되는 것. Model은 일회용이라고 생각!
-			/*view.addObject("list", list);
-			view.setViewName("member/allMemberList");
-			return view;*/
+			view.addObject("list", list);
+			view.setViewName("myInfo/myOneToOneQuestion");
+			return view;
 		}else {
 			System.out.println("list값이 없음");
-		/*	return view;*/
+			return view;
 		}
-		return list;
-		 
 	
+	}
+	
+	/* 찜한 상품 */
+	@Override
+	@RequestMapping(value="/myWishList.diet")
+	public Object myWishList(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		ArrayList<ProductVO> list = myInfoService.myWishList(mv);
+		ModelAndView view = new ModelAndView();
+
+		if (!list.isEmpty()) {
+			view.addObject("list", list);
+			view.setViewName("myInfo/myWishList");
+			return view;
+		}else {
+			System.out.println("list값이 없음");
+			return view;
+		}
 	}
 }

@@ -315,7 +315,8 @@
 	</div>
 	<br><br><br><br><br><br><br><br>
 	<br><br><br><br><br><br><br><br> 
-	
+	<br><br><br><br><br><br><br><br> 
+	<br><br><br><br><br><br><br><br> 
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 	

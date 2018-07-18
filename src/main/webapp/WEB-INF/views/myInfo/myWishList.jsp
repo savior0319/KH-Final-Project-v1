@@ -52,6 +52,7 @@ margin-left : 10px;
 					   </tr>
 					  </thead>
 					  <tbody>
+					  <c:forEach items="${list}" var ="list">
 					    <tr>
 					      <td style="padding-left:30px; padding-top:20px; width:70px;">
 					      	<div class="ui checkbox">
@@ -78,6 +79,7 @@ margin-left : 10px;
 					      	<button type="button" class="ui red button">주문하기</button>
 					      </td>
 					    </tr>
+					    </c:forEach>
 					  </tbody>
 					 </table>
 					 <input type="button" class="ui red button" value="선택상품삭제" style="float:left;"/><br><br>

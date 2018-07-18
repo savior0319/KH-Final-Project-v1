@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.ProductVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 public interface MyInfoDAO {
@@ -22,4 +23,6 @@ public interface MyInfoDAO {
 	MemberVO selectOneMember(SqlSessionTemplate sqlSessionTemplate,MemberVO memberVO);
 	
 	ArrayList<QuestionVO> allMyOneToOneQuestion(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+	
+	ArrayList<ProductVO> myWishList(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 }

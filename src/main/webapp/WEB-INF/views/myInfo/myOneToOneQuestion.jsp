@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,8 +10,7 @@
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
-	
-
+	<c:if test="${sessionScope.member!=null}">
 	<!-- CONTENTS -->
 	<div class="ui container">
 	   	<div class="ui center aligned basic segment">
@@ -25,27 +25,28 @@
 			  
 			   </tr>
 			  </thead>
+			  
 			  <tbody>
-			
-			    <tr>
-			      <td style="width:25%; padding-left:95px;">일대일 문의유형</td>
-			      <td style="width:50%; padding-left:150px;"><a href="#">일대일 문의 제목을 가져와요~!</a></td>
-			      <td style="width:25%; padding-left:40px;">2018년 00월 00일 </td>
-			    </tr>
-			
-			    <c:forEach var="item" items="${list}">
-			    <tr>
-			      <td style="width:25%; padding-left:95px;">${sessionScope.list}</td>
-			      <td style="width:50%; padding-left:150px;"><a href="#">${sessionScope.list}</a></td>
-			      <td style="width:25%; padding-left:40px;">${sessionScope.list}</td>
-			    </tr>
+				<c:forEach items="${list}" var = "m" >
+				    <tr>
+				      <td style="width:25%; padding-left:100px;">문의유형적기</td>
+				      <td style="width:50%; padding-left:180px;"><a href="#">${m.title}</a></td>
+				      <td style="width:25%; padding-left:40px;">${m.content}</td>
+				    </tr>
 			    </c:forEach>
 			  </tbody>
-		
+	
 			</table>
    			</div>	
    		</div>	
    		<br><br>
+   	</c:if>
+   	<c:if test="${sessionScope.member==null}">
+   			<script>	
+						location.href="/index.jsp";
+						alert("로그인 후 이용해주세요");
+			</script>
+   	</c:if>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>	
 </body>

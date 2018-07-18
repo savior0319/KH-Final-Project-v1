@@ -56,4 +56,15 @@
 	<delete id = "deleteMyPicture" parameterType="member">
 		UPDATE MEMBER_TBL SET MB_IMAGE ='http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg' WHERE MB_ID = #{mbId}
 	</delete>
+	
+	<select id ="allMyOneToOneQuestion" parameterType="member" resultType="question">
+		SELECT TITLE AS title,CONTENT AS content,QUESTION_NO as querstionIndex FROM QUESTION
+	</select>
+	
+	<select id = "myWishList" parameterType="member" resultType="product" >
+		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS pdImage, PD_PRICE AS pdPrice FROM PRODUCT_TBL
+		JOIN MY_WISHLIST_TBL USING(PRODUCT_INDEX)
+		JOIN MEMBER_TBL USING(MB_INDEX)
+		WHERE MB_ID = #{mbId} 
+	</select>
 </mapper>
