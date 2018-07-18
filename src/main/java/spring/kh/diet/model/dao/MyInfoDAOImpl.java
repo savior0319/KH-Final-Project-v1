@@ -20,6 +20,25 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		int result = sqlSessionTemplate.delete("myInfo.secessionMember", mv);
 		return result;
 	}
+	
 
+	@Override
+	public int updateMyInfo(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO) {
+		int result = sqlSessionTemplate.update("myInfo.updateMyInfo", memberVO);
+		return result;
+	}
+
+	
+	@Override
+	public int updateMyPicture(MemberVO mv) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public MemberVO selectOneMember(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO) {
+		MemberVO mv  = sqlSessionTemplate.selectOne("myInfo.selectOneMember", memberVO);
+		return mv;
+	}
 
 }

@@ -6,8 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 public interface CommunityDAO {
 
-	static List allCommunityList(SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.selectList("community.allCommunityList");
-	}
+	List allCommunityList(SqlSessionTemplate sqlSessionTemplate);
+
+
 
 }

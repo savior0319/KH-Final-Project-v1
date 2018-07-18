@@ -8,5 +8,15 @@
 	<delete id="secessionMember" parameterType="member">
 		DELETE FROM MEMBER_TBL WHERE MB_ID = #{mbId}
 	</delete>
-
+	
+	<update id="updateMyInfo" parameterType="member">
+		UPDATE MEMBER_TBL SET MB_PWD = #{mbPwd},,MB_NICKNAME = #{mbNickName}
+		WHERE MB_ID = #{mbId}	
+	</update>
+	
+	<select id="selectOneMember">
+		SELECT 
+		
+		FROM WHERE MB_ID = #{mb_id}
+	</select>
 </mapper>

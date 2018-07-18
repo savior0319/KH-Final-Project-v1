@@ -21,7 +21,7 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public List allCommunityList() {
-		List list = CommunityDAO.allCommunityList(SqlSessionTemplate);
+		List list = communityDAO.allCommunityList(SqlSessionTemplate);
 		return list;
 	}
 	
