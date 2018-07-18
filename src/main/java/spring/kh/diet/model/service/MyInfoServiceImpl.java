@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.MyInfoDAO;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.ProductVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @Service("myInfoService")
@@ -55,6 +56,12 @@ public class MyInfoServiceImpl implements MyInfoService {
 	@Override
 	public ArrayList<QuestionVO> allMyOneToOneQuestion(MemberVO mv) {
 		ArrayList<QuestionVO> list = MyInfoDAO.allMyOneToOneQuestion(SqlSessionTemplate,mv);
+
+		return list;
+	}
+	@Override
+	public ArrayList<ProductVO> myWishList(MemberVO mv) {
+		ArrayList<ProductVO> list = MyInfoDAO.myWishList(SqlSessionTemplate,mv);
 		return list;
 	}
 

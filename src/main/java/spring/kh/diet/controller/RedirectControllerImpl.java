@@ -47,6 +47,13 @@ public class RedirectControllerImpl implements RedirectController {
 		return "login/login";
 	}
 
+	/* 회원가입 */
+	@Override
+	@RequestMapping(value = "/signup.diet")
+	public String redirectSignup() {
+		return "login/signup";
+	}
+
 	/* 마이페이지 - 회원 정보 */
 	@Override
 	@RequestMapping(value = "/myInfo.diet")
@@ -96,13 +103,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myOneToOneQuestion";
 	}
 
-	/* 마이페이지 - 찜한 상품 */
-	@Override
-	@RequestMapping(value = "/myWishList.diet")
-	public String redirectMyWishList() {
-		return "myInfo/myWishList";
-	}
-
 	/* 홈트레이닝 - 목록 */
 	@Override
 	@RequestMapping(value = "/homeTrainingList.diet")
@@ -131,7 +131,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "dietTip/dietTipList";
 	}
 
-
 	/* 커뮤니티 - 글등록할 페이지 */
 	@Override
 	@RequestMapping(value = "/registCommunity.diet")
@@ -145,8 +144,8 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectRecipeBoard() {
 		return "community/recipeBoard";
 	}
-	
-	/* 칼로리 -푸드칼로리단 */
+
+	/* 칼로리 -푸드칼로리 */
 	@Override
 	@RequestMapping(value = "/foodCalorieInfo.diet")
 	public String redirectFoodCalorieInfo() {

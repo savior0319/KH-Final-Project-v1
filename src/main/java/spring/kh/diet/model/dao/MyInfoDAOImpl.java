@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.ProductVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @Repository("myInfoDAO")
@@ -52,8 +53,14 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public ArrayList<QuestionVO> allMyOneToOneQuestion(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		List<QuestionVO> list = sqlSessionTemplate.selectList("myInfo.allMyOneToOneQuestion", mv);
+		List list = sqlSessionTemplate.selectList("myInfo.allMyOneToOneQuestion", mv);
 		return (ArrayList<QuestionVO>)list;
+	}
+
+	@Override
+	public ArrayList<ProductVO> myWishList(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		List list = sqlSessionTemplate.selectList("myInfo.myWishList", mv);
+		return (ArrayList<ProductVO>)list;
 	}
 
 }

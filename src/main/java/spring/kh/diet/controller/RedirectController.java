@@ -33,13 +33,15 @@ public interface RedirectController {
 	String redirectHomeTrainingInfo();
 
 	String redirectMyDiary();
-  
+
 	String redirectDietTipList();
-  
+
 	String redirectRegistCommunity();
 
 	String redirectRecipeBoard();
 
 	String redirectFoodCalorieInfo();
+
+	String redirectSignup();
 
 }
