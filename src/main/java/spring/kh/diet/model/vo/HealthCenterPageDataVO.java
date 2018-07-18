@@ -1,5 +1,7 @@
 package spring.kh.diet.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HealthCenterVO {
-	private String hcLocation, hcAddress, hcPhone, hcLatitude, hcLongitude, hcType;
+public class HealthCenterPageDataVO {
+	private ArrayList<HealthCenterVO> hcList;
+	private String pageNavi, type;
+	private int start, end;
 }
