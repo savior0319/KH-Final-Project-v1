@@ -11,4 +11,10 @@ public interface CommunityService {
 	int registCommunity(BoardPostVO bpv);
   
 	List beforeAfterList();
+
+	List bulletinBoardList();
+
+	List tipKnowhowBoardList();
+
+	List worryNQnABoardList();
 }

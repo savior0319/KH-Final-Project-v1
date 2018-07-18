@@ -15,5 +15,11 @@ public interface CommunityController {
 	Object postedCommunity(HttpSession session);
 
 	Object beforeAfterList(HttpSession session);
+
+	Object bulletinBoardList(HttpSession session);
+
+	Object tipKnowhowBoardList(HttpSession session);
+
+	Object worryNQnABoardList(HttpSession session);
 	
 }
