@@ -11,7 +11,7 @@ public interface CommunityController {
 
 	void registCommunity(String title, String content, String category, HttpSession session,
 			HttpServletResponse response) throws IOException;
-  
+
 	Object postedCommunity(HttpSession session);
 
 	Object beforeAfterList(HttpSession session);
@@ -21,5 +21,5 @@ public interface CommunityController {
 	Object tipKnowhowBoardList(HttpSession session);
 
 	Object worryNQnABoardList(HttpSession session);
-	
+
 }
