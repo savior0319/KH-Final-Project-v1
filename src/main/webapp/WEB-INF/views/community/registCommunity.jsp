@@ -38,7 +38,7 @@
 					<div class="ui basic floating dropdown button">
 						<div class="text">카테고리</div>
 						<i class="dropdown icon"></i>
-						<div class="menu">
+						<div class="menu select">
 							<div class="item">자유게시판</div>
 							<div class="item">레시피&식단</div>
 							<div class="item">팁&노하우</div>
@@ -71,61 +71,70 @@
 			placeholder : '내용을 입력해주세요',
 			tabsize : 2,
 			height : 500,
-			callbacks: {
-				onImageUpload: function(files, editor, welEditable) {
-		            for (var i = files.length - 1; i >= 0; i--) {
-		            	sendFile(files[i], this);
-		            }
-		        }
+			callbacks : {
+				onImageUpload : function(files, editor, welEditable) {
+					for (var i = files.length - 1; i >= 0; i--) {
+						sendFile(files[i], this);
+					}
+				}
 			}
 		});
 	});
-	
-	
+
 	function sendFile(file, el) {
 		var form_data = new FormData();
-      	form_data.append('file', file);
-      	$.ajax({
-        	data: form_data,
-        	type: "POST",
-        	url: './profileImage.mpf',
-        	cache: false,
-        	contentType: false,
-        	enctype: 'multipart/form-data',
-        	processData: false,
-        	success: function(img_name) {
-          		$(el).summernote('editor.insertImage', img_name);
-        	}
-      	});
-    }
-	
-	
-	
+		form_data.append('file', file);
+		$.ajax({
+			data : form_data,
+			type : "POST",
+			url : './profileImage.mpf',
+			cache : false,
+			contentType : false,
+			enctype : 'multipart/form-data',
+			processData : false,
+			success : function(img_name) {
+				$(el).summernote('editor.insertImage', img_name);
+			}
+		});
+	}
+
 	$('.ui.dropdown').dropdown({
 		allowAdditions : true,
 		allowCategorySelection : true
 	});
 
+	// 카테고리 선택
+	var $category;
+	$('.select > .item').click(function() {
+		$category = $(this).text();
+	});
+
 	function register() {
 
-		var title = $('#title').val();
-		var content = $('#summernote').summernote('code');
-
-		/* 	$.ajax({
-		 url : '/noticeRegisterData.diet',
-		 type : 'post',
-		 data : {'title' : title, 'content' : content},
-
-		 success : function(data){
-		 if(data == 'success'){
-		 alert('공지등록 완료');
-		 location.href="/admin.diet"
-		 }
-		 }, 
-		 error : function(){
-		 alert('공지등록 실패');
-		 }
-		 }); */
+		var $title = $('#title').val();
+		var $content = $('#summernote').summernote('code');
+		if ($category != null) {
+			$.ajax({
+				url : '/communityPostRegist.diet',
+				type : 'post',
+				data : {
+					'title' : $title,
+					'content' : $content,
+					'category' : $category
+				},
+				success : function(data) {
+					if (data == 'success') {
+						alert('공지등록 완료');
+						location.href = "/admin.diet"
+					}
+				},
+				error : function() {
+					alert('공지등록 실패');
+				}
+			});
+		}else{
+			alert('카테고리를 선택하여주세요.');
+		}
 	}
 </script>
 

@@ -16,8 +16,6 @@ public interface RedirectController {
 
 	String redirectBMICal();
 
-	String redirectBulletinBoard();
-
 	String redirectSecession();
 
 	String redirectMyPoint();
@@ -30,21 +28,13 @@ public interface RedirectController {
 
 	String redirectMyWishList();
 
-	String redirectBeforeAfterBoard();
-
 	String redirectHomeTraining();
 
 	String redirectHomeTrainingInfo();
 
 	String redirectMyDiary();
-  
-	String redirectDietTipList();
-  
-	String redirectWorryNQnABoard();
-  
-	String redirectTipKnowhowBoard();
 
-	String redirectPostedCommunity();
+	String redirectDietTipList();
 
 	String redirectRegistCommunity();
 
@@ -53,5 +43,7 @@ public interface RedirectController {
 	String redirectFoodCalorieInfo();
 
 	String redirectSportsCalorieInfo();
+  
+	String redirectSignup();
 
 }

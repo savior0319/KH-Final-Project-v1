@@ -4,10 +4,20 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.BoardPostVO;
+
 public interface CommunityDAO {
 
-	static List allCommunityList(SqlSessionTemplate sqlSessionTemplate) {
-		return sqlSessionTemplate.selectList("community.allCommunityList");
-	}
+	List allCommunityList(SqlSessionTemplate sqlSessionTemplate);
+
+	int registCommunity(SqlSessionTemplate sqlSessionTemplate, BoardPostVO bpv);
+
+	List beforeAfterList(SqlSessionTemplate sqlSessionTemplate);
+
+	List bulletinBoardList(SqlSessionTemplate sqlSessionTemplate);
+
+	List tipKnowhowBoardList(SqlSessionTemplate sqlSessionTemplate);
+
+	List worryNQnABoardList(SqlSessionTemplate sqlSessionTemplate);
 
 }

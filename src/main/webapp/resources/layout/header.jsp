@@ -23,7 +23,9 @@
 			<span class="menu">
 				<a href="/login.diet">로그인</a>
 			</span>
-			<span class="menu">회원가입</span>
+			<span class="menu">
+				<a href="/signup.diet">회원가입</a>
+			</span>
 		</c:if>
 		<c:if test ="${sessionScope.member!=null }">
 			<span class="menu">
@@ -56,7 +58,7 @@
 				다이어트꿀팁 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="/dietTipList.diet?type=all">전체</a>
+				<a class="item" href="/dietTipList.diet?type= ">전체</a>
 				<a class="item" href="/dietTipList.diet?type=column">칼럼</a>
 				<a class="item" href="#">운동</a>
 				<a class="item" href="#">식단</a>

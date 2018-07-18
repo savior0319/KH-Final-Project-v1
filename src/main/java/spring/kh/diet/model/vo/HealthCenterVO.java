@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HealthCenterVO {
-	private String hcLoaction, hcAddress, hcPhone, hcLatitude, hcLongitude, hcType;
+	private String hcLocation, hcAddress, hcPhone, hcLatitude, hcLongitude, hcType;
 }

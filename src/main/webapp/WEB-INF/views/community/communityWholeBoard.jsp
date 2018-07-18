@@ -60,102 +60,12 @@
 						<td>${c.bcaName}</td>
 						<td><a class="item" href="/postedCommunity.diet">${c.postTitle}</a></td>
 						<td><img class="ui avatar image"
-							src="${c.postImage}"> ${c.postMbNickName}</td>
+							src="${c.postImage}">닉네임</td>
 						<td>${c.postHit}</td>
 						<td>${c.postDateTime}</td>
 					</tr>
 				</c:forEach>
 				
-					<tr align="center" style="height: 50px;">
-						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은
-								27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image"
-							src="/resources/image/mainPic.jpg"> ssomsomii</td>
-						<td>212,192</td>
-						<td>2015.07.08</td>
-					</tr>
-					<tr align="center" style="height: 50px;">
-						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은
-								27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image"
-							src="/resources/image/mainPic.jpg"> ssomsomii</td>
-						<td>212,192</td>
-						<td>2015.07.08</td>
-					</tr>
-					<tr align="center" style="height: 50px;">
-						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은
-								27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image"
-							src="/resources/image/mainPic.jpg"> ssomsomii</td>
-						<td>212,192</td>
-						<td>2015.07.08</td>
-					</tr>
-					<tr align="center" style="height: 50px;">
-						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은
-								27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image"
-							src="/resources/image/mainPic.jpg"> ssomsomii</td>
-						<td>212,192</td>
-						<td>2015.07.08</td>
-					</tr>
-					<tr align="center" style="height: 50px;">
-						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은
-								27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image"
-							src="/resources/image/mainPic.jpg"> ssomsomii</td>
-						<td>212,192</td>
-						<td>2015.07.08</td>
-					</tr>
-					<tr align="center" style="height: 50px;">
-						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은
-								27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image"
-							src="/resources/image/mainPic.jpg"> ssomsomii</td>
-						<td>212,192</td>
-						<td>2015.07.08</td>
-					</tr>
-					<tr align="center" style="height: 50px;">
-						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은
-								27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image"
-							src="/resources/image/mainPic.jpg"> ssomsomii</td>
-						<td>212,192</td>
-						<td>2015.07.08</td>
-					</tr>
-					<tr align="center" style="height: 50px;">
-						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은
-								27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image"
-							src="/resources/image/mainPic.jpg"> ssomsomii</td>
-						<td>212,192</td>
-						<td>2015.07.08</td>
-					</tr>
-					<tr align="center" style="height: 50px;">
-						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은
-								27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image"
-							src="/resources/image/mainPic.jpg"> ssomsomii</td>
-						<td>212,192</td>
-						<td>2015.07.08</td>
-					</tr>
-					<tr align="center" style="height: 50px;">
-						<td>[자유게시판]</td>
-						<td><a class="item" href="/postedCommunity.diet">체지방은
-								27에서 19로 내려왔는데 몸무게는.. </a></td>
-						<td><img class="ui avatar image"
-							src="/resources/image/mainPic.jpg"> ssomsomii</td>
-						<td>212,192</td>
-						<td>2015.07.08</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -170,10 +80,10 @@
 				<div class="column">
 					<div class="ui center aligned basic segment">
 						<div class="ui pagination menu">
-							<a class="icon item"> <i class="left chevron icon disabled"></i>
+							<a class="icon item"> <i class="left chevron icon disabled" id="prevIcon"></i>
 							</a> <a class="item active"> 1 </a> <a class="item"> 2 </a> <a
-								class="item"> 3 </a> <a class="item"> 4 </a> <a
-								class="icon item"> <i class="right chevron icon"></i>
+								class="item"> 3 </a> <a class="item"> 4 </a> <a class="item"> 5 </a><a
+								class="icon item"> <i class="right chevron icon" id="nextIcon"></i>
 							</a>
 
 						</div>

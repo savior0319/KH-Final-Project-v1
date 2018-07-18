@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardPostVo {
-	private String postTitle, postContent, bcaName, postMbNickName, postImage;
+public class BoardPostVO {
+	private String postTitle, postContent, bcaName, postImage;
 	private int postIndex, brdIndex, mbIndex, postComCount, postHit, postLike;
 	private Timestamp postDateTime;
 }

@@ -47,6 +47,13 @@ public class RedirectControllerImpl implements RedirectController {
 		return "login/login";
 	}
 
+	/* 회원가입 */
+	@Override
+	@RequestMapping(value = "/signup.diet")
+	public String redirectSignup() {
+		return "login/signup";
+	}
+
 	/* 마이페이지 - 회원 정보 */
 	@Override
 	@RequestMapping(value = "/myInfo.diet")
@@ -96,13 +103,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myOneToOneQuestion";
 	}
 
-	/* 마이페이지 - 찜한 상품 */
-	@Override
-	@RequestMapping(value = "/myWishList.diet")
-	public String redirectMyWishList() {
-		return "myInfo/myWishList";
-	}
-
 	/* 홈트레이닝 - 목록 */
 	@Override
 	@RequestMapping(value = "/homeTrainingList.diet")
@@ -131,42 +131,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "dietTip/dietTipList";
 	}
 
-	/* 커뮤니티 - 자유게시판 */
-	@Override
-	@RequestMapping(value = "/bulletinBoard.diet")
-	public String redirectBulletinBoard() {
-		return "community/bulletinBoard";
-	}
-
-	/* 커뮤니티 - 비포&애프터 */
-	@Override
-	@RequestMapping(value = "/beforeAfterBoard.diet")
-	public String redirectBeforeAfterBoard() {
-		return "community/beforeAfterBoard";
-	}
-
-	/* 커뮤니티 - 고민&질문 */
-	@Override
-	@RequestMapping(value = "/worryNQnABoard.diet")
-	public String redirectWorryNQnABoard() {
-		return "community/worryNQnABoard";
-	}
-
-	/* 커뮤니티 - 팁&노하우 */
-	@Override
-	@RequestMapping(value = "/tipKnowhowBoard.diet")
-	public String redirectTipKnowhowBoard() {
-		return "community/tipKnowhowBoard";
-	}
-
-
-	/* 커뮤니티 - 글등록된 페이지 */
-	@Override
-	@RequestMapping(value = "/postedCommunity.diet")
-	public String redirectPostedCommunity() {
-		return "community/postedCommunity";
-	}
-
 	/* 커뮤니티 - 글등록할 페이지 */
 	@Override
 	@RequestMapping(value = "/registCommunity.diet")
@@ -180,12 +144,14 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectRecipeBoard() {
 		return "community/recipeBoard";
 	}
-	/* 음식칼로리 - 세부정보 */
+
+	/* 칼로리 -푸드칼로리 */
 	@Override
 	@RequestMapping(value = "/foodCalorieInfo.diet")
 	public String redirectFoodCalorieInfo() {
 		return "calorieDic/foodCalorieInfo";
 	}
+  
 	/* 운동칼로리 - 세부정보 */
 	@Override
 	@RequestMapping(value = "/sportsCalorieInfo.diet")
