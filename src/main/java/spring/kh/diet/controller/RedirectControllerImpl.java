@@ -159,12 +159,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "community/tipKnowhowBoard";
 	}
 
-	/* 커뮤니티 - 전체페이지 */
-	@Override
-	@RequestMapping(value = "/communityWholeBoard.diet")
-	public String redirectCommunityWholeBoard() {
-		return "community/communityWholeBoard";
-	}
 
 	/* 커뮤니티 - 글등록된 페이지 */
 	@Override
