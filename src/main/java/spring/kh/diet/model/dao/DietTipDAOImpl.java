@@ -16,7 +16,7 @@ public class DietTipDAOImpl implements DietTipDAO{
 	@Override
 	public ArrayList<DietTipVO> selectAllDietTip(SqlSessionTemplate session, int currentPage, int recordCountPerPage) {
 		DietTipPageDataVO dtpd = new DietTipPageDataVO();
-		
+		//System.out.println(dt);
 		dtpd.setStart((currentPage-1)*recordCountPerPage+1);
 		dtpd.setEnd(currentPage*recordCountPerPage);
 		
@@ -77,7 +77,7 @@ public class DietTipDAOImpl implements DietTipDAO{
 		{
 			if(i==currentPage)
 			{
-				sb.append("<a class='active item' href='/dietTipList.diet?currentPage="+i+"'>  "+i+" </a>");
+				sb.append("<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/dietTipList.diet?currentPage="+i+"'><strong>"+i+"</strong></a>");
 			}
 			else
 			{

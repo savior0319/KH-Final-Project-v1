@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DietTipVO {
-	private String dtTitle, dtMainPhoto, dtExplain;
-	private int dtIndex, dtNo, dtType, dtWriterNo, dtHits, dtSee;
+	private String dtTitle, dtMainPhoto, dtExplain, dtSammary;
+	private int dtIndex, dtNo, dtType, dtWriterNo, dtLike, dtSee;
 	private Date dtDate;
 	
 	

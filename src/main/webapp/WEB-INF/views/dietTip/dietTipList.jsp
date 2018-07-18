@@ -23,8 +23,8 @@
 		<div class="ui center aligned basic segment">
 			<img src="/resources/image/mainPic.jpg" style="width: 90%;">
 		</div>
-		<div class="ui celled grid">
-			<div class="row" id="main_title" style="padding-bottom: 20px; border-bottom: 3px solid black">
+		<div class="ui celled grid" style="box-shadow: 0 0 0 0px #d4d4d5;">
+			<div class="row" id="main_title" style="padding-bottom: 10px; padding-top: 10px; border-bottom: 3px solid black">
 				<div class="ui large header">
 					다이어트꿀팁
 					<c:choose>
@@ -36,13 +36,13 @@
 
 			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
 
-				<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
+				<div class="row" style="padding-top: 20px; padding-bottom: 20px; cursor:pointer;" onclick="goInfo(${dt.dtIndex});">
 					<div class="four wide column">
 						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%;">
 					</div>
 					<div class="twelve wide column">
 						<strong>${dt.dtTitle }</strong>
-						<div style="width: 100%; height: 50px; overflow: hidden; text-overflow: ellipsis;">${dt.dtExplain }</div>
+						<div style="width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent:5px;">${dt.dtSammary }</div>
 						<div class="ui grid">
 							<div class="four wide column">
 								<i class="clock outline icon"></i> ${dt.dtDate }
@@ -89,7 +89,24 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	
+	function goInfo(me){
+		location.href="/dietTipInfo.diet?indexNo="+me.value;
+	}
 </script>
+
+<!-- 
+<script>
+	$(document)
+			.ready(
+					function() {
+						var val = $('.sammary>p>span');
+						for (var i = 0; i < val.length; i++) {
+							console.log(val[i].innerHTML);
+							document.getElementsByName('sammary')[i].innerHTML = val[i].innerHTML;
+						}
+					});
+</script>
+ -->
+
 
 </html>
