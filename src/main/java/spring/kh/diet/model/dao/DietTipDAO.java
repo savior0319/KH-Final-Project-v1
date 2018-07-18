@@ -9,10 +9,11 @@ import spring.kh.diet.model.vo.DietTipVO;
 
 public interface DietTipDAO {
 
-	ArrayList<DietTipVO> selectAllDietTip(SqlSessionTemplate session, int currentPage, int recordCountPerPage);
+	ArrayList<DietTipVO> selectAllDietTip(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			String type);
 
-	String getDietTipPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
-			int naviCountPerPage);
+	String getDietTipPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage, int naviCountPerPage,
+			String type);
 
-
+	DietTipVO getDietTip(SqlSessionTemplate session, int index);
 }
