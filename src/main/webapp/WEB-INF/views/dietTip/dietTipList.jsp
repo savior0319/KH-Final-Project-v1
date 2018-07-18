@@ -36,11 +36,11 @@
 
 			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
 
-				<div class="row" style="padding-top: 20px; padding-bottom: 20px; cursor:pointer;" onclick="goInfo(${dt.dtIndex});">
+				<div class="row" style="padding-top: 20px; padding-bottom: 20px;" onclick="goInfo(${dt.dtIndex});">
 					<div class="four wide column">
-						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%;">
+						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor:pointer;" onclick="goInfo(${dt.dtIndex});">
 					</div>
-					<div class="twelve wide column">
+					<div class="twelve wide column" style="cursor:pointer;">
 						<strong>${dt.dtTitle }</strong>
 						<div style="width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent:5px;">${dt.dtSammary }</div>
 						<div class="ui grid">
@@ -90,7 +90,7 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 	function goInfo(me){
-		location.href="/dietTipInfo.diet?indexNo="+me.value;
+		location.href="/dietTipInfo.diet?indexNo="+me;
 	}
 </script>
 

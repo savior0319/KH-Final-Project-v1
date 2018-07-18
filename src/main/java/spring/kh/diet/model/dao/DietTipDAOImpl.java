@@ -14,12 +14,13 @@ import spring.kh.diet.model.vo.DietTipVO;
 public class DietTipDAOImpl implements DietTipDAO {
 
 	@Override
-	public ArrayList<DietTipVO> selectAllDietTip(SqlSessionTemplate session, int currentPage, int recordCountPerPage) {
+	public ArrayList<DietTipVO> selectAllDietTip(SqlSessionTemplate session, int currentPage, int recordCountPerPage, String type) {
 		DietTipPageDataVO dtpd = new DietTipPageDataVO();
 
 		//System.out.println(dt);
 		dtpd.setStart((currentPage-1)*recordCountPerPage+1);
 		dtpd.setEnd(currentPage*recordCountPerPage);
+		dtpd.setType(type);
 		
 		List<DietTipVO> list = session.selectList("dietTip.getList", dtpd);
 		
@@ -30,7 +31,7 @@ public class DietTipDAOImpl implements DietTipDAO {
 
 	@Override
 	public String getDietTipPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
-			int naviCountPerPage) {
+			int naviCountPerPage, String type) {
 
 		int recordTotalCount = session.selectOne("dietTip.getNavi");
 
@@ -69,26 +70,32 @@ public class DietTipDAOImpl implements DietTipDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/dietTipList.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+			sb.append("<a class='item' href='/dietTipList.diet?type=" + type + "&currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
     
 		for(int i=startNavi;i<=endNavi;i++)
 		{
 			if(i==currentPage)
 			{
-				sb.append("<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/dietTipList.diet?currentPage="+i+"'><strong>"+i+"</strong></a>");
+				sb.append("<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/dietTipList.diet?type=" + type + "&currentPage="+i+"'><strong>"+i+"</strong></a>");
 			}
 			else
 			{
-				sb.append("<a class='item' href='/dietTipList.diet?currentPage="+i+"'> "+i+" </a>");
+				sb.append("<a class='item' href='/dietTipList.diet?type=" + type + "&currentPage="+i+"'> "+i+" </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/dietTipList.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			sb.append("<a class='item' href='/dietTipList.diet?type=" + type + "&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
 
 		return sb.toString();
+	}
+
+	@Override
+	public DietTipVO getDietTip(SqlSessionTemplate session, int indexNo) {
+		DietTipVO dt = session.selectOne("dietTip.getOne", indexNo);
+		return dt;
 	}
 
 }

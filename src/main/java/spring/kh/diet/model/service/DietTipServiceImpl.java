@@ -22,20 +22,28 @@ public class DietTipServiceImpl implements DietTipService {
 	private SqlSessionTemplate session;
 
 	@Override
-	public DietTipPageDataVO getDietTipList(int currentPage) {
+	public DietTipPageDataVO getDietTipList(int currentPage, String type) {
 		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 
 		DietTipPageDataVO dtpd = new DietTipPageDataVO();
 
-		ArrayList<DietTipVO> list = dietTipDAO.selectAllDietTip(session, currentPage, recordCountPerPage);
+		ArrayList<DietTipVO> list = dietTipDAO.selectAllDietTip(session, currentPage, recordCountPerPage, type);
 
-		String pageNavi = dietTipDAO.getDietTipPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage);
+		String pageNavi = dietTipDAO.getDietTipPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage, type);
 
 		dtpd.setDtList(list);
 		dtpd.setPageNavi(pageNavi);
 
 		return dtpd;
+	}
+
+	@Override
+	public DietTipVO getDietTip(int indexNo) {
+		
+		DietTipVO dt = dietTipDAO.getDietTip(session, indexNo);
+		
+		return dt;
 	}
 
 }
