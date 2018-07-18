@@ -1,5 +1,8 @@
 package spring.kh.diet.model.dao;
 
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = "communityDAO")
@@ -9,5 +12,8 @@ public class CommunityDAOImpl implements CommunityDAO{
 		
 	}
 	
-	
+	@Override
+	public List allCommunityList(SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("community.allCommunityList");
+	}
 }
