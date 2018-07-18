@@ -1,5 +1,7 @@
 package spring.kh.diet.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.MemberVO;
@@ -15,5 +17,9 @@ public interface MyInfoDAO {
 	
 	int updateMyInfo(SqlSessionTemplate sqlSessionTemplate,MemberVO memberVO);
 	
+	int deleteMyPicture(SqlSessionTemplate sqlSessionTemplate,String mbId);
+	
 	MemberVO selectOneMember(SqlSessionTemplate sqlSessionTemplate,MemberVO memberVO);
+	
+	ArrayList<QuestionVO> allMyOneToOneQuestion(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 }
