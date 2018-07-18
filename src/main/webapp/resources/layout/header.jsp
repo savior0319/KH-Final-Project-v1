@@ -23,7 +23,9 @@
 			<span class="menu">
 				<a href="/login.diet">로그인</a>
 			</span>
-			<span class="menu">회원가입</span>
+			<span class="menu">
+				<a href="/signup.diet">회원가입</a>
+			</span>
 		</c:if>
 		<c:if test ="${sessionScope.member!=null }">
 			<span class="menu">

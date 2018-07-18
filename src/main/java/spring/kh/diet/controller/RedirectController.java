@@ -30,17 +30,16 @@ public interface RedirectController {
 
 	String redirectMyWishList();
 
-
 	String redirectHomeTraining();
 
 	String redirectHomeTrainingInfo();
 
 	String redirectMyDiary();
-  
+
 	String redirectDietTipList();
-  
+
 	String redirectWorryNQnABoard();
-  
+
 	String redirectTipKnowhowBoard();
 
 	String redirectRegistCommunity();
@@ -48,5 +47,7 @@ public interface RedirectController {
 	String redirectRecipeBoard();
 
 	String redirectFoodCalorieInfo();
+
+	String redirectSignup();
 
 }
