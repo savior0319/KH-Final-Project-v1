@@ -26,11 +26,20 @@
 			   </tr>
 			  </thead>
 			  <tbody>
+			
 			    <tr>
 			      <td style="width:25%; padding-left:95px;">일대일 문의유형</td>
 			      <td style="width:50%; padding-left:150px;"><a href="#">일대일 문의 제목을 가져와요~!</a></td>
 			      <td style="width:25%; padding-left:40px;">2018년 00월 00일 </td>
 			    </tr>
+			
+			    <c:forEach var="item" items="${list}">
+			    <tr>
+			      <td style="width:25%; padding-left:95px;">${sessionScope.list}</td>
+			      <td style="width:50%; padding-left:150px;"><a href="#">${sessionScope.list}</a></td>
+			      <td style="width:25%; padding-left:40px;">${sessionScope.list}</td>
+			    </tr>
+			    </c:forEach>
 			  </tbody>
 		
 			</table>

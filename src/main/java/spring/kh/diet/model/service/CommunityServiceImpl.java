@@ -25,6 +25,14 @@ public class CommunityServiceImpl implements CommunityService {
 		List list = communityDAO.allCommunityList(SqlSessionTemplate);
 		return list;
 	}
+
+	@Override
+	public List beforeAfterList() {
+		List list = communityDAO.beforeAfterList(SqlSessionTemplate);
+		return list;
+	}
+
+
 	
 	@Override
 	public int registCommunity(BoardPostVO bpv) {

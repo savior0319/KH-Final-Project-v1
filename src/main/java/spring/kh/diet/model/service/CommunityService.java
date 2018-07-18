@@ -9,5 +9,6 @@ public interface CommunityService {
 	List allCommunityList();
 
 	int registCommunity(BoardPostVO bpv);
-
+  
+	List beforeAfterList();
 }

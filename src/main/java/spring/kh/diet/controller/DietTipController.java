@@ -4,4 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface DietTipController {
 	String getList(HttpServletRequest request);
+
+	String getInfo(HttpServletRequest request);
 }

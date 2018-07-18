@@ -24,4 +24,10 @@ public class CommunityDAOImpl implements CommunityDAO{
 		int result = sqlSessionTemplate.insert("community.registCommunity",bpv);
 		return result;
 	}
+
+	@Override
+	public List beforeAfterList(SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("community.beforeAfterList");
+	}
 }
+

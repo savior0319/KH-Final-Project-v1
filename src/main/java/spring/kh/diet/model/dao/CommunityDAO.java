@@ -12,6 +12,6 @@ public interface CommunityDAO {
 
 	int registCommunity(SqlSessionTemplate sqlSessionTemplate, BoardPostVO bpv);
 
-
+	List beforeAfterList(SqlSessionTemplate sqlSessionTemplate);
 
 }

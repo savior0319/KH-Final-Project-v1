@@ -90,79 +90,107 @@
   
   
    
-   <div class="ui comments">
-                <h3 class="ui dividing header" style="margin-top:8px"><i class="chevron red circle right icon">
-            
-        </i>댓글 쓰기</h3>
+   <div class="ui comments" style="max-width: 1220px;">
+         <h3 class="ui dividing header" style="margin-top: 8px">
+            <i class="chevron red circle right icon"> </i>댓글 쓰기
+         </h3>
 
 
-                <form class="ui reply form">
-                    <div class="field">
-                        <textarea style="resize:none;"></textarea>
-                    </div>
-                    <div class="ui labeled submit icon button" style="background-color:#fa2828; color:white;">
-                        <i class="icon edit"></i> Add Reply
-                    </div>
-                </form>
-
-                <div class="comment">
-                    <a class="avatar">
-                <img src="/images/avatar/small/matt.jpg">
-            </a>
-                    <div class="content" style="width:93%;">
-                        <a class="author" style="width:20%;">Matt</a>
-                        <div class="metadata" style="width:80%">
-                            <span class="date" style="width:30%; display:inline;">Today at 5:42PM</span>
-                            <div class="ui right aligned container" align="right" style="width:70%; float:right;"><button class="ui red basic tiny button" style="margin-right:10px;"><i class="thumbs up outline icon"></i>공감</button><button class="ui black basic tiny button"><i class="ban icon"></i>신고</button></div>
-                        </div>
-                        <div class="text">
-                            How artistic!
-                        </div>
-                        <div class="actions">
-                            <a class="reply">답글</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="comment">
-                    <a class="avatar">
-                <img src="/images/avatar/small/matt.jpg">
-            </a>
-                    <div class="content" style="width:93%;">
-                        <a class="author" style="width:20%;">Matt</a>
-                        <div class="metadata" style="width:80%">
-                            <span class="date" style="width:30%; display:inline;">Today at 5:42PM</span>
-                            <div class="ui right aligned container" align="right" style="width:70%; float:right;"><button class="ui red basic tiny button" style="margin-right:10px;"><i class="thumbs up outline icon"></i>공감</button><button class="ui black basic tiny button"><i class="ban icon"></i>신고</button></div>
-                        </div>
-                        <div class="text">
-                            How artistic!
-                        </div>
-                        <div class="actions">
-                            <a class="reply">답글</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="comment">
-                    <a class="avatar">
-                <img src="/images/avatar/small/matt.jpg">
-            </a>
-                    <div class="content" style="width:93%;">
-                        <a class="author" style="width:20%;">Matt</a>
-                        <div class="metadata" style="width:80%">
-                            <span class="date" style="width:30%; display:inline;">Today at 5:42PM</span>
-                            <div class="ui right aligned container" align="right" style="width:70%; float:right;"><button class="ui red basic tiny button" style="margin-right:10px;"><i class="thumbs up outline icon"></i>공감</button><button class="ui black basic tiny button"><i class="ban icon"></i>신고</button></div>
-                        </div>
-                        <div class="text">
-                            How artistic!
-                        </div>
-                        <div class="actions">
-                            <a class="reply">답글</a>
-                        </div>
-                    </div>
-                </div>
+         <form class="ui reply form">
+            <div class="field">
+               <textarea style="resize: none;"></textarea>
             </div>
-   
-    </div>
+            <div class="ui right aligned container">
+               <div class="ui labeled submit icon button"
+                  style="background-color: #fa2828; color: white;">
+                  <i class="icon edit"></i> 등록
+               </div>
+            </div>
+         </form>
+         <br><br>
 
+         <div class="comment">
+            <a class="avatar"> <img src="/resources/image/mainPic.jpg" style="width: 40px; height: 40px; border-radius: 25px;">
+            </a>
+            <div class="content" style="width: 93%;">
+               <a class="author" style="position: absolute; width: 10%;">Matt</a>
+               <div class="metadata" style="width: 100%;">
+                  <span class="date"
+                     style="width: 30%; display: inline; margin-left: 10%;">Today
+                     at 5:42PM</span>
+                  <div class="ui right aligned container" align="right"
+                     style="width: 70%; float: right;">
+                     <button class="ui red basic tiny button"
+                        style="margin-right: 10px;">
+                        <i class="thumbs up outline icon"></i>공감
+                     </button>
+                     <button class="ui black basic tiny button">
+                        <i class="ban icon"></i>신고
+                     </button>
+                  </div>
+               </div>
+               <div class="text">How artistic!</div>
+            </div>
+         </div>
+         <br>
+         <hr style="border: 1px solid #F6F6F6">
+         <br>
+
+
+         <div class="comment">
+            <a class="avatar"> <img src="/resources/image/mainPic.jpg" style="width: 40px; height: 40px; border-radius: 25px;">
+            </a>
+            <div class="content" style="width: 93%;">
+               <a class="author" style="position: absolute; width: 10%;">Matt</a>
+               <div class="metadata" style="width: 100%;">
+                  <span class="date"
+                     style="width: 30%; display: inline; margin-left: 10%;">Today
+                     at 5:42PM</span>
+                  <div class="ui right aligned container" align="right"
+                     style="width: 70%; float: right;">
+                     <button class="ui red basic tiny button"
+                        style="margin-right: 10px;">
+                        <i class="thumbs up outline icon"></i>공감
+                     </button>
+                     <button class="ui black basic tiny button">
+                        <i class="ban icon"></i>신고
+                     </button>
+                  </div>
+               </div>
+               <div class="text">How artistic!</div>
+            </div>
+         </div>
+
+         <br>
+         <hr style="border: 1px solid #F6F6F6">
+         <br>
+
+         <div class="comment">
+            <a class="avatar"> <img src="/resources/image/logo.png" style="width: 40px; height: 40px; border-radius: 25px;">
+            </a>
+            <div class="content" style="width: 93%;">
+               <a class="author" style="position: absolute; width: 10%;">Matt</a>
+               <div class="metadata" style="width: 100%;">
+                  <span class="date"
+                     style="width: 30%; display: inline; margin-left: 10%;">Today
+                     at 5:42PM</span>
+                  <div class="ui right aligned container" align="right"
+                     style="width: 70%; float: right;">
+                     <button class="ui red basic tiny button"
+                        style="margin-right: 10px;">
+                        <i class="thumbs up outline icon"></i>공감
+                     </button>
+                     <button class="ui black basic tiny button">
+                        <i class="ban icon"></i>신고
+                     </button>
+                  </div>
+               </div>
+               <div class="text">How artistic!</div>
+            </div>
+         </div>
+
+
+      </div>
    </div>
 
 
