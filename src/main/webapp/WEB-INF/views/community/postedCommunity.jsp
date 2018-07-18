@@ -59,7 +59,7 @@
 						<span class="ui left aligned">
 							<a>
 								<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-								${list[0].postMbNickName}
+								닉네임
 							</a>
 						</span>
 					</span>

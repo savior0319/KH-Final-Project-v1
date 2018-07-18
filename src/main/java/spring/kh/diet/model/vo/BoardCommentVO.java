@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardCommentVO {
-	private String cmtMbNickName, cmtContent, mbImage;
+	private String cmtMbNickName, cmtContent;
 	private int cmtIndex, postIndex, mbIndex, cmtLike, cmtBlame;
 	private Timestamp cmtDateTime;
 }

@@ -16,8 +16,6 @@ public interface RedirectController {
 
 	String redirectBMICal();
 
-	String redirectBulletinBoard();
-
 	String redirectSecession();
 
 	String redirectMyPoint();
@@ -37,10 +35,6 @@ public interface RedirectController {
 	String redirectMyDiary();
 
 	String redirectDietTipList();
-
-	String redirectWorryNQnABoard();
-
-	String redirectTipKnowhowBoard();
 
 	String redirectRegistCommunity();
 

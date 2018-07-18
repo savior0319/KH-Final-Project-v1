@@ -2,44 +2,102 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="community">
 
-  	<select id="allCommunityList" parameterType="community" resultType="community">
-	select POST_INDEX as postIndex,
-	BRD_INDEX as brdIndex,
-	POST_TITLE as postTitle,
-	POST_CONTENT as postContent,
-	BCA_NAME as bcaName,
-	MB_INDEX as mbIndex,
-	POST_MB_NICKNAME as postMbNickName,
-	POST_DATETIME as postDateTime,
-	POST_COMMENT_COUNT as postComCount,
-	POST_HIT as postHit,
-	POST_LIKE as postLike,
-	POST_IMAGE as postImage,
-	MB_IMAGE as mbImage
-	from board_post_tbl
+<!-- 전체게시판 -->
+	<select id="allCommunityList" parameterType="community"
+		resultType="community">
+		select POST_INDEX as postIndex,
+		BRD_INDEX as brdIndex,
+		POST_TITLE as postTitle,
+		POST_CONTENT as postContent,
+		BCA_NAME as bcaName,
+		MB_INDEX as mbIndex,
+		POST_DATETIME as postDateTime,
+		POST_COMMENT_COUNT as postComCount,
+		POST_HIT as postHit,
+		POST_LIKE as postLike,
+		POST_IMAGE as postImage
+		from board_post_tbl
 	</select>
-	
+
 
 	<insert id="registCommunity" parameterType="community">
-	INSERT INTO BOARD_POST_TBL VALUES(BOARD_POST_TBL_SEQ.NEXTVAL,4,#{postTitle},#{postContent},#{bcaName},#{mbIndex},#{postMbNickName},SYSDATE,0,0,0,#{mbImage})
+		INSERT INTO BOARD_POST_TBL
+		VALUES(BOARD_POST_TBL_SEQ.NEXTVAL,4,#{postTitle},#{postContent},#{bcaName},#{mbIndex},#{postMbNickName},SYSDATE,0,0,0,#{mbImage})
 	</insert>
 
-	<select id="beforeAfterList" parameterType="community" resultType="community">
-	select POST_INDEX as postIndex,
-	BRD_INDEX as brdIndex,
-	POST_TITLE as postTitle,
-	POST_CONTENT as postContent,
-	BCA_NAME as bcaName,
-	MB_INDEX as mbIndex,
-	POST_MB_NICKNAME as postMbNickName,
-	POST_DATETIME as postDateTime,
-	POST_COMMENT_COUNT as postComCount,
-	POST_HIT as postHit,
-	POST_LIKE as postLike,
-	POST_IMAGE as postImage,
-	MB_IMAGE as mbImage
-	from board_post_tbl
-	where BCA_NAME like '비포'||'%'
+<!-- 비포&애프터 게시판 -->
+	<select id="beforeAfterList" parameterType="community"
+		resultType="community">
+		select POST_INDEX as postIndex,
+		BRD_INDEX as brdIndex,
+		POST_TITLE as postTitle,
+		POST_CONTENT as postContent,
+		BCA_NAME as bcaName,
+		MB_INDEX as mbIndex,
+		POST_DATETIME as postDateTime,
+		POST_COMMENT_COUNT as postComCount,
+		POST_HIT as postHit,
+		POST_LIKE as postLike,
+		POST_IMAGE as postImage
+		from board_post_tbl
+		where BCA_NAME like '비포'||'%'
 	</select>
-	
+
+<!-- 자유게시판 -->
+	<select id="bulletinBoardList" parameterType="community"
+		resultType="community">
+		select POST_INDEX as postIndex,
+		BRD_INDEX as brdIndex,
+		POST_TITLE as postTitle,
+		POST_CONTENT as postContent,
+		BCA_NAME as bcaName,
+		MB_INDEX as mbIndex,
+		POST_DATETIME as postDateTime,
+		POST_COMMENT_COUNT as postComCount,
+		POST_HIT as postHit,
+		POST_LIKE as postLike,
+		POST_IMAGE as postImage
+		from board_post_tbl
+		where BCA_NAME like '자유'||'%'
+	</select>
+
+
+<!-- 팁&노하우 -->
+	<select id="tipKnowhowBoardList" parameterType="community"
+		resultType="community">
+		select POST_INDEX as postIndex,
+		BRD_INDEX as brdIndex,
+		POST_TITLE as postTitle,
+		POST_CONTENT as postContent,
+		BCA_NAME as bcaName,
+		MB_INDEX as mbIndex,
+		POST_DATETIME as postDateTime,
+		POST_COMMENT_COUNT as postComCount,
+		POST_HIT as postHit,
+		POST_LIKE as postLike,
+		POST_IMAGE as postImage
+		from board_post_tbl
+		where BCA_NAME like '팁'||'%'
+	</select>
+
+
+<!-- 고민&질문 -->
+	<select id="worryNQnABoardList" parameterType="community"
+		resultType="community">
+		select POST_INDEX as postIndex,
+		BRD_INDEX as brdIndex,
+		POST_TITLE as postTitle,
+		POST_CONTENT as postContent,
+		BCA_NAME as bcaName,
+		MB_INDEX as mbIndex,
+		POST_DATETIME as postDateTime,
+		POST_COMMENT_COUNT as postComCount,
+		POST_HIT as postHit,
+		POST_LIKE as postLike,
+		POST_IMAGE as postImage
+		from board_post_tbl
+		where BCA_NAME like '고민'||'%'
+	</select>
+
+
 </mapper>

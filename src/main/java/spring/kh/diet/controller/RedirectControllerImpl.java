@@ -131,27 +131,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "dietTip/dietTipList";
 	}
 
-	/* 커뮤니티 - 자유게시판 */
-	@Override
-	@RequestMapping(value = "/bulletinBoard.diet")
-	public String redirectBulletinBoard() {
-		return "community/bulletinBoard";
-	}
-
-	/* 커뮤니티 - 고민&질문 */
-	@Override
-	@RequestMapping(value = "/worryNQnABoard.diet")
-	public String redirectWorryNQnABoard() {
-		return "community/worryNQnABoard";
-	}
-
-	/* 커뮤니티 - 팁&노하우 */
-	@Override
-	@RequestMapping(value = "/tipKnowhowBoard.diet")
-	public String redirectTipKnowhowBoard() {
-		return "community/tipKnowhowBoard";
-	}
-
 	/* 커뮤니티 - 글등록할 페이지 */
 	@Override
 	@RequestMapping(value = "/registCommunity.diet")
@@ -166,7 +145,7 @@ public class RedirectControllerImpl implements RedirectController {
 		return "community/recipeBoard";
 	}
 
-	/* 커뮤니티 - 레시피&식단 */
+	/* 칼로리 -푸드칼로리 */
 	@Override
 	@RequestMapping(value = "/foodCalorieInfo.diet")
 	public String redirectFoodCalorieInfo() {

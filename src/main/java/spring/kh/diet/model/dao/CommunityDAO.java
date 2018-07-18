@@ -14,4 +14,10 @@ public interface CommunityDAO {
 
 	List beforeAfterList(SqlSessionTemplate sqlSessionTemplate);
 
+	List bulletinBoardList(SqlSessionTemplate sqlSessionTemplate);
+
+	List tipKnowhowBoardList(SqlSessionTemplate sqlSessionTemplate);
+
+	List worryNQnABoardList(SqlSessionTemplate sqlSessionTemplate);
+
 }

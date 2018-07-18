@@ -28,6 +28,7 @@ public class CommunityControllerImpl  implements CommunityController{
 	}
 	
 	
+	//전체 게시판
 	@Override
 	@RequestMapping(value="/communityWholeBoard.diet")
 	public Object allCommunityList(HttpSession session) {
@@ -50,7 +51,8 @@ public class CommunityControllerImpl  implements CommunityController{
 		MemberVO mv = (MemberVO)session.getAttribute("member");
 		BoardPostVO bpv = new BoardPostVO();
 		
-		bpv.setPostMbNickName(mv.getMbNickName());
+		//준상오빠 수정하세요...... 
+		bpv.setMbIndex(mv.getMbIndex());
 		bpv.setMbIndex(0);
 
 		bpv.setPostTitle(title);
@@ -70,6 +72,7 @@ public class CommunityControllerImpl  implements CommunityController{
 	}
 	
 
+	//비포&애프터 게시판
 	@Override
 	@RequestMapping(value="/beforeAfterBoard.diet")
 	public Object beforeAfterList(HttpSession session) {
@@ -85,9 +88,55 @@ public class CommunityControllerImpl  implements CommunityController{
 		
 	}
 	
+
+	//자유 게시판
+	@Override
+	@RequestMapping(value="/bulletinBoard.diet")
+	public Object bulletinBoardList(HttpSession session) {
+		List list = communityService.bulletinBoardList();
+		ModelAndView view = new ModelAndView();
+		if(!list.isEmpty()) {
+			view.addObject("list",list);
+			view.setViewName("community/bulletinBoard");
+			return view;
+		}else {
+		return null;
+		}
+		
+	}
+	
+	//팁&노하우
+	@Override
+	@RequestMapping(value="/tipKnowhowBoard.diet")
+	public Object tipKnowhowBoardList(HttpSession session) {
+		List list = communityService.tipKnowhowBoardList();
+		ModelAndView view = new ModelAndView();
+		if(!list.isEmpty()) {
+			view.addObject("list",list);
+			view.setViewName("community/tipKnowhowBoard");
+			return view;
+		}else {
+		return null;
+		}
+		
+	}
 	
 	
-	
+	//고민&질문
+	@Override
+	@RequestMapping(value="/worryNQnABoard.diet")
+	public Object worryNQnABoardList(HttpSession session) {
+		List list = communityService.worryNQnABoardList();
+		ModelAndView view = new ModelAndView();
+		if(!list.isEmpty()) {
+			view.addObject("list",list);
+			view.setViewName("community/worryNQnABoard");
+			return view;
+		}else {
+		return null;
+		}
+		
+	}
 	
 	
 	@Override
