@@ -21,5 +21,7 @@ public interface MyInfoController {
 
 	Object allMyOneToOneQuestion(HttpSession session);
 
+	Object myWishList(HttpSession session);
+
 
 }

@@ -316,7 +316,6 @@ pageEncoding="UTF-8"%>
 
 <!-- FOOTER -->
 <jsp:include page="/resources/layout/footer.jsp"></jsp:include>
-
 </body>
 
 <!-- SCRIPT -->

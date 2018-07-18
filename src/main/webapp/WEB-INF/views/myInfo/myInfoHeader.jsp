@@ -17,7 +17,7 @@
 					<a class="item" href="/myActivityInfo.diet">내 활동 정보</a> 
 					<a class="item" href="/myPoint.diet">적립금</a> 
 					<a class="item" href="/myCoupon.diet">쿠폰</a> 
-					<a class="item" href="/myOneToOneQuestion.diet">1:1 문의</a>
+					<a class="item" href="/allMyOneToOneQuestion.diet">1:1 문의</a>
 					<a class="item" href="#">최근본상품</a>
 					<a class="item" href="/myWishList.diet">찜한상품</a> 
 					<a class="item" href="/myDiary.diet">나의다이어리</a> 

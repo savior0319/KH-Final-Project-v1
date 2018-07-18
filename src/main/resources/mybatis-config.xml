@@ -11,6 +11,7 @@
 		<typeAlias type="spring.kh.diet.model.vo.BoardPostVO" alias="community"/>
 		<typeAlias type="spring.kh.diet.model.vo.HealthCenterVO" alias="healthCenter"/>
 		<typeAlias type="spring.kh.diet.model.vo.HealthCenterPageDataVO" alias="healthCenterPage"/>
+		<typeAlias type="spring.kh.diet.model.vo.ProductVO" alias="product" />
 	</typeAliases>
 
 </configuration>

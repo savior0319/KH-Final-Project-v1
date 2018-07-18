@@ -103,13 +103,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myOneToOneQuestion";
 	}
 
-	/* 마이페이지 - 찜한 상품 */
-	@Override
-	@RequestMapping(value = "/myWishList.diet")
-	public String redirectMyWishList() {
-		return "myInfo/myWishList";
-	}
-
 	/* 홈트레이닝 - 목록 */
 	@Override
 	@RequestMapping(value = "/homeTrainingList.diet")
