@@ -180,11 +180,16 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectRecipeBoard() {
 		return "community/recipeBoard";
 	}
-	/* 커뮤니티 - 레시피&식단 */
+	/* 음식칼로리 - 세부정보 */
 	@Override
 	@RequestMapping(value = "/foodCalorieInfo.diet")
 	public String redirectFoodCalorieInfo() {
 		return "calorieDic/foodCalorieInfo";
 	}
-
+	/* 운동칼로리 - 세부정보 */
+	@Override
+	@RequestMapping(value = "/sportsCalorieInfo.diet")
+	public String redirectSportsCalorieInfo() {
+		return "calorieDic/sportsCalorieInfo";
+	}
 }

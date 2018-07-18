@@ -29,7 +29,7 @@
 			
 			<div class="ui secondary segment" >
 			<div class="ui right action left icon input">
-				<i class="search icon"></i> <input type="text" placeholder="Search" style="width:600px;">
+				<i class="search icon"></i> <input type="text" placeholder="검색어 입력" style="width:600px;">
 				<div class="ui basic floating dropdown button">
 					<div class="text">검색</div>
 				</div>

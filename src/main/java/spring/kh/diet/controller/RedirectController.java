@@ -52,4 +52,6 @@ public interface RedirectController {
 
 	String redirectFoodCalorieInfo();
 
+	String redirectSportsCalorieInfo();
+
 }
