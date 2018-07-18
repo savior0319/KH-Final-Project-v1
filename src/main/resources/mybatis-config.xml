@@ -9,6 +9,8 @@
 		<typeAlias type="spring.kh.diet.model.vo.DietTipVO" alias="dietTip"/>
 		<typeAlias type="spring.kh.diet.model.vo.DietTipPageDataVO" alias="dietTipPage"/>
 		<typeAlias type="spring.kh.diet.model.vo.BoardPostVO" alias="community"/>
+		<typeAlias type="spring.kh.diet.model.vo.HealthCenterVO" alias="healthCenter"/>
+		<typeAlias type="spring.kh.diet.model.vo.HealthCenterPageDataVO" alias="healthCenterPage"/>
 	</typeAliases>
 
 </configuration>

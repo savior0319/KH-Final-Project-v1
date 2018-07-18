@@ -12,27 +12,69 @@
 		$(document).ready(function() {
 
 
-			var bmiPoint = ${bmi.bmi}
+			var bmiPoint = ${bmi.bmi};
+			var bmigender = '${bmi.gender}';
 			var color;
 
 			if(18.5>= bmiPoint && bmiPoint >= 0){
 				color='lightgray';
 				$('#bmiMsg').html('저체중').css('color', 'red');
+
+				if(bmigender == '여자'){
+					$('#imageBody').html("<img src='/resources/image/body/W_Body1.png' height='120px;'>");
+				} else {
+					$('#imageBody').html("<img src='/resources/image/body/M_Body1.png' height='120px;'>");
+				} 
+
 			} else if(23> bmiPoint && bmiPoint > 18.5) {
 				color='green';
 				$('#bmiMsg').html('정상').css('color', 'green');
+
+				if(bmigender == '여자'){
+					$('#imageBody').html("<img src='/resources/image/body/W_Body2.png' height='120px;'>");
+				} else {
+					$('#imageBody').html("<img src='/resources/image/body/M_Body2.png' height='120px;'>");
+				} 
+
 			} else if(25> bmiPoint && bmiPoint >= 23){
 				color='orange';
 				$('#bmiMsg').html('비만 전단계').css('color', 'orange');
+
+				if(bmigender == '여자'){
+					$('#imageBody').html("<img src='/resources/image/body/W_Body3.png' height='120px;'>");
+				} else {
+					$('#imageBody').html("<img src='/resources/image/body/M_Body3.png' height='120px;'>");
+				} 
+
 			} else if(30> bmiPoint && bmiPoint >= 25){
 				color='red';
 				$('#bmiMsg').html('1단계 비만').css('color', 'red');
+
+				if(bmigender == '여자'){
+					$('#imageBody').html("<img src='/resources/image/body/W_Body4.png' height='120px;'>");
+				} else {
+					$('#imageBody').html("<img src='/resources/image/body/M_Body4.png' height='120px;'>");
+				} 
+
 			} else if(35> bmiPoint && bmiPoint >= 30){
 				color='red';
 				$('#bmiMsg').html('2단계 비만').css('color', 'red');
+
+				if(bmigender == '여자'){
+					$('#imageBody').html("<img src='/resources/image/body/W_Body5.png' height='120px;'>");
+				} else {
+					$('#imageBody').html("<img src='/resources/image/body/M_Body5.png' height='120px;'>");
+				} 
+
 			} else if(bmiPoint >= 35){
 				color='red';
 				$('#bmiMsg').html('3단계 비만').css('color', 'red');
+
+				if(bmigender == '여자'){
+					$('#imageBody').html("<img src='/resources/image/body/W_Body6.png' height='120px;'>");
+				} else {
+					$('#imageBody').html("<img src='/resources/image/body/M_Body6.png' height='120px;'>");
+				} 
 			}
 
 
@@ -112,6 +154,9 @@
 			<div class="ui center aligned basic segment">
 				<div id="barchart_values" style="width: 100%; height: 150px;"></div>
 			</div>
+			<div id="imageBody"></div>
+			<br>
+			<div class="ui gray message"><div class="ui medium header">당신의 BMI는 ${bmi.bmi}로 "<span id="bmiMsg"></span>"입니다</div></div>
 			<br>
 			<table class="ui celled table">
 				<thead>
@@ -134,7 +179,7 @@
 					</tr>
 				</thead>
 			</table>
-			<div class="ui gray message"><div class="ui medium header">당신의 BMI는 ${bmi.bmi}로 "<span id="bmiMsg"></span>"입니다</div></div>
+
 
 			<button type="button" class="ui blue button" onclick="back();">다시하기</button>
 		</div>

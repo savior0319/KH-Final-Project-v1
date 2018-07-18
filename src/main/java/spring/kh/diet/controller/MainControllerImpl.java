@@ -1,20 +1,26 @@
 package spring.kh.diet.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import spring.kh.diet.model.service.MainService;
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
-import spring.kh.diet.model.vo.HealthCenterVO;
+import spring.kh.diet.model.vo.HealthCenterPageDataVO;
 
 @Controller
 public class MainControllerImpl implements MainController {
+
+	@Resource
+	private MainService mService;
 
 	public MainControllerImpl() {
 	}
@@ -170,15 +176,24 @@ public class MainControllerImpl implements MainController {
 		return view;
 
 	}
-	
+
 	/* 메인 페이지 - 인바디 보건소 */
 	@Override
 	@RequestMapping(value = "/healthCenter.diet")
-	public String RedirectHealthCenter() {
-		
-//		ArrayList<HealthCenterVO> aList =
-		
-		
+	public String RedirectHealthCenter(HttpServletRequest request) {
+
+		int currentPage;
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		HealthCenterPageDataVO hcData = mService.getHealthCenterList(currentPage);
+		hcData.setType(request.getParameter("type"));
+		request.setAttribute("hcpd", hcData);
 		return "main/healthCenter";
+
 	}
 }
