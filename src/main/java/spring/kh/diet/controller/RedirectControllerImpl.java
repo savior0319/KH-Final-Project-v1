@@ -103,14 +103,14 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myWishList";
 	}
 
-	/* 홈트레이닝 - 전신 */
+	/* 홈트레이닝 - 목록 */
 	@Override
 	@RequestMapping(value = "/homeTrainingList.diet")
 	public String redirectHomeTraining() {
 		return "homeTraining/homeTrainingList";
 	}
 
-	/* 홈트레이닝 - 전신 */
+	/* 홈트레이닝 - 상세정보 */
 	@Override
 	@RequestMapping(value = "/homeTrainingInfo.diet")
 	public String redirectHomeTrainingInfo() {
@@ -167,6 +167,12 @@ public class RedirectControllerImpl implements RedirectController {
 	@RequestMapping(value = "/recipeBoard.diet")
 	public String redirectRecipeBoard() {
 		return "community/recipeBoard";
+	}
+	/* 커뮤니티 - 레시피&식단 */
+	@Override
+	@RequestMapping(value = "/foodCalorieInfo.diet")
+	public String redirectFoodCalorieInfo() {
+		return "calorieDic/foodCalorieInfo";
 	}
 
 }

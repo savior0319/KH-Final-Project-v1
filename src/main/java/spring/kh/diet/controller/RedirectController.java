@@ -47,4 +47,6 @@ public interface RedirectController {
 
 	String redirectRecipeBoard();
 
+	String redirectFoodCalorieInfo();
+
 }
