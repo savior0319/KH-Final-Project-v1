@@ -29,5 +29,23 @@ public class MyInfoServiceImpl implements MyInfoService {
 		int result = MyInfoDAO.secessionMember(SqlSessionTemplate, mv);
 		return result;
 	}
+	@Override
+	public int updateMyPicture(MemberVO mv) {
+	
+		return 0;
+	}
+	
+	@Override
+	public int updateMyInfo(MemberVO memberVO) {
+		int result = MyInfoDAO.updateMyInfo(SqlSessionTemplate,memberVO);
+		return result;
+	}
+	@Override
+	public MemberVO selectOneMember(MemberVO memberVO) {
+		MemberVO mv = MyInfoDAO.selectOneMember(SqlSessionTemplate,memberVO);
+		return mv;
+	}
+
+
 
 }

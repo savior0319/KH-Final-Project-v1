@@ -9,5 +9,11 @@ public interface MyInfoService {
 
 	int secessionMember(MemberVO mv);
 
+	int updateMyPicture(MemberVO mv);
+
+	int updateMyInfo(MemberVO memberVO);
+
+	MemberVO selectOneMember(MemberVO memberVO);
+
 
 }
