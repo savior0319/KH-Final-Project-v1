@@ -72,7 +72,7 @@
 			</div>
 			<div class="menu">
 				<a class="item" href="/foodCalorieInfo.diet">음식칼로리</a>
-				<a class="item" href="#">운동칼로리</a>
+				<a class="item" href="/sportsCalorieInfo.diet">운동칼로리</a>
 			</div>
 		</div>
 

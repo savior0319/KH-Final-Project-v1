@@ -151,5 +151,11 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectFoodCalorieInfo() {
 		return "calorieDic/foodCalorieInfo";
 	}
-
+  
+	/* 운동칼로리 - 세부정보 */
+	@Override
+	@RequestMapping(value = "/sportsCalorieInfo.diet")
+	public String redirectSportsCalorieInfo() {
+		return "calorieDic/sportsCalorieInfo";
+	}
 }
