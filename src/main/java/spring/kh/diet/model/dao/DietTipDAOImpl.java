@@ -17,14 +17,15 @@ public class DietTipDAOImpl implements DietTipDAO {
 	public ArrayList<DietTipVO> selectAllDietTip(SqlSessionTemplate session, int currentPage, int recordCountPerPage) {
 		DietTipPageDataVO dtpd = new DietTipPageDataVO();
 
-		dtpd.setStart((currentPage - 1) * recordCountPerPage + 1);
-		dtpd.setEnd(currentPage * recordCountPerPage);
-
+		//System.out.println(dt);
+		dtpd.setStart((currentPage-1)*recordCountPerPage+1);
+		dtpd.setEnd(currentPage*recordCountPerPage);
+		
 		List<DietTipVO> list = session.selectList("dietTip.getList", dtpd);
-
-		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(list.get(0).getDtDate()));
-
-		return (ArrayList<DietTipVO>) list;
+		
+		//System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(list.get(0).getDtDate()));
+		
+		return (ArrayList<DietTipVO>)list;
 	}
 
 	@Override
@@ -70,12 +71,16 @@ public class DietTipDAOImpl implements DietTipDAO {
 		{
 			sb.append("<a class='item' href='/dietTipList.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
-
-		for (int i = startNavi; i <= endNavi; i++) {
-			if (i == currentPage) {
-				sb.append("<a class='active item' href='/dietTipList.diet?currentPage=" + i + "'>  " + i + " </a>");
-			} else {
-				sb.append("<a class='item' href='/dietTipList.diet?currentPage=" + i + "'> " + i + " </a>");
+    
+		for(int i=startNavi;i<=endNavi;i++)
+		{
+			if(i==currentPage)
+			{
+				sb.append("<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/dietTipList.diet?currentPage="+i+"'><strong>"+i+"</strong></a>");
+			}
+			else
+			{
+				sb.append("<a class='item' href='/dietTipList.diet?currentPage="+i+"'> "+i+" </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!

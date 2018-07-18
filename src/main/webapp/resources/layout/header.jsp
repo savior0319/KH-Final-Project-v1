@@ -56,7 +56,7 @@
 				다이어트꿀팁 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="/dietTipList.diet?type=all">전체</a>
+				<a class="item" href="/dietTipList.diet?type= ">전체</a>
 				<a class="item" href="/dietTipList.diet?type=column">칼럼</a>
 				<a class="item" href="#">운동</a>
 				<a class="item" href="#">식단</a>
