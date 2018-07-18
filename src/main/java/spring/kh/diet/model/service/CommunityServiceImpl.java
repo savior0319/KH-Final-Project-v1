@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.CommunityDAO;
+import spring.kh.diet.model.vo.BoardPostVO;
 
 @Service("communityService")
 public class CommunityServiceImpl implements CommunityService {
@@ -25,7 +26,11 @@ public class CommunityServiceImpl implements CommunityService {
 		return list;
 	}
 	
-	
+	@Override
+	public int registCommunity(BoardPostVO bpv) {
+		int result = communityDAO.registCommunity(SqlSessionTemplate, bpv);
+		return result;
+	}
 	
 	
 }

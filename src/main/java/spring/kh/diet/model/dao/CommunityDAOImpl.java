@@ -5,6 +5,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.BoardPostVO;
+
 @Repository(value = "communityDAO")
 public class CommunityDAOImpl implements CommunityDAO{
 
@@ -15,5 +17,11 @@ public class CommunityDAOImpl implements CommunityDAO{
 	@Override
 	public List allCommunityList(SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.selectList("community.allCommunityList");
+	}
+	
+	@Override
+	public int registCommunity(SqlSessionTemplate sqlSessionTemplate, BoardPostVO bpv) {
+		int result = sqlSessionTemplate.insert("community.registCommunity",bpv);
+		return result;
 	}
 }

@@ -18,5 +18,8 @@
 	from board_post_tbl
 	</select>
 	
+	<insert id="registCommunity" parameterType="community">
+	INSERT INTO BOARD_POST_TBL VALUES(BOARD_POST_TBL_SEQ.NEXTVAL,4,#{postTitle},#{postContent},#{bcaName},#{mbIndex},#{postMbNickName},SYSDATE,0,0,0,#{mbImage})
+	</insert>
 	
 </mapper>
