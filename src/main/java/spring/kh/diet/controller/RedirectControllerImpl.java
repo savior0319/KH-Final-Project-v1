@@ -138,12 +138,7 @@ public class RedirectControllerImpl implements RedirectController {
 		return "community/bulletinBoard";
 	}
 
-	/* 커뮤니티 - 비포&애프터 */
-	@Override
-	@RequestMapping(value = "/beforeAfterBoard.diet")
-	public String redirectBeforeAfterBoard() {
-		return "community/beforeAfterBoard";
-	}
+
 
 	/* 커뮤니티 - 고민&질문 */
 	@Override
@@ -159,13 +154,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "community/tipKnowhowBoard";
 	}
 
-
-	/* 커뮤니티 - 글등록된 페이지 */
-	@Override
-	@RequestMapping(value = "/postedCommunity.diet")
-	public String redirectPostedCommunity() {
-		return "community/postedCommunity";
-	}
 
 	/* 커뮤니티 - 글등록할 페이지 */
 	@Override

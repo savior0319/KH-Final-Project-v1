@@ -6,6 +6,10 @@ public interface CommunityController {
 
 	Object allCommunityList(HttpSession session);
 
+	Object postedCommunity(HttpSession session);
+
+	Object beforeAfterList(HttpSession session);
+
 	
 	
 }
