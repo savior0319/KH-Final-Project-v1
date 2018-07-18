@@ -25,7 +25,8 @@
 		</div>
 		<div class="ui celled grid">
 			<div class="row" id="main_title" style="padding-bottom: 20px; border-bottom: 3px solid black">
-				<div class="ui large header">다이어트꿀팁
+				<div class="ui large header">
+					다이어트꿀팁
 					<c:choose>
 						<c:when test="${requestScope.dtpd.type.equals('all') }"></c:when>
 						<c:when test="${requestScope.dtpd.type.equals('column') }">(칼럼)</c:when>
@@ -44,16 +45,13 @@
 						<div style="width: 100%; height: 50px; overflow: hidden; text-overflow: ellipsis;">${dt.dtExplain }</div>
 						<div class="ui grid">
 							<div class="four wide column">
-								<i class="clock outline icon"></i>
-								${dt.dtDate }
+								<i class="clock outline icon"></i> ${dt.dtDate }
 							</div>
 							<div class="four wide column">
-								<i class="eye icon"></i>
-								${dt.dtSee }
+								<i class="eye icon"></i> ${dt.dtSee }
 							</div>
 							<div class="four wide column">
-								<i class="comment icon"></i>
-								10
+								<i class="comment icon"></i> 10
 							</div>
 						</div>
 					</div>
@@ -75,8 +73,7 @@
 					<option selected="" value="articles">제목</option>
 					<option value="products">내용</option>
 					<option value="products">작성자</option>
-				</select>
-				<input type="text">
+				</select> <input type="text">
 				<div class="ui button">검색</div>
 			</div>
 

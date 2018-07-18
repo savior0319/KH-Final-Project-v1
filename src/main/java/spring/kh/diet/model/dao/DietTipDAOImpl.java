@@ -22,7 +22,7 @@ public class DietTipDAOImpl implements DietTipDAO{
 		
 		List<DietTipVO> list = session.selectList("dietTip.getList", dtpd);
 		
-		System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(list.get(0).getDtDate()));
+		//System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(list.get(0).getDtDate()));
 		
 		return (ArrayList<DietTipVO>)list;
 	}
