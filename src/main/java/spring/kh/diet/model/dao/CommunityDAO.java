@@ -8,6 +8,7 @@ public interface CommunityDAO {
 
 	List allCommunityList(SqlSessionTemplate sqlSessionTemplate);
 
+	List beforeAfterList(SqlSessionTemplate sqlSessionTemplate);
 
 
 }

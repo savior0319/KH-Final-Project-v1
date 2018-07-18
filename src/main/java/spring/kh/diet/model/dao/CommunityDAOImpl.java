@@ -16,4 +16,12 @@ public class CommunityDAOImpl implements CommunityDAO{
 	public List allCommunityList(SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.selectList("community.allCommunityList");
 	}
+
+	@Override
+	public List beforeAfterList(SqlSessionTemplate sqlSessionTemplate) {
+		return sqlSessionTemplate.selectList("community.beforeAfterList");
+	}
+
+
 }
+
