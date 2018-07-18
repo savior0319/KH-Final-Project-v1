@@ -1,5 +1,8 @@
 package spring.kh.diet.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -39,6 +42,18 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	public MemberVO selectOneMember(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO) {
 		MemberVO mv  = sqlSessionTemplate.selectOne("myInfo.selectOneMember", memberVO);
 		return mv;
+	}
+
+	@Override
+	public int deleteMyPicture(SqlSessionTemplate sqlSessionTemplate, String mbId) {
+		int result  = sqlSessionTemplate.delete("myInfo.deleteMyPicture", mbId);
+		return result;
+	}
+
+	@Override
+	public ArrayList<QuestionVO> allMyOneToOneQuestion(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		List<QuestionVO> list = sqlSessionTemplate.selectList("myInfo.allMyOneToOneQuestion", mv);
+		return (ArrayList<QuestionVO>)list;
 	}
 
 }

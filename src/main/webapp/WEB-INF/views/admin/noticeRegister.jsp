@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>다이어트</title>
-<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
-<script src="/resources/summernote/dist/summernote-lite.js"></script>
-<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+	<title>다이어트</title>
+	<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
+	<script src="/resources/summernote/dist/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 </head>
 </head>
 
@@ -59,8 +59,34 @@ body {
 			placeholder : '내용을 입력해주세요',
 			tabsize : 2,
 			height : 500,
+/*			callbacks: {
+				onImageUpload : function(files, editor, welEditable) {
+					for (var i = files.length - 1; i >= 0; i--) {
+						sendFile(files[i], this);
+					}
+				}
+			}*/
 		});
 	});
+
+/*	function sendFile(file, el) {
+		var form_data = new FormData();
+		form_data.append('file', file);
+		$.ajax({
+			data: form_data,
+			type: "POST",
+			url: '/imageUpload.diet',
+			cache: false,
+			contentType: false,
+			enctype: 'multipart/form-data',
+			processData: false,
+			success: function(url) {
+				alert('ajax');
+				$(el).summernote('editor.insertImage', url);
+				$('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
+			}
+		});
+	}*/
 
 	function register() {
 		var title = $('#title').val();

@@ -11,11 +11,12 @@ import spring.kh.diet.model.vo.DietTipPageDataVO;
 import spring.kh.diet.model.vo.DietTipVO;
 
 @Repository("dietTipDAO")
-public class DietTipDAOImpl implements DietTipDAO{
+public class DietTipDAOImpl implements DietTipDAO {
 
 	@Override
 	public ArrayList<DietTipVO> selectAllDietTip(SqlSessionTemplate session, int currentPage, int recordCountPerPage) {
 		DietTipPageDataVO dtpd = new DietTipPageDataVO();
+
 		//System.out.println(dt);
 		dtpd.setStart((currentPage-1)*recordCountPerPage+1);
 		dtpd.setEnd(currentPage*recordCountPerPage);
@@ -30,49 +31,47 @@ public class DietTipDAOImpl implements DietTipDAO{
 	@Override
 	public String getDietTipPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage) {
-		
+
 		int recordTotalCount = session.selectOne("dietTip.getNavi");
-		
-		int pageTotalCount = 0;	
-		if(recordTotalCount%recordCountPerPage != 0) {
+
+		int pageTotalCount = 0;
+		if (recordTotalCount % recordCountPerPage != 0) {
 			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
-		}else {
+		} else {
 			pageTotalCount = recordTotalCount / recordCountPerPage;
 		}
 
-		if(currentPage<1) {
-			currentPage=1;
-		}else if(currentPage>pageTotalCount) {
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
 			currentPage = pageTotalCount;
 		}
 
-		int startNavi = (((currentPage-1)/naviCountPerPage)*naviCountPerPage + 1);
-
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
 
 		int endNavi = startNavi + naviCountPerPage - 1;
 
-
-		if(endNavi>pageTotalCount) {
+		if (endNavi > pageTotalCount) {
 			endNavi = pageTotalCount;
 		}
 
 		boolean needPrev = true;
 		boolean needNext = true;
 
-		if(startNavi==1) {
+		if (startNavi == 1) {
 			needPrev = false;
 		}
-		if(endNavi==pageTotalCount) {
+		if (endNavi == pageTotalCount) {
 			needNext = false;
 		}
 
 		StringBuilder sb = new StringBuilder();
 
-		if(needPrev) //시작이 1페이지가 아니라면!
+		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/dietTipList.diet?currentPage="+(startNavi-1)+"'> &lt; </a>");
+			sb.append("<a class='item' href='/dietTipList.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
-		
+    
 		for(int i=startNavi;i<=endNavi;i++)
 		{
 			if(i==currentPage)
@@ -84,13 +83,12 @@ public class DietTipDAOImpl implements DietTipDAO{
 				sb.append("<a class='item' href='/dietTipList.diet?currentPage="+i+"'> "+i+" </a>");
 			}
 		}
-		if(needNext) // 끝 페이지가 아니라면!
+		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/dietTipList.diet?currentPage="+(endNavi+1)+"'> &gt; </a>");
+			sb.append("<a class='item' href='/dietTipList.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
-		
-		
+
 		return sb.toString();
 	}
-	
+
 }

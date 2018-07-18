@@ -1,5 +1,7 @@
 package spring.kh.diet.model.service;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -45,7 +47,15 @@ public class MyInfoServiceImpl implements MyInfoService {
 		MemberVO mv = MyInfoDAO.selectOneMember(SqlSessionTemplate,memberVO);
 		return mv;
 	}
-
-
+	@Override
+	public int deleteMyPicture(String mbId) {
+		int result = MyInfoDAO.deleteMyPicture(SqlSessionTemplate,mbId);
+		return result;
+	}
+	@Override
+	public ArrayList<QuestionVO> allMyOneToOneQuestion(MemberVO mv) {
+		ArrayList<QuestionVO> list = MyInfoDAO.allMyOneToOneQuestion(SqlSessionTemplate,mv);
+		return list;
+	}
 
 }

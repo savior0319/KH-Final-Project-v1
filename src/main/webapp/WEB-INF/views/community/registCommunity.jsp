@@ -39,11 +39,11 @@
 						<div class="text">카테고리</div>
 						<i class="dropdown icon"></i>
 						<div class="menu">
-							<div class="item">자유게시판</div>
-							<div class="item">레시피&식단</div>
-							<div class="item">팁&노하우</div>
-							<div class="item">고민&질문</div>
-							<div class="item">비포&에프터</div>
+							<div class="item">[자유게시판]</div>
+							<div class="item">[레시피&식단]</div>
+							<div class="item">[팁&노하우]</div>
+							<div class="item">[고민&질문]</div>
+							<div class="item">[비포&에프터]</div>
 						</div>
 					</div>
 					<input type="text" id="title" placeholder="제목을 입력해주세요" />

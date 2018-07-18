@@ -6,4 +6,7 @@ public interface CommunityService {
 
 	List allCommunityList();
 
+	List beforeAfterList();
+
+
 }

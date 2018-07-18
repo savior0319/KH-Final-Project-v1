@@ -170,10 +170,10 @@
 				<div class="column">
 					<div class="ui center aligned basic segment">
 						<div class="ui pagination menu">
-							<a class="icon item"> <i class="left chevron icon disabled"></i>
+							<a class="icon item"> <i class="left chevron icon disabled" id="prevIcon"></i>
 							</a> <a class="item active"> 1 </a> <a class="item"> 2 </a> <a
-								class="item"> 3 </a> <a class="item"> 4 </a> <a
-								class="icon item"> <i class="right chevron icon"></i>
+								class="item"> 3 </a> <a class="item"> 4 </a> <a class="item"> 5 </a><a
+								class="icon item"> <i class="right chevron icon" id="nextIcon"></i>
 							</a>
 
 						</div>
