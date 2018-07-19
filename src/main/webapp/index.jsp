@@ -12,6 +12,17 @@
 <style>
 </style>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.ajax({
+			url : 'createSession.diet',
+			type : 'post',
+			success : function(){
+				alert('ajax호출')
+			}
+		});
+	});		
+</script>
 
 <body>
 	<!-- HEADER -->
