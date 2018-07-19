@@ -28,7 +28,7 @@
 	<div class="ui container">
 		<div class="ui left aligned basic segment">
 			<div class="ui medium message">
-				<div class="ui large header" align="center">게시글 등록</div>
+				<div class="ui large header" align="center">게시글 수정</div>
 			</div>
 			<br>
 
@@ -54,7 +54,7 @@
 			<div id="summernote"></div>
 			<br>
 			<div align="center">
-				<button class="ui red basic button" onclick="register();">등록</button>
+				<button class="ui red basic button" onclick="register();">수정</button>
 			</div>
 		</div>
 	</div>

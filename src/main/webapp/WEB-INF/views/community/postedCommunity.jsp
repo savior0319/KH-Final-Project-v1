@@ -28,14 +28,31 @@
 		<br>
 		<br>
 
-		<!-- 상단 게시판 종류 -->
-		<h2 class="ui header">
-			<i class="comment icon"></i>
-			<div class="content">
-				자유게시판
-				<div class="sub header">Community</div>
+
+		<div class="ui grid">
+			<div class="four column row" style="padding-left: 20px;">
+				<!-- 상단 게시판 종류 -->
+
+				<h2 class="ui header">
+					<i class="comment icon"></i>
+					<div class="content">
+						자유게시판
+						<div class="sub header">Community</div>
+					</div>
+					<!-- 			<button class="ui left attached samll button" style="padding: 10px;">수정</button>
+			<button class="right attached ui samll button" style="padding: 10px;">삭제</button> -->
+				</h2>
+
+				<!-- 수정&삭제 버튼 -->
+				<span class="right floated column" style="padding-top: 15px; padding-left: 140px;">
+					<div class="ui buttons">
+						<button class="ui grey basic button" id="modifyBtn" style="padding-top: 10px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px;">수정</button>
+						<button class="ui red basic button" onclick="return deleteBtn();" type="submit" style="padding-top: 10px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px;">삭제</button>
+					</div>
+				</span>
 			</div>
-		</h2>
+		</div>
+
 
 		<hr style="border: 2px solid #D5D5D5;">
 		<br>
@@ -73,13 +90,13 @@
 						<!-- 뷰수 -->
 						<span class="ui right aligned">
 							<i class="eye icon"></i>
-							3211561
+							${list[0].postHit}
 						</span>
 						&nbsp;&nbsp;|&nbsp;&nbsp;
 						<!-- 댓글수 -->
 						<span class="ui right aligned">
 							<i class="pen square icon"></i>
-							85
+							${list[0].postComCount}
 						</span>
 					</span>
 				</div>
@@ -392,6 +409,24 @@
 	$('#listBtn').click(function() {
 		location.href = "/communityWholeBoard.diet";
 	});
+	
+	/* 수정하기 버튼 */
+	$('#modifyBtn').click(function(){
+		location.href = "/modifyCommunity.diet";
+	});
+	
+    /*삭제 확인*/
+    function deleteBtn(){
+      var check = window.confirm("정말 삭제하시겠습니까?");
+
+      if(check==true)
+      {
+        return check;
+      }else{
+        return false;
+      }
+    }
+	
 </script>
 
 </html>

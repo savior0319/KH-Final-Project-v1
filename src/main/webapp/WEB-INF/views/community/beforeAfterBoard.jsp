@@ -56,7 +56,30 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list}" var="c">
+				<c:forEach items="${requestScope.cpdv.comList}" var="c">
+						<tr align="center" style="height: 50px;">
+							<td>
+							<c:choose>
+							<c:when test="${requestScope.cpdv.type.equals('comAll') }">전체</c:when>
+							<c:when test="${requestScope.cpdv.type.equals('bullentin') }">자유게시판</c:when>
+							<c:when test="${requestScope.cpdv.type.equals('tip') }">팁&노하우</c:when>
+							<c:when test="${requestScope.cpdv.type.equals('worry') }">고민&질문</c:when>
+							<c:when test="${requestScope.cpdv.type.equals('beforeAfter') }">비포&애프터</c:when>
+							</c:choose>
+							
+							</td>
+							<td>
+								<a class="item" href="/postedCommunity.diet">${c.postTitle}</a>
+							</td>
+							<td>
+								<img class="ui avatar image" src="${c.postImage}">
+								닉네임
+							</td>
+							<td>${c.postHit}</td>
+							<td>${c.postDateTime}</td>
+						</tr>
+					</c:forEach>
+					<%-- <c:forEach items="${list}" var="c">
 						<tr align="center" style="height: 50px;">
 							<td>비포&애프터</td>
 							<td>
@@ -69,7 +92,7 @@
 							<td>${c.postHit}</td>
 							<td>${c.postDateTime}</td>
 						</tr>
-					</c:forEach>
+					</c:forEach> --%>
 				</tbody>
 			</table>
 		</div>
