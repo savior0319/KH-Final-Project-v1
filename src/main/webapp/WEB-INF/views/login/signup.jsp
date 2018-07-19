@@ -38,7 +38,7 @@
 								<th><span style="color:red; margin-left: 15px; font-size: 15px; margin-bottom: 0px; margin-top: 0px;">*</span> 계정(이메일 주소)</th>
 								<td>
 									<div class="ui form">
-										<input type="text" name="mbId" placeholder="이메일 주소입력">
+										<input type="text" name="mbId" placeholder="이메일 주소입력" required>
 									</div>
 								</td>
 							</tr>
@@ -46,7 +46,7 @@
 								<th><span style="color:red; margin-left: 15px; font-size: 15px; margin-bottom: 0px; margin-top: 0px;">*</span> 닉네임</th>
 								<td>
 									<div class="ui form">
-										<input type="text" name="mbNickName" placeholder="닉네임 입력">
+										<input type="text" name="mbNickName" placeholder="닉네임 입력" required>
 									</div>
 								</td>
 							</tr>
@@ -54,7 +54,7 @@
 								<th><span style="color:red; margin-left: 15px; font-size: 15px; margin-bottom: 0px; margin-top: 0px;">*</span> 비밀번호</th>
 								<td>
 									<div class="ui form">
-										<input type="password" name="mbPwd" id="pwd" placeholder="비밀번호 입력">
+										<input type="password" name="mbPwd" id="pwd" placeholder="비밀번호 입력" required>
 									</div>
 								</td>
 							</tr>
@@ -62,7 +62,7 @@
 								<th><span style="color:red; margin-left: 15px; font-size: 15px; margin-bottom: 0px; margin-top: 0px;">*</span> 비밀번호 재확인</th>
 								<td>
 									<div class="ui form">
-										<input type="password" id="pwdRe" placeholder="비밀번호 재확인 입력">
+										<input type="password" id="pwdRe" placeholder="비밀번호 재확인 입력" required>
 									</div>
 								</td>
 							</tr>
@@ -70,8 +70,8 @@
 								<th><span style="color:red; margin-left: 15px; font-size: 15px; margin-bottom: 0px; margin-top: 0px;">*</span> 성별</th>
 								<td>
 									<div class="ui form">
-										<input type="radio" name="gender" value="f" style="margin-left: 5px;"> 여자
-										<input type="radio" name="gender" value="m" style="margin-left: 15px;"> 남자 
+										<input type="radio" name="gender" value="f" style="margin-left: 5px;" required> 여자
+										<input type="radio" name="gender" value="m" style="margin-left: 15px;" required> 남자 
 									</div>
 								</td>
 							</tr>
@@ -93,7 +93,7 @@
 					<hr style="width: 70%;">
 					<div class="ui left aligned basic segment" style="padding-left: 15%; margin-top: 0px;">
 						<a href="#">이용약관</a> 및 <a href="#">개인정보 취급방침</a>에 동의합니다.(필수)
-						<input type="checkbox" id="term">
+						<input type="checkbox" id="term" required>
 					</div>
 					<button type="submit" class="ui red button">가입하기</button>
 					<button type="button" class="ui black button" onclick="back();">뒤로가기</button>
