@@ -4,7 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.MemberVO;
 
-public interface LoginDAO {
+public interface LoginLogoutDAO {
 
 	MemberVO findId(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 

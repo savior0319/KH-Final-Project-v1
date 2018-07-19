@@ -14,7 +14,6 @@
 		MB_AGE AS mbAge,
 		MB_PHONE AS mbPhone,
 		MB_ADDRESS AS mbAddress,
-		MB_HOBBY AS mbHobby,
 		MB_INTEREST AS mbInterest,
 		MB_GRADE AS mbGrade,
 		MB_HEIGHT AS mbHeight,
@@ -36,7 +35,6 @@
 		MB_AGE AS mbAge,
 		MB_PHONE AS mbPhone,
 		MB_ADDRESS AS mbAddress,
-		MB_HOBBY AS mbHobby,
 		MB_INTEREST AS mbInterest,
 		MB_GRADE AS mbGrade,
 		MB_HEIGHT AS mbHeight,
@@ -44,6 +42,8 @@
 		MB_ENROLLDATE AS mbEnrollDate
 		FROM MEMBER_TBL WHERE MB_PHONE = #{mbPhone} AND MB_NAME = #{mbName}
 	</select>
-<!-- 	<update id = "updatePassword" parameterType="member" >
-	</update> -->
+	<update id = "updatePassword" parameterType="member" >
+		UPDATE MEMBER_TBL SET MB_PWD = #{} WHERE MB_ID = #{}
+	</update>
+	
 </mapper>

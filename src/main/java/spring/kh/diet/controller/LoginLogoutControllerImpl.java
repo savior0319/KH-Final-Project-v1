@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import spring.kh.diet.model.service.LoginService;
+import spring.kh.diet.model.service.LoginLogoutService;
 import spring.kh.diet.model.vo.MemberVO;
 
 @Controller
 public class LoginLogoutControllerImpl implements LoginLogoutController {
 
 	@Resource(name = "loginService")
-	private LoginService loginService;
+	private LoginLogoutService loginService;
 
 	public LoginLogoutControllerImpl() {
 	}

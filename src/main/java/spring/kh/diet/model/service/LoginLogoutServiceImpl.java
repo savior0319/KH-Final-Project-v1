@@ -6,13 +6,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import spring.kh.diet.model.dao.LoginDAOImpl;
+import spring.kh.diet.model.dao.LoginLogoutDAOImpl;
 import spring.kh.diet.model.vo.MemberVO;
 
 @Service("loginService")
-public class LoginServiceImpl implements LoginService {
+public class LoginLogoutServiceImpl implements LoginLogoutService {
 	@Resource(name = "loginDAO")
-	private LoginDAOImpl loginDAO;
+	private LoginLogoutDAOImpl loginDAO;
 	
 	@Autowired
 	private SqlSessionTemplate SqlSessionTemplate;
@@ -32,7 +32,7 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public int updatePassword(MemberVO mv) {
 		int result = loginDAO.updatePassword(SqlSessionTemplate,mv);
-		return 0;
+		return result;
 	}
 
 

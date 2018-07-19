@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import spring.kh.diet.model.vo.MemberVO;
 
 @Repository("loginDAO")
-public class LoginDAOImpl implements LoginDAO {
+public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 
 	public MemberVO login(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
 		MemberVO m = sqlSessionTemplate.selectOne("login.login1", mv);
