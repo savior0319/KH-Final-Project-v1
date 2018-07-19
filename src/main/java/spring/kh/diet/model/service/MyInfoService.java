@@ -24,5 +24,7 @@ public interface MyInfoService {
 
 	ArrayList<ProductVO> myWishList(MemberVO mv);
 
+	int signupsave(MemberVO mv);
+
 
 }
