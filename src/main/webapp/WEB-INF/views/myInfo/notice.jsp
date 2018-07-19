@@ -22,19 +22,19 @@
    		<div class="container">
    			<table class="ui gray table">
 			  <thead>
-			    <tr>
-			    <th style="width:20%; padding-left:100px;">게시판</th>
-			    <th style="width:40%; padding-left:120px;">제목</th>
-			    <th style="width:20%; padding-left:40px;">조회수</th>
-			    <th style="width:20%; padding-left:60px;">작성일</th>
+			    <tr align="center">
+			    <th >게시판</th>
+			    <th >제목</th>
+			    <th >조회수</th>
+			    <th >작성일</th>
 			   </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <td style="width:20%; padding-left:80px;">게시판구분</td>
-			      <td style="width:40%; padding-left:80px;">게시물 제목 불러오기</td>
-			      <td style="width:20%; padding-left:50px;">1</td>
-			      <td style="width:20%; padding-left:40px;">2018년 00월 00일</td>
+			    <tr align="center">
+			      <td >게시판구분</td>
+			      <td ><a href="#">게시물 제목 불러오기</a></td>
+			      <td >조회수넣기</td>
+			      <td >등록날짜넣기</td>
 			    </tr>
 			  </tbody>
 			</table>

@@ -166,4 +166,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 			return view;
 		}
 	}
+	
+	/* 비밀번호 재설정 */ 
 }
