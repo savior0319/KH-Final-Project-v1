@@ -1,8 +1,5 @@
 package spring.kh.diet.model.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 

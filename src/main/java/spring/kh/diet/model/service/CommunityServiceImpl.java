@@ -1,7 +1,6 @@
 package spring.kh.diet.model.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Resource;
 

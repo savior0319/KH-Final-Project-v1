@@ -4,10 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -18,9 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.MyInfoService;
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.ProductVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
+@SuppressWarnings("all")
 @Controller
 public class MyInfoControllerImpl implements MyInfoController {
 
@@ -146,23 +142,19 @@ public class MyInfoControllerImpl implements MyInfoController {
 	}
 
 	/* 찜한 상품 */
-/*	@Override
-	@RequestMapping(value = "/myWishList.diet")
-	public Object myWishList(HttpSession session) {
-		MemberVO mv = (MemberVO) session.getAttribute("member");
-		ArrayList<ProductVO> list = myInfoService.myWishList(mv);
-		ModelAndView view = new ModelAndView();
-
-		if (!list.isEmpty()) {
-
-			view.addObject("list", list);
-			view.setViewName("myInfo/myWishList");
-			return view;
-		} else {
-			System.out.println("list값이 없음");
-			return view;
-		}
-	}*/
+	/*
+	 * @Override
+	 * 
+	 * @RequestMapping(value = "/myWishList.diet") public Object
+	 * myWishList(HttpSession session) { MemberVO mv = (MemberVO)
+	 * session.getAttribute("member"); ArrayList<ProductVO> list =
+	 * myInfoService.myWishList(mv); ModelAndView view = new ModelAndView();
+	 * 
+	 * if (!list.isEmpty()) {
+	 * 
+	 * view.addObject("list", list); view.setViewName("myInfo/myWishList"); return
+	 * view; } else { System.out.println("list값이 없음"); return view; } }
+	 */
 
 	/* 회원 가입 */
 	@Override

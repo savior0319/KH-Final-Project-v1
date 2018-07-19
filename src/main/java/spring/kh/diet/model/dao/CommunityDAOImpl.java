@@ -9,12 +9,10 @@ import org.springframework.stereotype.Repository;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 
-
 @Repository(value = "communityDAO")
 public class CommunityDAOImpl implements CommunityDAO {
 
 	public CommunityDAOImpl() {
-
 	}
 
 	// 커뮤니티 전체 게시판
