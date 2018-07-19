@@ -8,45 +8,44 @@ import org.springframework.stereotype.Repository;
 import spring.kh.diet.model.vo.BoardPostVO;
 
 @Repository(value = "communityDAO")
-public class CommunityDAOImpl implements CommunityDAO{
+public class CommunityDAOImpl implements CommunityDAO {
 
 	public CommunityDAOImpl() {
-		
+
 	}
-	
-	//커뮤니티 전체 게시판	
+
+	// 커뮤니티 전체 게시판
 	@Override
-	public List allCommunityList(SqlSessionTemplate sqlSessionTemplate) {
+	public List<BoardPostVO> allCommunityList(SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.selectList("community.allCommunityList");
 	}
-	
+
 	@Override
 	public int registCommunity(SqlSessionTemplate sqlSessionTemplate, BoardPostVO bpv) {
-		int result = sqlSessionTemplate.insert("community.registCommunity",bpv);
+		int result = sqlSessionTemplate.insert("community.registCommunity", bpv);
 		return result;
 	}
-	
-	//비포&애프터 게시판	
+
+	// 비포&애프터 게시판
 	@Override
-	public List beforeAfterList(SqlSessionTemplate sqlSessionTemplate) {
+	public List<BoardPostVO> beforeAfterList(SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.selectList("community.beforeAfterList");
 	}
 
-	//자유게시판	
+	// 자유게시판
 	@Override
-	public List bulletinBoardList(SqlSessionTemplate sqlSessionTemplate) {
+	public List<BoardPostVO> bulletinBoardList(SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.selectList("community.bulletinBoardList");
 	}
 
 	@Override
-	public List tipKnowhowBoardList(SqlSessionTemplate sqlSessionTemplate) {
+	public List<BoardPostVO> tipKnowhowBoardList(SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.selectList("community.tipKnowhowBoardList");
 	}
 
-//고민&질문	
+	// 고민&질문
 	@Override
-	public List worryNQnABoardList(SqlSessionTemplate sqlSessionTemplate) {
+	public List<BoardPostVO> worryNQnABoardList(SqlSessionTemplate sqlSessionTemplate) {
 		return sqlSessionTemplate.selectList("community.worryNQnABoardList");
 	}
 }
-
