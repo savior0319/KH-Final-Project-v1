@@ -68,4 +68,5 @@ public class DietTipControllerImpl implements DietTipController{
 		return "dietTip/dietTipInfo";
 	}
 	
+	
 }
