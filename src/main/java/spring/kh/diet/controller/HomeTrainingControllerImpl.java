@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import spring.kh.diet.model.service.HomeTrainingServiceImpl;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 
+@SuppressWarnings("all")
 @Controller
-public class HomeTrainingControllerImpl implements HomeTrainingController{
-		
-	@Resource(name="homeTrainingService")
+public class HomeTrainingControllerImpl implements HomeTrainingController {
+
+	@Resource(name = "homeTrainingService")
 	private HomeTrainingServiceImpl homeTrainingService;
-	
+
 	/* 홈트레이닝 - 전체 */
 	@Override
 	@RequestMapping(value = "/homeTrainingAll.diet")
@@ -27,16 +28,16 @@ public class HomeTrainingControllerImpl implements HomeTrainingController{
 	@RequestMapping(value = "/homeTrainingList.diet")
 	public String homeTraining(HttpServletRequest request) {
 		String type = request.getParameter("type");
-		
+
 		int currentPage;
-		if(request.getParameter("currentPage")==null) {
+		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
-		}else {
+		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
-		HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingList(currentPage,type);
-		
+
+		HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingList(currentPage, type);
+
 		return "homeTraining/homeTrainingList";
 	}
 

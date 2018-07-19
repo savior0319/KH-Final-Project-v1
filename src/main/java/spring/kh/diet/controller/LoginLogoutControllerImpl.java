@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import spring.kh.diet.model.service.LoginLogoutService;
 import spring.kh.diet.model.vo.MemberVO;
 
+@SuppressWarnings("all")
 @Controller
 public class LoginLogoutControllerImpl implements LoginLogoutController {
 

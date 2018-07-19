@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.ProductVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 public interface MyInfoDAO {

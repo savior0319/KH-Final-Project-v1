@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.MyInfoDAO;
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.ProductVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @Service("myInfoService")
