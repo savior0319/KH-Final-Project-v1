@@ -9,8 +9,8 @@ public interface CommunityController {
 
 	Object allCommunityList(HttpSession session);
 
-	void registCommunity(String title, String content, String category, HttpSession session,
-			HttpServletResponse response) throws IOException;
+	void registCommunity(String title, String content, int category, HttpSession session, HttpServletResponse response)
+			throws IOException;
 
 	Object postedCommunity(HttpSession session);
 
@@ -21,5 +21,7 @@ public interface CommunityController {
 	Object tipKnowhowBoardList(HttpSession session);
 
 	Object worryNQnABoardList(HttpSession session);
+
+	
 
 }

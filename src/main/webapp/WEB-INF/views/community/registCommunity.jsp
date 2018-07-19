@@ -9,6 +9,29 @@
 <link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
 <script src="/resources/summernote/dist/summernote-lite.js"></script>
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+<script>
+/* summernote에서 이미지 업로드시 실행할 함수 */
+	function sendFile(file, editor) {
+    // 파일 전송을 위한 폼생성
+		data = new FormData();
+	    data.append("uploadFile", file);
+	    console.log(data);
+	    var data1 = 'gdgd';
+	    $.ajax({ // ajax를 통해 파일 업로드 처리
+	        data : {'data':data1},
+	        type : 'POST',
+	        url : '/imageUpload.diet',
+	        cache : false, 
+	        contentType : false,
+	        processData : false,
+	        /* enctype: "multipart/form-data", */
+	        success : function(data) { // 처리가 성공할 경우
+            // 에디터에 이미지 출력
+	        	$(editor).summernote('editor.insertImage', data.url);
+	        }
+	    })
+	    };
+</script>
 </head>
 
 <!-- CSS -->
@@ -71,32 +94,16 @@
 			placeholder : '내용을 입력해주세요',
 			tabsize : 2,
 			height : 500,
-			callbacks : {
-				onImageUpload : function(files, editor, welEditable) {
-					for (var i = files.length - 1; i >= 0; i--) {
-						sendFile(files[i], this);
-					}
+ 			callbacks : {
+ 				onImageUpload: function(files, editor, welEditable) {
+				    sendFile(files[0], this);
 				}
-			}
+			} 
 		});
 	});
 
-	function sendFile(file, el) {
-		var form_data = new FormData();
-		form_data.append('file', file);
-		$.ajax({
-			data : form_data,
-			type : "POST",
-			url : './profileImage.mpf',
-			cache : false,
-			contentType : false,
-			enctype : 'multipart/form-data',
-			processData : false,
-			success : function(img_name) {
-				$(el).summernote('editor.insertImage', img_name);
-			}
-		});
-	}
+
+
 
 	$('.ui.dropdown').dropdown({
 		allowAdditions : true,
@@ -104,36 +111,45 @@
 	});
 
 	// 카테고리 선택
-	var $category;
+	var category;
 	$('.select > .item').click(function() {
-		$category = $(this).text();
+		switch($(this).text()){
+		case '자유게시판' : category=15; break;
+		case '레시피&식단' : category=16; break;
+		case '팁&노하우' : category=17; break;
+		case '고민&질문' : category=18; break;
+		case '비포&애프터' : category=19; break;
+		}
 	});
 
 	function register() {
-
 		var $title = $('#title').val();
 		var $content = $('#summernote').summernote('code');
-		if ($category != null) {
+		if (category != null && $title != '' && $content != '') {
 			$.ajax({
 				url : '/communityPostRegist.diet',
 				type : 'post',
 				data : {
 					'title' : $title,
 					'content' : $content,
-					'category' : $category
+					'category' : category
 				},
 				success : function(data) {
 					if (data == 'success') {
-						alert('공지등록 완료');
-						location.href = "/admin.diet"
+						alert('게시글 등록 완료');
+						location.href = "/communityWholeBoard.diet"
 					}
 				},
 				error : function() {
-					alert('공지등록 실패');
+					alert('게시글 등록 실패');
 				}
 			});
 		} else {
-			alert('카테고리를 선택하여주세요.');
+			if (category == null) {
+				alert('카테고리를 선택하여주세요.');
+			}else{
+				alert('내용을 반드시 기입하여주세요.');
+			}
 		}
 	}
 </script>
