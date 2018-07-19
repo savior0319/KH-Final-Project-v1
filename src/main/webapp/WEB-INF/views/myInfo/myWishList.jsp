@@ -54,40 +54,41 @@ li:nth-child(2) {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list}" var="list">
-							<tr>
-								<td>
-									<div class="ui checkbox">
-										<input type="checkbox" value="상품인덱스번호" name="checkbox">
-										<label></label>
-									</div>
-								</td>
-								<td style="width: 400px;">
-									<ul>
-										<li><img style="width: 100px; height: 100px;"
-											src="https://t1.daumcdn.net/cfile/tistory/1449C34C507376F431" /></li>
-										<li>
-											<div>
-												<span>상품설명입니다.</span> <span>상품설명입니다.</span>
-											</div>
-										</li>
-									</ul>
-								</td>
-								<td>상품가격</td>
-								<td>
-									<button type="button" class="ui gray button">쿠폰사용</button>
-								</td>
-								<td>
-									<button type="button" class="ui red button">주문하기</button>
-								</td>
-							</tr>
-						</c:forEach>
+
+						<tr>
+							<td>
+								<div class="ui checkbox">
+									<input type="checkbox" value="상품인덱스번호" name="checkbox">
+									<label></label>
+								</div>
+							</td>
+							<td style="width: 400px;">
+								<ul>
+									<li><img style="width: 100px; height: 100px;"
+										src="https://t1.daumcdn.net/cfile/tistory/1449C34C507376F431" /></li>
+									<li>
+										<div>
+											<span>상품설명입니다.</span> <span>상품설명입니다.</span>
+										</div>
+									</li>
+								</ul>
+							</td>
+							<td>상품가격</td>
+							<td>
+								<button type="button" class="ui gray button">쿠폰사용</button>
+							</td>
+							<td>
+								<button type="button" class="ui red button">주문하기</button>
+							</td>
+						</tr>
+
 					</tbody>
 				</table>
 				<input type="button" class="ui red button" value="선택상품삭제"
-					style="float: left;" /><br> <br> <input type="button"
-					class="ui blue button" value="주문하기" /> <input type="button"
-					class="ui gray button" value="홈으로" onclick="locationHome();" />
+					style="float: left;" /><br> <br> 
+				<input type="button" class="ui blue button" value="주문하기" /> 
+				<input type="button" class="ui gray button" value="홈으로" onclick="locationHome();" />
+					
 			</div>
 			<!-- div class ="ui container" 끝 -->
 		</div>

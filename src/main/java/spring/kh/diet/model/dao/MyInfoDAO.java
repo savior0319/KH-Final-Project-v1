@@ -24,7 +24,5 @@ public interface MyInfoDAO {
 
 	ArrayList<QuestionVO> allMyOneToOneQuestion(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
-	ArrayList<ProductVO> myWishList(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
-
 	int signupsave(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 }

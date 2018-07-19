@@ -153,34 +153,6 @@ a {
 		</div>
 	</div>
 
-
-	<!-- 아이디 찾기 모달 -->
-	<!-- 	<div class="ui modal" id="findIdModal">
-		<i class="close icon"></i>
-		<div class="header">아이디 찾기</div>
-		<div class="image content">
-			<div class="description">
-				<div class="ui header">
-					<div class="ui input">
-						<input type="text" placeholder="핸드폰번호.." name="mbPhone"
-							id="mbPhone">
-					</div>
-					<br>
-					<div class="ui input">
-						<input type="text" placeholder="이름.." name="mbName" id="mbName">
-					</div>
-					<div class="ui input">
-						<input type="text" placeholder="찾은 아이디" />
-					</div>
-				</div>
-			</div>
-			<div class="actions">
-				<input type="button" class="ui black deny button" value="취소" /> <input
-					type="button" onclick="findId();"
-					class="ui positive right labeled icon button" value="아이디찾기" />
-			</div>
-		</div>
-	</div> -->
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
@@ -199,7 +171,7 @@ a {
 	/* 비밀번호 재설정 */
 	function updatePwd(){
 
-		var mbId = $("#mbID").val();
+		var mbId = $("#mbId").val();
 		var mbPwd = $("#mbPwd").val();
 		var mbRePwd = $("#mbRePwd").val();
 		var pwdRegExp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,16}$/;
@@ -209,21 +181,27 @@ a {
 
 		if(result1==true&&result2==true){
 			if(mbPwd == mbRePwd){
+				console.log(mbPwd);
 				$.ajax({
-					url : "/updatePassword.diet",
+					url : '/updatePassword.diet',
 					data : {
-						mbId : mbId,
-						mbPwd : mbPwd
-					},
+						'mbId' : mbId,
+						'mbPwd' : mbPwd
+					},		
 					type : "post",
 					success : function(data) {
-						alert("비밀번호 변경이 완료되었습니다.");
+						console.log(data);
+						if (data == '1') {
+							alert("비밀번호 변경이 완료되었습니다.");
+							location.href = "/"
+						} else {
+							alert("비밀번호 변경 실패하였습니다.");
+						}
 					},
 					error : function() {
-						alert("비밀번호 변경 실패하였습니다.");
+						alert("fgsdg비밀번호 변경 실패하였습니다.");
 					}
-				});
-			
+				});			
 			}else{
 				alert("비밀번호를 동일하게 입력해주세요.");
 			}
@@ -232,30 +210,5 @@ a {
 		}
 	}
 </script>
-	<!-- /* 아이디 찾기 ajax 
-	function findId() {
-		var mbName = $("#mbName").val();
-		var mbPhone = $("#mbPhone").val();
-		$.ajax({
-			url : "/findId.diet",
-			data : {
-				mbName : mbName,
-				mbPhone : mbPhone
-			},
-			type : "post",
-			success : function(data) { // 200 번
-			
-				console.log("아이디 찾기 성공");
-				alert(data);
-				$("#findId").html(mv2.mbId);
-				
-				
-			},
-			error : function() { // 404에러
-				console.log("아이디 찾기 실패");
-			}
-		});
-	}*/ -->
-
 
 </html>

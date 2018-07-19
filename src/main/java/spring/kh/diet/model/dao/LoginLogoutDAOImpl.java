@@ -9,6 +9,7 @@ import spring.kh.diet.model.vo.MemberVO;
 public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 
 	public MemberVO login(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+	
 		MemberVO m = sqlSessionTemplate.selectOne("login.login1", mv);
 		return m;
 	}
@@ -20,7 +21,8 @@ public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 	}
 
 	public int updatePassword(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		int result = sqlSessionTemplate.selectOne("login.updatePassword", mv);
+		int result = sqlSessionTemplate.update("login.updatePassword", mv);
+	
 		return result;
 	}
 

@@ -55,11 +55,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return (ArrayList<QuestionVO>) list;
 	}
 
-	@Override
-	public ArrayList<ProductVO> myWishList(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		List list = sqlSessionTemplate.selectList("myInfo.myWishList", mv);
-		return (ArrayList<ProductVO>) list;
-	}
 
 	@Override
 	public int signupsave(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
