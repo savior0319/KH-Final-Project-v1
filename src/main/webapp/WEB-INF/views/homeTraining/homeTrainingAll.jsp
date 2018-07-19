@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -11,6 +10,7 @@
 
 <!-- CSS -->
 <style>
+
 </style>
 
 
@@ -18,17 +18,13 @@
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
-
 	<!-- CONTENTS -->
-	<div class="ui center aligned basic segment">
-
-		<div class="ui center aligned container">
-			<div class="ui panorama test ad" data-text="Panorama"></div>
-			
-			<!-- 운동부위별 값 넣을곳 -->
-			
-			<h1 class="ui left aligned header">홈트레이닝 > 전신</h1><hr><br>
-
+	<div class="ui container">
+		<div class="ui center aligned basic segment">
+		
+		<h1 class="ui left aligned header">홈트레이닝</h1><hr>
+		
+		<h3 class="ui left aligned header">맞춤 홈트레이닝 동영상</h3>
 			
 				<!-- 제목 이미지 출력  -->
 				<div class="ui three column grid">
@@ -75,6 +71,9 @@
 						</div>
 					</div>
 				</div>
+								
+				<h3 class="ui left aligned header">최신 홈트레이닝 동영상</h3><hr><br>
+				
 				<div class="ui three column grid">
 					<div class="column">
 						<div class="ui card">
