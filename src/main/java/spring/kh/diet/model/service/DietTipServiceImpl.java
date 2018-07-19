@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.DietTipDAOImpl;
-import spring.kh.diet.model.vo.DietTipPageDataVO;
+import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 
 @Service("dietTipService")
@@ -22,11 +22,11 @@ public class DietTipServiceImpl implements DietTipService {
 	private SqlSessionTemplate session;
 
 	@Override
-	public DietTipPageDataVO getDietTipList(int currentPage, String type) {
+	public DietTipPDVO getDietTipList(int currentPage, String type) {
 		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 
-		DietTipPageDataVO dtpd = new DietTipPageDataVO();
+		DietTipPDVO dtpd = new DietTipPDVO();
 
 		ArrayList<DietTipVO> list = dietTipDAO.selectAllDietTip(session, currentPage, recordCountPerPage, type);
 

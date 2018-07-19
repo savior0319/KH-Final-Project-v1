@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import spring.kh.diet.model.vo.DietTipPageDataVO;
+import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 
 public interface DietTipDAO {
