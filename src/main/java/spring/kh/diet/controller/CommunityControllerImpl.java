@@ -112,6 +112,8 @@ public class CommunityControllerImpl implements CommunityController {
 		return "community/recipeBoard";
 	}
 
+
+
 	
 	//등록된 글 들어가는 곳
 /*	@Override
