@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
-import spring.kh.diet.model.vo.DietTipVO;
 
 @Repository(value = "communityDAO")
 public class CommunityDAOImpl implements CommunityDAO {

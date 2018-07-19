@@ -1,7 +1,6 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
