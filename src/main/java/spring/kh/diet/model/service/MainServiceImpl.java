@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.MainDAO;
-import spring.kh.diet.model.vo.HealthCenterPageDataVO;
+import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.HealthCenterVO;
 
 @Service("mainService")
@@ -25,11 +25,11 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public HealthCenterPageDataVO getHealthCenterList(int currentPage) {
+	public HealthCenterPDVO getHealthCenterList(int currentPage) {
 		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 
-		HealthCenterPageDataVO hVo = new HealthCenterPageDataVO();
+		HealthCenterPDVO hVo = new HealthCenterPDVO();
 
 		ArrayList<HealthCenterVO> list = mDao.selectAllHealthCenter(session, currentPage, recordCountPerPage);
 

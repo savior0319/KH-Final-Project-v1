@@ -24,8 +24,8 @@ p>span {
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
-
-
+	<!-- 댓글입력을 위해 게시물번호를 넣어둘 태그를 hidden으로 만들어둠 -->
+	<input id="indexNo" type="hidden" value="${requestScope.dt.dtIndex }">
 	<!-- CONTENTS -->
 	<div class="ui container">
 		<div class="ui panorama test ad" data-text="광고광고광고"></div>
@@ -52,12 +52,13 @@ p>span {
 		<div class="ui black segment">
 			<div class="ui grid">
 				<div class="four column row">
-					<span class="left floated column" style=""> <span class="ui left aligned"> <a> <img class="ui avatar image" src="/resources/image/mainPic.jpg"> 닉네임
+					<span class="left floated column" style=""> <span class="ui left aligned"> <a> <img class="ui avatar image" src="/resources/image/mainPic.jpg">
+								${requestScope.dt.dtNickname }
 						</a>
 					</span>
 					</span> <span class="right floated column"> <!-- 날짜 --> <span class="ui right aligned"> <i class="calendar icon"></i> ${requestScope.dt.dtDate }
 					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 뷰수 --> <span class="ui right aligned"> <i class="eye icon"></i> ${requestScope.dt.dtSee }
-					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 댓글수 --> <span class="ui right aligned"> <i class="pen square icon"></i> 85
+					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 댓글수 --> <span class="ui right aligned"> <i class="pen square icon"></i> ${requestScope.bcpd.totalCommentNo }
 					</span>
 					</span>
 				</div>
@@ -82,7 +83,7 @@ p>span {
 					<button class="ui red button" id="heartBtn" style="height: 40px;">
 						<i class="heart outline icon" id="emptyHeart"></i> 공감
 					</button>
-					<a class="ui basic red left pointing label"> 1,048 </a>
+					<a class="ui basic red left pointing label"> ${requestScope.dt.dtLike } </a>
 				</div>
 
 
@@ -185,10 +186,6 @@ p>span {
 			</button>
 		</div>
 
-		<br> <br>
-
-
-
 		<!-- 댓글 -->
 		<div class="ui comments" style="max-width: 1220px;">
 			<h3 class="ui dividing header" style="margin-top: 8px">
@@ -198,85 +195,48 @@ p>span {
 
 			<form class="ui reply form">
 				<div class="field">
-					<textarea style="resize: none;"></textarea>
+					<textarea id="commentContent" style="resize: none;" name="content"></textarea>
 				</div>
 				<div class="ui right aligned container">
-					<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;">
-						<i class="icon edit"></i> 등록
+					<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="addComment();">
+						<i class="icon edit"></i>등록
+						<!-- <input type="submit" style="height:44px; width: 80px; cursor:pointer; border:0; background-color: #fa2828; font-weight:bold; color: white;" value="등록"> -->
 					</div>
 				</div>
 			</form>
-			<br> <br>
+			<br>
 
-			<div class="comment">
-				<a class="avatar"> <img src="/resources/image/mainPic.jpg" style="width: 40px; height: 40px; border-radius: 25px;">
-				</a>
-				<div class="content" style="width: 93%;">
-					<a class="author" style="position: absolute; width: 10%;">Matt</a>
-					<div class="metadata" style="width: 100%;">
-						<span class="date" style="width: 30%; display: inline; margin-left: 10%;">Today at 5:42PM</span>
-						<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
-							<button class="ui red basic tiny button" style="margin-right: 10px;">
-								<i class="thumbs up outline icon"></i>공감
-							</button>
-							<button class="ui black basic tiny button">
-								<i class="ban icon"></i>신고
-							</button>
+			<!-- 작성된 댓글 리스트 -->
+			<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
+
+				<div class="comment">
+					<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
+					</a>
+					<div class="content" style="width: 93%;">
+						<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</a>
+						<div class="metadata" style="width: 100%;">
+							<span class="date" style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
+							<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+								<button class="ui red basic tiny button" style="margin-right: 10px;">
+									<i class="thumbs up outline icon"></i>공감 ${bc.cmtLike }
+								</button>
+								<button class="ui black basic tiny button">
+									<i class="ban icon"></i>신고 ${bc.cmtBlame }
+								</button>
+							</div>
 						</div>
+						<div class="text">${bc.cmtContent }</div>
 					</div>
-					<div class="text">How artistic!</div>
 				</div>
+				<br>
+				<hr style="border: 1px solid #F6F6F6">
+				<br>
+
+			</c:forEach>
+
+			<div class="ui center aligned basic segment">
+				<div class="ui pagination menu">${requestScope.bcpd.pageNavi }</div>
 			</div>
-			<br>
-			<hr style="border: 1px solid #F6F6F6">
-			<br>
-
-
-			<div class="comment">
-				<a class="avatar"> <img src="/resources/image/mainPic.jpg" style="width: 40px; height: 40px; border-radius: 25px;">
-				</a>
-				<div class="content" style="width: 93%;">
-					<a class="author" style="position: absolute; width: 10%;">Matt</a>
-					<div class="metadata" style="width: 100%;">
-						<span class="date" style="width: 30%; display: inline; margin-left: 10%;">Today at 5:42PM</span>
-						<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
-							<button class="ui red basic tiny button" style="margin-right: 10px;">
-								<i class="thumbs up outline icon"></i>공감
-							</button>
-							<button class="ui black basic tiny button">
-								<i class="ban icon"></i>신고
-							</button>
-						</div>
-					</div>
-					<div class="text">How artistic!</div>
-				</div>
-			</div>
-
-			<br>
-			<hr style="border: 1px solid #F6F6F6">
-			<br>
-
-			<div class="comment">
-				<a class="avatar"> <img src="/resources/image/logo.png" style="width: 40px; height: 40px; border-radius: 25px;">
-				</a>
-				<div class="content" style="width: 93%;">
-					<a class="author" style="position: absolute; width: 10%;">Matt</a>
-					<div class="metadata" style="width: 100%;">
-						<span class="date" style="width: 30%; display: inline; margin-left: 10%;">Today at 5:42PM</span>
-						<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
-							<button class="ui red basic tiny button" style="margin-right: 10px;">
-								<i class="thumbs up outline icon"></i>공감
-							</button>
-							<button class="ui black basic tiny button">
-								<i class="ban icon"></i>신고
-							</button>
-						</div>
-					</div>
-					<div class="text">How artistic!</div>
-				</div>
-			</div>
-
-
 		</div>
 	</div>
 
@@ -331,8 +291,58 @@ p>span {
 
 	/* 목록으로 돌아가기 버튼 */
 	$('#listBtn').click(function() {
-		location.href = "/communityWholeBoard.diet";
+		location.href = "/dietTipList.diet?type=all";
 	});
+	
+	/* 댓글 쓰기 버튼 */
+	function addComment(){
+		var indexNo = $('#indexNo').val();
+		var commentContent = $('#commentContent').val();
+		
+		$.ajax({
+			url : '/addComment.diet',
+			type : 'post',
+			data : {
+				'indexNo' : indexNo,
+				'commentContent' : commentContent
+			},
+			
+			success : function(data){
+				if(data>0){
+					alert('댓글을 작성하였습니다.');
+				}else{
+					alert('댓글을 등록하지 못했습니다.');
+				}
+				
+				location.href = "/dietTipInfo.diet?indexNo=" + indexNo;
+			},
+			error : function(){
+				alert('댓글을 등록하지 못했습니다.');
+			}
+		});
+	}
+	
+	
+	function naviMove(currentPage, indexNo, servletName){
+		$.ajax({
+			url : "/commentNavi?currentPage="+currentPage+"&indexNo=" + indexNo + "&servletName=" + servletName,
+			type : "get",
+			success : function(data){
+				
+				
+				
+				
+			},
+			error : function(){
+				alert('실패');
+			}
+		});
+	}
+	
+	
+	
+	
+	
 </script>
 
 </html>

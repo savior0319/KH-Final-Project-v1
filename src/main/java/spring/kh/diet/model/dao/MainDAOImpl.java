@@ -6,7 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import spring.kh.diet.model.vo.HealthCenterPageDataVO;
+import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.HealthCenterVO;
 
 @Repository("mainDAO")
@@ -15,7 +15,7 @@ public class MainDAOImpl implements MainDAO {
 	@Override
 	public ArrayList<HealthCenterVO> selectAllHealthCenter(SqlSessionTemplate session, int currentPage,
 			int recordCountPerPage) {
-		HealthCenterPageDataVO hDataVO = new HealthCenterPageDataVO();
+		HealthCenterPDVO hDataVO = new HealthCenterPDVO();
 
 		hDataVO.setStart((currentPage - 1) * recordCountPerPage + 1);
 		hDataVO.setEnd(currentPage * recordCountPerPage);
