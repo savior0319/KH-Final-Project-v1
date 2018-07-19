@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	
 
 <!DOCTYPE html>
 <html>
@@ -11,18 +12,19 @@
 <!-- CSS -->
 <style>
 </style>
-
+<c:if test="${sessionScope.member.mbId == null}">
 <script type="text/javascript">
 	$(document).ready(function() {
 		$.ajax({
 			url : 'createSession.diet',
 			type : 'post',
-			success : function(){
-				alert('ajax호출')
+			success : function(data){
+				alert(data)
 			}
 		});
 	});		
 </script>
+</c:if>
 
 <body>
 	<!-- HEADER -->

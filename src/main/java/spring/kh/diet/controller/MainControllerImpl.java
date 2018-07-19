@@ -1,10 +1,14 @@
 package spring.kh.diet.controller;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -200,7 +204,12 @@ public class MainControllerImpl implements MainController {
 	/* 메인페이지 - 비로그인 세션 생성 */
 	@Override
 	@RequestMapping(value = "/createSession.diet")
-	public void createSession() {
-		System.out.println("호출");
+	public void createSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session;
+		session = request.getSession();
+		response.getWriter().println(session.toString());
+		response.getWriter().close();
+		
+		
 	}
 }

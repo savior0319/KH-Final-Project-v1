@@ -1,6 +1,10 @@
 package spring.kh.diet.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public interface MainController {
 
@@ -11,6 +15,6 @@ public interface MainController {
 
 	String RedirectHealthCenter(HttpServletRequest request);
 
-	void createSession();
+	void createSession(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 }
