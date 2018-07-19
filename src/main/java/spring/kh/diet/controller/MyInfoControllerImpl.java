@@ -156,6 +156,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		ModelAndView view = new ModelAndView();
 
 		if (!list.isEmpty()) {
+			
 			view.addObject("list", list);
 			view.setViewName("myInfo/myWishList");
 			return view;

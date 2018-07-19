@@ -27,4 +27,6 @@ public interface MyInfoService {
 	int signupsave(MemberVO mv);
 
 
+
+
 }
