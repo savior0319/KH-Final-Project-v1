@@ -57,7 +57,7 @@
 				</thead>
 				<tbody>
 				<c:forEach items="${requestScope.cpdv.comList}" var="c">
-						<tr align="center" style="height: 50px;">
+						<tr align="center" >
 							<td>
 							<c:choose>
 							<c:when test="${requestScope.cpdv.type.equals('bullentin') }">자유게시판</c:when>
@@ -67,7 +67,7 @@
 							</c:choose>
 							
 							</td>
-							<td>
+							<td style="padding-top: 15px; padding-bottom: 15px;" onclick="recipeLink(${c.postIndex});" >
 								<a class="item" href="/postedCommunity.diet">${c.postTitle}</a>
 							</td>
 							<td>
@@ -153,6 +153,12 @@
 	$('#writeBtn').click(function() {
 		location.href = "/registCommunity.diet";
 	});
+	
+	/* 클릭시 각 페이지로 이동 */
+	function recipeLink(pi){
+		 location.href="/postedCommunity.diet?postIndex="+pi;
+	 }
+	
 </script>
 
 </html>
