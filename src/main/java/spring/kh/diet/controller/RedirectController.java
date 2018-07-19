@@ -36,12 +36,12 @@ public interface RedirectController {
 
 	String redirectRegistCommunity();
 
-	String redirectRecipeBoard();
-
 	String redirectFoodCalorieInfo();
 
 	String redirectSportsCalorieInfo();
   
 	String redirectSignup();
+
+	String redirectModifyCommunity();
 
 }

@@ -137,12 +137,12 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectRegistCommunity() {
 		return "community/registCommunity";
 	}
-
-	/* 커뮤니티 - 레시피&식단 */
+	
+	/* 커뮤니티 - 글수정 페이지 */
 	@Override
-	@RequestMapping(value = "/recipeBoard.diet")
-	public String redirectRecipeBoard() {
-		return "community/recipeBoard";
+	@RequestMapping(value = "/modifyCommunity.diet")
+	public String redirectModifyCommunity() {
+		return "community/modifyCommunity";
 	}
 
 	/* 칼로리 -푸드칼로리 */

@@ -99,12 +99,12 @@
 				커뮤니티 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="/communityWholeBoard.diet">전체</a>
-				<a class="item" href="/bulletinBoard.diet">자유게시판</a>
-				<a class="item" href="/recipeBoard.diet">레시피&식단</a>
-				<a class="item" href="/tipKnowhowBoard.diet">팁&노하우</a>
-				<a class="item" href="/worryNQnABoard.diet">고민&질문</a>
-				<a class="item" href="/beforeAfterBoard.diet">비포&애프터</a>
+				<a class="item" href="/communityWholeBoard.diet?type=comAll">전체</a>
+				<a class="item" href="/communityWholeBoard.diet?type=bullentin">자유게시판</a>
+				<a class="item" href="/recipeBoard.diet?type=recipe">레시피&식단</a>
+				<a class="item" href="/communityWholeBoard.diet?type=tip">팁&노하우</a>
+				<a class="item" href="/communityWholeBoard.diet?type=worry">고민&질문</a>
+				<a class="item" href="/communityWholeBoard.diet?type=beforeAfter">비포&애프터</a>
 			</div>
 		</div>
 

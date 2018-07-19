@@ -1,6 +1,5 @@
 package spring.kh.diet.model.dao;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

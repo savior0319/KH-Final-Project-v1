@@ -1,20 +1,19 @@
 package spring.kh.diet.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import spring.kh.diet.model.vo.BoardPostVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 
 public interface CommunityService {
 
-	List<BoardPostVO> allCommunityList();
 
 	int registCommunity(BoardPostVO bpv);
   
-	List<BoardPostVO> beforeAfterList();
+	CommunityPageDataVO allCommunityList(int currentPage, String type);
 
-	List<BoardPostVO> bulletinBoardList();
+	CommunityPageDataVO recipeBoardList(int currentPage, String type);
 
-	List<BoardPostVO> tipKnowhowBoardList();
 
-	List<BoardPostVO> worryNQnABoardList();
 }

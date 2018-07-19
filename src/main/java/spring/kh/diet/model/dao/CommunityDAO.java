@@ -1,5 +1,6 @@
 package spring.kh.diet.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,12 +13,16 @@ public interface CommunityDAO {
 
 	int registCommunity(SqlSessionTemplate sqlSessionTemplate, BoardPostVO bpv);
 
-	List<BoardPostVO> beforeAfterList(SqlSessionTemplate sqlSessionTemplate);
+	String getallCommunityListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String type);
 
-	List<BoardPostVO> bulletinBoardList(SqlSessionTemplate sqlSessionTemplate);
+	ArrayList<BoardPostVO> allCommunityList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, String type);
 
-	List<BoardPostVO> tipKnowhowBoardList(SqlSessionTemplate sqlSessionTemplate);
+	String getRecipeListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String type);
 
-	List<BoardPostVO> worryNQnABoardList(SqlSessionTemplate sqlSessionTemplate);
+	ArrayList<BoardPostVO> recipeBoardList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, int naviCountPerPage, String type);
 
 }
