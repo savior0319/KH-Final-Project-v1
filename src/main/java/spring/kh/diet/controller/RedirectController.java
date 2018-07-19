@@ -31,15 +31,9 @@ public interface RedirectController {
 	String redirectDietTipList();
 
 	String redirectRegistCommunity();
-
-	String redirectFoodCalorieInfo();
-
-	String redirectSportsCalorieInfo();
-
   
 	String redirectSignup();
 	
-
 	String redirectModifyCommunity();
 
 }
