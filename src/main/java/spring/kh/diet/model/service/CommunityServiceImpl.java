@@ -74,4 +74,11 @@ public class CommunityServiceImpl implements CommunityService {
 		return result;
 	}
 
+
+	@Override
+	public BoardPostVO postedCommunity(int postIndex) {
+		BoardPostVO bpv = communityDAO.postedCommunity(SqlSessionTemplate,postIndex);
+		return bpv;
+	}
+
 }

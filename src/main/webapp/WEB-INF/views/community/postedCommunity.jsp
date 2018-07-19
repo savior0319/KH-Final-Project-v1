@@ -63,7 +63,7 @@
 
 		<h2 class="ui center aligned container">
 			<i class="quote left icon"></i>
-			${list[0].postTitle}
+			${requestScope.bpv.postTitle}
 			<i class="quote right icon"></i>
 		</h2>
 
@@ -84,19 +84,19 @@
 						<!-- 날짜 -->
 						<span class="ui right aligned">
 							<i class="calendar icon"></i>
-							${list[0].postDateTime}
+							${requestScope.bpv.postDateTime}
 						</span>
 						&nbsp;&nbsp;|&nbsp;&nbsp;
 						<!-- 뷰수 -->
 						<span class="ui right aligned">
 							<i class="eye icon"></i>
-							${list[0].postHit}
+							${requestScope.bpv.postHit}
 						</span>
 						&nbsp;&nbsp;|&nbsp;&nbsp;
 						<!-- 댓글수 -->
 						<span class="ui right aligned">
 							<i class="pen square icon"></i>
-							${list[0].postComCount}
+							${requestScope.bpv.postComCount}
 						</span>
 					</span>
 				</div>
@@ -105,7 +105,7 @@
 
 		<!-- 내용 들어가는 부분! -->
 		<div class="ui clearing segment">
-			${list[16].postContent}
+			${requestScope.bpv.postContent}
 			<br>
 			<br>
 			<br>

@@ -47,10 +47,10 @@
 				<tbody>
 					<c:forEach items="${requestScope.hcpd.hcList}" var="hc">
 					<tr align="center" style="height: 50px;">
-						<td style="width: 15%;">${hc.hcLocation}</td>
-						<td style="width: 50%;" id="address">${hc.hcAddress}</td>
-						<td style="width: 15%;">${hc.hcPhone}</td>
-						<td style="width: 10%;"><div class="location"><i class="map marker icon" style="color : red;"></i></div></td>
+						<td  style="padding-top: 15px; padding-bottom: 15px;">${hc.hcLocation}</td>
+						<td id="address">${hc.hcAddress}</td>
+						<td>${hc.hcPhone}</td>
+						<td><div class="location"><i class="map marker icon" style="color : red;"></i></div></td>
 					</tr>
 				</c:forEach> 
 			</tbody>

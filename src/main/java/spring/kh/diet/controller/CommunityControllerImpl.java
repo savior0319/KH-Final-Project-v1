@@ -114,19 +114,30 @@ public class CommunityControllerImpl implements CommunityController {
 
 	
 	//등록된 글 들어가는 곳
-/*	@Override
+	@Override
 	@RequestMapping(value = "/postedCommunity.diet")
-	public Object postedCommunity(HttpSession session) {
-		List<BoardPostVO> list = communityService.allCommunityList();
-		ModelAndView view = new ModelAndView();
+	public Object postedCommunity(HttpServletRequest request) {
+		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
+		
+		System.out.println(postIndex);
+		
+		BoardPostVO bpv = communityService.postedCommunity(postIndex);
+		
+		System.out.println(bpv.getPostTitle());
+		
+		request.setAttribute("bpv", bpv);
+		
+		return "community/postedCommunity";
+		
+/*		ModelAndView view = new ModelAndView();
 		if (!list.isEmpty()) {
 			view.addObject("list", list);
 			view.setViewName("community/postedCommunity");
 			return view;
 		} else {
 			return null;
-		}
-
-	}*/
+		}*/
+		
+	}
 
 }

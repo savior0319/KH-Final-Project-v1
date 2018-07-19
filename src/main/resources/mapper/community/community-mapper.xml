@@ -21,7 +21,8 @@
 		resultType="community" resultMap="communityDB">
 		SELECT *
 		FROM (SELECT BOARD_POST_TBL.*,
-		ROW_NUMBER() OVER(ORDER BY POST_DATETIME
+		ROW_NUMBER() OVER(ORDER BY
+		POST_DATETIME
 		DESC) AS NUM FROM BOARD_POST_TBL
 		<choose>
 			<when test="type.equals('bullentin')">
@@ -44,10 +45,28 @@
 	<select id="getNavi" resultType="java.lang.Integer">
 		select count(*) as totalCount
 		from BOARD_POST_TBL
+		<choose>
+			<when test="type.equals('bullentin')">
+				WHERE BCA_INDEX like '15'
+			</when>
+			<when test="type.equals('recipe')">
+				WHERE BCA_INDEX LIKE '16'
+			</when>
+			<when test="type.equals('tip')">
+				WHERE BCA_INDEX like '17'
+			</when>
+			<when test="type.equals('worry')">
+				WHERE BCA_INDEX like '18'
+			</when>
+			<when test="type.equals('beforeAfter')">
+				WHERE BCA_INDEX LIKE '19'
+			</when>
+		</choose>
 	</select>
 
 	<insert id="registCommunity" parameterType="community">
-		INSERT INTO BOARD_POST_TBL
+		INSERT INTO
+		BOARD_POST_TBL
 		VALUES(INDEX_NO_SEQ.NEXTVAL,4,#{postTitle},#{postContent},#{bcaIndex},#{mbIndex},SYSDATE,0,0,0,'')
 	</insert>
 
@@ -55,12 +74,27 @@
 	<select id="recipeBoardList" parameterType="communityPage"
 		resultType="community" resultMap="communityDB">
 		SELECT *
-		FROM 
+		FROM
 		(SELECT BOARD_POST_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY POST_DATETIME
-		DESC) AS NUM FROM BOARD_POST_TBL
+		DESC) AS NUM
+		FROM
+		BOARD_POST_TBL
 		WHERE BCA_INDEX like '16'
-		) WHERE NUM BETWEEN #{start} AND #{end}
+		) WHERE NUM BETWEEN
+		#{start} AND
+		#{end}
 	</select>
+
+	<!-- 페이지 이동 -->
+	<select id="postedOne" parameterType="community"
+		resultType="community" resultMap="communityDB">
+		SELECT * FROM
+		BOARD_POST_TBL
+		WHERE BCA_INDEX like #{postIndex}
+
+	</select>
+
+
 
 </mapper>

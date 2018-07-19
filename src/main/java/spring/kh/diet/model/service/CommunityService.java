@@ -12,5 +12,7 @@ public interface CommunityService {
 
 	CommunityPageDataVO recipeBoardList(int currentPage, String type);
 
+	BoardPostVO postedCommunity(int postIndex);
+
 
 }

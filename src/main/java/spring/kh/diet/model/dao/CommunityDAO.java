@@ -25,4 +25,6 @@ public interface CommunityDAO {
 	ArrayList<BoardPostVO> recipeBoardList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, int naviCountPerPage, String type);
 
+	BoardPostVO postedCommunity(SqlSessionTemplate sqlSessionTemplate, int postIndex);
+
 }
