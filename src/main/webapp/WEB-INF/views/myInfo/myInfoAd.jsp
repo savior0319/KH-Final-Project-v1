@@ -17,11 +17,12 @@
 
 
 	<!-- CONTENTS -->
-	<div class="ui center aligned basic segment">
-		<div class="ui container">
+	<div class="ui container">
+		<div class="ui center aligned basic segment">
 			<div class="ui cube shape">
-				<div class="sides" >
-					<div class="active side" style="width:100%;height:100%; background-color: white;">
+				<div class="sides">
+					<div class="active side"
+						style="width: 100%; height: 100%; background-color: white;">
 						<div class="content">
 							<div class="center">
 								<img style="width: 100%; height: 100%;"
@@ -30,7 +31,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="side" style="width:100%;height:100%; background-color: white;">
+					<div class="side"
+						style="width: 100%; height: 100%; background-color: white;">
 						<div class="content">
 							<div class="center">
 								<img style="width: 100%; height: 100%;"

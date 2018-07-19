@@ -154,11 +154,12 @@ a {
 	<div class="ui modal" id="findIdModal">
 		<i class="close icon"></i>
 		<div class="header">아이디 찾기</div>
+		<form action="/findId.diet" method="post">
 		<div class="image content">
 			<div class="description">
 				<div class="ui header">
 					<div class="ui input">
-						<input type="text" placeholder="이메일 주소 입력">
+						<input type="text" placeholder="이메일 주소 입력" name="">
 					</div>
 					<br>
 					<div class="ui input">
@@ -167,12 +168,11 @@ a {
 				</div>
 			</div>
 			<div class="actions">
-				<div class="ui black deny button">취소</div>
-				<div class="ui positive right labeled icon button">
-					아이디 찾기 <i class="checkmark icon"></i>
-				</div>
+				<input type="button" class="ui black deny button" value="취소" />
+				<input type="submit" class="ui positive right labeled icon button" value="아이디찾기" /> 	
 			</div>
 		</div>
+		</form>
 	</div>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>

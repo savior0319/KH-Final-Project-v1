@@ -11,29 +11,17 @@
 
 <!-- CSS -->
 <style>
-#myPoint1Table th{
-	padding-left:130px;
-	font-size:15px;
+#myPoint1Table th {
+	font-size: 15px;
 }
 
-#myPoint1Table td{
-	padding-left:160px;
+#myPoint2Table th {
+	font-size: 15px;
 }
 
-#myPoint1Table tr{
-	height:60px;
+#myPoint2Table td {
+	font-size: 15px;
 }
-
-#myPoint2Table th{
-	padding-left:130px;
-	font-size:15px;
-}
-
-#myPoint2Table td{
-	padding-left:155px;
-	font-size:15px;
-}
-
 </style>
 
 
@@ -43,21 +31,21 @@
 
 
 	<!-- CONTENTS -->
-	<div class="ui center aligned basic segment">
-		<div class="ui container">
+	<div class="ui container">
+		<div class="ui center aligned basic segment">
 			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 			<br>
 			<div class="myPoint1">
 				<table class="ui celled table" id="myPoint1Table">
 					<thead>
-						<tr>
+						<tr align="center">
 							<th><i class="calendar check icon"></i>총누적적립금</th>
 							<th><i class="calendar check icon"></i>총사용 적립금</th>
 							<th><i class="calendar check icon"></i>사용가능 적립금</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr align="center">
 							<td>-원</td>
 							<td>-원</td>
 							<td>-원</td>
@@ -67,20 +55,22 @@
 			</div>
 			<br>
 			<div id="myPoint2">
-				 <table class="ui red table" id="myPoint2Table">
-					  <thead>
-					    <tr>
-					    <th><i class="calendar check icon"></i>날 짜</th>
-					    <th><i class="calendar check icon"></i>내 용</th>
-					    <th><i class="calendar check icon"></i>적립 금액</th>
-					  </tr></thead><tbody>
-					    <tr>
-					      <td>Apples</td>
-					      <td>200</td>
-					      <td>0g</td>
-					    </tr>
-					  </tbody>
-					</table>
+				<table class="ui red table" id="myPoint2Table">
+					<thead>
+						<tr align="center">
+							<th><i class="calendar check icon"></i>날 짜</th>
+							<th><i class="calendar check icon"></i>내 용</th>
+							<th><i class="calendar check icon"></i>적립 금액</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr align="center">
+							<td>Apples</td>
+							<td>200</td>
+							<td>0g</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			<br>
 

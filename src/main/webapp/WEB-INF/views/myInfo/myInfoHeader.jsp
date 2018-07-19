@@ -31,7 +31,7 @@
 					    sBtn.find('a').removeClass("active");    
 					    $(this).addClass("active"); 
 					  });
-					 });
+					});
 				</script>
         <div class="sideBar">
              
