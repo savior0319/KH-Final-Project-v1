@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122472043-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-122472043-1');
+</script>
 
 <style type="text/css" media="screen">
 .menu {
@@ -71,8 +79,8 @@
 				칼로리사전 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="/foodCalorieInfo.diet">음식칼로리</a>
-				<a class="item" href="/sportsCalorieInfo.diet">운동칼로리</a>
+				<a class="item" href="/foodCalorieRank.diet">음식칼로리</a>
+				<a class="item" href="/sportsCalorieRank.diet">운동칼로리</a>
 			</div>
 		</div>
 
@@ -81,7 +89,7 @@
 				홈트레이닝 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="#">전체</a>
+				<a class="item" href="/homeTrainingAll.diet">전체</a>
 				<a class="item" href="/homeTrainingList.diet">전신</a>
 				<a class="item" href="#">복부</a>
 				<a class="item" href="#">상체</a>
@@ -99,12 +107,12 @@
 				커뮤니티 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="/communityWholeBoard.diet">전체</a>
-				<a class="item" href="/bulletinBoard.diet">자유게시판</a>
-				<a class="item" href="/recipeBoard.diet">레시피&식단</a>
-				<a class="item" href="/tipKnowhowBoard.diet">팁&노하우</a>
-				<a class="item" href="/worryNQnABoard.diet">고민&질문</a>
-				<a class="item" href="/beforeAfterBoard.diet">비포&애프터</a>
+				<a class="item" href="/communityWholeBoard.diet?type=comAll">전체</a>
+				<a class="item" href="/communityWholeBoard.diet?type=bullentin">자유게시판</a>
+				<a class="item" href="/recipeBoard.diet?type=recipe">레시피&식단</a>
+				<a class="item" href="/communityWholeBoard.diet?type=tip">팁&노하우</a>
+				<a class="item" href="/communityWholeBoard.diet?type=worry">고민&질문</a>
+				<a class="item" href="/communityWholeBoard.diet?type=beforeAfter">비포&애프터</a>
 			</div>
 		</div>
 

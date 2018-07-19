@@ -72,7 +72,7 @@ public class MainDAOImpl implements MainDAO {
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40, 0.5);' href='/healthCenter.diet?currentPage="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/healthCenter.diet?currentPage="
 								+ i + "'>  " + i + " </a>");
 			} else {
 				sb.append("<a class='item' href='/healthCenter.diet?currentPage=" + i + "'> " + i + " </a>");

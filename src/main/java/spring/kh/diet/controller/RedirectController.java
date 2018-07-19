@@ -25,23 +25,21 @@ public interface RedirectController {
 	String redirectCalCal();
 
 	String redirectMyOneToOneQuestion();
-
-	String redirectHomeTraining();
-
-	String redirectHomeTrainingInfo();
-
+	
 	String redirectMyDiary();
 
 	String redirectDietTipList();
 
 	String redirectRegistCommunity();
 
-	String redirectRecipeBoard();
-
 	String redirectFoodCalorieInfo();
 
 	String redirectSportsCalorieInfo();
+
   
 	String redirectSignup();
+	
+
+	String redirectModifyCommunity();
 
 }

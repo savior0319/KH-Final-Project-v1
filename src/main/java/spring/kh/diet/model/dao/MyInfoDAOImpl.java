@@ -24,7 +24,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		int result = sqlSessionTemplate.delete("myInfo.secessionMember", mv);
 		return result;
 	}
-	
 
 	@Override
 	public int updateMyInfo(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO) {
@@ -32,7 +31,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return result;
 	}
 
-	
 	@Override
 	public int updateMyPicture(MemberVO mv) {
 		// TODO Auto-generated method stub
@@ -41,26 +39,27 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public MemberVO selectOneMember(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO) {
-		MemberVO mv  = sqlSessionTemplate.selectOne("myInfo.selectOneMember", memberVO);
+		MemberVO mv = sqlSessionTemplate.selectOne("myInfo.selectOneMember", memberVO);
 		return mv;
 	}
 
 	@Override
 	public int deleteMyPicture(SqlSessionTemplate sqlSessionTemplate, String mbId) {
-		int result  = sqlSessionTemplate.delete("myInfo.deleteMyPicture", mbId);
+		int result = sqlSessionTemplate.delete("myInfo.deleteMyPicture", mbId);
 		return result;
 	}
 
 	@Override
 	public ArrayList<QuestionVO> allMyOneToOneQuestion(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
 		List list = sqlSessionTemplate.selectList("myInfo.allMyOneToOneQuestion", mv);
-		return (ArrayList<QuestionVO>)list;
+		return (ArrayList<QuestionVO>) list;
 	}
 
+
 	@Override
-	public ArrayList<ProductVO> myWishList(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		List list = sqlSessionTemplate.selectList("myInfo.myWishList", mv);
-		return (ArrayList<ProductVO>)list;
+	public int signupsave(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		int result = sqlSessionTemplate.insert("myInfo.signup", mv);
+		return result;
 	}
 
 }
