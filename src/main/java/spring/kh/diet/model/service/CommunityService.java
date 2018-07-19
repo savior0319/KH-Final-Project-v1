@@ -6,15 +6,15 @@ import spring.kh.diet.model.vo.BoardPostVO;
 
 public interface CommunityService {
 
-	List allCommunityList();
+	List<BoardPostVO> allCommunityList();
 
 	int registCommunity(BoardPostVO bpv);
   
-	List beforeAfterList();
+	List<BoardPostVO> beforeAfterList();
 
-	List bulletinBoardList();
+	List<BoardPostVO> bulletinBoardList();
 
-	List tipKnowhowBoardList();
+	List<BoardPostVO> tipKnowhowBoardList();
 
-	List worryNQnABoardList();
+	List<BoardPostVO> worryNQnABoardList();
 }

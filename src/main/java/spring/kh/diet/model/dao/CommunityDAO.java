@@ -8,16 +8,16 @@ import spring.kh.diet.model.vo.BoardPostVO;
 
 public interface CommunityDAO {
 
-	List allCommunityList(SqlSessionTemplate sqlSessionTemplate);
+	List<BoardPostVO> allCommunityList(SqlSessionTemplate sqlSessionTemplate);
 
 	int registCommunity(SqlSessionTemplate sqlSessionTemplate, BoardPostVO bpv);
 
-	List beforeAfterList(SqlSessionTemplate sqlSessionTemplate);
+	List<BoardPostVO> beforeAfterList(SqlSessionTemplate sqlSessionTemplate);
 
-	List bulletinBoardList(SqlSessionTemplate sqlSessionTemplate);
+	List<BoardPostVO> bulletinBoardList(SqlSessionTemplate sqlSessionTemplate);
 
-	List tipKnowhowBoardList(SqlSessionTemplate sqlSessionTemplate);
+	List<BoardPostVO> tipKnowhowBoardList(SqlSessionTemplate sqlSessionTemplate);
 
-	List worryNQnABoardList(SqlSessionTemplate sqlSessionTemplate);
+	List<BoardPostVO> worryNQnABoardList(SqlSessionTemplate sqlSessionTemplate);
 
 }

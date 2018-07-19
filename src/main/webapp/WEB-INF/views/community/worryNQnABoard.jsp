@@ -53,7 +53,7 @@
 				<tbody>
 				<c:forEach items="${list}" var="c">
 				<tr align="center" style="height: 50px;">
-						<td>${c.bcaName}</td>
+						<td>고민&질문</td>
 						<td><a class="item" href="/postedCommunity.diet">${c.postTitle}</a></td>
 						<td><img class="ui avatar image"
 							src="${c.postImage}">닉네임</td>
