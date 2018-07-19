@@ -71,8 +71,8 @@
 				칼로리사전 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="/foodCalorieInfo.diet">음식칼로리</a>
-				<a class="item" href="/sportsCalorieInfo.diet">운동칼로리</a>
+				<a class="item" href="/foodCalorieRank.diet">음식칼로리</a>
+				<a class="item" href="/sportsCalorieRank.diet">운동칼로리</a>
 			</div>
 		</div>
 
@@ -81,7 +81,7 @@
 				홈트레이닝 <i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="#">전체</a>
+				<a class="item" href="/homeTrainingAll.diet">전체</a>
 				<a class="item" href="/homeTrainingList.diet">전신</a>
 				<a class="item" href="#">복부</a>
 				<a class="item" href="#">상체</a>

@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DietTipVO {
-	private String dtTitle, dtMainPhoto, dtExplain, dtSammary, dtNickname;
-	private int dtIndex, dtNo, dtType, dtWriterNo, dtLike, dtSee;
-	private Date dtDate;
-	
-	
+public class HomeTrainingVO {
+	private String htMainVideo, htTitle, htPart, htVideoMinute, htLevel, htCalories, htExplain;
+	private int htIndex, htNo, htLike, htHits;
+	private Date htDate;
 }

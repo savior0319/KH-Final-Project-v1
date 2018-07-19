@@ -42,9 +42,10 @@
 		MB_ENROLLDATE AS mbEnrollDate
 		FROM MEMBER_TBL WHERE MB_PHONE = #{mbPhone} AND MB_NAME = #{mbName}
 	</select>
-	
+
 	<update id="updatePassword" parameterType="member" >
 		UPDATE MEMBER_TBL SET MB_PWD = #{mbPwd} WHERE MB_ID = #{mbId}
 	</update>
+
 	
 </mapper>

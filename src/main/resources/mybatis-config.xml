@@ -7,11 +7,13 @@
 		<typeAlias type="spring.kh.diet.model.vo.QuestionVO" alias="question" />
 		<typeAlias type="spring.kh.diet.model.vo.MemberVO" alias="member" />
 		<typeAlias type="spring.kh.diet.model.vo.DietTipVO" alias="dietTip"/>
-		<typeAlias type="spring.kh.diet.model.vo.DietTipPageDataVO" alias="dietTipPage"/>
+		<typeAlias type="spring.kh.diet.model.vo.DietTipPDVO" alias="dietTipPageData"/>
 		<typeAlias type="spring.kh.diet.model.vo.BoardPostVO" alias="community"/>
 		<typeAlias type="spring.kh.diet.model.vo.HealthCenterVO" alias="healthCenter"/>
-		<typeAlias type="spring.kh.diet.model.vo.HealthCenterPageDataVO" alias="healthCenterPage"/>
+		<typeAlias type="spring.kh.diet.model.vo.HealthCenterPDVO" alias="healthCenterPage"/>
 		<typeAlias type="spring.kh.diet.model.vo.ProductVO" alias="product" />
+		<typeAlias type="spring.kh.diet.model.vo.BoardCommentVO" alias="comment"/>
+		<typeAlias type="spring.kh.diet.model.vo.BoardCommentPDVO" alias="commentPageData"/>
 	</typeAliases>
 
 </configuration>

@@ -1,9 +1,9 @@
 package spring.kh.diet.model.service;
 
-import spring.kh.diet.model.vo.HealthCenterPageDataVO;
+import spring.kh.diet.model.vo.HealthCenterPDVO;
 
 public interface MainService {
 
-	HealthCenterPageDataVO getHealthCenterList(int currentPage);
+	HealthCenterPDVO getHealthCenterList(int currentPage);
 
 }

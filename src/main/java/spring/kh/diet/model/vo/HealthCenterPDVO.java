@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HealthCenterPageDataVO {
+public class HealthCenterPDVO {
 	private ArrayList<HealthCenterVO> hcList;
 	private String pageNavi, type;
 	private int start, end;

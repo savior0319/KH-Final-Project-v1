@@ -1,13 +1,12 @@
 package spring.kh.diet.model.dao;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import spring.kh.diet.model.vo.DietTipPageDataVO;
+import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 
 @Repository("dietTipDAO")
@@ -15,16 +14,13 @@ public class DietTipDAOImpl implements DietTipDAO {
 
 	@Override
 	public ArrayList<DietTipVO> selectAllDietTip(SqlSessionTemplate session, int currentPage, int recordCountPerPage, String type) {
-		DietTipPageDataVO dtpd = new DietTipPageDataVO();
+		DietTipPDVO dtpd = new DietTipPDVO();
 
-		//System.out.println(dt);
 		dtpd.setStart((currentPage-1)*recordCountPerPage+1);
 		dtpd.setEnd(currentPage*recordCountPerPage);
 		dtpd.setType(type);
 		
 		List<DietTipVO> list = session.selectList("dietTip.getList", dtpd);
-		
-		//System.out.println(new SimpleDateFormat("yyyy-MM-dd").format(list.get(0).getDtDate()));
 		
 		return (ArrayList<DietTipVO>)list;
 	}

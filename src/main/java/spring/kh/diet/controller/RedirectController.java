@@ -25,11 +25,7 @@ public interface RedirectController {
 	String redirectCalCal();
 
 	String redirectMyOneToOneQuestion();
-
-	String redirectHomeTraining();
-
-	String redirectHomeTrainingInfo();
-
+	
 	String redirectMyDiary();
 
 	String redirectDietTipList();
@@ -37,11 +33,8 @@ public interface RedirectController {
 	String redirectRegistCommunity();
 
 	String redirectRecipeBoard();
-
-	String redirectFoodCalorieInfo();
-
-	String redirectSportsCalorieInfo();
   
 	String redirectSignup();
+	
 
 }
