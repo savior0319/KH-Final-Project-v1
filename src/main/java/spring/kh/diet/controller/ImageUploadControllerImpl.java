@@ -1,27 +1,79 @@
 package spring.kh.diet.controller;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-@SuppressWarnings("all")
 @Controller
 public class ImageUploadControllerImpl {
 
-	@RequestMapping(value = "/imageUpload.diet")
-	public void imageUpload(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/imageUpload1.diet")
+	@ResponseBody
+	public String imageUpload(HttpServletRequest request) throws IllegalStateException,IOException {
 		// 이미지 업로드할 경로
 		System.out.println("넘어오냐?");
-		String uploadPath = "F:/image/upload";
+		Map<String,Object> map = new HashMap<>();
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+		if(multipartResolver.isMultipart(request))
+		{
+			MultipartHttpServletRequest mreq = (MultipartHttpServletRequest) request;
+			Iterator<String> fileNamesIter = mreq.getFileNames();
+			while(fileNamesIter.hasNext()) {
+				MultipartFile file = mreq.getFile(fileNamesIter.next());
+				if(file != null) {
+					String myFileName = file.getOriginalFilename();
+					System.out.println("myFileName : " + myFileName);
+					if(myFileName.trim() != "") {
+						String fileName = file.getOriginalFilename();
+						
+						String fileBaseName = fileName.substring(0, fileName.lastIndexOf("."));
+						
+						String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+						
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+						
+						String newFileName = sdf.format(new Date());
+						
+						String fileNames = newFileName + new Random().nextInt(1000) + "." + fileExt;
+						
+						String filePath = "\\resources\\imageUpload\\" + fileNames;
+						
+						File localFile = new File(filePath);
+						
+						if(!localFile.exists()) {
+							localFile.mkdirs();
+						}
+						file.transferTo(localFile);
+						/*fileName="http://localhost/asd/upload"+fileNames;*/
+						map.put("name", fileBaseName);
+						map.put("path", filePath);
+						System.out.println(fileName);
+						JSONObject JSON = new JSONObject();
+						System.out.println(JSON.toJSONString(map));
+						return JSON.toJSONString(map);
+					}
+				}
+			}
+		}
+		
+		return "";
+		/*String uploadPath = "F:/image/upload";
 		int size = 10 * 1024 * 1024; // 업로드 사이즈 제한 10M 이하
 
 		String fileName = ""; // 파일명
@@ -51,6 +103,6 @@ public class ImageUploadControllerImpl {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+*/
 	}
 }

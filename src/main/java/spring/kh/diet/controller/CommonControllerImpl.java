@@ -33,7 +33,8 @@ public class CommonControllerImpl implements CommonController {
 	public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
 
 		try {
-			System.out.println("호출");
+			System.out.println("호출ddddd");
+			System.out.println(file.getOriginalFilename());
 			/* UploadFile uploadedFile = imageService.store(file); */
 
 			return null;
