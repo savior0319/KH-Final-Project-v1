@@ -25,4 +25,9 @@ public class PasswordToSHA256Advice {
 		String encryptPassword = new SHA256Hash().encryptData(vo.getMbPwd());
 		vo.setMbPwd(encryptPassword);
 	}
+	
+	/* 로그인 비밀번호 암호화 */ 
+	@Pointcut("execution(int spring.kh.diet.model.service.*ServiceImpl.login(..))")
+	public void encryptSHA256Login() {
+	}
 }

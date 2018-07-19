@@ -229,12 +229,10 @@ a {
 			}
 		}else{
 			alert("비밀번호 : 소문자,대문자,숫자를 섞어서 입력해주세요");
-
+		}
 	}
-
-
-	/* 아이디 찾기 ajax 
-
+</script>
+	<!-- /* 아이디 찾기 ajax 
 	function findId() {
 		var mbName = $("#mbName").val();
 		var mbPhone = $("#mbPhone").val();
@@ -257,7 +255,7 @@ a {
 				console.log("아이디 찾기 실패");
 			}
 		});
-	}*/
-</script>
+	}*/ -->
+
 
 </html>
