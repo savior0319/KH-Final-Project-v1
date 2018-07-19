@@ -250,7 +250,7 @@ pageEncoding="UTF-8"%>
 		<td><div class="ui input focus">
 			<input type="text" placeholder="키.." id="heigth" value="${sessionScope.member.mbHeight}"
 			name="mbHeight" style="width: 100px;">
-			<span style="margin-top:14px; font-size:18px; font-weight:800;"><strong>cm</strong></span>
+			<span style="margin-top:14px; margin-left:5px; font-size:18px; font-weight:800;"><strong>cm</strong></span>
 		</div>
 	</td>
 </tr>
@@ -263,7 +263,7 @@ pageEncoding="UTF-8"%>
 	<div class="ui input focus">
 		<input type="text" placeholder="몸무게.." id="weight" value="${sessionScope.member.mbWeight}"
 		name="mbWeight" style="width: 100px;">
-		<span style="margin-top:14px; font-size:18px; font-weight:800;"><strong>Kg</strong></span>
+		<span style="margin-top:14px; font-size:18px; margin-left:5px; font-weight:800;"><strong>Kg</strong></span>
 	</div>
 </td>
 </tr>
