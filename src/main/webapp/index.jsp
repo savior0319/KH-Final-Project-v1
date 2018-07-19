@@ -19,7 +19,7 @@
 			url : 'createSession.diet',
 			type : 'post',
 			success : function(data){
-				alert(data)
+
 			}
 		});
 	});		
