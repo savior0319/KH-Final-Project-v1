@@ -196,4 +196,11 @@ public class MainControllerImpl implements MainController {
 		return "main/healthCenter";
 
 	}
+
+	/* 메인페이지 - 비로그인 세션 생성 */
+	@Override
+	@RequestMapping(value = "/createSession.diet")
+	public void createSession() {
+		System.out.println("호출");
+	}
 }
