@@ -40,14 +40,11 @@
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
-
-
 	<!-- 페이징 처리 - 내비게이션 생성 -->
 	<select id="getNavi" resultType="java.lang.Integer">
 		select count(*) as totalCount
 		from BOARD_POST_TBL
 	</select>
-
 
 	<insert id="registCommunity" parameterType="community">
 		INSERT INTO BOARD_POST_TBL
@@ -65,7 +62,5 @@
 		WHERE BCA_INDEX like '16'
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
-
-
 
 </mapper>

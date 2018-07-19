@@ -40,21 +40,22 @@ public class CommunityControllerImpl implements CommunityController {
 	 * { return null; } }
 	 */
 
+	
+	// 게시글 등록 메소드	
 	@Override
 	@RequestMapping(value = "/communityPostRegist.diet")
-	public void registCommunity(@RequestParam String title, @RequestParam String content, @RequestParam String category,
+	public void registCommunity(@RequestParam String title, @RequestParam String content, @RequestParam int category,
 			HttpSession session, HttpServletResponse response) throws IOException {
 
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		BoardPostVO bpv = new BoardPostVO();
 
-		// 준상오빠 수정하세요......
 		bpv.setMbIndex(mv.getMbIndex());
-		bpv.setMbIndex(0);
+		
 
 		bpv.setPostTitle(title);
 		bpv.setPostContent(content);
-		/* bpv.setBcaName(category); */
+		bpv.setBcaIndex(category);
 
 		int result = communityService.registCommunity(bpv);
 

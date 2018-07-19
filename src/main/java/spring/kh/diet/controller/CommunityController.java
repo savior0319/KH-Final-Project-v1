@@ -8,11 +8,15 @@ import javax.servlet.http.HttpSession;
 
 public interface CommunityController {
 
-	void registCommunity(String title, String content, String category, HttpSession session,
-			HttpServletResponse response) throws IOException;
+	Object allCommunityList(HttpSession session);
+
+	void registCommunity(String title, String content, int category, HttpSession session, HttpServletResponse response)
+			throws IOException;
 
 	String recipeBoardList(HttpSession session,HttpServletRequest request);
 
 	String getList(HttpSession session, HttpServletRequest request);
+
+	
 
 }

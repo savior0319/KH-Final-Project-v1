@@ -24,6 +24,12 @@
 
 	<dependencies>
 	
+	<!-- COS -->
+	  <dependency>
+          <groupId>servlets.com</groupId>
+          <artifactId>cos</artifactId>
+          <version>05Nov2002</version>
+      </dependency> 
 		<!-- Apache Commons File Upload / 혜윤 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
