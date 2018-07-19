@@ -55,7 +55,7 @@
 				<tbody>
 					<c:forEach items="${list}" var="c">
 						<tr align="center" style="height: 50px;">
-							<td>${c.bcaName}</td>
+							<td>전체게시판</td>
 							<td>
 								<a class="item" href="/postedCommunity.diet">${c.postTitle}</a>
 							</td>

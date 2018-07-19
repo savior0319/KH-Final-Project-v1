@@ -55,7 +55,7 @@ public class CommunityControllerImpl implements CommunityController {
 
 		bpv.setPostTitle(title);
 		bpv.setPostContent(content);
-		bpv.setBcaName(category);
+		/*bpv.setBcaName(category);*/
 
 		int result = communityService.registCommunity(bpv);
 

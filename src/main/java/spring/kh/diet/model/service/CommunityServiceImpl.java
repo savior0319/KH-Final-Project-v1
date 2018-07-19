@@ -22,22 +22,22 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 커뮤니티 전체 게시판
 	@Override
-	public List allCommunityList() {
-		List list = communityDAO.allCommunityList(SqlSessionTemplate);
+	public List<BoardPostVO> allCommunityList() {
+		List<BoardPostVO> list = communityDAO.allCommunityList(SqlSessionTemplate);
 		return list;
 	}
 
 	// 비포&애프터 게시판
 	@Override
-	public List beforeAfterList() {
-		List list = communityDAO.beforeAfterList(SqlSessionTemplate);
+	public List<BoardPostVO> beforeAfterList() {
+		List<BoardPostVO> list = communityDAO.beforeAfterList(SqlSessionTemplate);
 		return list;
 	}
 
 	// 자유게시판
 	@Override
-	public List bulletinBoardList() {
-		List list = communityDAO.bulletinBoardList(SqlSessionTemplate);
+	public List<BoardPostVO> bulletinBoardList() {
+		List<BoardPostVO> list = communityDAO.bulletinBoardList(SqlSessionTemplate);
 		return list;
 	}
 
@@ -49,15 +49,15 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 팁& 노하우
 	@Override
-	public List tipKnowhowBoardList() {
-		List list = communityDAO.tipKnowhowBoardList(SqlSessionTemplate);
+	public List<BoardPostVO> tipKnowhowBoardList() {
+		List<BoardPostVO> list = communityDAO.tipKnowhowBoardList(SqlSessionTemplate);
 		return list;
 	}
 
 	// 고민& 질문
 	@Override
-	public List worryNQnABoardList() {
-		List list = communityDAO.worryNQnABoardList(SqlSessionTemplate);
+	public List<BoardPostVO> worryNQnABoardList() {
+		List<BoardPostVO> list = communityDAO.worryNQnABoardList(SqlSessionTemplate);
 		return list;
 	}
 
