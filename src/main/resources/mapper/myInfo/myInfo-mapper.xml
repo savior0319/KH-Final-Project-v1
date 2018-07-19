@@ -2,69 +2,89 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="myInfo">
 	<insert id="question" parameterType="question">
-		INSERT INTO QUESTION VALUES(QUESTION_SEQ.NEXTVAL, #{title}, #{content})
+		INSERT INTO QUESTION
+		VALUES(QUESTION_SEQ.NEXTVAL, #{title}, #{content})
 	</insert>
-	
+
 	<delete id="secessionMember" parameterType="member">
-		DELETE FROM MEMBER_TBL WHERE MB_ID = #{mbId}
+		DELETE FROM
+		MEMBER_TBL WHERE MB_ID = #{mbId}
 	</delete>
-	
+
 	<update id="updateMyInfo" parameterType="member">
-		UPDATE MEMBER_TBL 
+		UPDATE MEMBER_TBL
 		SET MB_PWD = #{mbPwd},
-			MB_NICKNAME = #{mbNickName},
-			MB_PHONE = #{mbPhone},
-			MB_PROMISE = #{mbPromise},
-				<if test ="mbHeight == null">
-					MB_HEIGHT = null,
-				</if>
-				<if test = "mbHeight != null">
-					MB_HEIGHT = #{mbHeight},
-				</if>
-				<if test ="mbHeight == null">
-					MB_WEIGHT = null
-				</if>
-				<if test = "mbHeight != null">
-					MB_WEIGHT = #{mbWeight}
-				</if>
-			WHERE MB_ID = #{mbId}	
+		MB_NICKNAME = #{mbNickName},
+		MB_PHONE = #{mbPhone},
+		MB_PROMISE = #{mbPromise},
+		<if test="mbHeight == null">
+			MB_HEIGHT = null,
+		</if>
+		<if test="mbHeight != null">
+			MB_HEIGHT = #{mbHeight},
+		</if>
+		<if test="mbHeight == null">
+			MB_WEIGHT = null
+		</if>
+		<if test="mbHeight != null">
+			MB_WEIGHT = #{mbWeight}
+		</if>
+		WHERE MB_ID = #{mbId}
 	</update>
-		
+
 	<select id="selectOneMember" parameterType="member" resultType="member">
-		SELECT MB_INDEX AS mbIndex, 
-			   MB_ID AS mbId ,
-			   MB_PWD AS mbPwd, 
-			   MB_NAME AS mbName,
-			   MB_NICKNAME AS mbNickName,
-			   MB_GENDER AS mbGender,
-			   MB_IMAGE AS mbImage,
-			   MB_PROMISE AS mbPromise,
-			   MB_AGE AS mbAge,
-			   MB_PHONE AS mbPhone,
-			   MB_ADDRESS AS mbAddress,
-			   MB_HOBBY AS mbHobby,
-			   MB_INTEREST AS mbInterest,
-			   MB_STATE AS mbState, 
-		       MB_GRADE AS mbGrade,
-		       MB_AD_AGREE AS mbAdAgree,
-		       MB_HEIGHT AS mbHeight,
-		       MB_WEIGHT AS mbWeight,
-		       MB_ENROLLDATE AS mbEnrollDate 
-		       FROM MEMBER_TBL WHERE MB_ID = #{mbId}
+		SELECT MB_INDEX AS mbIndex,
+		MB_ID AS mbId ,
+		MB_PWD AS mbPwd,
+		MB_NAME AS
+		mbName,
+		MB_NICKNAME AS mbNickName,
+		MB_GENDER AS mbGender,
+		MB_IMAGE AS
+		mbImage,
+		MB_PROMISE AS mbPromise,
+		MB_AGE AS mbAge,
+		MB_PHONE AS mbPhone,
+		MB_ADDRESS AS mbAddress,
+		MB_HOBBY AS mbHobby,
+		MB_INTEREST AS mbInterest,
+		MB_STATE AS mbState,
+		MB_GRADE AS mbGrade,
+		MB_AD_AGREE AS mbAdAgree,
+		MB_HEIGHT AS mbHeight,
+		MB_WEIGHT AS mbWeight,
+		MB_ENROLLDATE AS
+		mbEnrollDate
+		FROM MEMBER_TBL WHERE MB_ID = #{mbId}
 	</select>
-	
-	<delete id = "deleteMyPicture" parameterType="member">
-		UPDATE MEMBER_TBL SET MB_IMAGE ='http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg' WHERE MB_ID = #{mbId}
+
+	<delete id="deleteMyPicture" parameterType="member">
+		UPDATE MEMBER_TBL SET
+		MB_IMAGE
+		='http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg'
+		WHERE MB_ID = #{mbId}
 	</delete>
-	
-	<select id ="allMyOneToOneQuestion" parameterType="member" resultType="question">
-		SELECT TITLE AS title,CONTENT AS content,QUESTION_NO as querstionIndex FROM QUESTION
+
+	<select id="allMyOneToOneQuestion" parameterType="member"
+		resultType="question">
+		SELECT TITLE AS title,CONTENT AS content,QUESTION_NO as
+		querstionIndex FROM QUESTION
 	</select>
-	
-	<select id = "myWishList" parameterType="member" resultType="product" >
-		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS pdImage, PD_PRICE AS pdPrice FROM PRODUCT_TBL
-		JOIN MY_WISHLIST_TBL USING(PRODUCT_INDEX)
+
+	<select id="myWishList" parameterType="member" resultType="product">
+		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS pdImage,
+		PD_PRICE AS pdPrice FROM PRODUCT_TBL
+		JOIN MY_WISHLIST_TBL
+		USING(PRODUCT_INDEX)
 		JOIN MEMBER_TBL USING(MB_INDEX)
-		WHERE MB_ID = #{mbId} 
+		WHERE MB_ID =
+		#{mbId}
 	</select>
+
+	<insert id="signup" parameterType="member">
+		INSERT INTO MEMBER_TBL
+		VALUES(MEMBER_SEQ.NEXTVAL, #{mbId}, #{mbPwd}, null, #{mbNickName},
+		#{mbGender}, null, null, null, null, null, #{mbInterest},
+		'일반회원', null, null, SYSDATE)
+	</insert>
 </mapper>
