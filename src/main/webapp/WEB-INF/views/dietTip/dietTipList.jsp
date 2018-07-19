@@ -43,6 +43,7 @@
 					<div class="twelve wide column" style="cursor:pointer;">
 						<strong>${dt.dtTitle }</strong>
 						<div style="width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent:5px;">${dt.dtSammary }</div>
+						<br>
 						<div class="ui grid">
 							<div class="four wide column">
 								<i class="clock outline icon"></i> ${dt.dtDate }

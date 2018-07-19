@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.CommunityService;
 import spring.kh.diet.model.vo.BoardPostVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
 
 @Controller
@@ -27,19 +29,16 @@ public class CommunityControllerImpl implements CommunityController {
 	}
 
 	// 전체 게시판
-	@Override
-	@RequestMapping(value = "/communityWholeBoard.diet")
-	public Object allCommunityList(HttpSession session) {
-		List list = communityService.allCommunityList();
-		ModelAndView view = new ModelAndView();
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.setViewName("community/communityWholeBoard");
-			return view;
-		} else {
-			return null;
-		}
-	}
+	/*
+	 * @Override
+	 * 
+	 * @RequestMapping(value = "/communityWholeBoard.diet") public Object
+	 * allCommunityList(HttpSession session, HttpServletRequest request) {
+	 * List<BoardPostVO> list = communityService.allCommunityList(); ModelAndView
+	 * view = new ModelAndView(); if (!list.isEmpty()) { view.addObject("list",
+	 * list); view.setViewName("community/communityWholeBoard"); return view; } else
+	 * { return null; } }
+	 */
 
 	
 	// 게시글 등록 메소드	
@@ -70,74 +69,55 @@ public class CommunityControllerImpl implements CommunityController {
 		response.getWriter().close();
 	}
 
-	// 비포&애프터 게시판
+	// 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력
 	@Override
-	@RequestMapping(value = "/beforeAfterBoard.diet")
-	public Object beforeAfterList(HttpSession session) {
-		List list = communityService.beforeAfterList();
-		ModelAndView view = new ModelAndView();
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.setViewName("community/beforeAfterBoard");
-			return view;
+	@RequestMapping(value = "/communityWholeBoard.diet")
+	public String getList(HttpSession session, HttpServletRequest request) {
+		String type = request.getParameter("type");
+
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
 		} else {
-			return null;
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 
+		CommunityPageDataVO cpdv = communityService.allCommunityList(currentPage, type);
+
+		request.setAttribute("cpdv", cpdv);
+
+		return "community/communityWholeBoard";
 	}
 
-	// 자유 게시판
+
+	// 레시피&식단
 	@Override
-	@RequestMapping(value = "/bulletinBoard.diet")
-	public Object bulletinBoardList(HttpSession session) {
-		List list = communityService.bulletinBoardList();
-		ModelAndView view = new ModelAndView();
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.setViewName("community/bulletinBoard");
-			return view;
+	@RequestMapping(value = "/recipeBoard.diet")
+	public String recipeBoardList(HttpSession session, HttpServletRequest request) {
+		String type = request.getParameter("type");
+
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
 		} else {
-			return null;
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 
+		CommunityPageDataVO cpdv = communityService.recipeBoardList(currentPage, type);
+
+		request.setAttribute("cpdv", cpdv);
+		
+		return "community/recipeBoard";
 	}
 
-	// 팁&노하우
-	@Override
-	@RequestMapping(value = "/tipKnowhowBoard.diet")
-	public Object tipKnowhowBoardList(HttpSession session) {
-		List list = communityService.tipKnowhowBoardList();
-		ModelAndView view = new ModelAndView();
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.setViewName("community/tipKnowhowBoard");
-			return view;
-		} else {
-			return null;
-		}
-
-	}
-
-	// 고민&질문
-	@Override
-	@RequestMapping(value = "/worryNQnABoard.diet")
-	public Object worryNQnABoardList(HttpSession session) {
-		List list = communityService.worryNQnABoardList();
-		ModelAndView view = new ModelAndView();
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.setViewName("community/worryNQnABoard");
-			return view;
-		} else {
-			return null;
-		}
-
-	}
-
-	@Override
+	
+	//등록된 글 들어가는 곳
+/*	@Override
 	@RequestMapping(value = "/postedCommunity.diet")
 	public Object postedCommunity(HttpSession session) {
-		List list = communityService.allCommunityList();
+		List<BoardPostVO> list = communityService.allCommunityList();
 		ModelAndView view = new ModelAndView();
 		if (!list.isEmpty()) {
 			view.addObject("list", list);
@@ -147,6 +127,6 @@ public class CommunityControllerImpl implements CommunityController {
 			return null;
 		}
 
-	}
+	}*/
 
 }

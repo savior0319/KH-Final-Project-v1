@@ -2,66 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="community">
 
-<resultMap type="community" id="communityDB">
-	<result property="postIndex" column="POST_INDEX"/>
-	<result property="brdIndex" column="BRD_INDEX"/>
-	<result property="postTitle" column="POST_TITLE"/>
-	<result property="postContent" column="POST_CONTENT"/>
-	<result property="mbIndex" column="MB_INDEX"/>
-	<result property="postDateTime" column="POST_DATETIME"/>
-	<result property="postComCount" column="POST_COMMENT_COUNT"/>
-	<result property="postHit" column="POST_HIT"/>
-	<result property="postLike" column="POST_LIKE"/>
-	<result property="postImage" column="POST_IMAGE"/>
-	<result property="bcaIndex" column="BCA_INDEX"/>
-</resultMap>
+	<resultMap type="community" id="communityDB">
+		<result property="postIndex" column="POST_INDEX" />
+		<result property="brdIndex" column="BRD_INDEX" />
+		<result property="postTitle" column="POST_TITLE" />
+		<result property="postContent" column="POST_CONTENT" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="postDateTime" column="POST_DATETIME" />
+		<result property="postComCount" column="POST_COMMENT_COUNT" />
+		<result property="postHit" column="POST_HIT" />
+		<result property="postLike" column="POST_LIKE" />
+		<result property="postImage" column="POST_IMAGE" />
+		<result property="bcaIndex" column="BCA_INDEX" />
+	</resultMap>
 
-<!-- 전체게시판 -->
-	<select id="allCommunityList" parameterType="community"
+	<!-- 전체게시판 -->
+	<select id="allCommunityList" parameterType="communityPage"
 		resultType="community" resultMap="communityDB">
 		SELECT *
-		FROM board_post_tbl
+		FROM (SELECT BOARD_POST_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY POST_DATETIME
+		DESC) AS NUM FROM BOARD_POST_TBL
+		<choose>
+			<when test="type.equals('bullentin')">
+				WHERE BCA_INDEX like '15'
+			</when>
+			<when test="type.equals('tip')">
+				WHERE BCA_INDEX like '17'
+			</when>
+			<when test="type.equals('worry')">
+				WHERE BCA_INDEX like '18'
+			</when>
+			<when test="type.equals('beforeAfter')">
+				WHERE BCA_INDEX LIKE '19'
+			</when>
+		</choose>
+		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
+	<!-- 페이징 처리 - 내비게이션 생성 -->
+	<select id="getNavi" resultType="java.lang.Integer">
+		select count(*) as totalCount
+		from BOARD_POST_TBL
+	</select>
 
 	<insert id="registCommunity" parameterType="community">
 		INSERT INTO BOARD_POST_TBL
 		VALUES(INDEX_NO_SEQ.NEXTVAL,4,#{postTitle},#{postContent},#{bcaIndex},#{mbIndex},SYSDATE,0,0,0,'')
 	</insert>
 
-<!-- 비포&애프터 게시판 -->
-	<select id="beforeAfterList" parameterType="community"
+	<!-- 식단&레시피 -->
+	<select id="recipeBoardList" parameterType="communityPage"
 		resultType="community" resultMap="communityDB">
 		SELECT *
-		FROM BOARD_POST_TBL
-		WHERE BCA_INDEX LIKE '19'
+		FROM 
+		(SELECT BOARD_POST_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY POST_DATETIME
+		DESC) AS NUM FROM BOARD_POST_TBL
+		WHERE BCA_INDEX like '16'
+		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
-
-<!-- 자유게시판 -->
-	<select id="bulletinBoardList" parameterType="community"
-		resultType="community" resultMap="communityDB">
-		SELECT *
-		FROM BOARD_POST_TBL
-		WHERE BCA_INDEX like '15'
-	</select>
-
-
-<!-- 팁&노하우 -->
-	<select id="tipKnowhowBoardList" parameterType="community"
-		resultType="community" resultMap="communityDB">
-		SELECT *
-		FROM BOARD_POST_TBL
-		WHERE BCA_INDEX like '17'
-	</select>
-
-
-<!-- 고민&질문 -->
-	<select id="worryNQnABoardList" parameterType="community"
-		resultType="community" resultMap="communityDB">
-		SELECT *
-		FROM BOARD_POST_TBL
-		WHERE BCA_INDEX like '18'
-	</select>
-
 
 </mapper>

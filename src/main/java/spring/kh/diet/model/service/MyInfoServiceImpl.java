@@ -27,42 +27,47 @@ public class MyInfoServiceImpl implements MyInfoService {
 		int result = MyInfoDAO.question(SqlSessionTemplate, qv);
 		return result;
 	}
+
 	@Override
 	public int secessionMember(MemberVO mv) {
 		int result = MyInfoDAO.secessionMember(SqlSessionTemplate, mv);
 		return result;
 	}
+
 	@Override
 	public int updateMyPicture(MemberVO mv) {
-	
+
 		return 0;
 	}
-	
+
 	@Override
 	public int updateMyInfo(MemberVO memberVO) {
-		int result = MyInfoDAO.updateMyInfo(SqlSessionTemplate,memberVO);
+		int result = MyInfoDAO.updateMyInfo(SqlSessionTemplate, memberVO);
 		return result;
 	}
+
 	@Override
 	public MemberVO selectOneMember(MemberVO memberVO) {
-		MemberVO mv = MyInfoDAO.selectOneMember(SqlSessionTemplate,memberVO);
+		MemberVO mv = MyInfoDAO.selectOneMember(SqlSessionTemplate, memberVO);
 		return mv;
 	}
+
 	@Override
 	public int deleteMyPicture(String mbId) {
-		int result = MyInfoDAO.deleteMyPicture(SqlSessionTemplate,mbId);
+		int result = MyInfoDAO.deleteMyPicture(SqlSessionTemplate, mbId);
 		return result;
 	}
+
 	@Override
 	public ArrayList<QuestionVO> allMyOneToOneQuestion(MemberVO mv) {
-		ArrayList<QuestionVO> list = MyInfoDAO.allMyOneToOneQuestion(SqlSessionTemplate,mv);
-
+		ArrayList<QuestionVO> list = MyInfoDAO.allMyOneToOneQuestion(SqlSessionTemplate, mv);
 		return list;
 	}
+
 	@Override
-	public ArrayList<ProductVO> myWishList(MemberVO mv) {
-		ArrayList<ProductVO> list = MyInfoDAO.myWishList(SqlSessionTemplate,mv);
-		return list;
+	public int signupsave(MemberVO mv) {
+		int result = MyInfoDAO.signupsave(SqlSessionTemplate, mv);
+		return result;
 	}
 
 }

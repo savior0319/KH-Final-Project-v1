@@ -5,11 +5,14 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>커뮤니티(전체)</title>
+<title>성공후기</title>
 </head>
 
 <!-- CSS -->
 <style>
+.ui.card {
+	width: 400px;
+}
 </style>
 
 
@@ -24,7 +27,7 @@
 		<br>
 		<br>
 		<div class="ui left aligned container">
-			<h1>&emsp;&nbsp;&nbsp;커뮤니티(전체)</h1>
+			<h1>&emsp;&nbsp;&nbsp;BEFORE & AFTER</h1>
 		</div>
 		<hr style="border: 2px solid #D5D5D5;">
 		<br>
@@ -53,9 +56,17 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list}" var="c">
+				<c:forEach items="${requestScope.cpdv.comList}" var="c">
 						<tr align="center" style="height: 50px;">
-							<td>전체게시판</td>
+							<td>
+							<c:choose>
+							<c:when test="${requestScope.cpdv.type.equals('bullentin') }">자유게시판</c:when>
+							<c:when test="${requestScope.cpdv.type.equals('tip') }">팁&노하우</c:when>
+							<c:when test="${requestScope.cpdv.type.equals('worry') }">고민&질문</c:when>
+							<c:when test="${requestScope.cpdv.type.equals('beforeAfter') }">비포&애프터</c:when>
+							</c:choose>
+							
+							</td>
 							<td>
 								<a class="item" href="/postedCommunity.diet">${c.postTitle}</a>
 							</td>
@@ -67,7 +78,20 @@
 							<td>${c.postDateTime}</td>
 						</tr>
 					</c:forEach>
-
+					<%-- <c:forEach items="${list}" var="c">
+						<tr align="center" style="height: 50px;">
+							<td>비포&애프터</td>
+							<td>
+								<a class="item" href="/postedCommunity.diet">${c.postTitle}</a>
+							</td>
+							<td>
+								<img class="ui avatar image" src="${c.postImage}">
+								닉네임
+							</td>
+							<td>${c.postHit}</td>
+							<td>${c.postDateTime}</td>
+						</tr>
+					</c:forEach> --%>
 				</tbody>
 			</table>
 		</div>
@@ -80,22 +104,9 @@
 			<div class="three column row">
 				<div class="column"></div>
 				<div class="column">
-					<div class="ui center aligned basic segment">
-						<div class="ui pagination menu">
-							<a class="icon item">
-								<i class="left chevron icon disabled" id="prevIcon"></i>
-							</a>
-							<a class="item active"> 1 </a>
-							<a class="item"> 2 </a>
-							<a class="item"> 3 </a>
-							<a class="item"> 4 </a>
-							<a class="item"> 5 </a>
-							<a class="icon item">
-								<i class="right chevron icon" id="nextIcon"></i>
-							</a>
-
-						</div>
-					</div>
+		<div class="ui center aligned basic segment">
+			<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
+		</div>
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
@@ -128,7 +139,6 @@
 
 
 	</div>
-
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>

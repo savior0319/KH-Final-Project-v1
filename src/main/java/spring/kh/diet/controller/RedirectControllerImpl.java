@@ -102,21 +102,7 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectMyOneToOneQuestion() {
 		return "myInfo/myOneToOneQuestion";
 	}
-
-	/* 홈트레이닝 - 목록 */
-	@Override
-	@RequestMapping(value = "/homeTrainingList.diet")
-	public String redirectHomeTraining() {
-		return "homeTraining/homeTrainingList";
-	}
-
-	/* 홈트레이닝 - 상세정보 */
-	@Override
-	@RequestMapping(value = "/homeTrainingInfo.diet")
-	public String redirectHomeTrainingInfo() {
-		return "homeTraining/homeTrainingInfo";
-	}
-
+	
 	/* 마이페이지 - 나의 다이어리 */
 	@Override
 	@RequestMapping(value = "/myDiary.diet")
@@ -137,25 +123,12 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectRegistCommunity() {
 		return "community/registCommunity";
 	}
-
-	/* 커뮤니티 - 레시피&식단 */
+	
+	/* 커뮤니티 - 글수정 페이지 */
 	@Override
-	@RequestMapping(value = "/recipeBoard.diet")
-	public String redirectRecipeBoard() {
-		return "community/recipeBoard";
+	@RequestMapping(value = "/modifyCommunity.diet")
+	public String redirectModifyCommunity() {
+		return "community/modifyCommunity";
 	}
-
-	/* 칼로리 -푸드칼로리 */
-	@Override
-	@RequestMapping(value = "/foodCalorieInfo.diet")
-	public String redirectFoodCalorieInfo() {
-		return "calorieDic/foodCalorieInfo";
-	}
-  
-	/* 운동칼로리 - 세부정보 */
-	@Override
-	@RequestMapping(value = "/sportsCalorieInfo.diet")
-	public String redirectSportsCalorieInfo() {
-		return "calorieDic/sportsCalorieInfo";
-	}
+	
 }

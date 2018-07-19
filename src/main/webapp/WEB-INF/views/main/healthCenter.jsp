@@ -48,9 +48,9 @@
 					<c:forEach items="${requestScope.hcpd.hcList}" var="hc">
 					<tr align="center" style="height: 50px;">
 						<td style="width: 15%;">${hc.hcLocation}</td>
-						<td style="width: 50%;">${hc.hcAddress}</td>
+						<td style="width: 50%;" id="address">${hc.hcAddress}</td>
 						<td style="width: 15%;">${hc.hcPhone}</td>
-						<td style="width: 10%;"><a href="#"><i class="map marker icon" style="color : red;"></i></a></td>
+						<td style="width: 10%;"><div class="location"><i class="map marker icon" style="color : red;"></i></div></td>
 					</tr>
 				</c:forEach> 
 			</tbody>
@@ -71,7 +71,15 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	
+	$('.location').mouseenter(function() {
+		$('.location').css('cursor', 'pointer');
+	});
+
+	$('.location').click(function(){
+		var locationMap = ($(this).parent().siblings('td[id=address]').html());
+		var openMap = window.open("about:blank");
+		openMap.location.href = 'https://www.google.com/maps/place/' + locationMap;
+	})
 </script>
 
 </html>

@@ -22,7 +22,9 @@ public interface MyInfoService {
 
 	ArrayList<QuestionVO> allMyOneToOneQuestion(MemberVO mv);
 
-	ArrayList<ProductVO> myWishList(MemberVO mv);
+	int signupsave(MemberVO mv);
+
+
 
 
 }

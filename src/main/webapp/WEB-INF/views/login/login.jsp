@@ -79,44 +79,41 @@ a {
 		<div class="ui container">
 			<div class="contents login">
 				<c:if test="${sessionScope.member==null}">
-				<div class="login title">
-					<h1>LOGIN</h1>
-				</div>
-				<div class="login box">
-					<p style="padding-top: 20px; font-size: 13px; font-weight: 800;">
-						다이어트신의 다양한 서비스를 이용하시려면 로그인을 해주세요. <br> 회원가입을 하시면 다양한 서비스를 받으실
-						수 있습니다.
-					</p>
-					<br>
-					<form action="/loginRequest.diet" method="post">
-						<div class="ui input">
-							<input type="text" placeholder="아이디.." name = "memberId" />
-						</div>
-						<br>
-						<div class="ui input"> 
-							<input type="password" placeholder="비밀번호.." name = "memberPwd" />
-						</div>
-						<br>
-						<input type="submit" class="ui button loginBtn" id="loginBtn" value = "로그인" />
-					</form>
-					<br><br>
-					<div>
-						<ul>
-							<li><a class="ui simple item findPwd" href="#"><h3>비밀번호재설정</h3></a></li>
-							<li><a class="ui simple item findId" href="#"><h3>아이디찾기</h3></a></li>
-						</ul>
+					<div class="login title">
+						<h1>LOGIN</h1>
 					</div>
-					<br> <br>
-					<button type="button" class="ui negative basic button" id="joinBtn"
-						onclick="joinBtn();">회원가입</button>
-					<br> <br>
-					<jsp:include page="/resources/SNSLogin/kakaoLogin.jsp"></jsp:include>
-				</div>
+					<div class="login box">
+						<p style="padding-top: 20px; font-size: 13px; font-weight: 800;">
+							다이어트신의 다양한 서비스를 이용하시려면 로그인을 해주세요. <br> 회원가입을 하시면 다양한 서비스를
+							받으실 수 있습니다.
+						</p>
+						<br>
+						<form action="/loginRequest.diet" method="post">
+							<div class="ui input">
+								<input type="text" placeholder="아이디.." name="memberId" />
+							</div>
+							<br>
+							<div class="ui input">
+								<input type="password" placeholder="비밀번호.." name="memberPwd" />
+							</div>
+							<br> <input type="submit" class="ui button loginBtn"
+								id="loginBtn" value="로그인" />
+						</form>
+						<br> <br>
+						<div>
+							<a class="ui simple item findPwd" href="#"><h3>비밀번호재설정</h3></a>
+						</div>
+						<br> <br>
+						<button type="button" class="ui negative basic button"
+							id="joinBtn" onclick="joinBtn();">회원가입</button>
+						<br> <br>
+						<jsp:include page="/resources/SNSLogin/kakaoLogin.jsp"></jsp:include>
+					</div>
 				</c:if>
-				
+
 				<c:if test="${sessionScope.member!=null }">
-					<script>	
-						location.href="/index.jsp";
+					<script>
+						location.href = "/index.jsp";
 						alert("로그인상태입니다.");
 					</script>
 				</c:if>
@@ -132,48 +129,30 @@ a {
 		<div class="image content">
 			<div class="description">
 				<div class="ui header">
-					<form action="/updatePass.diet" method="post">
-						<div class="ui input">
-							<input type="password" placeholder="비밀번호 입력..">
-						</div>
-						<br>
-						<div class="ui input">
-							<input type="password" placeholder="비밀번호 재입력">
-						</div>
-						<br><br>			
-						<button class="ui red button" type="submit" >비밀번호 변경</button>	
-					</form>
-						<button class="ui gray button" type="reset" >취소</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<!-- 아이디 찾기 모달 -->
-	<div class="ui modal" id="findIdModal">
-		<i class="close icon"></i>
-		<div class="header">아이디 찾기</div>
-		<form action="/findId.diet" method="post">
-		<div class="image content">
-			<div class="description">
-				<div class="ui header">
 					<div class="ui input">
-						<input type="text" placeholder="이메일 주소 입력" name="">
+						<input type="text" placeholder="계정 입력.." id="mbId"
+							style="width: 400px;">
 					</div>
 					<br>
+					<br>
 					<div class="ui input">
-						<input type="text" placeholder="이름 입력">
+						<input type="password" placeholder="비밀번호 입력.." id="mbPwd">
 					</div>
+					<br>
+					<br>
+					<div class="ui input">
+						<input type="password" placeholder="비밀번호 재입력" id="mbRePwd">
+					</div>
+					<br>
+					<br>
+					<button type="button" class="ui red button" onclick="updatePwd();">비밀번호
+						변경</button>
+					<button class="ui gray button" type="reset">취소</button>
 				</div>
 			</div>
-			<div class="actions">
-				<input type="button" class="ui black deny button" value="취소" />
-				<input type="submit" class="ui positive right labeled icon button" value="아이디찾기" /> 	
-			</div>
 		</div>
-		</form>
 	</div>
+
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
@@ -189,8 +168,47 @@ a {
 		$('#findIdModal').modal('show');
 	});
 	
-	/* 로그인 버튼 */
+	/* 비밀번호 재설정 */
+	function updatePwd(){
 
+		var mbId = $("#mbId").val();
+		var mbPwd = $("#mbPwd").val();
+		var mbRePwd = $("#mbRePwd").val();
+		var pwdRegExp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,16}$/;
+		
+		var result1 = pwdRegExp.test(mbPwd);
+		var result2 = pwdRegExp.test(mbRePwd);
+
+		if(result1==true&&result2==true){
+			if(mbPwd == mbRePwd){
+				console.log(mbPwd);
+				$.ajax({
+					url : '/updatePassword.diet',
+					data : {
+						'mbId' : mbId,
+						'mbPwd' : mbPwd
+					},		
+					type : "post",
+					success : function(data) {
+						console.log(data);
+						if (data == '1') {
+							alert("비밀번호 변경이 완료되었습니다.");
+							location.href = "/"
+						} else {
+							alert("비밀번호 변경 실패하였습니다.");
+						}
+					},
+					error : function() {
+						alert("fgsdg비밀번호 변경 실패하였습니다.");
+					}
+				});			
+			}else{
+				alert("비밀번호를 동일하게 입력해주세요.");
+			}
+		}else{
+			alert("비밀번호 : 소문자,대문자,숫자를 섞어서 입력해주세요");
+		}
+	}
 </script>
 
 </html>

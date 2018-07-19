@@ -24,7 +24,10 @@
 
 		<div class="ui center aligned container">
 			<div class="ui panorama test ad" data-text="Panorama"></div>
-			<h1>홈트레이닝 > 전신</h1>
+			
+			<!-- 운동부위별 값 넣을곳 -->
+			
+			<h1 class="ui left aligned header">홈트레이닝 > 전신</h1><hr><br>
 
 			
 				<!-- 제목 이미지 출력  -->

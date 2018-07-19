@@ -44,270 +44,80 @@
 		<br>
 		<!-- 글목록 -->
 
-		<c:forEach items="${list}" var="c">
-			<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
 
-				<div class="ui three column grid" align="center">
+		<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
+
+			<div class="ui three column grid" align="center">
+				<c:forEach items="${requestScope.cpdv.comList}" var="c">
 					<div class="column">
-						<div class="ui card">
+						<div class="ui card" onclick="recipeLink();" style="cursor: pointer;">
 							<div class="image">
-								<img src="/resources/image/mainPic.jpg" style="height: 200px;">
+								<img src="${c.postImage}" style="height: 200px;">
 							</div>
 							<div class="content">
-								<a class="header">제목제목제목</a>
+								<a class="header">${c.postTitle}</a>
 								<div class="meta">
-									<span class="date">Joined in 2013</span>
+									<span class="date">${c.postDateTime}</span>
 								</div>
-								<div class="description">Kristy is an art director living in New York.</div>
+								<div class="description">조회&nbsp;:&nbsp; ${c.postHit}&emsp;||&emsp;좋아요&nbsp;:&nbsp; ${c.postLike}</div>
 							</div>
 							<div class="extra content">
 								<a>
-									<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-									닉네임
+									<img class="ui avatar image" src="${c.postImage}">
+									닉네임${c.postNickname}
 								</a>
 							</div>
 						</div>
 					</div>
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/resources/image/mainPic.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">제목제목제목</a>
-								<div class="meta">
-									<span class="date">Joined in 2013</span>
-								</div>
-								<div class="description">Kristy is an art director living in New York.</div>
-							</div>
-							<div class="extra content">
-								<a>
-									<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-									닉네임
-								</a>
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/resources/image/mainPic.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">제목제목제목</a>
-								<div class="meta">
-									<span class="date">Joined in 2013</span>
-								</div>
-								<div class="description">Kristy is an art director living in New York.</div>
-							</div>
-							<div class="extra content">
-								<a>
-									<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-									닉네임
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<br>
-				<br>
-				<br>
-		</c:forEach>
-
-
-		<div class="ui three column grid" align="center">
-			<div class="column">
-
-				<div class="ui card" align="center">
-					<div class="image">
-						<img src="/resources/image/mainPic.jpg" style="height: 200px;">
-					</div>
-					<div class="content">
-						<a class="header">제목제목제목</a>
-						<div class="meta">
-							<span class="date">Joined in 2013</span>
-						</div>
-						<div class="description">Kristy is an art director living in New York.</div>
-					</div>
-					<div class="extra content">
-						<a>
-							<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-							닉네임
-						</a>
-					</div>
-				</div>
-
-
+				</c:forEach>
 			</div>
-			<div class="column">
-				<div class="ui card">
-					<div class="image">
-						<img src="/resources/image/mainPic.jpg" style="height: 200px;">
-					</div>
-					<div class="content">
-						<a class="header">제목제목제목</a>
-						<div class="meta">
-							<span class="date">Joined in 2013</span>
-						</div>
-						<div class="description">Kristy is an art director living in New York.</div>
-					</div>
-					<div class="extra content">
-						<a>
-							<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-							닉네임
-						</a>
+			<br>
+			<br>
+			<br>
+		</div>
+
+
+		<br>
+		<br>
+
+
+<!-- 네비게이션 + 등록 -->
+		<div class="ui grid">
+			<div class="three column row">
+				<div class="column"></div>
+				<div class="column">
+		<div class="ui center aligned basic segment">
+			<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
+		</div>
+				</div>
+				<div class="column">
+					<div class="ui right aligned container">
+						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
+							<i class="edit icon"></i>
+							등록
+						</button>
 					</div>
 				</div>
 			</div>
-			<div class="column">
-				<div class="ui card">
-					<div class="image">
-						<img src="/resources/image/mainPic.jpg" style="height: 200px;">
-					</div>
-					<div class="content">
-						<a class="header">제목제목제목</a>
-						<div class="meta">
-							<span class="date">Joined in 2013</span>
-						</div>
-						<div class="description">Kristy is an art director living in New York.</div>
-					</div>
-					<div class="extra content">
-						<a>
-							<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-							닉네임
-						</a>
+			<br>
+		</div>
+		<br>
+		<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
+		<div class="ui secondary segment">
+			<div class="ui right action left icon input">
+				<i class="search icon"></i>
+				<input type="text" placeholder="Search">
+				<div class="ui basic floating dropdown button">
+					<div class="text">선택</div>
+					<i class="dropdown icon"></i>
+					<div class="menu">
+						<div class="item">제목</div>
+						<div class="item">내용</div>
+						<div class="item">작성자</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<br>
-		<br>
-		<br>
-
-
-
-
-		<div class="ui three column grid" align="center">
-			<div class="column">
-
-				<div class="ui card" align="center">
-					<div class="image">
-						<img src="/resources/image/mainPic.jpg" style="height: 200px;">
-					</div>
-					<div class="content">
-						<a class="header">제목제목제목</a>
-						<div class="meta">
-							<span class="date">Joined in 2013</span>
-						</div>
-						<div class="description">Kristy is an art director living in New York.</div>
-					</div>
-					<div class="extra content">
-						<a>
-							<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-							닉네임
-						</a>
-					</div>
-				</div>
-
-
-			</div>
-			<div class="column">
-				<div class="ui card">
-					<div class="image">
-						<img src="/resources/image/mainPic.jpg" style="height: 200px;">
-					</div>
-					<div class="content">
-						<a class="header">제목제목제목</a>
-						<div class="meta">
-							<span class="date">Joined in 2013</span>
-						</div>
-						<div class="description">Kristy is an art director living in New York.</div>
-					</div>
-					<div class="extra content">
-						<a>
-							<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-							닉네임
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="column">
-				<div class="ui card">
-					<div class="image">
-						<img src="/resources/image/mainPic.jpg" style="height: 200px;">
-					</div>
-					<div class="content">
-						<a class="header">제목제목제목</a>
-						<div class="meta">
-							<span class="date">Joined in 2013</span>
-						</div>
-						<div class="description">Kristy is an art director living in New York.</div>
-					</div>
-					<div class="extra content">
-						<a>
-							<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-							닉네임
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<br>
-	<br>
-
-	<div class="ui grid">
-		<div class="three column row">
-			<div class="column"></div>
-			<div class="column">
-				<div class="ui center aligned basic segment">
-					<div class="ui pagination menu">
-						<a class="icon item">
-							<i class="left chevron icon disabled"></i>
-						</a>
-						<a class="item active"> 1 </a>
-						<a class="item"> 2 </a>
-						<a class="item"> 3 </a>
-						<a class="item"> 4 </a>
-						<a class="item"> 5 </a>
-						<a class="icon item">
-							<i class="right chevron icon"></i>
-						</a>
-
-					</div>
-				</div>
-			</div>
-			<div class="column">
-				<div class="ui right aligned container">
-					<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
-						<i class="edit icon"></i>
-						등록
-					</button>
-				</div>
-			</div>
-		</div>
-		<br>
-		<br>
-	</div>
-	<br>
-	<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
-	<div class="ui secondary segment">
-		<div class="ui right action left icon input">
-			<i class="search icon"></i>
-			<input type="text" placeholder="Search">
-			<div class="ui basic floating dropdown button">
-				<div class="text">선택</div>
-				<i class="dropdown icon"></i>
-				<div class="menu">
-					<div class="item">제목</div>
-					<div class="item">내용</div>
-					<div class="item">작성자</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	</div>
 
 	<!-- FOOTER -->
@@ -321,9 +131,18 @@
 		allowCategorySelection : true
 	});
 
+	
+	/* 글 등록 페이지로 이동 */
 	$('#writeBtn').click(function() {
 		location.href = "/registCommunity.diet";
 	});
+	
+	
+	/* 카드 클릭시 각 페이지로 이동 */
+	function recipeLink(){
+		 location.href="/postedCommunity.diet";
+	 }
+	
 </script>
 
 </html>

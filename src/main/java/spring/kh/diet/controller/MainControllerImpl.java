@@ -1,10 +1,14 @@
 package spring.kh.diet.controller;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import spring.kh.diet.model.service.MainService;
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
-import spring.kh.diet.model.vo.HealthCenterPageDataVO;
+import spring.kh.diet.model.vo.HealthCenterPDVO;
 
 @Controller
 public class MainControllerImpl implements MainController {
@@ -190,10 +194,22 @@ public class MainControllerImpl implements MainController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 
-		HealthCenterPageDataVO hcData = mService.getHealthCenterList(currentPage);
+		HealthCenterPDVO hcData = mService.getHealthCenterList(currentPage);
 		hcData.setType(request.getParameter("type"));
 		request.setAttribute("hcpd", hcData);
 		return "main/healthCenter";
 
+	}
+
+	/* 메인페이지 - 비로그인 세션 생성 */
+	@Override
+	@RequestMapping(value = "/createSession.diet")
+	public void createSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session;
+		session = request.getSession();
+		response.getWriter().println(session.toString());
+		response.getWriter().close();
+		
+		
 	}
 }

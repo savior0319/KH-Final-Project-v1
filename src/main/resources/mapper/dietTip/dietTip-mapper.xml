@@ -3,24 +3,23 @@
 <mapper namespace="dietTip">
 
 	<!-- 페이징 처리 - 리스트 불러오기 -->
-	<select id="getList" parameterType="dietTipPage" resultType="dietTip">
-		SELECT DT_INDEX as dtIndex,
-		DT_NO as dtNo,
-		DT_TYPE as dtType,
-		DT_TITLE as
-		dtTitle,
-		DT_MAIN_PHOTO as dtMainPhoto,
-		DT_WRITER_NO as dtWriterNo,
+	<select id="getList" parameterType="dietTipPageData" resultType="dietTip">
+		SELECT DT_INDEX AS dtIndex,
+		DT_NO AS dtNo,
+		DT_TYPE AS dtType,
+		DT_TITLE AS dtTitle,
+		DT_MAIN_PHOTO AS dtMainPhoto,
+		DT_WRITER_NO AS dtWriterNo,
 		DT_SAMMARY AS dtSammary,
-		DT_EXPLAIN as dtExplain,
-		DT_DATE as dtDate,
-		DT_SEE as dtSee,
-		DT_LIKE as dtLike
+		DT_EXPLAIN AS dtExplain,
+		DT_DATE AS dtDate,
+		DT_SEE AS dtSee,
+		DT_LIKE AS dtLike
 		FROM (SELECT DIETTIP_TB.*,
 		ROW_NUMBER() OVER(ORDER BY DT_DATE DESC) AS NUM FROM DIETTIP_TB
 		<choose>
 			<when test="type.equals('column')">
-				where DT_TYPE = 1
+				WHERE DT_TYPE = 1
 			</when>
 			<when test="type.equals('sport')">
 				WHERE DT_TYPE = 2
@@ -29,32 +28,33 @@
 				WHERE DT_TYPE = 3
 			</when>
 			<when test="type.equals('successLatter')">
-				where DT_TYPE = 4
+				WHERE DT_TYPE = 4
 			</when>
 		</choose>
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
-	
+
 	<!-- 페이징 처리 - 내비게이션 생성 -->
 	<select id="getNavi" resultType="java.lang.Integer">
-		select count(*) as totalCount
-		from DIETTIP_TB
+		SELECT COUNT(*) AS TOTALCOUNT
+		FROM DIETTIP_TB
 	</select>
-	
+
 	<!-- 게시물 불러오기 -->
 	<select id="getOne" resultType="dietTip">
-		SELECT DT_INDEX AS dtIndex,
-		DT_NO AS dtNo,
-		DT_TYPE AS dtType,
-		DT_TITLE AS	dtTitle,
-		DT_MAIN_PHOTO AS dtMainPhoto,
-		DT_WRITER_NO AS dtWriterNo,
-		DT_SAMMARY AS dtSammary,
-		DT_EXPLAIN AS dtExplain,
-		DT_DATE AS dtDate,
-		DT_SEE AS dtSee,
-		DT_LIKE AS dtLike
-		FROM DIETTIP_TB WHERE DT_INDEX = #{index}
+		SELECT DT.DT_INDEX AS dtIndex,
+		DT.DT_NO AS dtNo,
+		DT.DT_TYPE AS dtType,
+		DT.DT_TITLE AS dtTitle,
+		DT.DT_MAIN_PHOTO AS dtMainPhoto,
+		MB.MB_NICKNAME AS dtNickname,
+		DT.DT_SAMMARY AS dtSammary,
+		DT.DT_EXPLAIN AS dtExplain,
+		DT.DT_DATE AS dtDate,
+		DT.DT_SEE AS dtSee,
+		DT.DT_LIKE AS dtLike
+		FROM DIETTIP_TB DT,
+		MEMBER_TBL MB WHERE DT.DT_WRITER_NO = MB.MB_INDEX AND DT_INDEX = #{index}
 	</select>
-	
+
 </mapper>
