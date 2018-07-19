@@ -3,11 +3,11 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-122472043-1"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
 
-  gtag('config', 'UA-122472043-1');
+gtag('config', 'UA-122472043-1');
 </script>
 
 <style type="text/css" media="screen">
@@ -20,37 +20,37 @@
 <div style="background: rgb(235, 235, 235);">
 	<div class="ui right aligned basic segment" style="margin-bottom: 0; padding-top: 8px; padding-bottom: 8px;">
 
-		<c:if test="${sessionScope.member.mbId == 'admin'}">
+	<c:if test="${sessionScope.member.mbId == 'admin'}">
 		<span class="menu">
 			<a href="/admin.diet">관리자 페이지</a>
 		</span>
-		</c:if>
+	</c:if>
 
-		<!-- 로그인 , 로그아웃  --> 
-		<c:if test="${sessionScope.member==null}">
-			<span class="menu">
-				<a href="/login.diet">로그인</a>
-			</span>
-			<span class="menu">
-				<a href="/signup.diet">회원가입</a>
-			</span>
-		</c:if>
-		<c:if test ="${sessionScope.member!=null }">
-			<span class="menu">
-				${member.mbName}님 환영합니다 ^^
-			</span>
-			<span class="menu">
-				<a href="/logout.diet">로그아웃</a>
-			</span>
-			<span class="menu">
-				<a href="/myInfo.diet">마이페이지</a>
-			</span>
-		</c:if>
+	<!-- 로그인 , 로그아웃  --> 
+	<c:if test="${sessionScope.member==null}">
+		<span class="menu">
+			<a href="/login.diet">로그인</a>
+		</span>
+		<span class="menu">
+			<a href="/signup.diet">회원가입</a>
+		</span>
+	</c:if>
+	<c:if test ="${sessionScope.member!=null}">
+		<span class="menu">
+			${member.mbName}님 환영합니다 ^^
+		</span>
+		<span class="menu">
+			<a href="/logout.diet">로그아웃</a>
+		</span>
+		<span class="menu">
+			<a href="/myInfo.diet">마이페이지</a>
+		</span>
+	</c:if>
 
-		<span class="menu">주문배송조회</span>
-		<span class="menu">장바구니</span>
-		<span class="menu">제휴·광고문의</span>
-		<span class="menu">즐겨찾기</span>
+	<span class="menu">주문배송조회</span>
+	<span class="menu">장바구니</span>
+	<span class="menu">제휴·광고문의</span>
+	<span class="menu">즐겨찾기</span>
 	</div>
 </div>
 
@@ -101,7 +101,6 @@
 			</div>
 		</div>
 
-
 		<div class="ui simple dropdown item">
 			<div style="font-weight: 600">
 				커뮤니티 <i class="dropdown icon"></i>
@@ -109,10 +108,10 @@
 			<div class="menu">
 				<a class="item" href="/communityWholeBoard.diet?type=comAll">전체</a>
 				<a class="item" href="/communityWholeBoard.diet?type=bullentin">자유게시판</a>
-				<a class="item" href="/recipeBoard.diet?type=recipe">레시피&식단</a>
-				<a class="item" href="/communityWholeBoard.diet?type=tip">팁&노하우</a>
-				<a class="item" href="/communityWholeBoard.diet?type=worry">고민&질문</a>
-				<a class="item" href="/communityWholeBoard.diet?type=beforeAfter">비포&애프터</a>
+				<a class="item" href="/recipeBoard.diet?type=recipe">레시피&#38;식단</a>
+				<a class="item" href="/communityWholeBoard.diet?type=tip">팁&#38;노하우</a>
+				<a class="item" href="/communityWholeBoard.diet?type=worry">고민&#38;질문</a>
+				<a class="item" href="/communityWholeBoard.diet?type=beforeAfter">비포&#38;애프터</a>
 			</div>
 		</div>
 
@@ -123,7 +122,7 @@
 			<div class="menu">
 				<a class="item" href="#">공지사항</a>
 				<a class="item" href="#">자주 묻는 질문</a>
-				<a class="item" href="#">QnA</a>
+				<a class="item" href="#">Q&#38;A</a>
 			</div>
 		</div>
 
