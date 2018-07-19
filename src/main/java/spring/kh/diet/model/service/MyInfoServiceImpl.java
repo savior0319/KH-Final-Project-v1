@@ -65,12 +65,6 @@ public class MyInfoServiceImpl implements MyInfoService {
 	}
 
 	@Override
-	public ArrayList<ProductVO> myWishList(MemberVO mv) {
-		ArrayList<ProductVO> list = MyInfoDAO.myWishList(SqlSessionTemplate, mv);
-		return list;
-	}
-
-	@Override
 	public int signupsave(MemberVO mv) {
 		int result = MyInfoDAO.signupsave(SqlSessionTemplate, mv);
 		return result;

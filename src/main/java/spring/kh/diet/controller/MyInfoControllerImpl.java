@@ -71,7 +71,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 			int result = myInfoService.updateMyPicture(mv);
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(mv);
-				System.out.println(member.getMbImage());
 				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
 				return "myInfo/myInfoUpdate";
 			} else {
@@ -116,7 +115,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 			mv.setMbId(mbId);
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(mv);
-				System.out.println(member.getMbImage());
 				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
 				return "myInfo/myInfoUpdate";
 			} else {
@@ -148,7 +146,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	}
 
 	/* 찜한 상품 */
-	@Override
+/*	@Override
 	@RequestMapping(value = "/myWishList.diet")
 	public Object myWishList(HttpSession session) {
 		MemberVO mv = (MemberVO) session.getAttribute("member");
@@ -164,9 +162,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			System.out.println("list값이 없음");
 			return view;
 		}
-	}
-
-	/* 비밀번호 재설정 */
+	}*/
 
 	/* 회원 가입 */
 	@Override
