@@ -158,6 +158,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		ModelAndView view = new ModelAndView();
 
 		if (!list.isEmpty()) {
+			
 			view.addObject("list", list);
 			view.setViewName("myInfo/myWishList");
 			return view;
@@ -167,5 +168,5 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 	}
 	
-	/* 비밀번호 재설정 */ 
+	
 }

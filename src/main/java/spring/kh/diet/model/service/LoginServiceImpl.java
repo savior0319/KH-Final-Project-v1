@@ -22,6 +22,18 @@ public class LoginServiceImpl implements LoginService {
 		MemberVO m = loginDAO.login(SqlSessionTemplate,mv);
 		return m;
 	}
+	@Override
+	public MemberVO findId(MemberVO mv) {
+		MemberVO mv2 = loginDAO.findId(SqlSessionTemplate,mv);
+		System.out.println("ser"+mv2);
+		return mv2;
+		
+	}
+	@Override
+	public int updatePassword(MemberVO mv) {
+		int result = loginDAO.updatePassword(SqlSessionTemplate,mv);
+		return 0;
+	}
 
 
 }
