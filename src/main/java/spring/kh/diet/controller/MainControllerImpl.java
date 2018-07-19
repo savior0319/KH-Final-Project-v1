@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import spring.kh.diet.model.service.MainService;
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
-import spring.kh.diet.model.vo.HealthCenterPageDataVO;
+import spring.kh.diet.model.vo.HealthCenterPDVO;
 
 @Controller
 public class MainControllerImpl implements MainController {
@@ -190,10 +190,17 @@ public class MainControllerImpl implements MainController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 
-		HealthCenterPageDataVO hcData = mService.getHealthCenterList(currentPage);
+		HealthCenterPDVO hcData = mService.getHealthCenterList(currentPage);
 		hcData.setType(request.getParameter("type"));
 		request.setAttribute("hcpd", hcData);
 		return "main/healthCenter";
 
+	}
+
+	/* 메인페이지 - 비로그인 세션 생성 */
+	@Override
+	@RequestMapping(value = "/createSession.diet")
+	public void createSession() {
+		System.out.println("호출");
 	}
 }

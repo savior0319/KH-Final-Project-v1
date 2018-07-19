@@ -11,4 +11,6 @@ public interface MainController {
 
 	String RedirectHealthCenter(HttpServletRequest request);
 
+	void createSession();
+
 }

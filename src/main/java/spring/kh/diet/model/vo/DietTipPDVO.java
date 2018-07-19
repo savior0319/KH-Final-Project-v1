@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DietTipPageDataVO {
+public class DietTipPDVO {
 	private ArrayList<DietTipVO> dtList;
 	private String pageNavi, type;
 	private int start, end;

@@ -118,14 +118,14 @@ pageEncoding="UTF-8"%>
 			<form action = "/updateMyInfo.diet" method = "post">
 				<div class="myInfoUpdateContents">
 					<div class="gender_Image">
-						<c:if test="${sessionScope.member.mbGender=='여'}" >
+						<c:if test="${sessionScope.member.mbGender=='f'}" >
 						<div class="gender_Img1">
 							<img id="femailImage" class = "genderImage"
 							src="${sessionScope.member.mbImage}" />
 
 							<div class="ui radio checkbox">
 								<input type="radio" class="radioBtn" id="female" name="gender"
-								value="F" checked> <label>여 자</label>
+								value="f" checked> <label>여 자</label>
 							</div>
 						</div>
 						<div class="gender_Img1">
@@ -133,20 +133,20 @@ pageEncoding="UTF-8"%>
 							src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 							<div class="ui radio checkbox">
 								<input type="radio" class="radioBtn" id="male" name="gender"
-								value="M"> <label>남 자</label>
+								value="m"> <label>남 자</label>
 							</div>
 						</div>
 						<script>
 							$("#male").attr("disabled", true);
 						</script>
 					</c:if>
-					<c:if test="${sessionScope.member.mbGender=='남'}" >
+					<c:if test="${sessionScope.member.mbGender=='m'}" >
 					<div class="gender_Img1">
 						<img id="mailImage" class = "genderImage"
 						src="${sessionScope.member.mbImage}" />
 						<div class="ui radio checkbox">
 							<input type="radio" class="radioBtn" id="male" name="gender"
-							value="M" checked> <label>남 자</label>
+							value="m" checked> <label>남 자</label>
 						</div>
 					</div>
 					<div class="gender_Img1">
@@ -154,7 +154,7 @@ pageEncoding="UTF-8"%>
 						src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 						<div class="ui radio checkbox">
 							<input type="radio" class="radioBtn" id="female" name="gender"
-							value="F" > <label>여 자</label>
+							value="f" > <label>여 자</label>
 						</div>
 					</div>
 					<script>
@@ -202,7 +202,7 @@ pageEncoding="UTF-8"%>
 						</td>
 						<td>
 							<div class="ui input focus">
-								<input type="password" placeholder="비밀번호.." id="password" value="${sessionScope.member.mbPwd}"
+								<input type="password" placeholder="변경할 비밀번호.." id="password"  
 								name="mbPwd" style="width: 300px;">
 							</div>
 						</td>
@@ -250,7 +250,7 @@ pageEncoding="UTF-8"%>
 		<td><div class="ui input focus">
 			<input type="text" placeholder="키.." id="heigth" value="${sessionScope.member.mbHeight}"
 			name="mbHeight" style="width: 100px;">
-			<span style="margin-top:14px; font-size:18px; font-weight:800;"><strong>cm</strong></span>
+			<span style="margin-top:14px; margin-left:5px; font-size:18px; font-weight:800;"><strong>cm</strong></span>
 		</div>
 	</td>
 </tr>
@@ -263,7 +263,7 @@ pageEncoding="UTF-8"%>
 	<div class="ui input focus">
 		<input type="text" placeholder="몸무게.." id="weight" value="${sessionScope.member.mbWeight}"
 		name="mbWeight" style="width: 100px;">
-		<span style="margin-top:14px; font-size:18px; font-weight:800;"><strong>Kg</strong></span>
+		<span style="margin-top:14px; font-size:18px; margin-left:5px; font-weight:800;"><strong>Kg</strong></span>
 	</div>
 </td>
 </tr>
@@ -368,10 +368,11 @@ pageEncoding="UTF-8"%>
 	/* 프로필 사진 삭제  */
 	function deletePictureBtn(){
 		var chkRadio =  $(":input:radio[name=gender]:checked").val();
+		console.log(chkRadio);
 		var result = window.confirm("사진을 삭제하시겠습니까?");
 		var memberId = $("#memberId").val();
 		if(result==true){
-			if(chkRadio==='F'){
+			if(chkRadio==='f'){
 				$("#femailImage").attr("src" , "");
 				$.ajax({
 					url: "/deleteMyPicture.diet",
@@ -387,7 +388,7 @@ pageEncoding="UTF-8"%>
 				});
 				alert("여자사진 삭제 성공 하셨습니다.");
 			}
-			else{
+			else if(chkRadio==='m'){
 				$("#mailImage").attr("src" , "");
 				$.ajax({
 					url: "/deleteMyPicture.diet",
