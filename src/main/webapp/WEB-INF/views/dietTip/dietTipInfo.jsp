@@ -200,11 +200,9 @@ p>span {
 				<div class="ui right aligned container">
 					<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="addComment();">
 						<i class="icon edit"></i>등록
-						<!-- <input type="submit" style="height:44px; width: 80px; cursor:pointer; border:0; background-color: #fa2828; font-weight:bold; color: white;" value="등록"> -->
 					</div>
 				</div>
 			</form>
-			<br>
 
 			<!-- 작성된 댓글 리스트 -->
 			<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
