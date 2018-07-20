@@ -2,19 +2,19 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import spring.kh.diet.common.MyFileRenamePolicy;
-import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.PostFileVO;
 
 
 @Controller
@@ -25,8 +25,49 @@ public class ImageUploadControllerImpl {
 	
 	@RequestMapping(value = "/imageUpload1.diet")
 	@ResponseBody
-	public String imageUpload(HttpServletRequest request) throws IllegalStateException,IOException {
+	public String imageUpload(HttpServletRequest request, MultipartHttpServletRequest multi) throws IllegalStateException,IOException {
 		// 이미지 업로드할 경로
+		String path = "C:\\Users\\user1\\git\\YamNyaMing\\YamNyaMing\\src\\main\\webapp\\resources\\memberPhoto\\";
+
+	      String remakeName = "";
+	      String reviewImgList="";
+	      List<MultipartFile> files = multi.getFiles("reviewImgList");
+	      File file = new File(path);
+	      return null;
+/*
+	      for (int i = 0; i < files.size(); i++) {
+	               remakeName=System.currentTimeMillis()+"_"+files.get(i).getOriginalFilename();
+	                file = new File(path+remakeName);
+	                files.get(i).transferTo(file);
+	                String OriginName=files.get(i).getOriginalFilename();
+	                String photoRoute=path+remakeName;
+	                String photoViewRoute="\\memberPhoto\\"+remakeName;
+	                 PostFileVO pfvo=new PostFileVO();
+	               pfvo.setPfiOriginName(OriginName);
+	               pfvo.setPfiFileName(remakeName);
+	               pfvo.setPfiPath(photoRoute);
+	               ymup.setPhotoViewRoute(photoViewRoute);
+	               
+	               int result=ynmMemberServiceImpl.reviewUploadPhoto(ymup);
+	               YNMMemberUploadPhoto ymupIndex=ynmMemberServiceImpl.reviewIndexSelect(remakeName);
+	            
+	               if(i<files.size()-1) reviewImgList+=ymupIndex.getUploadPhotoNo()+",";
+	               else reviewImgList+=ymupIndex.getUploadPhotoNo();
+	                
+	            } */
+	      
+	      
+	    /*  YNMStoreReview ysr=new YNMStoreReview();
+	      
+	      ysr.setMemberEntireNo(((YNMMember)session.getAttribute("member")).getMemberEntireNo());
+	      ysr.setReviewContent(request.getParameter("reviewContent"));
+	      ysr.setReviewTitle(request.getParameter("reviewTitle"));
+	      ysr.setOwnerEntireNo(Integer.parseInt(request.getParameter("ownerStoreEntireNo")));
+	      ysr.setReviewStar(request.getParameter("reviewStar"));
+	      ysr.setReviewImgList(reviewImgList);
+	      */
+/*	      
+	     
 /*		System.out.println("넘어오냐?");
 		
 		HttpSession session = request.getSession(false);
@@ -91,7 +132,7 @@ public class ImageUploadControllerImpl {
 			}
 		}*/
 		
-		return "";
+		
 		/*String uploadPath = "F:/image/upload";
 		int size = 10 * 1024 * 1024; // 업로드 사이즈 제한 10M 이하
 
