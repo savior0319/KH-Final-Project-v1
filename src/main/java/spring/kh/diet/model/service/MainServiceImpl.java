@@ -25,15 +25,16 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public HealthCenterPDVO getHealthCenterList(int currentPage) {
+	public HealthCenterPDVO getHealthCenterList(int currentPage, String location) {
 		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 
 		HealthCenterPDVO hVo = new HealthCenterPDVO();
 
-		ArrayList<HealthCenterVO> list = mDao.selectAllHealthCenter(session, currentPage, recordCountPerPage);
+		ArrayList<HealthCenterVO> list = mDao.selectAllHealthCenter(session, currentPage, recordCountPerPage, location);
 
-		String pageNavi = mDao.getHealthCenterPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage);
+		String pageNavi = mDao.getHealthCenterPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage,
+				location);
 
 		hVo.setHcList(list);
 		hVo.setPageNavi(pageNavi);

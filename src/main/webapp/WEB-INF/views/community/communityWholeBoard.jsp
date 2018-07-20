@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,15 @@
 		<br>
 		<br>
 		<div class="ui left aligned container">
-			<h1>&emsp;&nbsp;&nbsp;BEFORE & AFTER</h1>
+			<c:choose>
+				<c:when test="${requestScope.cpdv.type.equals('comAll') }"><h1>전체</h1></c:when>
+				<c:when test="${requestScope.cpdv.type.equals('15') }"><h1>자유게시판</h1></c:when>
+				<c:when test="${requestScope.cpdv.type.equals('16') }"><h1>레시피&#38;식단</h1></c:when>
+				<c:when test="${requestScope.cpdv.type.equals('17') }"><h1>팁&#38;노하우</h1></c:when>
+				<c:when test="${requestScope.cpdv.type.equals('18') }"><h1>고민&#38;질문</h1></c:when>
+				<c:when test="${requestScope.cpdv.type.equals('19') }"><h1>비포&#38;애프터</h1></c:when>
+			</c:choose>
+
 		</div>
 		<hr style="border: 2px solid #D5D5D5;">
 		<br>
@@ -56,42 +65,29 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${requestScope.cpdv.comList}" var="c">
-						<tr align="center" >
-							<td>
-							<c:choose>
-							<c:when test="${requestScope.cpdv.type.equals('bullentin') }">자유게시판</c:when>
-							<c:when test="${requestScope.cpdv.type.equals('tip') }">팁&노하우</c:when>
-							<c:when test="${requestScope.cpdv.type.equals('worry') }">고민&질문</c:when>
-							<c:when test="${requestScope.cpdv.type.equals('beforeAfter') }">비포&애프터</c:when>
-							</c:choose>
-							
+					<c:forEach items="${requestScope.cpdv.comList}" var="c">
+						<tr align="center">
+							<td>${c.bcaName}</td>
+							<td style="padding-top: 15px; padding-bottom: 15px;" >
+								<a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}">
+								<c:choose>
+								<c:when test="${fn:length(c.postTitle)>30}">
+									<c:out value="${fn:substring(c.postTitle,0,29)}" />...
+								</c:when>
+								<c:otherwise>
+									${c.postTitle}
+								</c:otherwise>
+								</c:choose>
+								</a>
 							</td>
-							<td style="padding-top: 15px; padding-bottom: 15px;" onclick="recipeLink(${c.postIndex});" >
-								<a class="item" href="/postedCommunity.diet">${c.postTitle}</a>
-							</td>
 							<td>
-								<img class="ui avatar image" src="${c.postImage}">
-								닉네임
+								<img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"' >
+								${c.postNickname}
 							</td>
 							<td>${c.postHit}</td>
 							<td>${c.postDateTime}</td>
 						</tr>
 					</c:forEach>
-					<%-- <c:forEach items="${list}" var="c">
-						<tr align="center" style="height: 50px;">
-							<td>비포&애프터</td>
-							<td>
-								<a class="item" href="/postedCommunity.diet">${c.postTitle}</a>
-							</td>
-							<td>
-								<img class="ui avatar image" src="${c.postImage}">
-								닉네임
-							</td>
-							<td>${c.postHit}</td>
-							<td>${c.postDateTime}</td>
-						</tr>
-					</c:forEach> --%>
 				</tbody>
 			</table>
 		</div>
@@ -104,9 +100,9 @@
 			<div class="three column row">
 				<div class="column"></div>
 				<div class="column">
-		<div class="ui center aligned basic segment">
-			<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
-		</div>
+					<div class="ui center aligned basic segment">
+						<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
+					</div>
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
@@ -156,7 +152,7 @@
 	
 	/* 클릭시 각 페이지로 이동 */
 	function recipeLink(pi){
-		 location.href="/postedCommunity.diet?postIndex="+pi;
+		location.href="/postedCommunity.diet?postIndex="+pi;
 	 }
 	
 </script>
