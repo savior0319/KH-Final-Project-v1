@@ -2,32 +2,51 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.MultipartRequest;
+
+import spring.kh.diet.common.MyFileRenamePolicy;
+import spring.kh.diet.model.vo.MemberVO;
 
 
 @Controller
 public class ImageUploadControllerImpl {
 
+	@Autowired
+	ServletContext context; 
+	
 	@RequestMapping(value = "/imageUpload1.diet")
 	@ResponseBody
 	public String imageUpload(HttpServletRequest request) throws IllegalStateException,IOException {
 		// 이미지 업로드할 경로
-		System.out.println("넘어오냐?");
+/*		System.out.println("넘어오냐?");
+		
+		HttpSession session = request.getSession(false);
+		// 1. 사용자 계정 인덱스
+		int mbIndex = ((MemberVO)session.getAttribute("member")).getMbIndex();
+		
+		// 2. 최대 업로드 파일 사이즈 (설정)
+		int pfiFileSize = 1024*1024*5; // Byte 단위 5MB
+		
+		// 3. 업로드 될 경로
+
+		String pfiPath = context.getRealPath("/")+"uploadfile";
+		
+		// 4. 인코딩 타입(파일 인코딩 타입)
+		String encType="UTF-8";
+		
+		// 5. MultipartRequest 객체 생성
+		MultipartRequest multi = new MultipartRequest(request,pfiPath,pfiFileSize,encType,new MyFileRenamePolicy());
+		*/
+		/*
 		Map<String,Object> map = new HashMap<>();
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
 		if(multipartResolver.isMultipart(request))
@@ -41,26 +60,26 @@ public class ImageUploadControllerImpl {
 					System.out.println("myFileName : " + myFileName);
 					if(myFileName.trim() != "") {
 						String fileName = file.getOriginalFilename();
-						
+						System.out.println("fileName : " + fileName);
 						String fileBaseName = fileName.substring(0, fileName.lastIndexOf("."));
-						
+						System.out.println("fileBaseName : " + fileBaseName);
 						String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-						
+						System.out.println("fileExt : " + fileExt);
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 						
 						String newFileName = sdf.format(new Date());
-						
+						System.out.println("newFileName : " + newFileName);
 						String fileNames = newFileName + new Random().nextInt(1000) + "." + fileExt;
-						
+						System.out.println("fileNames : " + fileNames);
 						String filePath = "\\resources\\imageUpload\\" + fileNames;
-						
+						System.out.println("filePath : " + filePath);
 						File localFile = new File(filePath);
 						
 						if(!localFile.exists()) {
 							localFile.mkdirs();
 						}
 						file.transferTo(localFile);
-						/*fileName="http://localhost/asd/upload"+fileNames;*/
+						fileName="http://localhost/asd/upload"+fileNames;
 						map.put("name", fileBaseName);
 						map.put("path", filePath);
 						System.out.println(fileName);
@@ -70,7 +89,7 @@ public class ImageUploadControllerImpl {
 					}
 				}
 			}
-		}
+		}*/
 		
 		return "";
 		/*String uploadPath = "F:/image/upload";
