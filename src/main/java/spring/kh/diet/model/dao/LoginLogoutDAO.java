@@ -8,4 +8,10 @@ public interface LoginLogoutDAO {
 
 	MemberVO findId(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
+	MemberVO login(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+
+	int updatePassword(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+
+	int joinKaKao(SqlSessionTemplate sqlSessionTemplate, Object m);
+
 }

@@ -28,24 +28,25 @@
 
 	<!-- 로그인 , 로그아웃  --> 
 	<c:if test="${sessionScope.member==null}">
-	<span class="menu">
-		<a href="/login.diet">로그인</a>
-	</span>
-	<span class="menu">
-		<a href="/signup.diet">회원가입</a>
-	</span>
-</c:if>
-<c:if test ="${sessionScope.member!=null}">
-<span class="menu">
-	${member.mbName}님 환영합니다 ^^
-</span>
-<span class="menu">
-	<a href="/logout.diet">로그아웃</a>
-</span>
-<span class="menu">
-	<a href="/myInfo.diet">마이페이지</a>
-</span>
-</c:if>
+
+		<span class="menu">
+			<a href="/login.diet">로그인</a>
+		</span>
+		<span class="menu">
+			<a href="/signup.diet">회원가입</a>
+		</span>
+	</c:if>
+	<c:if test ="${sessionScope.member!=null}">
+		<span class="menu">
+			${member.mbNickName}님 환영합니다 ^^
+		</span>
+		<span class="menu">
+			<a href="/logout.diet">로그아웃</a>
+		</span>
+		<span class="menu">
+			<a href="/myInfo.diet">마이페이지</a>
+		</span>
+    </c:if>
 
 <span class="menu">주문배송조회</span>
 <span class="menu">장바구니</span>

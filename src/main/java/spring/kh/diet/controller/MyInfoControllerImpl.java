@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.MyInfoService;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.MyActivityPageDataVO;
+import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @SuppressWarnings("all")
@@ -141,21 +145,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	}
 
-	/* 찜한 상품 */
-	/*
-	 * @Override
-	 * 
-	 * @RequestMapping(value = "/myWishList.diet") public Object
-	 * myWishList(HttpSession session) { MemberVO mv = (MemberVO)
-	 * session.getAttribute("member"); ArrayList<ProductVO> list =
-	 * myInfoService.myWishList(mv); ModelAndView view = new ModelAndView();
-	 * 
-	 * if (!list.isEmpty()) {
-	 * 
-	 * view.addObject("list", list); view.setViewName("myInfo/myWishList"); return
-	 * view; } else { System.out.println("list값이 없음"); return view; } }
-	 */
-
 	/* 회원 가입 */
 	@Override
 	@RequestMapping(value = "/signupsave.diet")
@@ -183,4 +172,43 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		return "redirect:/";
 	}
+
+	/* 내 활동 정보 */ 
+	@Override
+	@RequestMapping(value = "/myActivityInfo.diet")
+	public Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request) {
+		MemberVO m = (MemberVO) session.getAttribute("member");
+		MyActivityVO ma = myInfoService.myActivity(m);
+		ModelAndView view = new ModelAndView();
+
+		if (ma != null) {
+			view.addObject("ma", ma);
+			MyActivityPageDataVO cpdv = this.myActivityGetList(session,request,ma);
+			view.setViewName("myInfo/myActivityInfo");
+			return view;
+		} else {
+			System.out.println("ma값이 없음");
+			return "redirect:/";
+		}
+	}
+	
+	/* 내 활동 정보 게시판 */
+	public MyActivityPageDataVO myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
+		String type = request.getParameter("type");
+
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+		MyActivityPageDataVO cpdv = myInfoService.allCommunityList(currentPage, type,ma);
+		System.out.println(cpdv.getComList().get(0).getPostTitle());
+		request.setAttribute("cpdv", cpdv);
+
+		return cpdv;
+	}
+
+
 }

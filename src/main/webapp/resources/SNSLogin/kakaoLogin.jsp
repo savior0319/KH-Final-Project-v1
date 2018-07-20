@@ -12,12 +12,23 @@
       container: '#kakao-login-btn',
       success: function(authObj) {
         // 로그인 성공시, API를 호출합니다.
+        var token = authObj.access_token;
         Kakao.API.request({
           url: '/v1/user/me',
           success: function(res) {
-            //alert(JSON.stringify(res));
-            alert(res.properties.nickname+'님 환영합니다.');
-            location.href="./result?name="+res.propertise.nickname;
+        	  console.log(res.properties);
+           // location.href="./result?name="+res.propertise.nickname;
+          	$.ajax({
+          		url : '/kakaoCallback.diet',
+          		data : {'kakaoId' : res.id,
+          			'kakaoToken' : token      			
+          		},
+          		success : function(){
+          			alert('성공');	
+          			alert(res.properties.nickname+'님 환영합니다.');
+          		}
+          	});
+          
           },
           fail: function(error) {
             alert(JSON.stringify(error));
