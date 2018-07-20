@@ -19,19 +19,20 @@
    <jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
 
+	<input id="indexNo" type="hidden" value="${requestScope.htIndex }">
    <!-- CONTENTS -->
    <div class="ui center aligned basic segment">
 
 	 <div class="ui  container">
 			<div class="ui panorama test ad" data-text="Panorama"></div>
-			<h1 class="ui left aligned header">홈트레이닝 > 전신</h1><hr>  
-	<div class="homeTrainingTitle" style="font-size:20px; margin-top:5%; margin-bottom:3%; text-align:left;">운동기구를 통해 전신 바디 운동
+			<h1 class="ui left aligned header">홈트레이닝 > ${ht.htPart }</h1><hr>  
+	<div class="homeTrainingTitle" style="font-size:20px; margin-top:5%; margin-bottom:3%; text-align:left;">${ht.htTitle }
         </div><hr>
         <div style="text-align:left;">
-            <i class="clock outline icon"></i>2018.07.04 13:59 &ensp;|&ensp; <i class="eye icon"></i> 
-            <span class="hits" style="color: red">46</span>&ensp;|&ensp;
+            <i class="clock outline icon"></i>${ht.htDate } &ensp;|&ensp; <i class="eye icon"></i> 
+            <span class="hits" style="color: red">${ht.htHits }</span>&ensp;|&ensp;
             <i class="comment icon"></i>
-            <span class="like" style="color: red">5</span><hr> </div>
+            <span class="like" style="color: red">${ht.htCommentNumber }</span><hr> </div>
             <br><br>
             
             <!-- 유튜브 영상 들어가는곳 -->
@@ -44,16 +45,15 @@
             <h2>프로그램 소개</h2><br><br>
             
             		<div class="programIntroduction">
-            		 <i class="big clock outline icon"></i>&ensp;14분09초&emsp;&emsp;&emsp;&emsp;&emsp;
-            		 <i class="big child icon"></i>&ensp;전신&emsp;&emsp;&emsp;&emsp;&emsp;        
-                     <i class="big male icon"></i>&ensp;중&emsp;&emsp;&emsp;&emsp;&emsp;
-                     <i class="big tint icon"></i>&ensp;91~187 kcal     		    
+            		 <i class="big clock outline icon"></i>&ensp;${ht.htVideoMinute }&emsp;&emsp;&emsp;&emsp;&emsp;
+            		 <i class="big child icon"></i>&ensp;${ht.htPart }&emsp;&emsp;&emsp;&emsp;&emsp;        
+                     <i class="big male icon"></i>&ensp;${ht.htLevel }&emsp;&emsp;&emsp;&emsp;&emsp;
+                     <i class="big tint icon"></i>&ensp;${ht.htCalories }     		    
             		</div><hr>
             		
             		<!-- 프로그램 설명 부분 -->
             				<div class="programExplain" style="text-align:center">
-            				    <pre>다양한 운동기구를 통해 전신 바디 9분 운동입니다.
-    운동기구의 다양한 동작으로 탄력있는 몸매를 만들어 보세요.</pre>
+            				    <pre>${ht.htExplain }</pre>
             				</div><br><br><br>
             				
             						<div style="text-align:center;">※ 소모 칼로리는 개인 또는 운동자세 등에 따라 차이가 있습니다<br><br>
