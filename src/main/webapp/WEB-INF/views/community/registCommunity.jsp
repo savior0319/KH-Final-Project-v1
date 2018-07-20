@@ -10,27 +10,36 @@
 <script src="/resources/summernote/dist/summernote-lite.js"></script>
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script>
-/* summernote에서 이미지 업로드시 실행할 함수 */
-	function sendFile(file, editor) {
-    // 파일 전송을 위한 폼생성
+	/* summernote에서 이미지 업로드시 실행할 함수 */
+	function sendFile(file, editor, welEditable) {
+		var fileName=false;
+		try{
+			fileName=file['name'];
+		}catch (e) {
+			fileName=false;
+		}
+		if(!fileName){
+			$(".note-alarm").remove();
+		}
+		console.log(fileName);
 		data = new FormData();
-	    data.append("uploadFile", file);
-	    console.log(data);
-	    var data1 = 'gdgd';
-	    $.ajax({ // ajax를 통해 파일 업로드 처리
-	        data : {'data':data1},
-	        type : 'POST',
-	        url : '/imageUpload.diet',
-	        cache : false, 
-	        contentType : false,
-	        processData : false,
-	        /* enctype: "multipart/form-data", */
-	        success : function(data) { // 처리가 성공할 경우
-            // 에디터에 이미지 출력
-	        	$(editor).summernote('editor.insertImage', data.url);
-	        }
-	    })
-	    };
+		data.append("file", file);
+		data.append("key",fileName);
+		
+		$.ajax({
+			data : data,
+			type : "POST",
+			url : "/imageUpload1.diet",
+			cache : false,
+			contentType : false,
+			processData : false,
+			success : function(url) {
+				var path = url.path;
+				alert(path);
+				$('#summernote').summernote('insertImage',path);
+			}
+		});
+	}
 </script>
 </head>
 
@@ -63,10 +72,10 @@
 						<i class="dropdown icon"></i>
 						<div class="menu select">
 							<div class="item">자유게시판</div>
-							<div class="item">레시피&식단</div>
-							<div class="item">팁&노하우</div>
-							<div class="item">고민&질문</div>
-							<div class="item">비포&에프터</div>
+							<div class="item">레시피&#38;식단</div>
+							<div class="item">팁&#38;노하우</div>
+							<div class="item">고민&#38;질문</div>
+							<div class="item">비포&#38;애프터</div>
 						</div>
 					</div>
 					<input type="text" id="title" placeholder="제목을 입력해주세요" />
@@ -94,31 +103,42 @@
 			placeholder : '내용을 입력해주세요',
 			tabsize : 2,
 			height : 500,
- 			callbacks : {
- 				onImageUpload: function(files, editor, welEditable) {
-				    sendFile(files[0], this);
+			callbacks : {
+				onImageUpload : function(files, editor, welEditable) {
+					for (var i = files.length - 1; i >= 0; i--) {
+						sendFile(files[i], this);
+					}
 				}
-			} 
+			}
 		});
 	});
-
-
-
 
 	$('.ui.dropdown').dropdown({
 		allowAdditions : true,
 		allowCategorySelection : true
 	});
-
+	}
+	
+	
 	// 카테고리 선택
 	var category;
 	$('.select > .item').click(function() {
-		switch($(this).text()){
-		case '자유게시판' : category=15; break;
-		case '레시피&식단' : category=16; break;
-		case '팁&노하우' : category=17; break;
-		case '고민&질문' : category=18; break;
-		case '비포&애프터' : category=19; break;
+		switch ($(this).text()) {
+		case '자유게시판':
+			category = 15;
+			break;
+		case '레시피&식단':
+			category = 16;
+			break;
+		case '팁&노하우':
+			category = 17;
+			break;
+		case '고민&질문':
+			category = 18;
+			break;
+		case '비포&애프터':
+			category = 19;
+			break;
 		}
 	});
 
@@ -137,7 +157,7 @@
 				success : function(data) {
 					if (data == 'success') {
 						alert('게시글 등록 완료');
-						location.href = "/communityWholeBoard.diet"
+						location.href = "/communityWholeBoard.diet?type="+category;
 					}
 				},
 				error : function() {
@@ -147,12 +167,11 @@
 		} else {
 			if (category == null) {
 				alert('카테고리를 선택하여주세요.');
-			}else{
+			} else {
 				alert('내용을 반드시 기입하여주세요.');
 			}
 		}
 	}
-
 </script>
 
 </html>

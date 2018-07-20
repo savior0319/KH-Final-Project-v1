@@ -6,15 +6,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import spring.kh.diet.model.service.HomeTrainingService;
 import spring.kh.diet.model.service.HomeTrainingServiceImpl;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
+import spring.kh.diet.model.vo.HomeTrainingVO;
 
+@SuppressWarnings("all")
 @Controller
-public class HomeTrainingControllerImpl implements HomeTrainingController{
-		
-	@Resource(name="homeTrainingService")
+public class HomeTrainingControllerImpl implements HomeTrainingController {
+
+	@Resource(name = "homeTrainingService")
 	private HomeTrainingServiceImpl homeTrainingService;
-	
+
 	/* 홈트레이닝 - 전체 */
 	@Override
 	@RequestMapping(value = "/homeTrainingAll.diet")
@@ -29,13 +32,17 @@ public class HomeTrainingControllerImpl implements HomeTrainingController{
 		String type = request.getParameter("type");
 		
 		int currentPage;
-		if(request.getParameter("currentPage")==null) {
+		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
-		}else {
+		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+
+		HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingList(currentPage, type);
+
+		htpd.setType(type);
+		request.setAttribute("htpd", htpd);
 		
-		HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingList(currentPage,type);
 		
 		return "homeTraining/homeTrainingList";
 	}
@@ -44,6 +51,14 @@ public class HomeTrainingControllerImpl implements HomeTrainingController{
 	@Override
 	@RequestMapping(value = "/homeTrainingInfo.diet")
 	public String homeTrainingInfo(HttpServletRequest request) {
+		int indexNo = Integer.parseInt(request.getParameter("indexNo"));
+		
+		String servletName = "homeTrainingInfo.diet";
+		
+		HomeTrainingVO ht = homeTrainingService.homeTraining(indexNo);
+		
+		request.setAttribute("ht", ht);
+				
 		return "homeTraining/homeTrainingInfo";
 	}
 }

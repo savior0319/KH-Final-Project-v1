@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardPostVO {
-	private String postTitle, postContent, postImage, bcaName, postNickname;
+	private String postTitle, postContent, postImage, bcaName, postNickname, mbImage;
 	private int postIndex, brdIndex, mbIndex, postComCount, postHit, postLike, bcaIndex;
 	private Date postDateTime;
 }

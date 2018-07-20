@@ -14,53 +14,100 @@
 		<result property="postLike" column="POST_LIKE" />
 		<result property="postImage" column="POST_IMAGE" />
 		<result property="bcaIndex" column="BCA_INDEX" />
+		<result property="bcaName" column="BCA_NAME" />
+		<result property="postNickname" column="MB_NICKNAME" />
+		<result property="mbImage" column="MB_IMAGE" />
 	</resultMap>
 
 	<!-- 전체게시판 -->
 	<select id="allCommunityList" parameterType="communityPage"
 		resultType="community" resultMap="communityDB">
-		SELECT *
-		FROM (SELECT BOARD_POST_TBL.*,
-		ROW_NUMBER() OVER(ORDER BY POST_DATETIME
-		DESC) AS NUM FROM BOARD_POST_TBL
+		SELECT * FROM
+		(SELECT BOARD_POST_TBL.*,
+		ROW_NUMBER() OVER
+		(ORDER BY
+		POST_DATETIME DESC)
+		AS NUM FROM BOARD_POST_TBL
 		<choose>
-			<when test="type.equals('bullentin')">
+			<when test="type.equals('15')">
 				WHERE BCA_INDEX like '15'
 			</when>
-			<when test="type.equals('tip')">
+			<when test="type.equals('17')">
 				WHERE BCA_INDEX like '17'
 			</when>
-			<when test="type.equals('worry')">
+			<when test="type.equals('18')">
 				WHERE BCA_INDEX like '18'
 			</when>
-			<when test="type.equals('beforeAfter')">
+			<when test="type.equals('19')">
 				WHERE BCA_INDEX LIKE '19'
 			</when>
 		</choose>
-		) WHERE NUM BETWEEN #{start} AND #{end}
+		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+		WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 페이징 처리 - 내비게이션 생성 -->
 	<select id="getNavi" resultType="java.lang.Integer">
 		select count(*) as totalCount
 		from BOARD_POST_TBL
+		<choose>
+			<when test="type.equals('15')">
+				WHERE BCA_INDEX like '15'
+			</when>
+			<when test="type.equals('16')">
+				WHERE BCA_INDEX LIKE '16'
+			</when>
+			<when test="type.equals('17')">
+				WHERE BCA_INDEX like '17'
+			</when>
+			<when test="type.equals('18')">
+				WHERE BCA_INDEX like '18'
+			</when>
+			<when test="type.equals('19')">
+				WHERE BCA_INDEX LIKE '19'
+			</when>
+		</choose>
 	</select>
 
 	<insert id="registCommunity" parameterType="community">
-		INSERT INTO BOARD_POST_TBL
+		INSERT INTO
+		BOARD_POST_TBL
 		VALUES(INDEX_NO_SEQ.NEXTVAL,4,#{postTitle},#{postContent},#{bcaIndex},#{mbIndex},SYSDATE,0,0,0,'')
 	</insert>
 
 	<!-- 식단&레시피 -->
 	<select id="recipeBoardList" parameterType="communityPage"
 		resultType="community" resultMap="communityDB">
-		SELECT *
-		FROM 
-		(SELECT BOARD_POST_TBL.*,
-		ROW_NUMBER() OVER(ORDER BY POST_DATETIME
-		DESC) AS NUM FROM BOARD_POST_TBL
+		SELECT * FROM
+		(SELECT
+		BOARD_POST_TBL.*,
+		ROW_NUMBER() OVER
+		(ORDER BY POST_DATETIME DESC)
+		AS NUM
+		FROM BOARD_POST_TBL
 		WHERE BCA_INDEX like '16'
-		) WHERE NUM BETWEEN #{start} AND #{end}
+		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+		WHERE NUM BETWEEN
+		#{start} AND
+		#{end}
 	</select>
+
+	<!-- 페이지 이동 -->
+	<select id="postedOne" resultType="community" resultMap="communityDB">
+		SELECT *
+		FROM BOARD_POST_TBL BP
+		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+		LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		WHERE POST_INDEX =
+		#{postIndex}
+
+	</select>
+
+	<delete id="deletePost">
+	DELETE BOARD_POST_TBL WHERE POST_INDEX = #{postIndex}
+   </delete>
+
 
 </mapper>

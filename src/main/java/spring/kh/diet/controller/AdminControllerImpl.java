@@ -15,6 +15,7 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import spring.kh.diet.model.service.AdminService;
 import spring.kh.diet.model.vo.NoticeVO;
 
+@SuppressWarnings("all")
 @Controller
 public class AdminControllerImpl implements AdminController {
 
@@ -49,7 +50,6 @@ public class AdminControllerImpl implements AdminController {
 
 	}
 	
-	
 	@Autowired
 	ServletContext context;
 	@RequestMapping(value = "/currentLoginUser.diet")
@@ -57,8 +57,6 @@ public class AdminControllerImpl implements AdminController {
 	public void currentLoginUser(ServletContext session) throws IOException {
 		
 		System.out.println(session.getAttribute("key"));
-		
-		
 
 	}
 

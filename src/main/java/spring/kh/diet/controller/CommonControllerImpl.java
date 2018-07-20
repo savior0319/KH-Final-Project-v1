@@ -3,10 +3,13 @@ package spring.kh.diet.controller;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
@@ -34,7 +39,8 @@ public class CommonControllerImpl implements CommonController {
 	public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
 
 		try {
-			System.out.println("호출");
+			System.out.println("호출ddddd");
+			System.out.println(file.getOriginalFilename());
 			/* UploadFile uploadedFile = imageService.store(file); */
 
 			return null;
@@ -52,6 +58,7 @@ public class CommonControllerImpl implements CommonController {
 
 	}
 
+	/*댓글 등록*/
 	@Override
 	@RequestMapping(value = "/addComment.diet")
 	public void addComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -69,6 +76,23 @@ public class CommonControllerImpl implements CommonController {
 			response.getWriter().print(result);
 			response.getWriter().close();
 		}
+	}
+
+	/*댓글 내비 ajax 처리*/
+	@Override
+	@RequestMapping(value = "/naviMove.diet")
+	public void naviMove(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int indexNo = Integer.parseInt(request.getParameter("indexNo"));
+		String servletName = request.getParameter("servletName");
+
+		BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, indexNo);
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(bcpd, response.getWriter());
+
 	}
 
 }

@@ -1,7 +1,6 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.CommunityService;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -106,7 +104,7 @@ public class CommunityControllerImpl implements CommunityController {
 		}
 
 		CommunityPageDataVO cpdv = communityService.recipeBoardList(currentPage, type);
-
+		
 		request.setAttribute("cpdv", cpdv);
 		
 		return "community/recipeBoard";
@@ -116,19 +114,35 @@ public class CommunityControllerImpl implements CommunityController {
 
 	
 	//등록된 글 들어가는 곳
-/*	@Override
+	@Override
 	@RequestMapping(value = "/postedCommunity.diet")
-	public Object postedCommunity(HttpSession session) {
-		List<BoardPostVO> list = communityService.allCommunityList();
-		ModelAndView view = new ModelAndView();
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.setViewName("community/postedCommunity");
-			return view;
-		} else {
-			return null;
-		}
+	public Object postedCommunity(HttpServletRequest request) {
+		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
+		
+		BoardPostVO bpv = communityService.postedCommunity(postIndex);
 
-	}*/
+		
+		request.setAttribute("bpv", bpv);
+		
+		return "community/postedCommunity";
+		
+	}
+	
+	
+	
+	//삭제하기
+	@Override
+	@RequestMapping(value = "/deletePost.diet")
+	public Object deletePost(HttpServletRequest request) {
+		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
+		String community = request.getParameter("community");
+		
+		int result = communityService.deletePost(postIndex);
+
+		
+		return "community/postedCommunity";
+		
+	}
+	
 
 }

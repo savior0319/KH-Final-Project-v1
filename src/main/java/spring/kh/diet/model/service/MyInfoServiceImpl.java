@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.MyInfoDAO;
+import spring.kh.diet.model.vo.BoardPostVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.ProductVO;
+import spring.kh.diet.model.vo.MyActivityPageDataVO;
+import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @Service("myInfoService")
@@ -70,4 +73,27 @@ public class MyInfoServiceImpl implements MyInfoService {
 		return result;
 	}
 
+	@Override
+	public MyActivityVO myActivity(MemberVO m) {
+		MyActivityVO ma = MyInfoDAO.myActivity(SqlSessionTemplate,m);
+		return ma;
+	}
+
+	@Override
+	public MyActivityPageDataVO allCommunityList(int currentPage, String type, MyActivityVO ma) {
+		int recordCountPerPage = 10;
+		int naviCountPerPage = 5;
+
+		MyActivityPageDataVO cpdv = new MyActivityPageDataVO();
+		
+		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) MyInfoDAO.allCommunityList(SqlSessionTemplate, currentPage, recordCountPerPage, type,ma);
+		String pageNavi = MyInfoDAO.getallCommunityListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage, naviCountPerPage, type,ma);
+
+		cpdv.setComList(list);
+		cpdv.setPageNavi(pageNavi);
+		cpdv.setType(type);
+		
+		return cpdv;
+	}
+	
 }

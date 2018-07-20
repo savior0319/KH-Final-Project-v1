@@ -82,4 +82,47 @@
 		#{mbGender}, null, null, null, null, null, #{mbInterest},
 		'일반회원', null, null, SYSDATE)
 	</insert>
+	
+	<select id="myActivity" parameterType="member" resultType="myActivity">
+	SELECT 
+	MB_INDEX AS mbIndex, 
+	MY_ATTENDANCE AS myAttendance,
+	MY_COMMNET_COUNT AS myCommentCount, 
+	MY_BOARD_COUNT AS myBoardCount,
+	MB_ENROLLDATE as mbEnrollDate
+	FROM MY_ACTIVITY_TBL LEFT JOIN MEMBER_TBL USING(MB_INDEX) WHERE MB_INDEX = #{mbIndex}
+
+	</select>
+	
+	<resultMap type="community" id="communityDB">
+		<result property="postIndex" column="POST_INDEX" />
+		<result property="brdIndex" column="BRD_INDEX" />
+		<result property="postTitle" column="POST_TITLE" />
+		<result property="postContent" column="POST_CONTENT" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="postDateTime" column="POST_DATETIME" />
+		<result property="postComCount" column="POST_COMMENT_COUNT" />
+		<result property="postHit" column="POST_HIT" />
+		<result property="postLike" column="POST_LIKE" />
+		<result property="postImage" column="POST_IMAGE" />
+		<result property="bcaIndex" column="BCA_INDEX" />
+	</resultMap>
+	
+		<!-- 페이징 처리 - 내비게이션 생성 -->
+	<select id="getNavi" resultType="java.lang.Integer">
+		select count(*) as totalCount
+		from BOARD_POST_TBL
+	</select>
+	
+	<!-- 전체게시판 -->
+	<select id="allCommunityList" parameterType="myActivityPageData" 
+		resultType="community" resultMap="communityDB">
+		SELECT *
+		FROM (SELECT BOARD_POST_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY
+		POST_DATETIME
+		DESC) AS NUM FROM BOARD_POST_TBL
+		) WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
 </mapper>
+

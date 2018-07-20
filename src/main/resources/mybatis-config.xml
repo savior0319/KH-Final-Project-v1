@@ -15,6 +15,10 @@
 		<typeAlias type="spring.kh.diet.model.vo.ProductVO" alias="product" />
 		<typeAlias type="spring.kh.diet.model.vo.BoardCommentVO" alias="comment"/>
 		<typeAlias type="spring.kh.diet.model.vo.BoardCommentPDVO" alias="commentPageData"/>
+		<typeAlias type="spring.kh.diet.model.vo.HomeTrainingVO" alias="homeTraining"/>
+		<typeAlias type="spring.kh.diet.model.vo.HomeTrainingPageDataVO" alias="homeTrainingPageData"/>
+		<typeAlias type="spring.kh.diet.model.vo.MyActivityVO" alias="myActivity"/>
+		<typeAlias type="spring.kh.diet.model.vo.MyActivityPageDataVO" alias="myActivityPageData"/>
 	</typeAliases>
 
 </configuration>

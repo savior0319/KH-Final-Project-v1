@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import spring.kh.diet.model.service.LoginLogoutService;
 import spring.kh.diet.model.vo.MemberVO;
 
+@SuppressWarnings("all")
 @Controller
 public class LoginLogoutControllerImpl implements LoginLogoutController {
 
@@ -43,7 +44,20 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 			return "login/login";
 		}
 	}
-
+	
+	/* 카카오톡 로그인 */
+	@Override
+	@RequestMapping(value="/kakaoCallback.diet")
+	public void kakaoLogin(@RequestParam String kakaoId,@RequestParam Object kakaoToken) {
+		System.out.println(kakaoId);
+		System.out.println(kakaoToken);
+		MemberVO m = new MemberVO();
+		m.setMbId(kakaoId);
+		int result  = loginService.joinKaKao(m);
+	
+	}
+	
+	
 	@Override
 	@RequestMapping(value = "/logout.diet")
 	public String logout(HttpServletRequest request) {
@@ -69,4 +83,7 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 		response.getWriter().print(String.valueOf(result));
 		response.getWriter().close();
 	}
+
+
+
 }

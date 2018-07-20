@@ -14,4 +14,6 @@ public interface LoginLogoutController {
 	String login(HttpServletRequest request, String memberId, String memberPwd);
 
 	void updatePassword(String mbId, String mbPwd, HttpServletResponse response) throws IOException;
+
+	void kakaoLogin(String kakaoId, Object kakaoToken);
 }

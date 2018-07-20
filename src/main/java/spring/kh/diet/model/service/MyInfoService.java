@@ -2,8 +2,10 @@ package spring.kh.diet.model.service;
 
 import java.util.ArrayList;
 
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.ProductVO;
+import spring.kh.diet.model.vo.MyActivityPageDataVO;
+import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 public interface MyInfoService {
@@ -24,7 +26,8 @@ public interface MyInfoService {
 
 	int signupsave(MemberVO mv);
 
+	MyActivityVO myActivity(MemberVO m);
 
-
+	MyActivityPageDataVO allCommunityList(int currentPage, String type, MyActivityVO ma);
 
 }

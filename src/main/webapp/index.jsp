@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	
+
 
 <!DOCTYPE html>
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+	<title>다부해 - 다이어트를 부탁해</title>
 </head>
 
-<!-- CSS -->
-<style>
-</style>
 <c:if test="${sessionScope.member.mbId == null}">
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -19,8 +16,6 @@
 			url : 'createSession.diet',
 			type : 'post',
 			success : function(data){
-				alert(data);
-				
 			}
 		});
 	});		
@@ -41,58 +36,103 @@
 								<i class="book icon" style="display: inline-block;"></i><span id="fs"></span>
 							</span>
 						</div>
-					</div>
-					<div class="ui center aligned basic segment" style="margin: 0; padding: 0;">
-						<img src="/resources/image/mainPic.jpg" style="width: 90%;">
-					</div>
-				</div>
-				<div class="ui basic segment" align="center">
-					<table class="ui celled table" style="width: 100%; height: 100%;">
-						<tr align="center">
+
+
+						<!-- 반응형 메뉴 768px 이하 -->
+						<table class="ui celled table" style="width: 100%; height: 100%;" id="mainBoardResize">
+							<tr align="center">
+								<td style="padding: 0px; width: 70px;">
+									<button onclick="bmiCal();" type="button"
+									style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+									<i class="large calculator icon" id="icon1"></i>
+									내 BMI 지수는? (비만도 계산)
+								</button>
+							</td>
 							<td style="padding: 0px; width: 70px;">
-								<button onclick="bmiCal();" type="button"
-								style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
-								<i class="large calculator icon"></i>
-								<br>
-								내 BMI 지수는?
-								<br>
-								(비만도 계산)
+								<button onclick="bmrCal();" type="button"
+								style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+								<i class="large sticky note outline icon" id="icon2"></i>
+								칼로리처방 받기
 							</button>
 						</td>
 						<td style="padding: 0px; width: 70px;">
-							<button onclick="bmrCal();" type="button"
-							style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px;">
-							<i class="large sticky note outline icon"></i>
-							<br>
-							칼로리처방
-							<br>
-							받기
+							<button type="button" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+								<i class="large mobile alternate icon" id="icon3"></i>
+								다이어트 어플리케이션
+							</button>
+						</td>
+						<td style="padding: 0px; width: 70px;">
+							<button  onclick="healthCenter();" type="button"
+							style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+							<i class="large sistrix icon" id="icon4"></i>
+							인바디 측정 보건소 찾기
 						</button>
 					</td>
 				</tr>
-				<tr align="center">
-					<td style="padding: 0px; width: 70px;">
-						<button type="button" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px;">
-							<i class="large mobile alternate icon"></i>
-							<br>
-							다이어트
-							<br>
-							어플리케이션
-						</button>
-					</td>
-					<td style="padding: 0px; width: 70px;">
-						<button  onclick="healthCenter();" type="button"
-						style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
-						<i class="large sistrix icon"></i>
-						<br>
-						인바디 측정
-						<br>
-						보건소 찾기
-					</button>
-				</td>
-			</tr>
-		</table>
+			</table>
+
+		</div>
+		<div class="ui center aligned basic segment" style="margin: 0; padding: 0;">
+			<img src="/resources/image/mainPic.jpg" style="width: 90%;">
+		</div>
 	</div>
+
+	<!-- 반응형 메뉴 768px 이상 -->
+	<div class="ui basic segment" align="center" id="mainBoard">
+		<table class="ui celled table" style="width: 100%; height: 100%;" >
+			<tr align="center">
+				<td style="padding: 0px; width: 70px;">
+					<button onclick="bmiCal();" type="button"
+					style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+					<i class="large calculator icon" id="icon1"></i>
+					<div class="disappear">
+						<br>
+						내 BMI 지수는?
+						<br>
+						(비만도 계산)
+					</div>
+				</button>
+			</td>
+			<td style="padding: 0px; width: 70px;">
+				<button onclick="bmrCal();" type="button"
+				style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px;">
+				<i class="large sticky note outline icon" id="icon2"></i>
+				<div class="disappear">
+					<br>
+					칼로리처방
+					<br>
+					받기
+				</div>
+			</button>
+		</td>
+	</tr>
+	<tr align="center">
+		<td style="padding: 0px; width: 70px;">
+			<button type="button" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px;">
+				<i class="large mobile alternate icon" id="icon3"></i>
+				<div class="disappear">
+					<br>
+					다이어트
+					<br>
+					어플리케이션
+				</div>
+			</button>
+		</td>
+		<td style="padding: 0px; width: 70px;">
+			<button  onclick="healthCenter();" type="button"
+			style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+			<i class="large sistrix icon" id="icon4"></i>
+			<div class="disappear">
+				<br>
+				인바디 측정
+				<br>
+				보건소 찾기
+			</div>
+		</button>
+	</td>
+</tr>
+</table>
+</div>
 </div>
 
 <div class="ui horizontal basic segments">
@@ -214,7 +254,7 @@
 	}
 
 	function healthCenter() {
-		window.location.href = "/healthCenter.diet";
+		window.location.href = "/healthCenter.diet?location=all";
 	}
 
 	$(document).ready(function() {
@@ -224,8 +264,23 @@
 	});
 
 </script>
-
-
+<style type="text/css" media="screen">
+@media (max-width: 1200px) {
+	.disappear{
+		display: none;
+	}
+}
+@media (max-width: 768px) {
+	#mainBoard{
+		display: none;
+	}
+}
+@media (min-width: 768px) {
+	#mainBoardResize{
+		display: none;
+	}
+}
+</style>
 </html>
 
 

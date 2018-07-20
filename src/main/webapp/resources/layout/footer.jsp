@@ -18,7 +18,7 @@
 			<div class="six wide column">
 				<h3 class="ui header" style="text-decoration:underline;">사이트 정보</h3>
 				<div style="color: gray">
-					(주)다이어트 Diet Co.,Ltd. 대표 안형조<br>
+					(주)다이어트를 부탁해 Diet Co.,Ltd. 대표 안형조<br>
 					본점 : 사업자등록번호 000-00-00000<br>
 					서울시 영등포구 영등포로 00, 000호(당산동1가, 이레빌딩)<br>
 					사업자번호조회<br>

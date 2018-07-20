@@ -19,7 +19,6 @@ public class LoginLogoutServiceImpl implements LoginLogoutService {
 	
 	@Override
 	public MemberVO login(MemberVO mv) {
-		System.out.println("비밀번호 : "+mv.getMbPwd());
 		MemberVO m = loginDAO.login(SqlSessionTemplate,mv);
 		return m;
 	}
@@ -31,6 +30,11 @@ public class LoginLogoutServiceImpl implements LoginLogoutService {
 	@Override
 	public int updatePassword(MemberVO mv) {
 		int result = loginDAO.updatePassword(SqlSessionTemplate,mv);
+		return result;
+	}
+	@Override
+	public int joinKaKao(Object m) {
+		int result = loginDAO.joinKaKao(SqlSessionTemplate,m);
 		return result;
 	}
 

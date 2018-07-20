@@ -36,20 +36,24 @@
 				<h2 class="ui header">
 					<i class="comment icon"></i>
 					<div class="content">
-						자유게시판
+						${requestScope.bpv.bcaName }
 						<div class="sub header">Community</div>
 					</div>
 					<!-- 			<button class="ui left attached samll button" style="padding: 10px;">수정</button>
 			<button class="right attached ui samll button" style="padding: 10px;">삭제</button> -->
 				</h2>
 
-				<!-- 수정&삭제 버튼 -->
-				<span class="right floated column" style="padding-top: 15px; padding-left: 140px;">
-					<div class="ui buttons">
-						<button class="ui grey basic button" id="modifyBtn" style="padding-top: 10px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px;">수정</button>
-						<button class="ui red basic button" onclick="return deleteBtn();" type="submit" style="padding-top: 10px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px;">삭제</button>
-					</div>
-				</span>
+<!-- 멤버 세션 넣기! -->
+				<%-- <c:if test="${sessionScope.member!=null}"> --%>
+					<!-- 수정&삭제 버튼 -->
+					<span class="right floated column" style="padding-top: 15px; padding-left: 140px;">
+						<div class="ui buttons">
+							<button class="ui grey basic button" id="modifyBtn" style="padding-top: 10px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px;">수정</button>
+							<button class="ui red basic button" onclick="return deleteBtn();" type="submit" style="padding-top: 10px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px;">삭제</button>
+						</div>
+					</span>
+				<%-- </c:if> --%>
+
 			</div>
 		</div>
 
@@ -63,7 +67,7 @@
 
 		<h2 class="ui center aligned container">
 			<i class="quote left icon"></i>
-			${list[0].postTitle}
+			${requestScope.bpv.postTitle}
 			<i class="quote right icon"></i>
 		</h2>
 
@@ -75,8 +79,10 @@
 					<span class="left floated column" style="">
 						<span class="ui left aligned">
 							<a>
-								<img class="ui avatar image" src="/resources/image/mainPic.jpg">
-								닉네임
+								<!-- 프로필이미지 -->
+								<img class="ui avatar image" src="${requestScope.bpv.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
+								<!-- 닉네임 -->
+								${requestScope.bpv.postNickname}
 							</a>
 						</span>
 					</span>
@@ -84,19 +90,19 @@
 						<!-- 날짜 -->
 						<span class="ui right aligned">
 							<i class="calendar icon"></i>
-							${list[0].postDateTime}
+							${requestScope.bpv.postDateTime}
 						</span>
 						&nbsp;&nbsp;|&nbsp;&nbsp;
 						<!-- 뷰수 -->
 						<span class="ui right aligned">
 							<i class="eye icon"></i>
-							${list[0].postHit}
+							${requestScope.bpv.postHit}
 						</span>
 						&nbsp;&nbsp;|&nbsp;&nbsp;
 						<!-- 댓글수 -->
 						<span class="ui right aligned">
 							<i class="pen square icon"></i>
-							${list[0].postComCount}
+							${requestScope.bpv.postComCount}
 						</span>
 					</span>
 				</div>
@@ -105,7 +111,7 @@
 
 		<!-- 내용 들어가는 부분! -->
 		<div class="ui clearing segment">
-			${list[16].postContent}
+			${requestScope.bpv.postContent}
 			<br>
 			<br>
 			<br>
@@ -363,6 +369,8 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+	var category = ${requestScope.bpv.bcaIndex};
+
 	var check = true;
 	/* 북마크 버튼*/
 	$('#bookMark').click(
@@ -370,11 +378,11 @@
 				if (check == true) {
 					$('#emptyBookMark').removeClass("bookmark outline icon")
 							.addClass("bookmark icon");
-					return check = false;
+					check = false;
 				} else if (check == false) {
 					$('#emptyBookMark').removeClass("bookmark icon").addClass(
 							"bookmark outline icon");
-					return check = true;
+					check = true;
 				}
 
 			});
@@ -407,26 +415,42 @@
 
 	/* 목록으로 돌아가기 버튼 */
 	$('#listBtn').click(function() {
-		location.href = "/communityWholeBoard.diet";
+		location.href = "/communityWholeBoard.diet?type=" + category;
 	});
-	
+
 	/* 수정하기 버튼 */
-	$('#modifyBtn').click(function(){
+	$('#modifyBtn').click(function() {
 		location.href = "/modifyCommunity.diet";
 	});
-	
-    /*삭제 확인*/
-    function deleteBtn(){
-      var check = window.confirm("정말 삭제하시겠습니까?");
 
-      if(check==true)
-      {
-        return check;
-      }else{
-        return false;
-      }
-    }
-	
+	/*삭제 확인*/
+	function deleteBtn() {
+		var postIndex = ${requestScope.bpv.postIndex};
+
+		var check = window.confirm("정말 삭제하시겠습니까?");
+
+		if (check == true) {
+			$.ajax({
+				url : '/deletePost.diet',
+				type : 'post',
+				data : {
+					'postIndex' : postIndex,
+				},
+				success : function() {
+					alert('삭제를 완료하였습니다.');
+					location.href = "/communityWholeBoard.diet?type="+ category;
+
+				},
+				error : function() {
+					alert('삭제에 실패하였습니다.');
+				}
+			});
+			return check;
+		} else {
+			//삭제 취소
+			return false;
+		}
+	}
 </script>
 
 </html>

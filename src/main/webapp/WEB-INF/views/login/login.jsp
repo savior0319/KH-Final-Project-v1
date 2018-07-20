@@ -105,7 +105,7 @@ a {
 						</div>
 						<br> <br>
 						<button type="button" class="ui negative basic button"
-							id="joinBtn" onclick="joinBtn();">회원가입</button>
+							id="joinBtn" onclick="joinBtn1();">회원가입</button>
 						<br> <br>
 						<jsp:include page="/resources/SNSLogin/kakaoLogin.jsp"></jsp:include>
 					</div>
@@ -159,6 +159,11 @@ a {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+
+	/* 회원가입하기 버튼 클릭시 */
+	function joinBtn1(){
+		location.href="/signup.diet";
+	}
 	/* 비밀번호 찾기 모달 */
 	$(".findPwd").click(function() {
 		$('#findPwdModal').modal('show');

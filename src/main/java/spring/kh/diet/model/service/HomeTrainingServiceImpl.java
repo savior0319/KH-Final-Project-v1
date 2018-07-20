@@ -24,7 +24,7 @@ public class HomeTrainingServiceImpl implements HomeTrainingService{
 	
 	@Override
 	public HomeTrainingPageDataVO homeTrainingList(int currentPage, String type) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 12;
 		int naviCountPerPage = 5;
 		
 		HomeTrainingPageDataVO htpd = new HomeTrainingPageDataVO();

@@ -68,13 +68,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myInfoUpdate";
 	}
 
-	/* 마이페이지 - 내 활동 정보 */
-	@Override
-	@RequestMapping(value = "/myActivityInfo.diet")
-	public String redirectMyActivityInfo() {
-		return "myInfo/myActivityInfo";
-	}
-
 	/* 마이페이지 - 내 적립금 */
 	@Override
 	@RequestMapping(value = "/myPoint.diet")
@@ -129,6 +122,6 @@ public class RedirectControllerImpl implements RedirectController {
 	@RequestMapping(value = "/modifyCommunity.diet")
 	public String redirectModifyCommunity() {
 		return "community/modifyCommunity";
-	}
+	}	
 	
 }

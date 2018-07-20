@@ -24,214 +24,53 @@
 
 		<div class="ui center aligned container">
 			<div class="ui panorama test ad" data-text="Panorama"></div>
+		
+		<h1 class="ui left aligned header">홈트레이닝 > 
 			
-			<!-- 운동부위별 값 넣을곳 -->
-			
-			<h1 class="ui left aligned header">홈트레이닝 > 전신</h1><hr><br>
-
-			
-				<!-- 제목 이미지 출력  -->
-				<div class="ui three column grid">
+				<c:choose>
+					<c:when test="${requestScope.htpd.type.equals('wholeBody') }">전신</c:when>
+					<c:when test="${requestScope.htpd.type.equals('abdomen') }">복부</c:when>
+					<c:when test="${requestScope.htpd.type.equals('upperBody') }">상체</c:when>
+					<c:when test="${requestScope.htpd.type.equals('lowerBody') }">하체</c:when>
+					<c:when test="${requestScope.htpd.type.equals('stretching') }">스트레칭</c:when>
+					<c:when test="${requestScope.htpd.type.equals('dance') }">댄스</c:when>
+					<c:when test="${requestScope.htpd.type.equals('yoga') }">요가</c:when>
+					<c:when test="${requestScope.htpd.type.equals('fourChallenge') }">4주챌린지</c:when>
+				</c:choose>
+				
+				</h1><hr><br>				
+				
+				<!-- 운동부위별 값 넣을곳 -->
+				<div class="ui three column grid">	
+				<c:forEach items="${requestScope.htpd.htList }" var="ht">
+				
+				
 					<div class="column">
-						<div class="ui card">
+						<div class="ui card" onclick="InfoPage(${ht.htIndex})">
 							<div class="image">
-								<a href="/homeTrainingInfo.diet"><img src="/resources/image/mainPic.jpg" style="width: 290px;height:200px;"></a>
+								<img src="${ht.htMainVideo}" style="width: 290px;height:200px;">
 							</div>
 							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
+								<a class="header">${ht.htTitle }</a>
 								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
+									<span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i>
+									좋아요 <span class="like" style="color: red">${ht.htHits }</span>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
-								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
-								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="ui three column grid">
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
-								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="column">
-							<div class="ui card">
-								<div class="image">
-									<img src="/images/king.jpg" style="height: 200px;">
-								</div>
-								<div class="content">
-									<a class="header">10분안에 지방 불태우기..</a>
-									<div class="meta">
-										<span class="date">전신 |</span> <i class="heart outline icon"></i>
-										좋아요 <span class="like" style="color: red">46</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
-								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="ui three column grid">
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
-								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
-								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
-								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="ui three column grid">
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
-								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
-								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="ui card">
-							<div class="image">
-								<img src="/images/king.jpg" style="height: 200px;">
-							</div>
-							<div class="content">
-								<a class="header">10분안에 지방 불태우기..</a>
-								<div class="meta">
-									<span class="date">전신 |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">46</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				
+				
+				</c:forEach>
+				</div>	
 
 				<br> <br>
 
-				<div class="ui grid">
-					<div class="three column row">
-						<div class="column"></div>
-						<div class="column">
-							<div class="ui center aligned basic segment"">
-								<div class="ui pagination menu">
-									<a class="icon item"> <i class="left chevron icon disabled"
-										type="submit"></i>
-									</a> <a class="item active"> 1 </a> <a class="item"> 2 </a> <a
-										class="item"> 3 </a> <a class="item"> 4 </a> <a
-										class="icon item"> <i class="right chevron icon"></i>
-									</a>
 
-								</div>
-							</div>
-						</div>
-						<div class="column"></div>
-					</div>
-					<br> <br>
+				<div class="ui center aligned basic segment">
+				<div class="ui pagination menu">${requestScope.htpd.pageNavi }</div>
 				</div>
+				
 				<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 				<div class="ui basic floating dropdown button">
 					<div class="text">선택</div>
@@ -258,6 +97,12 @@
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
+<script type="text/javascript">
+	function InfoPage(me){
+		location.href="/homeTrainingInfo.diet?indexNo="+me;
+	}
+</script>
+
 <!-- SCRIPT -->
 <!-- SCRIPT -->
 <script type="text/javascript">
@@ -265,8 +110,9 @@ $('.ui.dropdown')
 .dropdown({
   allowAdditions: true,
   allowCategorySelection: true
-})
-;
-</script>
+});
 
+</script>
 </html>
+
+

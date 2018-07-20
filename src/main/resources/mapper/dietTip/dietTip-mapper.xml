@@ -35,9 +35,24 @@
 	</select>
 
 	<!-- 페이징 처리 - 내비게이션 생성 -->
-	<select id="getNavi" resultType="java.lang.Integer">
+	<select id="getNavi" resultType="java.lang.Integer" parameterType="dietTipPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM DIETTIP_TB
+		<choose>
+			<when test="type.equals('column')">
+				WHERE DT_TYPE = 1
+			</when>
+			<when test="type.equals('sport')">
+				WHERE DT_TYPE = 2
+			</when>
+			<when test="type.equals('dietFood')">
+				WHERE DT_TYPE = 3
+			</when>
+			<when test="type.equals('successLatter')">
+				WHERE DT_TYPE = 4
+			</when>
+		</choose>
+		
 	</select>
 
 	<!-- 게시물 불러오기 -->
