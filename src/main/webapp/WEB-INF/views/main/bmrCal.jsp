@@ -170,7 +170,7 @@
 					</thead>
 				</table>
 
-				<button class="ui blue button" type="submit">칼로리 처방!</button>
+				<button style="background: rgb(250,40,40); color:white;" class="ui button" type="submit">칼로리 처방</button>
 			</form>
 		</div>
 	</div>
