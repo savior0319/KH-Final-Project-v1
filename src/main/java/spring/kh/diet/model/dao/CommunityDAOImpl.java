@@ -8,13 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
-import spring.kh.diet.model.vo.DietTipVO;
 
 @Repository(value = "communityDAO")
 public class CommunityDAOImpl implements CommunityDAO {
 
 	public CommunityDAOImpl() {
-
 	}
 
 	// 커뮤니티 전체 게시판
@@ -50,7 +48,10 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Override
 	public String getallCommunityListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, int naviCountPerPage, String type) {
-		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi");
+		CommunityPageDataVO cpdv = new CommunityPageDataVO();
+		cpdv.setType(type);
+		
+		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi",cpdv);
 
 		int pageTotalCount = 0;
 		if (recordTotalCount % recordCountPerPage != 0) {
@@ -130,7 +131,10 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Override
 	public String getRecipeListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, int naviCountPerPage, String type) {
-		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi");
+		CommunityPageDataVO cpdv = new CommunityPageDataVO();
+		cpdv.setType(type);
+		
+		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi",cpdv);
 
 		int pageTotalCount = 0;
 		if (recordTotalCount % recordCountPerPage != 0) {
@@ -188,6 +192,12 @@ public class CommunityDAOImpl implements CommunityDAO {
 		}
 
 		return sb.toString();
+	}
+
+	@Override
+	public BoardPostVO postedCommunity(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
+		BoardPostVO bpv = sqlSessionTemplate.selectOne("community.postedOne",postIndex);
+		return bpv;
 	}
 	
 	

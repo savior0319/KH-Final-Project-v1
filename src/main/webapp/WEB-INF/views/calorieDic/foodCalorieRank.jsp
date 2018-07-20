@@ -61,32 +61,32 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr align="center" style="height: 40px;">
-						<td>1</td>
+					<tr align="center">
+						<td style="padding-top: 15px; padding-bottom: 15px;">1</td>
 						<td><a href="foodCalorieInfo.diet">쌀밥</a></td>
 						<td>1공기(210g)</td>
 						<td>211 kcal</td>
 					</tr>
-					<tr align="center" style="height: 40px;">
-						<td>2</td>
+					<tr align="center">
+						<td style="padding-top: 15px; padding-bottom: 15px;">2</td>
 						<td>삶은 계란</td>
 						<td>1개(50g)</td>
 						<td>310 kcal</td>
 					</tr>
-					<tr align="center" style="height: 40px;">
-						<td>3</td>
+					<tr align="center">
+						<td style="padding-top: 15px; padding-bottom: 15px;">3</td>
 						<td>수박</td>
 						<td>1회(100g)</td>
 						<td>121 kcal</td>
 					</tr>
-					<tr align="center" style="height: 40px;">
-						<td>4</td>
+					<tr align="center">
+						<td style="padding-top: 15px; padding-bottom: 15px;">4</td>
 						<td>바나나</td>
 						<td>1개(100g)</td>
 						<td>44 kcal</td>
 					</tr>
-					<tr align="center" style="height: 40px;">
-						<td>5</td>
+					<tr align="center">
+						<td style="padding-top: 15px; padding-bottom: 15px;">5</td>
 						<td>방울토마토</td>
 						<td>1개(13g)</td>
 						<td>22 kcal</td>

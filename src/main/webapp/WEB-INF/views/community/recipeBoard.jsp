@@ -50,7 +50,7 @@
 			<div class="ui three column grid" align="center">
 				<c:forEach items="${requestScope.cpdv.comList}" var="c">
 					<div class="column">
-						<div class="ui card" onclick="recipeLink();" style="cursor: pointer;">
+						<div class="ui card" onclick="recipeLink(${c.postIndex});" style="cursor: pointer;">
 							<div class="image">
 								<img src="${c.postImage}" style="height: 200px;">
 							</div>
@@ -139,8 +139,8 @@
 	
 	
 	/* 카드 클릭시 각 페이지로 이동 */
-	function recipeLink(){
-		 location.href="/postedCommunity.diet";
+	function recipeLink(pi){
+		 location.href="/postedCommunity.diet?postIndex="+pi;
 	 }
 	
 </script>

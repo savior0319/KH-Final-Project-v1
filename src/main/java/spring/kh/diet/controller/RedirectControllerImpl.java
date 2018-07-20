@@ -129,6 +129,6 @@ public class RedirectControllerImpl implements RedirectController {
 	@RequestMapping(value = "/modifyCommunity.diet")
 	public String redirectModifyCommunity() {
 		return "community/modifyCommunity";
-	}
+	}	
 	
 }

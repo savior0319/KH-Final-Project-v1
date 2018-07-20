@@ -54,36 +54,36 @@
 		        </tr>
 		    </thead>
 		    <tbody>
-		        <tr align="center" style="height:40px;">
-		            <td>1</td>
+		        <tr align="center">
+		            <td style="padding-top: 15px; padding-bottom: 15px;">1</td>
                     <td><a href="/sportsCalorieInfo.diet">보통 걷기</a></td>
 		            <td>가볍게</td>
 		            <td>10(분)</td>
 		            <td>21 kcal</td>
 		        </tr>
-		        <tr align="center" style="height:40px;">
-		            <td>2</td>
+		        <tr align="center">
+		            <td style="padding-top: 15px; padding-bottom: 15px;">2</td>
 		            <td>런닝머신 걷기</td>
 		            <td>3.5km/h</td>
 		            <td>20(분)</td>
 		            <td>242 kcal</td>
 		        </tr>
-		        <tr align="center" style="height:40px;">
-		            <td>3</td>
+		        <tr align="center">
+		            <td style="padding-top: 15px; padding-bottom: 15px;">3</td>
 		            <td>싸이클 실내자전거</td>
 		            <td>가볍게</td>
 		            <td>1(분)</td>
 		            <td>121 kcal</td>
 		        </tr>
-		        <tr align="center" style="height:40px;">
-		            <td>4</td>
+		        <tr align="center">
+		            <td style="padding-top: 15px; padding-bottom: 15px;">4</td>
 		            <td>스쿼트</td>
 		            <td>1</td>
 		            <td>30(회)</td>
 		            <td>213 kcal</td>
 		        </tr>
-		        <tr align="center" style="height:40px;">
-		            <td>5</td>
+		        <tr align="center">
+		            <td style="padding-top: 15px; padding-bottom: 15px;">5</td>
 		            <td>빠르게 걷기</td>
 		            <td>빠르게</td>
 		            <td>10(분)</td>

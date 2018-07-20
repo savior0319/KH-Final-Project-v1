@@ -1,7 +1,6 @@
 package spring.kh.diet.model.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -73,6 +72,13 @@ public class CommunityServiceImpl implements CommunityService {
 	public int registCommunity(BoardPostVO bpv) {
 		int result = communityDAO.registCommunity(SqlSessionTemplate, bpv);
 		return result;
+	}
+
+
+	@Override
+	public BoardPostVO postedCommunity(int postIndex) {
+		BoardPostVO bpv = communityDAO.postedCommunity(SqlSessionTemplate,postIndex);
+		return bpv;
 	}
 
 }
