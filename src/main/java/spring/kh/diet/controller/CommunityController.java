@@ -19,4 +19,6 @@ public interface CommunityController {
 
 	Object postedCommunity(HttpServletRequest request);
 
+	Object deletePost(HttpServletRequest request);
+
 }

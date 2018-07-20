@@ -104,7 +104,7 @@ public class CommunityControllerImpl implements CommunityController {
 		}
 
 		CommunityPageDataVO cpdv = communityService.recipeBoardList(currentPage, type);
-
+		
 		request.setAttribute("cpdv", cpdv);
 		
 		return "community/recipeBoard";
@@ -119,25 +119,30 @@ public class CommunityControllerImpl implements CommunityController {
 	public Object postedCommunity(HttpServletRequest request) {
 		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
 		
-		System.out.println(postIndex);
-		
 		BoardPostVO bpv = communityService.postedCommunity(postIndex);
-		
-		System.out.println(bpv.getPostTitle());
+
 		
 		request.setAttribute("bpv", bpv);
 		
 		return "community/postedCommunity";
 		
-/*		ModelAndView view = new ModelAndView();
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.setViewName("community/postedCommunity");
-			return view;
-		} else {
-			return null;
-		}*/
+	}
+	
+	
+	
+	//삭제하기
+	@Override
+	@RequestMapping(value = "/deletePost.diet")
+	public Object deletePost(HttpServletRequest request) {
+		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
+		String community = request.getParameter("community");
+		
+		int result = communityService.deletePost(postIndex);
+
+		
+		return "community/postedCommunity";
 		
 	}
+	
 
 }

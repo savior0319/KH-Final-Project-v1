@@ -14,5 +14,7 @@ public interface CommunityService {
 
 	BoardPostVO postedCommunity(int postIndex);
 
+	int deletePost(int postIndex);
+
 
 }

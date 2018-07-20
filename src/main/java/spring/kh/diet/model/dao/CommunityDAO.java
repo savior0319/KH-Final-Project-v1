@@ -27,4 +27,6 @@ public interface CommunityDAO {
 
 	BoardPostVO postedCommunity(SqlSessionTemplate sqlSessionTemplate, int postIndex);
 
+	int deletePost(SqlSessionTemplate sqlSessionTemplate, int postIndex);
+
 }
