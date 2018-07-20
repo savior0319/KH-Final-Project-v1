@@ -30,12 +30,12 @@ html, body {
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
-
 	<!-- CONTENTS -->
 	<div class="ui container">
 		<div class="ui center aligned basic segment">
 			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 			<br>
+			<c:if test="${sessionScope.member!=null}">
 			<div class="myActivity1">
 				<table class="ui celled padded table">
 					<thead>
@@ -49,17 +49,15 @@ html, body {
 					<tbody>
 						<tr align="center">
 							<td>
-								<h2 class="ui center aligned header">A</h2>
+								<h3 class="ui center aligned header">${ma.myAttendance}</h3>
 							</td>
-							<td class="single line">Power Output</td>
-							<td>댓글작성몇번?</td>
-							<td>ddd</td>
+							<td class="single line"><h3>${ma.myBoardCount }</h3></td>
+							<td><h3>${ma.myCommentCount}</h3></td>
+							<td><h3>${ma.mbEnrollDate}</h3></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-
-
 			<br>
 			<div class="myActivity2">
 				<div class="ui tabular menu" id="myActivity2" >
@@ -71,8 +69,14 @@ html, body {
 				</div>
 				<jsp:include page="/WEB-INF/views/myInfo/notice.jsp"></jsp:include>
 			</div>
-
+		</c:if>
 		</div>
+		<c:if test="${sessionScope.member==null}">
+			<script >
+				alert("로그인 후 이용해주세요~");
+				location.href="/";
+			</script>
+		</c:if>
 		<script>
 			$(function() {
 				var sBtn = $("#myActivity2");

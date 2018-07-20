@@ -5,7 +5,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>다이어트</title>
+<title>칼로리 처방 결과</title>
 </head>
 
 <!-- CSS -->

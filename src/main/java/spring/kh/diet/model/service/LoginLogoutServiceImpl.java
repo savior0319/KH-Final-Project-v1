@@ -32,6 +32,11 @@ public class LoginLogoutServiceImpl implements LoginLogoutService {
 		int result = loginDAO.updatePassword(SqlSessionTemplate,mv);
 		return result;
 	}
+	@Override
+	public int joinKaKao(Object m) {
+		int result = loginDAO.joinKaKao(SqlSessionTemplate,m);
+		return result;
+	}
 
 
 }
