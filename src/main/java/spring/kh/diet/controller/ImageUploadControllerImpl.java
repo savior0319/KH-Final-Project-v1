@@ -19,16 +19,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-
 @Controller
 public class ImageUploadControllerImpl {
 
-	@RequestMapping(value = "/imageUpload1.diet")
-	@ResponseBody
-	public String imageUpload(HttpServletRequest request) throws IllegalStateException,IOException {
+//	@RequestMapping(value = "/imageUpload1.diet")
+//	@ResponseBody
+/*	public String imageUpload(HttpServletRequest request) throws IllegalStateException,IOException {
 		// 이미지 업로드할 경로
 		System.out.println("넘어오냐?");
-		Map<String,Object> map = new HashMap<>();
+		Map<String,Object> map = new HashMap<?>();
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
 		if(multipartResolver.isMultipart(request))
 		{
@@ -60,7 +59,7 @@ public class ImageUploadControllerImpl {
 							localFile.mkdirs();
 						}
 						file.transferTo(localFile);
-						/*fileName="http://localhost/asd/upload"+fileNames;*/
+						fileName="http://localhost/asd/upload"+fileNames;
 						map.put("name", fileBaseName);
 						map.put("path", filePath);
 						System.out.println(fileName);
@@ -70,9 +69,9 @@ public class ImageUploadControllerImpl {
 					}
 				}
 			}
-		}
+		}*/
 		
-		return "";
+		//return "";
 		/*String uploadPath = "F:/image/upload";
 		int size = 10 * 1024 * 1024; // 업로드 사이즈 제한 10M 이하
 
@@ -104,5 +103,5 @@ public class ImageUploadControllerImpl {
 			e.printStackTrace();
 		}
 */
-	}
+	//}
 }

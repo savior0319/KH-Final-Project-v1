@@ -12,8 +12,6 @@ public interface RedirectController {
 
 	String redirectMyInfoUpdate();
 
-	String redirectMyActivityInfo();
-
 	String redirectBMICal();
 
 	String redirectSecession();

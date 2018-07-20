@@ -24,20 +24,6 @@
 		ROW_NUMBER() OVER(ORDER BY
 		POST_DATETIME
 		DESC) AS NUM FROM BOARD_POST_TBL
-		<choose>
-			<when test="type.equals('bullentin')">
-				WHERE BCA_INDEX like '15'
-			</when>
-			<when test="type.equals('tip')">
-				WHERE BCA_INDEX like '17'
-			</when>
-			<when test="type.equals('worry')">
-				WHERE BCA_INDEX like '18'
-			</when>
-			<when test="type.equals('beforeAfter')">
-				WHERE BCA_INDEX LIKE '19'
-			</when>
-		</choose>
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 

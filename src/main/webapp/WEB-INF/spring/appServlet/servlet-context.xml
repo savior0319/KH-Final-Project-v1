@@ -24,8 +24,6 @@
 	<!-- aop-context.xml 추가 -->
 	<beans:import resource="./aop-context.xml" />
 
-	<!-- 이미지 파일 업로드를 위한 multipart 추가 / 혜윤  -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
 
 </beans:beans>

@@ -37,7 +37,7 @@ gtag('config', 'UA-122472043-1');
 	</c:if>
 	<c:if test ="${sessionScope.member!=null}">
 		<span class="menu">
-			${member.mbName}님 환영합니다 ^^
+			${member.mbNickName}님 환영합니다 ^^
 		</span>
 		<span class="menu">
 			<a href="/logout.diet">로그아웃</a>
