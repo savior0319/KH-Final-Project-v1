@@ -203,7 +203,8 @@ p>span {
 					</div>
 				</div>
 			</form>
-			<br><br>
+			<br>
+			<br>
 			<div id="comment">
 				<!-- 작성된 댓글 리스트 -->
 				<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
@@ -224,7 +225,9 @@ p>span {
 									</button>
 								</div>
 							</div>
-							<div class="text"><pre>${bc.cmtContent }</pre></div>
+							<div class="text">
+								<pre>${bc.cmtContent }</pre>
+							</div>
 						</div>
 					</div>
 					<br>
@@ -322,47 +325,107 @@ p>span {
 		});
 	}
 
+	function naviMo(currentPage, indexNo, servletName) {
+		location.href = "/" + servletName + "?indexNo=" + indexNo
+				+ "&currentPage=" + currentPage;
+	}
+
 	function naviMove(currentPage, indexNo, servletName) {
 		$.ajax({
-			url : "/naviMove.diet?currentPage=" + currentPage + "&indexNo="
-					+ indexNo + "&servletName=" + servletName,
-			type : "get",
+			/* url : "/naviMove.diet?currentPage=" + currentPage + "&indexNo="
+					+ indexNo + "&servletName=" + servletName, */
+			url : '/naviMove.diet',
+			type : 'post',
+			data : {
+				'currentPage' : currentPage,
+				'indexNo' : indexNo,
+				'servletName' : servletName
+			},
 			success : function(data) {
 				$('#comment').html("");
-				/* for(var i=0;i<data.length;i++){
-					var commentDiv = $("<div>").attr("class","comment");
-					var aAvatar = $("<a>").attr("class","avatar");
-					var img = $("<img>").attr("style","width: 40px; height: 40px; border-radius: 25px;");
-					img.attr("src",data[i].mbImage);
-					var contentDiv = $("<div>").attr("style","width:93%;");
-					contentDiv.attr("class","content");
-					var aAuthor = $("<a>").attr("class","author");
-					aAuthor.attr("style","position: absolute; width: 10%;");
-					aAuthor.html(data[i].mbNickname);
-					var metadataDiv = $("<div>").attr("class","metadata");
-					metadataDiv.attr("style","width:100%;");
-					var span = $("<span>").attr("class","date");
-					span.attr("style","width: 30%; display: inline; margin-left: 10%;");
-					span.html(data[i].cmtDateTime);
-					var containerDiv = $("<div>").attr("class","ui right aligned container");
-					containerDiv.attr("align","right");
-					containerDiv.attr("style","width: 70%; float: right;");
-					var likeBtn = $("<button>").attr("class","ui red basic tiny button");
-					likeBtn.attr("style","margin-right: 10px;");
-					var likeI = $("<i>").attr("class","thumbs up outline icon");
-					var blameBtn = $("<button>").attr("class","ui black basic tiny button");
-					var blameI = $("i").attr("class","ban icon");
-					var textDiv = $("<div>").attr("class","text");
-					var pre = $("<pre>").html(data[i].cmtContent);
-				} */
-				
-				var naviDiv = $("<div>").attr("class","ui center aligned basic segment");
-				var menuDiv = $("<div>").attr("class","ui pagination menu");
-				menuDiv.html(data[0].navi);
-				
+				for (var i = 0; i < data.bcList.length; i++) {
+					var commentDiv = $("<div>").attr("class", "comment");
+
+					var aAvatar = $("<a>").attr("class", "avatar");
+
+					var img = $("<img>").attr("style",
+							"width: 40px; height: 40px; border-radius: 25px;");
+					img.attr("src", data.bcList[i].mbImage);
+
+					var contentDiv = $("<div>").attr("style", "width:93%;");
+					contentDiv.attr("class", "content");
+
+					var aAuthor = $("<a>").attr("class", "author");
+					aAuthor.attr("style", "position: absolute; width: 10%;");
+					aAuthor.html(data.bcList[i].mbNickname);
+
+					var metadataDiv = $("<div>").attr("class", "metadata");
+					metadataDiv.attr("style", "width:100%;");
+
+					var span = $("<span>").attr("class", "date");
+					span.attr("style",
+							"width: 30%; display: inline; margin-left: 10%;");
+					span.html(data.bcList[i].cmtDateTime);
+
+					var containerDiv = $("<div>").attr("class",
+							"ui right aligned container");
+					containerDiv.attr("align", "right");
+					containerDiv.attr("style", "width: 70%; float: right;");
+
+					var likeBtn = $("<button>").attr("class",
+							"ui red basic tiny button");
+					likeBtn.attr("style", "margin-right: 10px;");
+
+					var likeI = $("<i>")
+							.attr("class", "thumbs up outline icon");
+
+					var blameBtn = $("<button>").attr("class",
+							"ui black basic tiny button");
+
+					var blameI = $("<i>").attr("class", "ban icon");
+
+					var textDiv = $("<div>").attr("class", "text");
+
+					var pre = $("<pre>").html(data.bcList[i].cmtContent);
+
+					likeBtn.append(likeI);
+					likeBtn.append("공감" + data.bcList[i].cmtLike);
+
+					blameBtn.append(blameI);
+					blameBtn.append("신고" + data.bcList[i].cmtBlame);
+
+					containerDiv.append(likeBtn);
+					containerDiv.append(blameBtn);
+
+					metadataDiv.append(span);
+					metadataDiv.append(containerDiv);
+
+					textDiv.append(pre);
+
+					contentDiv.append(aAuthor);
+					contentDiv.append(metadataDiv);
+					contentDiv.append(textDiv);
+
+					aAvatar.append(img);
+
+					commentDiv.append(aAvatar);
+					commentDiv.append(contentDiv);
+
+					$('#comment').append(commentDiv);
+					$('#comment').append($("<br>"));
+					$('#comment').append(
+							$("<hr>").attr('style',
+									'border: 1px solid #F6F6F6;'));
+					$('#comment').append($("<br>"));
+				}
+
+				var naviDiv = $("<div>").attr("class",
+						"ui center aligned basic segment");
+				var menuDiv = $("<div>").attr("class", "ui pagination menu");
+				menuDiv.html(data.pageNavi);
+
 				naviDiv.append(menuDiv);
 				$('#comment').append(naviDiv);
-				
 			},
 			error : function() {
 				alert('실패');

@@ -3,6 +3,7 @@ package spring.kh.diet.controller;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
@@ -55,6 +58,7 @@ public class CommonControllerImpl implements CommonController {
 
 	}
 
+	/*댓글 등록*/
 	@Override
 	@RequestMapping(value = "/addComment.diet")
 	public void addComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -73,36 +77,22 @@ public class CommonControllerImpl implements CommonController {
 			response.getWriter().close();
 		}
 	}
-	
+
+	/*댓글 내비 ajax 처리*/
 	@Override
 	@RequestMapping(value = "/naviMove.diet")
-	public void naviMove(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void naviMove(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int indexNo = Integer.parseInt(request.getParameter("indexNo"));
 		String servletName = request.getParameter("servletName");
-		
+
 		BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, indexNo);
-		
-		JSONArray resultArray = new JSONArray();
-		
-		for(BoardCommentVO bc : bcpd.getBcList()) {
-			JSONObject result = new JSONObject();
-			result.put("cmtContent", bc.getCmtContent());
-			result.put("mbNickname", bc.getMbNickname());
-			result.put("mbImage", bc.getMbImage());
-			result.put("cmtLike", bc.getCmtLike());
-			result.put("cmtBlame", bc.getCmtBlame());
-			result.put("cmtDateTime", bc.getCmtDateTime());
-			
-			result.put("navi", bcpd.getPageNavi());
-			
-			resultArray.add(result);			
-		}
-		
+
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().print(resultArray);
-		response.getWriter().close();
+		new Gson().toJson(bcpd, response.getWriter());
+
 	}
 
 }
