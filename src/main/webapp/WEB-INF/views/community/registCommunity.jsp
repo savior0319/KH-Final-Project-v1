@@ -33,6 +33,7 @@
 			cache : false,
 			contentType : false,
 			processData : false,
+			enctype : "multipart/form-data",
 			success : function(url) {
 				var path = url.path;
 				alert(path);
@@ -108,8 +109,7 @@
 					for (var i = files.length - 1; i >= 0; i--) {
 						sendFile(files[i], this);
 					}
-				}
-			}
+				}			
 		});
 	});
 
