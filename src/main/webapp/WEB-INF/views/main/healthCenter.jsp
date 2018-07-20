@@ -5,7 +5,7 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+	<title>인바디 측정 보건소 찾기</title>
 </head>
 
 <!-- CSS -->

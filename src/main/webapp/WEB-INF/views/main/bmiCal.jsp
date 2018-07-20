@@ -5,7 +5,7 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+	<title>BMI 계산</title>
 </head>
 
 <!-- CSS -->
