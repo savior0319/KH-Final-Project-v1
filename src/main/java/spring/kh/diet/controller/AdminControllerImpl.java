@@ -3,13 +3,14 @@ package spring.kh.diet.controller;
 import java.io.IOException;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.annotation.ApplicationScope;
 
 import spring.kh.diet.model.service.AdminService;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -48,10 +49,15 @@ public class AdminControllerImpl implements AdminController {
 		response.getWriter().close();
 
 	}
-
+	
+	@Autowired
+	ServletContext context;
 	@RequestMapping(value = "/currentLoginUser.diet")
-	public void currentLoginUser(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session;
+	@ApplicationScope
+	public void currentLoginUser(ServletContext session) throws IOException {
+		
+		System.out.println(session.getAttribute("key"));
+
 	}
 
 }
