@@ -19,7 +19,6 @@ public class LoginLogoutServiceImpl implements LoginLogoutService {
 	
 	@Override
 	public MemberVO login(MemberVO mv) {
-		System.out.println("비밀번호 : "+mv.getMbPwd());
 		MemberVO m = loginDAO.login(SqlSessionTemplate,mv);
 		return m;
 	}
