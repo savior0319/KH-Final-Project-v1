@@ -28,8 +28,11 @@ public class DietTipDAOImpl implements DietTipDAO {
 	@Override
 	public String getDietTipPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String type) {
-
-		int recordTotalCount = session.selectOne("dietTip.getNavi");
+		
+		DietTipPDVO dtpd = new DietTipPDVO();
+		dtpd.setType(type);
+		
+		int recordTotalCount = session.selectOne("dietTip.getNavi",dtpd);
 
 		int pageTotalCount = 0;
 		if (recordTotalCount % recordCountPerPage != 0) {

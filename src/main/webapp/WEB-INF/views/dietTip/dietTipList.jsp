@@ -36,13 +36,13 @@
 
 			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
 
-				<div class="row" style="padding-top: 20px; padding-bottom: 20px;" onclick="goInfo(${dt.dtIndex});">
+				<div class="row" style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;" onclick="goInfo(${dt.dtIndex});">
 					<div class="four wide column">
-						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor:pointer;" onclick="goInfo(${dt.dtIndex});">
+						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex});">
 					</div>
-					<div class="twelve wide column" style="cursor:pointer;">
+					<div class="twelve wide column" style="cursor: pointer;">
 						<strong>${dt.dtTitle }</strong>
-						<div style="width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent:5px;">${dt.dtSammary }</div>
+						<div style="width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;">${dt.dtSammary }</div>
 						<br>
 						<div class="ui grid">
 							<div class="four wide column">
@@ -60,11 +60,28 @@
 
 			</c:forEach>
 
+		</div>
 
+
+		<div class="ui grid">
+			<div class="three column row">
+				<div class="four wide column"></div>
+				<div class="eight wide column">
+					<div class="ui center aligned basic segment">
+						<div class="ui pagination menu">${requestScope.dtpd.pageNavi }</div>
+					</div>
+				</div>
+				<div class="four wide column" >
+					<div class="ui right aligned container">
+						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="write();">
+							<i class="edit icon"></i> 등록
+						</button>
+					</div>
+				</div>
+			</div>
+			<br>
 		</div>
-		<div class="ui center aligned basic segment">
-			<div class="ui pagination menu">${requestScope.dtpd.pageNavi }</div>
-		</div>
+
 
 
 		<div class="ui center aligned basic segment">
@@ -93,21 +110,11 @@
 	function goInfo(me){
 		location.href="/dietTipInfo.diet?indexNo="+me;
 	}
+	
+	function write(me){
+		location.href="/registDietTip.diet";
+	}
 </script>
-
-<!-- 
-<script>
-	$(document)
-			.ready(
-					function() {
-						var val = $('.sammary>p>span');
-						for (var i = 0; i < val.length; i++) {
-							console.log(val[i].innerHTML);
-							document.getElementsByName('sammary')[i].innerHTML = val[i].innerHTML;
-						}
-					});
-</script>
- -->
 
 
 </html>

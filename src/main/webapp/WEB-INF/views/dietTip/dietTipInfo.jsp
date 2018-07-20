@@ -200,42 +200,45 @@ p>span {
 				<div class="ui right aligned container">
 					<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="addComment();">
 						<i class="icon edit"></i>등록
-						<!-- <input type="submit" style="height:44px; width: 80px; cursor:pointer; border:0; background-color: #fa2828; font-weight:bold; color: white;" value="등록"> -->
 					</div>
 				</div>
 			</form>
 			<br>
+			<br>
+			<div id="comment">
+				<!-- 작성된 댓글 리스트 -->
+				<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
 
-			<!-- 작성된 댓글 리스트 -->
-			<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
-
-				<div class="comment">
-					<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
-					</a>
-					<div class="content" style="width: 93%;">
-						<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</a>
-						<div class="metadata" style="width: 100%;">
-							<span class="date" style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
-							<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
-								<button class="ui red basic tiny button" style="margin-right: 10px;">
-									<i class="thumbs up outline icon"></i>공감 ${bc.cmtLike }
-								</button>
-								<button class="ui black basic tiny button">
-									<i class="ban icon"></i>신고 ${bc.cmtBlame }
-								</button>
+					<div class="comment">
+						<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
+						</a>
+						<div class="content" style="width: 93%;">
+							<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</a>
+							<div class="metadata" style="width: 100%;">
+								<span class="date" style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
+								<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+									<button class="ui red basic tiny button" style="margin-right: 10px;">
+										<i class="thumbs up outline icon"></i>공감 ${bc.cmtLike }
+									</button>
+									<button class="ui black basic tiny button">
+										<i class="ban icon"></i>신고 ${bc.cmtBlame }
+									</button>
+								</div>
+							</div>
+							<div class="text">
+								<pre>${bc.cmtContent }</pre>
 							</div>
 						</div>
-						<div class="text">${bc.cmtContent }</div>
 					</div>
+					<br>
+					<hr style="border: 1px solid #F6F6F6">
+					<br>
+
+				</c:forEach>
+
+				<div class="ui center aligned basic segment">
+					<div class="ui pagination menu">${requestScope.bcpd.pageNavi }</div>
 				</div>
-				<br>
-				<hr style="border: 1px solid #F6F6F6">
-				<br>
-
-			</c:forEach>
-
-			<div class="ui center aligned basic segment">
-				<div class="ui pagination menu">${requestScope.bcpd.pageNavi }</div>
 			</div>
 		</div>
 	</div>
@@ -293,12 +296,12 @@ p>span {
 	$('#listBtn').click(function() {
 		location.href = "/dietTipList.diet?type=all";
 	});
-	
+
 	/* 댓글 쓰기 버튼 */
-	function addComment(){
+	function addComment() {
 		var indexNo = $('#indexNo').val();
 		var commentContent = $('#commentContent').val();
-		
+
 		$.ajax({
 			url : '/addComment.diet',
 			type : 'post',
@@ -306,43 +309,129 @@ p>span {
 				'indexNo' : indexNo,
 				'commentContent' : commentContent
 			},
-			
-			success : function(data){
-				if(data>0){
+
+			success : function(data) {
+				if (data > 0) {
 					alert('댓글을 작성하였습니다.');
-				}else{
+				} else {
 					alert('댓글을 등록하지 못했습니다.');
 				}
-				
+
 				location.href = "/dietTipInfo.diet?indexNo=" + indexNo;
 			},
-			error : function(){
+			error : function() {
 				alert('댓글을 등록하지 못했습니다.');
 			}
 		});
 	}
-	
-	
-	function naviMove(currentPage, indexNo, servletName){
+
+	function naviMo(currentPage, indexNo, servletName) {
+		location.href = "/" + servletName + "?indexNo=" + indexNo
+				+ "&currentPage=" + currentPage;
+	}
+
+	function naviMove(currentPage, indexNo, servletName) {
 		$.ajax({
-			url : "/commentNavi?currentPage="+currentPage+"&indexNo=" + indexNo + "&servletName=" + servletName,
-			type : "get",
-			success : function(data){
-				
-				
-				
-				
+			/* url : "/naviMove.diet?currentPage=" + currentPage + "&indexNo="
+					+ indexNo + "&servletName=" + servletName, */
+			url : '/naviMove.diet',
+			type : 'post',
+			data : {
+				'currentPage' : currentPage,
+				'indexNo' : indexNo,
+				'servletName' : servletName
 			},
-			error : function(){
+			success : function(data) {
+				$('#comment').html("");
+				for (var i = 0; i < data.bcList.length; i++) {
+					var commentDiv = $("<div>").attr("class", "comment");
+
+					var aAvatar = $("<a>").attr("class", "avatar");
+
+					var img = $("<img>").attr("style",
+							"width: 40px; height: 40px; border-radius: 25px;");
+					img.attr("src", data.bcList[i].mbImage);
+
+					var contentDiv = $("<div>").attr("style", "width:93%;");
+					contentDiv.attr("class", "content");
+
+					var aAuthor = $("<a>").attr("class", "author");
+					aAuthor.attr("style", "position: absolute; width: 10%;");
+					aAuthor.html(data.bcList[i].mbNickname);
+
+					var metadataDiv = $("<div>").attr("class", "metadata");
+					metadataDiv.attr("style", "width:100%;");
+
+					var span = $("<span>").attr("class", "date");
+					span.attr("style",
+							"width: 30%; display: inline; margin-left: 10%;");
+					span.html(data.bcList[i].cmtDateTime);
+
+					var containerDiv = $("<div>").attr("class",
+							"ui right aligned container");
+					containerDiv.attr("align", "right");
+					containerDiv.attr("style", "width: 70%; float: right;");
+
+					var likeBtn = $("<button>").attr("class",
+							"ui red basic tiny button");
+					likeBtn.attr("style", "margin-right: 10px;");
+
+					var likeI = $("<i>")
+							.attr("class", "thumbs up outline icon");
+
+					var blameBtn = $("<button>").attr("class",
+							"ui black basic tiny button");
+
+					var blameI = $("<i>").attr("class", "ban icon");
+
+					var textDiv = $("<div>").attr("class", "text");
+
+					var pre = $("<pre>").html(data.bcList[i].cmtContent);
+
+					likeBtn.append(likeI);
+					likeBtn.append("공감" + data.bcList[i].cmtLike);
+
+					blameBtn.append(blameI);
+					blameBtn.append("신고" + data.bcList[i].cmtBlame);
+
+					containerDiv.append(likeBtn);
+					containerDiv.append(blameBtn);
+
+					metadataDiv.append(span);
+					metadataDiv.append(containerDiv);
+
+					textDiv.append(pre);
+
+					contentDiv.append(aAuthor);
+					contentDiv.append(metadataDiv);
+					contentDiv.append(textDiv);
+
+					aAvatar.append(img);
+
+					commentDiv.append(aAvatar);
+					commentDiv.append(contentDiv);
+
+					$('#comment').append(commentDiv);
+					$('#comment').append($("<br>"));
+					$('#comment').append(
+							$("<hr>").attr('style',
+									'border: 1px solid #F6F6F6;'));
+					$('#comment').append($("<br>"));
+				}
+
+				var naviDiv = $("<div>").attr("class",
+						"ui center aligned basic segment");
+				var menuDiv = $("<div>").attr("class", "ui pagination menu");
+				menuDiv.html(data.pageNavi);
+
+				naviDiv.append(menuDiv);
+				$('#comment').append(naviDiv);
+			},
+			error : function() {
 				alert('실패');
 			}
 		});
 	}
-	
-	
-	
-	
-	
 </script>
 
 </html>
