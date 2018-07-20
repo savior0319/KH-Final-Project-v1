@@ -65,13 +65,13 @@
 
 		<div class="ui grid">
 			<div class="three column row">
-				<div class="column"></div>
-				<div class="column">
+				<div class="four wide column"></div>
+				<div class="eight wide column">
 					<div class="ui center aligned basic segment">
 						<div class="ui pagination menu">${requestScope.dtpd.pageNavi }</div>
 					</div>
 				</div>
-				<div class="column">
+				<div class="four wide column" >
 					<div class="ui right aligned container">
 						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="write();">
 							<i class="edit icon"></i> 등록
@@ -109,6 +109,10 @@
 <script type="text/javascript">
 	function goInfo(me){
 		location.href="/dietTipInfo.diet?indexNo="+me;
+	}
+	
+	function write(me){
+		location.href="/registDietTip.diet";
 	}
 </script>
 
