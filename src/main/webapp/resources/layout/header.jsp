@@ -90,14 +90,14 @@ gtag('config', 'UA-122472043-1');
 			</div>
 			<div class="menu">
 				<a class="item" href="/homeTrainingAll.diet">전체</a>
-				<a class="item" href="/homeTrainingList.diet">전신</a>
-				<a class="item" href="#">복부</a>
-				<a class="item" href="#">상체</a>
-				<a class="item" href="#">하체</a>
-				<a class="item" href="#">스트레칭</a>
-				<a class="item" href="#">댄스</a>
-				<a class="item" href="#">요가</a>
-				<a class="item" href="#">4주챌린지</a>
+				<a class="item" href="/homeTrainingList.diet?type=wholeBody">전신</a>
+				<a class="item" href="homeTrainingList.diet?type=abdomen">복부</a>
+				<a class="item" href="homeTrainingList.diet?type=upperBody">상체</a>
+				<a class="item" href="homeTrainingList.diet?type=lowerBody">하체</a>
+				<a class="item" href="homeTrainingList.diet?type=stretching">스트레칭</a>
+				<a class="item" href="homeTrainingList.diet?type=dance">댄스</a>
+				<a class="item" href="homeTrainingList.diet?type=yoga">요가</a>
+				<a class="item" href="homeTrainingList.diet?type=fourChallenge">4주챌린지</a>
 			</div>
 		</div>
 
