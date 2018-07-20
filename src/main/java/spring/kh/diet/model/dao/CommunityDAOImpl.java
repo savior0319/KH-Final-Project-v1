@@ -40,6 +40,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.allCommunityList", cpdv);
 
+		
 		return (ArrayList<BoardPostVO>) list;
 
 	}
@@ -197,7 +198,13 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Override
 	public BoardPostVO postedCommunity(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
 		BoardPostVO bpv = sqlSessionTemplate.selectOne("community.postedOne",postIndex);
+		
 		return bpv;
+	}
+
+	@Override
+	public int deletePost(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
+		return sqlSessionTemplate.delete("community.deletePost",postIndex);
 	}
 	
 	

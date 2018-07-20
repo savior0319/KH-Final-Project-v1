@@ -1,6 +1,6 @@
 package spring.kh.diet.model.vo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HomeTrainingVO {
-	private String htMainVideo, htTitle, htPart, htVideoMinute, htLevel, htCalories, htExplain;
-	private int htIndex, htNo, htLike, htHits;
-	private Date htDate;
+	private String htMainVideo, htTitle, htType, htPart, htVideoMinute, htLevel, htCalories, htExplain;
+	private int htIndex, htNo, htLike, htHits, htCommentNumber;
+	private Timestamp htDate;
 }

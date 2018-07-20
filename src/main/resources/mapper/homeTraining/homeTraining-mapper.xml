@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="homeTraining">
+	
+	<resultMap type="homeTraining" id="homeTrainingDB">
+		<result property="htIndex" column="ht_Index" />
+		<result property="htNo" column="ht_No" />
+		<result property="htMainVideo" column="ht_Main_Video" />
+		<result property="htType" column="ht_Type" />
+		<result property="htTitle" column="ht_Title" />
+		<result property="htPart" column="ht_Part" />
+		<result property="htLike" column="ht_Like" />
+		<result property="htHits" column="ht_Hits" />
+		<result property="htVideoMinute" column="ht_Video_Minute" />
+		<result property="htLevel" column="ht_Level" />
+		<result property="htCalories" column="ht_Calories" />
+		<result property="htExplain" column="ht_Explain" />
+		<result property="htDate" column="ht_Date" />
+	</resultMap>
+	
+	<!-- 페이징 처리 - 리스트 불러오기 -->
+	<select id="getList" parameterType="homeTrainingPageData"
+		resultType="homeTraining" resultMap="homeTrainingDB">
+		SELECT *
+		FROM (SELECT HOMETRAINING_TB.*,
+		ROW_NUMBER() OVER(ORDER BY HT_DATE DESC) AS
+		NUM FROM HOMETRAINING_TB
+		<choose>
+			<when test="type.equals('wholeBody')">
+				WHERE HT_TYPE LIKE '1'
+			</when>
+			<when test="type.equals('abdomen')">
+				WHERE HT_TYPE LIKE '2'
+			</when>
+			<when test="type.equals('upperBody')">
+				WHERE HT_TYPE LIKE '3'
+			</when>
+			<when test="type.equals('lowerBody')">
+				WHERE HT_TYPE LIKE '4'
+			</when>
+			<when test="type.equals('stretching')">
+				WHERE HT_TYPE LIKE '5'
+			</when>
+			<when test="type.equals('dance')">
+				WHERE HT_TYPE LIKE '6'
+			</when>
+			<when test="type.equals('yoga')">
+				WHERE HT_TYPE LIKE '7'
+			</when>
+			<when test="type.equals('fourChallenge')">
+				WHERE HT_TYPE LIKE '8'
+			</when>
+		</choose>
+		) WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 페이징 처리 - 내비게이션 생성 -->
+	<select id="getNavi" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS TOTALCOUNT
+		FROM HOMETRAINING_TB
+	</select>
+
+	<!-- 게시물 불러오기 -->
+	<select id="getOne" resultType="dietTip">
+		SELECT *
+		FROM HOMETRAINING_TB
+		WHERE HT_INDEX = #{index}
+
+	</select>
+
+</mapper>

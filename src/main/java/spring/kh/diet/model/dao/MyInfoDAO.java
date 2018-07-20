@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 public interface MyInfoDAO {
@@ -24,4 +26,13 @@ public interface MyInfoDAO {
 	ArrayList<QuestionVO> allMyOneToOneQuestion(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
 	int signupsave(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+	
+	MyActivityVO myActivity(SqlSessionTemplate sqlSessionTemplate, MemberVO m);
+
+	ArrayList<BoardPostVO> allCommunityList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, String type, MyActivityVO ma);
+
+	String getallCommunityListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String type, MyActivityVO ma);
+
 }

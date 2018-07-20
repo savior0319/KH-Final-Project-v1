@@ -14,9 +14,10 @@ public class MainDAOImpl implements MainDAO {
 
 	@Override
 	public ArrayList<HealthCenterVO> selectAllHealthCenter(SqlSessionTemplate session, int currentPage,
-			int recordCountPerPage) {
+			int recordCountPerPage, String location) {
 		HealthCenterPDVO hDataVO = new HealthCenterPDVO();
 
+		hDataVO.setType(location);
 		hDataVO.setStart((currentPage - 1) * recordCountPerPage + 1);
 		hDataVO.setEnd(currentPage * recordCountPerPage);
 
@@ -27,9 +28,12 @@ public class MainDAOImpl implements MainDAO {
 
 	@Override
 	public String getHealthCenterPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
-			int naviCountPerPage) {
+			int naviCountPerPage, String location) {
 
-		int recordTotalCount = session.selectOne("main.getNavi");
+		HealthCenterPDVO hDataVO = new HealthCenterPDVO();
+		hDataVO.setType(location);
+
+		int recordTotalCount = session.selectOne("main.getNavi", hDataVO);
 
 		int pageTotalCount = 0;
 		if (recordTotalCount % recordCountPerPage != 0) {
@@ -75,12 +79,14 @@ public class MainDAOImpl implements MainDAO {
 						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/healthCenter.diet?currentPage="
 								+ i + "'>  " + i + " </a>");
 			} else {
-				sb.append("<a class='item' href='/healthCenter.diet?currentPage=" + i + "'> " + i + " </a>");
+				sb.append("<a class='item' href='/healthCenter.diet?location=" + location + "&currentPage=" + i + "'> "
+						+ i + " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/healthCenter.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			sb.append("<a class='item' href='/healthCenter.diet?location=" + location + "&currentPage=" + (endNavi + 1)
+					+ "'> &gt; </a>");
 		}
 
 		return sb.toString();

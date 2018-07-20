@@ -2,9 +2,11 @@ package spring.kh.diet.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
 
 public interface MyInfoController {
@@ -21,8 +23,8 @@ public interface MyInfoController {
 
 	Object allMyOneToOneQuestion(HttpSession session);
 
-/*	Object myWishList(HttpSession session);
-*/
 	String signupsave(String mbId, String mbNickName, String mbPwd, String[] gender, String[] interest);
+	
+	Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request);
 
 }

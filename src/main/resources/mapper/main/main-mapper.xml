@@ -7,21 +7,108 @@
 		SELECT
 		HC_LOCATION AS hcLocation,
 		HC_ADDRESS AS hcAddress,
-		HC_PHONE AS hcPhone,
+		HC_PHONE AS
+		hcPhone,
 		HC_LATITUDE AS hcLatitude,
-		HC_LONGITUDE AS
-		hcLongitude
+		HC_LONGITUDE AS hcLongitude,
+		HC_TYPE
+		AS hcType
 		FROM (SELECT
 		HEALTHCENTER_TBL.*, ROW_NUMBER() OVER(ORDER BY
-		HC_LOCATION
-		ASC) AS NUM
-		FROM HEALTHCENTER_TBL) WHERE NUM BETWEEN
-		#{start} AND #{end}
+		HC_LOCATION ASC) AS NUM
+		FROM HEALTHCENTER_TBL
+		<choose>
+			<when test="type.equals('서울특별시')">
+				WHERE HC_TYPE = '서울특별시'
+			</when>
+			<when test="type.equals('부산광역시')">
+				WHERE HC_TYPE = '부산광역시'
+			</when>
+			<when test="type.equals('인천광역시')">
+				WHERE HC_TYPE = '인천광역시'
+			</when>
+			<when test="type.equals('대전광역시')">
+				WHERE HC_TYPE = '대전광역시'
+			</when>
+			<when test="type.equals('대구광역시')">
+				WHERE HC_TYPE = '대구광역시'
+			</when>
+			<when test="type.equals('광주광역시')">
+				WHERE HC_TYPE = '광주광역시'
+			</when>
+			<when test="type.equals('울산광역시')">
+				WHERE HC_TYPE = '울산광역시'
+			</when>
+			<when test="type.equals('경기도')">
+				WHERE HC_TYPE = '경기도'
+			</when>
+			<when test="type.equals('전라도')">
+				WHERE HC_TYPE LIKE '전라%'
+			</when>
+			<when test="type.equals('경상도')">
+				WHERE HC_TYPE LIKE '경상%'
+			</when>
+			<when test="type.equals('강원도')">
+				WHERE HC_TYPE = '강원도'
+			</when>
+			<when test="type.equals('충청도')">
+				WHERE HC_TYPE LIKE '충청%'
+			</when>
+			<when test="type.equals('제주도')">
+				WHERE HC_TYPE = '제주도'
+			</when>
+		</choose>
+		)
+		WHERE NUM BETWEEN #{start} and #{end}
+
+
 	</select>
 
-	<select id="getNavi" resultType="java.lang.Integer">
+	<select id="getNavi" resultType="java.lang.Integer"
+		parameterType="healthCenterPage">
 		select count(*) as totalCount
 		from HEALTHCENTER_TBL
+		<choose>
+			<when test="type.equals('서울특별시')">
+				WHERE HC_TYPE = '서울특별시'
+			</when>
+			<when test="type.equals('부산광역시')">
+				WHERE HC_TYPE = '부산광역시'
+			</when>
+			<when test="type.equals('인천광역시')">
+				WHERE HC_TYPE = '인천광역시'
+			</when>
+			<when test="type.equals('대전광역시')">
+				WHERE HC_TYPE = '대전광역시'
+			</when>
+			<when test="type.equals('대구광역시')">
+				WHERE HC_TYPE = '대구광역시'
+			</when>
+			<when test="type.equals('광주광역시')">
+				WHERE HC_TYPE = '광주광역시'
+			</when>
+			<when test="type.equals('울산광역시')">
+				WHERE HC_TYPE = '울산광역시'
+			</when>
+			<when test="type.equals('경기도')">
+				WHERE HC_TYPE = '경기도'
+			</when>
+			<when test="type.equals('전라도')">
+				WHERE HC_TYPE LIKE '전라%'
+			</when>
+			<when test="type.equals('경상도')">
+				WHERE HC_TYPE LIKE '경상%'
+			</when>
+			<when test="type.equals('강원도')">
+				WHERE HC_TYPE = '강원도'
+			</when>
+			<when test="type.equals('충청도')">
+				WHERE HC_TYPE LIKE '충청%'
+			</when>
+			<when test="type.equals('제주도')">
+				WHERE HC_TYPE = '제주도'
+			</when>
+		</choose>
 	</select>
 
 </mapper>
