@@ -3,11 +3,11 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-122472043-1"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
 
-gtag('config', 'UA-122472043-1');
+	gtag('config', 'UA-122472043-1');
 </script>
 
 <style type="text/css" media="screen">
@@ -17,10 +17,10 @@ gtag('config', 'UA-122472043-1');
 </style>
 
 <!-- 메인 메뉴 -->
-<div style="background: rgb(235, 235, 235);">
+<div style="background: rgb(242, 242, 242);">
 	<div class="ui right aligned basic segment" style="margin-bottom: 0; padding-top: 8px; padding-bottom: 8px;">
 
-	<c:if test="${sessionScope.member.mbId == 'admin'}">
+		<c:if test="${sessionScope.member.mbId == 'admin'}">
 		<span class="menu">
 			<a href="/admin.diet">관리자 페이지</a>
 		</span>
@@ -28,34 +28,34 @@ gtag('config', 'UA-122472043-1');
 
 	<!-- 로그인 , 로그아웃  --> 
 	<c:if test="${sessionScope.member==null}">
-		<span class="menu">
-			<a href="/login.diet">로그인</a>
-		</span>
-		<span class="menu">
-			<a href="/signup.diet">회원가입</a>
-		</span>
-	</c:if>
-	<c:if test ="${sessionScope.member!=null}">
-		<span class="menu">
-			${member.mbName}님 환영합니다 ^^
-		</span>
-		<span class="menu">
-			<a href="/logout.diet">로그아웃</a>
-		</span>
-		<span class="menu">
-			<a href="/myInfo.diet">마이페이지</a>
-		</span>
-	</c:if>
+	<span class="menu">
+		<a href="/login.diet">로그인</a>
+	</span>
+	<span class="menu">
+		<a href="/signup.diet">회원가입</a>
+	</span>
+</c:if>
+<c:if test ="${sessionScope.member!=null}">
+<span class="menu">
+	${member.mbName}님 환영합니다 ^^
+</span>
+<span class="menu">
+	<a href="/logout.diet">로그아웃</a>
+</span>
+<span class="menu">
+	<a href="/myInfo.diet">마이페이지</a>
+</span>
+</c:if>
 
-	<span class="menu">주문배송조회</span>
-	<span class="menu">장바구니</span>
-	<span class="menu">제휴·광고문의</span>
-	<span class="menu">즐겨찾기</span>
-	</div>
+<span class="menu">주문배송조회</span>
+<span class="menu">장바구니</span>
+<span class="menu" id="resize1">제휴·광고문의</span>
+<span class="menu" id="resize2">즐겨찾기</span>
+</div>
 </div>
 
 <!-- 네비게이션 -->
-<div class="ui menu" style="margin-top: 0;">
+<div class="ui stackable menu" style="margin-top: 0;">
 	<div class="ui container">
 		<a href="/">
 			<img class="logo" src="/resources/image/logo.gif" style="margin: 5px;">
@@ -131,3 +131,14 @@ gtag('config', 'UA-122472043-1');
 		</div>
 	</div>
 </div>
+
+<style type="text/css" media="screen">
+@media (max-width: 768px) {
+	#resize1{
+		display: none;
+	}
+	#resize2{
+		display: none;
+	}
+}
+</style>
