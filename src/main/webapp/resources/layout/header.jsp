@@ -9,6 +9,16 @@
 
   gtag('config', 'UA-122472043-1');
 </script>
+<!-- 구글 애널리틱스 추적코드 종료  -->
+
+<!-- 네이버 애널리틱스 추적코드 시작  -->
+<script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "9c36e791bed018";
+wcs_do();
+</script>
+<!-- 네이버 애널리틱스 추적코드 종료  -->
 
 <style type="text/css" media="screen">
 .menu {

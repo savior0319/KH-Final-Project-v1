@@ -1,18 +1,21 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.Resource;
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.MainService;
@@ -22,7 +25,8 @@ import spring.kh.diet.model.vo.HealthCenterPDVO;
 
 @Controller
 public class MainControllerImpl implements MainController {
-
+	private ApplicationScope Appscope;
+	
 	@Resource
 	private MainService mService;
 
@@ -201,15 +205,49 @@ public class MainControllerImpl implements MainController {
 
 	}
 
+	// 접속자 수를 가지고 있는 static 변수
+	
+	static int count = 0;
+	
 	/* 메인페이지 - 비로그인 세션 생성 */
+	@Autowired
+	ServletContext context;
+	@ApplicationScope
 	@Override
 	@RequestMapping(value = "/createSession.diet")
 	public void createSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session;
 		session = request.getSession();
+		
+		this.count++;
+		
+		//ServletContext application = request.getSession().getServletContext();
+		//application.
+		//application.setAttribute("key", session);
+		//System.out.println(application.getAttribute("key"));
+//		TestSession(application);
 		response.getWriter().println(session.toString());
+		response.getWriter().println(this.count);
 		response.getWriter().close();
 		
 		
 	}
+//	public void TestSession(ServletContext session) throws IOException  {
+//		
+//		System.out.println(session.getAttribute("key"));
+//		
+//		
+//		
+//	}
+	
+	
+	
+	
+	
+
+	
+
+
+	
+	
 }
