@@ -107,11 +107,11 @@ gtag('config', 'UA-122472043-1');
 			</div>
 			<div class="menu">
 				<a class="item" href="/communityWholeBoard.diet?type=comAll">전체</a>
-				<a class="item" href="/communityWholeBoard.diet?type=bullentin">자유게시판</a>
-				<a class="item" href="/recipeBoard.diet?type=recipe">레시피&#38;식단</a>
-				<a class="item" href="/communityWholeBoard.diet?type=tip">팁&#38;노하우</a>
-				<a class="item" href="/communityWholeBoard.diet?type=worry">고민&#38;질문</a>
-				<a class="item" href="/communityWholeBoard.diet?type=beforeAfter">비포&#38;애프터</a>
+				<a class="item" href="/communityWholeBoard.diet?type=15">자유게시판</a>
+				<a class="item" href="/recipeBoard.diet?type=16">레시피&#38;식단</a>
+				<a class="item" href="/communityWholeBoard.diet?type=17">팁&#38;노하우</a>
+				<a class="item" href="/communityWholeBoard.diet?type=18">고민&#38;질문</a>
+				<a class="item" href="/communityWholeBoard.diet?type=19">비포&#38;애프터</a>
 			</div>
 		</div>
 
