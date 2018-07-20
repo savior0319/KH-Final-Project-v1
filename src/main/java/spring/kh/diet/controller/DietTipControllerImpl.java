@@ -2,6 +2,7 @@ package spring.kh.diet.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,6 +66,14 @@ public class DietTipControllerImpl implements DietTipController {
 		request.setAttribute("bcpd", bcpd);
 
 		return "dietTip/dietTipInfo";
+	}
+	
+	@Override
+	@RequestMapping(value = "/registDietTip.diet")
+	public void registDietTip(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
 	}
 
 }

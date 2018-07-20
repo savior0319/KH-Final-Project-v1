@@ -203,8 +203,7 @@ p>span {
 					</div>
 				</div>
 			</form>
-			<br>
-			<br>
+			<br> <br>
 			<div id="comment">
 				<!-- 작성된 댓글 리스트 -->
 				<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
@@ -247,6 +246,12 @@ p>span {
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
+
+<!-- 성공시 모달 -->
+<div class="ui modal" id="modal1">
+	<div class="ui small header">댓글을 작성했습니다</div>
+</div>
+
 
 <!-- SCRIPT -->
 <script type="text/javascript">
@@ -312,6 +317,9 @@ p>span {
 
 			success : function(data) {
 				if (data > 0) {
+					// 모달 띄우기
+					//$('.ui.basic.modal').modal('show');
+					
 					alert('댓글을 작성하였습니다.');
 				} else {
 					alert('댓글을 등록하지 못했습니다.');
