@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- META -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="Keyword" content="다이어트 운동" />
-<meta name="Author" content="다이어트" />
-<meta name="Description" content="다이어트 사이트 입니다" />
+<meta name="Keyword" content="다이어트 운동 방법 레시피 팁 트레이닝" />
+<meta name="Author" content="다이어트를 부탁해" />
+<meta name="Description" content="다이어트를 부탁해 다이어트 커뮤니티" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <!-- JS -->

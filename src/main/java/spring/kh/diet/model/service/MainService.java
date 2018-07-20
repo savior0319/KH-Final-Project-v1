@@ -4,6 +4,6 @@ import spring.kh.diet.model.vo.HealthCenterPDVO;
 
 public interface MainService {
 
-	HealthCenterPDVO getHealthCenterList(int currentPage);
+	HealthCenterPDVO getHealthCenterList(int currentPage, String location);
 
 }
