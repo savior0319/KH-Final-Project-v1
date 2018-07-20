@@ -255,7 +255,7 @@
 	}
 
 	function healthCenter() {
-		window.location.href = "/healthCenter.diet";
+		window.location.href = "/healthCenter.diet?location=all";
 	}
 
 	$(document).ready(function() {

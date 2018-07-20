@@ -145,7 +145,7 @@
 					<div class="ui medium header">※ 비만도 측정(BMI) 이란?</div>
 					<div class="ui small header" style="margin-top: 6px;">나이, 신장(cm)과 체중(kg)만으로 비만을 판정하는 비만 지수</div>
 				</div>
-				<button class="ui blue button" type="submit">BMI 계산하기</button>
+				<button style="background: rgb(250,40,40); color:white;" class="ui button" type="submit">BMI 계산하기</button>
 			</form>
 		</div>
 	</div>

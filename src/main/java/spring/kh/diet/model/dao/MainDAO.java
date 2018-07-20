@@ -9,9 +9,9 @@ import spring.kh.diet.model.vo.HealthCenterVO;
 public interface MainDAO {
 
 	ArrayList<HealthCenterVO> selectAllHealthCenter(SqlSessionTemplate session, int currentPage,
-			int recordCountPerPage);
+			int recordCountPerPage, String location);
 
 	String getHealthCenterPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
-			int naviCountPerPage);
+			int naviCountPerPage, String location);
 
 }
