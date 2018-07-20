@@ -74,7 +74,7 @@ public class CommonControllerImpl implements CommonController {
 	}
 	
 	@Override
-	@RequestMapping(value = "/naviMove")
+	@RequestMapping(value = "/naviMove.diet")
 	public void naviMove(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int indexNo = Integer.parseInt(request.getParameter("indexNo"));

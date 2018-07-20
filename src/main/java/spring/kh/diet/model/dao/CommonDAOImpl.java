@@ -67,7 +67,7 @@ public class CommonDAOImpl implements CommonDAO{
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
 			//sb.append("<a class='item' href='/" + servletName + "?indexNo=" + indexNo + "&currentPage=" + (startNavi - 1) + "'> &lt; </a>");
-			sb.append("<a class='item' onclick='naviMove(" + (startNavi -1) + "," + indexNo + "," + servletName + ");'> &lt; </a>");
+			sb.append("<a class='item' onclick='naviMove(" + (startNavi -1) + "," + indexNo + ",&#39;" + servletName + "&#39;);'> &lt; </a>");
 		}
     
 		for(int i=startNavi;i<=endNavi;i++)
@@ -75,18 +75,18 @@ public class CommonDAOImpl implements CommonDAO{
 			if(i==currentPage)
 			{
 				//sb.append("<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/" + servletName + "?indexNo=" + indexNo + "&currentPage="+i+"'><strong>"+i+"</strong></a>");
-				sb.append("<a class='active item' style='background: rgba(250, 40, 40); color:white;' onclick='naviMove(" + i + "," + indexNo + "," + servletName + ");'><strong>"+i+"</strong></a>");
+				sb.append("<a class='active item' style='background: rgba(250, 40, 40); color:white;' onclick='naviMove(" + i + "," + indexNo + ",&#39;" + servletName + "&#39;);'><strong>"+i+"</strong></a>");
 			}
 			else
 			{
 				//sb.append("<a class='item' href='/" + servletName + "?indexNo=" + indexNo + "&currentPage="+i+"'> "+i+" </a>");
-				sb.append("<a class='item' onclick='naviMove(" + i + "," + indexNo + "," + servletName + ");'> "+i+" </a>");
+				sb.append("<a class='item' onclick='naviMove(" + i + "," + indexNo + ",&#39;" + servletName + "&#39;);'> "+i+" </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
 			//sb.append("<a class='item' href='/" + servletName +"?indexNo=" + indexNo + "&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
-			sb.append("<a class='item' onclick='naviMove(" + (endNavi + 1) + "," + indexNo + "," + servletName + ");'> &gt; </a>");
+			sb.append("<a class='item' onclick='naviMove(" + (endNavi + 1) + "," + indexNo + ",&#39;" + servletName + "&#39;);'> &gt; </a>");
 		}
 
 		return sb.toString();

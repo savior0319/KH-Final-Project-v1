@@ -324,7 +324,7 @@ p>span {
 
 	function naviMove(currentPage, indexNo, servletName) {
 		$.ajax({
-			url : "/naviMove?currentPage=" + currentPage + "&indexNo="
+			url : "/naviMove.diet?currentPage=" + currentPage + "&indexNo="
 					+ indexNo + "&servletName=" + servletName,
 			type : "get",
 			success : function(data) {
