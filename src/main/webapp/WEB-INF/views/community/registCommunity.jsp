@@ -33,7 +33,6 @@
 			cache : false,
 			contentType : false,
 			processData : false,
-			enctype : "multipart/form-data",
 			success : function(url) {
 				var path = url.path;
 				alert(path);
@@ -109,7 +108,8 @@
 					for (var i = files.length - 1; i >= 0; i--) {
 						sendFile(files[i], this);
 					}
-				}			
+				}
+			}
 		});
 	});
 
@@ -117,7 +117,9 @@
 		allowAdditions : true,
 		allowCategorySelection : true
 	});
-
+	}
+	
+	
 	// 카테고리 선택
 	var category;
 	$('.select > .item').click(function() {

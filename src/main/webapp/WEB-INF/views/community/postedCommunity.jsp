@@ -369,10 +369,7 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	var category = $
-	{
-		requestScope.bpv.bcaIndex
-	};
+	var category = ${requestScope.bpv.bcaIndex};
 
 	var check = true;
 	/* 북마크 버튼*/
@@ -437,21 +434,20 @@
 				url : '/deletePost.diet',
 				type : 'post',
 				data : {
-					'postIndex' : postIndex
-					'category' : category
+					'postIndex' : postIndex,
 				},
 				success : function() {
-					alert('삭제 완료');
+					alert('삭제를 완료하였습니다.');
 					location.href = "/communityWholeBoard.diet?type="+ category;
 
 				},
 				error : function() {
-					alert('삭제 실패');
+					alert('삭제에 실패하였습니다.');
 				}
 			});
 			return check;
 		} else {
-			console.log("취소");
+			//삭제 취소
 			return false;
 		}
 	}
