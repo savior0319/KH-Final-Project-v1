@@ -68,23 +68,21 @@ public class MainDAOImpl implements MainDAO {
 
 		StringBuilder sb = new StringBuilder();
 
-		if (needPrev) // 시작이 1페이지가 아니라면!
-		{
+		if (needPrev) {
 			sb.append("<a class='item' href='/healthCenter.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/healthCenter.diet?currentPage="
-								+ i + "'>  " + i + " </a>");
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/healthCenter.diet?location="
+								+ location + "&currentPage=" + i + "'>  " + i + " </a>");
 			} else {
 				sb.append("<a class='item' href='/healthCenter.diet?location=" + location + "&currentPage=" + i + "'> "
 						+ i + " </a>");
 			}
 		}
-		if (needNext) // 끝 페이지가 아니라면!
-		{
+		if (needNext) {
 			sb.append("<a class='item' href='/healthCenter.diet?location=" + location + "&currentPage=" + (endNavi + 1)
 					+ "'> &gt; </a>");
 		}

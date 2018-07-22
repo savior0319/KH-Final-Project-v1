@@ -14,9 +14,9 @@
 <!-- 네이버 애널리틱스 추적코드 시작  -->
 <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
 <script type="text/javascript">
-if(!wcs_add) var wcs_add = {};
-wcs_add["wa"] = "9c36e791bed018";
-wcs_do();
+	if(!wcs_add) var wcs_add = {};
+	wcs_add["wa"] = "9c36e791bed018";
+	wcs_do();
 </script>
 <!-- 네이버 애널리틱스 추적코드 종료  -->
 
@@ -30,39 +30,41 @@ wcs_do();
 <div style="background: rgb(242, 242, 242);">
 	<div class="ui right aligned basic segment" style="margin-bottom: 0; padding-top: 8px; padding-bottom: 8px;">
 
-		<c:if test="${sessionScope.member.mbId == 'admin'}">
-		<span class="menu">
-			<a href="/admin.diet">관리자 페이지</a>
-		</span>
-	</c:if>
+			<c:if test="${sessionScope.member.mbId == 'admin'}">
+			<span class="menu">
+				<a href="/admin.diet">관리자 페이지</a>
+			</span>
+			</c:if>
 
-	<!-- 로그인 , 로그아웃  --> 
-	<c:if test="${sessionScope.member==null}">
+			<!-- 로그인 , 로그아웃  --> 
+			<c:if test="${sessionScope.member==null}">
 
-		<span class="menu">
-			<a href="/login.diet">로그인</a>
-		</span>
-		<span class="menu">
-			<a href="/signup.diet">회원가입</a>
-		</span>
-	</c:if>
-	<c:if test ="${sessionScope.member!=null}">
-		<span class="menu">
-			${member.mbNickName}님 환영합니다 ^^
-		</span>
-		<span class="menu">
-			<a href="/logout.diet">로그아웃</a>
-		</span>
-		<span class="menu">
-			<a href="/myInfo.diet">마이페이지</a>
-		</span>
-    </c:if>
+			<span class="menu">
+				<a href="/login.diet">로그인</a>
+			</span>
+			<span class="menu">
+				<a href="/signup.diet">회원가입</a>
+			</span>
 
-<span class="menu">주문배송조회</span>
-<span class="menu">장바구니</span>
-<span class="menu" id="resize1">제휴·광고문의</span>
-<span class="menu" id="resize2">즐겨찾기</span>
-</div>
+			</c:if>
+
+			<c:if test ="${sessionScope.member!=null}">
+			<span class="menu">
+				${member.mbNickName}님 환영합니다 ^^
+			</span>
+			<span class="menu">
+				<a href="/logout.diet">로그아웃</a>
+			</span>
+			<span class="menu">
+				<a href="/myInfo.diet">마이페이지</a>
+			</span>
+			</c:if>
+
+		<span class="menu">주문배송조회</span>
+		<span class="menu">장바구니</span>
+		<span class="menu" id="resize1">제휴·광고문의</span>
+		<span class="menu" id="resize2"><a href='javascript:void(0);' onClick='bookMark(); return false'>즐겨찾기</a></span>
+	</div>
 </div>
 
 <!-- 네비게이션 -->
@@ -153,3 +155,9 @@ wcs_do();
 	}
 }
 </style>
+
+<script type="text/javascript">
+	function bookMark(){
+		alert('CTRL + D키를 누르면 즐겨찾기에 추가 할 수 있습니다');
+	}
+</script>

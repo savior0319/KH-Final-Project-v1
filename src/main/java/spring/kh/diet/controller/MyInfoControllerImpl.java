@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sun.org.apache.xml.internal.security.utils.ElementCheckerImpl.InternedNsChecker;
+
 import spring.kh.diet.model.service.MyInfoService;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -30,6 +32,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public MyInfoControllerImpl() {
 	}
 
+	/* 1:1질문 */
 	@Override
 	@RequestMapping(value = "/question.diet")
 	public void question(@RequestParam String title, @RequestParam String content, HttpServletResponse response)
@@ -176,7 +179,25 @@ public class MyInfoControllerImpl implements MyInfoController {
 		return "redirect:/";
 	}
 
-	/* 내 활동 정보 */ 
+	/* 아이디 중복 체크 */
+	@Override
+	@RequestMapping(value = "/idCheck.diet")
+	public void idCheck(@RequestParam String id, HttpServletResponse response) throws IOException {
+		int result = myInfoService.idCheck(id);
+		response.getWriter().print(String.valueOf(result));
+		response.getWriter().close();
+	}
+
+	/* 닉네임 중복 체크 */
+	@Override
+	@RequestMapping(value = "/nickNameCheck.diet")
+	public void nickNameCheck(@RequestParam String nickName, HttpServletResponse response) throws IOException {
+		int result = myInfoService.nickNameCheck(nickName);
+		response.getWriter().print(String.valueOf(result));
+		response.getWriter().close();
+	}
+
+	/* 내 활동 정보 */
 	@Override
 	@RequestMapping(value = "/myActivityInfo.diet")
 	public Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request) {
@@ -186,7 +207,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		if (ma != null) {
 			view.addObject("ma", ma);
-			MyActivityPageDataVO cpdv = this.myActivityGetList(session,request,ma);
+			MyActivityPageDataVO cpdv = this.myActivityGetList(session, request, ma);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		} else {
@@ -194,7 +215,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			return "redirect:/";
 		}
 	}
-	
+
 	/* 내 활동 정보 게시판 */
 	public MyActivityPageDataVO myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
 		String type = request.getParameter("type");
@@ -206,12 +227,11 @@ public class MyInfoControllerImpl implements MyInfoController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
-		MyActivityPageDataVO cpdv = myInfoService.allCommunityList(currentPage, type,ma);
+		MyActivityPageDataVO cpdv = myInfoService.allCommunityList(currentPage, type, ma);
 		System.out.println(cpdv.getComList().get(0).getPostTitle());
 		request.setAttribute("cpdv", cpdv);
 
 		return cpdv;
 	}
-
 
 }

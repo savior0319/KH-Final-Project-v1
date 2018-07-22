@@ -35,4 +35,9 @@ public interface MyInfoDAO {
 	String getallCommunityListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String type, MyActivityVO ma);
 
-	}
+	int idCheck(SqlSessionTemplate sqlSessionTemplate, String id);
+
+	int nickNameCheck(SqlSessionTemplate sqlSessionTemplate, String nickName);
+
+}
+

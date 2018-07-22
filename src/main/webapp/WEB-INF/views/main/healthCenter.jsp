@@ -30,8 +30,12 @@
 		<div class="ui left aligned container">
 			<div class="ui small header">
 				<span style="color: red;">&emsp;&nbsp;&nbsp;전체 인바디 측정 가능 보건소</span>
-				254 곳이 있습니다.
+				254 곳이 있습니다. <br>
 			</div>
+		</div>
+		<br>
+		<div class="ui tiny header" style="margin : 0; padding : 0;">
+			<span>&emsp;&nbsp;&nbsp;<i class="exclamation circle icon"></i>지역 별 인바디 측정 가능 보건소를 찾아보세요</span>
 		</div>
 
 		<table class="ui celled table">
@@ -136,10 +140,11 @@
 
 	function locationBtn(loc){
 		var location = loc.innerHTML;
+
 		$.ajax({
 			url : '/healthCenter.diet',
 			data : {'location' : location},
-			success : function(){
+			success : function(data){
 				window.location.href= '/healthCenter.diet?location=' + location;
 			}, 
 		});
