@@ -430,11 +430,11 @@
 					nickNameCheck = nickNameRegExp.test($('#mbNickName').val());
 
 					if(nickNameCheck == true){
-
+						console.log('사용가능');
 					} else {
-
+						console.log('사용불가');
 					}
-
+					
 				});
 
 
