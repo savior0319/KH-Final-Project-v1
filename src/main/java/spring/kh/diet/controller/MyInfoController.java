@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
 
 public interface MyInfoController {
@@ -28,5 +27,7 @@ public interface MyInfoController {
 	Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request);
 
 	void idCheck(String id, HttpServletResponse response) throws IOException;
+
+	void nickNameCheck(String nickName, HttpServletResponse response) throws IOException;
 
 }

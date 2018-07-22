@@ -31,4 +31,6 @@ public interface MyInfoService {
 
 	int idCheck(String id);
 
+	int nickNameCheck(String nickName);
+
 }

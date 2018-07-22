@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import spring.kh.diet.model.vo.PostFileVO;
-
 @Controller
 public class ImageUploadControllerImpl {
 
