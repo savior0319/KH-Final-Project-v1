@@ -32,6 +32,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public MyInfoControllerImpl() {
 	}
 
+	/* 1:1질문 */
 	@Override
 	@RequestMapping(value = "/question.diet")
 	public void question(@RequestParam String title, @RequestParam String content, HttpServletResponse response)
@@ -178,8 +179,17 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 아이디 중복 체크 */
 	@Override
 	@RequestMapping(value = "/idCheck.diet")
-	public void idCheck(@RequestParam String id, HttpServletResponse response) throws IOException{
+	public void idCheck(@RequestParam String id, HttpServletResponse response) throws IOException {
 		int result = myInfoService.idCheck(id);
+		response.getWriter().print(String.valueOf(result));
+		response.getWriter().close();
+	}
+
+	/* 닉네임 중복 체크 */
+	@Override
+	@RequestMapping(value = "/nickNameCheck.diet")
+	public void nickNameCheck(@RequestParam String nickName, HttpServletResponse response) throws IOException {
+		int result = myInfoService.nickNameCheck(nickName);
 		response.getWriter().print(String.valueOf(result));
 		response.getWriter().close();
 	}

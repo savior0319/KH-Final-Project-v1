@@ -37,4 +37,6 @@ public interface MyInfoDAO {
 
 	int idCheck(SqlSessionTemplate sqlSessionTemplate, String id);
 
+	int nickNameCheck(SqlSessionTemplate sqlSessionTemplate, String nickName);
+
 }

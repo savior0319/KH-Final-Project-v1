@@ -103,4 +103,10 @@ public class MyInfoServiceImpl implements MyInfoService {
 		return result;
 	}
 
+	@Override
+	public int nickNameCheck(String nickName) {
+		int result = myInfoDAO.nickNameCheck(SqlSessionTemplate, nickName);
+		return result;
+	}
+
 }

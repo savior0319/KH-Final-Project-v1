@@ -98,7 +98,8 @@
 		MY_COMMNET_COUNT AS myCommentCount,
 		MY_BOARD_COUNT AS myBoardCount,
 		MB_ENROLLDATE as mbEnrollDate
-		FROM MY_ACTIVITY_TBL LEFT JOIN MEMBER_TBL USING(MB_INDEX) WHERE MB_INDEX =
+		FROM MY_ACTIVITY_TBL LEFT JOIN MEMBER_TBL
+		USING(MB_INDEX) WHERE MB_INDEX =
 		#{mbIndex}
 
 	</select>
@@ -134,6 +135,35 @@
 		DESC) AS NUM
 		FROM BOARD_POST_TBL
 		) WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+
+	<select id="nickNameCheck" parameterType="member"
+		resultType="member">
+		SELECT
+		MB_INDEX AS mbIndex,
+		MB_ID AS mbId,
+		MB_PWD AS mbPwd,
+		MB_NAME AS mbName,
+		MB_NICKNAME AS mbNickName,
+		MB_GENDER AS mbGender,
+		MB_IMAGE AS mbImage,
+		MB_PROMISE AS mbPromise,
+		MB_AGE AS mbAge,
+		MB_PHONE
+		AS mbPhone,
+		MB_ADDRESS
+		AS mbAddress,
+		MB_INTEREST AS mbInterest,
+		MB_GRADE
+		AS mbGrade,
+		MB_HEIGHT AS
+		mbHeight,
+		MB_WEIGHT AS mbWeight,
+		MB_ENROLLDATE
+		AS
+		mbEnrollDate
+		FROM
+		MEMBER_TBL WHERE MB_NICKNAME = #{nickName}
 	</select>
 </mapper>
 

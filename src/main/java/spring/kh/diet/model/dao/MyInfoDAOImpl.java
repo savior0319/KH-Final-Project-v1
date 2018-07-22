@@ -152,9 +152,21 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return sb.toString();
 	}
 
+	// 아이디 중복 체크
 	@Override
 	public int idCheck(SqlSessionTemplate sqlSessionTemplate, String id) {
 		MemberVO mv = sqlSessionTemplate.selectOne("myInfo.selectOneMember", id);
+		int result = 0;
+		if (mv != null) {
+			result = 1;
+		}
+		return result;
+	}
+
+	// 닉네임 중복 체크
+	@Override
+	public int nickNameCheck(SqlSessionTemplate sqlSessionTemplate, String nickName) {
+		MemberVO mv = sqlSessionTemplate.selectOne("myInfo.nickNameCheck", nickName);
 		int result = 0;
 		if (mv != null) {
 			result = 1;
