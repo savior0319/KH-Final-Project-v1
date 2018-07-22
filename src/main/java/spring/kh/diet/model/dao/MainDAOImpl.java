@@ -68,8 +68,7 @@ public class MainDAOImpl implements MainDAO {
 
 		StringBuilder sb = new StringBuilder();
 
-		if (needPrev) // 시작이 1페이지가 아니라면!
-		{
+		if (needPrev) {
 			sb.append("<a class='item' href='/healthCenter.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
@@ -83,8 +82,7 @@ public class MainDAOImpl implements MainDAO {
 						+ i + " </a>");
 			}
 		}
-		if (needNext) // 끝 페이지가 아니라면!
-		{
+		if (needNext) {
 			sb.append("<a class='item' href='/healthCenter.diet?location=" + location + "&currentPage=" + (endNavi + 1)
 					+ "'> &gt; </a>");
 		}
