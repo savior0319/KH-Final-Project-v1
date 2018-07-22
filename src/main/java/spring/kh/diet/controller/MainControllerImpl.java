@@ -188,7 +188,8 @@ public class MainControllerImpl implements MainController {
 	/* 메인 페이지 - 인바디 보건소 */
 	@Override
 	@RequestMapping(value = "/healthCenter.diet")
-	public String redirectHealthCenter(HttpServletRequest request, @RequestParam String location) {
+	public String redirectHealthCenter(HttpServletRequest request, @RequestParam String location,
+			HttpServletResponse response) throws IOException {
 
 		int currentPage;
 
@@ -201,6 +202,7 @@ public class MainControllerImpl implements MainController {
 		HealthCenterPDVO hcData = mService.getHealthCenterList(currentPage, location);
 		hcData.setType(request.getParameter("type"));
 		request.setAttribute("hcpd", hcData);
+
 		return "main/healthCenter";
 
 	}
