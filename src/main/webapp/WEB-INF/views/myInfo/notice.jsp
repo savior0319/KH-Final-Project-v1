@@ -38,7 +38,7 @@
 							<c:when test="${c.bcaIndex==17}">팁&노하우</c:when>
 							<c:when test="${c.bcaIndex==18 }">고민&질문</c:when>
 							<c:when test="${c.bcaIndex==19 }">비포&애프터</c:when>
-							</c:choose>
+							</c:choose> 
 							
 							</td>
 							<td style="padding-top: 15px; padding-bottom: 15px;" onclick="recipeLink(${c.postIndex});" >

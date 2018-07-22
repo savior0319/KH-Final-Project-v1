@@ -115,7 +115,7 @@
 			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 			<br>
 			<c:if test="${sessionScope.member!=null}">
-				<form action="/updateMyInfo.diet" method="post">
+				<form action="/updateMyInfo.diet" method="post" onsubmit="return checkInfo();">
 					<div class="myInfoUpdateContents">
 						<div class="gender_Image">
 							<c:if test="${sessionScope.member.mbGender=='f'}">
@@ -139,6 +139,24 @@
 								<script>
 									$("#male").attr("disabled", true);
 								</script>
+							</c:if>
+							<c:if test="${sessionScope.member.mbGender==null}">
+								<div class="gender_Img1">
+									<img id="femailImage" class="genderImage"
+										src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
+									<div class="ui radio checkbox">
+										<input type="radio" class="radioBtn" id="female" name="gender"
+											value="f"> <label>여 자</label>
+									</div>
+								</div>
+								<div class="gender_Img1">
+									<img id="mailImage" class="genderImage"
+										src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
+									<div class="ui radio checkbox">
+										<input type="radio" class="radioBtn" id="male" name="gender"
+											value="m"> <label>남 자</label>
+									</div>
+								</div>
 							</c:if>
 							<c:if test="${sessionScope.member.mbGender=='m'}">
 								<div class="gender_Img1">
@@ -181,7 +199,7 @@
 												<i class="shield alternate icon"></i>등급
 											</h3></td>
 										<td><strong>${sessionScope.member.mbGrade}&nbsp;&nbsp;</strong>
-											<button type="button" class="ui button">
+									<button type="button" class="ui button">
 												<strong>등급안내</strong>
 											</button></td>
 									</tr>
@@ -246,17 +264,17 @@
 										<td class="firstTd"><h3>
 												<i class="shield alternate icon"></i>키
 											</h3></td>
-										<c:if test="${sessionScope.member.mbHeight!=0}">
+										<c:if test="${member.mbHeight!=0}">
 											<td><div class="ui input focus">
-													<input type="text" placeholder="키.." id="heigth"
-														value="${sessionScope.member.mbHeight}" name="mbHeight"
+													<input type="text" placeholder="키.." id="mbHeight"
+														value="${member.mbHeight}" name="mbHeight"
 														style="width: 100px;"> <span
 														style="margin-top: 14px; margin-left: 5px; font-size: 18px; font-weight: 800;"><strong>cm</strong></span>
 												</div></td>
 										</c:if>
-										<c:if test="${sessionScope.member.mbHeight==0}">
+										<c:if test="${member.mbHeight==0}">
 											<td><div class="ui input focus">
-													<input type="text" placeholder="키.." id="heigth"
+													<input type="text" placeholder="키.." id="mbHeight" 
 														name="mbHeight" style="width: 100px;"> <span
 														style="margin-top: 14px; margin-left: 5px; font-size: 18px; font-weight: 800;"><strong>cm</strong></span>
 												</div></td>
@@ -265,36 +283,34 @@
 									<tr>
 										<td class="firstTd"><h3>
 												<i class="shield alternate icon"></i>몸무게
-											</h3>
-										</td>
-										<c:if test="${sessionScope.member.mbWeight!=0}">
-										<td>
-											<div class="ui input focus">
-												<input type="text" placeholder="몸무게.." id="weight"
-													value="${sessionScope.member.mbWeight}" name="mbWeight"
-													style="width: 100px;"> <span
-													style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;"><strong>Kg</strong></span>
-											</div>
-										</td>
+											</h3></td>
+										<c:if test="${member.mbWeight!=0}">
+											<td>
+												<div class="ui input focus">
+													<input type="text" placeholder="몸무게.." id="mbWeight"
+														value="${member.mbWeight}" name="mbWeight"
+														style="width: 100px;"> <span
+														style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;"><strong>Kg</strong></span>
+												</div>
+											</td>
 										</c:if>
-										<c:if test="${sessionScope.member.mbWeight==0}">
-										<td>
-											<div class="ui input focus">
-												<input type="text" placeholder="몸무게.." id="weight" name="mbWeight"	style="width: 100px;">
-												<span style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;">
-												<strong>Kg</strong></span>
-											</div>
-										</td>
+										<c:if test="${member.mbWeight==0}">
+											<td>
+												<div class="ui input focus">
+													<input type="text" placeholder="몸무게.." id="mbWeight" 
+														name="mbWeight" style="width: 100px;"> <span
+														style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;">
+														<strong>Kg</strong>
+													</span>
+												</div>
+											</td>
 										</c:if>
 									</tr>
 								</tbody>
 							</table>
 							<h4>※ 키와 몸무게를 입력하시면 맞춤 정보를 제공해 드립니다~</h4>
-							<input type="submit" value="수정" class="ui red button"
-								id="updateInfoBtn" /> <input type="reset" value="취소"
-								class="ui button" id="updateCancleBtn" /> <br>
-							<br>
-							<br>
+							<input type="submit" value="수정" class="ui red button" id="updateInfoBtn" /> 
+							<input type="reset" value="취소" class="ui button" id="updateCancleBtn" /> <br> <br> <br>	
 						</div>
 					</div>
 				</form>
@@ -306,7 +322,7 @@
 					location.href = "/";
 				</script>
 			</c:if>
-
+	
 			<!--  ui container 닫기  -->
 		</div>
 	</div>
@@ -314,28 +330,34 @@
 	<!-- 프로필 이미지 변경 모달 -->
 
 	<div class="ui modal" id="updateProfile">
+
+
 		<i class="close icon"></i>
 		<div class="header">프로필 사진 변경</div>
 		<div class="image content">
-			<div class="description">
-				<div class="ui header">
-					<div class="fileBox">
-						<input type="text" class="fileName" id="fileName"
-							readonly="readonly" /> <label for="uploadBtn" class="btn_file">찾아보기
-						</label> <input type="file" id="uploadBtn" class="uploadBtn"
-							name="uploadFile" />
+			<form name="imgupload" id="data"
+				action="/API/newmember_user_img_reg.asp" method="post"
+				enctype="multipart/form-data">
+				<div class="description">
+					<div class="ui header">
+						<div class="fileBox">
+							<input type="text" class="fileName" id="fileName"
+								readonly="readonly" /> <label for="uploadBtn" class="btn_file">찾아보기
+							</label><input type="file" id="uploadBtn" class="uploadBtn"
+								name="uploadFile" />
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="actions">
-				<button type="button" class="ui yellow button"
-					onclick="updateProfileBtn();">
-					사진업데이트 <i class="checkmark icon"></i>
-				</button>
-				<button type="button" class="ui black button">취소</button>
-				<input type="hidden" value="${sessionScope.member.mbId}"
-					id="memberId" />
-			</div>
+				<div class="actions">
+					<button type="button" class="ui yellow button"
+						onclick="updateProfileBtn();">
+						사진업데이트 <i class="checkmark icon"></i>
+					</button>
+					<button type="button" class="ui black button">취소</button>
+				</div>
+			</form>
+			<input type="hidden" value="${sessionScope.member.mbId}"
+				id="memberId" />
 		</div>
 	</div>
 
@@ -345,6 +367,32 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+	/* 정보업데이트 시 별명 null 아닌지 */
+
+
+	function checkInfo(){
+		var nickName = $("#nickName").val();
+		var height = $("#mbHeight").val();
+		var weight = $("#mbWeight").val();
+		if(height == "" || weight == "") {
+			$("#mbHeight").val('0');
+			$("#mbWeight").val('0');
+		}
+		
+		if(nickName==""){
+			alert("별명을 입력해주세요");
+			location.reload();
+			return false;
+
+		}else{
+			console.log(result);
+			return true;
+			
+		}
+		
+		
+	}
+	
 	/*사진등록,변경 */
 	function updateProfileBtn() {
 		var formData = new FormData();
@@ -431,6 +479,48 @@
 			alert("사진 삭제 취소하셨습니다.");
 		}
 	}
+
+	/* 사진 변경 업로드 */
+	var return_rt;
+	var rs_folder;
+	var IMGNAME;
+
+	$("form#data").submit(function(event) {
+		//disable the default form submission
+		event.preventDefault();
+
+		var sex = $(':radio[name="sex"]:checked').val();
+		$("#hiddensex").val(sex);
+
+		//grab all form data  
+		var formData = new FormData($(this)[0]);
+		alert("g");
+		$.ajax({
+			url : '/updateMyPicture.diet',
+			type : 'POST',
+			data : formData,
+			async : false,
+			cache : false,
+			contentType : false,
+			processData : false,
+			success : function(returndata) {
+				alert("성공");
+				return_rt = returndata.split("|");
+				rs_folder = return_rt[0];
+				IMGNAME = return_rt[1];
+
+				if (rs_folder != 'none') {
+					setPicture(rs_folder, IMGNAME);
+				} else {
+					alert('등록할 사진을 첨부해주세요.');
+				}
+				return;
+			}
+
+		});
+
+		return false;
+	});
 </script>
 
 </html>

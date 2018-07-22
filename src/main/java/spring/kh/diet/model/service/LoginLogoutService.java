@@ -8,5 +8,8 @@ public interface LoginLogoutService {
 	MemberVO findId(MemberVO mv);
 	int updatePassword(MemberVO mv);
 	int joinKaKao(Object kakao);
+	int existUserFindingPwd(MemberVO mv);
+	int updateMypass(MemberVO mv);
+	MemberVO kakaoLoginService(MemberVO mv);
 
 }

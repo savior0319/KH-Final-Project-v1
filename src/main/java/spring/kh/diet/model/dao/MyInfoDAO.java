@@ -40,3 +40,4 @@ public interface MyInfoDAO {
 	int nickNameCheck(SqlSessionTemplate sqlSessionTemplate, String nickName);
 
 }
+

@@ -1,24 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="login">
-	<select id="login1" parameterType="member" resultType="member">
+<resultMap type="member" id="memberDB">
+	<result property="mbIndex" column="MB_INDEX"/>
+	<result property="mbId" column="MB_ID"/>
+	<result property="mbPwd" column="MB_PWD"/>
+	<result property="mbName" column="MB_NAME"/>
+	<result property="mbNickName" column="MB_NICKNAME"/>
+	<result property="mbGender" column="MB_GENDER"/>
+	<result property="mbImage" column="MB_IMAGE"/>
+	<result property="mbPromise" column="MB_PROMISE"/>
+	<result property="mbAge" column="MB_AGE"/>
+	<result property="mbPhone" column="MB_PHONE"/>
+	<result property="mbAddress" column="MB_ADDRESS"/>
+	<result property="mbInterest" column="MB_INTEREST"/>
+	<result property="mbGrade" column="MB_GRADE"/>
+	<result property="mbHeight" column="MB_HEIGHT"/>
+	<result property="mbWeight" column="MB_WEIGHT"/>
+	<result property="mbEnrollDate" column="MB_ENROLLDATE"/>
+</resultMap>
+
+
+	<select id="login1" parameterType="member" resultType="member" resultMap="memberDB">
 		SELECT
-		MB_INDEX AS mbIndex,
-		MB_ID AS mbId,
-		MB_PWD AS mbPwd,
-		MB_NAME AS mbName,
-		MB_NICKNAME AS mbNickName,
-		MB_GENDER AS mbGender,
-		MB_IMAGE AS mbImage,
-		MB_PROMISE AS mbPromise,
-		MB_AGE AS mbAge,
-		MB_PHONE AS mbPhone,
-		MB_ADDRESS AS mbAddress,
-		MB_INTEREST AS mbInterest,
-		MB_GRADE AS mbGrade,
-		MB_HEIGHT AS mbHeight,
-		MB_WEIGHT AS mbWeight,
-		MB_ENROLLDATE AS mbEnrollDate
+			MB_AGE as mbAge,
+			MB_Index as mbIndex,
+			MB_HEIGHT as mbHeight,
+			MB_WEIGHT as mbWeight,
+			MB_ID as mbId,
+			MB_PWD as mbPwd,
+			MB_NAME as mbName,
+			MB_NICKNAME as mbNickName,
+			MB_GENDER as mbGender,
+			MB_IMAGE as mbImage,
+			MB_Promise as mbPromise,
+			MB_PHONE as mbPhone,
+			MB_ADDRESS as mbAddress,
+			MB_INTEREST as mbInterest,
+			MB_GRADE as mbGrade,
+			MB_ENROLLDATE as mbEnrollDate
 		FROM MEMBER_TBL WHERE MB_ID = #{mbId} AND MB_PWD = #{mbPwd}
 	</select>
 	
@@ -48,7 +68,46 @@
 	</update>
 
 	<insert id = "joinKaKao" parameterType="member">
-		INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{mbId},'.','.','.','.','.','.',0,'.','.','.','카카오회원',NULL,NULL,sysdate)
+		INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{mbId},'','','','','','',0,'','','','일반회원','','',sysdate)
 	</insert>
 	
+	<select id="existUserFindingPwd" parameterType="member" resultType="member">
+		SELECT MB_INDEX AS mbIndex,
+		MB_ID AS mbId,
+		MB_PWD AS mbPwd,
+		MB_NAME AS mbName,
+		MB_NICKNAME AS mbNickName,
+		MB_GENDER AS mbGender,
+		MB_IMAGE AS mbImage,
+		MB_PROMISE AS mbPromise,
+		MB_AGE AS mbAge,
+		MB_PHONE AS mbPhone,
+		MB_ADDRESS AS mbAddress,
+		MB_INTEREST AS mbInterest,
+		MB_GRADE AS mbGrade,
+		MB_HEIGHT AS mbHeight,
+		MB_WEIGHT AS mbWeight,
+		MB_ENROLLDATE AS mbEnrollDate FROM MEMBER_TBL WHERE MB_ID = #{mbId}
+	</select>
+
+	<select id="kakaoLoginService" parameterType="member" resultType="member">
+			SELECT
+				MB_AGE as mbAge,
+				MB_Index as mbIndex,
+				MB_HEIGHT as mbHeight,
+				MB_WEIGHT as mbWeight,
+				MB_ID as mbId,
+				MB_PWD as mbPwd,
+				MB_NAME as mbName,
+				MB_NICKNAME as mbNickName,
+				MB_GENDER as mbGender,
+				MB_IMAGE as mbImage,
+				MB_Promise as mbPromise,
+				MB_PHONE as mbPhone,
+				MB_ADDRESS as mbAddress,
+				MB_INTEREST as mbInterest,
+				MB_GRADE as mbGrade,
+				MB_ENROLLDATE as mbEnrollDate
+				FROM MEMBER_TBL WHERE MB_ID = #{mbId}
+	</select>
 </mapper>

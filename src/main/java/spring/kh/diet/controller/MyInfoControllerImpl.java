@@ -70,7 +70,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			throws IOException {
 		if (session.getAttribute("member") != null) {
 			MemberVO mv = (MemberVO) session.getAttribute("member");
-
+			System.out.println(formData);
 			int result = myInfoService.updateMyPicture(mv);
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(mv);
@@ -91,7 +91,10 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/updateMyInfo.diet")
 	public String updateMyInfo(MemberVO memberVO, HttpSession session, HttpServletResponse response)
 			throws IOException {
-		if (session.getAttribute("member") != null) {
+			System.out.println("하이");
+			if (session.getAttribute("member") != null) {
+				System.out.println("ㅇㅇ하이");
+				System.out.println(memberVO.getMbHeight());
 			int result = myInfoService.updateMyInfo(memberVO);
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(memberVO);

@@ -17,18 +17,8 @@
 		MB_NICKNAME = #{mbNickName},
 		MB_PHONE = #{mbPhone},
 		MB_PROMISE = #{mbPromise},
-		<if test="mbHeight == null">
-			MB_HEIGHT = null,
-		</if>
-		<if test="mbHeight != null">
-			MB_HEIGHT = #{mbHeight},
-		</if>
-		<if test="mbHeight == null">
-			MB_WEIGHT = null
-		</if>
-		<if test="mbHeight != null">
-			MB_WEIGHT = #{mbWeight}
-		</if>
+		MB_HEIGHT = #{mbHeight}, 
+		MB_WEIGHT = #{mbWeight}
 		WHERE MB_ID = #{mbId}
 	</update>
 
@@ -67,7 +57,7 @@
 	<select id="allMyOneToOneQuestion" parameterType="member"
 		resultType="question">
 		SELECT TITLE AS title,CONTENT AS content,QUESTION_NO as
-		querstionIndex FROM QUESTION
+		querstionIndex FROM QUESTION WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 	<select id="myWishList" parameterType="member"
@@ -85,7 +75,9 @@
 	<insert id="signup" parameterType="member">
 		INSERT INTO MEMBER_TBL
 		VALUES(MEMBER_SEQ.NEXTVAL, #{mbId}, #{mbPwd}, null, #{mbNickName},
-		#{mbGender}, null, null, null, null, null, #{mbInterest},
+		#{mbGender},
+		'http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg',
+		null, null, null, null, #{mbInterest},
 		'일반회원', null,
 		null, SYSDATE)
 	</insert>
