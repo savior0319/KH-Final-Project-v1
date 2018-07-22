@@ -16,5 +16,9 @@ public interface CommunityService {
 
 	int deletePost(int postIndex);
 
+	CommunityPageDataVO viewAllList(int currentPage, String type, String postSort);
+
+	CommunityPageDataVO recipeViewList(int currentPage, String type);
+
 
 }

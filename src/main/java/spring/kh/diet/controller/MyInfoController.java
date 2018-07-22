@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import spring.kh.diet.model.vo.MemberVO;
 
 public interface MyInfoController {
@@ -13,8 +15,6 @@ public interface MyInfoController {
 	void secessionMember(HttpSession session, HttpServletResponse response) throws IOException;
 
 	void question(String title, String content, HttpServletResponse response) throws IOException;
-
-	String updateMyPicture(HttpSession session, HttpServletResponse response, String formData) throws IOException;
 
 	String updateMyInfo(MemberVO memberVO, HttpSession session, HttpServletResponse response) throws IOException;
 
@@ -29,5 +29,8 @@ public interface MyInfoController {
 	void idCheck(String id, HttpServletResponse response) throws IOException;
 
 	void nickNameCheck(String nickName, HttpServletResponse response) throws IOException;
+
+	String updateMyPicture(HttpSession session, HttpServletResponse response, MultipartFile uploadFile)
+			throws IOException;
 
 }

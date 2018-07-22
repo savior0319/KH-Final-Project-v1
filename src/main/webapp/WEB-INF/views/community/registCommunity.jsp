@@ -117,7 +117,7 @@
 		allowAdditions : true,
 		allowCategorySelection : true
 	});
-	}
+	
 	
 	
 	// 카테고리 선택
