@@ -12,6 +12,6 @@ public interface LoginLogoutDAO {
 
 	int updatePassword(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
-	int joinKaKao(SqlSessionTemplate sqlSessionTemplate, Object m);
+	int joinKaKao(SqlSessionTemplate sqlSessionTemplate, MemberVO m);
 
 }

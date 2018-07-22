@@ -89,10 +89,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/updateMyInfo.diet")
 	public String updateMyInfo(MemberVO memberVO, HttpSession session, HttpServletResponse response)
 			throws IOException {
-		System.out.println("하이");
 		if (session.getAttribute("member") != null) {
-			System.out.println("ㅇㅇ하이");
-			System.out.println(memberVO.getMbHeight());
 			int result = myInfoService.updateMyInfo(memberVO);
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(memberVO);

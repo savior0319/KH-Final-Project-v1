@@ -68,10 +68,10 @@
 	</update>
 
 	<insert id = "joinKaKao" parameterType="member">
-		INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{mbId},'','','','','','',0,'','','','일반회원','','',sysdate)
+		INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{mbId},'','',#{mbNickName},'','','',0,'','','','카카오회원','','',sysdate)
 	</insert>
 	
-	<select id="existUserFindingPwd" parameterType="member" resultType="member">
+	<select id="existUserFindingId" parameterType="member" resultType="member">
 		SELECT MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
 		MB_PWD AS mbPwd,
@@ -109,5 +109,25 @@
 				MB_GRADE as mbGrade,
 				MB_ENROLLDATE as mbEnrollDate
 				FROM MEMBER_TBL WHERE MB_ID = #{mbId}
+	</select>
+	
+	
+	<select id="existUserNickNum" parameterType="member" resultType="member">
+		SELECT MB_INDEX AS mbIndex,
+		MB_ID AS mbId,
+		MB_PWD AS mbPwd,
+		MB_NAME AS mbName,
+		MB_NICKNAME AS mbNickName,
+		MB_GENDER AS mbGender,
+		MB_IMAGE AS mbImage,
+		MB_PROMISE AS mbPromise,
+		MB_AGE AS mbAge,
+		MB_PHONE AS mbPhone,
+		MB_ADDRESS AS mbAddress,
+		MB_INTEREST AS mbInterest,
+		MB_GRADE AS mbGrade,
+		MB_HEIGHT AS mbHeight,
+		MB_WEIGHT AS mbWeight,
+		MB_ENROLLDATE AS mbEnrollDate FROM MEMBER_TBL WHERE MB_ID = #{mbNickName}
 	</select>
 </mapper>

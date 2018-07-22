@@ -27,13 +27,14 @@ public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 	}
 
 	@Override
-	public int joinKaKao(SqlSessionTemplate sqlSessionTemplate, Object m) {
+	public int joinKaKao(SqlSessionTemplate sqlSessionTemplate, MemberVO m) {
+		System.out.println(m.getMbNickName());
 		int result = sqlSessionTemplate.insert("login.joinKaKao", m);
 		return result;
 	}
 
-	public int existUserFindingPwd(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		MemberVO m = sqlSessionTemplate.selectOne("login.existUserFindingPwd", mv);
+	public int existUserFindingId(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		MemberVO m = sqlSessionTemplate.selectOne("login.existUserFindingId", mv);
 		int result = 0;
 		if (m != null) {
 			result = 1;
@@ -52,6 +53,17 @@ public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 		MemberVO m = sqlSessionTemplate.selectOne("login.kakaoLoginService", mv);
 		System.out.println(m.getMbGender());
 		return m;
+	}
+
+	public int existUserNickNum(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		MemberVO m = sqlSessionTemplate.selectOne("login.existUserNickNum", mv);
+		int result = 0;
+		if (m != null) {
+			result = 1;
+		} else {
+			result = 0;
+		}
+		return result;
 	}
 
 }

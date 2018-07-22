@@ -136,17 +136,127 @@ pageEncoding="UTF-8"%>
 								value="m"> <label>남 자</label>
 							</div>
 						</div>
-						<script>
-							$("#male").attr("disabled", true);
-						</script>
-					</c:if>
-					<c:if test="${sessionScope.member.mbGender==null}">
-					<div class="gender_Img1">
-						<img id="femailImage" class="genderImage"
-						src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
-						<div class="ui radio checkbox">
-							<input type="radio" class="radioBtn" id="female" name="gender"
-							value="f"> <label>여 자</label>
+						<br>                                                                                                                    
+						<div class="myInfoTable">
+							<table class="ui celled table">
+								<tbody>
+									<tr>
+										<td class="firstTd" style="width: 250px;"><h3>
+												<i class="shield alternate icon"></i>등급
+											</h3></td>
+										<td><strong>${sessionScope.member.mbGrade}&nbsp;&nbsp;</strong>
+									<button type="button" class="ui button">
+												<strong>등급안내</strong>
+											</button></td>
+									</tr>
+									<tr>
+										<td class="firstTd"><h3>
+												<i class="shield alternate icon"></i>계정
+											</h3></td>
+										<td>
+											<div class="ui input focus">
+												<input type="text" id="account" name="mbId"
+													value="${sessionScope.member.mbId}" readonly
+													placeholder="아이디.." style="width: 300px;">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="firstTd"><h3>
+												<i class="shield alternate icon"></i>비밀번호 재설정
+											</h3></td>
+										<td>
+											<div class="ui input focus">
+												<input type="password" placeholder="변경할 비밀번호.."
+													id="mbPwd" name="mbPwd" style="width: 300px;">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="firstTd"><h3>
+												<i class="shield alternate icon"></i>닉네임
+											</h3></td>
+										<td>
+											<div class="ui input focus">
+												<input type="text" placeholder="닉네임.." id="nickName"
+													value="${sessionScope.member.mbNickName}" name="mbNickName"
+													style="width: 300px;">
+											</div>
+										</td>
+									<tr>
+										<td class="firstTd"><h3>
+												<i class="shield alternate icon"></i>핸드폰번호
+											</h3></td>
+										<td>
+											<div class="ui input focus">
+												<input type="text" placeholder="폰번호.." id="phone"
+													value="${sessionScope.member.mbPhone}" name="mbPhone"
+													style="width: 300px;">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="firstTd"><h3>
+												<i class="shield alternate icon"></i>다짐
+											</h3></td>
+										<td><div class="ui input focus">
+												<input type="text" placeholder="한 줄 다짐.." id="promise"
+													value="${sessionScope.member.mbPromise}" name="mbPromise"
+													style="width: 500px;">
+											</div></td>
+									</tr>
+
+									<tr>
+										<td class="firstTd"><h3>
+												<i class="shield alternate icon"></i>키
+											</h3></td>
+										<c:if test="${member.mbHeight!=0}">
+											<td><div class="ui input focus">
+													<input type="text" placeholder="키.." id="mbHeight"
+														value="${member.mbHeight}" name="mbHeight"
+														style="width: 100px;"> <span
+														style="margin-top: 14px; margin-left: 5px; font-size: 18px; font-weight: 800;"><strong>cm</strong></span>
+												</div></td>
+										</c:if>
+										<c:if test="${member.mbHeight==0}">
+											<td><div class="ui input focus">
+													<input type="text" placeholder="키.." id="mbHeight" 
+														name="mbHeight" style="width: 100px;"> <span
+														style="margin-top: 14px; margin-left: 5px; font-size: 18px; font-weight: 800;"><strong>cm</strong></span>
+												</div></td>
+										</c:if>
+									</tr>
+									<tr>
+										<td class="firstTd"><h3>
+												<i class="shield alternate icon"></i>몸무게
+											</h3></td>
+										<c:if test="${member.mbWeight!=0}">
+											<td>
+												<div class="ui input focus">
+													<input type="text" placeholder="몸무게.." id="mbWeight"
+														value="${member.mbWeight}" name="mbWeight"
+														style="width: 100px;"> <span
+														style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;"><strong>Kg</strong></span>
+												</div>
+											</td>
+										</c:if>
+										<c:if test="${member.mbWeight==0}">
+											<td>
+												<div class="ui input focus">
+													<input type="text" placeholder="몸무게.." id="mbWeight" 
+														name="mbWeight" style="width: 100px;"> <span
+														style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;">
+														<strong>Kg</strong>
+													</span>
+												</div>
+											</td>
+										</c:if>
+									</tr>
+								</tbody>
+							</table>
+							<h4>※ 키와 몸무게를 입력하시면 맞춤 정보를 제공해 드립니다~</h4>
+							<input type="submit" value="수정" class="ui red button" id="updateInfoBtn" /> 
+							<input type="reset" value="취소" class="ui button" id="updateCancleBtn" /> <br> <br> <br>	
 						</div>
 					</div>
 					<div class="gender_Img1">
@@ -364,26 +474,33 @@ pageEncoding="UTF-8"%>
 <!-- SCRIPT -->
 <script type="text/javascript">
 	/* 정보업데이트 시 별명 null 아닌지 */
-
+	/* 비밀번호값 정규표현식에 맞게 되었는지 */
 
 	function checkInfo(){
 		var nickName = $("#nickName").val();
 		var height = $("#mbHeight").val();
 		var weight = $("#mbWeight").val();
-		if(height == "" || weight == "") {
-			$("#mbHeight").val('0');
-			$("#mbWeight").val('0');
-		}
+		var mbPwd = $("#mbPwd").val();
+		var pwdRegExp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,16}$/;
 		
-		if(nickName==""){
-			alert("별명을 입력해주세요");
-			location.reload();
-			return false;
-
-		}else{
-			console.log(result);
-			return true;
+		var	resultPwd = pwdRegExp.test(mbPwd);
+		if(resultPwd==true){
+			if(height == "" || weight == "") {
+				$("#mbHeight").val('0');
+				$("#mbWeight").val('0');
+				if(nickName==""){
+					alert("별명을 입력해주세요.");
+					location.reload();
+					return false;
+				}else{
+					alert("수정이 완료되었습니다.");
+					return true;	
+				}
+			}
 			
+		}else{
+			alert("비밀번호 6~16자리 사이 대문자,소문자,숫자를 섞어서 입력해주세요");
+			return false;
 		}
 	}
 
