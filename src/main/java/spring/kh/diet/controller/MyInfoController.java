@@ -24,7 +24,9 @@ public interface MyInfoController {
 	Object allMyOneToOneQuestion(HttpSession session);
 
 	String signupsave(String mbId, String mbNickName, String mbPwd, String[] gender, String[] interest);
-	
+
 	Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request);
+
+	void idCheck(String id, HttpServletResponse response) throws IOException;
 
 }

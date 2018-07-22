@@ -151,4 +151,14 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 		return sb.toString();
 	}
+
+	@Override
+	public int idCheck(SqlSessionTemplate sqlSessionTemplate, String id) {
+		MemberVO mv = sqlSessionTemplate.selectOne("myInfo.selectOneMember", id);
+		int result = 0;
+		if (mv != null) {
+			result = 1;
+		}
+		return result;
+	}
 }

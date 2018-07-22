@@ -2,7 +2,6 @@ package spring.kh.diet.model.service;
 
 import java.util.ArrayList;
 
-import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
 import spring.kh.diet.model.vo.MyActivityVO;
@@ -29,5 +28,7 @@ public interface MyInfoService {
 	MyActivityVO myActivity(MemberVO m);
 
 	MyActivityPageDataVO allCommunityList(int currentPage, String type, MyActivityVO ma);
+
+	int idCheck(String id);
 
 }
