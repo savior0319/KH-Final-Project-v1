@@ -222,7 +222,7 @@
 										<td>
 											<div class="ui input focus">
 												<input type="password" placeholder="변경할 비밀번호.."
-													id="password" name="mbPwd" style="width: 300px;">
+													id="mbPwd" name="mbPwd" style="width: 300px;">
 											</div>
 										</td>
 									</tr>
@@ -368,27 +368,36 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 	/* 정보업데이트 시 별명 null 아닌지 */
-
+	/* 비밀번호값 정규표현식에 맞게 되었는지 */
 
 	function checkInfo(){
 		var nickName = $("#nickName").val();
 		var height = $("#mbHeight").val();
 		var weight = $("#mbWeight").val();
-		if(height == "" || weight == "") {
-			$("#mbHeight").val('0');
-			$("#mbWeight").val('0');
+		var mbPwd = $("#mbPwd").val();
+		var pwdRegExp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,16}$/;
+		
+		var	resultPwd = pwdRegExp.test(mbPwd);
+		if(resultPwd==true){
+			if(height == "" || weight == "") {
+				$("#mbHeight").val('0');
+				$("#mbWeight").val('0');
+				if(nickName==""){
+					alert("별명을 입력해주세요.");
+					location.reload();
+					return false;
+				}else{
+					alert("수정이 완료되었습니다.");
+					return true;	
+				}
+			}
+			
+			
+		}else{
+			alert("비밀번호 6~16자리 사이 대문자,소문자,숫자를 섞어서 입력해주세요");
+			return false;
 		}
 		
-		if(nickName==""){
-			alert("별명을 입력해주세요");
-			location.reload();
-			return false;
-
-		}else{
-			console.log(result);
-			return true;
-			
-		}
 		
 		
 	}

@@ -36,15 +36,14 @@ public class LoginLogoutServiceImpl implements LoginLogoutService {
 	}
 
 	@Override
-	public int joinKaKao(Object m) {
+	public int joinKaKao(MemberVO m) {
 		int result = loginDAO.joinKaKao(SqlSessionTemplate, m);
 		return result;
 	}
 
 	@Override
-	public int existUserFindingPwd(MemberVO mv) {
-		int result = loginDAO.existUserFindingPwd(SqlSessionTemplate, mv);
-
+	public int existUserFindingId(MemberVO mv) {
+		int result = loginDAO.existUserFindingId(SqlSessionTemplate, mv);
 		return result;
 	}
 
@@ -58,6 +57,12 @@ public class LoginLogoutServiceImpl implements LoginLogoutService {
 	public MemberVO kakaoLoginService(MemberVO mv) {
 		MemberVO m = loginDAO.kakaoLoginService(SqlSessionTemplate, mv);
 		return m;
+	}
+
+	@Override
+	public int existUserNickNum(MemberVO mv) {
+		int result = loginDAO.existUserNickNum(SqlSessionTemplate, mv);
+		return result;
 	}
 
 }

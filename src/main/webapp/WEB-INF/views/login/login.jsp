@@ -126,6 +126,7 @@ a {
 	<div class="ui modal" id="findPwdModal">
 		<i class="close icon"></i>
 		<div class="header">비밀번호 재설정</div>
+		<h5 style="padding-left:3%;">※SNS계정으로 로그인한 회원은 비밀번호 찾기를 하실 수 없습니다.회원 가입 후 이용 바랍니다.</h5>
 		<div class="image content">
 			<div class="description">
 				<div class="ui header">

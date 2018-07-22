@@ -46,6 +46,28 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 			return "login/login";
 		}
 	}
+	
+	/* 카카오톡으로 로그인시 임의로 닉네임 부여 */
+	int kakaoNickNum = 0;
+	public String kakaoNickNum() {
+		
+		String kakaoNickNameNum = null;
+		for (int i = 1; i <= 999999; i++) {
+			if (kakaoNickNum < 1000000) {
+				kakaoNickNameNum = ""+ kakaoNickNum;
+			}
+			kakaoNickNum++;
+		}	
+			MemberVO mv = new MemberVO();
+			mv.setMbNickName(kakaoNickNameNum);
+			int checkNickNum = loginService.existUserNickNum(mv); // id
+			if(checkNickNum>0) {
+				return kakaoNickNum();
+			}else {
+				return "카카오"+kakaoNickNameNum;
+			}
+		
+		}
 
 	/* 카카오톡 로그인 */
 	@Override
@@ -53,10 +75,13 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 	public String kakaoLogin(@RequestParam String kakaoId, @RequestParam Object kakaoToken,
 			HttpServletRequest request) {
 
-		MemberVO mv = new MemberVO();
+		MemberVO mv = new MemberVO(); 
 		mv.setMbId(kakaoId);
+	
+		
 		HttpSession session;
-		int checkId = loginService.existUserFindingPwd(mv); // id
+		
+		int checkId = loginService.existUserFindingId(mv); // id
 		if (checkId > 0) { // id가 있을 경우
 			MemberVO mv2 = loginService.kakaoLoginService(mv);
 			if (mv2 != null) {
@@ -68,9 +93,11 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 				return "login/login";
 			}
 		} else { // id가 없을 경우
+			String setNick =  kakaoNickNum();
+			mv.setMbNickName(setNick);
 			int result = loginService.joinKaKao(mv);// 카카오톡 처음 로그인시 자동으로 가입처리됨.
-			if (result > 0) {// 가입성공하면 
-
+			if (result > 0) {// 가입성공하면
+				
 				MemberVO mv2 = loginService.kakaoLoginService(mv);
 				if (mv2 != null) {
 					session = request.getSession();
@@ -80,12 +107,12 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 					System.out.println("kakao로그인 실패");
 					return "login/login";
 				}
-			}else {
+			} else {
 				System.out.println("카카오톡으로 가입 실패 ");
 				return "login/login";
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -109,7 +136,7 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 			authReturn = "";
 			MemberVO mv = new MemberVO();
 			mv.setMbId(mbId);
-			result = loginService.existUserFindingPwd(mv); // 등록된 이메일이 있는지 확인
+			result = loginService.existUserFindingId(mv); // 등록된 이메일이 있는지 확인
 			System.out.println("result:" + result);
 			if (result > 0) {
 				authReturn = new EmailConfirm().connectEmail(mbId);

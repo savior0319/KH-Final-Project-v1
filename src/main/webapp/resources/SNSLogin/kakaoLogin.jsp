@@ -26,7 +26,9 @@
           		success : function(){
           			alert(res.properties.nickname+'님 환영합니다.');
           			location.href="/index.jsp"
-          		}
+          		},error : function() {
+    				alert("카카오톡 로그인에 실패하였습니다.");
+    			}
           	});
           
           },
