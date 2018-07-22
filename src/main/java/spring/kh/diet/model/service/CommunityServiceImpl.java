@@ -74,6 +74,8 @@ public class CommunityServiceImpl implements CommunityService {
 		return result;
 	}
 
+	
+	//등록된 글 들어가는 곳
 	@Override
 	public BoardPostVO postedCommunity(int postIndex) {
 
@@ -87,6 +89,44 @@ public class CommunityServiceImpl implements CommunityService {
 	public int deletePost(int postIndex) {
 		int result = communityDAO.deletePost(SqlSessionTemplate, postIndex);
 		return result;
+	}
+
+	@Override
+	public CommunityPageDataVO viewAllList(int currentPage, String type, String postSort) {
+		int recordCountPerPage = 10;
+		int naviCountPerPage = 5;
+
+		CommunityPageDataVO cpdv = new CommunityPageDataVO();
+
+		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) communityDAO.viewAllList(SqlSessionTemplate,
+				currentPage, recordCountPerPage, type,postSort);
+		String pageNavi = communityDAO.getallCommunityListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
+				naviCountPerPage, type);
+
+		cpdv.setComList(list);
+		cpdv.setPageNavi(pageNavi);
+		cpdv.setType(type);
+
+		return cpdv;
+	}
+
+	@Override
+	public CommunityPageDataVO recipeViewList(int currentPage, String type) {
+		int recordCountPerPage = 9;
+		int naviCountPerPage = 5;
+
+		CommunityPageDataVO cpdv = new CommunityPageDataVO();
+
+		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) communityDAO.recipeViewList(SqlSessionTemplate,
+				currentPage, recordCountPerPage, naviCountPerPage, type);
+		String pageNavi = communityDAO.getRecipeListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
+				naviCountPerPage, type);
+
+		cpdv.setComList(list);
+		cpdv.setPageNavi(pageNavi);
+		cpdv.setType(type);
+
+		return cpdv;
 	}
 
 }

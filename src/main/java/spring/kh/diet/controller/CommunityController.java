@@ -8,8 +8,6 @@ import javax.servlet.http.HttpSession;
 
 public interface CommunityController {
 
-	/*Object allCommunityList(HttpSession session, HttpServletRequest request);*/
-
 	void registCommunity(String title, String content, int category, HttpSession session, HttpServletResponse response)
 			throws IOException;
 
@@ -20,5 +18,14 @@ public interface CommunityController {
 	Object postedCommunity(HttpServletRequest request);
 
 	Object deletePost(HttpServletRequest request);
+
+
+
+	String recipeViewList(HttpSession session, HttpServletRequest request);
+
+	String getRecentlyList(HttpSession session, HttpServletRequest request);
+
+	String getViewList(HttpSession session, HttpServletRequest request, String postSort);
+
 
 }
