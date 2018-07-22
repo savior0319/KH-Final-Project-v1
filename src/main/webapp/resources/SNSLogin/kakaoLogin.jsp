@@ -24,8 +24,8 @@
           			'kakaoToken' : token      			
           		},
           		success : function(){
-          			alert('성공');	
           			alert(res.properties.nickname+'님 환영합니다.');
+          			location.href="/index.jsp"
           		}
           	});
           

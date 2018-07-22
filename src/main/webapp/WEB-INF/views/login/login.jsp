@@ -129,22 +129,11 @@ a {
 		<div class="image content">
 			<div class="description">
 				<div class="ui header">
+					
 					<div class="ui input">
-						<input type="text" placeholder="계정 입력.." id="mbId"
+						<input type="text" placeholder="인증받을 이메일 입력 " id="mbId"
 							style="width: 400px;">
 					</div>
-					<br>
-					<br>
-					<div class="ui input">
-						<input type="password" placeholder="비밀번호 입력.." id="mbPwd">
-					</div>
-					<br>
-					<br>
-					<div class="ui input">
-						<input type="password" placeholder="비밀번호 재입력" id="mbRePwd">
-					</div>
-					<br>
-					<br>
 					<button type="button" class="ui red button" onclick="updatePwd();">비밀번호
 						변경</button>
 					<button class="ui gray button" type="reset">취소</button>
@@ -159,7 +148,7 @@ a {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-
+							
 	/* 회원가입하기 버튼 클릭시 */
 	function joinBtn1(){
 		location.href="/signup.diet";
@@ -168,52 +157,34 @@ a {
 	$(".findPwd").click(function() {
 		$('#findPwdModal').modal('show');
 	});
-	/* 아이디 찾기 모달 */
-	$(".findId").click(function() {
-		$('#findIdModal').modal('show');
-	});
-	
-	/* 비밀번호 재설정 */
+
+	/* 비밀번호 재설정 - 이메일로 임시비밀번호 발송 */
 	function updatePwd(){
 
 		var mbId = $("#mbId").val();
-		var mbPwd = $("#mbPwd").val();
-		var mbRePwd = $("#mbRePwd").val();
 		var pwdRegExp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,16}$/;
-		
-		var result1 = pwdRegExp.test(mbPwd);
-		var result2 = pwdRegExp.test(mbRePwd);
 
-		if(result1==true&&result2==true){
-			if(mbPwd == mbRePwd){
-				console.log(mbPwd);
-				$.ajax({
+					$.ajax({
 					url : '/updatePassword.diet',
 					data : {
 						'mbId' : mbId,
-						'mbPwd' : mbPwd
 					},		
 					type : "post",
 					success : function(data) {
 						console.log(data);
 						if (data == '1') {
-							alert("비밀번호 변경이 완료되었습니다.");
+							alert("임시비밀번호가 발급되었습니다. 메일을 확인해주세요");
 							location.href = "/"
 						} else {
 							alert("비밀번호 변경 실패하였습니다.");
 						}
 					},
 					error : function() {
-						alert("fgsdg비밀번호 변경 실패하였습니다.");
+						alert("비밀번호 변경 실패하였습니다.");
 					}
 				});			
-			}else{
-				alert("비밀번호를 동일하게 입력해주세요.");
 			}
-		}else{
-			alert("비밀번호 : 소문자,대문자,숫자를 섞어서 입력해주세요");
-		}
-	}
+
 </script>
 
 </html>

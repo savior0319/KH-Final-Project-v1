@@ -17,22 +17,13 @@
 		MB_NICKNAME = #{mbNickName},
 		MB_PHONE = #{mbPhone},
 		MB_PROMISE = #{mbPromise},
-		<if test="mbHeight == null">
-			MB_HEIGHT = null,
-		</if>
-		<if test="mbHeight != null">
-			MB_HEIGHT = #{mbHeight},
-		</if>
-		<if test="mbHeight == null">
-			MB_WEIGHT = null
-		</if>
-		<if test="mbHeight != null">
-			MB_WEIGHT = #{mbWeight}
-		</if>
+		MB_HEIGHT = #{mbHeight}, 
+		MB_WEIGHT = #{mbWeight}
 		WHERE MB_ID = #{mbId}
 	</update>
 
-	<select id="selectOneMember" parameterType="member" resultType="member">
+	<select id="selectOneMember" parameterType="member"
+		resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
@@ -43,13 +34,16 @@
 		MB_IMAGE AS mbImage,
 		MB_PROMISE AS mbPromise,
 		MB_AGE AS mbAge,
-		MB_PHONE AS mbPhone,
+		MB_PHONE
+		AS mbPhone,
 		MB_ADDRESS AS mbAddress,
 		MB_INTEREST AS mbInterest,
-		MB_GRADE AS mbGrade,
+		MB_GRADE
+		AS mbGrade,
 		MB_HEIGHT AS mbHeight,
 		MB_WEIGHT AS mbWeight,
-		MB_ENROLLDATE AS mbEnrollDate
+		MB_ENROLLDATE
+		AS mbEnrollDate
 		FROM MEMBER_TBL WHERE MB_ID = #{mbId}
 	</select>
 
@@ -63,11 +57,13 @@
 	<select id="allMyOneToOneQuestion" parameterType="member"
 		resultType="question">
 		SELECT TITLE AS title,CONTENT AS content,QUESTION_NO as
-		querstionIndex FROM QUESTION
+		querstionIndex FROM QUESTION WHERE MB_INDEX = #{mbIndex}
 	</select>
 
-	<select id="myWishList" parameterType="member" resultType="product">
-		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS pdImage,
+	<select id="myWishList" parameterType="member"
+		resultType="product">
+		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS
+		pdImage,
 		PD_PRICE AS pdPrice FROM PRODUCT_TBL
 		JOIN MY_WISHLIST_TBL
 		USING(PRODUCT_INDEX)
@@ -79,21 +75,27 @@
 	<insert id="signup" parameterType="member">
 		INSERT INTO MEMBER_TBL
 		VALUES(MEMBER_SEQ.NEXTVAL, #{mbId}, #{mbPwd}, null, #{mbNickName},
-		#{mbGender}, null, null, null, null, null, #{mbInterest},
-		'일반회원', null, null, SYSDATE)
+		#{mbGender},
+		'http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg',
+		null, null, null, null, #{mbInterest},
+		'일반회원', null,
+		null, SYSDATE)
 	</insert>
-	
-	<select id="myActivity" parameterType="member" resultType="myActivity">
-	SELECT 
-	MB_INDEX AS mbIndex, 
-	MY_ATTENDANCE AS myAttendance,
-	MY_COMMNET_COUNT AS myCommentCount, 
-	MY_BOARD_COUNT AS myBoardCount,
-	MB_ENROLLDATE as mbEnrollDate
-	FROM MY_ACTIVITY_TBL LEFT JOIN MEMBER_TBL USING(MB_INDEX) WHERE MB_INDEX = #{mbIndex}
+
+	<select id="myActivity" parameterType="member"
+		resultType="myActivity">
+		SELECT
+		MB_INDEX AS mbIndex,
+		MY_ATTENDANCE AS myAttendance,
+		MY_COMMNET_COUNT AS myCommentCount,
+		MY_BOARD_COUNT AS myBoardCount,
+		MB_ENROLLDATE as mbEnrollDate
+		FROM MY_ACTIVITY_TBL LEFT JOIN MEMBER_TBL
+		USING(MB_INDEX) WHERE MB_INDEX =
+		#{mbIndex}
 
 	</select>
-	
+
 	<resultMap type="community" id="communityDB">
 		<result property="postIndex" column="POST_INDEX" />
 		<result property="brdIndex" column="BRD_INDEX" />
@@ -107,21 +109,23 @@
 		<result property="postImage" column="POST_IMAGE" />
 		<result property="bcaIndex" column="BCA_INDEX" />
 	</resultMap>
-	
-		<!-- 페이징 처리 - 내비게이션 생성 -->
+
+	<!-- 페이징 처리 - 내비게이션 생성 -->
 	<select id="getNavi" resultType="java.lang.Integer">
 		select count(*) as totalCount
 		from BOARD_POST_TBL
 	</select>
-	
+
 	<!-- 전체게시판 -->
-	<select id="allCommunityList" parameterType="myActivityPageData" 
+	<select id="allCommunityList" parameterType="myActivityPageData"
 		resultType="community" resultMap="communityDB">
 		SELECT *
-		FROM (SELECT BOARD_POST_TBL.*,
+		FROM (SELECT
+		BOARD_POST_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY
 		POST_DATETIME
-		DESC) AS NUM FROM BOARD_POST_TBL
+		DESC) AS NUM
+		FROM BOARD_POST_TBL
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 </mapper>

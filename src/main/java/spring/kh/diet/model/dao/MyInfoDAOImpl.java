@@ -69,6 +69,9 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		MyActivityVO ma = sqlSessionTemplate.selectOne("myInfo.myActivity", m);
 		return ma;
 	}
+	
+
+	
 
 	// 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력
 

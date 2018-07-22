@@ -33,6 +33,11 @@ public class PasswordToSHA256Advice {
 	public void encryptSHA256_3() {
 	}
 	
+	/*로그인 비밀번호 재설정 암호화 */
+	@Pointcut("execution(* spring.kh.diet.model.service.*ServiceImpl.updateMypass(..))")
+	public void encryptSHA256_4() {
+	}
+	
 	@Before(value = "encryptSHA256()")
 	public void passwordEncrypt(JoinPoint jp) throws Exception {
 		MemberVO vo = (MemberVO) (jp.getArgs()[0]);
@@ -56,6 +61,13 @@ public class PasswordToSHA256Advice {
 	
 	@Before(value = "encryptSHA256_3()")
 	public void passwordEncrypt3(JoinPoint jp) throws Exception {
+		MemberVO vo = (MemberVO) (jp.getArgs()[0]);
+		String encryptPassword = new SHA256Hash().encryptData(vo.getMbPwd());
+		vo.setMbPwd(encryptPassword);
+	}
+	
+	@Before(value = "encryptSHA256_4()")
+	public void passwordEncrypt4(JoinPoint jp) throws Exception {
 		MemberVO vo = (MemberVO) (jp.getArgs()[0]);
 		String encryptPassword = new SHA256Hash().encryptData(vo.getMbPwd());
 		vo.setMbPwd(encryptPassword);
