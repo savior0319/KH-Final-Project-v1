@@ -495,6 +495,8 @@
 				if(idPass == false || nickNamePass == false || pwdCheck == false || pwdRePass == false){
 					alert('가입 형식을 확인해주세요');
 					return false;
+				} else if($('#termCheck').is(":checked") == false){
+					alert('약관동의를 해주세요')
 				} else {
 					alert('가입이 완료 되었습니다');
 					return true;
