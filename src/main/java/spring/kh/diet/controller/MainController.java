@@ -14,6 +14,6 @@ public interface MainController {
 
 	void createSession(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-	String redirectHealthCenter(HttpServletRequest request, String location);
+	String redirectHealthCenter(HttpServletRequest request, String location, HttpServletResponse response) throws IOException;
 
 }
