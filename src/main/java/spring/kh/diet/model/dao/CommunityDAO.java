@@ -29,4 +29,10 @@ public interface CommunityDAO {
 
 	int deletePost(SqlSessionTemplate sqlSessionTemplate, int postIndex);
 
+	ArrayList<BoardPostVO> viewAllList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			String type, String postSort);
+
+	ArrayList<BoardPostVO> recipeViewList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, int naviCountPerPage, String type);
+
 }

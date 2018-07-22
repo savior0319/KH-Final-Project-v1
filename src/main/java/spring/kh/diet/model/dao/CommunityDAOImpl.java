@@ -195,6 +195,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return sb.toString();
 	}
 
+	//등록된 글 들어가는 곳
 	@Override
 	public BoardPostVO postedCommunity(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
 		BoardPostVO bpv = sqlSessionTemplate.selectOne("community.postedOne",postIndex);
@@ -202,9 +203,40 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return bpv;
 	}
 
+	// 글삭제
 	@Override
 	public int deletePost(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
 		return sqlSessionTemplate.delete("community.deletePost",postIndex);
+	}
+
+	@Override
+	public ArrayList<BoardPostVO> viewAllList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, String type, String postSort) {
+		CommunityPageDataVO cpdv = new CommunityPageDataVO();
+
+		cpdv.setType(postSort);
+		cpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
+		cpdv.setEnd(currentPage * recordCountPerPage);
+		cpdv.setType(type);
+
+		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.viewList", cpdv);
+
+		
+		return (ArrayList<BoardPostVO>) list;
+	}
+
+	@Override
+	public ArrayList<BoardPostVO> recipeViewList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, int naviCountPerPage, String type) {
+		CommunityPageDataVO cpdv = new CommunityPageDataVO();
+
+		cpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
+		cpdv.setEnd(currentPage * recordCountPerPage);
+		cpdv.setType(type);
+
+		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.recipeViewList", cpdv);
+
+		return (ArrayList<BoardPostVO>) list;
 	}
 	
 	

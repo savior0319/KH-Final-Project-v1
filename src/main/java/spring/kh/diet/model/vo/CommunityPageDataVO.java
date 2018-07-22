@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommunityPageDataVO {
 	private ArrayList<BoardPostVO> comList;
-	private String pageNavi, type;
+	private String pageNavi, type, postSort;
 	private int start, end;
 }
