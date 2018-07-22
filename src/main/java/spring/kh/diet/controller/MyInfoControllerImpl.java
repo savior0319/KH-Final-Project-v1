@@ -1,7 +1,10 @@
 package spring.kh.diet.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +13,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sun.org.apache.xml.internal.security.utils.ElementCheckerImpl.InternedNsChecker;
-
 import spring.kh.diet.model.service.MyInfoService;
-import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
 import spring.kh.diet.model.vo.MyActivityVO;
@@ -25,6 +27,9 @@ import spring.kh.diet.model.vo.QuestionVO;
 @SuppressWarnings("all")
 @Controller
 public class MyInfoControllerImpl implements MyInfoController {
+
+	private final String PROFILE_IMG_PATH = System.getProperty("user.home") + "/Desktop/";
+	// private final String PROFILE_IMG_PATH = "C:\\finalDiet\\profileImage\\";
 
 	@Resource(name = "myInfoService")
 	private MyInfoService myInfoService;
@@ -65,25 +70,18 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	/* 회원 프로필 사진 변경 */
 	@Override
-	@RequestMapping(value = "/updateMyPicture.diet")
-	public String updateMyPicture(HttpSession session, HttpServletResponse response, @RequestParam String formData)
+	@RequestMapping(value = "/updateMyPicture.diet", method = RequestMethod.POST)
+	public String updateMyPicture(HttpSession session, HttpServletResponse response, MultipartFile uploadFile)
 			throws IOException {
-		if (session.getAttribute("member") != null) {
-			MemberVO mv = (MemberVO) session.getAttribute("member");
-			System.out.println(formData);
-			int result = myInfoService.updateMyPicture(mv);
-			if (result > 0) {
-				MemberVO member = myInfoService.selectOneMember(mv);
-				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
-				return "myInfo/myInfoUpdate";
-			} else {
-				return "redirect:/";
-			}
-		} else {
-			System.out.println("로그인 되어 있지 않습니다.");
-			return "redirect:/";
-		}
-
+		UUID randomString = UUID.randomUUID();
+		String getFile = uploadFile.getOriginalFilename();
+		int index = getFile.lastIndexOf(".");
+		String name = getFile.substring(0, index);
+		String ext = getFile.substring(index, getFile.length());
+		String reName = name + "_" + randomString + ext;
+		File reFile = new File(PROFILE_IMG_PATH, reName);
+		uploadFile.transferTo(reFile);
+		return "myInfo/myInfoUpdate";
 	}
 
 	/* 회원 정보 변경 */
@@ -91,10 +89,10 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/updateMyInfo.diet")
 	public String updateMyInfo(MemberVO memberVO, HttpSession session, HttpServletResponse response)
 			throws IOException {
-			System.out.println("하이");
-			if (session.getAttribute("member") != null) {
-				System.out.println("ㅇㅇ하이");
-				System.out.println(memberVO.getMbHeight());
+		System.out.println("하이");
+		if (session.getAttribute("member") != null) {
+			System.out.println("ㅇㅇ하이");
+			System.out.println(memberVO.getMbHeight());
 			int result = myInfoService.updateMyInfo(memberVO);
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(memberVO);
