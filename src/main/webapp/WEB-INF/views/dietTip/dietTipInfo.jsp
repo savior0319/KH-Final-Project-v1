@@ -338,10 +338,9 @@ p>span {
 				+ "&currentPage=" + currentPage;
 	}
 
+	/* 댓글 내비게이션 버튼 ajax 처리를 위한 코드 그대로 가져다 쓰시면 돼요 */
 	function naviMove(currentPage, indexNo, servletName) {
 		$.ajax({
-			/* url : "/naviMove.diet?currentPage=" + currentPage + "&indexNo="
-					+ indexNo + "&servletName=" + servletName, */
 			url : '/naviMove.diet',
 			type : 'post',
 			data : {
@@ -351,6 +350,7 @@ p>span {
 			},
 			success : function(data) {
 				$('#comment').html("");
+				/* 작성된 댓글 리스트 불러오는 부분  */
 				for (var i = 0; i < data.bcList.length; i++) {
 					var commentDiv = $("<div>").attr("class", "comment");
 
@@ -427,6 +427,7 @@ p>span {
 					$('#comment').append($("<br>"));
 				}
 
+				/* 댓글 리스트 불러오는 부분 */
 				var naviDiv = $("<div>").attr("class",
 						"ui center aligned basic segment");
 				var menuDiv = $("<div>").attr("class", "ui pagination menu");

@@ -73,6 +73,8 @@ public class DietTipControllerImpl implements DietTipController {
 	public void registDietTip(HttpServletRequest request, HttpServletResponse response) {
 		
 		
+		//int result = dietTipService.registDietTip();
+		
 		
 	}
 
