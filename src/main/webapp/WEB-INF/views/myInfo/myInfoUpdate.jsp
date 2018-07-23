@@ -445,7 +445,7 @@
 						mbId : memberId
 					},
 					success : function(data) {
-
+						location.reload();
 					},
 					error : function() {
 					}
@@ -460,6 +460,7 @@
 						mbId : memberId
 					},
 					success : function(data) {
+						location.reload();
 					},
 					error : function() {
 					}
