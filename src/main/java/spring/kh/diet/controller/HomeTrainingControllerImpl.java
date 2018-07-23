@@ -1,15 +1,22 @@
 package spring.kh.diet.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.service.HomeTrainingService;
 import spring.kh.diet.model.service.HomeTrainingServiceImpl;
+import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
+import sun.util.locale.provider.DateFormatSymbolsProviderImpl;
 
 @SuppressWarnings("all")
 @Controller
@@ -17,6 +24,9 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 
 	@Resource(name = "homeTrainingService")
 	private HomeTrainingServiceImpl homeTrainingService;
+	
+	@Resource(name = "commonService")
+	private CommonService commonService;
 
 	/* 홈트레이닝 - 전체 */
 	@Override
@@ -54,11 +64,23 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		int indexNo = Integer.parseInt(request.getParameter("indexNo"));
 		
 		String servletName = "homeTrainingInfo.diet";
-		
+						
 		HomeTrainingVO ht = homeTrainingService.homeTraining(indexNo);
 		
 		request.setAttribute("ht", ht);
-				
+		
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+		
+		BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, indexNo);
+		
+		request.setAttribute("bcpd", bcpd);
+						
 		return "homeTraining/homeTrainingInfo";
 	}
 }

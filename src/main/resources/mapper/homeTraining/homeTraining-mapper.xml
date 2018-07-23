@@ -10,6 +10,7 @@
 		<result property="htTitle" column="ht_Title" />
 		<result property="htPart" column="ht_Part" />
 		<result property="htLike" column="ht_Like" />
+		<result property="htCommentNumber" column="ht_Comment_Number"/>
 		<result property="htHits" column="ht_Hits" />
 		<result property="htVideoMinute" column="ht_Video_Minute" />
 		<result property="htLevel" column="ht_Level" />
@@ -61,7 +62,7 @@
 	</select>
 
 	<!-- 게시물 불러오기 -->
-	<select id="getOne" resultType="dietTip">
+	<select id="getOne" resultType="homeTraining" resultMap="homeTrainingDB">
 		SELECT *
 		FROM HOMETRAINING_TB
 		WHERE HT_INDEX = #{index}
