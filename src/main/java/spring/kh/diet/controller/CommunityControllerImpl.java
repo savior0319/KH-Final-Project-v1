@@ -160,6 +160,7 @@ public class CommunityControllerImpl implements CommunityController {
 
 
 	// 최신순 | 조회순 출력 : 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력
+	// 검색 했을 때 최신순, 조회순 정렬 기능 추가
 	@Override
 	@RequestMapping(value = "/communityViewBoard.diet")
 	public String getViewList(HttpSession session, HttpServletRequest request, @RequestParam String postSort) {
@@ -177,8 +178,11 @@ public class CommunityControllerImpl implements CommunityController {
 		}
 
 		CommunityPageDataVO cpdv = communityService.viewAllList(currentPage, type,postSort,category,searchText);
+		cpdv.setCategory(category);
+		cpdv.setSearchText(searchText);
+		cpdv.setType(type);
 		request.setAttribute("cpdv", cpdv);
-    
+
 		return "community/communityWholeBoard";
 	}
 
@@ -222,7 +226,7 @@ public class CommunityControllerImpl implements CommunityController {
 
 		CommunityPageDataVO cpdv = communityService.searchList(currentPage, searchText, category);
 		cpdv.setType(type);
-		System.out.println(type);
+		//System.out.println(type);
 		System.out.println("검색어 : "+ cpdv.getSearchText());
 		System.out.println("카테고리 : " + category);
 		

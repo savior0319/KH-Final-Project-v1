@@ -48,9 +48,11 @@ public class CommunityDAOImpl implements CommunityDAO {
 	// 페이징 처리 네비
 	@Override
 	public String getallCommunityListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, int naviCountPerPage, String type) {
+			int recordCountPerPage, int naviCountPerPage, String type, String category, String searchText) {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 		cpdv.setType(type);
+		cpdv.setCategory(category);
+		cpdv.setSearchText(searchText);
 		
 		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi",cpdv);
 
@@ -221,7 +223,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 		cpdv.setType(type);
 		cpdv.setCategory(category);
 		cpdv.setSearchText(searchText);
-System.out.println(cpdv);
+
 		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.viewList", cpdv);
 		
 		return (ArrayList<BoardPostVO>) list;

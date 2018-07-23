@@ -14,7 +14,7 @@ public interface CommunityDAO {
 	int registCommunity(SqlSessionTemplate sqlSessionTemplate, BoardPostVO bpv);
 
 	String getallCommunityListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
-			int naviCountPerPage, String type);
+			int naviCountPerPage, String type, String category, String searchText);
 
 	ArrayList<BoardPostVO> allCommunityList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, String type);
