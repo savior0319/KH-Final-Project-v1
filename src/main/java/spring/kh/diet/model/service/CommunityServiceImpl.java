@@ -91,6 +91,8 @@ public class CommunityServiceImpl implements CommunityService {
 		return result;
 	}
 
+	
+	// 최신순 | 조회순 출력 :  전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력 
 	@Override
 	public CommunityPageDataVO viewAllList(int currentPage, String type, String postSort) {
 		int recordCountPerPage = 10;
@@ -99,7 +101,7 @@ public class CommunityServiceImpl implements CommunityService {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 
 		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) communityDAO.viewAllList(SqlSessionTemplate,
-				currentPage, recordCountPerPage, type,postSort);
+				currentPage, recordCountPerPage, type, postSort);
 		String pageNavi = communityDAO.getallCommunityListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, type);
 
@@ -109,16 +111,18 @@ public class CommunityServiceImpl implements CommunityService {
 
 		return cpdv;
 	}
-
+	
+	
+	//  최신순 | 조회순 출력 :  레시피&식단
 	@Override
-	public CommunityPageDataVO recipeViewList(int currentPage, String type) {
+	public CommunityPageDataVO recipeViewList(int currentPage, String type, String postSort) {
 		int recordCountPerPage = 9;
 		int naviCountPerPage = 5;
 
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 
 		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) communityDAO.recipeViewList(SqlSessionTemplate,
-				currentPage, recordCountPerPage, naviCountPerPage, type);
+				currentPage, recordCountPerPage, naviCountPerPage, type, postSort);
 		String pageNavi = communityDAO.getRecipeListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, type);
 

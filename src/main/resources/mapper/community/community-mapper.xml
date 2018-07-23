@@ -44,7 +44,8 @@
 		</choose>
 		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
 		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
-		WHERE NUM BETWEEN #{start} AND #{end}
+		WHERE NUM BETWEEN
+		#{start} AND #{end}
 	</select>
 
 	<!-- 페이징 처리 - 내비게이션 생성 -->
@@ -87,8 +88,10 @@
 		AS NUM
 		FROM BOARD_POST_TBL
 		WHERE BCA_INDEX like '16'
-		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
-		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+		)BP LEFT JOIN
+		BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		LEFT JOIN
+		MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
 		WHERE NUM BETWEEN
 		#{start} AND
 		#{end}
@@ -98,124 +101,124 @@
 	<select id="postedOne" resultType="community" resultMap="communityDB">
 		SELECT *
 		FROM BOARD_POST_TBL BP
-		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
-		LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		LEFT JOIN MEMBER_TBL MT
+		ON(BP.MB_INDEX=MT.MB_INDEX)
+		LEFT JOIN BOARD_CATEGORY_TBL BC
+		ON(BP.BCA_INDEX = BC.BCA_INDEX)
 		WHERE POST_INDEX =
 		#{postIndex}
 
 	</select>
 
-<!-- 게시글 삭제 -->
+	<!-- 게시글 삭제 -->
 	<delete id="deletePost">
-	DELETE BOARD_POST_TBL WHERE POST_INDEX = #{postIndex}
-   </delete>
+		DELETE BOARD_POST_TBL WHERE POST_INDEX = #{postIndex}
+	</delete>
 
 
 
-	<!-- 전체게시판 : 뷰수 정렬 -->
-	<select id="viewList" parameterType="communityPage"
-		resultType="community" resultMap="communityDB">
+	<!-- 전체게시판 : 최신순 & 뷰수 정렬 -->
+	<select id="viewList" parameterType="communityPage" resultType="community"
+		resultMap="communityDB">
 		<choose>
-		<when test="postSort.equals('최신순')">
-		SELECT * FROM
-		(SELECT BOARD_POST_TBL.*,
-		ROW_NUMBER() OVER
-		(ORDER BY
-		POST_DATETIME DESC)
-		AS NUM FROM BOARD_POST_TBL
-		<choose>
-			<when test="type.equals('15')">
-				WHERE BCA_INDEX like '15'
+			<when test="postSort.equals('최신순')">
+				SELECT * FROM
+				(SELECT BOARD_POST_TBL.*,
+				ROW_NUMBER() OVER
+				(ORDER BY
+				POST_DATETIME DESC)
+				AS NUM FROM BOARD_POST_TBL
+				<choose>
+					<when test="type.equals('15')">
+						WHERE BCA_INDEX like '15'
+					</when>
+					<when test="type.equals('17')">
+						WHERE BCA_INDEX like '17'
+					</when>
+					<when test="type.equals('18')">
+						WHERE BCA_INDEX like '18'
+					</when>
+					<when test="type.equals('19')">
+						WHERE BCA_INDEX LIKE '19'
+					</when>
+				</choose>
+				)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+				LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+				WHERE NUM BETWEEN
+				#{start} AND #{end}
 			</when>
-			<when test="type.equals('17')">
-				WHERE BCA_INDEX like '17'
+			<when test="postSort.equals('조회순')">
+				SELECT * FROM
+				(SELECT BOARD_POST_TBL.*,
+				ROW_NUMBER() OVER
+				(ORDER BY
+				POST_HIT DESC)
+				AS NUM FROM BOARD_POST_TBL
+				<choose>
+					<when test="type.equals('15')">
+						WHERE BCA_INDEX like '15'
+					</when>
+					<when test="type.equals('17')">
+						WHERE BCA_INDEX like '17'
+					</when>
+					<when test="type.equals('18')">
+						WHERE BCA_INDEX like '18'
+					</when>
+					<when test="type.equals('19')">
+						WHERE BCA_INDEX LIKE '19'
+					</when>
+				</choose>
+				)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+				LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+				WHERE NUM BETWEEN
+				#{start} AND #{end}
 			</when>
-			<when test="type.equals('18')">
-				WHERE BCA_INDEX like '18'
-			</when>
-			<when test="type.equals('19')">
-				WHERE BCA_INDEX LIKE '19'
-			</when>
-		</choose>
-		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
-		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
-		WHERE NUM BETWEEN #{start} AND #{end}
-		</when>
-		<when test="postSort.equals('조회순')">
-		SELECT * FROM
-		(SELECT BOARD_POST_TBL.*,
-		ROW_NUMBER() OVER
-		(ORDER BY
-		POST_HIT DESC)
-		AS NUM FROM BOARD_POST_TBL
-		<choose>
-			<when test="type.equals('15')">
-				WHERE BCA_INDEX like '15'
-			</when>
-			<when test="type.equals('17')">
-				WHERE BCA_INDEX like '17'
-			</when>
-			<when test="type.equals('18')">
-				WHERE BCA_INDEX like '18'
-			</when>
-			<when test="type.equals('19')">
-				WHERE BCA_INDEX LIKE '19'
-			</when>
-		</choose>
-		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
-		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
-		WHERE NUM BETWEEN #{start} AND #{end}
-		</when>
 		</choose>
 	</select>
 
 
-	<!-- 전체게시판 : 뷰수 정렬 -->
-<!-- 	<select id="viewList" parameterType="communityPage"
-		resultType="community" resultMap="communityDB">
-		SELECT * FROM
-		(SELECT BOARD_POST_TBL.*,
-		ROW_NUMBER() OVER
-		(ORDER BY
-		POST_HIT DESC)
-		AS NUM FROM BOARD_POST_TBL
-		<choose>
-			<when test="type.equals('15')">
-				WHERE BCA_INDEX like '15'
-			</when>
-			<when test="type.equals('17')">
-				WHERE BCA_INDEX like '17'
-			</when>
-			<when test="type.equals('18')">
-				WHERE BCA_INDEX like '18'
-			</when>
-			<when test="type.equals('19')">
-				WHERE BCA_INDEX LIKE '19'
-			</when>
-		</choose>
-		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
-		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
-		WHERE NUM BETWEEN #{start} AND #{end}
-	</select> -->
-
-
-
-	<!-- 식단&레시피 -->
+	<!-- 식단&레시피 : 최신순 & 뷰수 정렬 -->
 	<select id="recipeViewList" parameterType="communityPage"
 		resultType="community" resultMap="communityDB">
-		SELECT * FROM
-		(SELECT
-		BOARD_POST_TBL.*,
-		ROW_NUMBER() OVER
-		(ORDER BY POST_HIT DESC)
-		AS NUM
-		FROM BOARD_POST_TBL
-		WHERE BCA_INDEX like '16'
-		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
-		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
-		WHERE NUM BETWEEN
-		#{start} AND
-		#{end}
+		<choose>
+			<when test="postSort.equals('최신순')">
+				SELECT * FROM
+				(SELECT
+				BOARD_POST_TBL.*,
+				ROW_NUMBER()
+				OVER
+				(ORDER BY POST_DATETIME DESC)
+				AS NUM
+				FROM BOARD_POST_TBL
+				WHERE
+				BCA_INDEX like '16'
+				)BP LEFT JOIN BOARD_CATEGORY_TBL BC
+				ON(BP.BCA_INDEX = BC.BCA_INDEX)
+				LEFT JOIN MEMBER_TBL MT
+				ON(BP.MB_INDEX=MT.MB_INDEX)
+				WHERE NUM BETWEEN
+				#{start} AND
+				#{end}
+			</when>
+			<when test="postSort.equals('조회순')">
+				SELECT * FROM
+				(SELECT
+				BOARD_POST_TBL.*,
+				ROW_NUMBER()
+				OVER
+				(ORDER BY POST_HIT DESC)
+				AS NUM
+				FROM BOARD_POST_TBL
+				WHERE BCA_INDEX
+				like '16'
+				)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX =
+				BC.BCA_INDEX)
+				LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+				WHERE NUM BETWEEN
+				#{start} AND
+				#{end}
+			</when>
+		</choose>
 	</select>
 
 </mapper>

@@ -69,7 +69,6 @@ public class CommunityControllerImpl implements CommunityController {
 		}
 
 		CommunityPageDataVO cpdv = communityService.allCommunityList(currentPage, type);
-		System.out.println("기존 목록 불러오기"+cpdv.getComList().get(0).getPostTitle());
 		
 		request.setAttribute("cpdv", cpdv);
 
@@ -133,37 +132,14 @@ public class CommunityControllerImpl implements CommunityController {
 		
 	}
 	
-	// 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력 + 최신
-	@Override
-	@RequestMapping(value = "/communityRecentlyBoard.diet")
-	public String getRecentlyList(HttpSession session, HttpServletRequest request) {
-		String type = request.getParameter("type");
-		
-		int currentPage; // 현재 페이지 값을 저장하는 변수
-		if (request.getParameter("currentPage") == null) {
-			currentPage = 1;
-		} else {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
-		}
-
-		CommunityPageDataVO cpdv = communityService.allCommunityList(currentPage, type);
-		System.out.println("최신순"+cpdv.getComList().get(0).getPostTitle());
-		
-		request.setAttribute("cpdv", cpdv);
-
-		return "community/communityWholeBoard";
-	}
 	
 	
 
-	// 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력 + 조회순
+	// 최신순 | 조회순 출력 :  전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력 
 	@Override
 	@RequestMapping(value = "/communityViewBoard.diet")
 	public String getViewList(HttpSession session, HttpServletRequest request, @RequestParam String postSort) {
 		String type = request.getParameter("type");
-		
-		System.out.println(postSort);
 		
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
@@ -175,20 +151,19 @@ public class CommunityControllerImpl implements CommunityController {
 
 		CommunityPageDataVO cpdv = communityService.viewAllList(currentPage, type,postSort);
 		
-		System.out.println("조회순"+cpdv.getComList().get(0).getPostTitle());
-		
 		request.setAttribute("cpdv", cpdv);
 
 		return "community/communityWholeBoard";
 	}
 	
 	
-	// 레시피&식단 + 조회순
+	//  최신순 | 조회순 출력 :  레시피&식단
 	@Override
 	@RequestMapping(value = "/recipeView.diet")
-	public String recipeViewList(HttpSession session, HttpServletRequest request) {
+	public String recipeViewList(HttpSession session, HttpServletRequest request, @RequestParam String postSort) {
 		String type = request.getParameter("type");
 
+		
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
@@ -197,12 +172,13 @@ public class CommunityControllerImpl implements CommunityController {
 			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 
-		CommunityPageDataVO cpdv = communityService.recipeViewList(currentPage, type);
+		CommunityPageDataVO cpdv = communityService.recipeViewList(currentPage, type,postSort);
 		
 		request.setAttribute("cpdv", cpdv);
 		
 		return "community/recipeBoard";
 	}
+
 	
 	
 }

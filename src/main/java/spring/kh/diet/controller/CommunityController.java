@@ -19,13 +19,9 @@ public interface CommunityController {
 
 	Object deletePost(HttpServletRequest request);
 
-
-
-	String recipeViewList(HttpSession session, HttpServletRequest request);
-
-	String getRecentlyList(HttpSession session, HttpServletRequest request);
-
 	String getViewList(HttpSession session, HttpServletRequest request, String postSort);
+
+	String recipeViewList(HttpSession session, HttpServletRequest request, String postSort);
 
 
 }

@@ -38,8 +38,8 @@
 		<br>
 		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
 			<div class="small ui basic buttons">
-				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyBtn();">최신순</div>
-				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="viewBtn();">조회순</div>
+				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
+				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
 			</div>
 		</div>
 		<br>
@@ -156,48 +156,16 @@
 		 location.href="/postedCommunity.diet?postIndex="+pi;
 	 }
 	
-	
-	/* 최신순 */
-	function recentlyBtn(){
-		var type = ${requestScope.cpdv.type};
-		
-		$.ajax({
-			url : '/recipeBoard.diet',
-			type : 'post',
-			data : {
-				'type' : '${requestScope.cpdv.type}'
-			},
-			success : function() {
-				alert('최신순 성공!');
-				location.href = "/recipeBoard.diet?type="+ ${requestScope.cpdv.type};
 
-			},
-			error : function() {
-				alert('최신순 실패!');
-			}
-		});
+	/* 최신순 & 조회순 클릭 */
+	var type = ${requestScope.cpdv.type};
+	function recentlyViewBtn(rtb){
+		var postSort = rtb.innerHTML;
+		
+		location.href = "/recipeView.diet?type=16&postSort="+postSort;
+
 	}
 	
-	/* 조회순 */
-	function viewBtn(){
-		var type = ${requestScope.cpdv.type};
-		
-		$.ajax({
-			url : '/recipeView.diet',
-			type : 'post',
-			data : {
-				'type' : '${requestScope.cpdv.type}'
-			},
-			success : function() {
-				alert('조회순 성공!');
-				location.href = "/recipeBoard.diet?type="+ ${requestScope.cpdv.type};
-
-			},
-			error : function() {
-				alert('조회순 실패!');
-			}
-		});
-	}
 	
 </script>
 

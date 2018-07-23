@@ -46,8 +46,8 @@
 		<br>
 		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
 			<div class="small ui basic buttons">
-				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyviewBtn(this);">최신순</div>
-				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyviewBtn(this);">조회순</div>
+				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
+				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
 			</div>
 		</div>
 		<br>
@@ -155,69 +155,16 @@
 		location.href="/postedCommunity.diet?postIndex="+pi;
 	 }
 	
-	
-	
+	/* 최신순 & 조회순 클릭 */
 	var type = ${requestScope.cpdv.type};
-	function recentlyviewBtn(rtb){
+	function recentlyViewBtn(rtb){
 		var postSort = rtb.innerHTML;
-		$.ajax({
-			url : '/communityViewBoard.diet',
-			type : 'post',
-			data : {
-				'type' : '${requestScope.cpdv.type}',
-				'postSort' : postSort
-			},
-			success : function() {
-				alert('최신순 성공!');
-				location.href = "/communityWholeBoard.diet?type="+ ${requestScope.cpdv.type}+"&postSort="+postSort;
+		
+		location.href = "/communityViewBoard.diet?type="+ ${requestScope.cpdv.type}+"&postSort="+postSort;
 
-			},
-			error : function() {
-				alert('최신순 실패!');
-			}
-		});
 	}
 	
-	
-	/* 최신순 */
-/* 	function recentlyBtn(){
-		
-		$.ajax({
-			url : '/communityRecentlyBoard.diet',
-			type : 'post',
-			data : {
-				'type' : '${requestScope.cpdv.type}'
-			},
-			success : function() {
-				alert('최신순 성공!');
-				location.href = "/communityWholeBoard.diet?type="+ ${requestScope.cpdv.type};
 
-			},
-			error : function() {
-				alert('최신순 실패!');
-			}
-		});
-	} */
-	
-	/* 조회순 */
-/* 	function viewBtn(){
-		
-		$.ajax({
-			url : '/communityViewBoard.diet',
-			type : 'post',
-			data : {
-				'type' : '${requestScope.cpdv.type}'
-			},
-			success : function() {
-				//alert('조회순 성공!');
-				location.href = "/communityWholeBoard.diet?type="+ ${requestScope.cpdv.type};
-
-			},
-			error : function() {
-				alert('조회순 실패!');
-			}
-		});
-	} */
 	
 </script>
 
