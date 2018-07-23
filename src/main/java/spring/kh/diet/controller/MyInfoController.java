@@ -28,8 +28,8 @@ public interface MyInfoController {
 
 	void nickNameCheck(String nickName, HttpServletResponse response) throws IOException;
 
-	String updateMyPicture(HttpSession session, HttpServletResponse response, MultipartFile uploadFile)
-			throws IOException;
+	String updateMyPicture(HttpSession session, HttpServletResponse response, HttpServletRequest request,
+			MultipartFile uploadFile) throws IOException;
 
 	void question(String title, String content, String mbIndex, HttpServletResponse response) throws IOException;
 

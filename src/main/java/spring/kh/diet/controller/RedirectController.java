@@ -34,4 +34,6 @@ public interface RedirectController {
 
 	String redirectLoadDietTipWrite();
 
+	String redirectLogin();
+
 }

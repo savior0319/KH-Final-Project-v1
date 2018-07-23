@@ -12,6 +12,12 @@ public class RedirectControllerImpl implements RedirectController {
 	public RedirectControllerImpl() {
 	}
 
+	@Override
+	@RequestMapping(value="loginFailed.diet")
+	public String redirectLogin() {
+		return "login/login";
+	}
+	
 	/* 메인 페이지 - BMI 계산하기 */
 	@Override
 	@RequestMapping(value = "/bmiCal.diet")
