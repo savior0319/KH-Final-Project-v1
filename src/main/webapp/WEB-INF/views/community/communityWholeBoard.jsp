@@ -53,6 +53,9 @@ else self.name = '';
 				<c:when test="${requestScope.cpdv.type.equals('19') }">
 					<h1>비포&#38;애프터</h1>
 				</c:when>
+				<c:when test="${requestScope.cpdv.type.equals('') }">
+					<h1>검색</h1>
+				</c:when>
 			</c:choose>
 
 		</div>
@@ -207,28 +210,9 @@ else self.name = '';
 	
 	function searchBtn(){
 		$searchText = $('#searchText').val();
-		location.href = "/communitySearch.diet?category="+ category +"&searchText=" + $searchText + "&type=" + type; 
+		location.href = "/communitySearch.diet?category="+ category +"&searchText=" + $searchText; 
+		 /* + "&type=" + type */
 		
-		
-/* 		if (category != null) {
-		$.ajax({
-			url : '/communitySearch.diet',
-			type : 'post',
-			data : {
-				'searchText' : $searchText,
-				'category' : category
-			},
-			success : function(data) {
-					//alert('검색 성공');
-					location.href = "/communitySearch.diet?category="+ category +"&searchText=" + $searchText;
-			},
-			error : function() {
-				alert('검색 실패');
-			}
-		});
-		}else{
-			alert('카테고리를 선택하세요!');
-		}  */
 	}
 	
 </script>
