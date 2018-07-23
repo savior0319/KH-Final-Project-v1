@@ -234,9 +234,6 @@ public class MainControllerImpl implements MainController {
 			for (int i = 0; i < list.size(); i++) 
 			{
 				if (list.get(i).getSessionIp().equals(request.getRemoteAddr())) {
-					System.out.println(list.get(i).toString());
-					System.out.println(list.get(i).getSessionIp());
-					System.out.println(request.getRemoteAddr());
 					result = true;
 				}
 			}
