@@ -33,19 +33,8 @@ import spring.kh.diet.model.vo.QuestionVO;
 
 @SuppressWarnings("all")
 @Controller
-<<<<<<< HEAD
-<<<<<<< HEAD
-public class MyInfoControllerImpl implements MyInfoController {	
-	//private final String PROFILE_IMG_PATH = "C:\\Github\\KH-Final-Project-v1\\src\\main\\webapp\\imageUpload";
-	//절대 경로
-=======
-public class MyInfoControllerImpl implements MyInfoController {
-
->>>>>>> branch 'master' of https://github.com/savior0319/KH-Final-Project-v1
-=======
 public class MyInfoControllerImpl implements MyInfoController {
   
->>>>>>> branch 'master' of https://github.com/savior0319/KH-Final-Project-v1
 	@Resource(name = "myInfoService")
 	private MyInfoService myInfoService;
 
@@ -88,33 +77,11 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 회원 프로필 사진 변경 */
 	@Override
 	@RequestMapping(value = "/updateMyPicture.diet", method = RequestMethod.POST)
-<<<<<<< HEAD
-<<<<<<< HEAD
-	public String updateMyPicture(
-			HttpServletRequest request,
-			HttpSession session, HttpServletResponse response, MultipartFile uploadFile)
-=======
-	public String updateMyPicture(HttpSession session, HttpServletResponse response,HttpServletRequest request, MultipartFile uploadFile)
->>>>>>> branch 'master' of https://github.com/savior0319/KH-Final-Project-v1
-=======
 
 	public String updateMyPicture(HttpSession session, HttpServletResponse response,HttpServletRequest request, MultipartFile uploadFile)
->>>>>>> branch 'master' of https://github.com/savior0319/KH-Final-Project-v1
 			throws IOException {
-<<<<<<< HEAD
-<<<<<<< HEAD
-		String PROFILE_IMG_PATH = request.getSession().getServletContext().getRealPath("imageUpload");
-		System.out.println("업로드된 경로 : " + PROFILE_IMG_PATH);
-=======
-		String path = request.getSession().getServletContext().getRealPath("imageUpload");
-		
->>>>>>> branch 'master' of https://github.com/savior0319/KH-Final-Project-v1
-		UUID randomString = UUID.randomUUID();
-			
-=======
 		String path = request.getSession().getServletContext().getRealPath("imageUpload");
 		UUID randomString = UUID.randomUUID();			
->>>>>>> branch 'master' of https://github.com/savior0319/KH-Final-Project-v1
 		String getFile = uploadFile.getOriginalFilename();
 		int index = getFile.lastIndexOf(".");
 		String name = getFile.substring(0, index);
