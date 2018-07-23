@@ -21,7 +21,8 @@ public interface CommunityController {
 
 	String recipeViewList(HttpSession session, HttpServletRequest request, String postSort);
 
-	Object postedCommunity(HttpServletRequest request, HttpServletResponse response, HttpSession session);
+	String searchList(HttpSession session, HttpServletRequest request);
 
+	Object postedCommunity(HttpServletRequest request, HttpServletResponse response, HttpSession session);
 
 }

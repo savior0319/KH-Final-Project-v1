@@ -158,11 +158,15 @@ public class CommunityControllerImpl implements CommunityController {
 
 	}
 
+
 	// 최신순 | 조회순 출력 : 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력
 	@Override
 	@RequestMapping(value = "/communityViewBoard.diet")
 	public String getViewList(HttpSession session, HttpServletRequest request, @RequestParam String postSort) {
 		String type = request.getParameter("type");
+
+		String category = request.getParameter("category");
+		String searchText = request.getParameter("searchText");
 
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
@@ -172,10 +176,9 @@ public class CommunityControllerImpl implements CommunityController {
 			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 
-		CommunityPageDataVO cpdv = communityService.viewAllList(currentPage, type, postSort);
-
+		CommunityPageDataVO cpdv = communityService.viewAllList(currentPage, type,postSort,category,searchText);
 		request.setAttribute("cpdv", cpdv);
-
+    
 		return "community/communityWholeBoard";
 	}
 
@@ -199,4 +202,33 @@ public class CommunityControllerImpl implements CommunityController {
 
 		return "community/recipeBoard";
 	}
+
+
+	// 검색 게시판 페이징 처리 출력
+	@Override
+	@RequestMapping(value = "/communitySearch.diet")
+	public String searchList(HttpSession session, HttpServletRequest request) {
+		String searchText = request.getParameter("searchText");
+		String category = request.getParameter("category");
+		String type = request.getParameter("type");
+		
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+
+		CommunityPageDataVO cpdv = communityService.searchList(currentPage, searchText, category);
+		cpdv.setType(type);
+		System.out.println(type);
+		System.out.println("검색어 : "+ cpdv.getSearchText());
+		System.out.println("카테고리 : " + category);
+		
+		request.setAttribute("cpdv", cpdv);
+
+		return "community/communityWholeBoard";
+	}
+  
 }
