@@ -5,7 +5,7 @@
 	<!-- 1대1 문의 -->
 	<insert id="question" parameterType="question">
 		INSERT INTO QUESTION_TBL
-		VALUES(QUESTION_SEQ.NEXTVAL, #{qsTitle}, #{qsContent}, #{mbIndex}, SYSDATE)
+		VALUES(QUESTION_SEQ.NEXTVAL, #{qsTitle}, #{qsContent}, #{mbIndex}, SYSDATE, #{qsAnswerCheck})
 	</insert>
 
 	<delete id="secessionMember" parameterType="member">
