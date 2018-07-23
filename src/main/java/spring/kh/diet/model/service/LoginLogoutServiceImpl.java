@@ -1,6 +1,7 @@
 package spring.kh.diet.model.service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,7 @@ public class LoginLogoutServiceImpl implements LoginLogoutService {
 		int result = loginDAO.existUserNickNum(SqlSessionTemplate, mv);
 		return result;
 	}
+
+
 
 }

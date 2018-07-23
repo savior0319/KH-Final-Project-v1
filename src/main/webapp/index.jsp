@@ -9,18 +9,6 @@
 	<title>다부해 - 다이어트를 부탁해</title>
 </head>
 
-<c:if test="${sessionScope.member.mbId == null}">
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.ajax({
-			url : 'createSession.diet',
-			type : 'post',
-			success : function(data){
-			}
-		});
-	});		
-</script>
-</c:if>
 
 <body>
 	<!-- HEADER -->

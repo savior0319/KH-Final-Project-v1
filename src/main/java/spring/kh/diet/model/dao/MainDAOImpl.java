@@ -1,13 +1,25 @@
 package spring.kh.diet.model.dao;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.HealthCenterVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.OnSessionVO;
+import spring.kh.diet.model.vo.UpdateSSVO;
 
 @Repository("mainDAO")
 public class MainDAOImpl implements MainDAO {
@@ -88,6 +100,29 @@ public class MainDAOImpl implements MainDAO {
 		}
 
 		return sb.toString();
+	}
+
+	@Override
+	public int insertSessionToList(SqlSessionTemplate session, HttpSession session2, HttpServletRequest request) {
+
+		OnSessionVO OSV = new OnSessionVO("SESSION_SEQ.nextval", session2.getId(), request.getRemoteAddr(), "ON",
+				"NULL", "NULL");
+
+		return session.insert("main.insertOnSesssion", OSV);
+	}
+
+	@Override
+	public ArrayList<OnSessionVO> selectAllSesssionList(SqlSessionTemplate session) {
+		List<?> list = session.selectList("main.selectAllSessionList");
+
+		return (ArrayList<OnSessionVO>) list;
+	}
+
+	@Override
+	public int updateOnsession(SqlSessionTemplate session, UpdateSSVO uSSVO) {
+		int result = session.update("main.updateOnSesssion", uSSVO);
+		
+		return result;
 	}
 
 }

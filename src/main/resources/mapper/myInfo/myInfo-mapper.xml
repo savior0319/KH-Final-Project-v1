@@ -163,5 +163,6 @@
 	<update id ="updateMyPicture" parameterType="member">
 		UPDATE MEMBER_TBL SET MB_IMAGE = #{mbImage} where MB_ID = #{mbId}
 	</update> 
+  
 </mapper>
 

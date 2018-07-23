@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 public interface AdminController {
 
 	void noticeRegisterData(String title, String content, HttpServletResponse response) throws IOException;
-
-	void currentLoginUser(ServletContext session) throws IOException;
+  
+	String currentLoginUser(HttpServletResponse response);
 
 	String memberList(HttpServletRequest request, HttpServletResponse response);
 

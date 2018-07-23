@@ -2,9 +2,15 @@ package spring.kh.diet.model.dao;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.HealthCenterVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.OnSessionVO;
+import spring.kh.diet.model.vo.UpdateSSVO;
 
 public interface MainDAO {
 
@@ -14,4 +20,10 @@ public interface MainDAO {
 	String getHealthCenterPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String location);
 
+	int insertSessionToList(SqlSessionTemplate session, HttpSession session2, HttpServletRequest request);
+
+	ArrayList<OnSessionVO> selectAllSesssionList(SqlSessionTemplate session);
+
+	int updateOnsession(SqlSessionTemplate session, UpdateSSVO uSSVO);
+	
 }
