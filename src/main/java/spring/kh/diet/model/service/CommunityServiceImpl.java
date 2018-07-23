@@ -133,4 +133,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return cpdv;
 	}
 
+	// 조회수 카운트
+	@Override
+	public int postHit(int postIndex) {
+		int result = communityDAO.postHit(SqlSessionTemplate,postIndex);
+		
+		return result;
+	}
+
 }

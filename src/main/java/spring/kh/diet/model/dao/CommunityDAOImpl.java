@@ -239,6 +239,12 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 		return (ArrayList<BoardPostVO>) list;
 	}
+
+	@Override
+	public int postHit(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
+		int result = sqlSessionTemplate.update("community.postHit", postIndex);
+		return 0;
+	}
 	
 	
 }

@@ -20,5 +20,7 @@ public interface CommunityService {
 
 	CommunityPageDataVO recipeViewList(int currentPage, String type, String postSort);
 
+	int postHit(int postIndex);
+
 
 }
