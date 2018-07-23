@@ -2,6 +2,7 @@ package spring.kh.diet.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +23,9 @@ import spring.kh.diet.model.service.MainService;
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.OnSessionVO;
+import spring.kh.diet.model.vo.UpdateSSVO;
 
 @Controller
 public class MainControllerImpl implements MainController {
@@ -198,7 +203,7 @@ public class MainControllerImpl implements MainController {
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-
+		
 		HealthCenterPDVO hcData = mService.getHealthCenterList(currentPage, location);
 		hcData.setType(request.getParameter("type"));
 		request.setAttribute("hcpd", hcData);
@@ -221,25 +226,44 @@ public class MainControllerImpl implements MainController {
 	public void createSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session;
 		session = request.getSession();
-
 		this.count++;
+		boolean result = false;
+		ArrayList<OnSessionVO> list  = mService.selectAllSessionList();
+		if (!list.isEmpty()) 
+		{
+			for (int i = 0; i < list.size(); i++) 
+			{
+				if (list.get(i).getSessionIp().equals(request.getRemoteAddr())) {
+					System.out.println(list.get(i).toString());
+					System.out.println(list.get(i).getSessionIp());
+					System.out.println(request.getRemoteAddr());
+					result = true;
+				}
+			}
+			if (!result) {
+				mService.insertSessionToList(session, request);
+			}
+		}
+		else 
+		{
+			mService.insertSessionToList(session, request);
+		}
 
-		// ServletContext application = request.getSession().getServletContext();
-		// application.
-		// application.setAttribute("key", session);
-		// System.out.println(application.getAttribute("key"));
-		// TestSession(application);
 		response.getWriter().println(session.toString());
 		response.getWriter().println(this.count);
 		response.getWriter().close();
 
 	}
-	// public void TestSession(ServletContext session) throws IOException {
-	//
-	// System.out.println(session.getAttribute("key"));
-	//
-	//
-	//
-	// }
+
+	@Override
+	@RequestMapping(value="/updateOnSession.diet")
+	public void updateOnsession(HttpServletRequest request) {
+		UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),request.getRemoteAddr());
+		int result = mService.updateOnsession(USSVO);
+	}
+	
+
+	
+
 
 }

@@ -3,7 +3,6 @@ package spring.kh.diet.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.UUID;
 
 import javax.annotation.Resource;

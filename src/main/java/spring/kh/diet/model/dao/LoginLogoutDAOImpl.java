@@ -1,5 +1,7 @@
 package spring.kh.diet.model.dao;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -63,6 +65,11 @@ public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 		} else {
 			result = 0;
 		}
+		return result;
+	}
+
+	public int updateOnsession(SqlSessionTemplate sqlSessionTemplate, MemberVO m, HttpServletRequest request) {
+		int result =  sqlSessionTemplate.update("login.updateOnSession",m);
 		return result;
 	}
 

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.ApplicationScope;
 
+import com.sun.mail.iap.Response;
+
 import spring.kh.diet.model.service.AdminService;
 import spring.kh.diet.model.vo.NoticeVO;
 
@@ -54,9 +56,9 @@ public class AdminControllerImpl implements AdminController {
 	ServletContext context;
 	@RequestMapping(value = "/currentLoginUser.diet")
 	@ApplicationScope
-	public void currentLoginUser(ServletContext session) throws IOException {
-		
-		System.out.println(session.getAttribute("key"));
+	public String currentLoginUser(HttpServletResponse response) {
+		return "admin/currentLoginUser";
+//		System.out.println(session.getAttribute("key"));
 
 	}
 

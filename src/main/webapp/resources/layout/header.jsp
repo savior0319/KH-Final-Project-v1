@@ -20,6 +20,37 @@
 </script>
 <!-- 네이버 애널리틱스 추적코드 종료  -->
 
+<!-- 인보 - 세션생성  -->
+	
+<c:if test="${sessionScope.member.mbId == null}">
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.ajax({
+			url : 'createSession.diet',
+			type : 'post',
+			success : function(data){
+			}
+		});
+	});		
+</script>
+</c:if>
+<c:if test="${sessionScope.member.mbId != null}">
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			url : 'updateOnSession.diet',
+			type : 'post',
+			data : { 'data' : '${sessionScope.member.mbNickName}'},
+			suceess : function(){
+				
+			}
+		});
+		
+	});
+</script>
+</c:if> 
+<!--  -->
+
 <style type="text/css" media="screen">
 .menu {
 	margin-right: 15px;

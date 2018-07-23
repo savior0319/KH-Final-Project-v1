@@ -5,6 +5,8 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import spring.kh.diet.model.vo.MemberVO;
+
 public interface MainController {
 
 	Object BMICalResult(String[] gender, String age, String height, String weight);
@@ -15,5 +17,7 @@ public interface MainController {
 	void createSession(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 	String redirectHealthCenter(HttpServletRequest request, String location, HttpServletResponse response) throws IOException;
+
+	void updateOnsession(HttpServletRequest request);
 
 }

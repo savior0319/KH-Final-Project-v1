@@ -35,11 +35,11 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 		mv.setMbId(memberId);
 		mv.setMbPwd(memberPwd);
 		MemberVO m = loginService.login(mv);
-
+		
 		HttpSession session;
 		if (m != null) {
 			session = request.getSession();
-			session.setAttribute("member", m);
+			session.setAttribute("member", m);		
 			return "redirect:/";
 		} else {
 			System.out.println("로그인 실패");

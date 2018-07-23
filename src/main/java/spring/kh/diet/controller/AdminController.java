@@ -9,6 +9,6 @@ public interface AdminController {
 
 	void noticeRegisterData(String title, String content, HttpServletResponse response) throws IOException;
 
-	void currentLoginUser(ServletContext session)  throws IOException;
+	String currentLoginUser(HttpServletResponse response);
 
 }

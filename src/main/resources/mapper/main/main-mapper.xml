@@ -110,5 +110,31 @@
 			</when>
 		</choose>
 	</select>
+	
+	<select id="insertOnSesssion" parameterType="onSession">
+		
+		INSERT INTO
+		ON_Session_TBL
+		VALUES(SESSION_SEQ.NEXTVAL,#{sessionId},#{sessionIp},sysdate,sysdate + 30/(24*60),#{state},#{loginId},#{device})
+	
+	</select>
+	
+	<select id="selectAllSessionList" resultType="onSession">
+	select
+	SS_INDEX AS indexNo,
+    SS_ID AS sessionId,
+    SS_IP AS sessionIp,
+    SS_STATE AS state,
+    SS_LOGIN AS loginId,     
+    SS_DEVICE AS device
+    FROM on_session_tbl    
+	</select>
 
-</mapper>
+	<update id="updateOnSesssion" parameterType="upDateSSVO">
+	update 
+	On_Session_TBL
+	set SS_Login = #{mbNickName}, SS_FirstON = sysdate, SS_INVALIDATE = sysdate + 30/(24*60)
+	where ss_IP = #{sessionIp}
+	</update>
+	
+	</mapper>

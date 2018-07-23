@@ -157,5 +157,7 @@
 		FROM
 		MEMBER_TBL WHERE MB_NICKNAME = #{nickName}
 	</select>
+	
+
 </mapper>
 
