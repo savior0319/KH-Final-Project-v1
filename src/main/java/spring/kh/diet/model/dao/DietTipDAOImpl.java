@@ -97,4 +97,10 @@ public class DietTipDAOImpl implements DietTipDAO {
 		return dt;
 	}
 
+	/*다이어트 팁 게시글 등록*/
+	@Override
+	public int registDietTip(SqlSessionTemplate session, DietTipVO dt) {
+		return session.insert("dietTip.registDietTip", dt);
+	}
+
 }

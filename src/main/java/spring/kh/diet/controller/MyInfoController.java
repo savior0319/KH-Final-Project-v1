@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import spring.kh.diet.model.vo.MemberVO;
@@ -30,7 +31,7 @@ public interface MyInfoController {
 
 	void nickNameCheck(String nickName, HttpServletResponse response) throws IOException;
 
-	String updateMyPicture(HttpSession session, HttpServletResponse response, MultipartFile uploadFile)
+	String updateMyPicture(HttpServletRequest request,HttpSession session, HttpServletResponse response, MultipartFile uploadFile)
 			throws IOException;
 
 }

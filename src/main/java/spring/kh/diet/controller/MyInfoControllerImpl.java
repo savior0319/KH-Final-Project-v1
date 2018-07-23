@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,11 +27,9 @@ import spring.kh.diet.model.vo.QuestionVO;
 
 @SuppressWarnings("all")
 @Controller
-public class MyInfoControllerImpl implements MyInfoController {
-
-	private final String PROFILE_IMG_PATH = System.getProperty("user.home") + "/Desktop/";
-	// private final String PROFILE_IMG_PATH = "C:\\finalDiet\\profileImage\\";
-
+public class MyInfoControllerImpl implements MyInfoController {	
+	//private final String PROFILE_IMG_PATH = "C:\\Github\\KH-Final-Project-v1\\src\\main\\webapp\\imageUpload";
+	//절대 경로
 	@Resource(name = "myInfoService")
 	private MyInfoService myInfoService;
 
@@ -71,8 +70,12 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 회원 프로필 사진 변경 */
 	@Override
 	@RequestMapping(value = "/updateMyPicture.diet", method = RequestMethod.POST)
-	public String updateMyPicture(HttpSession session, HttpServletResponse response, MultipartFile uploadFile)
+	public String updateMyPicture(
+			HttpServletRequest request,
+			HttpSession session, HttpServletResponse response, MultipartFile uploadFile)
 			throws IOException {
+		String PROFILE_IMG_PATH = request.getSession().getServletContext().getRealPath("imageUpload");
+		System.out.println("업로드된 경로 : " + PROFILE_IMG_PATH);
 		UUID randomString = UUID.randomUUID();
 		String getFile = uploadFile.getOriginalFilename();
 		int index = getFile.lastIndexOf(".");

@@ -12,20 +12,20 @@
 <script>
 	/* summernote에서 이미지 업로드시 실행할 함수 */
 	function sendFile(file, editor, welEditable) {
-		var fileName=false;
-		try{
-			fileName=file['name'];
-		}catch (e) {
-			fileName=false;
+		var fileName = false;
+		try {
+			fileName = file['name'];
+		} catch (e) {
+			fileName = false;
 		}
-		if(!fileName){
+		if (!fileName) {
 			$(".note-alarm").remove();
 		}
 		console.log(fileName);
 		data = new FormData();
 		data.append("file", file);
-		data.append("key",fileName);
-		
+		data.append("key", fileName);
+
 		$.ajax({
 			data : data,
 			type : "POST",
@@ -36,7 +36,7 @@
 			success : function(url) {
 				var path = url.path;
 				alert(path);
-				$('#summernote').summernote('insertImage',path);
+				$('#summernote').summernote('insertImage', path);
 			}
 		});
 	}
@@ -60,7 +60,7 @@
 	<div class="ui container">
 		<div class="ui left aligned basic segment">
 			<div class="ui medium message">
-				<div class="ui large header" align="center">게시글 등록</div>
+				<div class="ui large header" align="center">다어어트팁</div>
 			</div>
 			<br>
 
@@ -71,16 +71,28 @@
 						<div class="text">카테고리</div>
 						<i class="dropdown icon"></i>
 						<div class="menu select">
-							<div class="item">자유게시판</div>
-							<div class="item">레시피&#38;식단</div>
-							<div class="item">팁&#38;노하우</div>
-							<div class="item">고민&#38;질문</div>
-							<div class="item">비포&#38;애프터</div>
+							<div class="item">칼럼</div>
+							<div class="item">운동</div>
+							<div class="item">식단</div>
+							<div class="item">성공후기</div>
 						</div>
 					</div>
 					<input type="text" id="title" placeholder="제목을 입력해주세요" />
 				</div>
 
+			</div>
+			<br>
+			<div class="ui grid">
+				<div class="six wide column">
+					<div style="width:100%; height:100px;">사진 등록</div>
+					<div style="width:100%; height:30px;">
+						<button id="sammary" type="button" class="ui button" id="uploadPictureBtn" onclick="updatePictureBtn();" style="width: 140px; background: rgb(250,40,40); color: white;">사진등록/변경</button>
+					</div>
+				</div>
+				<div class="ten wide column">
+					<div style="width:100%; height:30px;">요약글 작성</div>
+					<textarea style="width: 100%; height: 100px; resize:none;"></textarea>
+				</div>
 			</div>
 			<br>
 			<div id="summernote"></div>
@@ -117,27 +129,22 @@
 		allowAdditions : true,
 		allowCategorySelection : true
 	});
-	
-	
-	
+
 	// 카테고리 선택
 	var category;
 	$('.select > .item').click(function() {
 		switch ($(this).text()) {
-		case '자유게시판':
-			category = 15;
+		case '칼럼':
+			category = 1;
 			break;
-		case '레시피&식단':
-			category = 16;
+		case '운동':
+			category = 2;
 			break;
-		case '팁&노하우':
-			category = 17;
+		case '식단':
+			category = 3;
 			break;
-		case '고민&질문':
-			category = 18;
-			break;
-		case '비포&애프터':
-			category = 19;
+		case '성공후기':
+			category = 4;
 			break;
 		}
 	});
@@ -145,23 +152,29 @@
 	function register() {
 		var $title = $('#title').val();
 		var $content = $('#summernote').summernote('code');
+		var $sammary = $('#sammary').val();
 		if (category != null && $title != '' && $content != '') {
 			$.ajax({
-				url : '/communityPostRegist.diet',
+				url : '/registDietTip.diet',
 				type : 'post',
 				data : {
 					'title' : $title,
 					'content' : $content,
-					'category' : category
+					'category' : category,
+					'sammary' : $sammary
 				},
 				success : function(data) {
-					if (data == 'success') {
+					if (data == 1) {
 						alert('게시글 등록 완료');
-						location.href = "/communityWholeBoard.diet?type="+category;
+						location.href = "/dietTipList.diet";
+					}else{
+						alert('게시글 등록 실패');
+						location.href = "/dietTipList.diet";
 					}
 				},
 				error : function() {
-					alert('게시글 등록 실패');
+					alert('게시글 등록 실패(과정 오류)');
+					location.href = "/dietTipList.diet";
 				}
 			});
 		} else {

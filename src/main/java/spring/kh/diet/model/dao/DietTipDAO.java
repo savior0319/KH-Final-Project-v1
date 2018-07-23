@@ -15,4 +15,6 @@ public interface DietTipDAO {
 			String type);
 
 	DietTipVO getDietTip(SqlSessionTemplate session, int index);
+
+	int registDietTip(SqlSessionTemplate session, DietTipVO dt);
 }
