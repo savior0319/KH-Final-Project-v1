@@ -26,12 +26,14 @@ public interface RedirectController {
 	
 	String redirectMyDiary();
 
-	String redirectDietTipList();
-
 	String redirectRegistCommunity();
   
 	String redirectSignup();
 	
 	String redirectModifyCommunity();
+
+	String redirectLoadDietTipWrite();
+
+	String redirectLogin();
 
 }

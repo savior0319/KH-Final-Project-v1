@@ -1,8 +1,13 @@
 package spring.kh.diet.controller;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.service.DietTipServiceImpl;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
+import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
+import spring.kh.diet.model.vo.MemberVO;
 
 @Controller
 public class DietTipControllerImpl implements DietTipController {
@@ -25,6 +32,8 @@ public class DietTipControllerImpl implements DietTipController {
 	@Override
 	@RequestMapping(value = "/dietTipList.diet")
 	public String getList(HttpServletRequest request) {
+		System.out.println(request.getSession().getServletContext().getRealPath("imageUpload"));
+		System.out.println(DietTipControllerImpl.class.getResource("/../..").getPath());
 		String type = request.getParameter("type");
 
 		int currentPage; // 현재 페이지 값을 저장하는 변수
@@ -70,10 +79,25 @@ public class DietTipControllerImpl implements DietTipController {
 	
 	@Override
 	@RequestMapping(value = "/registDietTip.diet")
-	public void registDietTip(HttpServletRequest request, HttpServletResponse response) {
+	public void registDietTip(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		HttpSession session = request.getSession();
+		MemberVO m = (MemberVO) session.getAttribute("member");
 		
+		DietTipVO dt = new DietTipVO();
+
+		dt.setDtWriterNo(m.getMbIndex());
 		
-		
+		dt.setDtTitle(request.getParameter("title"));
+		dt.setDtExplain(request.getParameter("content"));
+		dt.setDtType(Integer.parseInt(request.getParameter("category")));
+		dt.setDtSammary(request.getParameter("sammary"));
+		//dt.setDtMainPhoto(request.getParameter("mainPhoto"));
+
+		int result = dietTipService.registDietTip(dt);		
+
+		response.getWriter().print(result);
+		response.getWriter().close();
+
 	}
 
 }

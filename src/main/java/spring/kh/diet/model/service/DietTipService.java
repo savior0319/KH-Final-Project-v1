@@ -8,5 +8,7 @@ public interface DietTipService {
 	DietTipPDVO getDietTipList(int currentPage, String type);
 
 	DietTipVO getDietTip(int index);
+
+	int registDietTip(DietTipVO dt);
 	
 }

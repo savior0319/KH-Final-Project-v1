@@ -30,9 +30,17 @@ public interface CommunityDAO {
 	int deletePost(SqlSessionTemplate sqlSessionTemplate, int postIndex);
 
 	ArrayList<BoardPostVO> viewAllList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
-			String type, String postSort);
+			String type, String postSort, String category, String searchText);
 
 	ArrayList<BoardPostVO> recipeViewList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, int naviCountPerPage, String type);
+			int recordCountPerPage, int naviCountPerPage, String type, String postSort);
+
+	ArrayList<BoardPostVO> searchList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			String searchText, String category);
+
+	String getSearchListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String searchText, String category);
+
+	int postHit(SqlSessionTemplate sqlSessionTemplate, int postIndex);
 
 }

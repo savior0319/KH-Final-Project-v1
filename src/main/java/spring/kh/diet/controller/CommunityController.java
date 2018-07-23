@@ -15,17 +15,14 @@ public interface CommunityController {
 
 	String getList(HttpSession session, HttpServletRequest request);
 
-	Object postedCommunity(HttpServletRequest request);
-
 	Object deletePost(HttpServletRequest request);
-
-
-
-	String recipeViewList(HttpSession session, HttpServletRequest request);
-
-	String getRecentlyList(HttpSession session, HttpServletRequest request);
 
 	String getViewList(HttpSession session, HttpServletRequest request, String postSort);
 
+	String recipeViewList(HttpSession session, HttpServletRequest request, String postSort);
+
+	String searchList(HttpSession session, HttpServletRequest request);
+
+	Object postedCommunity(HttpServletRequest request, HttpServletResponse response, HttpSession session);
 
 }

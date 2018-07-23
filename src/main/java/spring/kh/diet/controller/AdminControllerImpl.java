@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import com.sun.mail.iap.Response;
 
 import spring.kh.diet.model.service.AdminService;
+import spring.kh.diet.model.vo.HealthCenterPDVO;
+import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.NoticeVO;
 
 @SuppressWarnings("all")
@@ -30,6 +33,7 @@ public class AdminControllerImpl implements AdminController {
 	public AdminControllerImpl() {
 	}
 
+	/* 공지사항 등록 */
 	@Override
 	@RequestMapping(value = "/noticeRegisterData.diet")
 	public void noticeRegisterData(@RequestParam String title, @RequestParam String content,
@@ -51,15 +55,37 @@ public class AdminControllerImpl implements AdminController {
 		response.getWriter().close();
 
 	}
-	
+
 	@Autowired
 	ServletContext context;
+
 	@RequestMapping(value = "/currentLoginUser.diet")
 	@ApplicationScope
+
 	public String currentLoginUser(HttpServletResponse response) {
 		return "admin/currentLoginUser";
 //		System.out.println(session.getAttribute("key"));
+	}
 
+	/* 전체 회원 조회 */
+	@Override
+	@RequestMapping(value = "/memberList.diet")
+	public String memberList(HttpServletRequest request, HttpServletResponse response) {
+		
+		int currentPage;
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		MemberListPDVO mbData = as.getMemberList(currentPage);
+		mbData.setType(request.getParameter("type"));
+		request.setAttribute("mbpd", mbData);
+
+
+		return "admin/memberList";
 	}
 
 }

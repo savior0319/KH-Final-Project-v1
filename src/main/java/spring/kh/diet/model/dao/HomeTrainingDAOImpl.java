@@ -94,7 +94,7 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO{
 	@Override
 	public HomeTrainingVO homeTraining(SqlSessionTemplate session, int indexNo) {
 		HomeTrainingVO ht = session.selectOne("homeTraining.getOne", indexNo);
-		
+	
 		return ht;
 	}
 

@@ -7,7 +7,8 @@
 		SELECT DT_INDEX AS dtIndex,
 		DT_NO AS dtNo,
 		DT_TYPE AS dtType,
-		DT_TITLE AS dtTitle,
+		DT_TITLE AS
+		dtTitle,
 		DT_MAIN_PHOTO AS dtMainPhoto,
 		DT_WRITER_NO AS dtWriterNo,
 		DT_SAMMARY AS dtSammary,
@@ -35,7 +36,8 @@
 	</select>
 
 	<!-- 페이징 처리 - 내비게이션 생성 -->
-	<select id="getNavi" resultType="java.lang.Integer" parameterType="dietTipPageData">
+	<select id="getNavi" resultType="java.lang.Integer"
+		parameterType="dietTipPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM DIETTIP_TB
 		<choose>
@@ -52,7 +54,7 @@
 				WHERE DT_TYPE = 4
 			</when>
 		</choose>
-		
+
 	</select>
 
 	<!-- 게시물 불러오기 -->
@@ -65,11 +67,21 @@
 		MB.MB_NICKNAME AS dtNickname,
 		DT.DT_SAMMARY AS dtSammary,
 		DT.DT_EXPLAIN AS dtExplain,
-		DT.DT_DATE AS dtDate,
+		DT.DT_DATE AS
+		dtDate,
 		DT.DT_SEE AS dtSee,
 		DT.DT_LIKE AS dtLike
 		FROM DIETTIP_TB DT,
-		MEMBER_TBL MB WHERE DT.DT_WRITER_NO = MB.MB_INDEX AND DT_INDEX = #{index}
+		MEMBER_TBL MB WHERE DT.DT_WRITER_NO = MB.MB_INDEX AND DT_INDEX =
+		#{index}
 	</select>
+
+	<!-- 다이어트 팁 게시물 쓰기 -->
+	<insert id="registDietTip" parameterType="dietTip">
+		INSERT INTO
+		DIETTIP_TB VALUES(INDEX_NO_SEQ.NEXTVAL, DT_NO_SEQ_NEXTVAL, #{dtType},
+		#{dtTitle}, #{dtMainPhoto}, #{dtWriterNo}, #{dtSummary}, #{dtExplain},
+		SYSDATE, 0, 0);
+	</insert>
 
 </mapper>

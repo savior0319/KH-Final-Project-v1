@@ -38,7 +38,7 @@
 
 				<div class="row" style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;" onclick="goInfo(${dt.dtIndex});">
 					<div class="four wide column">
-						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex});">
+						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo();">
 					</div>
 					<div class="twelve wide column" style="cursor: pointer;">
 						<strong>${dt.dtTitle }</strong>
@@ -71,9 +71,9 @@
 						<div class="ui pagination menu">${requestScope.dtpd.pageNavi }</div>
 					</div>
 				</div>
-				<div class="four wide column" >
+				<div class="four wide column">
 					<div class="ui right aligned container">
-						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="write();">
+						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="dietTipWrite();">
 							<i class="edit icon"></i> 등록
 						</button>
 					</div>
@@ -85,18 +85,22 @@
 
 
 		<div class="ui center aligned basic segment">
-			<div class="ui action input">
-				<select class="ui compact selection dropdown" style="padding-top: 2%">
-					<option value="all">All</option>
-					<option selected="" value="articles">제목</option>
-					<option value="products">내용</option>
-					<option value="products">작성자</option>
-				</select> <input type="text">
-				<div class="ui button">검색</div>
+			<div class="ui secondary segment">
+				<div class="ui left action right icon input">
+					<div class="ui basic floating dropdown button">
+						<div class="text">선택</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<div class="item">제목</div>
+							<div class="item">내용</div>
+							<div class="item">작성자</div>
+						</div>
+					</div>
+					<input type="text" placeholder="Search..."> <i class="circular search link icon"></i>
+				</div>
 			</div>
 
 		</div>
-
 
 	</div>
 
@@ -111,9 +115,15 @@
 		location.href="/dietTipInfo.diet?indexNo="+me;
 	}
 	
-	function write(me){
-		location.href="/registDietTip.diet";
+	function dietTipWrite(){
+		location.href="/loadDietTipWrite.diet";
 	}
+	
+	$('.ui.dropdown').dropdown({
+	      allowAdditions : true,
+	      allowCategorySelection : true
+	   });
+	
 </script>
 
 

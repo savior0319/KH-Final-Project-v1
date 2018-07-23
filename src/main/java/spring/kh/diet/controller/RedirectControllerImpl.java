@@ -12,6 +12,12 @@ public class RedirectControllerImpl implements RedirectController {
 	public RedirectControllerImpl() {
 	}
 
+	@Override
+	@RequestMapping(value="loginFailed.diet")
+	public String redirectLogin() {
+		return "login/login";
+	}
+	
 	/* 메인 페이지 - BMI 계산하기 */
 	@Override
 	@RequestMapping(value = "/bmiCal.diet")
@@ -95,19 +101,12 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectMyOneToOneQuestion() {
 		return "myInfo/myOneToOneQuestion";
 	}
-	
+
 	/* 마이페이지 - 나의 다이어리 */
 	@Override
 	@RequestMapping(value = "/myDiary.diet")
 	public String redirectMyDiary() {
 		return "myInfo/myDiary";
-	}
-
-	/* 다이어트팁 */
-	@Override
-	// @RequestMapping(value = "/dietTipList.diet")
-	public String redirectDietTipList() {
-		return "dietTip/dietTipList";
 	}
 
 	/* 커뮤니티 - 글등록할 페이지 */
@@ -116,12 +115,18 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectRegistCommunity() {
 		return "community/registCommunity";
 	}
-	
+
 	/* 커뮤니티 - 글수정 페이지 */
 	@Override
 	@RequestMapping(value = "/modifyCommunity.diet")
 	public String redirectModifyCommunity() {
 		return "community/modifyCommunity";
-	}	
-	
+	}
+
+	/* 이거 보면 주석좀 :( */
+	@Override
+	@RequestMapping(value = "/loadDietTipWrite.diet")
+	public String redirectLoadDietTipWrite() {
+		return "dietTip/registDietTip";
+	}
 }
