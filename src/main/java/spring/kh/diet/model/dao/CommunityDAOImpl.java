@@ -328,7 +328,8 @@ System.out.println(cpdv);
 		return sb.toString();
 	}
 
-
-	
-	
+	public int postHit(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
+		int result = sqlSessionTemplate.update("community.postHit", postIndex);
+		return 0;
+	}
 }

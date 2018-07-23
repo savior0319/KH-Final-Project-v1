@@ -15,9 +15,13 @@
 	width: 400px;
 }
 </style>
-
-
-
+<script>
+if (self.name != 'reload') {
+    self.name = 'reload';
+    self.location.reload(true);
+}
+else self.name = '';
+</script>
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>

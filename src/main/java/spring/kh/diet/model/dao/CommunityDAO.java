@@ -38,9 +38,9 @@ public interface CommunityDAO {
 	ArrayList<BoardPostVO> searchList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			String searchText, String category);
 
-
 	String getSearchListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String searchText, String category);
 
+	int postHit(SqlSessionTemplate sqlSessionTemplate, int postIndex);
 
 }

@@ -14,8 +14,6 @@ public interface MyInfoController {
 
 	void secessionMember(HttpSession session, HttpServletResponse response) throws IOException;
 
-	void question(String title, String content, HttpServletResponse response) throws IOException;
-
 	String updateMyInfo(MemberVO memberVO, HttpSession session, HttpServletResponse response) throws IOException;
 
 	String deleteMyPicture(String mbId, HttpSession session, HttpServletResponse response) throws IOException;
@@ -30,7 +28,9 @@ public interface MyInfoController {
 
 	void nickNameCheck(String nickName, HttpServletResponse response) throws IOException;
 
-	String updateMyPicture(HttpSession session, HttpServletResponse response, MultipartFile uploadFile)
-			throws IOException;
+	String updateMyPicture(HttpSession session, HttpServletResponse response, HttpServletRequest request,
+			MultipartFile uploadFile) throws IOException;
+
+	void question(String title, String content, String mbIndex, HttpServletResponse response) throws IOException;
 
 }

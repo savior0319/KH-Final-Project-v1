@@ -15,8 +15,6 @@ public interface CommunityController {
 
 	String getList(HttpSession session, HttpServletRequest request);
 
-	Object postedCommunity(HttpServletRequest request);
-
 	Object deletePost(HttpServletRequest request);
 
 	String getViewList(HttpSession session, HttpServletRequest request, String postSort);
@@ -25,5 +23,6 @@ public interface CommunityController {
 
 	String searchList(HttpSession session, HttpServletRequest request);
 
+	Object postedCommunity(HttpServletRequest request, HttpServletResponse response, HttpSession session);
 
 }
