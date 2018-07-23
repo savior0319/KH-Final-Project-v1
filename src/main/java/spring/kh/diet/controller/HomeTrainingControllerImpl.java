@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.service.HomeTrainingService;
 import spring.kh.diet.model.service.HomeTrainingServiceImpl;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
@@ -23,6 +24,9 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 
 	@Resource(name = "homeTrainingService")
 	private HomeTrainingServiceImpl homeTrainingService;
+	
+	@Resource(name = "commonService")
+	private CommonService commonService;
 
 	/* 홈트레이닝 - 전체 */
 	@Override
@@ -73,9 +77,9 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 		
-		//BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, indexNo);
+		BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, indexNo);
 		
-		//request.setAttribute("bcpd", bcpd);
+		request.setAttribute("bcpd", bcpd);
 						
 		return "homeTraining/homeTrainingInfo";
 	}

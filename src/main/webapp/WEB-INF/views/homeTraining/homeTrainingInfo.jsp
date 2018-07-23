@@ -137,6 +137,10 @@
 				<br>
 				<br>
 
+
+				<!-- 작성된 댓글 리스트 -->
+				<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
+				
 				<div class="comment">
 					<a class="avatar"> <img src="/resources/image/mainPic.jpg"
 						style="width: 40px; height: 40px; border-radius: 25px;">
@@ -145,8 +149,7 @@
 						<a class="author" style="position: absolute; width: 10%;">Matt</a>
 						<div class="metadata" style="width: 100%;">
 							<span class="date"
-								style="width: 30%; display: inline; margin-left: 10%;">Today
-								at 5:42PM</span>
+								style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
 							<div class="ui right aligned container" align="right"
 								style="width: 70%; float: right;">
 								<button class="ui red basic tiny button"
@@ -161,6 +164,7 @@
 						<div class="text">How artistic!</div>
 					</div>
 				</div>
+				</c:forEach>
 				<br>
 				<hr style="border: 1px solid #F6F6F6">
 				<br>
