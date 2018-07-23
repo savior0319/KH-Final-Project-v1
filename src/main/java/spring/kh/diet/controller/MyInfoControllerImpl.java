@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +34,7 @@ import spring.kh.diet.model.vo.QuestionVO;
 @SuppressWarnings("all")
 @Controller
 public class MyInfoControllerImpl implements MyInfoController {
-
+  
 	@Resource(name = "myInfoService")
 	private MyInfoService myInfoService;
 
@@ -76,12 +77,11 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 회원 프로필 사진 변경 */
 	@Override
 	@RequestMapping(value = "/updateMyPicture.diet", method = RequestMethod.POST)
+
 	public String updateMyPicture(HttpSession session, HttpServletResponse response,HttpServletRequest request, MultipartFile uploadFile)
 			throws IOException {
 		String path = request.getSession().getServletContext().getRealPath("imageUpload");
-		
-		UUID randomString = UUID.randomUUID();
-			
+		UUID randomString = UUID.randomUUID();			
 		String getFile = uploadFile.getOriginalFilename();
 		int index = getFile.lastIndexOf(".");
 		String name = getFile.substring(0, index);

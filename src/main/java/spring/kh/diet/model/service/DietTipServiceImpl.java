@@ -46,4 +46,9 @@ public class DietTipServiceImpl implements DietTipService {
 		return dt;
 	}
 
+	@Override
+	public int registDietTip(DietTipVO dt) {
+		return dietTipDAO.registDietTip(session, dt);
+	}
+
 }
