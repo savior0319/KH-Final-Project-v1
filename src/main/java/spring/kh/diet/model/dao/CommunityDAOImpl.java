@@ -209,22 +209,25 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return sqlSessionTemplate.delete("community.deletePost",postIndex);
 	}
 
+	//최신순 & 조회순
 	@Override
 	public ArrayList<BoardPostVO> viewAllList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, String type, String postSort) {
+			int recordCountPerPage, String type, String postSort, String category, String searchText) {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 
 		cpdv.setPostSort(postSort);
 		cpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
 		cpdv.setEnd(currentPage * recordCountPerPage);
 		cpdv.setType(type);
-
+		cpdv.setCategory(category);
+		cpdv.setSearchText(searchText);
+System.out.println(cpdv);
 		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.viewList", cpdv);
-
 		
 		return (ArrayList<BoardPostVO>) list;
 	}
 
+	//레시피 식단 최신순 & 조회순
 	@Override
 	public ArrayList<BoardPostVO> recipeViewList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, int naviCountPerPage, String type, String postSort) {
@@ -239,6 +242,93 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 		return (ArrayList<BoardPostVO>) list;
 	}
+
+	@Override
+	public ArrayList<BoardPostVO> searchList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, String searchText, String category) {
+		CommunityPageDataVO cpdv = new CommunityPageDataVO();
+		
+		cpdv.setSearchText(searchText);
+		cpdv.setCategory(category);
+		cpdv.setSearchText(searchText);
+		cpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
+		cpdv.setEnd(currentPage * recordCountPerPage);
+		
+
+		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.searchList", cpdv);
+		
+		return (ArrayList<BoardPostVO>) list;
+	}
+
+	@Override
+	public String getSearchListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String searchText, String category) {
+		CommunityPageDataVO cpdv = new CommunityPageDataVO();
+		
+		cpdv.setSearchText(searchText);
+		cpdv.setCategory(category);
+		
+		int recordTotalCount = sqlSessionTemplate.selectOne("community.getSearchNavi",cpdv);
+
+		int pageTotalCount = 0;
+		if (recordTotalCount % recordCountPerPage != 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
+
+		int endNavi = startNavi + naviCountPerPage - 1;
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) // 시작이 1페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/communityWholeBoard.diet?category"+category+"&searchText=" + searchText + "&currentPage=" + (startNavi - 1)
+					+ "'> &lt; </a>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (i == currentPage) {
+				sb.append(
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/communityWholeBoard.diet?category"+category+"&searchText="
+								+ searchText + "&currentPage=" + i + "'><strong>" + i + "</strong></a>");
+			} else {
+				sb.append("<a class='item' href='/communityWholeBoard.diet?category"+category+"&searchText=" + searchText + "&currentPage=" + i + "'> "
+						+ i + " </a>");
+			}
+		}
+		if (needNext) // 끝 페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/communityWholeBoard.diet?category"+category+"&searchText=" + searchText + "&currentPage=" + (endNavi + 1)
+					+ "'> &gt; </a>");
+		}
+
+		return sb.toString();
+	}
+
+
 	
 	
 }
