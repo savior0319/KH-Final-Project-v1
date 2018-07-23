@@ -18,7 +18,7 @@ public interface CommunityService {
 
 	CommunityPageDataVO viewAllList(int currentPage, String type, String postSort);
 
-	CommunityPageDataVO recipeViewList(int currentPage, String type);
+	CommunityPageDataVO recipeViewList(int currentPage, String type, String postSort);
 
 
 }

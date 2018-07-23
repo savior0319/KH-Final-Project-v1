@@ -214,7 +214,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 			int recordCountPerPage, String type, String postSort) {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 
-		cpdv.setType(postSort);
+		cpdv.setPostSort(postSort);
 		cpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
 		cpdv.setEnd(currentPage * recordCountPerPage);
 		cpdv.setType(type);
@@ -227,9 +227,10 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public ArrayList<BoardPostVO> recipeViewList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, int naviCountPerPage, String type) {
+			int recordCountPerPage, int naviCountPerPage, String type, String postSort) {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 
+		cpdv.setPostSort(postSort);
 		cpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
 		cpdv.setEnd(currentPage * recordCountPerPage);
 		cpdv.setType(type);
