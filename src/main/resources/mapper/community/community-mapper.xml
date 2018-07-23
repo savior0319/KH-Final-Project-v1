@@ -142,10 +142,25 @@
 						WHERE BCA_INDEX LIKE '19'
 					</when>
 				</choose>
+				
 				)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
 				LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
 				WHERE NUM BETWEEN
 				#{start} AND #{end}
+				<choose>
+					<when test="category.equals('title')">
+						AND POST_TITLE LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('titleContents')">
+						AND (POST_TITLE LIKE '%'||#{searchText}||'%'
+						OR
+						POST_CONTENT LIKE '%'||#{searchText}||'%')
+					</when>
+					<when test="category.equals('writer')">
+						AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+					</when>
+				</choose>
+				
 			</when>
 			<when test="postSort.equals('조회순')">
 				SELECT * FROM
@@ -168,10 +183,25 @@
 						WHERE BCA_INDEX LIKE '19'
 					</when>
 				</choose>
+
+
 				)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
 				LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
 				WHERE NUM BETWEEN
 				#{start} AND #{end}
+				<choose>
+					<when test="category.equals('title')">
+						AND POST_TITLE LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('titleContents')">
+						AND (POST_TITLE LIKE '%'||#{searchText}||'%'
+						OR
+						POST_CONTENT LIKE '%'||#{searchText}||'%')
+					</when>
+					<when test="category.equals('writer')">
+						AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+					</when>
+				</choose>
 			</when>
 		</choose>
 	</select>
@@ -217,6 +247,62 @@
 				WHERE NUM BETWEEN
 				#{start} AND
 				#{end}
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 조회수 카운트 -->
+	<update id="postHit" parameterType="Integer">
+	UPDATE BOARD_POST_TBL
+	SET POST_HIT = POST_HIT+1
+	WHERE POST_INDEX = #{postIndex}
+	</update>
+
+	<!-- 검색 -->
+	<select id="searchList" parameterType="communityPage"
+		resultType="community" resultMap="communityDB">
+		SELECT * FROM
+		(SELECT BP.*,
+		ROW_NUMBER() OVER
+		(ORDER BY
+		POST_DATETIME
+		DESC)
+		AS NUM FROM BOARD_POST_TBL BP
+		LEFT JOIN MEMBER_TBL MT
+		ON(BP.MB_INDEX=MT.MB_INDEX)
+		<choose>
+			<when test="category.equals('title')">
+				WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
+			</when>
+			<when test="category.equals('titleContents')">
+				WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
+				OR
+				POST_CONTENT LIKE '%'||#{searchText}||'%'
+			</when>
+			<when test="category.equals('writer')">
+				WHERE MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+			</when>
+		</choose>
+		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		WHERE NUM BETWEEN
+		#{start} AND #{end}
+	</select>
+
+	<!-- 페이징 처리 - 내비게이션 생성 -->
+	<select id="getSearchNavi" resultType="java.lang.Integer">
+		select count(*) as totalCount
+		from BOARD_POST_TBL
+		<choose>
+			<when test="category.equals('title')">
+				WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
+			</when>
+			<when test="category.equals('titleContents')">
+				WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
+				OR
+				POST_CONTENT LIKE '%'||#{searchText}||'%'
+			</when>
+			<when test="category.equals('writer')">
+				WHERE MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
 			</when>
 		</choose>
 	</select>

@@ -71,21 +71,32 @@
 </div>
 
 <script type="text/javascript">
+
 	function question(){
-		$('#questionModal').modal({
-			centered: false
-		}).modal('show');
+
+		var mbId = '${sessionScope.member.mbNickName}';
+
+		if(mbId != ''){
+			$('#questionModal').modal({
+				centered: false
+			}).modal('show');
+		} else {
+			alert('로그인 후 이용해주세요');
+			location.href="/login.diet";
+		}
 	}
 
 	function questionSub(){
 
+
+		var mbIndex = '${sessionScope.member.mbIndex}';
 		var title = $('#title').val();
 		var content = $('#content').val();
 
 		$.ajax({
 			url : '/question.diet',
 			type : 'post',
-			data : {'title' : title, 'content' : content},
+			data : {'title' : title, 'content' : content, 'mbIndex' : mbIndex},
 
 			success : function(data){
 				if(data == '1'){

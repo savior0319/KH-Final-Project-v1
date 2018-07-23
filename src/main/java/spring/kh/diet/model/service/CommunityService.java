@@ -5,7 +5,6 @@ import spring.kh.diet.model.vo.CommunityPageDataVO;
 
 public interface CommunityService {
 
-
 	int registCommunity(BoardPostVO bpv);
   
 	CommunityPageDataVO allCommunityList(int currentPage, String type);
@@ -16,9 +15,12 @@ public interface CommunityService {
 
 	int deletePost(int postIndex);
 
-	CommunityPageDataVO viewAllList(int currentPage, String type, String postSort);
-
 	CommunityPageDataVO recipeViewList(int currentPage, String type, String postSort);
 
+	CommunityPageDataVO searchList(int currentPage, String searchText, String category);
+
+	CommunityPageDataVO viewAllList(int currentPage, String type, String postSort, String category, String searchText);
+
+	int postHit(int postIndex);
 
 }

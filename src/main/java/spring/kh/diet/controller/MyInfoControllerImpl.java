@@ -2,8 +2,10 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Properties;
+import java.util.Calendar;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -17,8 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import spring.kh.diet.common.MyFileRenamePolicy;
+import javafx.scene.shape.QuadCurve;
 import spring.kh.diet.model.service.MyInfoService;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
@@ -27,9 +33,14 @@ import spring.kh.diet.model.vo.QuestionVO;
 
 @SuppressWarnings("all")
 @Controller
+<<<<<<< HEAD
 public class MyInfoControllerImpl implements MyInfoController {	
 	//private final String PROFILE_IMG_PATH = "C:\\Github\\KH-Final-Project-v1\\src\\main\\webapp\\imageUpload";
 	//절대 경로
+=======
+public class MyInfoControllerImpl implements MyInfoController {
+
+>>>>>>> branch 'master' of https://github.com/savior0319/KH-Final-Project-v1
 	@Resource(name = "myInfoService")
 	private MyInfoService myInfoService;
 
@@ -39,12 +50,14 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 1:1질문 */
 	@Override
 	@RequestMapping(value = "/question.diet")
-	public void question(@RequestParam String title, @RequestParam String content, HttpServletResponse response)
+	public void question(@RequestParam String title, @RequestParam String content, @RequestParam String mbIndex ,HttpServletResponse response)
 			throws IOException {
 		QuestionVO qv = new QuestionVO();
+		qv.setQsContent(content);
+		qv.setQsTitle(title);
+		qv.setQsAnswerCheck("n");
+		qv.setMbIndex(Integer.parseInt(mbIndex));
 
-		qv.setContent(content);
-		qv.setTitle(title);
 		int result = myInfoService.question(qv);
 		response.getWriter().print(String.valueOf(result));
 		response.getWriter().close();
@@ -70,22 +83,49 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 회원 프로필 사진 변경 */
 	@Override
 	@RequestMapping(value = "/updateMyPicture.diet", method = RequestMethod.POST)
+<<<<<<< HEAD
 	public String updateMyPicture(
 			HttpServletRequest request,
 			HttpSession session, HttpServletResponse response, MultipartFile uploadFile)
+=======
+	public String updateMyPicture(HttpSession session, HttpServletResponse response,HttpServletRequest request, MultipartFile uploadFile)
+>>>>>>> branch 'master' of https://github.com/savior0319/KH-Final-Project-v1
 			throws IOException {
+<<<<<<< HEAD
 		String PROFILE_IMG_PATH = request.getSession().getServletContext().getRealPath("imageUpload");
 		System.out.println("업로드된 경로 : " + PROFILE_IMG_PATH);
+=======
+		String path = request.getSession().getServletContext().getRealPath("imageUpload");
+		
+>>>>>>> branch 'master' of https://github.com/savior0319/KH-Final-Project-v1
 		UUID randomString = UUID.randomUUID();
+			
 		String getFile = uploadFile.getOriginalFilename();
 		int index = getFile.lastIndexOf(".");
 		String name = getFile.substring(0, index);
 		String ext = getFile.substring(index, getFile.length());
 		String reName = name + "_" + randomString + ext;
-		File reFile = new File(PROFILE_IMG_PATH, reName);
+		
+		// 실제 폴더에 저장 
+		File reFile = new File(path, reName);
 		uploadFile.transferTo(reFile);
-		return "myInfo/myInfoUpdate";
+		
+		String reName2 = "/imageUpload/"+reName;
+		System.out.println(reName2);
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		mv.setMbImage(reName2);
+		
+		int result = myInfoService.updateMyPicture(mv);
+		if(result>0) {
+			
+			return "myInfo/myInfoUpdate";	
+		}else {
+			System.out.println("이미지 업로드 실패");
+			return "myInfo/myInfoUpdate";	
+		}
+		
 	}
+
 
 	/* 회원 정보 변경 */
 	@Override

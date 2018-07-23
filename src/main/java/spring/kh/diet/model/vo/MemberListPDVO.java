@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommunityPageDataVO {
-	private ArrayList<BoardPostVO> comList;
-	private String pageNavi, type, postSort, searchText, category;
+public class MemberListPDVO {
+	private ArrayList<MemberVO> hcList;
+	private String pageNavi, type;
 	private int start, end;
 }

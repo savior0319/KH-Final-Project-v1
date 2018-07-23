@@ -26,7 +26,7 @@
 		</h3>
 		<div class="menu dropdown">
 			<h4>
-				<a class="ui simple item" href="#">회원조회</a>
+				<a class="ui simple item" href="/memberList.diet">회원조회</a>
 				<a class="ui simple item" href="#">휴면 계정 관리</a>
 				<a class="ui simple item" href="#">닉네임 변경 이력</a>
 				<a class="ui simple item" href="#">로그인 현황</a>

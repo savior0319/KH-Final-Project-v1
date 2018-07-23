@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
@@ -36,11 +37,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	}
 
 	@Override
-	public int updateMyPicture(MemberVO mv) {
-		return 0;
-	}
-
-	@Override
 	public MemberVO selectOneMember(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO) {
 		MemberVO mv = sqlSessionTemplate.selectOne("myInfo.selectOneMember", memberVO);
 		return mv;
@@ -69,9 +65,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		MyActivityVO ma = sqlSessionTemplate.selectOne("myInfo.myActivity", m);
 		return ma;
 	}
-	
-
-	
 
 	// 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력
 
@@ -176,4 +169,11 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public int updateMyPicture(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		int result = sqlSessionTemplate.update("myInfo.updateMyPicture",mv);
+		return result;
+	}
+
 }
