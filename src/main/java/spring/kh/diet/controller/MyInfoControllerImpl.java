@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javafx.scene.shape.QuadCurve;
 import spring.kh.diet.model.service.MyInfoService;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
@@ -28,8 +29,8 @@ import spring.kh.diet.model.vo.QuestionVO;
 @Controller
 public class MyInfoControllerImpl implements MyInfoController {
 
-	private final String PROFILE_IMG_PATH = System.getProperty("user.home") + "/Desktop/";
-	// private final String PROFILE_IMG_PATH = "C:\\finalDiet\\profileImage\\";
+	//private final String PROFILE_IMG_PATH = System.getProperty("user.home") + "/Desktop/";
+	private final String PROFILE_IMG_PATH = "C:\\final\\profile\\";
 
 	@Resource(name = "myInfoService")
 	private MyInfoService myInfoService;
@@ -40,12 +41,14 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 1:1질문 */
 	@Override
 	@RequestMapping(value = "/question.diet")
-	public void question(@RequestParam String title, @RequestParam String content, HttpServletResponse response)
+	public void question(@RequestParam String title, @RequestParam String content, @RequestParam String mbIndex ,HttpServletResponse response)
 			throws IOException {
 		QuestionVO qv = new QuestionVO();
+		qv.setQsContent(content);
+		qv.setQsTitle(title);
+		qv.setQsAnswerCheck("n");
+		qv.setMbIndex(Integer.parseInt(mbIndex));
 
-		qv.setContent(content);
-		qv.setTitle(title);
 		int result = myInfoService.question(qv);
 		response.getWriter().print(String.valueOf(result));
 		response.getWriter().close();
