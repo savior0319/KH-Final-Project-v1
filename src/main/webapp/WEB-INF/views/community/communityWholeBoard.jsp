@@ -181,7 +181,7 @@ else self.name = '';
 	var type = $('#boardTime').val();
 	function recentlyViewBtn(rtb) {
 		var postSort = rtb.innerHTML;
-alert(type);
+
 		location.href = "/communityViewBoard.diet?type=" + type +"&postSort=" + postSort + "&searchText=" + st + "&category="+ cate;
 
 	}

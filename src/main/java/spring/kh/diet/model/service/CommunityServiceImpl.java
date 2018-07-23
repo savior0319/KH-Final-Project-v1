@@ -38,7 +38,7 @@ public class CommunityServiceImpl implements CommunityService {
 		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) communityDAO.allCommunityList(SqlSessionTemplate,
 				currentPage, recordCountPerPage, type);
 		String pageNavi = communityDAO.getallCommunityListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
-				naviCountPerPage, type);
+				naviCountPerPage, type, "","");
 
 		cpdv.setComList(list);
 		cpdv.setPageNavi(pageNavi);
@@ -102,11 +102,10 @@ public class CommunityServiceImpl implements CommunityService {
 		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) communityDAO.viewAllList(SqlSessionTemplate, currentPage,
 				recordCountPerPage, type, postSort, category, searchText);
 		String pageNavi = communityDAO.getallCommunityListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
-				naviCountPerPage, type);
+				naviCountPerPage, type, category, searchText);
 
 		cpdv.setComList(list);
 		cpdv.setPageNavi(pageNavi);
-		cpdv.setType(type);
 
 		return cpdv;
 	}

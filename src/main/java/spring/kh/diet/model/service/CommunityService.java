@@ -19,7 +19,8 @@ public interface CommunityService {
 
 	CommunityPageDataVO searchList(int currentPage, String searchText, String category);
 
-	CommunityPageDataVO viewAllList(int currentPage, String type, String postSort, String category, String searchText);
+	CommunityPageDataVO viewAllList(int currentPage, String type, String postSort, String category,
+			String searchText);
 
 	int postHit(int postIndex);
 
