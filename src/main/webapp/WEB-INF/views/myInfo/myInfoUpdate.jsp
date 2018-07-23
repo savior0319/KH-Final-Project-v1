@@ -401,6 +401,10 @@
 		}
 
 	}
+	/* 모달 창 종료 */
+	$("#modalOff").click(function() {
+		$("#updateProfile").modal('hide');
+	});
 
 	/*사진등록,변경 */
 	function updateProfileBtn() {
