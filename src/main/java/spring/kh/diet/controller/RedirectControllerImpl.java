@@ -1,8 +1,5 @@
 package spring.kh.diet.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -104,7 +101,7 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectMyOneToOneQuestion() {
 		return "myInfo/myOneToOneQuestion";
 	}
-	
+
 	/* 마이페이지 - 나의 다이어리 */
 	@Override
 	@RequestMapping(value = "/myDiary.diet")
@@ -118,18 +115,18 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectRegistCommunity() {
 		return "community/registCommunity";
 	}
-	
+
 	/* 커뮤니티 - 글수정 페이지 */
 	@Override
 	@RequestMapping(value = "/modifyCommunity.diet")
 	public String redirectModifyCommunity() {
 		return "community/modifyCommunity";
-	}	
-	
+	}
+
+	/* 이거 보면 주석좀 :( */
 	@Override
 	@RequestMapping(value = "/loadDietTipWrite.diet")
 	public String redirectLoadDietTipWrite() {
 		return "dietTip/registDietTip";
 	}
-	
 }
