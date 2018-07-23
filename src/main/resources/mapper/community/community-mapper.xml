@@ -220,5 +220,12 @@
 			</when>
 		</choose>
 	</select>
+	
+	<!-- 조회수 카운트 -->
+	<update id="postHit" parameterType="Integer">
+	UPDATE BOARD_POST_TBL
+	SET POST_HIT = POST_HIT+1
+	WHERE POST_INDEX = #{postIndex}
+	</update>
 
 </mapper>
