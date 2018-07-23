@@ -40,12 +40,13 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 1:1질문 */
 	@Override
 	@RequestMapping(value = "/question.diet")
-	public void question(@RequestParam String title, @RequestParam String content, HttpServletResponse response)
+	public void question(@RequestParam String title, @RequestParam String content, @RequestParam String mbIndex ,HttpServletResponse response)
 			throws IOException {
 		QuestionVO qv = new QuestionVO();
+		qv.setQsContent(content);
+		qv.setQsTitle(title);
+		qv.setMbIndex(Integer.parseInt(mbIndex));
 
-		qv.setContent(content);
-		qv.setTitle(title);
 		int result = myInfoService.question(qv);
 		response.getWriter().print(String.valueOf(result));
 		response.getWriter().close();
