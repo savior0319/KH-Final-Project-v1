@@ -38,7 +38,7 @@
 
 				<div class="row" style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;" onclick="goInfo(${dt.dtIndex});">
 					<div class="four wide column">
-						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex});">
+						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo();">
 					</div>
 					<div class="twelve wide column" style="cursor: pointer;">
 						<strong>${dt.dtTitle }</strong>
@@ -111,8 +111,8 @@
 		location.href="/dietTipInfo.diet?indexNo="+me;
 	}
 	
-	function write(me){
-		location.href="/registDietTip.diet";
+	function write(){
+		location.href="/loadDietTipWrite.diet";
 	}
 </script>
 
