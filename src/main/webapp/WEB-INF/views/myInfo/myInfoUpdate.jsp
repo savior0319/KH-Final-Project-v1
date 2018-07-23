@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,7 +111,9 @@
 
 
 	<!-- CONTENTS -->
+
 	<div class="ui container">
+	
 		<div class="ui center aligned basic segment">
 			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 			<br>
@@ -119,11 +122,9 @@
 					onsubmit="return checkInfo();">
 					<div class="myInfoUpdateContents">
 						<div class="gender_Image">
-							<c:if test="${sessionScope.member.mbGender=='f'}">
+							<c:if test="${member.mbGender=='f'}">
 								<div class="gender_Img1">
-									<img id="femailImage" class="genderImage"
-										src="${sessionScope.member.mbImage}" />
-
+									<img id="femailImage" class="genderImage" src="${member.mbImage}"/>
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="female" name="gender"
 											value="f" checked> <label>여 자</label>
@@ -141,7 +142,7 @@
 									$("#male").attr("disabled", true);
 								</script>
 							</c:if>
-							<c:if test="${sessionScope.member.mbGender==null}">
+							<c:if test="${member.mbGender==null}">
 								<div class="gender_Img1">
 									<img id="femailImage" class="genderImage"
 										src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
@@ -159,10 +160,9 @@
 									</div>
 								</div>
 							</c:if>
-							<c:if test="${sessionScope.member.mbGender=='m'}">
+							<c:if test="${member.mbGender=='m'}">
 								<div class="gender_Img1">
-									<img id="mailImage" class="genderImage"
-										src="${sessionScope.member.mbImage}" />
+									<img id="mailImage" class="genderImage"  src="${member.mbImage}" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="male" name="gender"
 											value="m" checked> <label>남 자</label>
@@ -332,8 +332,6 @@
 	<!-- 프로필 이미지 변경 모달 -->
 
 	<div class="ui modal" id="updateProfile">
-
-
 		<i class="close icon"></i>
 		<div class="header">프로필 사진 변경</div>
 		<div class="image content">
@@ -406,25 +404,6 @@
 		$("#updateProfile").modal('hide');
 	});
 
-	/*사진등록,변경 */
-	function updateProfileBtn() {
-		var formData = new FormData();
-		formData.append("uploadFile", $("input[name=uploadFile]")[0].files[0]);
-		$.ajax({
-			url : "/updateMyPicture.diet",
-			processData : false,
-			contentType : false,
-			data : formData,
-			type : 'POST',
-			success : function(result) {
-				alert("업로드 성공!!");
-			},
-			error : function() {
-				alert("사진업데이트 실패 되었습니다.");
-			}
-		});
-	}
-
 	/*사진등록,변경 이미지 클릭시 배경색 변경*/
 	$(document).ready(function() {
 		$(".gender_Image>div").each(function() {
@@ -454,7 +433,6 @@
 	/* 프로필 사진 삭제  */
 	function deletePictureBtn() {
 		var chkRadio = $(":input:radio[name=gender]:checked").val();
-		console.log(chkRadio);
 		var result = window.confirm("사진을 삭제하시겠습니까?");
 		var memberId = $("#memberId").val();
 		if (result == true) {
@@ -472,7 +450,7 @@
 					error : function() {
 					}
 				});
-				alert("여자사진 삭제 성공 하셨습니다.");
+				alert("프로필 사진 삭제 성공 하셨습니다.");
 			} else if (chkRadio === 'm') {
 				$("#mailImage").attr("src", "");
 				$.ajax({
@@ -486,7 +464,7 @@
 					error : function() {
 					}
 				});
-				alert("남자사진 삭제 성공 하셨습니다.");
+				alert("프로필 사진 삭제 성공 하셨습니다.");
 			}
 		} else {
 			alert("사진 삭제 취소하셨습니다.");
