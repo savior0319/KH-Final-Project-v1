@@ -52,7 +52,9 @@
 	<!-- 검색 + 페이지 카테고리 선택 했을 때 -->
 	<select id="getNavi" resultType="java.lang.Integer">
 		select count(*) as totalCount
-		from BOARD_POST_TBL
+		from BOARD_POST_TBL BP
+		LEFT JOIN
+		MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
 		<choose>
 			<when test="type.equals('15')">
 				WHERE BCA_INDEX LIKE '15'
@@ -193,7 +195,7 @@
 				(SELECT BP.*,
 				ROW_NUMBER() OVER
 				(ORDER BY
-				POST_DATETIME
+				POST_HIT
 				DESC)
 				AS NUM FROM BOARD_POST_TBL BP
 				LEFT JOIN MEMBER_TBL MT
@@ -234,19 +236,7 @@
 				)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
 				WHERE NUM BETWEEN
 				#{start} AND #{end}
-				<choose>
-					<when test="category.equals('title')">
-						AND POST_TITLE LIKE '%'||#{searchText}||'%'
-					</when>
-					<when test="category.equals('titleContents')">
-						AND (POST_TITLE LIKE '%'||#{searchText}||'%'
-						OR
-						POST_CONTENT LIKE '%'||#{searchText}||'%')
-					</when>
-					<when test="category.equals('writer')">
-						AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
-					</when>
-				</choose>
+				
 			</when>
 		</choose>
 	</select>
@@ -330,6 +320,7 @@
 			</when>
 		</choose>
 		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
 		WHERE NUM BETWEEN
 		#{start} AND #{end}
 	</select>
