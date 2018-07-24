@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -67,7 +68,7 @@ else self.name = '';
 		<br>
 		
 		<c:if test="${requestScope.cpdv.category == null}">
-		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;" id="sortBtn">
+		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
 			<div class="small ui basic buttons">
 				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
 				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
@@ -109,7 +110,9 @@ else self.name = '';
 								${c.postNickname}
 							</td>
 							<td>${c.postHit}</td>
-							<td>${c.postDateTime}</td>
+							<td>
+							<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" /> 
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -233,13 +236,6 @@ else self.name = '';
 		
 	}
 	
-	window.onload(function(){
-		
-		if(${requestScope.cpdv.category}!=null){
-			
-		}
-		
-	});
 	
 </script>
 

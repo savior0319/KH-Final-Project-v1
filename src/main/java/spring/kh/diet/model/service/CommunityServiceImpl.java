@@ -136,9 +136,6 @@ public class CommunityServiceImpl implements CommunityService {
 		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 
-		System.out.println("서비스 이동중 : " + searchText);
-		System.out.println("서비스 이동중 : " + category);
-
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 
 		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) communityDAO.searchList(SqlSessionTemplate, currentPage,
@@ -150,10 +147,6 @@ public class CommunityServiceImpl implements CommunityService {
 		cpdv.setPageNavi(pageNavi);
 		cpdv.setSearchText(searchText);
 		cpdv.setCategory(category);
-
-		System.out.println("서비스 : 검색어 : " + cpdv.getSearchText());
-		System.out.println("서비스 : 카테고리 : " + cpdv.getCategory());
-		System.out.println("서비스 : 콘텐츠 리스트(황지현바보) : " + list.get(0).getPostContent());
 
 		return cpdv;
 	}
