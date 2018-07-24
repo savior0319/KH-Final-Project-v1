@@ -58,53 +58,50 @@
 					</td>
 				</tr>
 			</table>
-
 		</div>
 
-
-	<%-- 슬라이더 시작--%>
-		<div class="ui center aligned basic segment" style="margin: 0; padding: 0;">
-			<div id="slider_main" style="width: 750px;" >
-				<div display: none;"><img src="/resources/image/mainPic.jpg"></div>
-				<div display: none;"><img src="/resources/image/mainPic1.jpg"></div>
-				<div display: none;"><img src="/resources/image/mainPic2.jpg"></div>
-				<div display: none;"><img src="/resources/image/mainPic3.jpg"></div>
+			<%-- 슬라이더 시작--%>
+			<div class="ui center aligned basic segment" style="margin: 0; padding: 0;">
+				<div id="slider_main" style="width: 750px;" >
+					<div style = "display: none;"><img src="/resources/image/mainPic.jpg"></div>
+					<div style = "display: none;"><img src="/resources/image/mainPic1.jpg"></div>
+					<div style = "display: none;"><img src="/resources/image/mainPic2.jpg"></div>
+					<div style = "display: none;"><img src="/resources/image/mainPic3.jpg"></div>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<style>
-	#slider_main {
-		height:300px;
-		text-align: center;
-	}
-	</style>
-
-	<script type="text/javascript" src="http://slidesjs.com/js/jquery.slides.min.js"></script>
-
-	<script type="text/javascript">
-		function slidesjs(){
-			$("#slider_main").slidesjs({
-				start: 1,
-				navigation: false,
-				height:400,
-				width:700,
-				play: {
-					active: false,
-					effect: "fade",
-					interval: 1500,
-					auto: true,
-					swap: true,
-					pauseOnHover: true,
-					restartDelay: 2500
-				}
-			});
+		<style>
+		#slider_main {
+			height:300px;
+			text-align: center;
 		}
+		</style>
 
-		$(document).ready(function(){
-			slidesjs();
-		});
-	</script>
+		<script type="text/javascript" src="http://slidesjs.com/js/jquery.slides.min.js"></script>
+
+		<script type="text/javascript">
+			function slidesjs(){
+				$("#slider_main").slidesjs({
+					start: 1,
+					navigation: false,
+					height:400,
+					width:700,
+					play: {
+						active: false,
+						effect: "fade",
+						interval: 1500,
+						auto: true,
+						swap: true,
+						pauseOnHover: true,
+						restartDelay: 2500
+					}
+				});
+			}
+			$(document).ready(function(){
+				slidesjs();
+			});
+		</script>
 	<%-- 슬라이더 끝 --%>
 
 
@@ -313,13 +310,3 @@
 }
 </style>
 </html>
-
-
-
-
-
-
-
-
-
-
