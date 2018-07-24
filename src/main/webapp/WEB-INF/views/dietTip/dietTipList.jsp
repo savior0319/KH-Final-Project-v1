@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -14,6 +15,7 @@
 
 
 <body>
+	<input type="hidden" id="type" value="${requestScope.dtpd.type }">
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
@@ -25,13 +27,14 @@
 		</div>
 		<div class="ui celled grid" style="box-shadow: 0 0 0 0px #d4d4d5;">
 			<div class="row" id="main_title" style="padding-bottom: 10px; padding-top: 10px; border-bottom: 3px solid black">
-				<div class="ui large header">
+				<div class="ui large header" style="width: 80%; height: 100%;">
 					다이어트꿀팁
 					<c:choose>
 						<c:when test="${requestScope.dtpd.type.equals('all') }"></c:when>
 						<c:when test="${requestScope.dtpd.type.equals('column') }">(칼럼)</c:when>
 					</c:choose>
 				</div>
+				<div style="width: 20%; height: 100%;"></div>
 			</div>
 
 			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
@@ -46,7 +49,8 @@
 						<br>
 						<div class="ui grid">
 							<div class="four wide column">
-								<i class="clock outline icon"></i> ${dt.dtDate }
+								<i class="clock outline icon"></i>
+								<fmt:formatDate value="${dt.dtDate }" pattern="yyyy-MM-dd" />
 							</div>
 							<div class="four wide column">
 								<i class="eye icon"></i> ${dt.dtSee }
@@ -92,11 +96,11 @@
 						<i class="dropdown icon"></i>
 						<div class="menu">
 							<div class="item">제목</div>
-							<div class="item">내용</div>
+							<div class="item">제목+내용</div>
 							<div class="item">작성자</div>
 						</div>
 					</div>
-					<input type="text" placeholder="Search..."> <i class="circular search link icon"></i>
+					<input type="text" placeholder="Search..." id="searchText"> <i class="circular search link icon" onclick="searchBtn()"></i>
 				</div>
 			</div>
 
@@ -123,6 +127,39 @@
 	      allowAdditions : true,
 	      allowCategorySelection : true
 	   });
+	
+	// 카테고리 선택
+	var category = '';
+	$('.menu > .item').click(function() {
+		switch ($(this).text()) {
+		case '제목':
+			category = 'title';
+			break;
+		case '제목+내용':
+			category = 'titleContents';
+			break;
+		case '작성자':
+			category = 'writer';
+			break;
+		}
+	});
+	
+	/* 검색 */
+	function searchBtn(){
+		if(category==''){
+			alert('분류를 선택해 주세요');
+			return;
+		}
+		$searchText = $('#searchText').val();
+		$type = $('#type').val();
+		location.href = "/dietTipList.diet?category="+ category +"&searchText=" + $searchText + "&type=" + $type;
+	}
+	
+	function recentlyViewBtn(rtb) {
+		var postSort = rtb.innerHTML;
+		location.href = "/dietTipList.diet?type=" + type +"&postSort=" + postSort + "&searchText=" + st + "&category="+ cate;
+
+	}
 	
 </script>
 
