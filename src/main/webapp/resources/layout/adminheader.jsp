@@ -27,11 +27,10 @@
 		<div class="menu dropdown">
 			<h4>
 				<a class="ui simple item" href="/memberList.diet">회원조회</a>
-				<a class="ui simple item" href="#">휴면 계정 관리</a>
-				<a class="ui simple item" href="#">닉네임 변경 이력</a>
+				<a class="ui simple item" href="/deleteMemberList.diet">탈퇴 내역 조회</a>
+				<a class="ui simple item" href="#">블랙리스트 관리</a>
 				<a class="ui simple item" href="#">로그인 현황</a>
 				<a class="ui simple item" href="#">회원 접속로그</a>
-				<a class="ui simple item" href="#">탈퇴 내역 조회</a>
 			</h4>
 		</div>
 	</div>

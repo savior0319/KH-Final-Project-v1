@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.HealthCenterVO;
-import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.UpdateSSVO;
 

@@ -64,14 +64,14 @@ public class AdminControllerImpl implements AdminController {
 
 	public String currentLoginUser(HttpServletResponse response) {
 		return "admin/currentLoginUser";
-//		System.out.println(session.getAttribute("key"));
+		// System.out.println(session.getAttribute("key"));
 	}
 
 	/* 전체 회원 조회 */
 	@Override
 	@RequestMapping(value = "/memberList.diet")
 	public String memberList(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		int currentPage;
 
 		if (request.getParameter("currentPage") == null) {
@@ -81,11 +81,31 @@ public class AdminControllerImpl implements AdminController {
 		}
 
 		MemberListPDVO mbData = as.getMemberList(currentPage);
+
+		mbData.setType(request.getParameter("type"));
+		request.setAttribute("mbpd", mbData);
+		return "admin/memberList";
+	}
+
+	/* 탈퇴 회원 조회 */
+	@Override
+	@RequestMapping(value = "/deleteMemberList.diet")
+	public String deleteMemberList(HttpServletRequest request, HttpServletResponse response) {
+
+		int currentPage;
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		MemberListPDVO mbData = as.getDeleteMemberList(currentPage);
+
 		mbData.setType(request.getParameter("type"));
 		request.setAttribute("mbpd", mbData);
 
-
-		return "admin/memberList";
+		return "admin/deleteMemberList";
 	}
 
 }

@@ -44,17 +44,17 @@
 		MB_PHONE = #{mbPhone},
 		MB_PROMISE = #{mbPromise},
 		MB_HEIGHT = #{mbHeight},
-		MB_WEIGHT =
-		#{mbWeight},
-		MB_BMI = #{mbBmi}
+		MB_WEIGHT = #{mbWeight}
 		WHERE MB_ID = #{mbId}
 	</update>
 
 	<!-- 한명의 회원정보  -->
+
 	<select id="selectOneMember" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
+		MB_REPORT AS mbReport,
 		MB_PWD AS mbPwd,
 		MB_NAME AS mbName,
 		MB_NICKNAME AS mbNickName,
@@ -68,10 +68,10 @@
 		MB_GRADE AS mbGrade,
 		MB_HEIGHT AS mbHeight,
 		MB_WEIGHT AS mbWeight,
-		MB_BMI AS mbBmi,
-		MB_REPORT AS mbReport,
-		MB_ENROLLDATE AS mbEnrollDate
-		FROM MEMBER_TBL WHERE MB_ID = #{mbId}
+		MB_ENROLLDATE
+		AS mbEnrollDate
+		FROM MEMBER_TBL
+		WHERE MB_ID = #{mbId}
 	</select>
 
 	<!-- 마이페이지 - 프로필 사진 삭제 -->
@@ -88,7 +88,9 @@
 		querstionIndex FROM QUESTION WHERE MB_INDEX = #{mbIndex}
 	</select>
 
+
 	<!-- 마이페이지 - 장바구니 -->
+
 	<select id="myWishList" parameterType="member" resultType="product">
 		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS
 		pdImage,
@@ -100,7 +102,8 @@
 		#{mbId}
 	</select>
 
-	<!-- 회원가입 -->
+
+	<!-- 회원 가입 -->
 	<insert id="signup" parameterType="member">
 		INSERT INTO MEMBER_TBL
 		VALUES(MEMBER_SEQ.NEXTVAL, #{mbId}, #{mbPwd}, null, #{mbNickName},
@@ -112,9 +115,15 @@
 		SYSDATE)
 	</insert>
 
+
+	<select id="myActivity" parameterType="member" resultType="myActivity">
+		SELECT
+		MB_INDEX AS mbIndex,
+		MY_ATTENDANCE AS myAttendance,
+		MY_COMMNET_COUNT AS myCommentCount,
+
 	<!-- 나의 활동 정보 (출석,댓글,게시물,가입날짜) -->
 	<select id="myActivity" parameterType="member" resultType="myActivity">
-		
 	SELECT
 		MB_INDEX AS mbIndex ,
 		MY_ATTENDANCE AS myAttendance ,
@@ -163,11 +172,12 @@
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
 		MB_PWD AS mbPwd,
-		MB_NAME AS mbName,
+		MB_NAME AS
+		mbName,
 		MB_NICKNAME AS mbNickName,
 		MB_GENDER AS mbGender,
-		MB_IMAGE
-		AS mbImage,
+		MB_IMAGE AS
+		mbImage,
 		MB_PROMISE AS mbPromise,
 		MB_AGE AS mbAge,
 		MB_PHONE AS mbPhone,
@@ -182,7 +192,7 @@
 		MB_ENROLLDATE AS mbEnrollDate
 		FROM MEMBER_TBL WHERE MB_NICKNAME = #{nickName}
 	</select>
-	
+
 	<!-- 마이페이지 - 프로필 사진 업데이트  -->
 	<update id="updateMyPicture" parameterType="member">
 		UPDATE MEMBER_TBL SET
