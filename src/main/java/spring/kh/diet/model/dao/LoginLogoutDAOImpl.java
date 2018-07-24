@@ -78,7 +78,6 @@ public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 
 	public void tranSession(SqlSessionTemplate sqlSessionTemplate, HttpServletRequest request) {
 		int result = sqlSessionTemplate.delete("login.transSession",request.getRemoteAddr());
-		System.out.println(result);
 	}
  
 	@Override
@@ -89,7 +88,6 @@ public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 	}
 
 	public int insertSession(SqlSessionTemplate sqlSessionTemplate, OneSessionVO oSV) {
-		System.out.println(oSV.toString());
 		int result = sqlSessionTemplate.insert("login.insertSession",oSV);
 		return result;
 	}
