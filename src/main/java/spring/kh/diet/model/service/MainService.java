@@ -15,7 +15,7 @@ public interface MainService {
 	HealthCenterPDVO getHealthCenterList(int currentPage, String location);
     int insertSessionToList(HttpSession session,HttpServletRequest request);
 	ArrayList<OnSessionVO> selectAllSessionList();
-	int updateOnsession(UpdateSSVO uSSVO);
+	void updateOnsession(UpdateSSVO uSSVO);
 	int updateAlreadyOnsession(UpdateSSVO uSSVO);
 	
 }

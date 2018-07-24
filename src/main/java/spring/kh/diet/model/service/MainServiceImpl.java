@@ -62,9 +62,9 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public int updateOnsession(UpdateSSVO uSSVO) {
-		int result = mDao.updateOnsession(session, uSSVO);
-		return result;
+	public void updateOnsession(UpdateSSVO uSSVO) {
+		mDao.updateOnsession(session, uSSVO);
+		
 	}
 
 	@Override

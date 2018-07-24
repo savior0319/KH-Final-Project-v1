@@ -20,36 +20,58 @@
 </script>
 <!-- 네이버 애널리틱스 추적코드 종료  -->
 
-<!-- 인보 - 세션생성  -->
+<!-- 인보 - 세션생성  및 브라우저 확인  -->
 	
 <c:if test="${sessionScope.member.mbId == null}">
 <script type="text/javascript">
 	$(document).ready(function() {
-		$.ajax({
-			url : 'createSession.diet',
-			type : 'post',
-			success : function(data){
+		var filter = "win16|win32|win64|mac";
+		var device = "";
+		if(navigator.platform)
+		{
+			if(0 > filter.indexOf(navigator.platform.toLowerCase()))
+			{
+				device = "mobile";
 			}
+			else
+			{
+				device = "pc";}
+		}
+		$.ajax({
+			url : '/createSession.diet',
+			type : 'post',
+			data : {'device' : device}
 		});
 	});		
 </script>
 </c:if>
 <c:if test="${sessionScope.member.mbId != null}">
 <script type="text/javascript">
-	$(document).ready(function(){
-		$.ajax({
-			url : 'updateOnSession.diet',
-			type : 'post',
-			data : { 'data' : '${sessionScope.member.mbNickName}'},
-			suceess : function(){
-				
+	$(document).ready(function() {
+		var filter = "win16|win32|win64|mac";
+		var device = "";
+		if(navigator.platform)
+		{
+			if(0 > filter.indexOf(navigator.platform.toLowerCase()))
+			{
+				device = "mobile";
 			}
+			else
+			{
+				device = "pc";}
+		}
+		$.ajax({
+			url : '/updateOnSession.diet',
+			type : 'post',
+			data : { 'data' : '${sessionScope.member.mbNickName}','device' : device}
 		});
 		
 	});
 </script>
 </c:if> 
 <!--  -->
+
+
 
 <style type="text/css" media="screen">
 .menu {
