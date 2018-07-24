@@ -1,8 +1,10 @@
 package spring.kh.diet.model.service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.OneSessionVO;
 
 public interface LoginLogoutService {
 
@@ -14,5 +16,8 @@ public interface LoginLogoutService {
 	int existUserNickNum(MemberVO mv);
 	int existUserFindingId(MemberVO mv);
 	int joinKaKao(MemberVO m);
+	void transSession(HttpServletRequest request);
+	OneSessionVO selectOneSession(String remoteAddr);
+	int insertSession(OneSessionVO oSV);
 
 }

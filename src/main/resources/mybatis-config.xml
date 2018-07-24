@@ -20,6 +20,7 @@
 		<typeAlias type="spring.kh.diet.model.vo.MyActivityVO" alias="myActivity"/>
 		<typeAlias type="spring.kh.diet.model.vo.MyActivityPageDataVO" alias="myActivityPageData"/>
 		<typeAlias type="spring.kh.diet.model.vo.OnSessionVO" alias="onSession"/>
+		<typeAlias type="spring.kh.diet.model.vo.OneSessionVO" alias="oneSession"/>
 		<typeAlias type="spring.kh.diet.model.vo.UpdateSSVO" alias="upDateSSVO"/>
 	</typeAliases>
 

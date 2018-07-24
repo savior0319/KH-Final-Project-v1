@@ -129,5 +129,32 @@
 		MB_HEIGHT AS mbHeight,
 		MB_WEIGHT AS mbWeight,
 		MB_ENROLLDATE AS mbEnrollDate FROM MEMBER_TBL WHERE MB_ID = #{mbNickName}
+	</select> 
+
+	<insert id="insertSession" parameterType="oneSession">
+		INSERT INTO
+		OFF_Session_TBL
+		VALUES(#{indexNo},#{sessionId},#{sessionIp},#{firstOn},to_char((to_date(sysdate,'yy/MM/dd hh24:mi:ss') - to_date(#{firstOn},'yy/MM/dd hh24:mi:ss'))),#{loginId},#{device},to_char(sysdate,'yy/mm/dd hh24:mi:ss'))
+	</insert>
+	<!-- substr(to_char(sysdate-ss_firstOn),11,9) -->
+	<!--to_char((sysdate - to_date(#{firstOn},'yyyy/MM/dd hh24:mi:ss'))) *24*60*60 -->
+	<delete id="transSession">
+	delete On_Session_Tbl where SS_IP = #{ip}
+	
+	</delete>
+	
+	<select id="selectOneSession" resultType="oneSession">
+	 select
+	SS_INDEX as indexNo,
+    SS_ID as sessionId, 
+    SS_IP as sessionIp,  
+    SS_FIRSTON as firstOn,
+    SS_INVALIDATE as invalidate,
+    SS_STATE as state,    
+    SS_LOGIN as loginId, 
+    SS_DEVICE as device    
+	 from ON_session_TBL where SS_IP = #{ip}
 	</select>
+	
+	
 </mapper>

@@ -115,7 +115,7 @@
 		
 		INSERT INTO
 		ON_Session_TBL
-		VALUES(SESSION_SEQ.NEXTVAL,#{sessionId},#{sessionIp},sysdate,sysdate + 30/(24*60),#{state},#{loginId},#{device})
+		VALUES(SESSION_SEQ.NEXTVAL,#{sessionId},#{sessionIp},to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'),to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss'),#{state},#{loginId},#{device})
 	
 	</select>
 	
@@ -133,8 +133,13 @@
 	<update id="updateOnSesssion" parameterType="upDateSSVO">
 	update 
 	On_Session_TBL
-	set SS_Login = #{mbNickName}, SS_FirstON = sysdate, SS_INVALIDATE = sysdate + 30/(24*60)
-	where ss_IP = #{sessionIp}
+	set SS_Login = #{mbNickName}, SS_FirstON = to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'), SS_INVALIDATE = to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss'), SS_STATE = 'ON' where ss_IP = #{sessionIp}
+	</update>
+	
+	<update id="updateAlreadyOnSesssion" parameterType="upDateSSVO">
+	update 
+	On_Session_TBL
+	set SS_FirstON = to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'), SS_INVALIDATE = to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss')  where ss_IP = #{sessionIp}
 	</update>
 	
 	</mapper>

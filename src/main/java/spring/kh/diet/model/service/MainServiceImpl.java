@@ -66,6 +66,12 @@ public class MainServiceImpl implements MainService {
 		int result = mDao.updateOnsession(session,uSSVO);
 		return result;
 	}
+
+	@Override
+	public int updateAlreadyOnsession(UpdateSSVO uSSVO) {
+		int result = mDao.updateAlreadyOnsession(session,uSSVO);
+		return result;
+	}
 	
 	
 

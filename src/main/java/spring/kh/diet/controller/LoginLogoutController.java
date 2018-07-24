@@ -18,4 +18,6 @@ public interface LoginLogoutController {
 	String logout(HttpServletRequest request, HttpServletResponse response);
 
 	String login(HttpServletRequest request, String memberId, String memberPwd);
+	
+	
 }

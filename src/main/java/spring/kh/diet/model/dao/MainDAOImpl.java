@@ -104,9 +104,7 @@ public class MainDAOImpl implements MainDAO {
 
 	@Override
 	public int insertSessionToList(SqlSessionTemplate session, HttpSession session2, HttpServletRequest request) {
-
-		OnSessionVO OSV = new OnSessionVO("SESSION_SEQ.nextval", session2.getId(), request.getRemoteAddr(), "ON",
-				"NULL", "NULL");
+		OnSessionVO OSV = new OnSessionVO("SESSION_SEQ.nextval", session2.getId(), request.getRemoteAddr(), "OFF", "NULL", "NULL");
 
 		return session.insert("main.insertOnSesssion", OSV);
 	}
@@ -122,6 +120,14 @@ public class MainDAOImpl implements MainDAO {
 	public int updateOnsession(SqlSessionTemplate session, UpdateSSVO uSSVO) {
 		int result = session.update("main.updateOnSesssion", uSSVO);
 		
+		
+		return result;
+	}
+
+	@Override
+	public int updateAlreadyOnsession(SqlSessionTemplate session, UpdateSSVO uSSVO) {
+		
+		int result = session.update("main.updateAlreadyOnSesssion", uSSVO);
 		return result;
 	}
 

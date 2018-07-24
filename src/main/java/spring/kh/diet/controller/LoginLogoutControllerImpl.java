@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import spring.kh.diet.model.service.LoginLogoutService;
 import spring.kh.diet.model.vo.EmailConfirm;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.OneSessionVO;
 
 @SuppressWarnings("all")
 @Controller
@@ -120,9 +121,20 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 	@RequestMapping(value = "/logout.diet")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();		
 		if (session.getAttribute("member") != null) {
-			session.invalidate();
+			// 인보부분(세션 파기전 세션의 정보를 넘겨야합니다)
+			// Onsession 값을 가져와서 OffSession TB에 값을 넣어주주고
+			OneSessionVO OSV = loginService.selectOneSession(request.getRemoteAddr());
+
+			int result = loginService.insertSession(OSV);
+			// Onsession TB에서의 데이터삭제
+			if(result>0)
+			{
+				loginService.transSession(request);				
+			}
+			
+			session.invalidate();						
 			//카카오톡 자동로그인 방지용으로 만든 쿠키 작동불 
 			Cookie[] cookies = request.getCookies();
 			if (cookies != null) {
@@ -169,5 +181,7 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 		return result;
 
 	}
+	
+	
 
 }
