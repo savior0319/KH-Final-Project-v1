@@ -26,24 +26,19 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$.ajax({
-			url : 'createSession.diet',
-			type : 'post',
-			success : function(data){
-			}
+			url : '/createSession.diet',
+			type : 'post'
 		});
 	});		
 </script>
 </c:if>
 <c:if test="${sessionScope.member.mbId != null}">
 <script type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function() {
 		$.ajax({
-			url : 'updateOnSession.diet',
+			url : '/updateOnSession.diet',
 			type : 'post',
-			data : { 'data' : '${sessionScope.member.mbNickName}'},
-			suceess : function(){
-				
-			}
+			data : { 'data' : '${sessionScope.member.mbNickName}'}
 		});
 		
 	});

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -257,9 +258,10 @@ public class MainControllerImpl implements MainController {
 
 	@Override
 	@RequestMapping(value="/updateOnSession.diet")
+	@ResponseBody
 	public void updateOnsession(HttpServletRequest request) {
 		UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),request.getRemoteAddr());
-		int result = mService.updateOnsession(USSVO);
+		mService.updateOnsession(USSVO);
 	}
 	
 
