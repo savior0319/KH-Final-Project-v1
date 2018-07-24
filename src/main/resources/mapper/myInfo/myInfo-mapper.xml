@@ -5,7 +5,8 @@
 	<!-- 1대1 문의 -->
 	<insert id="question" parameterType="question">
 		INSERT INTO QUESTION_TBL
-		VALUES(QUESTION_SEQ.NEXTVAL, #{qsTitle}, #{qsContent}, #{mbIndex}, SYSDATE, #{qsAnswerCheck})
+		VALUES(QUESTION_SEQ.NEXTVAL, #{qsTitle}, #{qsContent}, #{mbIndex},
+		SYSDATE, #{qsAnswerCheck})
 	</insert>
 
 	<delete id="secessionMember" parameterType="member">
@@ -15,20 +16,21 @@
 
 	<update id="updateMyInfo" parameterType="member">
 		UPDATE MEMBER_TBL
-		SET MB_PWD = #{mbPwd},
+		SET
+		MB_PWD = #{mbPwd},
 		MB_NICKNAME = #{mbNickName},
 		MB_PHONE = #{mbPhone},
 		MB_PROMISE = #{mbPromise},
-		MB_HEIGHT = #{mbHeight}, 
+		MB_HEIGHT = #{mbHeight},
 		MB_WEIGHT = #{mbWeight}
 		WHERE MB_ID = #{mbId}
 	</update>
 
-	<select id="selectOneMember" parameterType="member"
-		resultType="member">
+	<select id="selectOneMember" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
+		MB_REPORT AS mbReport,
 		MB_PWD AS mbPwd,
 		MB_NAME AS mbName,
 		MB_NICKNAME AS mbNickName,
@@ -46,7 +48,8 @@
 		MB_WEIGHT AS mbWeight,
 		MB_ENROLLDATE
 		AS mbEnrollDate
-		FROM MEMBER_TBL WHERE MB_ID = #{mbId}
+		FROM MEMBER_TBL
+		WHERE MB_ID = #{mbId}
 	</select>
 
 	<delete id="deleteMyPicture" parameterType="member">
@@ -62,8 +65,7 @@
 		querstionIndex FROM QUESTION WHERE MB_INDEX = #{mbIndex}
 	</select>
 
-	<select id="myWishList" parameterType="member"
-		resultType="product">
+	<select id="myWishList" parameterType="member" resultType="product">
 		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS
 		pdImage,
 		PD_PRICE AS pdPrice FROM PRODUCT_TBL
@@ -74,6 +76,7 @@
 		#{mbId}
 	</select>
 
+	<!-- 회원 가입 -->
 	<insert id="signup" parameterType="member">
 		INSERT INTO MEMBER_TBL
 		VALUES(MEMBER_SEQ.NEXTVAL, #{mbId}, #{mbPwd}, null, #{mbNickName},
@@ -81,11 +84,11 @@
 		'http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg',
 		null, null, null, null, #{mbInterest},
 		'일반회원', null,
-		null, SYSDATE)
+		null, null, 'n',
+		SYSDATE)
 	</insert>
 
-	<select id="myActivity" parameterType="member"
-		resultType="myActivity">
+	<select id="myActivity" parameterType="member" resultType="myActivity">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MY_ATTENDANCE AS myAttendance,
@@ -131,16 +134,17 @@
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
-	<select id="nickNameCheck" parameterType="member"
-		resultType="member">
+	<select id="nickNameCheck" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
 		MB_PWD AS mbPwd,
-		MB_NAME AS mbName,
+		MB_NAME AS
+		mbName,
 		MB_NICKNAME AS mbNickName,
 		MB_GENDER AS mbGender,
-		MB_IMAGE AS mbImage,
+		MB_IMAGE AS
+		mbImage,
 		MB_PROMISE AS mbPromise,
 		MB_AGE AS mbAge,
 		MB_PHONE
@@ -159,10 +163,11 @@
 		FROM
 		MEMBER_TBL WHERE MB_NICKNAME = #{nickName}
 	</select>
-	
-	<update id ="updateMyPicture" parameterType="member">
-		UPDATE MEMBER_TBL SET MB_IMAGE = #{mbImage} where MB_ID = #{mbId}
-	</update> 
-  
+
+	<update id="updateMyPicture" parameterType="member">
+		UPDATE MEMBER_TBL SET
+		MB_IMAGE = #{mbImage} where MB_ID = #{mbId}
+	</update>
+
 </mapper>
 

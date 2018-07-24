@@ -1,8 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
+
+	<!-- 관리자 - 공지사항 등록 -->
 	<insert id="noticeRegisterData" parameterType="notice">
-		INSERT INTO NOTICETEST VALUES(NOTICE_SEQ.NEXTVAL, #{noticeTitle},
+		INSERT INTO
+		NOTICETEST VALUES(NOTICE_SEQ.NEXTVAL, #{noticeTitle},
 		#{noticeContent}, DEFAULT)
 	</insert>
+
+	<!-- 관리자 전체 회원 조회 리스트 -->
+	<select id="getMemberList" parameterType="memberListPageData"
+		resultType="member">
+		SELECT
+		MB_AGE as mbAge,
+		MB_Index as mbIndex,
+		MB_HEIGHT as mbHeight,
+		MB_WEIGHT as mbWeight,
+		MB_ID as mbId,
+		MB_PWD as mbPwd,
+		MB_NAME as mbName,
+		MB_NICKNAME as mbNickName,
+		MB_GENDER as mbGender,
+		MB_IMAGE as mbImage,
+		MB_Promise as mbPromise,
+		MB_PHONE as mbPhone,
+		MB_REPORT as mbReport,
+		MB_ADDRESS as mbAddress,
+		MB_INTEREST as mbInterest,
+		MB_GRADE as mbGrade,
+		MB_ENROLLDATE as mbEnrollDate
+		FROM (SELECT MEMBER_TBL.*, ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
+		WHERE NUM BETWEEN #{start} and #{end}
+	</select>
+
+	<!-- 관리자 전체 회원 리스트 네비게이션 -->
+	<select id="getMemberNavi" resultType="java.lang.Integer"
+		parameterType="memberListPageData">
+		SELECT COUNT(*) AS TOTALCOUNT
+		FROM MEMBER_TBL
+	</select>
+
+	<!-- 관리자 탈퇴 회원 조회 리스트 -->
+	<select id="getDeleteMemberList" parameterType="memberListPageData"
+		resultType="member">
+		SELECT
+		MB_AGE as mbAge,
+		MB_Index as mbIndex,
+		MB_HEIGHT as mbHeight,
+		MB_WEIGHT as mbWeight,
+		MB_ID as mbId,
+		MB_PWD as mbPwd,
+		MB_NAME as mbName,
+		MB_NICKNAME as mbNickName,
+		MB_GENDER as mbGender,
+		MB_IMAGE as mbImage,
+		MB_Promise as mbPromise,
+		MB_PHONE as mbPhone,
+		MB_REPORT as mbReport,
+		MB_ADDRESS as mbAddress,
+		MB_INTEREST as mbInterest,
+		MB_GRADE AS MBGRADE,
+		DELETE_DATE as mbEnrollDate
+		FROM (SELECT DEL_MEMBER_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM DEL_MEMBER_TBL)
+		WHERE NUM BETWEEN #{start} and #{end}
+	</select>
+	
+	<!-- 관리자 탈퇴 회원 리스트 네비게이션 -->
+	<select id="getDeleteMemberNavi" resultType="java.lang.Integer"
+		parameterType="memberListPageData">
+		SELECT COUNT(*) AS TOTALCOUNT
+		FROM DEL_MEMBER_TBL
+	</select>
+
+
+
 </mapper>

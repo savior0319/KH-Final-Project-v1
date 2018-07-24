@@ -3,7 +3,6 @@ package spring.kh.diet.model.dao;
 import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;

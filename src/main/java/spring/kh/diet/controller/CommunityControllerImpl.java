@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.kh.diet.model.service.CommunityService;
 import spring.kh.diet.model.vo.BoardPostVO;
-import spring.kh.diet.model.vo.BoardVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
 

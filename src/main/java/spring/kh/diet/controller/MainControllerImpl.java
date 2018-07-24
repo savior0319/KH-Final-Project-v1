@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +22,6 @@ import spring.kh.diet.model.service.MainService;
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
-import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.UpdateSSVO;
 
@@ -69,7 +67,7 @@ public class MainControllerImpl implements MainController {
 		int ageInt = Integer.parseInt(ageStr);
 		int ageRs = ageInt - Integer.parseInt(age);
 		double resultBMI = weightConvertDouble / (heightConvertMeter * heightConvertMeter);
-
+		
 		String ageStrRs = String.valueOf(ageRs);
 		String weightStrRs = String.valueOf((int) weightConvertDouble);
 		String heightStrRs = String.valueOf((int) (heightConvertMeter * 100));

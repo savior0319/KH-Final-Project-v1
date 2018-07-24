@@ -1,12 +1,6 @@
 package spring.kh.diet.model.dao;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.HealthCenterVO;
-import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.UpdateSSVO;
 
+@SuppressWarnings("all")
 @Repository("mainDAO")
 public class MainDAOImpl implements MainDAO {
 

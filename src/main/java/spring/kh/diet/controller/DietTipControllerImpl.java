@@ -1,10 +1,8 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.service.DietTipServiceImpl;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
-import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 import spring.kh.diet.model.vo.MemberVO;

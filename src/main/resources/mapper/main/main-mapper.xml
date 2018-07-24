@@ -60,8 +60,6 @@
 		</choose>
 		)
 		WHERE NUM BETWEEN #{start} and #{end}
-
-
 	</select>
 
 	<select id="getNavi" resultType="java.lang.Integer"
@@ -138,3 +136,5 @@
 	</update>
 	
 	</mapper>
+	
+	

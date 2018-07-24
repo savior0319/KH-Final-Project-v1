@@ -9,4 +9,6 @@ public interface AdminService {
 
 	MemberListPDVO getMemberList(int currentPage);
 
+	MemberListPDVO getDeleteMemberList(int currentPage);
+
 }
