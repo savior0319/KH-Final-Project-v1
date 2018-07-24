@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -33,9 +34,7 @@
 						<c:when test="${requestScope.dtpd.type.equals('column') }">(칼럼)</c:when>
 					</c:choose>
 				</div>
-				<div style="width: 20%; height: 100%;">
-					
-				</div>
+				<div style="width: 20%; height: 100%;"></div>
 			</div>
 
 			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
@@ -50,7 +49,8 @@
 						<br>
 						<div class="ui grid">
 							<div class="four wide column">
-								<i class="clock outline icon"></i> ${dt.dtDate }
+								<i class="clock outline icon"></i>
+								<fmt:formatDate value="${dt.dtDate }" pattern="yyyy-MM-dd" />
 							</div>
 							<div class="four wide column">
 								<i class="eye icon"></i> ${dt.dtSee }
