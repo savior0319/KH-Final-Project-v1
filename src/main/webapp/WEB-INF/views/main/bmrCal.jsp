@@ -24,7 +24,7 @@
 			<div class="ui large message">
 				<div class="ui large header">칼로리 처방 받기</div>
 			</div>
-			<form action="/bmrCalResult.diet" method="GET">
+			<form action="/bmrCalResult.diet" method="POST">
 				<table class="ui celled table">
 					<thead>
 						<tr>

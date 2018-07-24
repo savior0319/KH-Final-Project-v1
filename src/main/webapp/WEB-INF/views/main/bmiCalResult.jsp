@@ -9,114 +9,114 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 
-		$(document).ready(function() {
+	$(document).ready(function() {
 
 
-			var bmiPoint = ${bmi.bmi};
-			var bmigender = '${bmi.gender}';
-			var color;
+		var bmiPoint = ${bmi.bmi};
+		var bmigender = '${bmi.gender}';
+		var color;
 
-			if(18.5>= bmiPoint && bmiPoint >= 0){
-				color='lightgray';
-				$('#bmiMsg').html('저체중').css('color', 'red');
+		if(18.5>= bmiPoint && bmiPoint >= 0){
+			color='lightgray';
+			$('#bmiMsg').html('저체중').css('color', 'red');
 
-				if(bmigender == '여자'){
-					$('#imageBody').html("<img src='/resources/image/body/W_Body1.png' height='120px;'>");
-				} else {
-					$('#imageBody').html("<img src='/resources/image/body/M_Body1.png' height='120px;'>");
-				} 
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body1.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body1.png' height='120px;'>");
+			} 
 
-			} else if(23> bmiPoint && bmiPoint > 18.5) {
-				color='green';
-				$('#bmiMsg').html('정상').css('color', 'green');
+		} else if(23> bmiPoint && bmiPoint > 18.5) {
+			color='green';
+			$('#bmiMsg').html('정상').css('color', 'green');
 
-				if(bmigender == '여자'){
-					$('#imageBody').html("<img src='/resources/image/body/W_Body2.png' height='120px;'>");
-				} else {
-					$('#imageBody').html("<img src='/resources/image/body/M_Body2.png' height='120px;'>");
-				} 
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body2.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body2.png' height='120px;'>");
+			} 
 
-			} else if(25> bmiPoint && bmiPoint >= 23){
-				color='orange';
-				$('#bmiMsg').html('비만 전단계').css('color', 'orange');
+		} else if(25> bmiPoint && bmiPoint >= 23){
+			color='orange';
+			$('#bmiMsg').html('비만 전단계').css('color', 'orange');
 
-				if(bmigender == '여자'){
-					$('#imageBody').html("<img src='/resources/image/body/W_Body3.png' height='120px;'>");
-				} else {
-					$('#imageBody').html("<img src='/resources/image/body/M_Body3.png' height='120px;'>");
-				} 
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body3.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body3.png' height='120px;'>");
+			} 
 
-			} else if(30> bmiPoint && bmiPoint >= 25){
-				color='red';
-				$('#bmiMsg').html('1단계 비만').css('color', 'red');
+		} else if(30> bmiPoint && bmiPoint >= 25){
+			color='red';
+			$('#bmiMsg').html('1단계 비만').css('color', 'red');
 
-				if(bmigender == '여자'){
-					$('#imageBody').html("<img src='/resources/image/body/W_Body4.png' height='120px;'>");
-				} else {
-					$('#imageBody').html("<img src='/resources/image/body/M_Body4.png' height='120px;'>");
-				} 
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body4.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body4.png' height='120px;'>");
+			} 
 
-			} else if(35> bmiPoint && bmiPoint >= 30){
-				color='red';
-				$('#bmiMsg').html('2단계 비만').css('color', 'red');
+		} else if(35> bmiPoint && bmiPoint >= 30){
+			color='red';
+			$('#bmiMsg').html('2단계 비만').css('color', 'red');
 
-				if(bmigender == '여자'){
-					$('#imageBody').html("<img src='/resources/image/body/W_Body5.png' height='120px;'>");
-				} else {
-					$('#imageBody').html("<img src='/resources/image/body/M_Body5.png' height='120px;'>");
-				} 
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body5.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body5.png' height='120px;'>");
+			} 
 
-			} else if(bmiPoint >= 35){
-				color='red';
-				$('#bmiMsg').html('3단계 비만').css('color', 'red');
+		} else if(bmiPoint >= 35){
+			color='red';
+			$('#bmiMsg').html('3단계 비만').css('color', 'red');
 
-				if(bmigender == '여자'){
-					$('#imageBody').html("<img src='/resources/image/body/W_Body6.png' height='120px;'>");
-				} else {
-					$('#imageBody').html("<img src='/resources/image/body/M_Body6.png' height='120px;'>");
-				} 
-			}
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body6.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body6.png' height='120px;'>");
+			} 
+		}
 
 
-			google.charts.load("current", {packages:["corechart"]});
-			google.charts.setOnLoadCallback(drawChart);
+		google.charts.load("current", {packages:["corechart"]});
+		google.charts.setOnLoadCallback(drawChart);
 
-			function drawChart() {
-				var data = google.visualization.arrayToDataTable([
+		function drawChart() {
+			var data = google.visualization.arrayToDataTable([
 
-					["Element", "BMI", { role: "style" } ],
-					["BMI", bmiPoint, color],
+				["Element", "BMI", { role: "style" } ],
+				["BMI", bmiPoint, color],
 
-					]);
+				]);
 
-				var view = new google.visualization.DataView(data);
-				view.setColumns([0, 1,
-					{ calc: "stringify",
-					sourceColumn: 1,
-					type: "string",
-					role: "annotation" },
-					2]);
+			var view = new google.visualization.DataView(data);
+			view.setColumns([0, 1,
+				{ calc: "stringify",
+				sourceColumn: 1,
+				type: "string",
+				role: "annotation" },
+				2]);
 
-				var options = {
-					title: "비만도(BMI) 검사 결과",
-					width: 900,
-					height: 150,
-					bar: {groupWidth: "55%"},
-					legend: { position: "none" },
+			var options = {
+				title: "비만도(BMI) 검사 결과",
+				width: 900,
+				height: 150,
+				bar: {groupWidth: "55%"},
+				legend: { position: "none" },
 
-					hAxis: {
-						viewWindow: {
-							min: 0,
-							max: 35
-						},
-						ticks: [0,5,10,15,20,25,30,35]
-					}
-				};
-				var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-				chart.draw(view, options);
-			}
-		});
-	</script>
+				hAxis: {
+					viewWindow: {
+						min: 0,
+						max: 35
+					},
+					ticks: [0,5,10,15,20,25,30,35]
+				}
+			};
+			var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+			chart.draw(view, options);
+		}
+	});
+</script>
 </head>
 
 <!-- CSS -->
@@ -192,9 +192,9 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 
-	function back(){
-		location.href="/bmiCal.diet"
-	}
+function back(){
+	location.href="/bmiCal.diet"
+}
 
 </script>
 
