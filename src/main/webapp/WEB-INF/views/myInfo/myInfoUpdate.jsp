@@ -380,7 +380,7 @@
 
 		var resultPwd = pwdRegExp.test(mbPwd);
 		if (resultPwd == true) {
-			if (height == "" || weight == "") {
+			if (height == "" && weight == "") {
 				$("#mbHeight").val('0');
 				$("#mbWeight").val('0');
 				if (nickName == "") {
@@ -391,6 +391,9 @@
 					alert("수정이 완료되었습니다.");
 					return true;
 				}
+			}else if(height!=""||weight!=""){
+				alert("키와 몸무게를 모두 입력해주세요 ~ ");
+				return false;
 			}
 
 		} else {

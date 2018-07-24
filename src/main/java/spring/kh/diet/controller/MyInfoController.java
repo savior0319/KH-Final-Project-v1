@@ -10,6 +10,8 @@ import org.springframework.http.HttpRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.MyActivityPageDataVO;
+import spring.kh.diet.model.vo.MyActivityVO;
 
 public interface MyInfoController {
 
@@ -33,5 +35,9 @@ public interface MyInfoController {
 			MultipartFile uploadFile) throws IOException;
 
 	void question(String title, String content, String mbIndex, HttpServletResponse response) throws IOException;
+
+	MyActivityPageDataVO myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma);
+
+	Object myPost(HttpSession session);
 
 }

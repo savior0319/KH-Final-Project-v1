@@ -154,10 +154,8 @@ else self.name = '';
 						<div class="item">작성자</div>
 					</div>
 				</div>
-
 				<input type="text" placeholder="Search..." id="searchText">
 				<i class="circular search link icon" onclick="searchBtn()"></i>
-
 			</div>
 		</div>
 
