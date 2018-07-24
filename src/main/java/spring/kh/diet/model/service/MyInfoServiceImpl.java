@@ -81,7 +81,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public MyActivityPageDataVO allCommunityList(int currentPage, String type, MyActivityVO ma) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 5;
 		int naviCountPerPage = 5;
 
 		MyActivityPageDataVO cpdv = new MyActivityPageDataVO();
@@ -108,6 +108,12 @@ public class MyInfoServiceImpl implements MyInfoService {
 	public int nickNameCheck(String nickName) {
 		int result = myInfoDAO.nickNameCheck(SqlSessionTemplate, nickName);
 		return result;
+	}
+
+	@Override
+	public ArrayList<BoardPostVO> myPost(MemberVO mv) {
+		ArrayList<BoardPostVO> list = myInfoDAO.myPost(SqlSessionTemplate,mv);
+		return list;
 	}
 
 }
