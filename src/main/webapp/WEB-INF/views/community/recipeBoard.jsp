@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+
+
 <title>레시피&#38;식단</title>
 </head>
 
@@ -27,7 +30,9 @@ else self.name = '';
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
-
+<input type="hidden" id="boardTime" value="${requestScope.cpdv.type}">
+<input type="hidden" id="category" value="${requestScope.cpdv.category}">
+<input type="hidden" id="searchT" value="${requestScope.cpdv.searchText}">
 
 	<div class="ui center aligned container">
 
@@ -73,7 +78,9 @@ else self.name = '';
 									</c:choose>
 								</a>
 								<div class="meta">
-									<span class="date">${c.postDateTime}</span>
+									<span class="date">
+									<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" /> 
+									</span>
 								</div>
 								<div class="description">
 									<i class="eye icon"></i>
@@ -137,13 +144,13 @@ else self.name = '';
 					<i class="dropdown icon"></i>
 					<div class="menu">
 						<div class="item">제목</div>
-						<div class="item">내용</div>
+						<div class="item">제목+내용</div>
 						<div class="item">작성자</div>
 					</div>
 				</div>
 
-				<input type="text" placeholder="Search...">
-				<i class="circular search link icon"></i>
+				<input type="text" placeholder="Search..." id="searchText">
+				<i class="circular search link icon" onclick="searchBtn()"></i>
 
 			</div>
 		</div>
@@ -184,6 +191,29 @@ else self.name = '';
 	}
 	
 	
+	// 카테고리 선택
+	var category = '';
+	$('.menu > .item').click(function() {
+		switch ($(this).text()) {
+		case '제목':
+			category = 'title';
+			break;
+		case '제목+내용':
+			category = 'titleContents';
+			break;
+		case '작성자':
+			category = 'writer';
+			break;
+		}
+	});
+	
+	/* 검색 */
+	function searchBtn(){
+		$searchText = $('#searchText').val();
+		location.href = "/communitySearch.diet?category="+ category +"&searchText=" + $searchText; 
+		 /* + "&type=" + type */
+		
+	}
 </script>
 
 </html>

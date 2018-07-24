@@ -12,10 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.service.CommunityService;
+import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.BoardVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
+import spring.kh.diet.model.vo.DietTipVO;
 import spring.kh.diet.model.vo.MemberVO;
 
 @Controller
@@ -24,6 +27,10 @@ public class CommunityControllerImpl implements CommunityController {
 	@Resource(name = "communityService")
 	private CommunityService communityService;
 
+	@Resource(name = "commonService")
+	private CommonService commonService;
+	
+	
 	public CommunityControllerImpl() {
 
 	}
@@ -136,6 +143,22 @@ public class CommunityControllerImpl implements CommunityController {
 
 		request.setAttribute("bpv", bpv);
 
+		
+		// 현재 호출하는 메소드(서블릿)의 이름을 담아서 같이 넘겨쥼 -> 슬래쉬(/)빼야 해요
+		String servletName = "postedCommunity.diet";
+		
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+		
+		BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, postIndex);
+
+		request.setAttribute("bcpd", bcpd);
+		
 		return "community/postedCommunity";
 
 		// 쿠키변수를 만들어서 값을 저장. 쿠키변수에 값이 있으면 조회수 증가 실행 하지 않음
@@ -235,4 +258,6 @@ public class CommunityControllerImpl implements CommunityController {
 		return "community/communityWholeBoard";
 	}
   
+
+	
 }

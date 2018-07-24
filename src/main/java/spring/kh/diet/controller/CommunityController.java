@@ -25,4 +25,5 @@ public interface CommunityController {
 
 	Object postedCommunity(HttpServletRequest request, HttpServletResponse response, HttpSession session);
 
+
 }
