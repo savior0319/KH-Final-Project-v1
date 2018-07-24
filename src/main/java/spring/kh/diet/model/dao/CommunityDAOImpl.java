@@ -136,6 +136,10 @@ public class CommunityDAOImpl implements CommunityDAO {
 			int recordCountPerPage, int naviCountPerPage, String type) {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 		cpdv.setType(type);
+		if(cpdv.getCategory()==null) {
+			cpdv.setCategory("");
+		}
+		System.out.println(cpdv);
 		
 		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi",cpdv);
 
@@ -223,7 +227,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 		cpdv.setType(type);
 		cpdv.setCategory(category);
 		cpdv.setSearchText(searchText);
-
+System.out.println(111);
 		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.viewList", cpdv);
 		
 		return (ArrayList<BoardPostVO>) list;
