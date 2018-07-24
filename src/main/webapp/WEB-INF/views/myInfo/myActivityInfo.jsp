@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -14,67 +13,123 @@
 html, body {
 	margin: 0 auto;
 }
+
 .myActivity1 {
 	border-radius: 30px;
 	position: relative;
 }
+
 .myActivity2 a {
 	width: 20%;
 	margin: auto 0;
 }
-
 </style>
 
 
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
-
+	${test}
 	<!-- CONTENTS -->
 	<div class="ui container">
 		<div class="ui center aligned basic segment">
 			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 			<br>
 			<c:if test="${sessionScope.member!=null}">
-			<div class="myActivity1">
-				<table class="ui celled padded table">
-					<thead>
-						<tr align="center">
-							<th>출석횟수</th>
-							<th>게시물 작성수</th>
-							<th>댓글작성수</th>
-							<th>가입일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr align="center">
-							<td>
-								<h3 class="ui center aligned header">${ma.myAttendance}</h3>
-							</td>
-							<td class="single line"><h3>${ma.myBoardCount }</h3></td>
-							<td><h3>${ma.myCommentCount}</h3></td>
-							<td><h3>${ma.mbEnrollDate}</h3></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<br>
-			<div class="myActivity2">
-				<div class="ui tabular menu" id="myActivity2" >
-					<a class="item active" href="#" >작성한 게시물</a>
-					<a class="item" href="#">작성한 댓글</a> 
-					<a class="item" href="#">북마크</a> 
-					<a class="item" href="#">나의 상품평</a>
-					<a class="item" href="#">나의 상품문의</a>		
+				<div class="myActivity1">
+					<table class="ui celled padded table">
+						<thead>
+							<tr align="center">
+								<th>출석횟수</th>
+								<th>게시물 작성수</th>
+								<th>댓글작성수</th>
+								<th>가입일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr align="center">
+								<td>
+									<h3 class="ui center aligned header">${ma.myAttendance}</h3>
+								</td>
+								<td class="single line">
+									<h3>${ma.myBoardCount }</h3>
+								</td>
+								<td>
+									<h3>${ma.myCommentCount}</h3>
+								</td>
+								<td>
+									<h3>${ma.mbEnrollDate}</h3>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<jsp:include page="/WEB-INF/views/myInfo/notice.jsp"></jsp:include>
-			</div>
-		</c:if>
+				<br>
+				<div class="myActivity2">
+					<div class="ui center aligned basic segment">
+						<div class="container">
+							<div class="ui tabular menu" id="myActivity2">
+								<a class="item active" href="/myPost.diet">작성한 게시물</a>
+								<a class="item" onclick="writeReply()">작성한 댓글</a>
+								<a class="item">북마크</a>
+								<a class="item">나의 상품평</a>
+								<a class="item">나의 상품문의</a>
+							</div>
+							<table class="ui very compact table">
+								<thead>
+									<tr align="center">
+										<th style="width: 15%;">게시판</th>
+										<th style="width: 50%;">제목</th>
+										<th style="width: 15%;">작성자</th>
+										<th style="width: 10%;">조회수</th>
+										<th style="width: 10%;">작성일</th>										
+									</tr>
+								</thead>
+								<tbody id="myBoard">
+									<c:forEach items="${list}" var="c">
+										<tr align="center">
+											<td>
+												<c:choose>
+													<c:when test="${c.bcaIndex==15}">자유게시판</c:when>
+													<c:when test="${c.bcaIndex==17}">팁&노하우</c:when>
+													<c:when test="${c.bcaIndex==18 }">고민&질문</c:when>
+													<c:when test="${c.bcaIndex==19 }">비포&애프터</c:when>
+												</c:choose>
+											</td>
+											<td style="padding-top: 15px; padding-bottom: 15px;">
+												<a class="item" href="#" > ${c.postTitle}</a>
+											</td>
+											<td>
+												<img class="ui avatar image" src="${c.postImage}">
+												닉네임
+											</td>
+											<td>${c.postHit}</td>
+											<td>${c.postDateTime}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<br>
+					<div class="ui grid">
+						<div class="three column row">
+							<div class="column"></div>
+							<div class="column">
+								<div class="ui center aligned basic segment">
+									<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+				</div>
+			</c:if>
 		</div>
 		<c:if test="${sessionScope.member==null}">
-			<script >
+			<script>
 				alert("로그인 후 이용해주세요~");
-				location.href="/";
+				location.href = "/";
 			</script>
 		</c:if>
 		<script>
@@ -86,19 +141,16 @@ html, body {
 				});
 			});
 		</script>
-
 		<!--  ui container 닫기  -->
 	</div>
-
-
-
+	<input type="hidden" value="${member.mbId}" id="mbId" />
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	
+
 </script>
 
 </html>

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DietTipPDVO {
 	private ArrayList<DietTipVO> dtList;
-	private String pageNavi, type;
+	private String pageNavi, type, searchText, category, postSort;
 	private int start, end;
 	
 }

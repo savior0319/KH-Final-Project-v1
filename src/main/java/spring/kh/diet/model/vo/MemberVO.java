@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class MemberVO {
 	private int mbAge, mbIndex, mbHeight, mbWeight;
-	private String mbId, mbPwd, mbName, mbNickName, mbGender, mbPromise, mbPhone, mbAddress, mbInterest,
-			mbGrade, mbBmi, mbReport;
+	private String mbId, mbPwd, mbName, mbNickName, mbGender, mbPromise, mbPhone, mbAddress, mbInterest, mbGrade, mbBmi, mbReport;
 	private String mbImage;
 	private Date mbEnrollDate;
 

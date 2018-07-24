@@ -3,6 +3,7 @@ package spring.kh.diet.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -68,7 +69,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		HomeTrainingVO ht = homeTrainingService.homeTraining(indexNo);
 		
 		request.setAttribute("ht", ht);
-		
+			
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;

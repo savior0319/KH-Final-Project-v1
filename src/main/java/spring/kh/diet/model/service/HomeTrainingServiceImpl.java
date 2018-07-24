@@ -43,7 +43,7 @@ public class HomeTrainingServiceImpl implements HomeTrainingService{
 	public HomeTrainingVO homeTraining(int indexNo) {
 		
 		HomeTrainingVO ht = homeTrainingDAO.homeTraining(session, indexNo);
-		
+
 		return ht;
 	}
 

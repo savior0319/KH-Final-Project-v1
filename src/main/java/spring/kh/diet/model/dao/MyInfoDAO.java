@@ -39,6 +39,8 @@ public interface MyInfoDAO {
 
 	int nickNameCheck(SqlSessionTemplate sqlSessionTemplate, String nickName);
 
+	ArrayList<BoardPostVO> myPost(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+
 /*	int updateDBMyPicture(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);*/
 
 }
