@@ -65,12 +65,15 @@ else self.name = '';
 
 		<!-- 최신순, 조회순 -->
 		<br>
-		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
+		
+		<c:if test="${requestScope.cpdv.category == null}">
+		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;" id="sortBtn">
 			<div class="small ui basic buttons">
 				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
 				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
 			</div>
 		</div>
+		</c:if>
 		<br>
 		<!-- 글목록 -->
 		<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
@@ -127,10 +130,12 @@ else self.name = '';
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
-						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
+					<c:if test ="${sessionScope.member!=null}">
+						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="return loginCheck();">
 							<i class="edit icon"></i>
 							등록
 						</button>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -214,6 +219,27 @@ else self.name = '';
 		 /* + "&type=" + type */
 		
 	}
+	
+	
+	function loginCheck(){
+		var check = false;
+
+		if('${sessionScope.member!=null}'){
+			check = true;
+			return check;
+		}else{
+			return check;
+		}
+		
+	}
+	
+	window.onload(function(){
+		
+		if(${requestScope.cpdv.category}!=null){
+			
+		}
+		
+	});
 	
 </script>
 
