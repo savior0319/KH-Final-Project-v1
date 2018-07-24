@@ -2,6 +2,7 @@ package spring.kh.diet.model.service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.LoginLogoutDAOImpl;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.OneSessionVO;
 
 @Service("loginService")
 public class LoginLogoutServiceImpl implements LoginLogoutService {
@@ -65,6 +67,26 @@ public class LoginLogoutServiceImpl implements LoginLogoutService {
 		int result = loginDAO.existUserNickNum(SqlSessionTemplate, mv);
 		return result;
 	}
+
+	@Override
+	public void transSession(HttpServletRequest request) {
+		loginDAO.tranSession(SqlSessionTemplate,request);	
+	}
+
+	
+
+	@Override
+	public OneSessionVO selectOneSession(String remoteAddr) {
+		OneSessionVO OSV = loginDAO.selectOneSession(SqlSessionTemplate,remoteAddr);
+		return OSV;
+	}
+
+	@Override
+	public int insertSession(OneSessionVO oSV) {
+		int result = loginDAO.insertSession(SqlSessionTemplate, oSV);
+		return result;
+	}
+
 
 
 

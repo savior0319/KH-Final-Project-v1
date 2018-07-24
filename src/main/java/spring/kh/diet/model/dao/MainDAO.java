@@ -24,5 +24,7 @@ public interface MainDAO {
 	ArrayList<OnSessionVO> selectAllSesssionList(SqlSessionTemplate session);
 
 	int updateOnsession(SqlSessionTemplate session, UpdateSSVO uSSVO);
+
+	int updateAlreadyOnsession(SqlSessionTemplate session, UpdateSSVO uSSVO);
 	
 }

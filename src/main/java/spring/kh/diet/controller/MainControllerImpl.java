@@ -232,11 +232,16 @@ public class MainControllerImpl implements MainController {
 			for (int i = 0; i < list.size(); i++) 
 			{
 				if (list.get(i).getSessionIp().equals(request.getRemoteAddr())) {
+					
 					result = true;
 				}
 			}
 			if (!result) {
 				mService.insertSessionToList(session, request);
+			}
+			else {
+				UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),request.getRemoteAddr());
+				int result2 = mService.updateAlreadyOnsession(USSVO);
 			}
 		}
 		else 

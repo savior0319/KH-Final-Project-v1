@@ -16,5 +16,6 @@ public interface MainService {
     int insertSessionToList(HttpSession session,HttpServletRequest request);
 	ArrayList<OnSessionVO> selectAllSessionList();
 	int updateOnsession(UpdateSSVO uSSVO);
+	int updateAlreadyOnsession(UpdateSSVO uSSVO);
 	
 }
