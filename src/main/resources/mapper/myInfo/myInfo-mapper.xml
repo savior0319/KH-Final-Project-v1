@@ -21,7 +21,7 @@
 		<result property="mbReport" column="MB_REPORT" />
 		<result property="mbEnrollDate" column="MB_ENROLLDATE" />
 	</resultMap>
-	
+
 	<!-- 1대1 문의 -->
 	<insert id="question" parameterType="question">
 		INSERT INTO QUESTION_TBL
@@ -29,7 +29,7 @@
 		SYSDATE, #{qsAnswerCheck})
 	</insert>
 
-	<!-- 회원 탈퇴  -->
+	<!-- 회원 탈퇴 -->
 	<delete id="secessionMember" parameterType="member">
 		DELETE FROM
 		MEMBER_TBL WHERE MB_ID = #{mbId}
@@ -44,11 +44,12 @@
 		MB_PHONE = #{mbPhone},
 		MB_PROMISE = #{mbPromise},
 		MB_HEIGHT = #{mbHeight},
-		MB_WEIGHT = #{mbWeight}
+		MB_WEIGHT =
+		#{mbWeight}
 		WHERE MB_ID = #{mbId}
 	</update>
 
-	<!-- 한명의 회원정보  -->
+	<!-- 한명의 회원정보 -->
 
 	<select id="selectOneMember" parameterType="member" resultType="member">
 		SELECT
@@ -116,22 +117,23 @@
 	</insert>
 
 
-	<select id="myActivity" parameterType="member" resultType="myActivity">
+<!-- 	<select id="myActivity" parameterType="member" resultType="myActivity">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MY_ATTENDANCE AS myAttendance,
 		MY_COMMNET_COUNT AS myCommentCount,
-
+	</select>
+ -->
 	<!-- 나의 활동 정보 (출석,댓글,게시물,가입날짜) -->
 	<select id="myActivity" parameterType="member" resultType="myActivity">
-	SELECT
+		SELECT
 		MB_INDEX AS mbIndex ,
 		MY_ATTENDANCE AS myAttendance ,
 		MY_COMMENT_COUNT AS myCommentCount ,
 		MY_BOARD_COUNT AS myBoardCount,
-		MB_ENROLLDATE as mbEnrollDate 
-        FROM MY_ACTIVITY_TBL 
-        WHERE MB_INDEX = #{mbIndex}
+		MB_ENROLLDATE as mbEnrollDate
+		FROM MY_ACTIVITY_TBL
+		WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 	<resultMap type="community" id="communityDB">
@@ -176,7 +178,8 @@
 		mbName,
 		MB_NICKNAME AS mbNickName,
 		MB_GENDER AS mbGender,
-		MB_IMAGE AS
+		MB_IMAGE
+		AS
 		mbImage,
 		MB_PROMISE AS mbPromise,
 		MB_AGE AS mbAge,
@@ -193,17 +196,18 @@
 		FROM MEMBER_TBL WHERE MB_NICKNAME = #{nickName}
 	</select>
 
-	<!-- 마이페이지 - 프로필 사진 업데이트  -->
+	<!-- 마이페이지 - 프로필 사진 업데이트 -->
 	<update id="updateMyPicture" parameterType="member">
 		UPDATE MEMBER_TBL SET
 		MB_IMAGE = #{mbImage} where MB_ID = #{mbId}
 	</update>
 
 	<select id="myPost" resultType="community" resultMap="communityDB" parameterType="member">
-		SELECT 
+		SELECT
 		POST_TITLE AS postTitle,
 		POST_CONTENT AS postContent
 		FROM BOARD_POST_TBL
 	</select>
+
 </mapper>
 
