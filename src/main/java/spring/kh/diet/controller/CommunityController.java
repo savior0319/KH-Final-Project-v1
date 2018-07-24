@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
+import spring.kh.diet.model.vo.BoardLikeVO;
+
 public interface CommunityController {
 
 	void registCommunity(String title, String content, int category, HttpSession session, HttpServletResponse response)
@@ -24,5 +28,7 @@ public interface CommunityController {
 	String searchList(HttpSession session, HttpServletRequest request);
 
 	Object postedCommunity(HttpServletRequest request, HttpServletResponse response, HttpSession session);
+
+	String boardLike(BoardLikeVO checkVO, HttpSession session);
 
 }

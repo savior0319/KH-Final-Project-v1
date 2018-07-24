@@ -11,10 +11,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.kh.diet.model.service.CommunityService;
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
-import spring.kh.diet.model.vo.BoardVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
 
@@ -103,9 +104,11 @@ public class CommunityControllerImpl implements CommunityController {
 	public Object postedCommunity(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
 		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
 		String mbIndex = "";
+		int sessionIndex = 0;
 		if(session.getAttribute("member")!=null)
 		{
 			mbIndex = String.valueOf(((MemberVO) session.getAttribute("member")).getMbIndex());
+			sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
 		}else {
 			mbIndex = request.getRemoteAddr();
 			if(mbIndex.equals("0:0:0:0:0:0:0:1")) {
@@ -131,9 +134,19 @@ public class CommunityControllerImpl implements CommunityController {
 				response.addCookie(c1);
 			}
 		}
-		
-		BoardPostVO bpv = communityService.postedCommunity(postIndex);
 
+		BoardPostVO bpv = communityService.postedCommunity(postIndex);
+		
+		BoardLikeVO checkVO = new BoardLikeVO();
+		checkVO.setTargetIndex(postIndex);
+		
+		checkVO.setMbIndex(sessionIndex);
+		BoardLikeVO blv = checkBoardLike(checkVO, session);
+		if(blv!=null) {
+			bpv.setLikeYN(1);
+		}else {
+			bpv.setLikeYN(0);
+		}
 		request.setAttribute("bpv", bpv);
 
 		return "community/postedCommunity";
@@ -235,4 +248,41 @@ public class CommunityControllerImpl implements CommunityController {
 		return "community/communityWholeBoard";
 	}
   
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/postLike.diet")
+	public String boardLike(BoardLikeVO checkVO,HttpSession session) {
+		
+		BoardLikeVO blv = checkBoardLike(checkVO,session);
+		int result2 = 0;
+	
+		if(blv != null) {
+			int result = communityService.boardLikeDown(blv);
+			if(result>0) {
+				result2 = communityService.postLikeDown(blv);
+			}
+		} else {
+			int result = communityService.boardLikeUp(checkVO);
+			if(result>0) {
+				result2 = communityService.postLikeUp(checkVO);
+			}
+		}
+		
+		if(result2>0) {
+			return "success";
+		}else {
+			return "failed";
+		}
+	}
+	
+	public BoardLikeVO checkBoardLike(BoardLikeVO checkVO,HttpSession session) {
+		BoardLikeVO blv = null;
+		if(session.getAttribute("member")!=null) {
+		int mbIndex = ((MemberVO)session.getAttribute("member")).getMbIndex();
+		checkVO.setMbIndex(mbIndex);
+		blv = communityService.checkBoardLike(checkVO);
+		}
+		return blv;		
+	}
+	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 
 public interface CommunityDAO {
@@ -42,5 +43,15 @@ public interface CommunityDAO {
 			int naviCountPerPage, String searchText, String category);
 
 	int postHit(SqlSessionTemplate sqlSessionTemplate, int postIndex);
+
+	BoardLikeVO checkBoardLike(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO);
+
+	int boardLikeDown(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv);
+
+	int boardLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO);
+
+	int postLikeDown(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv);
+
+	int postLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO);
 
 }

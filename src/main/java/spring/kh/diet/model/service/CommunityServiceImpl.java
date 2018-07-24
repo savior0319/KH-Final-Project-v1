@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.CommunityDAO;
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 
@@ -164,5 +165,38 @@ public class CommunityServiceImpl implements CommunityService {
 		int result = communityDAO.postHit(SqlSessionTemplate, postIndex);
 		return result;
 	}
+
+	// 좋아요를 한 게시물인지 체크
+	@Override
+	public BoardLikeVO checkBoardLike(BoardLikeVO checkVO) {
+		BoardLikeVO blv = communityDAO.checkBoardLike(SqlSessionTemplate, checkVO);
+		return blv;
+	}
+
+	@Override
+	public int boardLikeDown(BoardLikeVO blv) {
+		int result = communityDAO.boardLikeDown(SqlSessionTemplate, blv);
+		return result;
+	}
+
+	@Override
+	public int boardLikeUp(BoardLikeVO checkVO) {
+		int result = communityDAO.boardLikeUp(SqlSessionTemplate, checkVO);
+		return result;
+	}
+
+	@Override
+	public int postLikeDown(BoardLikeVO blv) {
+		int result = communityDAO.postLikeDown(SqlSessionTemplate, blv);
+		return result;
+	}
+
+	@Override
+	public int postLikeUp(BoardLikeVO checkVO) {
+		int result = communityDAO.postLikeUp(SqlSessionTemplate, checkVO);
+		return result;
+	}
+
+	
 
 }
