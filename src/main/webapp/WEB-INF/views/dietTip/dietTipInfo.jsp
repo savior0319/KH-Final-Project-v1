@@ -204,41 +204,45 @@ p>span {
 				</div>
 			</form>
 			<br> <br>
-			<div id="comment">
-				<!-- 작성된 댓글 리스트 -->
-				<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
 
-					<div class="comment">
-						<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
-						</a>
-						<div class="content" style="width: 93%;">
-							<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</a>
-							<div class="metadata" style="width: 100%;">
-								<span class="date" style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
-								<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
-									<button class="ui red basic tiny button" style="margin-right: 10px;">
-										<i class="thumbs up outline icon"></i>공감 ${bc.cmtLike }
-									</button>
-									<button class="ui black basic tiny button">
-										<i class="ban icon"></i>신고 ${bc.cmtBlame }
-									</button>
+			<div id="comment">
+				<c:if test="${requestScope.bcpd.bcList[0]!=null }">
+					<!-- 작성된 댓글 리스트 -->
+					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
+
+						<div class="comment">
+							<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
+							</a>
+							<div class="content" style="width: 93%;">
+								<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</a>
+								<div class="metadata" style="width: 100%;">
+									<span class="date" style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
+									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+										<button class="ui red basic tiny button" style="margin-right: 10px;">
+											<i class="thumbs up outline icon"></i>공감 ${bc.cmtLike }
+										</button>
+										<button class="ui black basic tiny button">
+											<i class="ban icon"></i>신고 ${bc.cmtBlame }
+										</button>
+									</div>
+								</div>
+								<div class="text">
+									<pre>${bc.cmtContent }</pre>
 								</div>
 							</div>
-							<div class="text">
-								<pre>${bc.cmtContent }</pre>
-							</div>
 						</div>
+						<br>
+						<hr style="border: 1px solid #F6F6F6">
+						<br>
+
+					</c:forEach>
+
+					<div class="ui center aligned basic segment">
+						<div class="ui pagination menu">${requestScope.bcpd.pageNavi }</div>
 					</div>
-					<br>
-					<hr style="border: 1px solid #F6F6F6">
-					<br>
-
-				</c:forEach>
-
-				<div class="ui center aligned basic segment">
-					<div class="ui pagination menu">${requestScope.bcpd.pageNavi }</div>
-				</div>
+				</c:if>
 			</div>
+
 		</div>
 	</div>
 
@@ -319,7 +323,7 @@ p>span {
 				if (data > 0) {
 					// 모달 띄우기
 					//$('.ui.basic.modal').modal('show');
-					
+
 					alert('댓글을 작성하였습니다.');
 				} else {
 					alert('댓글을 등록하지 못했습니다.');
