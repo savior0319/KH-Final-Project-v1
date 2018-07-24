@@ -241,7 +241,7 @@ public class MainControllerImpl implements MainController {
 				mService.insertSessionToList(session, request);
 			}
 			else {
-				UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),request.getRemoteAddr());
+				UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),request.getRemoteAddr(),(String)request.getParameter("device"));
 				int result2 = mService.updateAlreadyOnsession(USSVO);
 			}
 		}
@@ -260,7 +260,8 @@ public class MainControllerImpl implements MainController {
 	@RequestMapping(value="/updateOnSession.diet")
 	@ResponseBody
 	public void updateOnsession(HttpServletRequest request) {
-		UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),request.getRemoteAddr());
+		UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),request.getRemoteAddr(),(String)request.getParameter("device"));
+		
 		mService.updateOnsession(USSVO);
 	}
 	

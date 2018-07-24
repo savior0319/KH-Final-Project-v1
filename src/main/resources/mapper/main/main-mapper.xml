@@ -131,13 +131,13 @@
 	<update id="updateOnSesssion" parameterType="upDateSSVO">
 	update 
 	On_Session_TBL
-	set SS_Login = #{mbNickName}, SS_FirstON = to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'), SS_INVALIDATE = to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss'), SS_STATE = 'ON' where ss_IP = #{sessionIp}
+	set SS_Device = #{device},SS_Login = #{mbNickName}, SS_FirstON = to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'), SS_INVALIDATE = to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss'), SS_STATE = 'ON' where ss_IP = #{sessionIp}
 	</update>
 	
 	<update id="updateAlreadyOnSesssion" parameterType="upDateSSVO">
 	update 
 	On_Session_TBL
-	set SS_FirstON = to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'), SS_INVALIDATE = to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss')  where ss_IP = #{sessionIp}
+	set SS_Device = #{device},SS_FirstON = to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'), SS_INVALIDATE = to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss')  where ss_IP = #{sessionIp}
 	</update>
 	
 	</mapper>

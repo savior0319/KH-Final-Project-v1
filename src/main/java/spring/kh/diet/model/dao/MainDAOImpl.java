@@ -98,7 +98,7 @@ public class MainDAOImpl implements MainDAO {
 
 	@Override
 	public int insertSessionToList(SqlSessionTemplate session, HttpSession session2, HttpServletRequest request) {
-		OnSessionVO OSV = new OnSessionVO("SESSION_SEQ.nextval", session2.getId(), request.getRemoteAddr(), "OFF", "NULL", "NULL");
+		OnSessionVO OSV = new OnSessionVO("SESSION_SEQ.nextval", session2.getId(), request.getRemoteAddr(), "OFF", "NULL", request.getParameter("device"));
 
 		return session.insert("main.insertOnSesssion", OSV);
 	}
