@@ -1,10 +1,8 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.service.DietTipServiceImpl;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
-import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -32,9 +29,16 @@ public class DietTipControllerImpl implements DietTipController {
 	@Override
 	@RequestMapping(value = "/dietTipList.diet")
 	public String getList(HttpServletRequest request) {
-		System.out.println(request.getSession().getServletContext().getRealPath("imageUpload"));
-		System.out.println(DietTipControllerImpl.class.getResource("/../..").getPath());
+//		System.out.println(request.getSession().getServletContext().getRealPath("imageUpload"));
+//		System.out.println(DietTipControllerImpl.class.getResource("/../..").getPath());
+		DietTipPDVO pdvo = new DietTipPDVO();
 		String type = request.getParameter("type");
+		pdvo.setType(type);
+		
+		if(request.getParameter("category")!=null && request.getParameter("searchText")!=null) {
+			pdvo.setCategory(request.getParameter("category"));
+			pdvo.setSearchText(request.getParameter("searchText"));
+		}
 
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
@@ -44,7 +48,10 @@ public class DietTipControllerImpl implements DietTipController {
 			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 
-		DietTipPDVO dtpd = dietTipService.getDietTipList(currentPage, type);
+		DietTipPDVO dtpd = dietTipService.getDietTipList(currentPage, pdvo);
+		dtpd.setType(pdvo.getType());
+		dtpd.setCategory(pdvo.getCategory());
+		dtpd.setSearchText(pdvo.getSearchText());
 
 		request.setAttribute("dtpd", dtpd);
 
@@ -82,7 +89,7 @@ public class DietTipControllerImpl implements DietTipController {
 	public void registDietTip(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		HttpSession session = request.getSession();
 		MemberVO m = (MemberVO) session.getAttribute("member");
-		
+		System.out.println(request.getParameter("sammary"));
 		DietTipVO dt = new DietTipVO();
 
 		dt.setDtWriterNo(m.getMbIndex());
@@ -92,6 +99,7 @@ public class DietTipControllerImpl implements DietTipController {
 		dt.setDtType(Integer.parseInt(request.getParameter("category")));
 		dt.setDtSammary(request.getParameter("sammary"));
 		//dt.setDtMainPhoto(request.getParameter("mainPhoto"));
+		dt.setDtMainPhoto("mainPhoto");
 
 		int result = dietTipService.registDietTip(dt);		
 

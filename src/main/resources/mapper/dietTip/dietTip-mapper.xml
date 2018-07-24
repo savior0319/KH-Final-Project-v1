@@ -16,22 +16,49 @@
 		DT_DATE AS dtDate,
 		DT_SEE AS dtSee,
 		DT_LIKE AS dtLike
-		FROM (SELECT DIETTIP_TB.*,
-		ROW_NUMBER() OVER(ORDER BY DT_DATE DESC) AS NUM FROM DIETTIP_TB
+		FROM (SELECT DT.*,
+		ROW_NUMBER() OVER(ORDER BY DT_DATE DESC) AS NUM 
+		FROM DIETTIP_TB DT, MEMBER_TBL MB
+		WHERE DT.DT_WRITER_NO = MB.MB_INDEX (+)
 		<choose>
+			<!-- 게시물 타입에 따라 출력, 앞에 WHERE 문이 있어서 AND로 썼어요 -->
 			<when test="type.equals('column')">
-				WHERE DT_TYPE = 1
+				AND DT_TYPE = 1
 			</when>
 			<when test="type.equals('sport')">
-				WHERE DT_TYPE = 2
+				AND DT_TYPE = 2
 			</when>
 			<when test="type.equals('dietFood')">
-				WHERE DT_TYPE = 3
+				AND DT_TYPE = 3
 			</when>
 			<when test="type.equals('successLatter')">
-				WHERE DT_TYPE = 4
+				AND DT_TYPE = 4
+			</when>
+			<otherwise>
+				AND DT_TYPE > 0
+			</otherwise>
+		</choose>
+
+		<choose>
+			<when test="category!=null">
+				<!-- 검색할 때 -->
+				<choose>
+					<when test="category.equals('title')">
+						AND DT_TITLE LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('titleContents')">
+						AND DT_TITLE LIKE '%'||#{searchText}||'%'
+						OR
+						DT_EXPLAIN LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('writer')">
+						AND MB.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+					</when>
+				</choose>
+
 			</when>
 		</choose>
+
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
@@ -39,19 +66,40 @@
 	<select id="getNavi" resultType="java.lang.Integer"
 		parameterType="dietTipPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
-		FROM DIETTIP_TB
+		FROM DIETTIP_TB DT, MEMBER_TBL MB
+		WHERE DT.DT_WRITER_NO = MB.MB_INDEX (+)
 		<choose>
 			<when test="type.equals('column')">
-				WHERE DT_TYPE = 1
+				AND DT_TYPE = 1
 			</when>
 			<when test="type.equals('sport')">
-				WHERE DT_TYPE = 2
+				AND DT_TYPE = 2
 			</when>
 			<when test="type.equals('dietFood')">
-				WHERE DT_TYPE = 3
+				AND DT_TYPE = 3
 			</when>
 			<when test="type.equals('successLatter')">
-				WHERE DT_TYPE = 4
+				AND DT_TYPE = 4
+			</when>
+		</choose>
+		
+		<choose>
+			<when test="category!=null">
+				<!-- 검색할 때 -->
+				<choose>
+					<when test="category.equals('title')">
+						AND DT_TITLE LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('titleContents')">
+						AND DT_TITLE LIKE '%'||#{searchText}||'%'
+						OR
+						DT_EXPLAIN LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('writer')">
+						AND MB.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+					</when>
+				</choose>
+
 			</when>
 		</choose>
 
@@ -79,9 +127,12 @@
 	<!-- 다이어트 팁 게시물 쓰기 -->
 	<insert id="registDietTip" parameterType="dietTip">
 		INSERT INTO
-		DIETTIP_TB VALUES(INDEX_NO_SEQ.NEXTVAL, DT_NO_SEQ_NEXTVAL, #{dtType},
-		#{dtTitle}, #{dtMainPhoto}, #{dtWriterNo}, #{dtSummary}, #{dtExplain},
-		SYSDATE, 0, 0);
+		DIETTIP_TB
+		VALUES(INDEX_NO_SEQ.NEXTVAL, DT_NO_SEQ.NEXTVAL, #{dtType},
+		#{dtTitle},
+		#{dtMainPhoto}, #{dtWriterNo}, #{dtSammary}, #{dtExplain},
+		SYSDATE, 0,
+		0)
 	</insert>
 
 </mapper>

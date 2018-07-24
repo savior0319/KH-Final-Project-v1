@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
 import spring.kh.diet.model.vo.MyActivityVO;
@@ -34,5 +35,7 @@ public interface MyInfoService {
 	int idCheck(String id);
 
 	int nickNameCheck(String nickName);
+
+	ArrayList<BoardPostVO> myPost(MemberVO mv);
 
 }

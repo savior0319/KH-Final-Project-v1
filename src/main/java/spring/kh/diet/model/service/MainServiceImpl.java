@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import spring.kh.diet.model.dao.MainDAO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.HealthCenterVO;
-import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.UpdateSSVO;
 
@@ -50,8 +49,8 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int insertSessionToList(HttpSession session2, HttpServletRequest request) {
 		int result = 0;
-		result = mDao.insertSessionToList(session,session2,request);
-		
+		result = mDao.insertSessionToList(session, session2, request);
+
 		return result;
 	}
 
@@ -61,9 +60,10 @@ public class MainServiceImpl implements MainService {
 		ArrayList<OnSessionVO> list = mDao.selectAllSesssionList(session);
 		return list;
 	}
+
 	@Override
 	public int updateOnsession(UpdateSSVO uSSVO) {
-		int result = mDao.updateOnsession(session,uSSVO);
+		int result = mDao.updateOnsession(session, uSSVO);
 		return result;
 	}
 
@@ -72,7 +72,5 @@ public class MainServiceImpl implements MainService {
 		int result = mDao.updateAlreadyOnsession(session,uSSVO);
 		return result;
 	}
-	
-	
 
 }

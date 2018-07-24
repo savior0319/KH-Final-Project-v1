@@ -2,10 +2,9 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -13,19 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
-import spring.kh.diet.common.MyFileRenamePolicy;
-import javafx.scene.shape.QuadCurve;
 import spring.kh.diet.model.service.MyInfoService;
+import spring.kh.diet.model.vo.BMIVO;
+import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
 import spring.kh.diet.model.vo.MyActivityVO;
@@ -40,7 +36,27 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	public MyInfoControllerImpl() {
 	}
+	
+	/* 나의 게시물  */
+	@Override
+	@RequestMapping(value="/myPost.diet")
+	public Object myPost(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member"); 
+		ArrayList<BoardPostVO> list= myInfoService.myPost(mv);
+		ModelAndView view = new ModelAndView();
 
+		if (!list.isEmpty()) {
+			view.addObject("list", list);
+			view.addObject("test","Test");
+			view.setViewName("myInfo/myActivityInfo");
+			return view;
+		} else {
+			System.out.println("list값이 없음");
+			view.addObject("list", list);
+			view.setViewName("myInfo/myActivityInfo");			
+			return view;
+		}
+	}
 	/* 1:1질문 */
 	@Override
 	@RequestMapping(value = "/question.diet")
@@ -115,7 +131,21 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public String updateMyInfo(MemberVO memberVO, HttpSession session, HttpServletResponse response)
 			throws IOException {
 		if (session.getAttribute("member") != null) {
+
+			int heightD = memberVO.getMbHeight();
+			int weightD = memberVO.getMbWeight();
+
+			double weightConvertDouble = (double) weightD;
+			double heightConvertMeter = (double) heightD / (double) 100;
+
+			double resultBMI = weightConvertDouble / (heightConvertMeter * heightConvertMeter);
+			
+			String bmiStrRs = String.valueOf(Math.round(resultBMI * 10) / 10.0);
+			
+			memberVO.setMbBmi(bmiStrRs);
+			System.out.println(memberVO.getMbBmi());
 			int result = myInfoService.updateMyInfo(memberVO);
+			
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(memberVO);
 				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
@@ -232,11 +262,15 @@ public class MyInfoControllerImpl implements MyInfoController {
 			return view;
 		} else {
 			System.out.println("ma값이 없음");
-			return "redirect:/";
+			view.addObject("ma", ma);
+			MyActivityPageDataVO cpdv = this.myActivityGetList(session, request, ma);
+			view.setViewName("myInfo/myActivityInfo");
+			return view;
 		}
 	}
 
 	/* 내 활동 정보 게시판 */
+	@Override
 	public MyActivityPageDataVO myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
 		String type = request.getParameter("type");
 
@@ -253,5 +287,4 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		return cpdv;
 	}
-
 }

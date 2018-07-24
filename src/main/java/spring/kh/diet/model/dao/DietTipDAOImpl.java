@@ -13,26 +13,20 @@ import spring.kh.diet.model.vo.DietTipVO;
 public class DietTipDAOImpl implements DietTipDAO {
 
 	@Override
-	public ArrayList<DietTipVO> selectAllDietTip(SqlSessionTemplate session, int currentPage, int recordCountPerPage, String type) {
-		DietTipPDVO dtpd = new DietTipPDVO();
-
-		dtpd.setStart((currentPage-1)*recordCountPerPage+1);
-		dtpd.setEnd(currentPage*recordCountPerPage);
-		dtpd.setType(type);
+	public ArrayList<DietTipVO> selectAllDietTip(SqlSessionTemplate session, int currentPage, int recordCountPerPage, DietTipPDVO pdvo) {
+		pdvo.setStart((currentPage-1)*recordCountPerPage+1);
+		pdvo.setEnd(currentPage*recordCountPerPage);
 		
-		List<DietTipVO> list = session.selectList("dietTip.getList", dtpd);
+		List<DietTipVO> list = session.selectList("dietTip.getList", pdvo);
 		
 		return (ArrayList<DietTipVO>)list;
 	}
 
 	@Override
 	public String getDietTipPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
-			int naviCountPerPage, String type) {
+			int naviCountPerPage, DietTipPDVO pdvo) {
 		
-		DietTipPDVO dtpd = new DietTipPDVO();
-		dtpd.setType(type);
-		
-		int recordTotalCount = session.selectOne("dietTip.getNavi",dtpd);
+		int recordTotalCount = session.selectOne("dietTip.getNavi",pdvo);
 
 		int pageTotalCount = 0;
 		if (recordTotalCount % recordCountPerPage != 0) {
@@ -67,26 +61,55 @@ public class DietTipDAOImpl implements DietTipDAO {
 
 		StringBuilder sb = new StringBuilder();
 
-		if (needPrev) // 시작이 1페이지가 아니라면!
-		{
-			sb.append("<a class='item' href='/dietTipList.diet?type=" + type + "&currentPage=" + (startNavi - 1) + "'> &lt; </a>");
-		}
-    
-		for(int i=startNavi;i<=endNavi;i++)
-		{
-			if(i==currentPage)
+		if(pdvo.getCategory()!=null && pdvo.getSearchText()!=null) {	// 검색했을 때의 내비
+			
+			if (needPrev) // 시작이 1페이지가 아니라면!
 			{
-				sb.append("<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/dietTipList.diet?type=" + type + "&currentPage="+i+"'><strong>"+i+"</strong></a>");
+				sb.append("<a class='item' href='/dietTipList.diet?type=" + pdvo.getType() + "&currentPage=" + (startNavi - 1) + "&category=" + pdvo.getCategory() + "&searchText=" + pdvo.getSearchText() + "'> &lt; </a>");
 			}
-			else
+	    
+			for(int i=startNavi;i<=endNavi;i++)
 			{
-				sb.append("<a class='item' href='/dietTipList.diet?type=" + type + "&currentPage="+i+"'> "+i+" </a>");
+				if(i==currentPage)
+				{
+					sb.append("<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/dietTipList.diet?type=" + pdvo.getType() + "&currentPage="+i+"&category=" + pdvo.getCategory() + "&searchText=" + pdvo.getSearchText() + "'><strong>"+i+"</strong></a>");
+				}
+				else
+				{
+					sb.append("<a class='item' href='/dietTipList.diet?type=" + pdvo.getType() + "&currentPage="+i+"&category=" + pdvo.getCategory() + "&searchText=" + pdvo.getSearchText() + "'> "+i+" </a>");
+				}
 			}
+			if (needNext) // 끝 페이지가 아니라면!
+			{
+				sb.append("<a class='item' href='/dietTipList.diet?type=" + pdvo.getType() + "&currentPage=" + (endNavi + 1) + "&category=" + pdvo.getCategory() + "&searchText=" + pdvo.getSearchText() + "'> &gt; </a>");
+			}
+			
+		}else {		// 검색하지 않았을 때의 내비
+			
+			if (needPrev) // 시작이 1페이지가 아니라면!
+			{
+				sb.append("<a class='item' href='/dietTipList.diet?type=" + pdvo.getType() + "&currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+			}
+	    
+			for(int i=startNavi;i<=endNavi;i++)
+			{
+				if(i==currentPage)
+				{
+					sb.append("<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/dietTipList.diet?type=" + pdvo.getType() + "&currentPage="+i+"'><strong>"+i+"</strong></a>");
+				}
+				else
+				{
+					sb.append("<a class='item' href='/dietTipList.diet?type=" + pdvo.getType() + "&currentPage="+i+"'> "+i+" </a>");
+				}
+			}
+			if (needNext) // 끝 페이지가 아니라면!
+			{
+				sb.append("<a class='item' href='/dietTipList.diet?type=" + pdvo.getType() + "&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			}
+			
 		}
-		if (needNext) // 끝 페이지가 아니라면!
-		{
-			sb.append("<a class='item' href='/dietTipList.diet?type=" + type + "&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
-		}
+		
+		
 
 		return sb.toString();
 	}

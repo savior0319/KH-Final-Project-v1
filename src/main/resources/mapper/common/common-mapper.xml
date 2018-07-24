@@ -7,7 +7,7 @@
 
 		SELECT CMT.CMT_INDEX AS cmtIndex,
 		CMT.POST_INDEX AS postIndex,
-		MB.MB_NAME AS mbNickname,
+		MB.MB_NICKNAME AS mbNickname,
 		MB.MB_IMAGE AS mbImage,
 		CMT.CMT_CONTENT AS cmtContent,
 		CMT.CMT_DATETIME AS cmtDateTime,

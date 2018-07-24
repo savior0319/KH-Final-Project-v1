@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 
@@ -136,6 +137,9 @@ public class CommunityDAOImpl implements CommunityDAO {
 			int recordCountPerPage, int naviCountPerPage, String type) {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 		cpdv.setType(type);
+		if(cpdv.getCategory()==null) {
+			cpdv.setCategory("");
+		}
 		
 		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi",cpdv);
 
@@ -337,6 +341,36 @@ public class CommunityDAOImpl implements CommunityDAO {
 	//조회수 증가
 	public int postHit(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
 		int result = sqlSessionTemplate.update("community.postHit", postIndex);
-		return 0;
+		return result;
+	}
+
+	@Override
+	public BoardLikeVO checkBoardLike(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO) {
+		BoardLikeVO blv = sqlSessionTemplate.selectOne("community.checkLike", checkVO);
+		return blv;
+	}
+
+	@Override
+	public int boardLikeDown(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv) {
+		int result = sqlSessionTemplate.delete("community.likeDown",blv);
+		return result;
+	}
+
+	@Override
+	public int boardLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO) {
+		int result = sqlSessionTemplate.insert("community.likeUp",checkVO);
+		return result;
+	}
+
+	@Override
+	public int postLikeDown(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv) {
+		int result = sqlSessionTemplate.update("community.postDown",blv);
+		return result;
+	}
+
+	@Override
+	public int postLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO) {
+		int result = sqlSessionTemplate.update("community.postUp",checkVO);
+		return result;
 	}
 }

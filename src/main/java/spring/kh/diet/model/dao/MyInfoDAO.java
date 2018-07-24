@@ -3,7 +3,6 @@ package spring.kh.diet.model.dao;
 import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -39,6 +38,8 @@ public interface MyInfoDAO {
 	int idCheck(SqlSessionTemplate sqlSessionTemplate, String id);
 
 	int nickNameCheck(SqlSessionTemplate sqlSessionTemplate, String nickName);
+
+	ArrayList<BoardPostVO> myPost(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
 /*	int updateDBMyPicture(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);*/
 

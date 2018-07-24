@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberListPDVO {
-	private ArrayList<MemberVO> hcList;
+	private ArrayList<MemberVO> mbList;
 	private String pageNavi, type;
 	private int start, end;
 }

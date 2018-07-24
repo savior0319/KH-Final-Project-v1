@@ -38,6 +38,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public MemberVO selectOneMember(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO) {
+		System.out.println(memberVO.getMbBmi());
 		MemberVO mv = sqlSessionTemplate.selectOne("myInfo.selectOneMember", memberVO);
 		return mv;
 	}
@@ -125,7 +126,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/communityWholeBoard.diet?type=" + type + "&currentPage=" + (startNavi - 1)
+			sb.append("<a class='item' href='/myActivityInfo.diet?type=" + type + "&currentPage=" + (startNavi - 1)
 					+ "'> &lt; </a>");
 		}
 
@@ -135,13 +136,13 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/communityWholeBoard.diet?type="
 								+ type + "&currentPage=" + i + "'><strong>" + i + "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/communityWholeBoard.diet?type=" + type + "&currentPage=" + i + "'> "
+				sb.append("<a class='item' href='/myActivityInfo.diet?type=" + type + "&currentPage=" + i + "'> "
 						+ i + " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/communityWholeBoard.diet?type=" + type + "&currentPage=" + (endNavi + 1)
+			sb.append("<a class='item' href='/myActivityInfo.diet?type=" + type + "&currentPage=" + (endNavi + 1)
 					+ "'> &gt; </a>");
 		}
 
@@ -174,6 +175,14 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	public int updateMyPicture(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
 		int result = sqlSessionTemplate.update("myInfo.updateMyPicture",mv);
 		return result;
+	}
+
+	@Override
+	public ArrayList<BoardPostVO> myPost(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		System.out.println("dao:"+mv.getMbId());
+		List list = sqlSessionTemplate.selectList("myInfo.myPost",mv);
+		System.out.println("LIST:"+list);
+		return (ArrayList<BoardPostVO>) list;
 	}
 
 }

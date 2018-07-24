@@ -5,7 +5,7 @@ import spring.kh.diet.model.vo.DietTipVO;
 
 public interface DietTipService {
 
-	DietTipPDVO getDietTipList(int currentPage, String type);
+	DietTipPDVO getDietTipList(int currentPage, DietTipPDVO pdvo);
 
 	DietTipVO getDietTip(int index);
 

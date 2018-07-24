@@ -1,34 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="myInfo">
-
+	<resultMap type="member" id="memberDB">
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="mbId" column="MB_ID" />
+		<result property="mbPwd" column="MB_PWD" />
+		<result property="mbName" column="MB_NAME" />
+		<result property="mbNickName" column="MB_NICKNAME" />
+		<result property="mbGender" column="MB_GENDER" />
+		<result property="mbImage" column="MB_IMAGE" />
+		<result property="mbPromise" column="MB_PROMISE" />
+		<result property="mbAge" column="MB_AGE" />
+		<result property="mbPhone" column="MB_PHONE" />
+		<result property="mbAddress" column="MB_ADDRESS" />
+		<result property="mbInterest" column="MB_INTEREST" />
+		<result property="mbGrade" column="MB_GRADE" />
+		<result property="mbHeight" column="MB_HEIGHT" />
+		<result property="mbWeight" column="MB_WEIGHT" />
+		<result property="mbBmi" column="MB_BMI" />
+		<result property="mbReport" column="MB_REPORT" />
+		<result property="mbEnrollDate" column="MB_ENROLLDATE" />
+	</resultMap>
+	
 	<!-- 1대1 문의 -->
 	<insert id="question" parameterType="question">
 		INSERT INTO QUESTION_TBL
-		VALUES(QUESTION_SEQ.NEXTVAL, #{qsTitle}, #{qsContent}, #{mbIndex}, SYSDATE, #{qsAnswerCheck})
+		VALUES(QUESTION_SEQ.NEXTVAL, #{qsTitle}, #{qsContent}, #{mbIndex},
+		SYSDATE, #{qsAnswerCheck})
 	</insert>
 
+	<!-- 회원 탈퇴  -->
 	<delete id="secessionMember" parameterType="member">
 		DELETE FROM
 		MEMBER_TBL WHERE MB_ID = #{mbId}
 	</delete>
 
+	<!-- 회원정보 수정 -->
 	<update id="updateMyInfo" parameterType="member">
 		UPDATE MEMBER_TBL
-		SET MB_PWD = #{mbPwd},
+		SET
+		MB_PWD = #{mbPwd},
 		MB_NICKNAME = #{mbNickName},
 		MB_PHONE = #{mbPhone},
 		MB_PROMISE = #{mbPromise},
-		MB_HEIGHT = #{mbHeight}, 
+		MB_HEIGHT = #{mbHeight},
 		MB_WEIGHT = #{mbWeight}
 		WHERE MB_ID = #{mbId}
 	</update>
 
-	<select id="selectOneMember" parameterType="member"
-		resultType="member">
+	<!-- 한명의 회원정보  -->
+
+	<select id="selectOneMember" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
+		MB_REPORT AS mbReport,
 		MB_PWD AS mbPwd,
 		MB_NAME AS mbName,
 		MB_NICKNAME AS mbNickName,
@@ -36,19 +62,19 @@
 		MB_IMAGE AS mbImage,
 		MB_PROMISE AS mbPromise,
 		MB_AGE AS mbAge,
-		MB_PHONE
-		AS mbPhone,
+		MB_PHONE AS mbPhone,
 		MB_ADDRESS AS mbAddress,
 		MB_INTEREST AS mbInterest,
-		MB_GRADE
-		AS mbGrade,
+		MB_GRADE AS mbGrade,
 		MB_HEIGHT AS mbHeight,
 		MB_WEIGHT AS mbWeight,
 		MB_ENROLLDATE
 		AS mbEnrollDate
-		FROM MEMBER_TBL WHERE MB_ID = #{mbId}
+		FROM MEMBER_TBL
+		WHERE MB_ID = #{mbId}
 	</select>
 
+	<!-- 마이페이지 - 프로필 사진 삭제 -->
 	<delete id="deleteMyPicture" parameterType="member">
 		UPDATE MEMBER_TBL SET
 		MB_IMAGE
@@ -56,14 +82,16 @@
 		WHERE MB_ID = #{mbId}
 	</delete>
 
-	<select id="allMyOneToOneQuestion" parameterType="member"
-		resultType="question">
+	<!-- 마이페이지 - 일대일 문의 -->
+	<select id="allMyOneToOneQuestion" parameterType="member" resultType="question">
 		SELECT TITLE AS title,CONTENT AS content,QUESTION_NO as
 		querstionIndex FROM QUESTION WHERE MB_INDEX = #{mbIndex}
 	</select>
 
-	<select id="myWishList" parameterType="member"
-		resultType="product">
+
+	<!-- 마이페이지 - 장바구니 -->
+
+	<select id="myWishList" parameterType="member" resultType="product">
 		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS
 		pdImage,
 		PD_PRICE AS pdPrice FROM PRODUCT_TBL
@@ -74,6 +102,8 @@
 		#{mbId}
 	</select>
 
+
+	<!-- 회원 가입 -->
 	<insert id="signup" parameterType="member">
 		INSERT INTO MEMBER_TBL
 		VALUES(MEMBER_SEQ.NEXTVAL, #{mbId}, #{mbPwd}, null, #{mbNickName},
@@ -81,21 +111,27 @@
 		'http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg',
 		null, null, null, null, #{mbInterest},
 		'일반회원', null,
-		null, SYSDATE)
+		null, null, 'n',
+		SYSDATE)
 	</insert>
 
-	<select id="myActivity" parameterType="member"
-		resultType="myActivity">
+
+	<select id="myActivity" parameterType="member" resultType="myActivity">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MY_ATTENDANCE AS myAttendance,
 		MY_COMMNET_COUNT AS myCommentCount,
-		MY_BOARD_COUNT AS myBoardCount,
-		MB_ENROLLDATE as mbEnrollDate
-		FROM MY_ACTIVITY_TBL LEFT JOIN MEMBER_TBL
-		USING(MB_INDEX) WHERE MB_INDEX =
-		#{mbIndex}
 
+	<!-- 나의 활동 정보 (출석,댓글,게시물,가입날짜) -->
+	<select id="myActivity" parameterType="member" resultType="myActivity">
+	SELECT
+		MB_INDEX AS mbIndex ,
+		MY_ATTENDANCE AS myAttendance ,
+		MY_COMMENT_COUNT AS myCommentCount ,
+		MY_BOARD_COUNT AS myBoardCount,
+		MB_ENROLLDATE as mbEnrollDate 
+        FROM MY_ACTIVITY_TBL 
+        WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 	<resultMap type="community" id="communityDB">
@@ -119,50 +155,55 @@
 	</select>
 
 	<!-- 전체게시판 -->
-	<select id="allCommunityList" parameterType="myActivityPageData"
-		resultType="community" resultMap="communityDB">
+	<select id="allCommunityList" parameterType="myActivityPageData" resultType="community" resultMap="communityDB">
 		SELECT *
 		FROM (SELECT
 		BOARD_POST_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY
 		POST_DATETIME
 		DESC) AS NUM
-		FROM BOARD_POST_TBL
+		FROM
+		BOARD_POST_TBL
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
-	<select id="nickNameCheck" parameterType="member"
-		resultType="member">
+	<select id="nickNameCheck" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
 		MB_PWD AS mbPwd,
-		MB_NAME AS mbName,
+		MB_NAME AS
+		mbName,
 		MB_NICKNAME AS mbNickName,
 		MB_GENDER AS mbGender,
-		MB_IMAGE AS mbImage,
+		MB_IMAGE AS
+		mbImage,
 		MB_PROMISE AS mbPromise,
 		MB_AGE AS mbAge,
-		MB_PHONE
-		AS mbPhone,
-		MB_ADDRESS
-		AS mbAddress,
+		MB_PHONE AS mbPhone,
+		MB_ADDRESS AS mbAddress,
 		MB_INTEREST AS mbInterest,
-		MB_GRADE
-		AS mbGrade,
-		MB_HEIGHT AS
-		mbHeight,
+		MB_GRADE AS mbGrade,
+		MB_HEIGHT AS mbHeight,
 		MB_WEIGHT AS mbWeight,
-		MB_ENROLLDATE
-		AS
-		mbEnrollDate
-		FROM
-		MEMBER_TBL WHERE MB_NICKNAME = #{nickName}
+		MB_BMI AS
+		mbBmi,
+		MB_REPORT AS mbReport,
+		MB_ENROLLDATE AS mbEnrollDate
+		FROM MEMBER_TBL WHERE MB_NICKNAME = #{nickName}
 	</select>
-	
-	<update id ="updateMyPicture" parameterType="member">
-		UPDATE MEMBER_TBL SET MB_IMAGE = #{mbImage} where MB_ID = #{mbId}
-	</update> 
-  
+
+	<!-- 마이페이지 - 프로필 사진 업데이트  -->
+	<update id="updateMyPicture" parameterType="member">
+		UPDATE MEMBER_TBL SET
+		MB_IMAGE = #{mbImage} where MB_ID = #{mbId}
+	</update>
+
+	<select id="myPost" resultType="community" resultMap="communityDB" parameterType="member">
+		SELECT 
+		POST_TITLE AS postTitle,
+		POST_CONTENT AS postContent
+		FROM BOARD_POST_TBL
+	</select>
 </mapper>
 
