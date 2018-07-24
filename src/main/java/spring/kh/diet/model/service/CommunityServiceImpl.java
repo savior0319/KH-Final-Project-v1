@@ -130,6 +130,7 @@ public class CommunityServiceImpl implements CommunityService {
 		return cpdv;
 	}
 
+	//검색
 	@Override
 	public CommunityPageDataVO searchList(int currentPage, String searchText, String category) {
 		int recordCountPerPage = 10;

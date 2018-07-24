@@ -245,6 +245,8 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return (ArrayList<BoardPostVO>) list;
 	}
 
+	
+	//검색
 	@Override
 	public ArrayList<BoardPostVO> searchList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, String searchText, String category) {
@@ -262,6 +264,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return (ArrayList<BoardPostVO>) list;
 	}
 
+	//검색 페이징 
 	@Override
 	public String getSearchListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String searchText, String category) {
@@ -307,29 +310,31 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/communityWholeBoard.diet?category"+category+"&searchText=" + searchText + "&currentPage=" + (startNavi - 1)
+			sb.append("<a class='item' href='/communitySearch.diet?category="+category+"&searchText=" + searchText + "&currentPage=" + (startNavi - 1)
 					+ "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/communityWholeBoard.diet?category"+category+"&searchText="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/communitySearch.diet?category="+category+"&searchText="
 								+ searchText + "&currentPage=" + i + "'><strong>" + i + "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/communityWholeBoard.diet?category"+category+"&searchText=" + searchText + "&currentPage=" + i + "'> "
+				sb.append("<a class='item' href='/communitySearch.diet?category="+category+"&searchText=" + searchText + "&currentPage=" + i + "'> "
 						+ i + " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/communityWholeBoard.diet?category"+category+"&searchText=" + searchText + "&currentPage=" + (endNavi + 1)
+			sb.append("<a class='item' href='/communitySearch.diet?category="+category+"&searchText=" + searchText + "&currentPage=" + (endNavi + 1)
 					+ "'> &gt; </a>");
 		}
 
 		return sb.toString();
 	}
 
+	
+	//조회수 증가
 	public int postHit(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
 		int result = sqlSessionTemplate.update("community.postHit", postIndex);
 		return 0;
