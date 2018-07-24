@@ -158,10 +158,17 @@
 				<!-- 좋아요 버튼 -->
 				<div class="ui labeled button" tabindex="0">
 					<button class="ui red button" id="heartBtn" style="height: 40px;">
-						<i class="heart outline icon" id="emptyHeart"></i>
+						<c:choose>
+							<c:when test="${requestScope.bpv.likeYN==0}">
+								<i class="heart outline icon" id="emptyHeart"></i>
+							</c:when>
+							<c:when test="${requestScope.bpv.likeYN==1}">
+								<i class="heart icon" id="Heart"></i>
+							</c:when>
+						</c:choose>
 						좋아요
 					</button>
-					<a class="ui basic red left pointing label"> ${requestScope.bpv.postHit} </a>
+					<a class="ui basic red left pointing label" id="postLike"> ${requestScope.bpv.postLike} </a>
 				</div>
 
 
@@ -387,19 +394,49 @@
 
 			});
 
-	var likeCheck = true;
+	var likeCheck;
+	
+	var likeYN = ${requestScope.bpv.likeYN};
 	/* 좋아요 버튼 */
-	$('#heartBtn').click(
+	$('#heartBtn').click(			
 			function() {
-				if (likeCheck == true) {
-					$('#emptyHeart').removeClass("heart outline icon")
-							.addClass("heart icon");
-					likeCheck = false;
-				} else if (likeCheck == false) {
-					$('#emptyHeart').removeClass("heart icon").addClass(
-							"heart outline icon");
+				var postLike = ${requestScope.bpv.postLike};
+				if(likeYN==0){
 					likeCheck = true;
+					likeYN=1;
+				}else{
+					likeCheck = false;
+					likeYN=0;
 				}
+				var targetIndex = ${requestScope.bpv.postIndex};
+				var targetType = 1;
+				var targetMbIndex = ${requestScope.bpv.mbIndex};
+				
+					$.ajax({
+						url : '/postLike.diet',
+						type : 'post',
+						data : {
+							'targetIndex' : targetIndex,
+							'targetType' : targetType,
+							'targetMbIndex' : targetMbIndex
+						},
+						success : function() {
+							if(likeCheck){
+							$('#emptyHeart').removeClass("heart outline icon").addClass("heart icon");
+							$('#emptyHeart').attr('id','heart')
+							$('#postLike').text(postLike+1);
+							likeCheck = false;
+							}else {
+								$('#heart').removeClass("heart icon").addClass("heart outline icon");
+								$('#heart').attr('id','emptyHeart');
+								$('#postLike').text(postLike);
+								likeCheck = true;
+							}
+						},
+						error : function() {
+							alert('실패');
+						}
+					});
 			});
 
 	/* 신고버튼 */

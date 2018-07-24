@@ -1,5 +1,6 @@
 package spring.kh.diet.model.service;
 
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 
@@ -23,5 +24,17 @@ public interface CommunityService {
 			String searchText);
 
 	int postHit(int postIndex);
+
+	BoardLikeVO checkBoardLike(BoardLikeVO checkVO);
+
+	int boardLikeDown(BoardLikeVO blv);
+
+	int boardLikeUp(BoardLikeVO checkVO);
+
+	int postLikeDown(BoardLikeVO blv);
+
+	int postLikeUp(BoardLikeVO checkVO);
+
+
 
 }
