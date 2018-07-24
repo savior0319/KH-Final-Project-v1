@@ -17,6 +17,8 @@
 		<result property="htCalories" column="ht_Calories" />
 		<result property="htExplain" column="ht_Explain" />
 		<result property="htDate" column="ht_Date" />
+		<result property="htWriterNo" column="ht_Writer_No"/>
+		<result property="htNickname" column="mb_Nickname"/>
 	</resultMap>
 	
 	<!-- 페이징 처리 - 리스트 불러오기 -->
@@ -64,8 +66,8 @@
 	<!-- 게시물 불러오기 -->
 	<select id="getOne" resultType="homeTraining" resultMap="homeTrainingDB">
 		SELECT *
-		FROM HOMETRAINING_TB
-		WHERE HT_INDEX = #{index}
+		FROM HOMETRAINING_TB HT,
+		MEMBER_TBL MB WHERE HT.HT_WRITER_NO = MB.MB_INDEX AND HT_INDEX = #{index}
 
 	</select>
 

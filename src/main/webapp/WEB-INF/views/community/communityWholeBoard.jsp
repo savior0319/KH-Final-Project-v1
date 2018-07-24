@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -65,12 +66,15 @@ else self.name = '';
 
 		<!-- 최신순, 조회순 -->
 		<br>
+		
+		<c:if test="${requestScope.cpdv.category == null}">
 		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
 			<div class="small ui basic buttons">
 				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
 				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
 			</div>
 		</div>
+		</c:if>
 		<br>
 		<!-- 글목록 -->
 		<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
@@ -106,7 +110,9 @@ else self.name = '';
 								${c.postNickname}
 							</td>
 							<td>${c.postHit}</td>
-							<td>${c.postDateTime}</td>
+							<td>
+							<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" /> 
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -127,10 +133,12 @@ else self.name = '';
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
-						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
+					<c:if test ="${sessionScope.member!=null}">
+						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="return loginCheck();">
 							<i class="edit icon"></i>
 							등록
 						</button>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -149,10 +157,8 @@ else self.name = '';
 						<div class="item">작성자</div>
 					</div>
 				</div>
-
 				<input type="text" placeholder="Search..." id="searchText">
 				<i class="circular search link icon" onclick="searchBtn()"></i>
-
 			</div>
 		</div>
 
@@ -214,6 +220,20 @@ else self.name = '';
 		 /* + "&type=" + type */
 		
 	}
+	
+	
+	function loginCheck(){
+		var check = false;
+
+		if('${sessionScope.member!=null}'){
+			check = true;
+			return check;
+		}else{
+			return check;
+		}
+		
+	}
+	
 	
 </script>
 

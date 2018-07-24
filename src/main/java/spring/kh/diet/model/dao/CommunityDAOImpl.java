@@ -137,6 +137,9 @@ public class CommunityDAOImpl implements CommunityDAO {
 			int recordCountPerPage, int naviCountPerPage, String type) {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 		cpdv.setType(type);
+		if(cpdv.getCategory()==null) {
+			cpdv.setCategory("");
+		}
 		
 		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi",cpdv);
 
