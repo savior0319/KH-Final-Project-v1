@@ -134,7 +134,7 @@
 						<i class="heart outline icon" id="emptyHeart"></i>
 						공감
 					</button>
-					<a class="ui basic red left pointing label"> 1,048 </a>
+					<a class="ui basic red left pointing label"> ${requestScope.bpv.postHit} </a>
 				</div>
 
 

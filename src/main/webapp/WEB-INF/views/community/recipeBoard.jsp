@@ -117,10 +117,12 @@ else self.name = '';
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
+					<c:if test ="${sessionScope.member!=null}">
 						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
 							<i class="edit icon"></i>
 							등록
 						</button>
+						</c:if>
 					</div>
 				</div>
 			</div>
