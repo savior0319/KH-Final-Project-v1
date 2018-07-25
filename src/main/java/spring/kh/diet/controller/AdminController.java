@@ -15,4 +15,6 @@ public interface AdminController {
 
 	String deleteMemberList(HttpServletRequest request, HttpServletResponse response);
 
+	String memberLogList();
+
 }

@@ -6,8 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<title>다이어트</title>
 </head>
 
 <!-- CSS -->
@@ -42,29 +42,29 @@ body {
 			</thead>
 			<tbody>
 				<c:forEach items="${requestScope.mbpd.mbList}" var="mb">
-				<tr align="center">
-					<td>${mb.mbId}</td>
-					<td>${mb.mbNickName}</td>
-					<c:choose>
-						<c:when test="${mb.mbGender == 'f'}">
-					<td>여자</td>
-						</c:when>
-						<c:otherwise>
-					<td>남자</td>
-						</c:otherwise>
-					</c:choose>
-					<td>${mb.mbGrade}</td>
-					<td>${mb.mbEnrollDate}</td>
-				</tr>
-			</c:forEach> 
-		</tbody>
-	</table>
+					<tr align="center">
+						<td>${mb.mbId}</td>
+						<td>${mb.mbNickName}</td>
+						<c:choose>
+							<c:when test="${mb.mbGender == 'f'}">
+								<td>여자</td>
+							</c:when>
+							<c:otherwise>
+								<td>남자</td>
+							</c:otherwise>
+						</c:choose>
+						<td>${mb.mbGrade}</td>
+						<td>${mb.mbEnrollDate}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 		<div class="ui center aligned basic segment">
 			<div class="ui pagination menu">${requestScope.mbpd.pageNavi}</div>
 		</div>
 	</div>
-</div>
-<!-- FOOTER -->
+	</div>
+	<!-- FOOTER -->
 </body>
 
 <!-- SCRIPT -->
