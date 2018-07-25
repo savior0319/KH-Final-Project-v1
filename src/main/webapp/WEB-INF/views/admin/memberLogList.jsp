@@ -27,7 +27,12 @@ body {
 	<br>
 	<br>
 	<div class="ui container">
-		<div class="ui center aligned segment"></div>
+		<div class="ui center aligned segment">
+			<h1>회원 접속 기록 조회</h1>
+		</div>
+
+		<div class="ui center aligned segments">현재 접속자 수</div>
+	</div>
 	</div>
 
 

@@ -30,13 +30,15 @@
 				<a class="ui simple item" href="/deleteMemberList.diet">탈퇴 내역 조회</a>
 				<a class="ui simple item" href="#">블랙리스트 관리</a>
 				<a class="ui simple item" href="#">로그인 현황</a>
-				<a class="ui simple item" href="#">회원 접속로그</a>
+				<a class="ui simple item" href="/memberLogList.diet">회원 접속 기록 조회</a>
 			</h4>
 		</div>
 	</div>
 
 	<div class="item">
-		<h3><i class="clipboard iternate icon"></i>게시판 관리</h3>
+		<h3>
+			<i class="clipboard iternate icon"></i>게시판 관리
+		</h3>
 		<div class="menu dropdown">
 			<h4>
 				<a class="ui simple item" href="/noticeRegister.diet">공지사항 등록</a>
@@ -47,7 +49,9 @@
 
 
 	<div class="item">
-		<h3><i class="clipboard iternate icon"></i>통계 관리</h3>
+		<h3>
+			<i class="clipboard iternate icon"></i>통계 관리
+		</h3>
 		<div class="menu dropdown">
 			<a class="ui simple item" href="/currentLoginUser.diet">접속자 통계</a>
 			<a class="ui simple item" href="#">회원 접속 기록관리</a>
@@ -57,7 +61,9 @@
 
 
 	<div class="item">
-		<h3><i class="clipboard iternate icon"></i>쇼핑몰 관리</h3>
+		<h3>
+			<i class="clipboard iternate icon"></i>쇼핑몰 관리
+		</h3>
 		<div class="menu dropdown">
 			<a class="ui simple item" href="#">상품등록</a>
 			<a class="ui simple item" href="#">구매관리</a>
@@ -67,7 +73,9 @@
 	</div>
 
 	<div class="item">
-		<h3><i class="clipboard iternate icon"></i>기타 관리</h3>
+		<h3>
+			<i class="clipboard iternate icon"></i>기타 관리
+		</h3>
 		<div class="menu dropdown">
 			<a class="ui simple item" href="#">추가예정</a>
 		</div>

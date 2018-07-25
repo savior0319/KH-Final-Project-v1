@@ -107,5 +107,12 @@ public class AdminControllerImpl implements AdminController {
 
 		return "admin/deleteMemberList";
 	}
+	
+	/* 회원 접속 로그 */
+	@Override
+	@RequestMapping(value = "/memberLogList.diet")
+	public String memberLogList() {
+		return "admin/memberLogList";
+	}
 
 }
