@@ -118,14 +118,16 @@
 			<br>
 			<div class="ui grid">
 				<div class="six wide column">
-					<div style="width: 100%; height: 100px;">사진 등록</div>
-					<div style="width: 100%; height: 30px;">
+					<div style="width: 100%;">
+						<img id="img" style="width:230px; height:180px;">
+					</div>
+					<div style="width: 100%; height: 30px; margin-top:20px;">
 						<button type="button" class="ui button" onclick="uploadPictureBtn();" style="width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
 					</div>
 				</div>
 				<div class="ten wide column">
 					<div style="width: 100%; height: 30px;">요약글 작성</div>
-					<textarea style="width: 100%; height: 100px; resize: none;" id="sammary"></textarea>
+					<textarea style="width: 100%; height: 200px; resize: none;" id="sammary"></textarea>
 				</div>
 			</div>
 			<br>
@@ -143,7 +145,7 @@
 		<i class="close icon"></i>
 		<div class="header">프로필 사진 변경</div>
 		<div class="image content">
-			<form action="/updateMyPicture.diet" method="post" enctype="multipart/form-data">
+			<form action="/updateMyPictur.diet" method="post" enctype="multipart/form-data">
 				<div class="description">
 					<div class="ui header">
 						<div class="fileBox">
@@ -156,8 +158,11 @@
 				</div>
 				<br>
 				<div class="actions">
-					<button type="submit" style="background: rgb(250, 40, 40); color: white;" class="ui button">
+					<!-- <button type="submit" style="background: rgb(250, 40, 40); color: white;" class="ui button">
 						사진업데이트 <i class="checkmark icon"></i>
+					</button> -->
+					<button type="button" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
+						사진 등록 <i class="checkmark icon"></i>
 					</button>
 					<button type="button" class="ui black button" id="modalOff">취소</button>
 				</div>
@@ -270,6 +275,45 @@
 		}
 		$(this).siblings('.fileName').val(filename);
 	});
+	
+	
+	
+	/* 올린 이미지 미리보기 */
+	var sel_file;
+    var reader;
+    var ff;
+
+    $(document).ready(function() {
+        $("#uploadBtn").on("change", handleImgFileSelect);
+        $('#photoRegist').on("click", handle);
+    }); 
+
+    function handleImgFileSelect(e) {
+        
+        var files = e.target.files;
+        var filesArr = Array.prototype.slice.call(files);
+
+        filesArr.forEach(function(f) {
+            if(!f.type.match("image.*")) {
+                alert("확장자는 이미지 확장자만 가능합니다.");
+                return;
+            }
+
+            sel_file = f;
+
+            reader = new FileReader();
+            
+            reader.onload = function(e) {
+                $("#img").attr("src", e.target.result);
+            }
+            ff = f;
+        });
+    }
+    
+    function handle(){
+        reader.readAsDataURL(ff);
+        $("#updateProfile").modal('hide');
+    }
 </script>
 
 </html>

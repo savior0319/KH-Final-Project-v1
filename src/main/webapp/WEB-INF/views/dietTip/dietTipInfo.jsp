@@ -217,7 +217,7 @@ p>span {
 							<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
 							</a>
 							<div class="content" style="width: 93%;">
-								<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</a>
+								<div class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</div>
 								<div class="metadata" style="width: 100%;">
 									<span class="date" style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
 									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
@@ -370,7 +370,7 @@ p>span {
 					var contentDiv = $("<div>").attr("style", "width:93%;");
 					contentDiv.attr("class", "content");
 
-					var aAuthor = $("<a>").attr("class", "author");
+					var aAuthor = $("<div>").attr("class", "author");
 					aAuthor.attr("style", "position: absolute; width: 10%;");
 					aAuthor.html(data.bcList[i].mbNickname);
 
