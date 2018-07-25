@@ -6,13 +6,46 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>글등록된 페이지</title>
+<title>	${requestScope.bpv.postTitle}</title>
+<script src="/resources/slider/responsiveslides.min.js"></script>
 </head>
 
 <!-- CSS -->
 <style>
 .singo {
 	text-align: left;
+}
+
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
 }
 </style>
 
@@ -29,11 +62,14 @@
 
 	<!-- CONTENTS -->
 	<div class="ui container">
-		<div class="ui panorama test ad" data-text="광고광고광고"></div>
+			<!-- 슬라이드-->
+		<ul class="rslides">
+			<li><img src="/resources/image/mainPic.jpg"></li>
+			<li><img src="/resources/image/mainPic1.jpg"></li>
+			<li><img src="/resources/image/mainPic2.jpg"></li>
+			<li><img src="/resources/image/mainPic3.jpg"></li>
+		</ul>
 		<br>
-		<br>
-
-
 		<span class="ui grid">
 			<span class="four column row" style="padding-left: 20px;">
 				<!-- 상단 게시판 종류 -->
@@ -384,6 +420,15 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+
+		// 슬라이드
+	$(function() {
+		$(".rslides").responsiveSlides({
+			auto: true,
+			timeout: 1500,  
+		});
+	});
+	
 	var category = '${requestScope.bpv.bcaIndex}';
 
 	var check = true;

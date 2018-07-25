@@ -8,6 +8,7 @@
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
 <title>성공후기</title>
+<script src="/resources/slider/responsiveslides.min.js"></script>
 </head>
 
 <!-- CSS -->
@@ -15,7 +16,40 @@
 .ui.card {
 	width: 400px;
 }
+
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
 </style>
+
 <script>
 if (self.name != 'reload') {
     self.name = 'reload';
@@ -31,8 +65,13 @@ else self.name = '';
 <input type="hidden" id="searchT" value="${requestScope.cpdv.searchText}">
 
 	<div class="ui center aligned container">
-		<div class="ui panorama test ad" data-text="Panorama" align="center"></div>
-		<br>
+			<!-- 슬라이드-->
+		<ul class="rslides">
+			<li><img src="/resources/image/mainPic.jpg"></li>
+			<li><img src="/resources/image/mainPic1.jpg"></li>
+			<li><img src="/resources/image/mainPic2.jpg"></li>
+			<li><img src="/resources/image/mainPic3.jpg"></li>
+		</ul>
 		<br>
 		<div class="ui left aligned container">
 			<c:choose>
@@ -231,8 +270,15 @@ else self.name = '';
 		}else{
 			return check;
 		}
-		
 	}
+
+		// 슬라이드
+	$(function() {
+		$(".rslides").responsiveSlides({
+			auto: true,
+			timeout: 1500,  
+		});
+	});
 	
 	
 </script>

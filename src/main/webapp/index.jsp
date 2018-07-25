@@ -293,7 +293,8 @@
 $(function() {
 	$(".rslides").responsiveSlides({
 		auto: true,
-		timeout: 1500,  
+		timeout: 1500,
+		random: true,     
 	});
 });
 
