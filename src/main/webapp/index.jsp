@@ -7,8 +7,42 @@
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
 	<title>다부해 - 다이어트를 부탁해</title>
+	<script src="/resources/slider/responsiveslides.min.js"></script>
 </head>
 
+<style>
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
+</style>
 
 <body>
 	<!-- HEADER -->
@@ -18,7 +52,7 @@
 		<div class="ui center aligned basic segments">
 			<div class="ui horizontal basic segments">
 				<div class="ui basic segment" style="padding: 0;">
-					<div class="ui left aligned basic segment" style="margin: 0;">
+					<div class="ui left aligned basic segment" style="margin: 0; padding-bottom: 0;">
 						<div class="ui message">
 							<span class="ui small header">
 								<i class="book icon" style="display: inline-block;"></i><span id="fs"></span>
@@ -59,105 +93,69 @@
 				</tr>
 			</table>
 		</div>
+		<!-- 슬라이드-->
+		<ul class="rslides">
+			<li><img src="/resources/image/mainPic.jpg"></li>
+			<li><img src="/resources/image/mainPic1.jpg"></li>
+			<li><img src="/resources/image/mainPic2.jpg"></li>
+			<li><img src="/resources/image/mainPic3.jpg"></li>
+		</ul>
 
-			<%-- 슬라이더 시작--%>
-			<div class="ui center aligned basic segment" style="margin: 0; padding: 0;">
-				<div id="slider_main" style="width: 750px;" >
-					<div style = "display: none;"><img src="/resources/image/mainPic.jpg"></div>
-					<div style = "display: none;"><img src="/resources/image/mainPic1.jpg"></div>
-					<div style = "display: none;"><img src="/resources/image/mainPic2.jpg"></div>
-					<div style = "display: none;"><img src="/resources/image/mainPic3.jpg"></div>
-				</div>
-			</div>
-		</div>
+	</div>
 
-		<style>
-		#slider_main {
-			height:300px;
-			text-align: center;
-		}
-		</style>
-
-		<script type="text/javascript" src="http://slidesjs.com/js/jquery.slides.min.js"></script>
-
-		<script type="text/javascript">
-			function slidesjs(){
-				$("#slider_main").slidesjs({
-					start: 1,
-					navigation: false,
-					height:400,
-					width:700,
-					play: {
-						active: false,
-						effect: "fade",
-						interval: 1500,
-						auto: true,
-						swap: true,
-						pauseOnHover: true,
-						restartDelay: 2500
-					}
-				});
-			}
-			$(document).ready(function(){
-				slidesjs();
-			});
-		</script>
-	<%-- 슬라이더 끝 --%>
-
-
-<!-- 반응형 메뉴 768px 이상 -->
-<div class="ui basic segment" align="center" id="mainBoard">
-	<table class="ui celled table" style="width: 100%; height: 100%;" >
-		<tr align="center">
+	<!-- 반응형 메뉴 768px 이상 -->
+	<div class="ui basic segment" align="center" id="mainBoard">
+		<table class="ui celled table" style="width: 100%; height: 100%;" >
+			<tr align="center">
+				<td style="padding: 0px; width: 70px;">
+					<button onclick="bmiCal();" type="button"
+					style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+					<i class="large calculator icon" id="icon1"></i>
+					<div class="disappear">
+						<br>
+						내 BMI 지수는?
+						<br>
+						(비만도 계산)
+					</div>
+				</button>
+			</td>
 			<td style="padding: 0px; width: 70px;">
-				<button onclick="bmiCal();" type="button"
-				style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
-				<i class="large calculator icon" id="icon1"></i>
+				<button onclick="bmrCal();" type="button"
+				style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px;">
+				<i class="large sticky note outline icon" id="icon2"></i>
 				<div class="disappear">
 					<br>
-					내 BMI 지수는?
+					칼로리처방
 					<br>
-					(비만도 계산)
+					받기
+				</div>
+			</button>
+		</td>
+	</tr>
+	<tr align="center">
+		<td style="padding: 0px; width: 70px;">
+			<button type="button" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px;">
+				<i class="large mobile alternate icon" id="icon3"></i>
+				<div class="disappear">
+					<br>
+					다이어트
+					<br>
+					어플리케이션
 				</div>
 			</button>
 		</td>
 		<td style="padding: 0px; width: 70px;">
-			<button onclick="bmrCal();" type="button"
-			style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px;">
-			<i class="large sticky note outline icon" id="icon2"></i>
+			<button  onclick="healthCenter();" type="button"
+			style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+			<i class="large sistrix icon" id="icon4"></i>
 			<div class="disappear">
 				<br>
-				칼로리처방
+				인바디 측정
 				<br>
-				받기
+				보건소 찾기
 			</div>
 		</button>
 	</td>
-</tr>
-<tr align="center">
-	<td style="padding: 0px; width: 70px;">
-		<button type="button" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px;">
-			<i class="large mobile alternate icon" id="icon3"></i>
-			<div class="disappear">
-				<br>
-				다이어트
-				<br>
-				어플리케이션
-			</div>
-		</button>
-	</td>
-	<td style="padding: 0px; width: 70px;">
-		<button  onclick="healthCenter();" type="button"
-		style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
-		<i class="large sistrix icon" id="icon4"></i>
-		<div class="disappear">
-			<br>
-			인바디 측정
-			<br>
-			보건소 찾기
-		</div>
-	</button>
-</td>
 </tr>
 </table>
 </div>
@@ -290,6 +288,14 @@
 		var randonNum = Math.floor(Math.random() * (title.length));
 		var fs = $('#fs').html(title[randonNum]);
 	});
+
+// 슬라이드
+$(function() {
+	$(".rslides").responsiveSlides({
+		auto: true,
+		timeout: 1500,  
+	});
+});
 
 </script>
 <style type="text/css" media="screen">
