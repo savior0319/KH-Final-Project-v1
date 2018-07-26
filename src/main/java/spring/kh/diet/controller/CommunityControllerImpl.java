@@ -116,7 +116,7 @@ public class CommunityControllerImpl implements CommunityController {
 		{
 			mbIndex = String.valueOf(((MemberVO) session.getAttribute("member")).getMbIndex());
 			sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
-		}else {
+		}else { 
 			mbIndex = request.getRemoteAddr();
 			if(mbIndex.equals("0:0:0:0:0:0:0:1")) {
 				mbIndex = "localHost";
