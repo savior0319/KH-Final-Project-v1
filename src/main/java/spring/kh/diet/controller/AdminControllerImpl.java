@@ -19,6 +19,8 @@ import spring.kh.diet.model.service.AdminService;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.NoticeVO;
+import spring.kh.diet.model.vo.QuestionAnswerPDVO;
+import spring.kh.diet.model.vo.QuestionVO;
 
 @SuppressWarnings("all")
 @Controller
@@ -107,12 +109,51 @@ public class AdminControllerImpl implements AdminController {
 
 		return "admin/deleteMemberList";
 	}
-	
-	/* 회원 접속 로그 */
+
+	/* 블랙리스트 회원 관리 */
 	@Override
-	@RequestMapping(value = "/memberLogList.diet")
-	public String memberLogList() {
-		return "admin/memberLogList";
+	@RequestMapping(value = "/blackList.diet")
+	public String blackList() {
+		return "admin/blackList";
+	}
+
+	/* 트레이너 회원 관리 */
+	@Override
+	@RequestMapping(value = "/trainer.diet")
+	public String trainer() {
+		return "admin/trainer";
+	}
+
+	/* 1:1문의 답변하기 */
+	@Override
+	@RequestMapping(value = "/answer.diet")
+	public String answer(HttpServletRequest request, HttpServletResponse response) {
+
+		int currentPage;
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		QuestionAnswerPDVO qData = as.getAnswerList(currentPage);
+
+		qData.setType(request.getParameter("type"));
+		request.setAttribute("qpd", qData);
+
+		return "admin/answer";
+	}
+
+	/* 1:1 문의 질문내용 */
+	@Override
+	@RequestMapping(value = "/qaContent.diet")
+	public String qaContent(int index, HttpServletRequest request) {
+
+		QuestionVO qData = as.getQuestionContent(index);
+		request.setAttribute("qData", qData);
+
+		return "admin/qaContent";
 	}
 
 }

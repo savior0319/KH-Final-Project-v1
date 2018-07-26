@@ -10,8 +10,7 @@
 	</insert>
 
 	<!-- 관리자 전체 회원 조회 리스트 -->
-	<select id="getMemberList" parameterType="memberListPageData"
-		resultType="member">
+	<select id="getMemberList" parameterType="memberListPageData" resultType="member">
 		SELECT
 		MB_AGE as mbAge,
 		MB_Index as mbIndex,
@@ -27,7 +26,8 @@
 		MB_PHONE as mbPhone,
 		MB_REPORT as mbReport,
 		MB_ADDRESS as mbAddress,
-		MB_INTEREST as mbInterest,
+		MB_INTEREST as
+		mbInterest,
 		MB_GRADE as mbGrade,
 		MB_ENROLLDATE as mbEnrollDate
 		FROM (SELECT MEMBER_TBL.*, ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
@@ -35,22 +35,21 @@
 	</select>
 
 	<!-- 관리자 전체 회원 리스트 네비게이션 -->
-	<select id="getMemberNavi" resultType="java.lang.Integer"
-		parameterType="memberListPageData">
+	<select id="getMemberNavi" resultType="java.lang.Integer" parameterType="memberListPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM MEMBER_TBL
 	</select>
 
 	<!-- 관리자 탈퇴 회원 조회 리스트 -->
-	<select id="getDeleteMemberList" parameterType="memberListPageData"
-		resultType="member">
+	<select id="getDeleteMemberList" parameterType="memberListPageData" resultType="member">
 		SELECT
 		MB_AGE as mbAge,
 		MB_Index as mbIndex,
 		MB_HEIGHT as mbHeight,
 		MB_WEIGHT as mbWeight,
 		MB_ID as mbId,
-		MB_PWD as mbPwd,
+		MB_PWD as
+		mbPwd,
 		MB_NAME as mbName,
 		MB_NICKNAME as mbNickName,
 		MB_GENDER as mbGender,
@@ -59,20 +58,57 @@
 		MB_PHONE as mbPhone,
 		MB_REPORT as mbReport,
 		MB_ADDRESS as mbAddress,
-		MB_INTEREST as mbInterest,
+		MB_INTEREST as
+		mbInterest,
 		MB_GRADE AS MBGRADE,
 		DELETE_DATE as mbEnrollDate
 		FROM (SELECT DEL_MEMBER_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM DEL_MEMBER_TBL)
 		WHERE NUM BETWEEN #{start} and #{end}
 	</select>
-	
+
 	<!-- 관리자 탈퇴 회원 리스트 네비게이션 -->
-	<select id="getDeleteMemberNavi" resultType="java.lang.Integer"
-		parameterType="memberListPageData">
+	<select id="getDeleteMemberNavi" resultType="java.lang.Integer" parameterType="memberListPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM DEL_MEMBER_TBL
 	</select>
+
+	<!-- 1:1문의 리스트 -->
+	<select id="getAnswerList" parameterType="answerListPageData" resultType="question">
+		SELECT
+		QS_INDEX AS qsIndex,
+		QS_TITLE AS qsTitle,
+		QS_CONTENT AS qsContent,
+		(SELECT DISTINCT MB_NICKNAME FROM MEMBER_TBL MT,
+		QUESTION_TBL QT WHERE MT.MB_INDEX = QT.MB_INDEX) AS mbNickName,
+		QS_WRITETIME AS qsWriteTime,
+		QS_ANSWERCHECK AS qsAnswerCheck
+		FROM (SELECT QUESTION_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM
+		FROM QUESTION_TBL)
+		WHERE NUM BETWEEN #{start} and #{end}
+	</select>
+
+	<!-- 관리자 탈퇴 회원 리스트 네비게이션 -->
+	<select id="getAnserListNavi" resultType="java.lang.Integer" parameterType="answerListPageData">
+		SELECT COUNT(*) AS TOTALCOUNT
+		FROM QUESTION_TBL
+	</select>
+
+	<!-- 관리자 1:1문의 질문 내용 -->
+	<select id="getQuestionContent" resultType="question" parameterType="Integer">
+		SELECT
+		QS_INDEX AS qsIndex,
+		QS_TITLE AS qsTitle,
+		QS_CONTENT AS qsContent,
+		(SELECT DISTINCT MB_NICKNAME FROM MEMBER_TBL MT,
+		QUESTION_TBL QT WHERE MT.MB_INDEX = QT.MB_INDEX) AS mbNickName,
+		QS_WRITETIME AS qsWriteTime,
+		QS_ANSWERCHECK AS qsAnswerCheck
+		FROM QUESTION_TBL
+		WHERE QS_INDEX = #{index}
+	</select>
+
 
 
 

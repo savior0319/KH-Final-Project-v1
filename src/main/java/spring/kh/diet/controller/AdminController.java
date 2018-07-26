@@ -15,6 +15,12 @@ public interface AdminController {
 
 	String deleteMemberList(HttpServletRequest request, HttpServletResponse response);
 
-	String memberLogList();
+	String blackList();
+
+	String trainer();
+
+	String answer(HttpServletRequest request, HttpServletResponse response);
+
+	String qaContent(int index, HttpServletRequest request);
 
 }
