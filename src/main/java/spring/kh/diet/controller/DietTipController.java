@@ -16,6 +16,9 @@ public interface DietTipController {
 
 	void registDietTip(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-	void getDietTipMainPhotoPath(HttpSession session, HttpServletRequest request, HttpServletResponse response,
-			MultipartFile file) throws IOException;
+	void getDietTipMainPhotoPath(HttpServletRequest request, HttpServletResponse response,
+			MultipartHttpServletRequest req) throws IOException;
+
+	void saveDietTipMainPhotoPath(HttpServletRequest request, HttpServletResponse response,
+			MultipartHttpServletRequest req) throws IOException;
 }
