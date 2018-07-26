@@ -26,11 +26,11 @@
 		MB_PHONE as mbPhone,
 		MB_REPORT as mbReport,
 		MB_ADDRESS as mbAddress,
-		MB_INTEREST as
-		mbInterest,
+		MB_INTEREST as mbInterest,
 		MB_GRADE as mbGrade,
 		MB_ENROLLDATE as mbEnrollDate
-		FROM (SELECT MEMBER_TBL.*, ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
+		FROM (SELECT
+		MEMBER_TBL.*, ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
 		WHERE NUM BETWEEN #{start} and #{end}
 	</select>
 
@@ -48,8 +48,7 @@
 		MB_HEIGHT as mbHeight,
 		MB_WEIGHT as mbWeight,
 		MB_ID as mbId,
-		MB_PWD as
-		mbPwd,
+		MB_PWD as mbPwd,
 		MB_NAME as mbName,
 		MB_NICKNAME as mbNickName,
 		MB_GENDER as mbGender,
@@ -58,11 +57,11 @@
 		MB_PHONE as mbPhone,
 		MB_REPORT as mbReport,
 		MB_ADDRESS as mbAddress,
-		MB_INTEREST as
-		mbInterest,
+		MB_INTEREST as mbInterest,
 		MB_GRADE AS MBGRADE,
 		DELETE_DATE as mbEnrollDate
-		FROM (SELECT DEL_MEMBER_TBL.*,
+		FROM (SELECT
+		DEL_MEMBER_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM DEL_MEMBER_TBL)
 		WHERE NUM BETWEEN #{start} and #{end}
 	</select>
@@ -84,7 +83,7 @@
 		QS_WRITETIME AS qsWriteTime,
 		QS_ANSWERCHECK AS qsAnswerCheck
 		FROM (SELECT QUESTION_TBL.*,
-		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM
+		ROW_NUMBER() OVER(ORDER BY QS_INDEX DESC) AS NUM
 		FROM QUESTION_TBL)
 		WHERE NUM BETWEEN #{start} and #{end}
 	</select>
@@ -108,8 +107,5 @@
 		FROM QUESTION_TBL
 		WHERE QS_INDEX = #{index}
 	</select>
-
-
-
-
+	
 </mapper>
