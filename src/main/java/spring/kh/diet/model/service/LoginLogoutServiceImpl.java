@@ -69,15 +69,15 @@ public class LoginLogoutServiceImpl implements LoginLogoutService {
 	}
 
 	@Override
-	public void transSession(HttpServletRequest request) {
-		loginDAO.tranSession(SqlSessionTemplate,request);	
+	public void transSession(String sessionId) {
+		loginDAO.tranSession(SqlSessionTemplate,sessionId);	
 	}
 
 	
 
 	@Override
-	public OneSessionVO selectOneSession(String remoteAddr) {
-		OneSessionVO OSV = loginDAO.selectOneSession(SqlSessionTemplate,remoteAddr);
+	public OneSessionVO selectOneSession(String sessionId) {
+		OneSessionVO OSV = loginDAO.selectOneSession(SqlSessionTemplate,sessionId);
 		return OSV;
 	}
 

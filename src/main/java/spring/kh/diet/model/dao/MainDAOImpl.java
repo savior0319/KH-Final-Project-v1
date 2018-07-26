@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.HealthCenterVO;
 import spring.kh.diet.model.vo.OnSessionVO;
@@ -122,6 +123,25 @@ public class MainDAOImpl implements MainDAO {
 	public int updateAlreadyOnsession(SqlSessionTemplate session, UpdateSSVO uSSVO) {
 		
 		int result = session.update("main.updateAlreadyOnSesssion", uSSVO);
+		return result;
+	}
+
+	@Override
+	public ArrayList<AllSessionVO> selectAllSesssionList2(SqlSessionTemplate session) {
+		List<?> list = session.selectList("main.selectAllSessionList2");
+
+		return (ArrayList<AllSessionVO>)list;
+	}
+
+	@Override
+	public int autoDeleteSession(SqlSessionTemplate session, AllSessionVO allSessionVO) {
+		int result = session.delete("main.autoDeleteSession",allSessionVO);
+		return result;
+	}
+
+	@Override
+	public int autoTransSession(SqlSessionTemplate session, AllSessionVO allSessionVO) {
+		int result = session.insert("main.autoTransSession",allSessionVO);
 		return result;
 	}
 

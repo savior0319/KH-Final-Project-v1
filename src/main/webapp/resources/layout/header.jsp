@@ -71,6 +71,11 @@
 </c:if> 
 <!--  -->
 
+<!-- 강제종료시 확인할수 있는 스크립트 -->
+<script language="javascript">
+
+</script>
+<!--  -->
 
 
 <style type="text/css" media="screen">
