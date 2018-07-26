@@ -152,9 +152,9 @@
 		VALUES(#{indexNo},#{sessionId},#{sessionIp},#{firstOn},(sysdate-to_date(#{firstOn},'yy/MM/dd hh24:mi:ss'))*24*60*60,#{loginId},#{device},sysdate)
 	</insert>
 	<delete id="transSession">
-	delete On_Session_Tbl where SS_IP = #{ip}
-	
+	delete On_Session_Tbl where SS_Id = #{id}
 	</delete>
+	
 	
 	<select id="selectOneSession" resultType="oneSession">
 	 select
@@ -166,7 +166,7 @@
     SS_STATE as state,    
     SS_LOGIN as loginId, 
     SS_DEVICE as device    
-	 from ON_session_TBL where SS_IP = #{ip}
+	 from ON_session_TBL where SS_Id = #{id}
 	</select>
 	
 	

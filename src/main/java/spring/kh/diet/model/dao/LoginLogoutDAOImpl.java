@@ -76,14 +76,14 @@ public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 		return result;
 	}
 
-	public void tranSession(SqlSessionTemplate sqlSessionTemplate, HttpServletRequest request) {
-		int result = sqlSessionTemplate.delete("login.transSession",request.getRemoteAddr());
+	public void tranSession(SqlSessionTemplate sqlSessionTemplate, String sessionId) {
+		int result = sqlSessionTemplate.delete("login.transSession",sessionId);
 	}
  
 	@Override
-	public OneSessionVO selectOneSession(SqlSessionTemplate sqlSessionTemplate, String remoteAddr) {
+	public OneSessionVO selectOneSession(SqlSessionTemplate sqlSessionTemplate, String sessionId) {
 		
-		OneSessionVO OSV= sqlSessionTemplate.selectOne("login.selectOneSession",remoteAddr);
+		OneSessionVO OSV= sqlSessionTemplate.selectOne("login.selectOneSession",sessionId);
 		return OSV;
 	}
 
