@@ -28,9 +28,8 @@
 			<h4>
 				<a class="ui simple item" href="/memberList.diet">회원조회</a>
 				<a class="ui simple item" href="/deleteMemberList.diet">탈퇴 내역 조회</a>
-				<a class="ui simple item" href="#">블랙리스트 관리</a>
-				<a class="ui simple item" href="#">로그인 현황</a>
-				<a class="ui simple item" href="/memberLogList.diet">회원 접속 기록 조회</a>
+				<a class="ui simple item" href="/blackList.diet">블랙리스트 회원 관리</a>
+				<a class="ui simple item" href="/trainer.diet">트레이너 회원 관리</a>
 			</h4>
 		</div>
 	</div>
@@ -42,7 +41,7 @@
 		<div class="menu dropdown">
 			<h4>
 				<a class="ui simple item" href="/noticeRegister.diet">공지사항 등록</a>
-				<a class="ui simple item" href="#">1:1문의 답변</a>
+				<a class="ui simple item" href="/answer.diet">1:1문의 답변</a>
 			</h4>
 		</div>
 	</div>

@@ -41,10 +41,15 @@ public class HomeTrainingServiceImpl implements HomeTrainingService{
 
 	@Override
 	public HomeTrainingVO homeTraining(int indexNo) {
-		
 		HomeTrainingVO ht = homeTrainingDAO.homeTraining(session, indexNo);
-
 		return ht;
 	}
+
+	@Override
+	public ArrayList<HomeTrainingVO> pnWriteList(int indexNo) {
+		ArrayList<HomeTrainingVO> list = homeTrainingDAO.pnWriteList(session, indexNo);
+		return list;
+	}
+
 
 }

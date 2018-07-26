@@ -12,6 +12,8 @@ import spring.kh.diet.model.dao.AdminDAO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
+import spring.kh.diet.model.vo.QuestionAnswerPDVO;
+import spring.kh.diet.model.vo.QuestionVO;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -65,6 +67,30 @@ public class AdminServiceImpl implements AdminService {
 		mbPd.setPageNavi(pageNavi);
 
 		return mbPd;
+	}
+
+	/* 1:1문의 리스트 */
+	@Override
+	public QuestionAnswerPDVO getAnswerList(int currentPage) {
+		int recordCountPerPage = 20;
+		int naviCountPerPage = 5;
+
+		QuestionAnswerPDVO qpd = new QuestionAnswerPDVO();
+
+		ArrayList<QuestionVO> list = aDao.answerList(session, currentPage, recordCountPerPage);
+
+		String pageNavi = aDao.getAnswerListPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage);
+
+		qpd.setQList(list);
+		qpd.setPageNavi(pageNavi);
+
+		return qpd;
+	}
+
+	@Override
+	public QuestionVO getQuestionContent(int index) {
+		QuestionVO qData = aDao.getQuestionContent(session, index);
+		return qData;
 	}
 
 }

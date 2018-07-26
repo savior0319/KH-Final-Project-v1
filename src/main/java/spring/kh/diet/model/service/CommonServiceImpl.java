@@ -46,6 +46,11 @@ public class CommonServiceImpl implements CommonService {
 		
 		return commonDAO.addComment(session, bc);
 	}
+
+	@Override
+	public int deleteComment(int commentIndex) {
+		return commonDAO.deleteComment(session, commentIndex);
+	}
 	
 	
 	

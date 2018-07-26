@@ -96,9 +96,10 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@Override
 	@RequestMapping(value = "/updateMyPicture.diet", method = RequestMethod.POST)
 
-	public String updateMyPicture(HttpSession session, HttpServletResponse response,HttpServletRequest request, MultipartFile uploadFile)
+	public void updateMyPicture(HttpSession session, HttpServletResponse response,HttpServletRequest request, @RequestParam MultipartFile uploadFile)
 			throws IOException {
 		String path = request.getSession().getServletContext().getRealPath("imageUpload");
+		// 이름 짓기
 		UUID randomString = UUID.randomUUID();			
 		String getFile = uploadFile.getOriginalFilename();
 		int index = getFile.lastIndexOf(".");
@@ -106,10 +107,13 @@ public class MyInfoControllerImpl implements MyInfoController {
 		String ext = getFile.substring(index, getFile.length());
 		String reName = name + "_" + randomString + ext;
 		
+		System.out.println(uploadFile);
+		
 		// 실제 폴더에 저장 
 		File reFile = new File(path, reName);
 		uploadFile.transferTo(reFile);
 		
+		// imageUpload폴더 이름 붙여서 경로 이름 짓기
 		String reName2 = "/imageUpload/"+reName;
 		System.out.println("이미지업로드"+reName2);
 		MemberVO mv = (MemberVO) session.getAttribute("member");
@@ -121,7 +125,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			return "myInfo/myInfoUpdate";	
 		}else {
 			System.out.println("이미지 업로드 실패");
-			return "myInfo/myInfoUpdate";	
+			response.sendRedirect("/myInfo.diet");
 		}
 		
 	}
