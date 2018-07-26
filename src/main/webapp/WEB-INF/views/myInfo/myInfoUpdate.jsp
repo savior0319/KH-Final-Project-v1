@@ -476,7 +476,7 @@
 	}
 
 	/* 사진 변경 업로드 */
-	var return_rt;
+/* 	var return_rt;
 	var rs_folder;
 	var IMGNAME;
 
@@ -515,7 +515,7 @@
 		});
 
 		return false;
-	});
+	}); */
 </script>
 
 </html>

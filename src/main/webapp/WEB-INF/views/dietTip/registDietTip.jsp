@@ -11,7 +11,7 @@
 <script src="/resources/summernote/dist/summernote-lite.js"></script>
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script>
-	/* summernote에서 이미지 업로드시 실행할 함수 */
+	/* summernote에서 이미지 업로드시 실행할 함수
 	function sendFile(file, editor, welEditable) {
 		var fileName = false;
 		try {
@@ -40,7 +40,7 @@
 				$('#summernote').summernote('insertImage', path);
 			}
 		});
-	}
+	} */
 </script>
 </head>
 
@@ -145,7 +145,7 @@
 		<i class="close icon"></i>
 		<div class="header">프로필 사진 변경</div>
 		<div class="image content">
-			<form action="/updateMyPictur.diet" method="post" enctype="multipart/form-data">
+			<!-- <form id="photoForm" action="/getDietTipMainPhotoPath.diet" enctype="multipart/form-data"> -->
 				<div class="description">
 					<div class="ui header">
 						<div class="fileBox">
@@ -161,12 +161,12 @@
 					<!-- <button type="submit" style="background: rgb(250, 40, 40); color: white;" class="ui button">
 						사진업데이트 <i class="checkmark icon"></i>
 					</button> -->
-					<button type="button" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
+					<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
 						사진 등록 <i class="checkmark icon"></i>
 					</button>
 					<button type="button" class="ui black button" id="modalOff">취소</button>
 				</div>
-			</form>
+			<!-- </form> -->
 			<input type="hidden" value="${sessionScope.member.mbId}" id="memberId" />
 		</div>
 	</div>
@@ -183,13 +183,13 @@
 			placeholder : '내용을 입력해주세요',
 			tabsize : 2,
 			height : 500,
-			callbacks : {
+			/* callbacks : {
 				onImageUpload : function(files, editor, welEditable) {
 					for (var i = files.length - 1; i >= 0; i--) {
 						sendFile(files[i], this);
 					}
 				}
-			}
+			} */
 		});
 	});
 
@@ -285,9 +285,38 @@
 
     $(document).ready(function() {
         $("#uploadBtn").on("change", handleImgFileSelect);
-        $('#photoRegist').on("click", handle);
+        //$('#photoRegist').on("click", handle);
     }); 
 
+    function photoPreview(){
+    	handle();
+    	
+    	
+    	// 이미지 업로드 실험중 - 저장할 경로 이름 가져오기
+    	var mainPhotoPath = $('#uploadBtn').val();
+    	mainPhotoPath.method = 'POST';
+    	mainPhotoPath.enctype = 'multipart/form-data';
+    	
+    	var fileData = new FormData(mainPhotoPath);
+    	
+    	$.ajax({
+    		url : 'getDietTipMainPhotoPath.diet',
+    		type : 'post',
+    		//enctype : 'multipart/form-data',
+    		data : fileData,
+    		processData: false,
+    		contentType: false,
+    		success : function (data){
+    			alert('성공');
+    		},
+    		error : function (data){
+    			alert('실패ㅋㅋㅋ');
+    		}
+    	});
+    	
+    	$('#photoForm').submit();
+    }
+    
     function handleImgFileSelect(e) {
         
         var files = e.target.files;
