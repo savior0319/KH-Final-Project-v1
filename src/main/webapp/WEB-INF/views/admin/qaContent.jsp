@@ -46,10 +46,8 @@ body {
 			답변대기중
 		</div>
 		<div class="ui center aligned basic segment">
-			<button class="ui button" type="button" style="background: rgb(250,40,40); color: white;">답변하기</button>
+			<button class="ui button" type="button" style="background: rgb(250,40,40); color: white;" onclick="doAnswer();">답변하기</button>
 		</div>
-
-
 	</div>
 
 	<!-- FOOTER -->
@@ -57,6 +55,10 @@ body {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+
+function doAnswer(){
+	alert('답변하기 해야함');
+}
 
 </script>
 
