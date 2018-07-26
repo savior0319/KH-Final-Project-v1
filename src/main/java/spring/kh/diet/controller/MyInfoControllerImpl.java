@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.MyInfoService;
 import spring.kh.diet.model.vo.BMIVO;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
@@ -30,38 +32,39 @@ import spring.kh.diet.model.vo.QuestionVO;
 @SuppressWarnings("all")
 @Controller
 public class MyInfoControllerImpl implements MyInfoController {
-  
+
 	@Resource(name = "myInfoService")
 	private MyInfoService myInfoService;
 
 	public MyInfoControllerImpl() {
 	}
-	
-	/* 나의 게시물  */
+
+	/* 나의 게시물 */
 	@Override
-	@RequestMapping(value="/myPost.diet")
+	@RequestMapping(value = "/myPost.diet")
 	public Object myPost(HttpSession session) {
-		MemberVO mv = (MemberVO) session.getAttribute("member"); 
-		ArrayList<BoardPostVO> list= myInfoService.myPost(mv);
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		ArrayList<BoardPostVO> list = myInfoService.myPost(mv);
 		ModelAndView view = new ModelAndView();
 
 		if (!list.isEmpty()) {
 			view.addObject("list", list);
-			view.addObject("test","Test");
+			view.addObject("test", "Test");
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		} else {
 			System.out.println("list값이 없음");
 			view.addObject("list", list);
-			view.setViewName("myInfo/myActivityInfo");			
+			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		}
 	}
+
 	/* 1:1질문 */
 	@Override
 	@RequestMapping(value = "/question.diet")
-	public void question(@RequestParam String title, @RequestParam String content, @RequestParam String mbIndex ,HttpServletResponse response)
-			throws IOException {
+	public void question(@RequestParam String title, @RequestParam String content, @RequestParam String mbIndex,
+			HttpServletResponse response) throws IOException {
 		QuestionVO qv = new QuestionVO();
 		qv.setQsContent(content);
 		qv.setQsTitle(title);
@@ -94,36 +97,36 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@Override
 	@RequestMapping(value = "/updateMyPicture.diet", method = RequestMethod.POST)
 
-	public String updateMyPicture(HttpSession session, HttpServletResponse response,HttpServletRequest request, MultipartFile uploadFile)
-			throws IOException {
+	public void updateMyPicture(HttpSession session, HttpServletResponse response, HttpServletRequest request,
+			@RequestParam MultipartFile uploadFile) throws IOException {
 		String path = request.getSession().getServletContext().getRealPath("imageUpload");
-		UUID randomString = UUID.randomUUID();			
+		// 이름 짓기
+		UUID randomString = UUID.randomUUID();
 		String getFile = uploadFile.getOriginalFilename();
 		int index = getFile.lastIndexOf(".");
 		String name = getFile.substring(0, index);
 		String ext = getFile.substring(index, getFile.length());
 		String reName = name + "_" + randomString + ext;
-		
-		// 실제 폴더에 저장 
+
+		System.out.println(uploadFile);
+
+		// 실제 폴더에 저장
 		File reFile = new File(path, reName);
 		uploadFile.transferTo(reFile);
-		
-		String reName2 = "/imageUpload/"+reName;
-		System.out.println(reName2);
+
+		// imageUpload폴더 이름 붙여서 경로 이름 짓기
+		String reName2 = "/imageUpload/" + reName;
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		mv.setMbImage(reName2);
-		
-		int result = myInfoService.updateMyPicture(mv);
-		if(result>0) {
-			
-			return "myInfo/myInfoUpdate";	
-		}else {
-			System.out.println("이미지 업로드 실패");
-			return "myInfo/myInfoUpdate";	
-		}
-		
-	}
 
+		int result = myInfoService.updateMyPicture(mv);
+		if (result > 0) {
+			response.sendRedirect("/myInfo.diet");
+		} else {
+			response.sendRedirect("/myInfo.diet");
+		}
+
+	}
 
 	/* 회원 정보 변경 */
 	@Override
@@ -139,13 +142,12 @@ public class MyInfoControllerImpl implements MyInfoController {
 			double heightConvertMeter = (double) heightD / (double) 100;
 
 			double resultBMI = weightConvertDouble / (heightConvertMeter * heightConvertMeter);
-			
+
 			String bmiStrRs = String.valueOf(Math.round(resultBMI * 10) / 10.0);
-			
+
 			memberVO.setMbBmi(bmiStrRs);
-			System.out.println(memberVO.getMbBmi());
 			int result = myInfoService.updateMyInfo(memberVO);
-			
+
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(memberVO);
 				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
@@ -165,10 +167,10 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/deleteMyPicture.diet")
 	public String deleteMyPicture(@RequestParam String mbId, HttpSession session, HttpServletResponse response)
 			throws IOException {
+
 		if (session.getAttribute("member") != null) {
-			int result = myInfoService.deleteMyPicture(mbId);
 			MemberVO mv = (MemberVO) session.getAttribute("member");
-			mv.setMbId(mbId);
+			int result = myInfoService.deleteMyPicture(mv);
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(mv);
 				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
@@ -188,17 +190,17 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public Object allMyOneToOneQuestion(HttpSession session) {
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		ArrayList<QuestionVO> list = myInfoService.allMyOneToOneQuestion(mv);
+		System.out.println("일대일 list" + list);
 		ModelAndView view = new ModelAndView();
-
 		if (!list.isEmpty()) {
 			view.addObject("list", list);
 			view.setViewName("myInfo/myOneToOneQuestion");
 			return view;
 		} else {
 			System.out.println("list값이 없음");
+			view.setViewName("myInfo/myOneToOneQuestion");
 			return view;
 		}
-
 	}
 
 	/* 회원 가입 */
@@ -287,4 +289,65 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		return cpdv;
 	}
+
+	/* 내 댓글 */
+	@Override
+	@RequestMapping(value = "/myComment.diet")
+	public Object myComment(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		if (mv != null) {
+			ArrayList<BoardCommentVO> list = myInfoService.myCommnet(mv);
+			MyActivityVO ma = myInfoService.myActivity(mv);
+			ModelAndView view = new ModelAndView();
+			if (!list.isEmpty()) {
+				view.addObject("list", list);
+				view.addObject("ma", ma);
+				view.setViewName("myInfo/myComment");
+				return view;
+			} else {
+				view.addObject("list", list);
+				view.addObject("ma", ma);
+				view.setViewName("myInfo/myComment");
+				return view;
+			}
+
+		} else {
+			System.out.println("로그인이 되어있지 않습니다.");
+			return "redirect:/";
+		}
+
+	}
+
+	/* 내 북마크 */
+	@Override
+	@RequestMapping(value = "/myBookMark.diet")
+	public Object myBookmark(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		if (mv != null) {
+			ArrayList<BoardBookMarkVO> list = myInfoService.myBookmark(mv);
+			MyActivityVO ma = myInfoService.myActivity(mv);
+			ModelAndView view = new ModelAndView();
+			if (!list.isEmpty()) {
+				view.addObject("list", list);
+				view.addObject("ma", ma);
+				view.setViewName("myInfo/myBookMark");
+				return view;
+			} else {
+				view.addObject("list", list);
+				view.addObject("ma", ma);
+				view.setViewName("myInfo/myBookMark");
+				return view;
+			}
+
+		} else {
+			System.out.println("로그인이 되어있지 않습니다.");
+			return "redirect:/";
+		}
+
+	}
+
+	/* 내 상품평 */
+
+	/* 내 상품문의 */
+
 }

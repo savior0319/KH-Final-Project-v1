@@ -98,8 +98,11 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO{
 		return ht;
 	}
 
-	
-	
+	@Override
+	public ArrayList<HomeTrainingVO> pnWriteList(SqlSessionTemplate session, int indexNo) {
+		List<HomeTrainingVO> list = session.selectList("homeTraining.getpnWriteList", indexNo);
+		return (ArrayList<HomeTrainingVO>)list;
+	}
 		
 
 }

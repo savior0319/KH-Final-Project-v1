@@ -107,7 +107,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 		cpdv.setComList(list);
 		cpdv.setPageNavi(pageNavi);
-
+		cpdv.setType(type);
 		return cpdv;
 	}
 

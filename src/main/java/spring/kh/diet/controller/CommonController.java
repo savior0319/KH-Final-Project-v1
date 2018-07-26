@@ -13,4 +13,6 @@ public interface CommonController {
 
 	void naviMove(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
+	void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
 }

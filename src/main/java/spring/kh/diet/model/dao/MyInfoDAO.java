@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityVO;
@@ -19,7 +21,7 @@ public interface MyInfoDAO {
 
 	int updateMyInfo(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO);
 
-	int deleteMyPicture(SqlSessionTemplate sqlSessionTemplate, String mbId);
+	int deleteMyPicture(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
 	MemberVO selectOneMember(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO);
 
@@ -41,7 +43,9 @@ public interface MyInfoDAO {
 
 	ArrayList<BoardPostVO> myPost(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
-/*	int updateDBMyPicture(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);*/
+	ArrayList<BoardCommentVO> myComment(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+
+	ArrayList<BoardBookMarkVO> myBookmark(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
 }
 

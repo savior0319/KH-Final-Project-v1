@@ -16,6 +16,7 @@
 .ui.card {
 	width: 400px;
 }
+
 .rslides {
 	position: relative;
 	list-style: none;
@@ -60,17 +61,25 @@ else self.name = '';
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
-<input type="hidden" id="boardTime" value="${requestScope.cpdv.type}">
-<input type="hidden" id="category" value="${requestScope.cpdv.category}">
-<input type="hidden" id="searchT" value="${requestScope.cpdv.searchText}">
+	<input type="hidden" id="boardTime" value="${requestScope.cpdv.type}">
+	<input type="hidden" id="category" value="${requestScope.cpdv.category}">
+	<input type="hidden" id="searchT" value="${requestScope.cpdv.searchText}">
 
 	<div class="ui center aligned container">
-			<!-- 슬라이드-->
+		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li><img src="/resources/image/mainPic.jpg"></li>
-			<li><img src="/resources/image/mainPic1.jpg"></li>
-			<li><img src="/resources/image/mainPic2.jpg"></li>
-			<li><img src="/resources/image/mainPic3.jpg"></li>
+			<li>
+				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
+			</li>
 		</ul>
 		<br>
 		<br>
@@ -113,7 +122,7 @@ else self.name = '';
 								</a>
 								<div class="meta">
 									<span class="date">
-									<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" /> 
+										<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
 									</span>
 								</div>
 								<div class="description">
@@ -158,11 +167,11 @@ else self.name = '';
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
-					<c:if test ="${sessionScope.member!=null}">
-						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
-							<i class="edit icon"></i>
-							등록
-						</button>
+						<c:if test="${sessionScope.member!=null}">
+							<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
+								<i class="edit icon"></i>
+								등록
+							</button>
 						</c:if>
 					</div>
 				</div>
@@ -171,7 +180,7 @@ else self.name = '';
 		</div>
 		<br>
 		<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
-				<div class="ui secondary segment">
+		<div class="ui secondary segment">
 			<div class="ui left action right icon input">
 				<div class="ui basic floating dropdown button">
 					<div class="text">선택</div>
