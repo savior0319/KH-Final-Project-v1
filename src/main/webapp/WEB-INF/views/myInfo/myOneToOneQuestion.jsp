@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,18 +18,42 @@
 				<table class="ui gray table">
 					<thead>
 						<tr id="title" align="center">
-							<th><i class="question circle icon"></i>문의유형</th>
-							<th><i class="question circle icon"></i>작성일</th>
-							<th><i class="question circle icon"></i>제 목</th>
+							<th>
+								<i class="question circle icon"></i>
+								문의번호
+							</th>
+							<th>
+								<i class="question circle icon"></i>
+								제 목
+							</th>
+							<th>
+								<i class="question circle icon"></i>
+								작 성 일
+							</th>
+							<th>
+								<i class="question circle icon"></i>
+								답 변 여 부
+							</th>
 						</tr>
 					</thead>
 
 					<tbody>
 						<c:forEach items="${list}" var="m">
 							<tr align="center">
-								<td>문의유형적기</td>
-								<td><a href="#">${m.title}</a></td>
-								<td>${m.content}</td>
+								<td>${m.qsIndex}</td>
+								<td>
+									<a href="#">${m.qsTitle}</a>
+								</td>
+								<td>${m.qsWriteTime}</td>
+								<c:if test="${m.qsAnswerCheck=='n'}">
+									<td>답변대기중</td>
+								</c:if>
+								<c:if test="${m.qsAnswerCheck =='y'}">
+									<td>답변완료</td>
+								</c:if>
+
+
+
 							</tr>
 						</c:forEach>
 					</tbody>

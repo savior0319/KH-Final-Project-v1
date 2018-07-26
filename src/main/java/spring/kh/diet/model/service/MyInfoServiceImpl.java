@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import spring.kh.diet.model.dao.MyInfoDAO;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
@@ -53,12 +55,6 @@ public class MyInfoServiceImpl implements MyInfoService {
 	public MemberVO selectOneMember(MemberVO memberVO) {
 		MemberVO mv = myInfoDAO.selectOneMember(SqlSessionTemplate, memberVO);
 		return mv;
-	}
-
-	@Override
-	public int deleteMyPicture(String mbId) {
-		int result = myInfoDAO.deleteMyPicture(SqlSessionTemplate, mbId);
-		return result;
 	}
 
 	@Override
@@ -113,6 +109,24 @@ public class MyInfoServiceImpl implements MyInfoService {
 	@Override
 	public ArrayList<BoardPostVO> myPost(MemberVO mv) {
 		ArrayList<BoardPostVO> list = myInfoDAO.myPost(SqlSessionTemplate,mv);
+		return list;
+	}
+
+	@Override
+	public int deleteMyPicture(MemberVO mv) {
+		int result = myInfoDAO.deleteMyPicture(SqlSessionTemplate, mv);
+		return result;
+	}
+
+	@Override
+	public ArrayList<BoardCommentVO> myCommnet(MemberVO mv) {
+		ArrayList<BoardCommentVO> list = myInfoDAO.myComment(SqlSessionTemplate,mv);
+		return list;
+	}
+
+	@Override
+	public ArrayList<BoardBookMarkVO> myBookmark(MemberVO mv) {
+		ArrayList<BoardBookMarkVO> list = myInfoDAO.myBookmark(SqlSessionTemplate,mv);
 		return list;
 	}
 

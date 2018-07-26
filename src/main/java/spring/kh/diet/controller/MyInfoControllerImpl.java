@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.MyInfoService;
 import spring.kh.diet.model.vo.BMIVO;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
@@ -113,13 +115,14 @@ public class MyInfoControllerImpl implements MyInfoController {
 		
 		// imageUpload폴더 이름 붙여서 경로 이름 짓기
 		String reName2 = "/imageUpload/"+reName;
-		System.out.println(reName2);
+		System.out.println("이미지업로드"+reName2);
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		mv.setMbImage(reName2);
 		
 		int result = myInfoService.updateMyPicture(mv);
 		if(result>0) {
-			response.sendRedirect("/myInfo.diet");
+		System.out.println("이미지업로드2"+mv.getMbImage());	
+			return "myInfo/myInfoUpdate";	
 		}else {
 			System.out.println("이미지 업로드 실패");
 			response.sendRedirect("/myInfo.diet");
@@ -146,7 +149,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 			String bmiStrRs = String.valueOf(Math.round(resultBMI * 10) / 10.0);
 			
 			memberVO.setMbBmi(bmiStrRs);
-			System.out.println(memberVO.getMbBmi());
 			int result = myInfoService.updateMyInfo(memberVO);
 			
 			if (result > 0) {
@@ -168,10 +170,10 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/deleteMyPicture.diet")
 	public String deleteMyPicture(@RequestParam String mbId, HttpSession session, HttpServletResponse response)
 			throws IOException {
+		
 		if (session.getAttribute("member") != null) {
-			int result = myInfoService.deleteMyPicture(mbId);
 			MemberVO mv = (MemberVO) session.getAttribute("member");
-			mv.setMbId(mbId);
+			int result = myInfoService.deleteMyPicture(mv);
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(mv);
 				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
@@ -191,17 +193,17 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public Object allMyOneToOneQuestion(HttpSession session) {
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		ArrayList<QuestionVO> list = myInfoService.allMyOneToOneQuestion(mv);
+		System.out.println("일대일 list"+ list);
 		ModelAndView view = new ModelAndView();
-
 		if (!list.isEmpty()) {
 			view.addObject("list", list);
 			view.setViewName("myInfo/myOneToOneQuestion");
 			return view;
 		} else {
 			System.out.println("list값이 없음");
+			view.setViewName("myInfo/myOneToOneQuestion");
 			return view;
 		}
-
 	}
 
 	/* 회원 가입 */
@@ -290,4 +292,67 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		return cpdv;
 	}
+
+	/* 내 댓글 */
+	@Override
+	@RequestMapping(value = "/myComment.diet")
+	public Object myComment(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		if(mv!=null) {
+			ArrayList<BoardCommentVO> list =  myInfoService.myCommnet(mv);
+			MyActivityVO ma = myInfoService.myActivity(mv);
+			ModelAndView view = new ModelAndView();
+			if(!list.isEmpty()) {
+				view.addObject("list", list);
+				view.addObject("ma", ma);
+				view.setViewName("myInfo/myComment");
+				return view;
+			}else {
+				view.addObject("list", list);
+				view.addObject("ma", ma);
+				view.setViewName("myInfo/myComment");
+				return view;
+			}
+			
+		}else {
+			System.out.println("로그인이 되어있지 않습니다.");
+			return "redirect:/";
+		}
+		
+	}
+
+	/* 내 북마크 */
+	@Override
+	@RequestMapping(value = "/myBookMark.diet")
+	public Object myBookmark(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		if(mv!=null) {
+			ArrayList<BoardBookMarkVO> list =  myInfoService.myBookmark(mv);
+			MyActivityVO ma = myInfoService.myActivity(mv);
+			ModelAndView view = new ModelAndView();
+			if(!list.isEmpty()) {
+				view.addObject("list", list);
+				view.addObject("ma", ma);
+				view.setViewName("myInfo/myBookMark");
+				return view;
+			}else {
+				view.addObject("list", list);
+				view.addObject("ma", ma);
+				view.setViewName("myInfo/myBookMark");
+				return view;
+			}
+			
+		}else {
+			System.out.println("로그인이 되어있지 않습니다.");
+			return "redirect:/";
+		}
+		
+			
+	}
+
+	
+	/* 내 상품평 */
+	
+	/* 내 상품문의 */
+	
 }
