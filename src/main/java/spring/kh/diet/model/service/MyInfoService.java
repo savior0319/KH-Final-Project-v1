@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
@@ -22,7 +24,7 @@ public interface MyInfoService {
 
 	MemberVO selectOneMember(MemberVO memberVO);
 
-	int deleteMyPicture(String mbId);
+	int deleteMyPicture(MemberVO mv);
 
 	ArrayList<QuestionVO> allMyOneToOneQuestion(MemberVO mv);
 
@@ -37,5 +39,10 @@ public interface MyInfoService {
 	int nickNameCheck(String nickName);
 
 	ArrayList<BoardPostVO> myPost(MemberVO mv);
+
+	ArrayList<BoardCommentVO> myCommnet(MemberVO mv);
+
+	ArrayList<BoardBookMarkVO> myBookmark(MemberVO mv);
+
 
 }

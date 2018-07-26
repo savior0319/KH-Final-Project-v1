@@ -40,4 +40,8 @@ public interface MyInfoController {
 
 	Object myPost(HttpSession session);
 
+	Object myComment(HttpSession session);
+
+	Object myBookmark(HttpSession session);
+
 }
