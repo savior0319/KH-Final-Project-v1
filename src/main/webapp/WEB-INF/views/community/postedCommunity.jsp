@@ -392,16 +392,28 @@
 										</button>
 										<button class="ui black basic tiny button">
 											<i class="ban icon"></i>
-											신고 ${bc.cmtBlame }
+											신고 ${bc.cmtBlame}
 										</button>
 									</div>
 								</div>
 								<div class="text">
-									<pre>${bc.cmtContent }</pre>
-									
+									<pre id="${bc.cmtIndex}">${bc.cmtContent}</pre>
+
 								</div>
 							</div>
 						</div>
+						<!-- 수정 -->
+						<form class="ui reply form" id="modifyContents" style="display: none;">
+							<div class="field">
+								<textarea id="commentContent" style="resize: none;" name="content"></textarea>
+							</div>
+							<div class="ui right aligned container">
+								<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="modifyComment();">
+									<i class="icon edit"></i>
+									수정
+								</div>
+							</div>
+						</form>
 						<br>
 						<hr style="border: 1px solid #F6F6F6">
 						<br>
@@ -578,13 +590,25 @@
 	
 	/* 댓글 수정 */
 	function modifyComment(ci){
+		var cmdIndex = $('#cmdIndex').val();
 		var indexNo = $('#postIndex').val();
+		 
+		/* 수정 해야할 코멘트  */		
+		var commentPre = $('.comment').attr("style","display:none;");
+		/* 수정하는 곳 */
+		var modifyContents = $('#modifyContents').attr("style","display:inline");
 		
+		
+		var kk = $('.text').html();
+		alert(kk);
+		
+/* 		
 		$.ajax({
 			url : '/modifyComment.diet',
 			type : 'post',
 			data : {
 				'commentIndex' : ci,
+				'comment' : comment
 				//내용 업데이트 
 			},
 			success : function() {
@@ -595,7 +619,7 @@
 			error : function() {
 				alert('수정에 실패하였습니다.');
 			}
-		});
+		}); */
 	} 
 	
 	
