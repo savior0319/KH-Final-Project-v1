@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
+import spring.kh.diet.model.vo.QuestionAnswerPDVO;
+import spring.kh.diet.model.vo.QuestionVO;
 
 @Repository(value = "adminDAO")
 public class AdminDAOImpl implements AdminDAO {
@@ -175,6 +177,87 @@ public class AdminDAOImpl implements AdminDAO {
 		}
 
 		return sb.toString();
+	}
+
+	/* 1:1문의 리스트 */
+	@Override
+	public ArrayList<QuestionVO> answerList(SqlSessionTemplate session, int currentPage, int recordCountPerPage) {
+		QuestionAnswerPDVO qDataVo = new QuestionAnswerPDVO();
+
+		qDataVo.setStart((currentPage - 1) * recordCountPerPage + 1);
+		qDataVo.setEnd(currentPage * recordCountPerPage);
+
+		List<QuestionVO> list = session.selectList("admin.getAnswerList", qDataVo);
+
+		return (ArrayList<QuestionVO>) list;
+	}
+
+	/* 1:1문의 네비게이션 */
+	@Override
+	public String getAnswerListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage) {
+
+		QuestionAnswerPDVO qPdvo = new QuestionAnswerPDVO();
+
+		int recordTotalCount = session.selectOne("admin.getAnserListNavi", qPdvo);
+
+		int pageTotalCount = 0;
+		if (recordTotalCount % recordCountPerPage != 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
+
+		int endNavi = startNavi + naviCountPerPage - 1;
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) {
+			sb.append("<a class='item' href='/answer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (i == currentPage) {
+				sb.append(
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/answer.diet?currentPage="
+								+ i + "'>  " + i + " </a>");
+			} else {
+				sb.append("<a class='item' href='/answer.diet?currentPage=" + i + "'> " + i + " </a>");
+			}
+		}
+		if (needNext) {
+			sb.append("<a class='item' href='/answer.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+		}
+
+		return sb.toString();
+	}
+
+	@Override
+	public QuestionVO getQuestionContent(SqlSessionTemplate session, int index) {
+		QuestionVO qData = session.selectOne("admin.getQuestionContent", index);
+		return qData;
 	}
 
 }

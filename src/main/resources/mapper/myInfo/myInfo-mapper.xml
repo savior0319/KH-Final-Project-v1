@@ -85,8 +85,9 @@
 
 	<!-- 마이페이지 - 일대일 문의 -->
 	<select id="allMyOneToOneQuestion" parameterType="member" resultType="question">
-		SELECT TITLE AS title,CONTENT AS content,QUESTION_NO as
-		querstionIndex FROM QUESTION WHERE MB_INDEX = #{mbIndex}
+		SELECT QS_INDEX AS qsIndex, QS_TITLE AS qsTitle,QS_CONTENT AS qsContent,
+		QS_WRITETIME AS qsWriteTime, QS_ANSWERCHECK AS qsAnswerCheck FROM
+		QUESTION_TBL WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 
@@ -117,13 +118,7 @@
 	</insert>
 
 
-<!-- 	<select id="myActivity" parameterType="member" resultType="myActivity">
-		SELECT
-		MB_INDEX AS mbIndex,
-		MY_ATTENDANCE AS myAttendance,
-		MY_COMMNET_COUNT AS myCommentCount,
-	</select>
- -->
+	<!-- <select id="myActivity" parameterType="member" resultType="myActivity"> SELECT MB_INDEX AS mbIndex, MY_ATTENDANCE AS myAttendance, MY_COMMNET_COUNT AS myCommentCount, </select> -->
 	<!-- 나의 활동 정보 (출석,댓글,게시물,가입날짜) -->
 	<select id="myActivity" parameterType="member" resultType="myActivity">
 		SELECT
