@@ -228,6 +228,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 		cpdv.setCategory(category);
 		cpdv.setSearchText(searchText);
 
+				
 		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.viewList", cpdv);
 		
 		return (ArrayList<BoardPostVO>) list;

@@ -34,5 +34,10 @@
 		BOARD_COMMENT_TBL
 		VALUES(BOARD_COMMENT_TBL_SEQ.NEXTVAL, #{postIndex}, #{mbIndex}, #{cmtContent}, SYSDATE, 0, 0)
 	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="comment">
+	DELETE FROM BOARD_COMMENT_TBL WHERE CMT_INDEX = #{commentIndex}
+	</delete>
 
 </mapper>

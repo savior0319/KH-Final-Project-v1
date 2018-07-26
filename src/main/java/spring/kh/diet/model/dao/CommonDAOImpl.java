@@ -107,5 +107,11 @@ public class CommonDAOImpl implements CommonDAO{
 		
 		return session.insert("common.addComment", bc);
 	}
+
+	@Override
+	public int deleteComment(SqlSessionTemplate session, int commentIndex) {
+		
+		return session.delete("common.deleteComment",commentIndex);
+	}
 	
 }

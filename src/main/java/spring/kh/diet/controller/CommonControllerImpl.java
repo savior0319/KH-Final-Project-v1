@@ -92,4 +92,22 @@ public class CommonControllerImpl implements CommonController {
 
 	}
 
+	
+	/*댓글 삭제*/
+	@Override
+	@RequestMapping(value = "/deleteComment.diet")
+	public void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+
+		// 로그인한 사용자인지 확인
+		if (session.getAttribute("member") != null) {
+			int commentIndex = Integer.parseInt(request.getParameter("commentIndex"));
+
+			int result = commonService.deleteComment(commentIndex);
+
+			response.getWriter().print(result);
+			response.getWriter().close();
+		}
+	}
+	
 }
