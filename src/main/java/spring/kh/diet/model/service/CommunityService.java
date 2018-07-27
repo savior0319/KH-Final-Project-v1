@@ -1,5 +1,6 @@
 package spring.kh.diet.model.service;
 
+import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
@@ -35,6 +36,9 @@ public interface CommunityService {
 
 	int postLikeUp(BoardLikeVO checkVO);
 
+	BoardBookMarkVO checkBoardBookMark(BoardBookMarkVO bookMarkCheckVO);
 
+	int boardBookMarkOff(BoardBookMarkVO bbmv);
 
+	int boardBookMarkOn(BoardBookMarkVO checkVO);
 }

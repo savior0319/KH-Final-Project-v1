@@ -171,7 +171,14 @@
 			<div id="rediv1" class="ui center aligned basic segment" style="margin: 0; padding: 0;">
 				<!-- 북마크 버튼 -->
 				<button class="ui yellow button" id="bookMark" style="height: 40px;">
-					<i class="bookmark outline icon" id="emptyBookMark"></i>
+					<c:choose>
+						<c:when test="${requestScope.bpv.bookMarkYN==0}">
+							<i class="bookmark outline icon" id="bookMarkOff"></i>	
+						</c:when>
+						<c:when test="${requestScope.bpv.bookMarkYN==1}">
+							<i class="bookmark icon" id="bookMarkOn"></i>
+						</c:when>
+						</c:choose>
 					북마크
 				</button>
 
@@ -203,7 +210,15 @@
 			<div id="rediv2" style="margin: 0; padding: 0; display: none;">
 				<!-- 북마크 버튼 -->
 				<button class="ui yellow button" id="bookMark" style="height: 40px;">
-					<i class="bookmark outline icon" id="emptyBookMark"></i>
+					<c:choose>
+						<c:when test="${requestScope.bpv.bookMarkYN==0}">
+							<i class="bookmark outline icon" id="BookMarkOff"></i>	
+						</c:when>
+						<c:when test="${requestScope.bpv.bookMarkYN==1}">
+							<i class="bookmark icon" id="bookMarkOn"></i>
+						</c:when>
+						</c:choose>
+					
 					북마크
 				</button>
 
@@ -454,29 +469,48 @@
 	});
 
 	var category = '${requestScope.bpv.bcaIndex}';
-
-	var check = true;
+	var check = '${requestScope.bpv.bookMarkYN}';
+	
 	/* 북마크 버튼*/
 	$('#bookMark').click(
 			function() {
-				if (check == true) {
-					$('#emptyBookMark').removeClass("bookmark outline icon")
-							.addClass("bookmark icon");
-					check = false;
-				} else if (check == false) {
-					$('#emptyBookMark').removeClass("bookmark icon").addClass(
-							"bookmark outline icon");
-					check = true;
+				var postIndex = '${requestScope.bpv.postIndex}';
+				if (check == 0) {
+				
+				} else if (check == 1) {
+					
 				}
-
+				$.ajax({
+					url : '/postBookMark.diet',
+					type : 'post',
+					data : {
+						'postIndex' : postIndex
+					},
+					success : function() {
+						if(check==0){
+							$('#bookMarkOff').removeClass("bookmark outline icon").addClass("bookmark icon");
+							$('#bookMarkOff').attr('id', 'bookMarkOn');
+							check = 1;
+						}else if (check == 1){
+							$('#bookMarkOn').removeClass("bookmark icon").addClass("bookmark outline icon");
+							$('#bookMarkOn').attr('id', 'bookMarkOff');
+							check = 0;
+						}
+					},
+					error : function() {
+						alert('실패');
+					}
+				});
 			});
 
 	var likeCheck;
-	var postLike = '${requestScope.bpv.postLike}';
+
 	var likeYN = '${requestScope.bpv.likeYN}';
+	var postLike = '${requestScope.bpv.postLike}';
+
 	/* 좋아요 버튼 */
 	$('#heartBtn').click(
-			function() {
+			function() {				
 				if (likeYN == 0) {
 					likeCheck = true;
 					likeYN = 1;

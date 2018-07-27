@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 
@@ -53,5 +54,11 @@ public interface CommunityDAO {
 	int postLikeDown(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv);
 
 	int postLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO);
+
+	BoardBookMarkVO checkBoardBookMark(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO bookMarkCheckVO);
+
+	int bookMarkOff(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO bbmv);
+
+	int bookMarkOn(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO checkVO);
 
 }
