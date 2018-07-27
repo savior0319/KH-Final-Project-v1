@@ -43,7 +43,7 @@ body {
 				<c:forEach items="${requestScope.qpd.QList}" var="qd">
 				<tr align="center">
 					<td>${qd.qsIndex}</td>
-					<td><div style="color: rgb(50,50,200); cursor: pointer;" onclick="thclick(this);">${qd.qsTitle}</div></td>
+					<td><div style="color: rgb(65,131,196); cursor: pointer;" onclick="thclick(this);">${qd.qsTitle}</div></td>
 					<td>${qd.mbNickName}</td>
 					<td><fmt:formatDate value="${qd.qsWriteTime}" pattern="yyyy-MM-dd HH:mm"/></td>
 				<c:choose>
