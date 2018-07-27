@@ -112,7 +112,10 @@ public class CommunityControllerImpl implements CommunityController {
 		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
 		// 쿠키 등록
 		int sIndex = configCookie(session, request, response, postIndex);
-		int sessionIndex = ((MemberVO)session.getAttribute("member")).getMbIndex();
+		int sessionIndex = 0;
+		if(session.getAttribute("member")!=null) {
+			sessionIndex = ((MemberVO)session.getAttribute("member")).getMbIndex();
+		}
 		// 등록된 정보 가져오는 로직
 		BoardPostVO bpv = communityService.postedCommunity(postIndex);
 
