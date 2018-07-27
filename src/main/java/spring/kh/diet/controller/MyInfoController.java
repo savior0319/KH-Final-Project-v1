@@ -36,12 +36,9 @@ public interface MyInfoController {
 
 	void question(String title, String content, String mbIndex, HttpServletResponse response) throws IOException;
 
-	MyActivityPageDataVO myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma);
+	String myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma);
 
-	Object myPost(HttpSession session);
+	String myCommentGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma);
 
-	Object myComment(HttpSession session);
-
-	Object myBookmark(HttpSession session);
 
 }

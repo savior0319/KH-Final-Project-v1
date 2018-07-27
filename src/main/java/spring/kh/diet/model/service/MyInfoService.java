@@ -44,5 +44,9 @@ public interface MyInfoService {
 
 	ArrayList<BoardBookMarkVO> myBookmark(MemberVO mv);
 
+	MyActivityPageDataVO myBookmarkGetList(int currentPage, String type, MyActivityVO ma);
+
+	MyActivityPageDataVO myCommentGetList(int currentPage, String type, MyActivityVO ma);
+
 
 }

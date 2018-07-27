@@ -68,9 +68,9 @@ html, body {
 					<div class="ui center aligned basic segment">
 						<div class="container">
 							<div class="ui tabular menu" id="myActivity2">
-								<a class="item active" href="/myPost.diet">작성한 게시물</a>
+								<a class="item " href="/myPost.diet">작성한 게시물</a>
 								<a class="item" href="/myComment.diet">작성한 댓글</a>
-								<a class="item" href="/myBookMark.diet">북마크</a>
+								<a class="item active" href="/myBookMark.diet">북마크</a>
 								<a class="item" href="/myReview.diet">나의 상품평</a>
 								<a class="item" href="/myQuestion.diet">나의 상품문의</a>
 							</div>
@@ -80,7 +80,6 @@ html, body {
 										<th style="width: 15%;">게시판</th>
 										<th style="width: 50%;">제목</th>
 										<th style="width: 15%;">작성자</th>
-										<th style="width: 10%;">조회수</th>
 										<th style="width: 10%;">작성일</th>
 									</tr>
 								</thead>
@@ -103,7 +102,6 @@ html, body {
 													<img class="ui avatar image" src="${c.postImage}">
 													닉네임
 												</td>
-												<td>${c.postHit}</td>
 												<td>${c.postDateTime}</td>
 											</tr>
 										</c:forEach>
@@ -111,29 +109,29 @@ html, body {
 									<c:if test="${list.isEmpty()}">
 										<tr align="center">
 											<td colspan="5">
-												<h3>등록하신 게시물이 없습니다.</h3>
+												<h3>북마크한 게시물이 없습니다.</h3>
 											</td>
 										</tr>
 									</c:if>
 								</tbody>
 							</table>
-							<div class="ui grid">
-								<div class="three column row">
-									<div class="column"></div>
-									<div class="column">
-										<div class="ui center aligned basic segment">
-											<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
-										</div>
-									</div>
-									<div class="column">
-										<div class="ui right aligned container"></div>
-									</div>
-								</div>
-								<br>
-							</div>
 						</div>
 					</div>
 					<br>
+					<div class="ui grid">
+						<div class="three column row">
+							<div class="column"></div>
+							<div class="column">
+								<div class="ui center aligned basic segment">
+									<div class="ui pagination menu">${requestScope.bookmark.pageNavi }</div>
+								</div>
+							</div>
+							<div class="column">
+								<div class="ui right aligned container"></div>
+							</div>
+						</div>
+						<br>
+					</div>
 				</div>
 			</c:if>
 		</div>

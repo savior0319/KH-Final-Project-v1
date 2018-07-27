@@ -47,5 +47,21 @@ public interface MyInfoDAO {
 
 	ArrayList<BoardBookMarkVO> myBookmark(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
+	ArrayList<BoardPostVO> myBookMarkGetList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, String type, MyActivityVO ma);
+
+	ArrayList<BoardPostVO> getCurrentPage(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, MyActivityVO ma);
+
+	String getMyBookMarkGetListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String type, MyActivityVO ma);
+
+	ArrayList<BoardPostVO> myCommentGetList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, String type, MyActivityVO ma);
+
+	String getMyCommentListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String type, MyActivityVO ma);
+
+
 }
 
