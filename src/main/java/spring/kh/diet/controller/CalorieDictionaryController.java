@@ -6,10 +6,10 @@ public interface CalorieDictionaryController {
 
 	String sportsCalorieInfo();
 
-	String sportsCalorieRank();
-
 	String foodCalorieInfo(HttpServletRequest request);
 
-	String foodCalorieRank(HttpServletRequest request);
+	String foodCalorieList(HttpServletRequest request);
+
+	String sportsCalorieList(HttpServletRequest request);
 
 }

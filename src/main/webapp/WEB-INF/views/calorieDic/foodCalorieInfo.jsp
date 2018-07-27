@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,38 @@
 <style>
 
 </style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+
+		var tan = Number('${fc.fcTan}');
+		var dan = Number('${fc.fcDan}');
+		var fat = Number('${fc.fcFat}');
+		var sugar = Number('${fc.fcSugar}');
+		var nat = Number('${fc.fcNat}');
+
+		google.charts.load("current", {packages:["corechart"]});
+		google.charts.setOnLoadCallback(drawChart);
+
+		function drawChart() {
+			var view = google.visualization.arrayToDataTable([
+				['뭔가','탄수 화물', '단백질', '지방', '당류', '나트륨' ],
+				['구성',tan, dan, fat, sugar, nat]
+				]);
+
+			var options = {
+				width: 900,
+				height: 200,
+				legend: { position: 'bottom', maxLines: 1 },
+				isStacked: true
+			};
+			var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+			chart.draw(view, options);
+		}
+
+	});
+</script>
 
 
 <body>
@@ -41,7 +74,7 @@
 		<br><hr><br>
 		
 		<!-- 음식 검색 결과 -->
-      <h3 class="ui left aligned header"><span class="foodName" style="color:red; text-align:left;">쌀밥</span> 검색 결과</h3>
+      <h3 class="ui left aligned header"><span class="foodName" style="color:red; text-align:left;">${requestScope.fc.fcName }</span> 검색 결과</h3>
       
       
       <table border="2" bordercolor="#a1a0a0" style="width:100%; height:120px; border-collapse:collapse;" >
@@ -52,15 +85,15 @@
           <tbody>
              <tr>
               <th>음식명</th>
-              <td>쌀밥</td>
+              <td>${requestScope.fc.fcName }</td>
               </tr>
               <tr>
-                  <th>단위</th>
-                  <td>1공기(210g)</td>
+                  <th>기준</th>
+                  <td>${requestScope.fc.fcGram }g</td>
               </tr>
               <tr>
                   <th>칼로리</th>
-                  <td>310 kcal</td>
+                  <td>${requestScope.fc.fcCal } kcal</td>
               </tr>
           </tbody>
       </table>
@@ -73,7 +106,12 @@
       
       <!-- 프로그레스 바 들어가는곳 입니다. -->
       
-      <div class="ui red progress">
+      
+		<div class="ui center aligned basic segment">
+			<div id="barchart_values" style="width: 100%;"></div>
+		</div>
+      
+      <!-- <div class="ui red progress">
         <div class="bar"></div>
         </div>
         <div class="ui orange progress">
@@ -87,38 +125,36 @@
         </div>
         <div class="ui teal progress">
            <div class="bar"></div>
-    </div>
+    </div> -->
       
         <br><br>
                 
-      <h4 class="ui left aligned header"><span style="color:#4776c9;">쌀밥</span> 칼로리<span style="color:#4776c9;">(310kcal)</span>와 동일한 운동을 확인해 보세요.</h4>
+      <h4 class="ui left aligned header"><span style="color:#4776c9;">${requestScope.fc.fcName }</span>의 칼로리<span style="color:#4776c9;">(${requestScope.fc.fcCal }kcal)</span>와 동일한 운동을 확인해 보세요.</h4>
          		  		
       		  		  		  		
       <ul class="exercise">
           <li>
               <strong>걷기</strong>
-              <span>155분</span>
+              <span><fmt:formatNumber value="${requestScope.fc.fcCal/4 }" pattern="#"/>분</span>
           </li>
           <li>
               <strong>달리기</strong>
-              <span>44분</span>
+              <span><fmt:formatNumber value="${requestScope.fc.fcCal/8 }" pattern="#"/>분</span>
           </li>
           <li>
               <strong>줄넘기</strong>
-              <span>31분</span>
+              <span><fmt:formatNumber value="${requestScope.fc.fcCal/11.4 }" pattern="#"/>분</span>
           </li>
           <li>
               <strong>수영</strong>
-              <span>34분</span>
+              <span><fmt:formatNumber value="${requestScope.fc.fcCal/10.2 }" pattern="#"/>분</span>
           </li>
           <li>
               <strong>자전거</strong>
-              <span>39분</span>
+              <span><fmt:formatNumber value="${requestScope.fc.fcCal/9.1 }" pattern="#"/>분</span>
           </li>
       </ul>	
-       
-              
-       
+             <h5 class="ui left aligned header">※&ensp;몸무게 기준은 65Kg입니다.</h5>
     </div>
 		
 		</div>
