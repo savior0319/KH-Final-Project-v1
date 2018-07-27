@@ -13,4 +13,4 @@
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="/resources/SementicUI/semantic.min.css">
 <!-- Favicon(추가예정) -->
-<!-- <link rel="shortcut icon" href="/Image/favicon/favicon.ico" /> -->
+<link rel="shortcut icon" href="/resources/image/favicon.ico" />

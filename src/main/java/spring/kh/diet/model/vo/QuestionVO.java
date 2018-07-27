@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class QuestionVO {
 	private int qsIndex, mbIndex;
-	private String qsTitle, qsContent, qsAnswerCheck, mbNickName;
+	private String qsTitle, qsContent, qsAnswerCheck, mbNickName, ansContent;
 	private Timestamp qsWriteTime;
 }

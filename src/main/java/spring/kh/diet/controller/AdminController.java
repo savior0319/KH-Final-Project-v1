@@ -21,6 +21,8 @@ public interface AdminController {
 
 	String answer(HttpServletRequest request, HttpServletResponse response);
 
+	void answerReg(String content, int index, HttpServletResponse response) throws IOException;
+
 	String qaContent(int index, HttpServletRequest request);
 
 }

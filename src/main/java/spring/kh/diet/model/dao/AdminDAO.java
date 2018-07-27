@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
 import spring.kh.diet.model.vo.QuestionVO;
@@ -29,5 +30,7 @@ public interface AdminDAO {
 			int naviCountPerPage);
 
 	QuestionVO getQuestionContent(SqlSessionTemplate session, int index);
+
+	int answerReg(SqlSessionTemplate session, AnswerVO avo);
 
 }
