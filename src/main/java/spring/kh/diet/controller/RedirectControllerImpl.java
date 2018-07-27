@@ -122,11 +122,11 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectModifyCommunity() {
 		return "community/modifyCommunity";
 	}
-
-	/* 이거 보면 주석좀 :( */
+	
+	/* 고객센터 - 트레이너 회원 등록 */
 	@Override
-	@RequestMapping(value = "/loadDietTipWrite.diet")
-	public String redirectLoadDietTipWrite() {
-		return "dietTip/registDietTip";
+	@RequestMapping(value = "/trainerReg.diet")
+	public String trainerReg() {
+		return "customer/trainerReg";
 	}
 }

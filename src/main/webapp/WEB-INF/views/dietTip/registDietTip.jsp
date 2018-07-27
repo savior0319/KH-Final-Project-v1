@@ -10,38 +10,6 @@
 <link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
 <script src="/resources/summernote/dist/summernote-lite.js"></script>
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
-<script>
-	/* summernote에서 이미지 업로드시 실행할 함수 */
-	function sendFile(file, editor, welEditable) {
-		var fileName = false;
-		try {
-			fileName = file['name'];
-		} catch (e) {
-			fileName = false;
-		}
-		if (!fileName) {
-			$(".note-alarm").remove();
-		}
-		console.log(fileName);
-		data = new FormData();
-		data.append("file", file);
-		data.append("key", fileName);
-
-		$.ajax({
-			data : data,
-			type : "POST",
-			url : "/imageUpload1.diet",
-			cache : false,
-			contentType : false,
-			processData : false,
-			success : function(url) {
-				var path = url.path;
-				alert(path);
-				$('#summernote').summernote('insertImage', path);
-			}
-		});
-	}
-</script>
 </head>
 
 <!-- CSS -->
@@ -89,6 +57,7 @@
 
 
 	<!-- CONTENTS -->
+	<input id="mainPhotoPath" type="hidden">
 	<br>
 	<br>
 	<div class="ui container">
@@ -145,7 +114,7 @@
 		<i class="close icon"></i>
 		<div class="header">프로필 사진 변경</div>
 		<div class="image content">
-			<form action="/updateMyPictur.diet" method="post" enctype="multipart/form-data">
+			<form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data">
 				<div class="description">
 					<div class="ui header">
 						<div class="fileBox">
@@ -156,17 +125,19 @@
 						</div>
 					</div>
 				</div>
-				<br>
-				<div class="actions">
+				
+				
+			</form>
+			<br>
+			<div class="actions">
 					<!-- <button type="submit" style="background: rgb(250, 40, 40); color: white;" class="ui button">
 						사진업데이트 <i class="checkmark icon"></i>
 					</button> -->
-					<button type="button" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
+					<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
 						사진 등록 <i class="checkmark icon"></i>
 					</button>
 					<button type="button" class="ui black button" id="modalOff">취소</button>
 				</div>
-			</form>
 			<input type="hidden" value="${sessionScope.member.mbId}" id="memberId" />
 		</div>
 	</div>
@@ -183,13 +154,7 @@
 			placeholder : '내용을 입력해주세요',
 			tabsize : 2,
 			height : 500,
-			callbacks : {
-				onImageUpload : function(files, editor, welEditable) {
-					for (var i = files.length - 1; i >= 0; i--) {
-						sendFile(files[i], this);
-					}
-				}
-			}
+			
 		});
 	});
 
@@ -222,42 +187,69 @@
 		$("#updateProfile").modal('show');
 	}
 
-	/* 컨트롤러 호출 */
+	/* 등록 완료 컨트롤러 호출 */
 	function register() {
-		var $title = $('#title').val();
-		var $content = $('#summernote').summernote('code');
-		var $sammary = $('#sammary').val();
-		if (category != null && $title != '' && $content != '') {
-			$.ajax({
-				url : '/registDietTip.diet',
-				type : 'post',
-				data : {
-					'title' : $title,
-					'content' : $content,
-					'category' : category,
-					'sammary' : $sammary
-				},
-				success : function(data) {
-					if (data == 1) {
-						alert('게시글 등록 완료');
-						location.href = "/dietTipList.diet?type=all";
-					} else {
-						alert('게시글 등록 실패');
-						location.href = "/dietTipList.diet?type=all";
-					}
-				},
-				error : function() {
-					alert('게시글 등록 실패(과정 오류)');
-					location.href = "/dietTipList.diet?type=all";
-				}
-			});
-		} else {
-			if (category == null) {
-				alert('카테고리를 선택하여주세요.');
-			} else {
-				alert('내용을 반드시 기입하여주세요.');
-			}
-		}
+		
+		// 사진 저장
+		var form = new FormData(document.getElementById('photoForm'));
+    	$.ajax({
+    		url : 'saveDietTipMainPhotoPath.diet',
+    		type : 'post',
+    		data : form,
+    		processData: false,
+    		contentType: false,
+    		success : function (data){
+    			$('#mainPhotoPath').val(data);
+    			alert('돼써요');
+    			 
+    			// 사진 저장 성공하면 전체 등록 진행
+    			var $title = $('#title').val();
+    			var $content = $('#summernote').summernote('code');
+    			var $sammary = $('#sammary').val();
+    			var $mainPhotoPath = $('#mainPhotoPath').val();
+    			if (category != null && $title != '' && $content != '') {
+    				$.ajax({
+    					url : '/registDietTip.diet',
+    					type : 'post',
+    					data : {
+    						'title' : $title,
+    						'content' : $content,
+    						'category' : category,
+    						'sammary' : $sammary,
+    						'mainPhotoPath' : $mainPhotoPath
+    					},
+    					success : function(result) {
+    						if (result == 1) {
+    							alert('게시글 등록 완료');
+    							location.href = "/dietTipList.diet?type=all";
+    						} else {
+    							alert('게시글 등록 실패');
+    							location.href = "/dietTipList.diet?type=all";
+    						}
+    					},
+    					error : function() {
+    						alert('게시글 등록 실패(과정 오류)');
+    						location.href = "/dietTipList.diet?type=all";
+    					}
+    				});
+    			} else {
+    				if (category == null) {
+    					alert('카테고리를 선택하여주세요.');
+    				} else {
+    					alert('내용을 반드시 기입하여주세요.');
+    				}
+    			}
+    			
+    			
+    			
+    		},
+    		error : function (data){
+    			alert('실패ㅋㅋㅋ');
+    		}
+    	});
+		
+		
+		
 	}
 	
 	/* 모달 창 종료 */
@@ -285,9 +277,13 @@
 
     $(document).ready(function() {
         $("#uploadBtn").on("change", handleImgFileSelect);
-        $('#photoRegist').on("click", handle);
     }); 
 
+    function photoPreview(){
+    	handle();
+    	
+    }
+    
     function handleImgFileSelect(e) {
         
         var files = e.target.files;

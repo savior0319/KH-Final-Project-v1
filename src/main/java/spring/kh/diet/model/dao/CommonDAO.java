@@ -17,4 +17,9 @@ public interface CommonDAO {
 
 	int addComment(SqlSessionTemplate session, BoardCommentVO bc);
 
+	int deleteComment(SqlSessionTemplate session, int commentIndex);
+
+	int modifyComment(SqlSessionTemplate session, BoardCommentVO bc);
+
+
 }

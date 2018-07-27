@@ -46,9 +46,9 @@
 				
 				
 					<div class="column">
-						<div class="ui card" onclick="InfoPage(${ht.htIndex})">
+						<div class="ui card" onclick="InfoPage(${ht.indexNo})">
 							<div class="image">
-								<img src="${ht.htMainVideo}" style="width: 290px;height:200px;">
+								<img src="${ht.htMainPhoto}" style="width: 290px;height:200px;">
 							</div>
 							<div class="content">
 								<a class="header">${ht.htTitle }</a>

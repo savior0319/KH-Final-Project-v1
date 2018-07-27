@@ -6,6 +6,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.BoardLikeVO;
+import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
 
@@ -98,8 +100,42 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO{
 		return ht;
 	}
 
-	
-	
+	@Override
+	public ArrayList<HomeTrainingVO> pnWriteList(SqlSessionTemplate session, int indexNo) {
+		//List<HomeTrainingVO> list = session.selectList("homeTraining.getpnWriteList", indexNo);
+		//return (ArrayList<HomeTrainingVO>)list;
+		return null;
+	}
+
+	@Override
+	public BoardLikeVO checkBoardLike(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		BoardLikeVO htlv = session.selectOne("community.checkLike", checkVO);
+		return htlv;
+	}
+
+	@Override
+	public int boardLikeDown(SqlSessionTemplate session, BoardLikeVO htlv) {
+		int result = session.delete("community.likeDown",htlv);
+		return result;
+	}
+
+	@Override
+	public int postLikeDown(SqlSessionTemplate session, BoardLikeVO htlv) {
+		int result = session.update("community.postDown", htlv);
+		return result;
+	}
+
+	@Override
+	public int boardLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		int result = session.insert("community.likeUp", checkVO);
+		return result;
+	}
+
+	@Override
+	public int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		int result = session.update("community.postUp", checkVO);
+		return result;
+	}
 		
 
 }

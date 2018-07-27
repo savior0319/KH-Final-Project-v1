@@ -16,7 +16,7 @@ public interface LoginLogoutService {
 	int existUserNickNum(MemberVO mv);
 	int existUserFindingId(MemberVO mv);
 	int joinKaKao(MemberVO m);
-	void transSession(HttpServletRequest request);
+	void transSession(String string);
 	OneSessionVO selectOneSession(String remoteAddr);
 	int insertSession(OneSessionVO oSV);
 

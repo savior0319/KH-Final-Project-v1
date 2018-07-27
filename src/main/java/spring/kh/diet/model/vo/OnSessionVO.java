@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class OnSessionVO {
 
 	private String indexNo, sessionId, sessionIp,state, loginId, device;
+ 
 	
 }
 	

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,9 +21,10 @@
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
 
-	<input id="indexNo" type="hidden" value="${requestScope.ht.htIndex }">
+	<input id="indexNo" type="hidden" value="${requestScope.ht.indexNo }">
+	
 	<!-- CONTENTS -->
-	<div class="ui center aligned basic segment">
+	
 
 		<div class="ui  container">
 			<div class="ui panorama test ad" data-text="Panorama"></div>
@@ -35,69 +37,80 @@
 			<hr>
 			<div style="text-align: left;">
 				<i class="clock outline icon"></i>
-				<fmt:formatDate value="${requestScope.ht.htDate}"
+				<fmt:formatDate value="${requestScope.ht.htEnrollDate}"
 					pattern="yyyy-MM-dd HH:mm:ss" />
 				&ensp;|&ensp; <i class="eye icon"></i> <span class="hits"
 					style="color: red">${requestScope.ht.htHits }</span>&ensp;|&ensp; <i
-					class="comment icon"></i> <span class="like" style="color: red">${requestScope.ht.htCommentNumber }</span>
+					class="comment icon"></i> <span class="like" style="color: red">${requestScope.ht.htCommentNo }</span>
 				<hr>
 			</div>
 			<br> <br>
-
+			
 			<!-- 유튜브 영상 들어가는곳 -->
 
-			<div class="homeTrainingVideo">
+			<div class="homeTrainingVideo" style="text-align:center">
 				<iframe width="760" height="455"
-					src="https://www.youtube.com/embed/VGjk5SHY2ls" frameborder="0"
+					src="${requestScope.ht.htVideo }" frameborder="0"
 					allow="autoplay; encrypted-media" allowfullscreen></iframe>
 			</div>
 			<br> <br>
 
-			<h2>프로그램 소개</h2>
+			<h2 style="text-align:center">프로그램 소개</h2>
 			<br> <br>
 
-			<div class="programIntroduction">
-				<i class="big clock outline icon"></i>&ensp;${requestScope.ht.htVideoMinute }&emsp;&emsp;&emsp;&emsp;&emsp;
-				<i class="big child icon"></i>&ensp;${requestScope.ht.htPart }&emsp;&emsp;&emsp;&emsp;&emsp;
-				<i class="big male icon"></i>&ensp;${requestScope.ht.htLevel }&emsp;&emsp;&emsp;&emsp;&emsp;
-				<i class="big tint icon"></i>&ensp;${requestScope.ht.htCalories }
+			<div class="programIntroduction" style="text-align:center">
+				<i class="big clock outline icon"></i>&ensp;${requestScope.ht.htStepTime }&emsp;&emsp;&emsp;&emsp;&emsp;
+				<i class="big child icon"></i>&ensp;${requestScope.ht.htStepType }&emsp;&emsp;&emsp;&emsp;&emsp;
+				<i class="big male icon"></i>&ensp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;&emsp;&emsp;
+				<i class="big tint icon"></i>&ensp;${requestScope.ht.htStepKal }
 			</div>
 			<hr>
 
 			<!-- 프로그램 설명 부분 -->
-			<div class="programExplain" style="text-align: center">
+			<div class="programExplain" style=text-align:center;>
 				<pre>${requestScope.ht.htExplain }</pre>
 			</div>
 			<br> <br> <br>
 
-			<div style="text-align: center;">
+			<div style=text-align:center;>
 				※ 소모 칼로리는 개인 또는 운동자세 등에 따라 차이가 있습니다<br> <br>
 
 				<!-- 좋아요 버튼 부분 -->
 				<button class="ui big basic button"
-					style="border-radius: 30px; text-align: center;">
+					style="border-radius: 30px; text-align: center;" onclick="likeBtn();">
 					<i class="heart outline icon" style="color: red;"></i>${requestScope.ht.htLike}</button>
 			</div>
 			<br> <br> <br> <br>
 			<hr>
-
-			<div class="prev" style="height: 30px; width: 100%; margin: 2%;">
+			
+			
+			<!-- <div class="prev" style="height: 30px; width: 100%; margin: 2%;">
 				<div class="prev" style="height: 100%; width: 20%; float: left;">이전글
 					&ensp;▲</div>
 				<a class="prevTitle" style="height: 100%; width: 50%; float: left;"
 					href="#">10분 안에 지방 태우기</a> <a class="prevHits"
 					style="height: 100%; width: 30%; float: left;" href="#">2018.07.18
 					&ensp;| &ensp; 조회수 : 525</a>
+			</div> -->
+			
+				
+			<c:choose>
+				<c:when test="${fn:length(list) == 2 and list.index == list[0].index}">
+			<div class="prev" style="height: 30px; width: 100%; margin: 2%;">
+				<span>이전</span>이전글이 없습니다.
 			</div>
 			<hr>
 			<div class="next" style="height: 30px; width: 100%; margin: 2%;">
-				<div class="next" style="height: 100%; width: 20%; float: left;">이전글
+				<div class="next" style="height: 100%; width: 20%; float: left;">다음글
 					&ensp;▼</div>
 				<a class="nextTitle" style="height: 100%; width: 50%; float: left;"
-					href="#">10분 안에 지방 태우기</a> <a class="nextHits"
+					href="/homeTrainingInfo.diet?index=${list[1].index }">${list[1].htTitle }</a> <a class="nextHits"
 					style="height: 100%; width: 30%; float: left;" href="#">2018.07.18
 					&ensp;| &ensp; 조회수 : 525</a>
 			</div>
+			</c:when>
+			
+			</c:choose>
 			<hr>
 			<br>
 
@@ -137,7 +150,7 @@
 								style="width: 40px; height: 40px; border-radius: 25px;">
 							</a>
 							<div class="content" style="width: 93%;">
-								<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname}</a>
+								<a class="author" style="position: absolute; width: 10%; text-align:center;">${bc.mbNickname}</a>
 								<div class="metadata" style="width: 100%;">
 									<span class="date"
 										style="width: 30%; display: inline; margin-left: 10%;">
@@ -155,7 +168,7 @@
 										</button>
 									</div>
 								</div>
-								<div class="text" style="text-align:left; margin-left: 4%;">
+								<div class="text" style="text-align:left; margin-left: 3%;">
 									<pre>${bc.cmtContent }</pre>
 								</div>
 							</div>
@@ -170,7 +183,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	
 
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
@@ -235,7 +248,7 @@
 					contentDiv.attr("class", "content");
 
 					var aAuthor = $("<a>").attr("class", "author");
-					aAuthor.attr("style", "position: absolute; width: 10%;");
+					aAuthor.attr("style", "position: absolute; width: 10%; text-align:center;");
 					aAuthor.html(data.bcList[i].mbNickname);
 
 					var metadataDiv = $("<div>").attr("class", "metadata");
@@ -269,6 +282,7 @@
 					var blameI = $("<i>").attr("class", "ban icon");
 
 					var textDiv = $("<div>").attr("class", "text");
+					textDiv.attr("style", "margin-left:3%;");
 
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
 
@@ -285,7 +299,7 @@
 					metadataDiv.append(containerDiv);
 
 					textDiv.append(pre);
-
+					
 					contentDiv.append(aAuthor);
 					contentDiv.append(metadataDiv);
 					contentDiv.append(textDiv);
@@ -321,6 +335,11 @@
 	{
 		return num>9?num:"0"+num;
 	}
+	
+	
+	
+ 
+	
 </script>
 
 </html>

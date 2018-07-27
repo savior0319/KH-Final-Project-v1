@@ -9,4 +9,8 @@ public interface CommonService {
 
 	int addComment(BoardCommentVO bc);
 
+	int deleteComment(int commentIndex);
+
+	int modifyComment(BoardCommentVO bc);
+
 }

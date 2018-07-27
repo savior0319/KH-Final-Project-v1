@@ -65,16 +65,16 @@
 		<!-- 슬라이드-->
 		<ul class="rslides">
 			<li>
-				<img src="/resources/image/mainPic.jpg">
+				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
 			</li>
 			<li>
-				<img src="/resources/image/mainPic1.jpg">
+				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
 			</li>
 			<li>
-				<img src="/resources/image/mainPic2.jpg">
+				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
 			</li>
 			<li>
-				<img src="/resources/image/mainPic3.jpg">
+				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
 			</li>
 		</ul>
 		<br>
@@ -317,7 +317,6 @@
 										<br>
 										<br>
 									</div>
-
 								</div>
 							</div>
 						</div>
@@ -408,7 +407,6 @@
 				<c:if test="${requestScope.bcpd.bcList[0] !=null}">
 					<!-- 작성된 댓글 리스트 -->
 					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
-
 						<div class="comment">
 							<a class="avatar">
 								<img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
@@ -417,6 +415,13 @@
 								<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</a>
 								<div class="metadata" style="width: 100%;">
 									<span class="date" style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
+									<div id="modiDelete_${bc.cmtIndex}">
+										<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex" id="cmdIndex_${bc.cmtIndex}" />
+										<a class="modifyComment" style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
+										&nbsp;&nbsp;|&nbsp;&nbsp;
+										<a class="deleteComment" onclick="deleteComment(${bc.cmtIndex});" style="cursor: pointer;">삭제</a>
+									</div>
+										<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;">취소</a>
 									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
 										<button class="ui red basic tiny button" style="margin-right: 10px;">
 											<i class="thumbs up outline icon"></i>
@@ -424,15 +429,27 @@
 										</button>
 										<button class="ui black basic tiny button">
 											<i class="ban icon"></i>
-											신고 ${bc.cmtBlame }
+											신고 ${bc.cmtBlame}
 										</button>
 									</div>
 								</div>
-								<div class="text">
-									<pre>${bc.cmtContent }</pre>
+								<div class="text" id="cmd_${bc.cmtIndex}">
+									<pre>${bc.cmtContent}</pre>
 								</div>
 							</div>
 						</div>
+						<!-- 수정 -->
+						<form class="ui reply form" id="modifyContents_${bc.cmtIndex}" style="display: none;">
+							<div class="field">
+								<textarea id="modifyText_${bc.cmtIndex}" style="resize: none;" name="content">${bc.cmtContent}</textarea>
+							</div>
+							<div class="ui right aligned container" id="rightContainer">
+								<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="modifyComment(${bc.cmtIndex});">
+									<i class="icon edit"></i>
+									수정
+								</div>
+							</div>
+						</form>
 						<br>
 						<hr style="border: 1px solid #F6F6F6">
 						<br>
@@ -510,8 +527,10 @@
 			});
 
 	var likeCheck;
+
 	var likeYN = '${requestScope.bpv.likeYN}';
 	var postLike = '${requestScope.bpv.postLike}';
+
 	/* 좋아요 버튼 */
 	$('#heartBtn').click(
 			function() {
@@ -576,10 +595,10 @@
 		location.href = "/modifyCommunity.diet";
 	});
 
-	/*삭제 확인*/
+	/*글 삭제 확인*/
 	function deleteBtn() {
-		var postIndex = '${requestScope.bpv.postIndex};'
 
+		var postIndex = '${requestScope.bpv.postIndex}';
 		var check = window.confirm("정말 삭제하시겠습니까?");
 
 		if (check == true) {
@@ -591,8 +610,7 @@
 				},
 				success : function() {
 					alert('삭제를 완료하였습니다.');
-					location.href = "/communityWholeBoard.diet?type="
-							+ category;
+					location.href = "/communityWholeBoard.diet?type="+ category;
 
 				},
 				error : function() {
@@ -606,6 +624,80 @@
 		}
 	}
 
+	
+	/* 댓글 삭제 */
+	function deleteComment(ci){
+		var indexNo = $('#postIndex').val();
+		
+		$.ajax({
+			url : '/deleteComment.diet',
+			type : 'post',
+			data : {
+				'commentIndex' : ci
+			},
+			success : function() {
+				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
+
+			},
+			error : function() {
+				alert('삭제에 실패하였습니다.');
+			}
+		});
+	} 
+
+	
+	
+	/* 댓글 수정 */
+	
+
+	$("body").on("click", "[id^=changeCmd_]", function(event) { 
+		var cmdIndex = $(this).siblings('input').val(); 
+		/* 해당 댓글 번호 */
+		console.log(cmdIndex);
+        
+       	// 수정 해야할 코멘트  //<div id="modiDelete_${bc.cmtIndex}">  cancleComment
+		$('#cmd_'+cmdIndex).attr("style","display:none;");
+		var modifyContents = $('#modifyContents_'+cmdIndex).attr("style","display:inline");
+		var modiDelete = $("#modiDelete_"+cmdIndex).attr("style","display:none;");
+		var cancleComment = $('#cancleComment_'+cmdIndex).attr("style","display:inline");
+    });
+	
+	function modifyComment(ci){
+		var indexNo = $('#postIndex').val();
+		//내용가져오기 modifyText_"+data.bcList[i].cmtIndex    modifyText_
+		var comment = $('#modifyText_'+ci).val();
+		//alert(comment);
+		
+		 $.ajax({
+			url : '/modifyComment.diet',
+			type : 'post',
+			data : {
+				'commentIndex' : ci,
+				'comment' : comment
+			},
+			success : function() {
+				//alert('수정 성공');
+				$('#cmd_'+ci).attr("style","display:inline;");
+				var modifyContents = $('#modifyContents_'+ci).attr("style","display:none");
+				var modiDelete = $("#modiDelete_"+ci).attr("style","display:inline;");
+				var cancleComment = $('#cancleComment_'+ci).attr("style","display:none");
+				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
+
+			},
+			error : function() {
+				alert('수정에 실패하였습니다.');
+			}
+		}); 
+	}
+	
+	function cancleComment(ci){
+		$('#cmd_'+ci).attr("style","display:inline;");
+		var modifyContents = $('#modifyContents_'+ci).attr("style","display:none");
+		var modiDelete = $("#modiDelete_"+ci).attr("style","display:inline;");
+		var cancleComment = $('#cancleComment_'+ci).attr("style","display:none");
+	}
+	
+		
 	/* 댓글 쓰기 버튼 */
 	function addComment() {
 		var indexNo = $('#postIndex').val();
@@ -657,6 +749,7 @@
 				/* 작성된 댓글 리스트 불러오는 부분  */
 				for (var i = 0; i < data.bcList.length; i++) {
 					var commentDiv = $("<div>").attr("class", "comment");
+					
 
 					var aAvatar = $("<a>").attr("class", "avatar");
 
@@ -678,7 +771,40 @@
 					span.attr("style",
 							"width: 30%; display: inline; margin-left: 10%;");
 					span.html(data.bcList[i].cmtDateTime);
-
+					
+					
+					var modiDelete = $("<div>").attr("id","modiDelete_"+data.bcList[i].cmtIndex);
+					
+					/* ☆지현 추가  - 히든값*/
+					var hiddenInput = $("<input>").attr("type","hidden");
+					hiddenInput.attr("value",data.bcList[i].cmtIndex);
+					hiddenInput.attr("id","cmdIndex_"+data.bcList[i].cmtIndex);
+					
+					/* ☆지현 추가  - 수정*/
+					var modifyA = $("<a>").attr("class","modifyComment");
+					//modifyA.attr("onclick","changeCmd_data.bcList[i].cmtIndex();");
+					modifyA.attr('id','changeCmd_'+data.bcList[i].cmtIndex+'()')
+					modifyA.attr("style","cursor:pointer;");
+					modifyA.append("수정");
+					
+					/* ☆지현 추가 - 삭제*/
+					var deleteA = $("<a>").attr("class","deleteComment");
+					deleteA.attr("onclick","deleteComment("+data.bcList[i].cmtIndex+")");
+					deleteA.attr("style","cursor:pointer;");
+					deleteA.append("삭제");
+					
+					/* ☆지현 추가 - 취소 */
+					/*
+<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;">취소</a>
+					*/
+					
+					var cancleA = $("<a>").attr("class","cancleComment");
+					cancleA.attr("onclick","cancleComment("+data.bcList[i].cmtIndex+")");
+					cancleA.attr("id","cancleComment_"+data.bcList[i].cmtIndex);
+					cancleA.attr("style","cursor: pointer; display: none;");
+					cancleA.append("취소");
+					
+										
 					var containerDiv = $("<div>").attr("class",
 							"ui right aligned container");
 					containerDiv.attr("align", "right");
@@ -697,7 +823,8 @@
 					var blameI = $("<i>").attr("class", "ban icon");
 
 					var textDiv = $("<div>").attr("class", "text");
-
+					textDiv.attr("id","cmd_"+data.bcList[i].cmtIndex);
+					
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
 
 					likeBtn.append(likeI);
@@ -711,7 +838,16 @@
 
 					metadataDiv.append(span);
 					metadataDiv.append(containerDiv);
-
+					
+					/* ☆지현 추가 - 수정 삭제 버튼 */
+					metadataDiv.append(modiDelete);
+					modiDelete.append(hiddenInput);
+					modiDelete.append(modifyA);
+					modiDelete.append('&nbsp;&nbsp;|&nbsp;&nbsp;');
+					modiDelete.append(deleteA);
+					
+					metadataDiv.append(cancleA);
+					
 					textDiv.append(pre);
 
 					contentDiv.append(aAuthor);
@@ -724,6 +860,38 @@
 					commentDiv.append(contentDiv);
 
 					$('#comment').append(commentDiv);
+					
+					/* 지현 추가  - 수정하는 부분*/
+					var modifyContents = $("<form>").attr("class","ui reply form");
+					modifyContents.attr("id","modifyContents_"+data.bcList[i].cmtIndex);
+					modifyContents.attr("style","display:none;");
+					
+					var modifyField = $("<div>").attr("class","field");
+					
+					var textArea = $("<textarea>").attr("id","modifyText_"+data.bcList[i].cmtIndex);
+					textArea.attr("style","resize:none;");
+					textArea.attr("name","content");
+					textArea.append(data.bcList[i].cmtContent);
+					
+					var divRight = $("<div>").attr("class","ui right aligned container");
+					divRight.attr("id","rightnContainer");
+					
+					var divLabel = $("<div>").attr("class","ui labeled submit icon button");
+					divLabel.attr("style","background-color: #fa2828; color: white;");
+					divLabel.attr("onclick","modifyComment("+data.bcList[i].cmtIndex+"));")
+					
+					var editIcon = $("<i>").attr("class","icon edit");
+					
+			
+					$('#comment').append(modifyContents);
+					modifyContents.append(modifyField);
+					modifyField.append(textArea);
+					modifyContents.append(divRight);
+					divRight.append(divLabel);
+					divLabel.append(editIcon);
+					divLabel.append("수정");
+					
+					
 					$('#comment').append($("<br>"));
 					$('#comment').append(
 							$("<hr>").attr('style',
@@ -745,6 +913,12 @@
 			}
 		});
 	}
+	
+	$('#modify').click(function(){
+		console.log('클릭');
+	});
+	
+
 </script>
 
 <!-- 미디어 태그 1200px 보다 작아질 때-->

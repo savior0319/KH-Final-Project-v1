@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.AdminDAO;
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
+import spring.kh.diet.model.vo.QuestionAnswerPDVO;
+import spring.kh.diet.model.vo.QuestionVO;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -66,5 +69,38 @@ public class AdminServiceImpl implements AdminService {
 
 		return mbPd;
 	}
+
+	/* 1:1문의 리스트 */
+	@Override
+	public QuestionAnswerPDVO getAnswerList(int currentPage) {
+		int recordCountPerPage = 20;
+		int naviCountPerPage = 5;
+
+		QuestionAnswerPDVO qpd = new QuestionAnswerPDVO();
+
+		ArrayList<QuestionVO> list = aDao.answerList(session, currentPage, recordCountPerPage);
+
+		String pageNavi = aDao.getAnswerListPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage);
+
+		qpd.setQList(list);
+		qpd.setPageNavi(pageNavi);
+
+		return qpd;
+	}
+
+	/* 1:1문의 내용 가져오기 */
+	@Override
+	public QuestionVO getQuestionContent(int index) {
+		QuestionVO qData = aDao.getQuestionContent(session, index);
+		return qData;
+	}
+
+	/* 1:1문의 답변하기 */
+	@Override
+	public int answerReg(AnswerVO avo) {
+		int result = aDao.answerReg(session, avo);
+		return result;
+	}
+
 
 }

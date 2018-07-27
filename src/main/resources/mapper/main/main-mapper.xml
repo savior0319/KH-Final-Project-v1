@@ -113,7 +113,7 @@
 		
 		INSERT INTO
 		ON_Session_TBL
-		VALUES(SESSION_SEQ.NEXTVAL,#{sessionId},#{sessionIp},to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'),to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss'),#{state},#{loginId},#{device})
+		VALUES(SESSION_SEQ.NEXTVAL,#{sessionId},#{sessionIp},sysdate,to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'),to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss'),#{state},#{loginId},#{device})
 	
 	</select>
 	
@@ -131,15 +131,38 @@
 	<update id="updateOnSesssion" parameterType="upDateSSVO">
 	update 
 	On_Session_TBL
-	set SS_Device = #{device},SS_Login = #{mbNickName}, SS_FirstON = to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'), SS_INVALIDATE = to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss'), SS_STATE = 'ON' where ss_IP = #{sessionIp}
+	set SS_Device = #{device},SS_Login = #{mbNickName}, SS_ACtivation = to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'), SS_INVALIDATE = to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss'), SS_STATE = 'ON' where ss_Id = #{sessionId}
 	</update>
 	
 	<update id="updateAlreadyOnSesssion" parameterType="upDateSSVO">
 	update 
 	On_Session_TBL
-	set SS_Device = #{device},SS_FirstON = to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'), SS_INVALIDATE = to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss')  where ss_IP = #{sessionIp}
+	set SS_Device = #{device},SS_ACtivation = to_char(sysdate,'yyyy/mm/dd hh24:mi:ss'), SS_INVALIDATE = to_char(sysdate + 30/(24*60),'yyyy/mm/dd hh24:mi:ss')  where ss_Id = #{sessionId}
 	</update>
 	
+	
+	<select id="selectAllSessionList2" resultType="allSession">
+	select
+	SS_INDEX AS indexNo,
+	SS_ID AS sessionId,
+	SS_IP AS sessionIp,
+	SS_FIRSTON AS firstOn,
+	SS_INVALIDATE AS invalidate,
+	SS_STATE AS state,
+	SS_LOGIN AS logInNickName,
+	SS_DEVICE AS device
+    FROM on_session_tbl
+    where sysdate >= ss_Invalidate
+	</select>
+	
+	<delete id="autoDeleteSession" parameterType="allSession">
+	delete from on_session_tbl where ss_index = #{indexNo} 
+	</delete>
+	<insert id="autoTransSession" parameterType="allSession">
+	INSERT INTO
+	OFF_Session_TBL
+	VALUES(#{indexNo},#{sessionId},#{sessionIp},#{firstOn},(sysdate-to_date(#{firstOn},'yy/MM/dd hh24:mi:ss'))*24*60*60,#{loginId},#{device},sysdate)
+	</insert>
 	</mapper>
 	
 	

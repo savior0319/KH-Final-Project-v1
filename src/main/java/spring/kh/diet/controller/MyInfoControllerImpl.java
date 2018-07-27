@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.MyInfoService;
 import spring.kh.diet.model.vo.BMIVO;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
@@ -30,38 +33,18 @@ import spring.kh.diet.model.vo.QuestionVO;
 @SuppressWarnings("all")
 @Controller
 public class MyInfoControllerImpl implements MyInfoController {
-  
+
 	@Resource(name = "myInfoService")
 	private MyInfoService myInfoService;
 
 	public MyInfoControllerImpl() {
 	}
-	
-	/* 나의 게시물  */
-	@Override
-	@RequestMapping(value="/myPost.diet")
-	public Object myPost(HttpSession session) {
-		MemberVO mv = (MemberVO) session.getAttribute("member"); 
-		ArrayList<BoardPostVO> list= myInfoService.myPost(mv);
-		ModelAndView view = new ModelAndView();
 
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.addObject("test","Test");
-			view.setViewName("myInfo/myActivityInfo");
-			return view;
-		} else {
-			System.out.println("list값이 없음");
-			view.addObject("list", list);
-			view.setViewName("myInfo/myActivityInfo");			
-			return view;
-		}
-	}
 	/* 1:1질문 */
 	@Override
 	@RequestMapping(value = "/question.diet")
-	public void question(@RequestParam String title, @RequestParam String content, @RequestParam String mbIndex ,HttpServletResponse response)
-			throws IOException {
+	public void question(@RequestParam String title, @RequestParam String content, @RequestParam String mbIndex,
+			HttpServletResponse response) throws IOException {
 		QuestionVO qv = new QuestionVO();
 		qv.setQsContent(content);
 		qv.setQsTitle(title);
@@ -94,36 +77,36 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@Override
 	@RequestMapping(value = "/updateMyPicture.diet", method = RequestMethod.POST)
 
-	public String updateMyPicture(HttpSession session, HttpServletResponse response,HttpServletRequest request, MultipartFile uploadFile)
-			throws IOException {
+	public void updateMyPicture(HttpSession session, HttpServletResponse response, HttpServletRequest request,
+			@RequestParam MultipartFile uploadFile) throws IOException {
 		String path = request.getSession().getServletContext().getRealPath("imageUpload");
-		UUID randomString = UUID.randomUUID();			
+		// 이름 짓기
+		UUID randomString = UUID.randomUUID();
 		String getFile = uploadFile.getOriginalFilename();
 		int index = getFile.lastIndexOf(".");
 		String name = getFile.substring(0, index);
 		String ext = getFile.substring(index, getFile.length());
 		String reName = name + "_" + randomString + ext;
-		
-		// 실제 폴더에 저장 
+
+		System.out.println(uploadFile);
+
+		// 실제 폴더에 저장
 		File reFile = new File(path, reName);
 		uploadFile.transferTo(reFile);
-		
-		String reName2 = "/imageUpload/"+reName;
-		System.out.println(reName2);
+
+		// imageUpload폴더 이름 붙여서 경로 이름 짓기
+		String reName2 = "/imageUpload/" + reName;
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		mv.setMbImage(reName2);
-		
-		int result = myInfoService.updateMyPicture(mv);
-		if(result>0) {
-			
-			return "myInfo/myInfoUpdate";	
-		}else {
-			System.out.println("이미지 업로드 실패");
-			return "myInfo/myInfoUpdate";	
-		}
-		
-	}
 
+		int result = myInfoService.updateMyPicture(mv);
+		if (result > 0) {
+			response.sendRedirect("/myInfo.diet");
+		} else {
+			response.sendRedirect("/myInfo.diet");
+		}
+
+	}
 
 	/* 회원 정보 변경 */
 	@Override
@@ -139,13 +122,12 @@ public class MyInfoControllerImpl implements MyInfoController {
 			double heightConvertMeter = (double) heightD / (double) 100;
 
 			double resultBMI = weightConvertDouble / (heightConvertMeter * heightConvertMeter);
-			
+
 			String bmiStrRs = String.valueOf(Math.round(resultBMI * 10) / 10.0);
-			
+
 			memberVO.setMbBmi(bmiStrRs);
-			System.out.println(memberVO.getMbBmi());
 			int result = myInfoService.updateMyInfo(memberVO);
-			
+
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(memberVO);
 				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
@@ -165,10 +147,10 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/deleteMyPicture.diet")
 	public String deleteMyPicture(@RequestParam String mbId, HttpSession session, HttpServletResponse response)
 			throws IOException {
+
 		if (session.getAttribute("member") != null) {
-			int result = myInfoService.deleteMyPicture(mbId);
 			MemberVO mv = (MemberVO) session.getAttribute("member");
-			mv.setMbId(mbId);
+			int result = myInfoService.deleteMyPicture(mv);
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(mv);
 				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
@@ -188,17 +170,17 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public Object allMyOneToOneQuestion(HttpSession session) {
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		ArrayList<QuestionVO> list = myInfoService.allMyOneToOneQuestion(mv);
+		System.out.println("일대일 list" + list);
 		ModelAndView view = new ModelAndView();
-
 		if (!list.isEmpty()) {
 			view.addObject("list", list);
 			view.setViewName("myInfo/myOneToOneQuestion");
 			return view;
 		} else {
 			System.out.println("list값이 없음");
+			view.setViewName("myInfo/myOneToOneQuestion");
 			return view;
 		}
-
 	}
 
 	/* 회원 가입 */
@@ -257,34 +239,50 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		if (ma != null) {
 			view.addObject("ma", ma);
-			MyActivityPageDataVO cpdv = this.myActivityGetList(session, request, ma);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		} else {
 			System.out.println("ma값이 없음");
 			view.addObject("ma", ma);
-			MyActivityPageDataVO cpdv = this.myActivityGetList(session, request, ma);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		}
 	}
 
-	/* 내 활동 정보 게시판 */
+	/* 마이페이지 - 내가 올린 게시물 */
 	@Override
-	public MyActivityPageDataVO myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
+	@RequestMapping(value = "/myPost.diet")
+	public String myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
 		String type = request.getParameter("type");
-
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 		MyActivityPageDataVO cpdv = myInfoService.allCommunityList(currentPage, type, ma);
-		System.out.println(cpdv.getComList().get(0).getPostTitle());
 		request.setAttribute("cpdv", cpdv);
+		return "myInfo/myPost";
+		  
+		
+	}
 
-		return cpdv;
+	/* 마이페이지 - 내가 작성한 댓글 */
+	
+	@Override
+	@RequestMapping(value = "/myComment.diet")
+	public String myCommentGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
+		String type = request.getParameter("type");
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		MyActivityPageDataVO cpdv = myInfoService.myCommentGetList(currentPage, type, ma);
+		request.setAttribute("cpdv", cpdv);
+		return "myInfo/myComment";
+		
+		
 	}
 }

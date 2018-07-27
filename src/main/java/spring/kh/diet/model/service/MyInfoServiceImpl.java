@@ -1,15 +1,13 @@
 package spring.kh.diet.model.service;
 
 import java.util.ArrayList;
-
 import javax.annotation.Resource;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import spring.kh.diet.model.dao.MyInfoDAO;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityPageDataVO;
@@ -56,12 +54,6 @@ public class MyInfoServiceImpl implements MyInfoService {
 	}
 
 	@Override
-	public int deleteMyPicture(String mbId) {
-		int result = myInfoDAO.deleteMyPicture(SqlSessionTemplate, mbId);
-		return result;
-	}
-
-	@Override
 	public ArrayList<QuestionVO> allMyOneToOneQuestion(MemberVO mv) {
 		ArrayList<QuestionVO> list = myInfoDAO.allMyOneToOneQuestion(SqlSessionTemplate, mv);
 		return list;
@@ -80,6 +72,43 @@ public class MyInfoServiceImpl implements MyInfoService {
 	}
 
 	@Override
+	public int idCheck(String id) {
+		int result = myInfoDAO.idCheck(SqlSessionTemplate, id);
+		return result;
+	}
+
+	@Override
+	public int nickNameCheck(String nickName) {
+		int result = myInfoDAO.nickNameCheck(SqlSessionTemplate, nickName);
+		return result;
+	}
+
+	@Override
+	public ArrayList<BoardPostVO> myPost(MemberVO mv) {
+		ArrayList<BoardPostVO> list = myInfoDAO.myPost(SqlSessionTemplate, mv);
+		return list;
+	}
+
+	@Override
+	public int deleteMyPicture(MemberVO mv) {
+		int result = myInfoDAO.deleteMyPicture(SqlSessionTemplate, mv);
+		return result;
+	}
+
+	@Override
+	public ArrayList<BoardCommentVO> myCommnet(MemberVO mv) {
+		ArrayList<BoardCommentVO> list = myInfoDAO.myComment(SqlSessionTemplate, mv);
+		return list;
+	}
+
+	@Override
+	public ArrayList<BoardBookMarkVO> myBookmark(MemberVO mv) {
+		ArrayList<BoardBookMarkVO> list = myInfoDAO.myBookmark(SqlSessionTemplate, mv);
+		return list;
+	}
+
+	/* 마이페이지 - 내 게시물 정보 페이징 처리 */
+	@Override
 	public MyActivityPageDataVO allCommunityList(int currentPage, String type, MyActivityVO ma) {
 		int recordCountPerPage = 5;
 		int naviCountPerPage = 5;
@@ -94,26 +123,45 @@ public class MyInfoServiceImpl implements MyInfoService {
 		cpdv.setComList(list);
 		cpdv.setPageNavi(pageNavi);
 		cpdv.setType(type);
-
 		return cpdv;
 	}
 
+	/* 마이페이지 - 작성한 댓글 페이징 처리 */
 	@Override
-	public int idCheck(String id) {
-		int result = myInfoDAO.idCheck(SqlSessionTemplate, id);
-		return result;
+	public MyActivityPageDataVO myCommentGetList(int currentPage, String type, MyActivityVO ma) {
+		int recordCountPerPage = 5;
+		int naviCountPerPage = 5;
+
+		MyActivityPageDataVO cpdv = new MyActivityPageDataVO();
+
+		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) myInfoDAO.myCommentGetList(SqlSessionTemplate,
+				currentPage, recordCountPerPage, type, ma);
+		String pageNavi = myInfoDAO.getMyCommentListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
+				naviCountPerPage, type, ma);
+
+		cpdv.setComList(list);
+		cpdv.setPageNavi(pageNavi);
+		cpdv.setType(type);
+		return cpdv;
 	}
 
+	/* 마이페이지 - 북마크 페이징 처리 */
 	@Override
-	public int nickNameCheck(String nickName) {
-		int result = myInfoDAO.nickNameCheck(SqlSessionTemplate, nickName);
-		return result;
-	}
+	public MyActivityPageDataVO myBookmarkGetList(int currentPage, String type, MyActivityVO ma) {
+		int recordCountPerPage = 5;
+		int naviCountPerPage = 5;
 
-	@Override
-	public ArrayList<BoardPostVO> myPost(MemberVO mv) {
-		ArrayList<BoardPostVO> list = myInfoDAO.myPost(SqlSessionTemplate,mv);
-		return list;
+		MyActivityPageDataVO cpdv = new MyActivityPageDataVO();
+
+		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) myInfoDAO.myBookMarkGetList(SqlSessionTemplate,
+				currentPage, recordCountPerPage, type, ma);
+		String pageNavi = myInfoDAO.getMyBookMarkGetListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
+				naviCountPerPage, type, ma);
+
+		cpdv.setComList(list);
+		cpdv.setPageNavi(pageNavi);
+		cpdv.setType(type);
+		return cpdv;
 	}
 
 }

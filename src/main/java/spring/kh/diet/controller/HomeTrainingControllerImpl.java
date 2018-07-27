@@ -1,23 +1,23 @@
 package spring.kh.diet.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Set;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.kh.diet.model.service.CommonService;
-import spring.kh.diet.model.service.HomeTrainingService;
 import spring.kh.diet.model.service.HomeTrainingServiceImpl;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
+import spring.kh.diet.model.vo.BoardLikeVO;
+import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
-import sun.util.locale.provider.DateFormatSymbolsProviderImpl;
+import spring.kh.diet.model.vo.MemberVO;
 
 @SuppressWarnings("all")
 @Controller
@@ -69,7 +69,8 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		HomeTrainingVO ht = homeTrainingService.homeTraining(indexNo);
 		
 		request.setAttribute("ht", ht);
-			
+		System.out.println(ht);
+		
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
@@ -81,7 +82,55 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, indexNo);
 		
 		request.setAttribute("bcpd", bcpd);
+		
+		/* 이전글 다음글*/
+		/*ArrayList<HomeTrainingVO> list = new ArrayList<HomeTrainingVO>();
+		list = (ArrayList<HomeTrainingVO>) homeTrainingService.pnWriteList(indexNo);
+		request.setAttribute("list", list);*/
+		
 						
 		return "homeTraining/homeTrainingInfo";
 	}
+	
+	
+	/* 좋아요 누르기 */
+	
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/postLike1.diet")
+	public String boardLike(BoardLikeVO checkVO, HttpSession session) {
+		
+		BoardLikeVO htlv = checkBoardLike(checkVO,session);
+		int result2 = 0;
+		
+		if(htlv != null) {
+			int result = homeTrainingService.boardLikeDown(htlv);
+			if(result>0) {
+				result2 = homeTrainingService.postLikeDown(htlv);
+			}
+		} else {
+			int result = homeTrainingService.boardLikeUp(checkVO);
+			if(result>0) {
+				result2 = homeTrainingService.postLikeUp(checkVO);
+			}
+		}
+		
+		if(result2>0) {
+			return "success";
+		} else {
+			return "failed";
+		}
+		
+	}
+
+	public BoardLikeVO checkBoardLike(BoardLikeVO checkVO, HttpSession session) {
+		BoardLikeVO htlv = null;
+		if(session.getAttribute("member")!=null) {
+			int mbIndex = ((MemberVO)session.getAttribute("member")).getMbIndex();
+			checkVO.setMbIndex(mbIndex);
+			htlv = homeTrainingService.checkBoardLike(checkVO);
+		}
+		return htlv;
+	}
+
 }
