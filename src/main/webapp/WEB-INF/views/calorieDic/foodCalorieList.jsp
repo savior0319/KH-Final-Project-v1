@@ -13,7 +13,6 @@
 <style>
 </style>
 
-
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
@@ -41,12 +40,12 @@
 				</div>
 			</div>
 			<br>
-			<hr>
+<!-- 			<hr>
 
 			<h3 class="ui left aligned header">
 				금주의 음식칼로리 <span style="color: red;">검색순위 TOP</span>
 			</h3>
-			<hr>
+			<hr> -->
 
 
 			<!-- 검색순위 TOP 들어가는 곳 -->
@@ -54,46 +53,39 @@
 			<table class="ui very compact table">
 				<thead>
 					<tr align="center">
-						<th>순위</th>
+						<th>번호</th>
 						<th>음식명</th>
-						<th>단위</th>
+						<th>기준</th>
 						<th>칼로리</th>
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach items="${requestScope.fcpd.fcList }" var="fc">
 					<tr align="center">
-						<td style="padding-top: 15px; padding-bottom: 15px;">1</td>
-						<td><a href="foodCalorieInfo.diet">쌀밥</a></td>
-						<td>1공기(210g)</td>
-						<td>211 kcal</td>
+						<td style="padding-top: 15px; padding-bottom: 15px;">${fc.fcIndex }</td>
+						<td><a href="foodCalorieInfo.diet?fcIndex=${fc.fcIndex }">${fc.fcName }</a></td>
+						<td>${fc.fcGram }g</td>
+						<td>${fc.fcCal } kcal</td>
 					</tr>
-					<tr align="center">
-						<td style="padding-top: 15px; padding-bottom: 15px;">2</td>
-						<td>삶은 계란</td>
-						<td>1개(50g)</td>
-						<td>310 kcal</td>
-					</tr>
-					<tr align="center">
-						<td style="padding-top: 15px; padding-bottom: 15px;">3</td>
-						<td>수박</td>
-						<td>1회(100g)</td>
-						<td>121 kcal</td>
-					</tr>
-					<tr align="center">
-						<td style="padding-top: 15px; padding-bottom: 15px;">4</td>
-						<td>바나나</td>
-						<td>1개(100g)</td>
-						<td>44 kcal</td>
-					</tr>
-					<tr align="center">
-						<td style="padding-top: 15px; padding-bottom: 15px;">5</td>
-						<td>방울토마토</td>
-						<td>1개(13g)</td>
-						<td>22 kcal</td>
-					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
+		</div>
+		
+		<div class="ui grid">
+			<div class="three column row">
+				<div class="four wide column"></div>
+				<div class="eight wide column">
+					<div class="ui center aligned basic segment">
+						<div class="ui pagination menu">${requestScope.fcpd.pageNavi }</div>
+					</div>
+				</div>
+				<div class="four wide column">
+					
+				</div>
+			</div>
+			<br>
 		</div>
 
 	</div>

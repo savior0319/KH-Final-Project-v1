@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FoodCalorieVO {
+public class SportCalVO {
 	private String fcName, fcUnit, fcCalories, fcCarbohydrate, fcProtein, fcFat, fcSugars, fcSodium;
 	private int fcNo, fcWalk, fcRun, fcJumprope, fcSwim, fcBick;
 }
