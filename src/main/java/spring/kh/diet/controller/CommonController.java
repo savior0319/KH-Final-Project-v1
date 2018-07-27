@@ -15,4 +15,6 @@ public interface CommonController {
 
 	void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
+	void modifyComment(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
 }

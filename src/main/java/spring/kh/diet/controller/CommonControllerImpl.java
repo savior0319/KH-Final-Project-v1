@@ -110,4 +110,26 @@ public class CommonControllerImpl implements CommonController {
 		}
 	}
 	
+	
+	/*댓글 수정*/
+	@Override
+	@RequestMapping(value = "/modifyComment.diet")
+	public void modifyComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+
+		// 로그인한 사용자인지 확인
+		if (session.getAttribute("member") != null) {
+			BoardCommentVO bc = new BoardCommentVO();
+			
+			bc.setCmtIndex(Integer.parseInt(request.getParameter("commentIndex")));
+			bc.setCmtContent(request.getParameter("comment"));
+
+			int result = commonService.modifyComment(bc);
+
+			response.getWriter().print(result);
+			response.getWriter().close();
+		}
+	}
+	
+	
 }
