@@ -126,4 +126,19 @@ public class DietTipDAOImpl implements DietTipDAO {
 		return session.insert("dietTip.registDietTip", dt);
 	}
 
+	@Override
+	public int deleteDietTip(SqlSessionTemplate session, int indexNo) {
+		return session.delete("dietTip.deleteDietTip", indexNo);
+	}
+
+	@Override
+	public DietTipVO loadUpdateDietTip(SqlSessionTemplate session, int indexNo) {
+		return session.selectOne("dietTip.loadUpdateDietTip", indexNo);
+	}
+
+	@Override
+	public int updateDietTip(SqlSessionTemplate session, DietTipVO dt) {
+		return session.update("dietTip.updateDietTip", dt);
+	}
+
 }

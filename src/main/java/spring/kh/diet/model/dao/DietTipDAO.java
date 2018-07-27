@@ -18,5 +18,11 @@ public interface DietTipDAO {
 	DietTipVO getDietTip(SqlSessionTemplate session, int index);
 
 	int registDietTip(SqlSessionTemplate session, DietTipVO dt);
+
+	int deleteDietTip(SqlSessionTemplate session, int indexNo);
+
+	DietTipVO loadUpdateDietTip(SqlSessionTemplate session, int indexNo);
+
+	int updateDietTip(SqlSessionTemplate session, DietTipVO dt);
 	
 }

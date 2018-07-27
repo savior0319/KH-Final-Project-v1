@@ -39,13 +39,13 @@
 
 			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
 
-				<div class="row" style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;" onclick="goInfo(${dt.dtIndex});">
+				<div class="row" style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;">
 					<div class="four wide column">
-						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo();">
+						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;"  onclick="goInfo(${dt.dtIndex});">
 					</div>
-					<div class="twelve wide column" style="cursor: pointer;">
-						<strong>${dt.dtTitle }</strong>
-						<div style="width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;">${dt.dtSammary }</div>
+					<div class="twelve wide column">
+						<strong style="cursor: pointer;"  onclick="goInfo(${dt.dtIndex});">${dt.dtTitle }</strong>
+						<div style="cursor: pointer; width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;" onclick="goInfo(${dt.dtIndex});">${dt.dtSammary }</div>
 						<br>
 						<div class="ui grid">
 							<div class="four wide column">
@@ -56,8 +56,15 @@
 								<i class="eye icon"></i> ${dt.dtSee }
 							</div>
 							<div class="four wide column">
-								<i class="comment icon"></i> 10
+								<i class="comment icon"></i> ${dt.dtCmtNo }
 							</div>
+							<c:if test="${dt.dtWriterNo == sessionScope.member.mbIndex }">
+							<div class="four wide column">
+								<a style="cursor:pointer;" onclick="updateDietTip(${dt.dtIndex})">수정</a>
+								&nbsp;|&nbsp;&nbsp;
+								<a style="cursor:pointer;" onclick="deleteDietTip(${dt.dtIndex});">삭제</a>
+							</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -120,7 +127,22 @@
 	}
 	
 	function dietTipWrite(){
-		location.href="/loadDietTipWrite.diet";
+		
+		$.ajax({
+			url : '/sessionCheck.diet',
+			type : 'post',
+			success : function(result){
+				if(result>0){
+					location.href = "/loadDietTipWrite.diet";
+				}else{
+					alert('권한이 없습니다.');
+				}
+				
+			},
+			error : function(result){
+				alert('권한이 없습니다.');
+			}
+		});
 	}
 	
 	$('.ui.dropdown').dropdown({
@@ -155,10 +177,30 @@
 		location.href = "/dietTipList.diet?category="+ category +"&searchText=" + $searchText + "&type=" + $type;
 	}
 	
-	function recentlyViewBtn(rtb) {
-		var postSort = rtb.innerHTML;
-		location.href = "/dietTipList.diet?type=" + type +"&postSort=" + postSort + "&searchText=" + st + "&category="+ cate;
-
+	// 게시물 삭제
+	function deleteDietTip(me){
+		var type = $('#type').val();
+		$.ajax({
+			url : "dietTipDelete.diet?indexNo="+me,
+			type : 'post',
+			success : function(data){
+				if(data>0){
+					alert('삭제 완료');
+				}else{
+					alert('삭제 실패');
+				}
+			},
+			error : function(data){
+				alert('에러 발생');
+			}
+		});
+		
+		location.href = 'dietTipList.diet?type='+type;
+	}
+	
+	// 게시물 수정
+	function updateDietTip(me){
+		location.href = "loadUpdateDietTip.diet?indexNo=" + me;
 	}
 	
 </script>

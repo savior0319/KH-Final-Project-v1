@@ -10,5 +10,11 @@ public interface DietTipService {
 	DietTipVO getDietTip(int index);
 
 	int registDietTip(DietTipVO dt);
+
+	int deleteDietTip(int indexNo);
+
+	DietTipVO loadUpdateDietTip(int indexNo);
+
+	int updateDietTip(DietTipVO dt);
 	
 }
