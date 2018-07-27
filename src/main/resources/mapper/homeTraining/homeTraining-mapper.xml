@@ -12,7 +12,7 @@
 		<result property="htLike" column="ht_Like" />
 		<result property="htCommentNo" column="ht_Comment_No"/>
 		<result property="htHits" column="ht_Hits" />
-		<result property="htVideo " column="ht_Video" />
+		<result property="htVideo" column="HT_VIDEO" />
 		<result property="htStepTime" column="ht_Step_Time" />
 		<result property="htStepType" column="ht_Step_Type" />
 		<result property="htStepHard" column="ht_Step_Hard" />
