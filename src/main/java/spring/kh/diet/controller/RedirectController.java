@@ -32,10 +32,9 @@ public interface RedirectController {
 	
 	String redirectModifyCommunity();
 
-	String redirectLoadDietTipWrite();
-
 	String redirectLogin();
 
 	String trainerReg();
+
 
 }

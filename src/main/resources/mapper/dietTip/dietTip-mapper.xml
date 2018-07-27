@@ -4,10 +4,14 @@
 
 	<!-- 페이징 처리 - 리스트 불러오기 -->
 	<select id="getList" parameterType="dietTipPageData" resultType="dietTip">
-		SELECT DT_INDEX AS dtIndex,
+		SELECT
+		(SELECT COUNT(*) FROM BOARD_COMMENT_TBL C WHERE C.POST_INDEX = D.DT_INDEX) AS
+		dtCmtNo,
+		DT_INDEX AS dtIndex,
 		DT_NO AS dtNo,
 		DT_TYPE AS dtType,
-		DT_TITLE AS
+		DT_TITLE
+		AS
 		dtTitle,
 		DT_MAIN_PHOTO AS dtMainPhoto,
 		DT_WRITER_NO AS dtWriterNo,
@@ -17,7 +21,8 @@
 		DT_SEE AS dtSee,
 		DT_LIKE AS dtLike
 		FROM (SELECT DT.*,
-		ROW_NUMBER() OVER(ORDER BY DT_DATE DESC) AS NUM 
+		ROW_NUMBER()
+		OVER(ORDER BY DT_DATE DESC) AS NUM
 		FROM DIETTIP_TB DT, MEMBER_TBL MB
 		WHERE DT.DT_WRITER_NO = MB.MB_INDEX (+)
 		<choose>
@@ -59,7 +64,7 @@
 			</when>
 		</choose>
 
-		) WHERE NUM BETWEEN #{start} AND #{end}
+		) d WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 페이징 처리 - 내비게이션 생성 -->
@@ -67,7 +72,8 @@
 		parameterType="dietTipPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM DIETTIP_TB DT, MEMBER_TBL MB
-		WHERE DT.DT_WRITER_NO = MB.MB_INDEX (+)
+		WHERE
+		DT.DT_WRITER_NO = MB.MB_INDEX (+)
 		<choose>
 			<when test="type.equals('column')">
 				AND DT_TYPE = 1
@@ -82,7 +88,7 @@
 				AND DT_TYPE = 4
 			</when>
 		</choose>
-		
+
 		<choose>
 			<when test="category!=null">
 				<!-- 검색할 때 -->
@@ -134,5 +140,38 @@
 		SYSDATE, 0,
 		0)
 	</insert>
+
+	<!-- 다이어트 팁 게시물 삭제 -->
+	<delete id="deleteDietTip">
+		DELETE DIETTIP_TB WHERE DT_INDEX = #{indexNo}
+	</delete>
+
+	<!-- 다이어트 팁 수정 페이지 불러오기 -->
+	<select id="loadUpdateDietTip" resultType="dietTip">
+		SELECT DT.DT_INDEX AS
+		dtIndex,
+		DT.DT_NO AS dtNo,
+		DT.DT_TYPE AS dtType,
+		DT.DT_TITLE AS dtTitle,
+		DT.DT_MAIN_PHOTO AS dtMainPhoto,
+		MB.MB_NICKNAME AS dtNickname,
+		DT.DT_SAMMARY AS dtSammary,
+		DT.DT_EXPLAIN AS dtExplain,
+		DT.DT_DATE AS
+		dtDate,
+		DT.DT_SEE AS dtSee,
+		DT.DT_LIKE AS dtLike
+		FROM DIETTIP_TB DT,
+		MEMBER_TBL MB WHERE DT.DT_WRITER_NO = MB.MB_INDEX AND DT_INDEX =
+		#{index}
+	</select>
+
+	<!-- 다이어트 팁 페이지 수정 -->
+	<select id="updateDietTip" parameterType="dietTip">
+		UPDATE DIETTIP_TB SET
+		DT_TITLE = #{dtTitle}, DT_TYPE = #{dtType}, DT_MAIN_PHOTO =
+		#{dtMainPhoto}, DT_SAMMARY = #{dtSammary}, DT_EXPLAIN = #{dtExplain}
+		WHERE DT_INDEX = #{dtIndex}
+	</select>
 
 </mapper>
