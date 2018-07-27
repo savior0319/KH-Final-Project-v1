@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.HealthCenterVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.UpdateSSVO;
@@ -26,5 +27,11 @@ public interface MainDAO {
 	int updateOnsession(SqlSessionTemplate session, UpdateSSVO uSSVO);
 
 	int updateAlreadyOnsession(SqlSessionTemplate session, UpdateSSVO uSSVO);
+
+	ArrayList<AllSessionVO> selectAllSesssionList2(SqlSessionTemplate session);
+
+	int autoDeleteSession(SqlSessionTemplate session, AllSessionVO allSessionVO);
+
+	int autoTransSession(SqlSessionTemplate session, AllSessionVO allSessionVO);
 	
 }

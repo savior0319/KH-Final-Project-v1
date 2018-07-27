@@ -9,5 +9,7 @@ public interface HomeTrainingController {
 	String homeTraining(HttpServletRequest request);
 
 	String homeTrainingInfo(HttpServletRequest request);
+	
+	
 
 }

@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OnSessionVO {
-
-	private String indexNo, sessionId, sessionIp,state, loginId, device;
- 
+public class AllSessionVO {
 	
+	private String indexNo,sessionId,sessionIp,firstOn,invalidate,state,logInNickName,device;
 }
-	

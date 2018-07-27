@@ -74,7 +74,6 @@
 		FROM MEMBER_TBL
 		WHERE MB_ID = #{mbId}
 	</select>
-
 	<!-- 마이페이지 - 프로필 사진 삭제 -->
 	<delete id="deleteMyPicture" parameterType="member">
 		UPDATE MEMBER_TBL SET
@@ -85,8 +84,11 @@
 
 	<!-- 마이페이지 - 일대일 문의 -->
 	<select id="allMyOneToOneQuestion" parameterType="member" resultType="question">
-		SELECT TITLE AS title,CONTENT AS content,QUESTION_NO as
-		querstionIndex FROM QUESTION WHERE MB_INDEX = #{mbIndex}
+		SELECT QS_INDEX AS qsIndex, QS_TITLE AS qsTitle,QS_CONTENT AS qsContent,
+		QS_WRITETIME AS qsWriteTime, QS_ANSWERCHECK AS
+		qsAnswerCheck
+		FROM
+		QUESTION_TBL WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 
@@ -117,13 +119,7 @@
 	</insert>
 
 
-<!-- 	<select id="myActivity" parameterType="member" resultType="myActivity">
-		SELECT
-		MB_INDEX AS mbIndex,
-		MY_ATTENDANCE AS myAttendance,
-		MY_COMMNET_COUNT AS myCommentCount,
-	</select>
- -->
+	<!-- <select id="myActivity" parameterType="member" resultType="myActivity"> SELECT MB_INDEX AS mbIndex, MY_ATTENDANCE AS myAttendance, MY_COMMNET_COUNT AS myCommentCount, </select> -->
 	<!-- 나의 활동 정보 (출석,댓글,게시물,가입날짜) -->
 	<select id="myActivity" parameterType="member" resultType="myActivity">
 		SELECT
@@ -131,7 +127,7 @@
 		MY_ATTENDANCE AS myAttendance ,
 		MY_COMMENT_COUNT AS myCommentCount ,
 		MY_BOARD_COUNT AS myBoardCount,
-		MB_ENROLLDATE as mbEnrollDate
+		MY_ENROLLDATE as mbEnrollDate
 		FROM MY_ACTIVITY_TBL
 		WHERE MB_INDEX = #{mbIndex}
 	</select>
@@ -202,11 +198,28 @@
 		MB_IMAGE = #{mbImage} where MB_ID = #{mbId}
 	</update>
 
+	<!-- 마이페이지 - 나의 게시물 -->
 	<select id="myPost" resultType="community" resultMap="communityDB" parameterType="member">
 		SELECT
 		POST_TITLE AS postTitle,
 		POST_CONTENT AS postContent
-		FROM BOARD_POST_TBL
+		FROM BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}
+	</select>
+
+	<!-- 마이페이지 - 나의 댓글 -->
+	<select id="myComment" resultType="comment" parameterType="member">
+		SELECT POST_TITLE, CMT_CONTENT ,CMT_DATETIME FROM BOARD_POST_TBL
+		LEFT JOIN BOARD_COMMENT_TBL
+		USING(MB_INDEX) WHERE MB_INDEX = (SELECT
+		MB_INDEX FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex})
+	</select>
+
+	<!-- 마이페이지 - 나의 북마크 -->
+	<select id="myBookMark" resultType="bookMark" parameterType="bookMark">
+
+		SELECT POST_HIT AS postHit,MB_INDEX,POST_TITLE,POST_HIT,
+		POST_DATETIME AS postDateTime
+		FROM BOARD_BOOKMARK_TBL LEFT JOIN BOARD_POST_TBL USING(MB_INDEX) WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 </mapper>

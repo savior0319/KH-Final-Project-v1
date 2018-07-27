@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.MainService;
+import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
@@ -232,7 +234,7 @@ public class MainControllerImpl implements MainController {
 		{
 			for (int i = 0; i < list.size(); i++) 
 			{
-				if (list.get(i).getSessionIp().equals(request.getRemoteAddr())) {
+				if (list.get(i).getSessionId().equals(session.getId())) {
 					
 					result = true;
 				}
@@ -241,7 +243,7 @@ public class MainControllerImpl implements MainController {
 				mService.insertSessionToList(session, request);
 			}
 			else {
-				UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),request.getRemoteAddr(),(String)request.getParameter("device"));
+				UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),session.getId(),(String)request.getParameter("device"));
 				int result2 = mService.updateAlreadyOnsession(USSVO);
 			}
 		}
@@ -260,10 +262,27 @@ public class MainControllerImpl implements MainController {
 	@RequestMapping(value="/updateOnSession.diet")
 	@ResponseBody
 	public void updateOnsession(HttpServletRequest request) {
-		UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),request.getRemoteAddr(),(String)request.getParameter("device"));
+		HttpSession session= request.getSession();
+		
+		UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),session.getId(),(String)request.getParameter("device"));
 		
 		mService.updateOnsession(USSVO);
 	}
+
+	@Override
+	@Scheduled(cron="0 0/30 * * * ?") // 30분단위로 실행 스케쥴러
+//	@Scheduled(cron="0/1 * * * * ?") // 1초단위로 실행(테스트용)
+	public void autoDeleteSession() {
+		ArrayList<AllSessionVO> list  = mService.selectAllSessionList2();
+		for(int i=0; i<list.size(); i++)
+		{
+		int insertResult = mService.autoTransSession(list.get(i)); 
+		int deleteResult = mService.autoDeleteSession(list.get(i));
+		
+		}
+	}
+	
+	
 	
 
 	

@@ -2,6 +2,7 @@ package spring.kh.diet.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
 
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.service.HomeTrainingService;
@@ -81,7 +84,15 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, indexNo);
 		
 		request.setAttribute("bcpd", bcpd);
+		
+		/* 이전글 다음글*/
+		ArrayList<HomeTrainingVO> list = new ArrayList<HomeTrainingVO>();
+		list = (ArrayList<HomeTrainingVO>) homeTrainingService.pnWriteList(indexNo);
+		request.setAttribute("list", list);
+		
 						
 		return "homeTraining/homeTrainingInfo";
 	}
+
+
 }

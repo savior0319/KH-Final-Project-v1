@@ -129,4 +129,11 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectLoadDietTipWrite() {
 		return "dietTip/registDietTip";
 	}
+	
+	/* 고객센터 - 트레이너 회원 등록 */
+	@Override
+	@RequestMapping(value = "/trainerReg.diet")
+	public String trainerReg() {
+		return "customer/trainerReg";
+	}
 }

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
+import spring.kh.diet.model.vo.QuestionVO;
 
 public interface AdminDAO {
 
@@ -21,5 +22,12 @@ public interface AdminDAO {
 			int naviCountPerPage);
 
 	ArrayList<MemberVO> deleteMemberList(SqlSessionTemplate session, int currentPage, int recordCountPerPage);
+
+	ArrayList<QuestionVO> answerList(SqlSessionTemplate session, int currentPage, int recordCountPerPage);
+
+	String getAnswerListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage);
+
+	QuestionVO getQuestionContent(SqlSessionTemplate session, int index);
 
 }

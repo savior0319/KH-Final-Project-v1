@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
@@ -113,29 +112,27 @@
 	<!-- CONTENTS -->
 
 	<div class="ui container">
-	
+
 		<div class="ui center aligned basic segment">
 			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 			<br>
 			<c:if test="${sessionScope.member!=null}">
-				<form action="/updateMyInfo.diet" method="post"
-					onsubmit="return checkInfo();">
+				<form action="/updateMyInfo.diet" method="post" onsubmit="return checkInfo();">
 					<div class="myInfoUpdateContents">
 						<div class="gender_Image">
 							<c:if test="${member.mbGender=='f'}">
 								<div class="gender_Img1">
-									<img id="femailImage" class="genderImage" src="${member.mbImage}"/>
+									<img id="femailImage" class="genderImage" src="${member.mbImage}" />
 									<div class="ui radio checkbox">
-										<input type="radio" class="radioBtn" id="female" name="gender"
-											value="f" checked> <label>여 자</label>
+										<input type="radio" class="radioBtn" id="female" name="gender" value="f" checked>
+										<label>여 자</label>
 									</div>
 								</div>
 								<div class="gender_Img1">
-									<img id="mailImage" class="genderImage"
-										src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
+									<img id="mailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
-										<input type="radio" class="radioBtn" id="male" name="gender"
-											value="m"> <label>남 자</label>
+										<input type="radio" class="radioBtn" id="male" name="gender" value="m">
+										<label>남 자</label>
 									</div>
 								</div>
 								<script>
@@ -144,36 +141,33 @@
 							</c:if>
 							<c:if test="${member.mbGender==null}">
 								<div class="gender_Img1">
-									<img id="femailImage" class="genderImage"
-										src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
+									<img id="femailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
-										<input type="radio" class="radioBtn" id="female" name="gender"
-											value="f"> <label>여 자</label>
+										<input type="radio" class="radioBtn" id="female" name="gender" value="f">
+										<label>여 자</label>
 									</div>
 								</div>
 								<div class="gender_Img1">
-									<img id="mailImage" class="genderImage"
-										src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
+									<img id="mailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
-										<input type="radio" class="radioBtn" id="male" name="gender"
-											value="m"> <label>남 자</label>
+										<input type="radio" class="radioBtn" id="male" name="gender" value="m">
+										<label>남 자</label>
 									</div>
 								</div>
 							</c:if>
 							<c:if test="${member.mbGender=='m'}">
 								<div class="gender_Img1">
-									<img id="mailImage" class="genderImage"  src="${member.mbImage}" />
+									<img id="mailImage" class="genderImage" src="${member.mbImage}" />
 									<div class="ui radio checkbox">
-										<input type="radio" class="radioBtn" id="male" name="gender"
-											value="m" checked> <label>남 자</label>
+										<input type="radio" class="radioBtn" id="male" name="gender" value="m" checked>
+										<label>남 자</label>
 									</div>
 								</div>
 								<div class="gender_Img1">
-									<img id="femailImage" class="genderImage"
-										src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
+									<img id="femailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
-										<input type="radio" class="radioBtn" id="female" name="gender"
-											value="f"> <label>여 자</label>
+										<input type="radio" class="radioBtn" id="female" name="gender" value="f">
+										<label>여 자</label>
 									</div>
 								</div>
 								<script>
@@ -182,13 +176,9 @@
 							</c:if>
 						</div>
 						<div class="Btn">
-							<button type="button" class="ui button" id="updatePictureBtn1"
-								onclick="updatePictureBtn();"
-								style="width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
+							<button type="button" class="ui button" id="updatePictureBtn1" onclick="updatePictureBtn();" style="width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
 							<br>
-							<button type="button" class="ui button" id="deletePictureBtn1"
-								onclick="deletePictureBtn();"
-								style="margin-top: 10px; width: 140px;">사진 삭제</button>
+							<button type="button" class="ui button" id="deletePictureBtn1" onclick="deletePictureBtn();" style="margin-top: 10px; width: 140px;">사진 삭제</button>
 						</div>
 						<br>
 
@@ -196,111 +186,134 @@
 							<table class="ui celled table">
 								<tbody>
 									<tr>
-										<td class="firstTd" style="width: 250px;"><h3>
-												<i class="shield alternate icon"></i>등급
-											</h3></td>
-										<td><strong>${sessionScope.member.mbGrade}&nbsp;&nbsp;</strong>
+										<td class="firstTd" style="width: 250px;">
+											<h3>
+												<i class="shield alternate icon"></i>
+												등급
+											</h3>
+										</td>
+										<td>
+											<strong>${sessionScope.member.mbGrade}&nbsp;&nbsp;</strong>
 											<button type="button" class="ui button">
 												<strong>등급안내</strong>
-											</button></td>
+											</button>
+										</td>
 									</tr>
 									<tr>
-										<td class="firstTd"><h3>
-												<i class="shield alternate icon"></i>계정
-											</h3></td>
+										<td class="firstTd">
+											<h3>
+												<i class="shield alternate icon"></i>
+												계정
+											</h3>
+										</td>
 										<td>
 											<div class="ui input focus">
-												<input type="text" id="account" name="mbId"
-													value="${sessionScope.member.mbId}" readonly
-													placeholder="아이디.." style="width: 300px;">
+												<input type="text" id="account" name="mbId" value="${sessionScope.member.mbId}" readonly placeholder="아이디.." style="width: 300px;">
 											</div>
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd"><h3>
-												<i class="shield alternate icon"></i>비밀번호 재설정
-											</h3></td>
+										<td class="firstTd">
+											<h3>
+												<i class="shield alternate icon"></i>
+												비밀번호 재설정
+											</h3>
+										</td>
 										<td>
 											<div class="ui input focus">
-												<input type="password" placeholder="변경할 비밀번호.." id="mbPwd"
-													name="mbPwd" style="width: 300px;">
+												<input type="password" placeholder="변경할 비밀번호.." id="mbPwd" name="mbPwd" style="width: 300px;">
 											</div>
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd"><h3>
-												<i class="shield alternate icon"></i>닉네임
-											</h3></td>
+										<td class="firstTd">
+											<h3>
+												<i class="shield alternate icon"></i>
+												닉네임
+											</h3>
+										</td>
 										<td>
 											<div class="ui input focus">
-												<input type="text" placeholder="닉네임.." id="nickName"
-													value="${sessionScope.member.mbNickName}" name="mbNickName"
-													style="width: 300px;">
+												<input type="text" placeholder="닉네임.." id="nickName" value="${sessionScope.member.mbNickName}" name="mbNickName" style="width: 300px;">
 											</div>
 										</td>
 									<tr>
-										<td class="firstTd"><h3>
-												<i class="shield alternate icon"></i>핸드폰번호
-											</h3></td>
+										<td class="firstTd">
+											<h3>
+												<i class="shield alternate icon"></i>
+												핸드폰번호
+											</h3>
+										</td>
 										<td>
 											<div class="ui input focus">
-												<input type="text" placeholder="폰번호.." id="phone"
-													value="${sessionScope.member.mbPhone}" name="mbPhone"
-													style="width: 300px;">
+												<input type="text" placeholder="폰번호.." id="phone" value="${sessionScope.member.mbPhone}" name="mbPhone" style="width: 300px;">
 											</div>
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd"><h3>
-												<i class="shield alternate icon"></i>다짐
-											</h3></td>
-										<td><div class="ui input focus">
-												<input type="text" placeholder="한 줄 다짐.." id="promise"
-													value="${sessionScope.member.mbPromise}" name="mbPromise"
-													style="width: 500px;">
-											</div></td>
+										<td class="firstTd">
+											<h3>
+												<i class="shield alternate icon"></i>
+												다짐
+											</h3>
+										</td>
+										<td>
+											<div class="ui input focus">
+												<input type="text" placeholder="한 줄 다짐.." id="promise" value="${sessionScope.member.mbPromise}" name="mbPromise" style="width: 500px;">
+											</div>
+										</td>
 									</tr>
 
 									<tr>
-										<td class="firstTd"><h3>
-												<i class="shield alternate icon"></i>키
-											</h3></td>
+										<td class="firstTd">
+											<h3>
+												<i class="shield alternate icon"></i>
+												키
+											</h3>
+										</td>
 										<c:if test="${member.mbHeight!=0}">
-											<td><div class="ui input focus">
-													<input type="text" placeholder="키.." id="mbHeight"
-														value="${member.mbHeight}" name="mbHeight"
-														style="width: 100px;"> <span
-														style="margin-top: 14px; margin-left: 5px; font-size: 18px; font-weight: 800;"><strong>cm</strong></span>
-												</div></td>
+											<td>
+												<div class="ui input focus">
+													<input type="text" placeholder="키.." id="mbHeight" value="${member.mbHeight}" name="mbHeight" style="width: 100px;">
+													<span style="margin-top: 14px; margin-left: 5px; font-size: 18px; font-weight: 800;">
+														<strong>cm</strong>
+													</span>
+												</div>
+											</td>
 										</c:if>
 										<c:if test="${member.mbHeight==0}">
-											<td><div class="ui input focus">
-													<input type="text" placeholder="키.." id="mbHeight"
-														name="mbHeight" style="width: 100px;"> <span
-														style="margin-top: 14px; margin-left: 5px; font-size: 18px; font-weight: 800;"><strong>cm</strong></span>
-												</div></td>
+											<td>
+												<div class="ui input focus">
+													<input type="text" placeholder="키.." id="mbHeight" name="mbHeight" style="width: 100px;">
+													<span style="margin-top: 14px; margin-left: 5px; font-size: 18px; font-weight: 800;">
+														<strong>cm</strong>
+													</span>
+												</div>
+											</td>
 										</c:if>
 									</tr>
 									<tr>
-										<td class="firstTd"><h3>
-												<i class="shield alternate icon"></i>몸무게
-											</h3></td>
+										<td class="firstTd">
+											<h3>
+												<i class="shield alternate icon"></i>
+												몸무게
+											</h3>
+										</td>
 										<c:if test="${member.mbWeight!=0}">
 											<td>
 												<div class="ui input focus">
-													<input type="text" placeholder="몸무게.." id="mbWeight"
-														value="${member.mbWeight}" name="mbWeight"
-														style="width: 100px;"> <span
-														style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;"><strong>Kg</strong></span>
+													<input type="text" placeholder="몸무게.." id="mbWeight" value="${member.mbWeight}" name="mbWeight" style="width: 100px;">
+													<span style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;">
+														<strong>Kg</strong>
+													</span>
 												</div>
 											</td>
 										</c:if>
 										<c:if test="${member.mbWeight==0}">
 											<td>
 												<div class="ui input focus">
-													<input type="text" placeholder="몸무게.." id="mbWeight"
-														name="mbWeight" style="width: 100px;"> <span
-														style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;">
+													<input type="text" placeholder="몸무게.." id="mbWeight" name="mbWeight" style="width: 100px;">
+													<span style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;">
 														<strong>Kg</strong>
 													</span>
 												</div>
@@ -310,9 +323,11 @@
 								</tbody>
 							</table>
 							<h4>※ 키와 몸무게를 입력하시면 맞춤 정보를 제공해 드립니다~</h4>
-							<input type="submit" value="수정" class="ui red button"
-								id="updateInfoBtn" /> <input type="reset" value="취소"
-								class="ui button" id="updateCancleBtn" /> <br> <br> <br>
+							<input type="submit" value="수정" class="ui red button" id="updateInfoBtn" />
+							<input type="reset" value="취소" class="ui button" id="updateCancleBtn" />
+							<br>
+							<br>
+							<br>
 						</div>
 					</div>
 				</form>
@@ -335,30 +350,26 @@
 		<i class="close icon"></i>
 		<div class="header">프로필 사진 변경</div>
 		<div class="image content">
-			<form action="/updateMyPicture.diet" method="post"
-				enctype="multipart/form-data">
+			<form action="/updateMyPicture.diet" method="post" enctype="multipart/form-data">
 				<div class="description">
 					<div class="ui header">
 						<div class="fileBox">
-							<input type="text" class="fileName" id="fileName"
-								readonly="readonly" /> <label for="uploadBtn" class="btn_file">찾아보기</label>
-							<input type="file" id="uploadBtn" class="uploadBtn"
-								name="uploadFile" />
+							<input type="text" class="fileName" id="fileName" readonly="readonly" />
+							<label for="uploadBtn" class="btn_file">찾아보기</label>
+							<input type="file" id="uploadBtn" class="uploadBtn" name="uploadFile" />
 						</div>
 					</div>
 				</div>
 				<br>
 				<div class="actions">
-					<button type="submit"
-						style="background: rgb(250, 40, 40); color: white;"
-						class="ui button">
-						사진업데이트 <i class="checkmark icon"></i>
+					<button type="submit" style="background: rgb(250, 40, 40); color: white;" class="ui button">
+						사진업데이트
+						<i class="checkmark icon"></i>
 					</button>
 					<button type="button" class="ui black button" id="modalOff">취소</button>
 				</div>
 			</form>
-			<input type="hidden" value="${sessionScope.member.mbId}"
-				id="memberId" />
+			<input type="hidden" value="${sessionScope.member.mbId}" id="memberId" />
 		</div>
 	</div>
 
@@ -391,7 +402,7 @@
 					alert("수정이 완료되었습니다.");
 					return true;
 				}
-			}else if(height!=""||weight!=""){
+			} else if (height != "" || weight != "") {
 				alert("키와 몸무게를 모두 입력해주세요 ~ ");
 				return false;
 			}
@@ -434,6 +445,9 @@
 	});
 
 	/* 프로필 사진 삭제  */
+	/* Ajax 중복 호출 방지 용*/
+	var ajaxLoadHis = 0;
+	var ajaxLoadNowHis = ajaxLoadHis;
 	function deletePictureBtn() {
 		var chkRadio = $(":input:radio[name=gender]:checked").val();
 		var result = window.confirm("사진을 삭제하시겠습니까?");
@@ -447,13 +461,21 @@
 					data : {
 						mbId : memberId
 					},
+					beforeSend : function(data) {
+						ajaxLoadHis = ajaxLoadHis + 1;
+					},
 					success : function(data) {
-						location.reload();
+						if (ajaxLoadNowHis != ajaxLoadHis - 1) {
+							console.log("중복출력방지");
+						} else {
+							alert("프로필 사진 삭제 성공 하셨습니다.");
+							location.reload();
+						}
 					},
 					error : function() {
 					}
 				});
-				alert("프로필 사진 삭제 성공 하셨습니다.");
+
 			} else if (chkRadio === 'm') {
 				$("#mailImage").attr("src", "");
 				$.ajax({
@@ -462,13 +484,21 @@
 					data : {
 						mbId : memberId
 					},
+					beforeSend : function(data) {
+						ajaxLoadHis = ajaxLoadHis + 1;
+					},
 					success : function(data) {
-						location.reload();
+						if (ajaxLoadNowHis != ajaxLoadHis - 1) {
+							console.log("중복출력방지");
+						} else {
+							alert("프로필 사진 삭제 성공 하셨습니다.");
+							location.reload();
+						}
 					},
 					error : function() {
 					}
 				});
-				alert("프로필 사진 삭제 성공 하셨습니다.");
+
 			}
 		} else {
 			alert("사진 삭제 취소하셨습니다.");
@@ -476,14 +506,13 @@
 	}
 
 	/* 사진 변경 업로드 */
-	var return_rt;
+/* 	var return_rt;
 	var rs_folder;
 	var IMGNAME;
 
 	$("form#data").submit(function(event) {
 		//disable the default form submission
 		event.preventDefault();
-
 		var sex = $(':radio[name="sex"]:checked').val();
 		$("#hiddensex").val(sex);
 
@@ -515,7 +544,7 @@
 		});
 
 		return false;
-	});
+	}); */
 </script>
 
 </html>

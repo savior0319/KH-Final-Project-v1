@@ -65,16 +65,16 @@
 		<!-- 슬라이드-->
 		<ul class="rslides">
 			<li>
-				<img src="/resources/image/mainPic.jpg">
+				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
 			</li>
 			<li>
-				<img src="/resources/image/mainPic1.jpg">
+				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
 			</li>
 			<li>
-				<img src="/resources/image/mainPic2.jpg">
+				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
 			</li>
 			<li>
-				<img src="/resources/image/mainPic3.jpg">
+				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
 			</li>
 		</ul>
 		<br>
@@ -388,7 +388,7 @@
 				<c:if test="${requestScope.bcpd.bcList[0] !=null}">
 					<!-- 작성된 댓글 리스트 -->
 					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
-
+						<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex" id="cmdIndex" />
 						<div class="comment">
 							<a class="avatar">
 								<img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
@@ -397,6 +397,9 @@
 								<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</a>
 								<div class="metadata" style="width: 100%;">
 									<span class="date" style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
+									<a class="modifyComment" onclick="modifyComment(${bc.cmtIndex});" style="cursor: pointer;">수정</a>
+									&nbsp;|&nbsp;&nbsp;
+									<a class="deleteComment" onclick="deleteComment(${bc.cmtIndex});" style="cursor: pointer;">삭제</a>
 									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
 										<button class="ui red basic tiny button" style="margin-right: 10px;">
 											<i class="thumbs up outline icon"></i>
@@ -404,15 +407,28 @@
 										</button>
 										<button class="ui black basic tiny button">
 											<i class="ban icon"></i>
-											신고 ${bc.cmtBlame }
+											신고 ${bc.cmtBlame}
 										</button>
 									</div>
 								</div>
 								<div class="text">
-									<pre>${bc.cmtContent }</pre>
+									<pre id="${bc.cmtIndex}">${bc.cmtContent}</pre>
+
 								</div>
 							</div>
 						</div>
+						<!-- 수정 -->
+						<form class="ui reply form" id="modifyContents" style="display: none;">
+							<div class="field">
+								<textarea id="commentContent" style="resize: none;" name="content"></textarea>
+							</div>
+							<div class="ui right aligned container">
+								<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="modifyComment();">
+									<i class="icon edit"></i>
+									수정
+								</div>
+							</div>
+						</form>
 						<br>
 						<hr style="border: 1px solid #F6F6F6">
 						<br>
@@ -487,8 +503,10 @@
 			});
 
 	var likeCheck;
+
 	var likeYN = '${requestScope.bpv.likeYN}';
 	var postLike = '${requestScope.bpv.postLike}';
+
 	/* 좋아요 버튼 */
 	$('#heartBtn').click(
 			function() {				
@@ -553,13 +571,9 @@
 		location.href = "/modifyCommunity.diet";
 	});
 
-	/*삭제 확인*/
+	/*글 삭제 확인*/
 	function deleteBtn() {
-		var postIndex = $
-		{
-			requestScope.bpv.postIndex
-		}
-		;
+		var postIndex = '${requestScope.bpv.postIndex}';
 
 		var check = window.confirm("정말 삭제하시겠습니까?");
 
@@ -572,8 +586,7 @@
 				},
 				success : function() {
 					alert('삭제를 완료하였습니다.');
-					location.href = "/communityWholeBoard.diet?type="
-							+ category;
+					location.href = "/communityWholeBoard.diet?type="+ category;
 
 				},
 				error : function() {
@@ -587,6 +600,63 @@
 		}
 	}
 
+	
+	/* 댓글 삭제 */
+	function deleteComment(ci){
+		var indexNo = $('#postIndex').val();
+		//var cmdIndex = $('#cmdIndex').val();
+		$.ajax({
+			url : '/deleteComment.diet',
+			type : 'post',
+			data : {
+				'commentIndex' : ci
+			},
+			success : function() {
+				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
+
+			},
+			error : function() {
+				alert('삭제에 실패하였습니다.');
+			}
+		});
+	} 
+
+	
+	/* 댓글 수정 */
+	function modifyComment(ci){
+		var cmdIndex = $('#cmdIndex').val();
+		var indexNo = $('#postIndex').val();
+		 
+		/* 수정 해야할 코멘트  */		
+		var commentPre = $('.comment').attr("style","display:none;");
+		/* 수정하는 곳 */
+		var modifyContents = $('#modifyContents').attr("style","display:inline");
+		
+		
+		var kk = $('.text').html();
+		alert(kk);
+		
+/* 		
+		$.ajax({
+			url : '/modifyComment.diet',
+			type : 'post',
+			data : {
+				'commentIndex' : ci,
+				'comment' : comment
+				//내용 업데이트 
+			},
+			success : function() {
+				alert('수정 성공');
+				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
+
+			},
+			error : function() {
+				alert('수정에 실패하였습니다.');
+			}
+		}); */
+	} 
+	
+	
 	/* 댓글 쓰기 버튼 */
 	function addComment() {
 		var indexNo = $('#postIndex').val();
@@ -660,6 +730,18 @@
 							"width: 30%; display: inline; margin-left: 10%;");
 					span.html(data.bcList[i].cmtDateTime);
 
+					/* ☆지현 추가 */
+					var modifyA = $("<a>").attr("class","modifyComment");
+					modifyA.attr("onclick","modifyComment(data.bcList[i].cmtIndex)");
+					modifyA.attr("style","cursor:pointer;");
+					modifyA.append("수정");
+					
+					/* ☆지현 추가*/
+					var deleteA = $("<a>").attr("class","deleteComment");
+					deleteA.attr("onclick","deleteComment(data.bcList[i].cmtIndex)");
+					deleteA.attr("style","cursor:pointer;");
+					deleteA.append("삭제");
+										
 					var containerDiv = $("<div>").attr("class",
 							"ui right aligned container");
 					containerDiv.attr("align", "right");
@@ -692,7 +774,11 @@
 
 					metadataDiv.append(span);
 					metadataDiv.append(containerDiv);
-
+					/* ☆지현 추가 */
+					metadataDiv.append(modifyA);
+					metadataDiv.append('&nbsp;|&nbsp;&nbsp;');
+					metadataDiv.append(deleteA);
+					
 					textDiv.append(pre);
 
 					contentDiv.append(aAuthor);
@@ -726,6 +812,8 @@
 			}
 		});
 	}
+	
+
 </script>
 
 <!-- 미디어 태그 1200px 보다 작아질 때-->

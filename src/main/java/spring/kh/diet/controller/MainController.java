@@ -19,5 +19,7 @@ public interface MainController {
 	String redirectHealthCenter(HttpServletRequest request, String location, HttpServletResponse response) throws IOException;
 
 	void updateOnsession(HttpServletRequest request);
+	
+	void autoDeleteSession();
 
 }

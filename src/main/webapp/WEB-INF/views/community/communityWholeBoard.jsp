@@ -51,26 +51,34 @@
 </style>
 
 <script>
-if (self.name != 'reload') {
-    self.name = 'reload';
-    self.location.reload(true);
-}
-else self.name = '';
+	if (self.name != 'reload') {
+		self.name = 'reload';
+		self.location.reload(true);
+	} else
+		self.name = '';
 </script>
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
-<input type="hidden" id="boardTime" value="${requestScope.cpdv.type}">
-<input type="hidden" id="category" value="${requestScope.cpdv.category}">
-<input type="hidden" id="searchT" value="${requestScope.cpdv.searchText}">
+	<input type="hidden" id="boardTime" value="${requestScope.cpdv.type}">
+	<input type="hidden" id="category" value="${requestScope.cpdv.category}">
+	<input type="hidden" id="searchT" value="${requestScope.cpdv.searchText}">
 
 	<div class="ui center aligned container">
-			<!-- 슬라이드-->
+		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li><img src="/resources/image/mainPic.jpg"></li>
-			<li><img src="/resources/image/mainPic1.jpg"></li>
-			<li><img src="/resources/image/mainPic2.jpg"></li>
-			<li><img src="/resources/image/mainPic3.jpg"></li>
+			<li>
+				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
+			</li>
 		</ul>
 		<br>
 		<div class="ui left aligned container">
@@ -105,15 +113,15 @@ else self.name = '';
 
 		<!-- 최신순, 조회순 -->
 		<br>
-		
-		<c:if test="${requestScope.cpdv.category == null}">
-		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
-			<div class="small ui basic buttons">
-				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
-				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
+
+		<%-- <c:if test="${requestScope.cpdv.category == null}"> --%>
+			<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
+				<div class="small ui basic buttons">
+					<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
+					<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
+				</div>
 			</div>
-		</div>
-		</c:if>
+		<%-- </c:if> --%>
 		<br>
 		<!-- 글목록 -->
 		<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
@@ -150,7 +158,7 @@ else self.name = '';
 							</td>
 							<td>${c.postHit}</td>
 							<td>
-							<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" /> 
+								<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
 							</td>
 						</tr>
 					</c:forEach>
@@ -172,11 +180,11 @@ else self.name = '';
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
-					<c:if test ="${sessionScope.member!=null}">
-						<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="return loginCheck();">
-							<i class="edit icon"></i>
-							등록
-						</button>
+						<c:if test="${sessionScope.member!=null}">
+							<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="return loginCheck();">
+								<i class="edit icon"></i>
+								등록
+							</button>
 						</c:if>
 					</div>
 				</div>
@@ -210,7 +218,7 @@ else self.name = '';
 <script type="text/javascript">
 	var st = $('#searchT').val();
 	var cate = $('#category').val();
-	
+
 	$('.ui.dropdown').dropdown({
 		allowAdditions : true,
 		allowCategorySelection : true
@@ -220,8 +228,8 @@ else self.name = '';
 		location.href = "/registCommunity.diet";
 	});
 
-	/* 클릭시 각 페이지로 이동 */
-	function recipeLink(pi) {
+	/* 클릭시 각 페이지로 이동 ????????????????????????????????????????? */
+ 	function recipeLink(pi) {
 		location.href = "/postedCommunity.diet?postIndex=" + pi;
 	}
 
@@ -230,11 +238,11 @@ else self.name = '';
 	function recentlyViewBtn(rtb) {
 		var postSort = rtb.innerHTML;
 
-		location.href = "/communityViewBoard.diet?type=" + type +"&postSort=" + postSort + "&searchText=" + st + "&category="+ cate;
+		location.href = "/communityViewBoard.diet?type=" + type + "&postSort="
+				+ postSort + "&searchText=" + st + "&category=" + cate;
 
 	}
-	
-	
+
 	// 카테고리 선택
 	var category = '';
 	$('.menu > .item').click(function() {
@@ -250,37 +258,35 @@ else self.name = '';
 			break;
 		}
 	});
-	
+
 	/* 검색 */
-	
-	function searchBtn(){
+
+	function searchBtn() {
 		$searchText = $('#searchText').val();
-		location.href = "/communitySearch.diet?category="+ category +"&searchText=" + $searchText; 
-		 /* + "&type=" + type */
-		
+		location.href = "/communitySearch.diet?category=" + category
+				+ "&searchText=" + $searchText;
+		/* + "&type=" + type */
+
 	}
-	
-	
-	function loginCheck(){
+
+	function loginCheck() {
 		var check = false;
 
-		if('${sessionScope.member!=null}'){
+		if ('${sessionScope.member!=null}') {
 			check = true;
 			return check;
-		}else{
+		} else {
 			return check;
 		}
 	}
 
-		// 슬라이드
+	// 슬라이드
 	$(function() {
 		$(".rslides").responsiveSlides({
-			auto: true,
-			timeout: 1500,  
+			auto : true,
+			timeout : 1500,
 		});
 	});
-	
-	
 </script>
 
 </html>

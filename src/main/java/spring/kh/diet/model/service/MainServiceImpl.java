@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.MainDAO;
+import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.HealthCenterVO;
 import spring.kh.diet.model.vo.OnSessionVO;
@@ -70,6 +71,27 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int updateAlreadyOnsession(UpdateSSVO uSSVO) {
 		int result = mDao.updateAlreadyOnsession(session,uSSVO);
+		return result;
+	}
+	
+
+	@Override
+	public ArrayList<AllSessionVO> selectAllSessionList2() {
+
+		ArrayList<AllSessionVO> list = mDao.selectAllSesssionList2(session);
+		return list;
+	}
+
+
+	@Override
+	public int autoDeleteSession(AllSessionVO allSessionVO) {
+		int result = mDao.autoDeleteSession(session,allSessionVO);
+		return result;
+	}
+
+	@Override
+	public int autoTransSession(AllSessionVO allSessionVO) {
+		int result = mDao.autoTransSession(session,allSessionVO);
 		return result;
 	}
 

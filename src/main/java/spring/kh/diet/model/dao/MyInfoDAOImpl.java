@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -38,14 +40,15 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public MemberVO selectOneMember(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO) {
-		System.out.println(memberVO.getMbBmi());
+
 		MemberVO mv = sqlSessionTemplate.selectOne("myInfo.selectOneMember", memberVO);
+		System.out.println("업뎃된 이미지?" + mv.getMbImage());
 		return mv;
 	}
 
 	@Override
-	public int deleteMyPicture(SqlSessionTemplate sqlSessionTemplate, String mbId) {
-		int result = sqlSessionTemplate.delete("myInfo.deleteMyPicture", mbId);
+	public int deleteMyPicture(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		int result = sqlSessionTemplate.delete("myInfo.deleteMyPicture", mv);
 		return result;
 	}
 
@@ -136,8 +139,8 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/communityWholeBoard.diet?type="
 								+ type + "&currentPage=" + i + "'><strong>" + i + "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/myActivityInfo.diet?type=" + type + "&currentPage=" + i + "'> "
-						+ i + " </a>");
+				sb.append("<a class='item' href='/myActivityInfo.diet?type=" + type + "&currentPage=" + i + "'> " + i
+						+ " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
@@ -173,16 +176,26 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public int updateMyPicture(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		int result = sqlSessionTemplate.update("myInfo.updateMyPicture",mv);
+		int result = sqlSessionTemplate.update("myInfo.updateMyPicture", mv);
 		return result;
 	}
 
 	@Override
 	public ArrayList<BoardPostVO> myPost(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		System.out.println("dao:"+mv.getMbId());
-		List list = sqlSessionTemplate.selectList("myInfo.myPost",mv);
-		System.out.println("LIST:"+list);
+		List list = sqlSessionTemplate.selectList("myInfo.myPost", mv);
 		return (ArrayList<BoardPostVO>) list;
+	}
+
+	@Override
+	public ArrayList<BoardCommentVO> myComment(SqlSessionTemplate sqlSessionTemplate,MemberVO mv) {
+		List list = sqlSessionTemplate.selectList("myInfo.myComment", mv);
+		return (ArrayList<BoardCommentVO>) list;
+	}
+
+	@Override
+	public ArrayList<BoardBookMarkVO> myBookmark(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		List list = sqlSessionTemplate.selectList("myInfo.myBookMark", mv);
+		return (ArrayList<BoardBookMarkVO>) list;
 	}
 
 }

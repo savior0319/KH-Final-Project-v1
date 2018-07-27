@@ -36,4 +36,6 @@ public interface RedirectController {
 
 	String redirectLogin();
 
+	String trainerReg();
+
 }

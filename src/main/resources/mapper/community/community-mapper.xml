@@ -26,8 +26,8 @@
 		<result property="mbIndex" column="MB_INDEX" />
 		<result property="targetMbIndex" column="TARGET_MB_INDEX" />
 	</resultMap>
-	
-	<resultMap type="bookMark" id="bookMarkDB">
+  
+  	<resultMap type="bookMark" id="bookMarkDB">
 		<result property="bmkIndex" column="BMK_INDEX" />
 		<result property="mbIndex" column="MB_INDEX" />
 		<result property="postIndex" column="POST_INDEX" />
@@ -208,7 +208,7 @@
 				(SELECT BP.*,
 				ROW_NUMBER() OVER
 				(ORDER BY
-				POST_DATETIME
+				POST_HIT
 				DESC)
 				AS NUM FROM BOARD_POST_TBL BP
 				LEFT JOIN MEMBER_TBL MT
@@ -400,8 +400,8 @@
 	SET POST_LIKE = POST_LIKE +1
 	WHERE POST_INDEX = #{targetIndex}	
 	</update>
-
-	<!-- 북마크 체크 테이블 -->
+  
+  	<!-- 북마크 체크 테이블 -->
 	<select id="checkBookMark" parameterType="bookMark" resultMap="bookMarkDB" resultType="bookMark">
 	SELECT *
 	FROM BOARD_BOOKMARK_TBL
