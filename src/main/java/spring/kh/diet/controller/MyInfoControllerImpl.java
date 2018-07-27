@@ -263,7 +263,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		MyActivityPageDataVO cpdv = myInfoService.allCommunityList(currentPage, type, ma);
 		request.setAttribute("cpdv", cpdv);
 		return "myInfo/myPost";
-		
+		  
 		
 	}
 
