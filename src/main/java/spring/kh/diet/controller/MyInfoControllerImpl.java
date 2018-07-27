@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,27 +38,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 	private MyInfoService myInfoService;
 
 	public MyInfoControllerImpl() {
-	}
-
-	/* 나의 게시물 */
-	@Override
-	@RequestMapping(value = "/myPost.diet")
-	public Object myPost(HttpSession session) {
-		MemberVO mv = (MemberVO) session.getAttribute("member");
-		ArrayList<BoardPostVO> list = myInfoService.myPost(mv);
-		ModelAndView view = new ModelAndView();
-
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.addObject("test", "Test");
-			view.setViewName("myInfo/myActivityInfo");
-			return view;
-		} else {
-			System.out.println("list값이 없음");
-			view.addObject("list", list);
-			view.setViewName("myInfo/myActivityInfo");
-			return view;
-		}
 	}
 
 	/* 1:1질문 */
@@ -259,95 +239,50 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		if (ma != null) {
 			view.addObject("ma", ma);
-			MyActivityPageDataVO cpdv = this.myActivityGetList(session, request, ma);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		} else {
 			System.out.println("ma값이 없음");
 			view.addObject("ma", ma);
-			MyActivityPageDataVO cpdv = this.myActivityGetList(session, request, ma);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		}
 	}
 
-	/* 내 활동 정보 게시판 */
+	/* 마이페이지 - 내가 올린 게시물 */
 	@Override
-	public MyActivityPageDataVO myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
+	@RequestMapping(value = "/myPost.diet")
+	public String myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
 		String type = request.getParameter("type");
-
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 		MyActivityPageDataVO cpdv = myInfoService.allCommunityList(currentPage, type, ma);
-		System.out.println(cpdv.getComList().get(0).getPostTitle());
 		request.setAttribute("cpdv", cpdv);
-
-		return cpdv;
+		return "myInfo/myPost";
+		
+		
 	}
 
-	/* 내 댓글 */
+	/* 마이페이지 - 내가 작성한 댓글 */
+	
 	@Override
 	@RequestMapping(value = "/myComment.diet")
-	public Object myComment(HttpSession session) {
-		MemberVO mv = (MemberVO) session.getAttribute("member");
-		if (mv != null) {
-			ArrayList<BoardCommentVO> list = myInfoService.myCommnet(mv);
-			MyActivityVO ma = myInfoService.myActivity(mv);
-			ModelAndView view = new ModelAndView();
-			if (!list.isEmpty()) {
-				view.addObject("list", list);
-				view.addObject("ma", ma);
-				view.setViewName("myInfo/myComment");
-				return view;
-			} else {
-				view.addObject("list", list);
-				view.addObject("ma", ma);
-				view.setViewName("myInfo/myComment");
-				return view;
-			}
-
+	public String myCommentGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
+		String type = request.getParameter("type");
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
 		} else {
-			System.out.println("로그인이 되어있지 않습니다.");
-			return "redirect:/";
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-
+		MyActivityPageDataVO cpdv = myInfoService.myCommentGetList(currentPage, type, ma);
+		request.setAttribute("cpdv", cpdv);
+		return "myInfo/myComment";
+		
+		
 	}
-
-	/* 내 북마크 */
-	@Override
-	@RequestMapping(value = "/myBookMark.diet")
-	public Object myBookmark(HttpSession session) {
-		MemberVO mv = (MemberVO) session.getAttribute("member");
-		if (mv != null) {
-			ArrayList<BoardBookMarkVO> list = myInfoService.myBookmark(mv);
-			MyActivityVO ma = myInfoService.myActivity(mv);
-			ModelAndView view = new ModelAndView();
-			if (!list.isEmpty()) {
-				view.addObject("list", list);
-				view.addObject("ma", ma);
-				view.setViewName("myInfo/myBookMark");
-				return view;
-			} else {
-				view.addObject("list", list);
-				view.addObject("ma", ma);
-				view.setViewName("myInfo/myBookMark");
-				return view;
-			}
-
-		} else {
-			System.out.println("로그인이 되어있지 않습니다.");
-			return "redirect:/";
-		}
-
-	}
-
-	/* 내 상품평 */
-
-	/* 내 상품문의 */
-
 }

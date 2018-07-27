@@ -20,8 +20,8 @@
 		<div class="container">
 			<div class="ui tabular menu" id="myActivity2">
 				<a class="item active" href="/myPost.diet?mbIndex=${member.mbIndex}">작성한 게시물</a>
-				<a class="item" href="#">작성한 댓글</a>
-				<a class="item" href="#">북마크</a>
+				<a class="item" href="/myComment.diet">작성한 댓글</a>
+				<a class="item" href="myBookMark.diet">북마크</a>
 				<a class="item" href="#">나의 상품평</a>
 				<a class="item" href="#">나의 상품문의</a>
 			</div>
