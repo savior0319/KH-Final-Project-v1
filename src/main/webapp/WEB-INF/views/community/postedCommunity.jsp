@@ -173,12 +173,12 @@
 				<button class="ui yellow button" id="bookMark" style="height: 40px;">
 					<c:choose>
 						<c:when test="${requestScope.bpv.bookMarkYN==0}">
-							<i class="bookmark outline icon" id="bookMarkOff"></i>	
+							<i class="bookmark outline icon" id="bookMarkOff"></i>
 						</c:when>
 						<c:when test="${requestScope.bpv.bookMarkYN==1}">
 							<i class="bookmark icon" id="bookMarkOn"></i>
 						</c:when>
-						</c:choose>
+					</c:choose>
 					북마크
 				</button>
 
@@ -212,13 +212,13 @@
 				<button class="ui yellow button" id="bookMark" style="height: 40px;">
 					<c:choose>
 						<c:when test="${requestScope.bpv.bookMarkYN==0}">
-							<i class="bookmark outline icon" id="BookMarkOff"></i>	
+							<i class="bookmark outline icon" id="BookMarkOff"></i>
 						</c:when>
 						<c:when test="${requestScope.bpv.bookMarkYN==1}">
 							<i class="bookmark icon" id="bookMarkOn"></i>
 						</c:when>
-						</c:choose>
-					
+					</c:choose>
+
 					북마크
 				</button>
 
@@ -258,70 +258,69 @@
 				<h5 class="ui center aligned container">(신고 사유를 선택해 주세요.)</h5>
 				<br>
 
+					<div class="ui container" align="center">
+						<div class="content">
+							<div class="ui form">
 
-				<div class="ui container" align="center">
-					<div class="content">
-						<div class="ui form">
-							<div class="grouped fields">
+								<div class="grouped fields">
 
-								<div class="ui clearing segment" style="width: 350px; padding-left: 60px;">
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2" checked="checked">
-											<label>&emsp;&emsp;광고/상업성 게시글</label>
+									<div class="ui clearing segment" style="width: 350px; padding-left: 60px;">
+										<br>
+										<div class="field singo">
+											<div class="ui radio checkbox">
+												<input type="radio" id="blame" name="example2" checked="checked" value="광고/상업성 게시글" />
+												<label>&emsp;&emsp;광고/상업성 게시글</label>
+											</div>
 										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2">
-											<label>&emsp;&emsp;비방/욕설 게시글</label>
+										<br>
+										<div class="field singo">
+											<div class="ui radio checkbox">
+												<input type="radio" id="blame" name="example2" value="비방/욕설 게시글" />
+												<label>&emsp;&emsp;비방/욕설 게시글</label>
+											</div>
 										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2">
-											<label>&emsp;&emsp;개인정보 유출 게시물</label>
+										<br>
+										<div class="field singo">
+											<div class="ui radio checkbox">
+												<input type="radio" id="blame" name="example2" value="개인정보 유출 게시물" />
+												<label>&emsp;&emsp;개인정보 유출 게시물</label>
+											</div>
 										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2">
-											<label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
+										<br>
+										<div class="field singo">
+											<div class="ui radio checkbox">
+												<input type="radio" id="blame" name="example2" value="청소년 유해(음란) 게시물">
+												<label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
+											</div>
 										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2">
-											<label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
+										<br>
+										<div class="field singo">
+											<div class="ui radio checkbox">
+												<input type="radio" id="blame" name="example2" value="명예훼손/저작권 침해 게시물">
+												<label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
+											</div>
 										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2">
-											<label>&emsp;&emsp;도배성 게시물</label>
+										<br>
+										<div class="field singo">
+											<div class="ui radio checkbox">
+												<input type="radio" id="blame" name="example2" value="도배성 게시물">
+												<label>&emsp;&emsp;도배성 게시물</label>
+											</div>
 										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2">
-											<label>&emsp;&emsp;불명확/추측성 게시물</label>
+										<br>
+										<div class="field singo">
+											<div class="ui radio checkbox">
+												<input type="radio" id="blame" name="example2" value="불명확/추측성 게시물">
+												<label>&emsp;&emsp;불명확/추측성 게시물</label>
+											</div>
 										</div>
+										<br>
+										<br>
 									</div>
-									<br>
-									<br>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-
 
 				<br>
 				<br>
@@ -331,16 +330,37 @@
 							<i class="remove icon"></i>
 							취소
 						</div>
-						<div class="ui red ok inverted button">
+						<div class="ui red ok inverted button" onclick="sendBlame();">
 							<i class="checkmark icon"></i>
 							신고
 						</div>
 					</div>
 				</div>
-
+     
 			</div>
+
 		</div>
 
+		<script>
+			function sendBlame(){
+				var blameReport = $(':input:radio[name=example2]:checked').val();
+				$.ajax({
+					url : '/blameBoard.diet',
+					type : 'post',
+					data : {
+						'targetIndex' : postIndex,
+						'targetMbIndex' : targetMbIndex,
+						'targetContents' : blameReport
+					},
+					success : function() {
+						alert('성공');
+					},
+					error : function() {
+							alert('실패');
+						}
+					});
+			}
+		</script>
 
 		<!-- 글쓰기, 목록으로 돌아가기 버튼 -->
 		<div class="ui right aligned container">
@@ -470,15 +490,15 @@
 
 	var category = '${requestScope.bpv.bcaIndex}';
 	var check = '${requestScope.bpv.bookMarkYN}';
-	
+
 	/* 북마크 버튼*/
 	$('#bookMark').click(
 			function() {
 				var postIndex = '${requestScope.bpv.postIndex}';
 				if (check == 0) {
-				
+
 				} else if (check == 1) {
-					
+
 				}
 				$.ajax({
 					url : '/postBookMark.diet',
@@ -487,12 +507,15 @@
 						'postIndex' : postIndex
 					},
 					success : function() {
-						if(check==0){
-							$('#bookMarkOff').removeClass("bookmark outline icon").addClass("bookmark icon");
+						if (check == 0) {
+							$('#bookMarkOff').removeClass(
+									"bookmark outline icon").addClass(
+									"bookmark icon");
 							$('#bookMarkOff').attr('id', 'bookMarkOn');
 							check = 1;
-						}else if (check == 1){
-							$('#bookMarkOn').removeClass("bookmark icon").addClass("bookmark outline icon");
+						} else if (check == 1) {
+							$('#bookMarkOn').removeClass("bookmark icon")
+									.addClass("bookmark outline icon");
 							$('#bookMarkOn').attr('id', 'bookMarkOff');
 							check = 0;
 						}
@@ -510,7 +533,7 @@
 
 	/* 좋아요 버튼 */
 	$('#heartBtn').click(
-			function() {				
+			function() {
 				if (likeYN == 0) {
 					likeCheck = true;
 					likeYN = 1;
@@ -574,8 +597,8 @@
 
 	/*글 삭제 확인*/
 	function deleteBtn() {
-		var postIndex = '${requestScope.bpv.postIndex}';
 
+		var postIndex = '${requestScope.bpv.postIndex}';
 		var check = window.confirm("정말 삭제하시겠습니까?");
 
 		if (check == true) {
