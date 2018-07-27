@@ -50,7 +50,7 @@
 
 			<div class="homeTrainingVideo" style="text-align:center">
 				<iframe width="760" height="455"
-					src="${requestScope.ht.htVedio }" frameborder="0"
+					src="${requestScope.ht.htVideo }" frameborder="0"
 					allow="autoplay; encrypted-media" allowfullscreen></iframe>
 			</div>
 			<br> <br>
