@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
@@ -346,7 +347,9 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public BoardLikeVO checkBoardLike(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO) {
+		System.out.println("DAOcheckVO : " + checkVO);
 		BoardLikeVO blv = sqlSessionTemplate.selectOne("community.checkLike", checkVO);
+
 		return blv;
 	}
 
@@ -364,13 +367,27 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public int postLikeDown(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv) {
-		int result = sqlSessionTemplate.update("community.postDown",blv);
-		return result;
+		return sqlSessionTemplate.update("community.postDown",blv);
 	}
 
 	@Override
 	public int postLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO) {
-		int result = sqlSessionTemplate.update("community.postUp",checkVO);
-		return result;
+		return sqlSessionTemplate.update("community.postUp",checkVO);
 	}
+
+	@Override
+	public BoardBookMarkVO checkBoardBookMark(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO bookMarkCheckVO) {
+		BoardBookMarkVO bbmv = sqlSessionTemplate.selectOne("community.checkBookMark", bookMarkCheckVO);
+		return bbmv;
+	}
+
+	@Override
+	public int bookMarkOff(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO bbmv) {
+		return sqlSessionTemplate.delete("community.bookMarkOff",bbmv);
+	}
+
+	@Override
+	public int bookMarkOn(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO checkVO) {
+		return sqlSessionTemplate.insert("community.bookMarkOn",checkVO);
+	}	
 }

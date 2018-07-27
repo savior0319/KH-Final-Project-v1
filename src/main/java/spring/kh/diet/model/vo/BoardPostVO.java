@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BoardPostVO {
 	private String postTitle, postContent, postImage, bcaName, postNickname, mbImage;
-	private int postIndex, brdIndex, mbIndex, postComCount, postHit, postLike, bcaIndex,likeYN;
+	private int postIndex, brdIndex, mbIndex, postComCount, postHit, postLike, bcaIndex,likeYN,bookMarkYN;
 	private Date postDateTime;
 }

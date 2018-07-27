@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.CommunityDAO;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
@@ -165,31 +166,46 @@ public class CommunityServiceImpl implements CommunityService {
 		BoardLikeVO blv = communityDAO.checkBoardLike(SqlSessionTemplate, checkVO);
 		return blv;
 	}
-
+	// 좋아요 테이블 좋아요 delete 로직
 	@Override
 	public int boardLikeDown(BoardLikeVO blv) {
 		int result = communityDAO.boardLikeDown(SqlSessionTemplate, blv);
 		return result;
 	}
-
+	// 좋아요테이블 좋아요 insert 로직
 	@Override
 	public int boardLikeUp(BoardLikeVO checkVO) {
 		int result = communityDAO.boardLikeUp(SqlSessionTemplate, checkVO);
 		return result;
 	}
-
+	// 게시글테이블 좋아요 down 업데이트 로직
 	@Override
 	public int postLikeDown(BoardLikeVO blv) {
 		int result = communityDAO.postLikeDown(SqlSessionTemplate, blv);
 		return result;
 	}
-
+	// 게시글테이블 좋아요 up 업데이트 로직 로직
 	@Override
 	public int postLikeUp(BoardLikeVO checkVO) {
 		int result = communityDAO.postLikeUp(SqlSessionTemplate, checkVO);
 		return result;
 	}
-
-	
-
+	// 게시글 북마크 체크 로직
+	@Override
+	public BoardBookMarkVO checkBoardBookMark(BoardBookMarkVO bookMarkCheckVO) {
+		BoardBookMarkVO bbmv = communityDAO.checkBoardBookMark(SqlSessionTemplate,bookMarkCheckVO);
+		return bbmv;
+	}
+	// 북마크테이블 북마크 delete 로직
+	@Override
+	public int boardBookMarkOff(BoardBookMarkVO bbmv) {
+		int result = communityDAO.bookMarkOff(SqlSessionTemplate,bbmv);
+		return result;
+	}
+	// 북마크테이블 북마크 insert 로직
+	@Override
+	public int boardBookMarkOn(BoardBookMarkVO checkVO) {
+		int result = communityDAO.bookMarkOn(SqlSessionTemplate,checkVO);
+		return result;
+	}
 }

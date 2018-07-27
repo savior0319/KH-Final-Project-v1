@@ -1,7 +1,5 @@
 package spring.kh.diet.model.vo;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardBookMarkVO {
-	private String postTitle;
-	private int bmkIndex, mbIndex, postIndex,postHit;
-	private Timestamp postDateTime;
+	private int bmkIndex, mbIndex, postIndex;
 }
