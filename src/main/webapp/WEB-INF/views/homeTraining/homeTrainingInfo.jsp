@@ -21,9 +21,8 @@
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
 
-	<input id="indexNo" type="hidden" value="${requestScope.ht.htIndex }">
-	<input id="indexNo" type="hidden" value="${requestScope.ht.htIndex-1 }">
-	<input id="indexNo" type="hidden" value="${requestScope.ht.htIndex+1 }">
+	<input id="indexNo" type="hidden" value="${requestScope.ht.indexNo }">
+	
 	<!-- CONTENTS -->
 	
 
@@ -38,11 +37,11 @@
 			<hr>
 			<div style="text-align: left;">
 				<i class="clock outline icon"></i>
-				<fmt:formatDate value="${requestScope.ht.htDate}"
+				<fmt:formatDate value="${requestScope.ht.htEnrollDate}"
 					pattern="yyyy-MM-dd HH:mm:ss" />
 				&ensp;|&ensp; <i class="eye icon"></i> <span class="hits"
 					style="color: red">${requestScope.ht.htHits }</span>&ensp;|&ensp; <i
-					class="comment icon"></i> <span class="like" style="color: red">${requestScope.ht.htCommentNumber }</span>
+					class="comment icon"></i> <span class="like" style="color: red">${requestScope.ht.htCommentNo }</span>
 				<hr>
 			</div>
 			<br> <br>
@@ -51,7 +50,7 @@
 
 			<div class="homeTrainingVideo" style="text-align:center">
 				<iframe width="760" height="455"
-					src="https://www.youtube.com/embed/VGjk5SHY2ls" frameborder="0"
+					src="${requestScope.ht.htVideo }" frameborder="0"
 					allow="autoplay; encrypted-media" allowfullscreen></iframe>
 			</div>
 			<br> <br>
@@ -60,10 +59,10 @@
 			<br> <br>
 
 			<div class="programIntroduction" style="text-align:center">
-				<i class="big clock outline icon"></i>&ensp;${requestScope.ht.htVideoMinute }&emsp;&emsp;&emsp;&emsp;&emsp;
-				<i class="big child icon"></i>&ensp;${requestScope.ht.htPart }&emsp;&emsp;&emsp;&emsp;&emsp;
-				<i class="big male icon"></i>&ensp;${requestScope.ht.htLevel }&emsp;&emsp;&emsp;&emsp;&emsp;
-				<i class="big tint icon"></i>&ensp;${requestScope.ht.htCalories }
+				<i class="big clock outline icon"></i>&ensp;${requestScope.ht.htStepTime }&emsp;&emsp;&emsp;&emsp;&emsp;
+				<i class="big child icon"></i>&ensp;${requestScope.ht.htStepType }&emsp;&emsp;&emsp;&emsp;&emsp;
+				<i class="big male icon"></i>&ensp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;&emsp;&emsp;
+				<i class="big tint icon"></i>&ensp;${requestScope.ht.htStepKal }
 			</div>
 			<hr>
 
@@ -78,7 +77,7 @@
 
 				<!-- 좋아요 버튼 부분 -->
 				<button class="ui big basic button"
-					style="border-radius: 30px; text-align: center;">
+					style="border-radius: 30px; text-align: center;" onclick="likeBtn();">
 					<i class="heart outline icon" style="color: red;"></i>${requestScope.ht.htLike}</button>
 			</div>
 			<br> <br> <br> <br>
@@ -169,7 +168,7 @@
 										</button>
 									</div>
 								</div>
-								<div class="text" style="text-align:left; margin-left: 4%;">
+								<div class="text" style="text-align:left; margin-left: 3%;">
 									<pre>${bc.cmtContent }</pre>
 								</div>
 							</div>
@@ -283,7 +282,7 @@
 					var blameI = $("<i>").attr("class", "ban icon");
 
 					var textDiv = $("<div>").attr("class", "text");
-					textDiv.attr("style", "margin-left:4%;");
+					textDiv.attr("style", "margin-left:3%;");
 
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
 
@@ -336,6 +335,11 @@
 	{
 		return num>9?num:"0"+num;
 	}
+	
+	
+	
+ 
+	
 </script>
 
 </html>

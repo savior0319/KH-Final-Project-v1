@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 
 import spring.kh.diet.model.dao.HomeTrainingDAOImpl;
+import spring.kh.diet.model.vo.BoardLikeVO;
+import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
 
@@ -49,6 +51,36 @@ public class HomeTrainingServiceImpl implements HomeTrainingService{
 	public ArrayList<HomeTrainingVO> pnWriteList(int indexNo) {
 		ArrayList<HomeTrainingVO> list = homeTrainingDAO.pnWriteList(session, indexNo);
 		return list;
+	}
+	
+	@Override
+	public int boardLikeDown(BoardLikeVO htlv) {
+		int result = homeTrainingDAO.boardLikeDown(session, htlv);
+		return result;
+	}
+
+	@Override	
+	public int postLikeDown(BoardLikeVO htlv) {
+		int result = homeTrainingDAO.postLikeDown(session, htlv);
+		return result;
+	}
+	
+	@Override
+	public int boardLikeUp(BoardLikeVO checkVO) {
+		int result = homeTrainingDAO.boardLikeUp(session, checkVO);
+		return result;
+	}
+	
+	@Override
+	public int postLikeUp(BoardLikeVO checkVO) {
+		int result = homeTrainingDAO.postLikeUp(session, checkVO);
+		return result;
+	}
+	
+	@Override
+	public BoardLikeVO checkBoardLike(BoardLikeVO checkVO) {
+		BoardLikeVO htlv = homeTrainingDAO.checkBoardLike(session, checkVO);
+		return htlv;
 	}
 
 
