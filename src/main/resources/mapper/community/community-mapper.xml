@@ -26,6 +26,12 @@
 		<result property="mbIndex" column="MB_INDEX" />
 		<result property="targetMbIndex" column="TARGET_MB_INDEX" />
 	</resultMap>
+  
+  	<resultMap type="bookMark" id="bookMarkDB">
+		<result property="bmkIndex" column="BMK_INDEX" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="postIndex" column="POST_INDEX" />
+	</resultMap>
 <!-- 커뮤니티 SQL  -->	
 
 	<!-- 전체게시판 -->
@@ -394,5 +400,23 @@
 	SET POST_LIKE = POST_LIKE +1
 	WHERE POST_INDEX = #{targetIndex}	
 	</update>
-
+  
+  	<!-- 북마크 체크 테이블 -->
+	<select id="checkBookMark" parameterType="bookMark" resultMap="bookMarkDB" resultType="bookMark">
+	SELECT *
+	FROM BOARD_BOOKMARK_TBL
+	WHERE POST_INDEX = #{postIndex} AND MB_INDEX = #{mbIndex}
+	</select>
+	
+	<!-- 북마크 추가 테이블  -->
+	<insert id="bookMarkOn" parameterType="bookMark">
+		INSERT INTO BOARD_BOOKMARK_TBL VALUES(BOARD_BOOKMARK_TBL_SEQ.NEXTVAL,#{mbIndex},#{postIndex})
+	</insert>
+	
+	<!-- 북마크 제거 테이블 -->
+	<delete id="bookMarkOff" parameterType="bookMark">
+		DELETE 
+		FROM BOARD_BOOKMARK_TBL 
+		WHERE POST_INDEX= #{postIndex} AND MB_INDEX = #{mbIndex}
+	</delete>
 </mapper>
