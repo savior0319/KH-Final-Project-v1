@@ -126,9 +126,10 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 			// 인보부분(세션 파기전 세션의 정보를 넘겨야합니다)
 			// Onsession 값을 가져와서 OffSession TB에 값을 넣어주주고
 			OneSessionVO OSV = loginService.selectOneSession(session.getId());
-
+			
 			int result = loginService.insertSession(OSV);
 			// Onsession TB에서의 데이터삭제
+
 			if(result>0)
 			{
 				loginService.transSession(session.getId());				

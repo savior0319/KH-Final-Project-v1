@@ -1,6 +1,7 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -16,10 +17,14 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import com.sun.mail.iap.Response;
 
 import spring.kh.diet.model.service.AdminService;
+import spring.kh.diet.model.vo.AllSessionListPDVO;
+import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.NoticeVO;
+import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
@@ -61,11 +66,99 @@ public class AdminControllerImpl implements AdminController {
 
 	@Autowired
 	ServletContext context;
-
 	@RequestMapping(value = "/currentLoginUser.diet")
 	@ApplicationScope
+	public String currentLoginUser(HttpServletRequest request, HttpServletResponse response) {
+		int currentPage;
+		// 현재 접속중인인원 
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
 
-	public String currentLoginUser(HttpServletResponse response) {
+		AllSessionListPDVO ASLPDVO = as.getSessionList(currentPage);
+
+		// 오늘접속한 인원 (새션꺼진인원).
+		
+		ArrayList<OffSessionVO> list = as.getOfSesssionList();
+		int PC = 0;
+		int MOBILE =0;
+		int AtoBOn =0;
+		int BtoCOn =0;
+		int CtoDOn =0;
+		int DtoEOn =0;
+		int EtoFOn =0;
+		int AtoBOff =0;
+		int BtoCOff =0;
+		int CtoDOff =0;
+		int DtoEOff =0;
+		int EtoFOff =0;
+		if(!list.isEmpty())
+		{
+			for(int i=0; i<list.size();i++)
+			{
+				int Time = Integer.parseInt(list.get(i).getFirstOn().substring(11,13));
+				int Minute =Integer.parseInt(list.get(i).getFirstOn().substring(14,16));
+				if(Time >= 0 && Time < 12)
+				{
+					if(list.get(i).getNickName().equals("")||list.get(i).getNickName().equals("NULL"))
+					{
+						AtoBOff++;
+					}
+					else {AtoBOn++;}
+				}
+				if(Time >= 12 && Time< 15)
+				{
+					if(list.get(i).getNickName().equals("")||list.get(i).getNickName().equals("NULL"))
+					{
+						BtoCOff++;
+					}
+					else {BtoCOn++;}
+				}
+				if(Time >= 15 && Time<18)
+				{
+					if(list.get(i).getNickName().equals("")|!list.get(i).getNickName().equals("NULL"))
+					{
+						CtoDOff++;
+					}
+					else {CtoDOn++;}
+				}
+				if(Time>= 18 && Time<21)
+				{
+					if(list.get(i).getNickName().equals("")||list.get(i).getNickName().equals("NULL"))
+					{
+						DtoEOff++;
+					}
+					else {DtoEOn++;}
+				}
+				if(Time>= 21 && Time<24)
+				{
+					if(list.get(i).getNickName().equals("")||list.get(i).getNickName().equals("NULL"))
+					{
+						EtoFOff++;
+					}
+					else {EtoFOn++;}
+				}
+				if(list.get(i).getDevice().equals("pc"))
+				{
+					PC++;
+				}
+				if(list.get(i).getDevice().equals("mobile")){
+					MOBILE++;
+				}
+			}
+		}
+
+		
+		CurrentDate CD = new CurrentDate(PC,MOBILE,AtoBOn,BtoCOn,CtoDOn,DtoEOn,EtoFOn,AtoBOff,BtoCOff,CtoDOff,DtoEOff,EtoFOff);
+		ASLPDVO.setType(request.getParameter("type"));
+		request.setAttribute("currentSession", ASLPDVO);
+		request.setAttribute("size", ASLPDVO.getSsList().size());
+		request.setAttribute("totalSize", list.size());
+		request.setAttribute("offList", ASLPDVO.getSsList());
+		request.setAttribute("onList", list);
+		request.setAttribute("CD", CD);
 		return "admin/currentLoginUser";
 		// System.out.println(session.getAttribute("key"));
 	}
@@ -170,4 +263,5 @@ public class AdminControllerImpl implements AdminController {
 		
 	}
 
+	
 }

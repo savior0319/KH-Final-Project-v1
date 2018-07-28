@@ -30,6 +30,8 @@
 		<typeAlias type="spring.kh.diet.model.vo.AnswerVO" alias="answer" /> <!-- 1:1문의 페이지 리스트 -->
 		<typeAlias type="spring.kh.diet.model.vo.FoodCalVO" alias="foodCal"/>
 		<typeAlias type="spring.kh.diet.model.vo.SportCalVO" alias="sportCal"/>
+		<typeAlias type="spring.kh.diet.model.vo.AllSessionListPDVO" alias="allSessionListPDVO"/><!--관리자  세션통계 현재접속리스트  -->
+		<typeAlias type="spring.kh.diet.model.vo.OffSessionVO" alias="offSessionList"/>
 	</typeAliases>
 
 </configuration>
