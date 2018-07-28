@@ -9,6 +9,7 @@ import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
+import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 public interface AdminDAO {
@@ -38,5 +39,7 @@ public interface AdminDAO {
 			int naviCountPerPage);
 
 	int answerReg(SqlSessionTemplate session, AnswerVO avo);
+
+	ArrayList<OffSessionVO> getOfSessionList(SqlSessionTemplate session);
 
 }

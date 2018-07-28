@@ -13,6 +13,7 @@ import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
+import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
@@ -272,8 +273,6 @@ public class AdminDAOImpl implements AdminDAO {
 		ASVPD.setEnd(currentPage * recordCountPerPage);
 
 		List<AllSessionVO> list = session.selectList("admin.getSessionList", ASVPD);
-		
-		System.out.println(list.toString());
 		return (ArrayList<AllSessionVO>) list;
 	}
 
@@ -333,7 +332,6 @@ public class AdminDAOImpl implements AdminDAO {
 		if (needNext) {
 			sb.append("<a class='item' href='/currentLoginUser.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
-		System.out.println(sb.toString());
 		return sb.toString();
 	}
 
@@ -348,6 +346,14 @@ public class AdminDAOImpl implements AdminDAO {
 		} else {
 			return 0;
 		}
+	}
+
+	@Override
+	public ArrayList<OffSessionVO> getOfSessionList(SqlSessionTemplate session) {
+	
+		List<?> list = session.selectList("admin.selectOffSessionList");
+		
+		return (ArrayList<OffSessionVO>)list;
 	}
 
 }

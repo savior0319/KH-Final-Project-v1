@@ -145,5 +145,19 @@
 	<update id="anserRegCheck" parameterType="answer">
 		UPDATE QUESTION_TBL SET QS_ANSWERCHECK = 'y' WHERE QS_INDEX = #{index}
 	</update>
+	
+	<select id = "selectOffSessionList" resultType="offSessionList">
+	
+	select
+	SS_INDEX as indexNo,
+	SS_ID as sessionId,
+	SS_IP as sessionIp,
+	SS_firstOn as firstOn,
+	ss_stay as stay,
+	ss_login as nickName,
+	ss_device as device,
+	ss_LastIn as lastIn
+	from off_session_tbl
+	</select>
 
 </mapper>

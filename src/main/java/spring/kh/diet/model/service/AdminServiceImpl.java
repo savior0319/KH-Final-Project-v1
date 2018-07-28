@@ -15,6 +15,7 @@ import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
+import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
@@ -118,6 +119,15 @@ public class AdminServiceImpl implements AdminService {
 	public int answerReg(AnswerVO avo) {
 		int result = aDao.answerReg(session, avo);
 		return result;
+	}
+
+	@Override
+	public ArrayList<OffSessionVO> getOfSesssionList() {
+		// TODO Auto-generated method stub
+		
+		ArrayList<OffSessionVO> list = aDao.getOfSessionList(session);
+		
+		return list;
 	}
 
 

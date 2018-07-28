@@ -1,9 +1,12 @@
 package spring.kh.diet.model.service;
 
+import java.util.ArrayList;
+
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.NoticeVO;
+import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
@@ -22,5 +25,7 @@ public interface AdminService {
 	AllSessionListPDVO getSessionList(int currentPage);
 	
 	int answerReg(AnswerVO avo);
+
+	ArrayList<OffSessionVO> getOfSesssionList();
 
 }
