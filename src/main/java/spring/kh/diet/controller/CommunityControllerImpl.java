@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.service.CommunityService;
-import spring.kh.diet.model.vo.BoardLikeVO;
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
-import spring.kh.diet.model.vo.DietTipVO;
 import spring.kh.diet.model.vo.MemberVO;
 
 @Controller
@@ -80,8 +82,31 @@ public class CommunityControllerImpl implements CommunityController {
 		CommunityPageDataVO cpdv = communityService.allCommunityList(currentPage, type);
 
 		request.setAttribute("cpdv", cpdv);
-
 		return "community/communityWholeBoard";
+	}
+
+	// 메인페이지에서 자유게시판 전체 목록 출력
+	@Override
+	@RequestMapping(value = "/mainCommunity.diet")
+	public void getMainCommunityList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+
+		String type = "comAll";
+
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+
+		CommunityPageDataVO cpdv = communityService.allCommunityList(currentPage, type);
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(cpdv, response.getWriter());
+
 	}
 
 	// 레시피&식단 + 최신순
@@ -113,22 +138,22 @@ public class CommunityControllerImpl implements CommunityController {
 		// 쿠키 등록
 		int sIndex = configCookie(session, request, response, postIndex);
 		int sessionIndex = 0;
-		if(session.getAttribute("member")!=null) {
-			sessionIndex = ((MemberVO)session.getAttribute("member")).getMbIndex();
+		if (session.getAttribute("member") != null) {
+			sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
 		}
 		// 등록된 정보 가져오는 로직
 		BoardPostVO bpv = communityService.postedCommunity(postIndex);
 
-		// 좋아요 체크하는 로직
+		// 게시글 좋아요 체크하는 로직
 		if (session.getAttribute("member") != null) {
 			BoardLikeVO blv = checkLike(postIndex, sessionIndex);
-
 			if (blv != null) {
 				bpv.setLikeYN(1);
 			} else {
 				bpv.setLikeYN(0);
 			}
 		}
+		
 		// 북마크 체크하는 로직
 		BoardBookMarkVO bbmv = checkBookMark(postIndex, sessionIndex);
 		if (bbmv != null) {
@@ -136,7 +161,6 @@ public class CommunityControllerImpl implements CommunityController {
 		} else {
 			bpv.setBookMarkYN(0);
 		}
-
 		request.setAttribute("bpv", bpv);
 
 		// 현재 호출하는 메소드(서블릿)의 이름을 담아서 같이 넘겨쥼 -> 슬래쉬(/)빼야 해요
@@ -200,12 +224,8 @@ public class CommunityControllerImpl implements CommunityController {
 	public BoardLikeVO checkLike(int postIndex, int sessionIndex) {
 		BoardLikeVO likeCheckVO = new BoardLikeVO();
 		likeCheckVO.setTargetIndex(postIndex);
-		System.out.println("postIndexController : " + postIndex);
 		likeCheckVO.setMbIndex(sessionIndex);
-		System.out.println("sessionController : "+sessionIndex);
-		System.out.println("likecheckVOController : " + likeCheckVO);
 		BoardLikeVO blv = communityService.checkBoardLike(likeCheckVO);
-		System.out.println("blvController : " + blv);
 		return blv;
 	}
 
@@ -213,9 +233,7 @@ public class CommunityControllerImpl implements CommunityController {
 	public BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex) {
 		BoardBookMarkVO bookMarkCheckVO = new BoardBookMarkVO();
 		bookMarkCheckVO.setPostIndex(postIndex);
-		System.out.println("CCpostIndex : " + postIndex);
 		bookMarkCheckVO.setMbIndex(sessionIndex);
-		System.out.println("CCsessionIndex : " + sessionIndex);
 		BoardBookMarkVO bbmv = communityService.checkBoardBookMark(bookMarkCheckVO);
 		return bbmv;
 
@@ -303,16 +321,13 @@ public class CommunityControllerImpl implements CommunityController {
 
 		CommunityPageDataVO cpdv = communityService.searchList(currentPage, searchText, category);
 		cpdv.setType(type);
-		// System.out.println(type);
-		System.out.println("검색어 : " + cpdv.getSearchText());
-		System.out.println("카테고리 : " + category);
 
 		request.setAttribute("cpdv", cpdv);
 
 		return "community/communityWholeBoard";
 	}
 
-	// 좋아요 버튼
+	// 게시글 좋아요 버튼
 	@Override
 	@ResponseBody
 	@RequestMapping(value = "/postLike.diet")
@@ -350,11 +365,8 @@ public class CommunityControllerImpl implements CommunityController {
 	public String boardBookMark(BoardBookMarkVO checkVO, HttpSession session) {
 		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
 		int postIndex = checkVO.getPostIndex();
-		System.out.println("C sessionIndex : " + sessionIndex);
-		System.out.println("C postIndex : " + postIndex);
 		checkVO.setMbIndex(sessionIndex);
 		BoardBookMarkVO bbmv = checkBookMark(postIndex, sessionIndex);
-		System.out.println("C bbmv : " + bbmv);
 		int result = 0;
 		if (bbmv != null) {
 			result = communityService.boardBookMarkOff(bbmv);
@@ -368,5 +380,32 @@ public class CommunityControllerImpl implements CommunityController {
 			return "failed";
 		}
 	}
-
+	
+	// 게시글 신고하기
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/blameBoard.diet")
+	public String postReport(BoardBlameVO report, HttpSession session) {
+		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
+		int postIndex = report.getTargetIndex();
+		
+		report.setMbIndex(sessionIndex);
+		
+		int result = communityService.postReport(report);
+		
+		if(result>0) {
+			return "success";
+		} else {
+			return "failed";
+		}
+	}
+	
+	// 게시글 신고 체크
+	public BoardBlameVO checkPostBlame(int postIndex, int sessionIndex) {
+		BoardBlameVO checkBlame = new BoardBlameVO();
+		checkBlame.setTargetIndex(postIndex);
+		checkBlame.setMbIndex(sessionIndex);
+		BoardBlameVO bbv = communityService.checkPostBlame(checkBlame);
+		return bbv;
+	}
 }

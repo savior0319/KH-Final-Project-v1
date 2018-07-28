@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 
@@ -33,5 +34,10 @@ public interface CommunityController {
 	String boardLike(BoardLikeVO checkVO, HttpSession session);
 
 	String boardBookMark(BoardBookMarkVO checkVO, HttpSession session);
+
+	String postReport(BoardBlameVO report, HttpSession session);
+
+	void getMainCommunityList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException;
 
 }

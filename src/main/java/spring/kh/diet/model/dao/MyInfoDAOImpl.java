@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -67,7 +68,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	@Override
 	public MyActivityVO myActivity(SqlSessionTemplate sqlSessionTemplate, MemberVO m) {
 		MyActivityVO ma = sqlSessionTemplate.selectOne("myInfo.myActivity", m);
-		System.out.println("dao ma:"+ma);
+		System.out.println("dao ma:" + ma);
 		return ma;
 	}
 
@@ -77,16 +78,13 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	public ArrayList<BoardPostVO> allCommunityList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, String type, MyActivityVO ma) {
 		MyActivityPageDataVO cpdv = new MyActivityPageDataVO();
-
 		cpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
 		cpdv.setEnd(currentPage * recordCountPerPage);
 		cpdv.setType(type);
-
 		List<BoardPostVO> list = sqlSessionTemplate.selectList("myInfo.allCommunityList", cpdv);
-
 		return (ArrayList<BoardPostVO>) list;
 	}
-	
+
 	/* 마이페이지 - 내 게시물 페이징 처리 출력 */
 
 	@Override
@@ -304,6 +302,14 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		}
 
 		return sb.toString();
+	}
+
+	@Override
+	public QuestionVO questionAnswer(SqlSessionTemplate sqlSessionTemplate, QuestionVO qv) {
+		System.out.println("다오:"+qv.getMbIndex() +qv.getQsIndex());
+		QuestionVO answer = sqlSessionTemplate.selectOne("myInfo.questionAnswer", qv);
+		System.out.println("다오" + answer);
+		return answer;
 	}
 
 }

@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class AllSessionVO {
 	
 	private String indexNo,sessionId,sessionIp,firstOn,invalidate,state,logInNickName,device;
+	
+
 }

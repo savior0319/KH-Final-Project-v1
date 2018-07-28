@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.kh.diet.model.dao.MyInfoDAO;
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -163,5 +164,12 @@ public class MyInfoServiceImpl implements MyInfoService {
 		cpdv.setType(type);
 		return cpdv;
 	}
+
+	@Override
+	public QuestionVO questionAnswer(QuestionVO qv) {
+		QuestionVO answer = myInfoDAO.questionAnswer(SqlSessionTemplate,qv);
+		return answer;
+	}
+
 
 }

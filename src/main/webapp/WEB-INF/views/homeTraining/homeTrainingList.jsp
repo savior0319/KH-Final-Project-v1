@@ -45,13 +45,13 @@
 				<c:forEach items="${requestScope.htpd.htList }" var="ht">
 				
 				
-					<div class="column">
+					<div class="column" >
 						<div class="ui card" onclick="InfoPage(${ht.indexNo})">
 							<div class="image">
 								<img src="${ht.htMainPhoto}" style="width: 290px;height:200px;">
 							</div>
 							<div class="content">
-								<a class="header">${ht.htTitle }</a>
+								<a class="header" style=height:50px;>${ht.htTitle }</a>
 								<div class="meta">
 									<span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i>
 									좋아요 <span class="like" style="color: red">${ht.htHits }</span>

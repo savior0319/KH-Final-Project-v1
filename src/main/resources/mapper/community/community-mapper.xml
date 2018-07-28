@@ -1,422 +1,448 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="community">
-<!-- 커뮤니티 resultMap -->
-   <resultMap type="community" id="communityDB">
-      <result property="postIndex" column="POST_INDEX" />
-      <result property="brdIndex" column="BRD_INDEX" />
-      <result property="postTitle" column="POST_TITLE" />
-      <result property="postContent" column="POST_CONTENT" />
-      <result property="mbIndex" column="MB_INDEX" />
-      <result property="postDateTime" column="POST_DATETIME" />
-      <result property="postComCount" column="POST_COMMENT_COUNT" />
-      <result property="postHit" column="POST_HIT" />
-      <result property="postLike" column="POST_LIKE" />
-      <result property="postImage" column="POST_IMAGE" />
-      <result property="bcaIndex" column="BCA_INDEX" />
-      <result property="bcaName" column="BCA_NAME" />
-      <result property="postNickname" column="MB_NICKNAME" />
-      <result property="mbImage" column="MB_IMAGE" />
-   </resultMap>
-   
-   <resultMap type="boardLike" id="boardLikeDB">
-      <result property="likeIndex" column="LIKE_INDEX" />
-      <result property="targetIndex" column="TARGET_INDEX" />
-      <result property="targetType" column="TARGET_TYPE" />
-      <result property="mbIndex" column="MB_INDEX" />
-      <result property="targetMbIndex" column="TARGET_MB_INDEX" />
-   </resultMap>
-  
-     <resultMap type="bookMark" id="bookMarkDB">
-      <result property="bmkIndex" column="BMK_INDEX" />
-      <result property="mbIndex" column="MB_INDEX" />
-      <result property="postIndex" column="POST_INDEX" />
-   </resultMap>
-<!-- 커뮤니티 SQL  -->   
+	<!-- 커뮤니티 resultMap -->
+	<resultMap type="community" id="communityDB">
+		<result property="postIndex" column="POST_INDEX" />
+		<result property="brdIndex" column="BRD_INDEX" />
+		<result property="postTitle" column="POST_TITLE" />
+		<result property="postContent" column="POST_CONTENT" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="postDateTime" column="POST_DATETIME" />
+		<result property="postComCount" column="POST_COMMENT_COUNT" />
+		<result property="postHit" column="POST_HIT" />
+		<result property="postLike" column="POST_LIKE" />
+		<result property="postImage" column="POST_IMAGE" />
+		<result property="bcaIndex" column="BCA_INDEX" />
+		<result property="bcaName" column="BCA_NAME" />
+		<result property="postNickname" column="MB_NICKNAME" />
+		<result property="mbImage" column="MB_IMAGE" />
+	</resultMap>
 
-   <!-- 전체게시판 -->
-   <select id="allCommunityList" parameterType="communityPage"
-      resultType="community" resultMap="communityDB">
-      SELECT * FROM
-      (SELECT BOARD_POST_TBL.*,
-      ROW_NUMBER() OVER
-      (ORDER BY
-      POST_DATETIME DESC)
-      AS NUM FROM BOARD_POST_TBL
-      <choose>
-         <when test="type.equals('15')">
-            WHERE BCA_INDEX like '15'
-         </when>
-         <when test="type.equals('17')">
-            WHERE BCA_INDEX like '17'
-         </when>
-         <when test="type.equals('18')">
-            WHERE BCA_INDEX like '18'
-         </when>
-         <when test="type.equals('19')">
-            WHERE BCA_INDEX LIKE '19'
-         </when>
-      </choose>
-      )BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
-      LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
-      WHERE NUM BETWEEN
-      #{start} AND #{end}
-   </select>
+	<resultMap type="boardLike" id="boardLikeDB">
+		<result property="likeIndex" column="LIKE_INDEX" />
+		<result property="targetIndex" column="TARGET_INDEX" />
+		<result property="targetType" column="TARGET_TYPE" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="targetMbIndex" column="TARGET_MB_INDEX" />
+	</resultMap>
 
-   <!-- 페이징 처리 - 내비게이션 생성 -->
-   <!-- 검색 + 페이지 카테고리 선택 했을 때 -->
-   <select id="getNavi" resultType="java.lang.Integer">
-      select count(*) as totalCount
-      from BOARD_POST_TBL
-      <choose>
-         <when test="type.equals('15')">
-            WHERE BCA_INDEX LIKE '15'
-         </when>
-         <when test="type.equals('16')">
-            WHERE BCA_INDEX LIKE '16'
-         </when>
-         <when test="type.equals('17')">
-            WHERE BCA_INDEX LIKE '17'
-         </when>
-         <when test="type.equals('18')">
-            WHERE BCA_INDEX LIKE '18'
-         </when>
-         <when test="type.equals('19')">
-            WHERE BCA_INDEX LIKE '19'
-         </when>
-         <otherwise>
-            WHERE BCA_INDEX > 0
-         </otherwise>
-      </choose>
+	<resultMap type="bookMark" id="bookMarkDB">
+		<result property="bmkIndex" column="BMK_INDEX" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="postIndex" column="POST_INDEX" />
+	</resultMap>
 
-      <!-- 검색한 내용이 있으면 해당 검색 내용만큼 내비수를 가져 오도록 -->
-      <choose>
-         <when test="category.equals('title')">
-            AND POST_TITLE LIKE '%'||#{searchText}||'%'
-         </when>
-         <when test="category.equals('titleContents')">
-            AND (POST_TITLE LIKE '%'||#{searchText}||'%'
-            OR
-            POST_CONTENT LIKE '%'||#{searchText}||'%')
-         </when>
-         <when test="category.equals('writer')">
-            AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
-         </when>
-      </choose>
-   </select>
+	<resultMap type="boardBlame" id="boardBlameDB">
+		<result property="blaIndex" column="BLA_INDEX" />
+		<result property="targetIndex" column="TARGET_INDEX" />
+		<result property="targetType" column="TARGET_TYPE" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="targetMbIndex" column="TARGET_MB_INDEX" />
+		<result property="targetContents" column="TARGET_CONTENTS" />
+		<result property="blaDateTime" column="BLA_DATETIME" />
+	</resultMap>
+	<!-- 커뮤니티 SQL -->
 
-   <insert id="registCommunity" parameterType="community">
-      INSERT INTO
-      BOARD_POST_TBL
-      VALUES(INDEX_NO_SEQ.NEXTVAL,4,#{postTitle},#{postContent},#{bcaIndex},#{mbIndex},SYSDATE,0,0,0,'')
-   </insert>
+	<!-- 전체게시판 -->
+	<select id="allCommunityList" parameterType="communityPage"
+		resultType="community" resultMap="communityDB">
+		SELECT * FROM
+		(SELECT BOARD_POST_TBL.*,
+		ROW_NUMBER() OVER
+		(ORDER BY
+		POST_DATETIME DESC)
+		AS NUM FROM BOARD_POST_TBL
+		<choose>
+			<when test="type.equals('15')">
+				WHERE BCA_INDEX like '15'
+			</when>
+			<when test="type.equals('17')">
+				WHERE BCA_INDEX like '17'
+			</when>
+			<when test="type.equals('18')">
+				WHERE BCA_INDEX like '18'
+			</when>
+			<when test="type.equals('19')">
+				WHERE BCA_INDEX LIKE '19'
+			</when>
+		</choose>
+		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+		WHERE NUM BETWEEN
+		#{start} AND #{end}
+	</select>
 
-   <!-- 식단&레시피 -->
-   <select id="recipeBoardList" parameterType="communityPage"
-      resultType="community" resultMap="communityDB">
-      SELECT * FROM
-      (SELECT
-      BOARD_POST_TBL.*,
-      ROW_NUMBER() OVER
-      (ORDER BY POST_DATETIME DESC)
-      AS NUM
-      FROM BOARD_POST_TBL
-      WHERE BCA_INDEX like '16'
-      )BP LEFT JOIN
-      BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
-      LEFT JOIN
-      MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
-      WHERE NUM BETWEEN
-      #{start} AND
-      #{end}
-   </select>
+	<!-- 페이징 처리 - 내비게이션 생성 -->
+	<!-- 검색 + 페이지 카테고리 선택 했을 때 -->
+	<select id="getNavi" resultType="java.lang.Integer">
+		select count(*) as totalCount
+		from BOARD_POST_TBL
+		<choose>
+			<when test="type.equals('15')">
+				WHERE BCA_INDEX LIKE '15'
+			</when>
+			<when test="type.equals('16')">
+				WHERE BCA_INDEX LIKE '16'
+			</when>
+			<when test="type.equals('17')">
+				WHERE BCA_INDEX LIKE '17'
+			</when>
+			<when test="type.equals('18')">
+				WHERE BCA_INDEX LIKE '18'
+			</when>
+			<when test="type.equals('19')">
+				WHERE BCA_INDEX LIKE '19'
+			</when>
+			<otherwise>
+				WHERE BCA_INDEX > 0
+			</otherwise>
+		</choose>
 
-   <!-- 등록된 글로 페이지 이동 -->
-   <select id="postedOne" resultType="community"
-      resultMap="communityDB">
-      SELECT *
-      FROM BOARD_POST_TBL BP
-      LEFT JOIN MEMBER_TBL MT
-      ON(BP.MB_INDEX=MT.MB_INDEX)
-      LEFT JOIN BOARD_CATEGORY_TBL BC
-      ON(BP.BCA_INDEX = BC.BCA_INDEX)
-      WHERE POST_INDEX =
-      #{postIndex}
+		<!-- 검색한 내용이 있으면 해당 검색 내용만큼 내비수를 가져 오도록 -->
+		<choose>
+			<when test="category.equals('title')">
+				AND POST_TITLE LIKE '%'||#{searchText}||'%'
+			</when>
+			<when test="category.equals('titleContents')">
+				AND (POST_TITLE LIKE '%'||#{searchText}||'%'
+				OR
+				POST_CONTENT LIKE '%'||#{searchText}||'%')
+			</when>
+			<when test="category.equals('writer')">
+				AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+			</when>
+		</choose>
+	</select>
 
-   </select>
+	<insert id="registCommunity" parameterType="community">
+		INSERT INTO
+		BOARD_POST_TBL
+		VALUES(INDEX_NO_SEQ.NEXTVAL,4,#{postTitle},#{postContent},#{bcaIndex},#{mbIndex},SYSDATE,0,0,0,'')
+	</insert>
 
-   <!-- 게시글 삭제 -->
-   <delete id="deletePost">
-      DELETE BOARD_POST_TBL WHERE POST_INDEX = #{postIndex}
-   </delete>
+	<!-- 식단&레시피 -->
+	<select id="recipeBoardList" parameterType="communityPage"
+		resultType="community" resultMap="communityDB">
+		SELECT * FROM
+		(SELECT
+		BOARD_POST_TBL.*,
+		ROW_NUMBER() OVER
+		(ORDER BY POST_DATETIME DESC)
+		AS NUM
+		FROM BOARD_POST_TBL
+		WHERE BCA_INDEX like '16'
+		)BP LEFT JOIN
+		BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		LEFT JOIN
+		MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+		WHERE NUM BETWEEN
+		#{start} AND
+		#{end}
+	</select>
 
+	<!-- 등록된 글로 페이지 이동 -->
+	<select id="postedOne" resultType="community"
+		resultMap="communityDB">
+		SELECT *
+		FROM BOARD_POST_TBL BP
+		LEFT JOIN MEMBER_TBL MT
+		ON(BP.MB_INDEX=MT.MB_INDEX)
+		LEFT JOIN BOARD_CATEGORY_TBL BC
+		ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		WHERE POST_INDEX =
+		#{postIndex}
 
+	</select>
 
-   <!-- 전체게시판 : 최신순 & 뷰수 정렬 + 검색시에 뷰수 정렬 -->
-   <select id="viewList" parameterType="communityPage"
-      resultType="community" resultMap="communityDB">
-      <choose>
-         <when test="postSort.equals('최신순')">
-            SELECT * FROM
-            (SELECT BP.*,
-            ROW_NUMBER() OVER
-            (ORDER BY
-            POST_DATETIME
-            DESC)
-            AS NUM FROM BOARD_POST_TBL BP
-            LEFT JOIN MEMBER_TBL MT
-            ON(BP.MB_INDEX=MT.MB_INDEX)
-            <choose>
-               <when test="type.equals('15')">
-                  WHERE BCA_INDEX like '15'
-               </when>
-               <when test="type.equals('17')">
-                  WHERE BCA_INDEX like '17'
-               </when>
-               <when test="type.equals('18')">
-                  WHERE BCA_INDEX like '18'
-               </when>
-               <when test="type.equals('19')">
-                  WHERE BCA_INDEX LIKE '19'
-               </when>
-               <otherwise>   <!-- comAll인 경우 -->
-                  WHERE BCA_INDEX > 0
-               </otherwise>
-            </choose>
-            <choose>
-               <when test="category.equals('title')">
-                  AND POST_TITLE LIKE '%'||#{searchText}||'%'
-               </when>
-               <when test="category.equals('titleContents')">
-                  AND (POST_TITLE LIKE '%'||#{searchText}||'%'
-                  OR
-                  POST_CONTENT LIKE '%'||#{searchText}||'%')
-               </when>
-               <when test="category.equals('writer')">
-                  AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
-               </when>
-            </choose>
-
-            )BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
-            WHERE NUM BETWEEN
-            #{start} AND #{end}
+	<!-- 게시글 삭제 -->
+	<delete id="deletePost">
+		DELETE BOARD_POST_TBL WHERE POST_INDEX = #{postIndex}
+	</delete>
 
 
-         </when>
-         <when test="postSort.equals('조회순')">
-            SELECT * FROM
-            (SELECT BP.*,
-            ROW_NUMBER() OVER
-            (ORDER BY
-            POST_HIT
-            DESC)
-            AS NUM FROM BOARD_POST_TBL BP
-            LEFT JOIN MEMBER_TBL MT
-            ON(BP.MB_INDEX=MT.MB_INDEX)
-            <choose>
-               <when test="type.equals('15')">
-                  WHERE BCA_INDEX like '15'
-               </when>
-               <when test="type.equals('17')">
-                  WHERE BCA_INDEX like '17'
-               </when>
-               <when test="type.equals('18')">
-                  WHERE BCA_INDEX like '18'
-               </when>
-               <when test="type.equals('19')">
-                  WHERE BCA_INDEX LIKE '19'
-               </when>
-               <otherwise>   <!-- comAll인 경우 -->
-                  WHERE BCA_INDEX > 0
-               </otherwise>
-            </choose>
 
-            <choose>
-               <when test="category.equals('title')">
-                  AND POST_TITLE LIKE '%'||#{searchText}||'%'
-               </when>
-               <when test="category.equals('titleContents')">
-                  AND (POST_TITLE LIKE '%'||#{searchText}||'%'
-                  OR
-                  POST_CONTENT LIKE '%'||#{searchText}||'%')
-               </when>
-               <when test="category.equals('writer')">
-                  AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
-               </when>
-            </choose>
+	<!-- 전체게시판 : 최신순 & 뷰수 정렬 + 검색시에 뷰수 정렬 -->
+	<select id="viewList" parameterType="communityPage"
+		resultType="community" resultMap="communityDB">
+		<choose>
+			<when test="postSort.equals('최신순')">
+				SELECT * FROM
+				(SELECT BP.*,
+				ROW_NUMBER() OVER
+				(ORDER BY
+				POST_DATETIME
+				DESC)
+				AS NUM FROM BOARD_POST_TBL BP
+				LEFT JOIN MEMBER_TBL MT
+				ON(BP.MB_INDEX=MT.MB_INDEX)
+				<choose>
+					<when test="type.equals('15')">
+						WHERE BCA_INDEX like '15'
+					</when>
+					<when test="type.equals('17')">
+						WHERE BCA_INDEX like '17'
+					</when>
+					<when test="type.equals('18')">
+						WHERE BCA_INDEX like '18'
+					</when>
+					<when test="type.equals('19')">
+						WHERE BCA_INDEX LIKE '19'
+					</when>
+					<otherwise>   <!-- comAll인 경우 -->
+						WHERE BCA_INDEX > 0
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="category.equals('title')">
+						AND POST_TITLE LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('titleContents')">
+						AND (POST_TITLE LIKE '%'||#{searchText}||'%'
+						OR
+						POST_CONTENT LIKE '%'||#{searchText}||'%')
+					</when>
+					<when test="category.equals('writer')">
+						AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+					</when>
+				</choose>
 
-
-            )BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
-            WHERE NUM BETWEEN
-            #{start} AND #{end}
-            <choose>
-               <when test="category.equals('title')">
-                  AND POST_TITLE LIKE '%'||#{searchText}||'%'
-               </when>
-               <when test="category.equals('titleContents')">
-                  AND (POST_TITLE LIKE '%'||#{searchText}||'%'
-                  OR
-                  POST_CONTENT LIKE '%'||#{searchText}||'%')
-               </when>
-               <when test="category.equals('writer')">
-                  AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
-               </when>
-            </choose>
-         </when>
-      </choose>
-   </select>
+				)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+				WHERE NUM BETWEEN
+				#{start} AND #{end}
 
 
-   <!-- 식단&레시피 : 최신순 & 뷰수 정렬 -->
-   <select id="recipeViewList" parameterType="communityPage"
-      resultType="community" resultMap="communityDB">
-      <choose>
-         <when test="postSort.equals('최신순')">
-            SELECT * FROM
-            (SELECT
-            BOARD_POST_TBL.*,
-            ROW_NUMBER()
-            OVER
-            (ORDER BY POST_DATETIME DESC)
-            AS NUM
-            FROM BOARD_POST_TBL
-            WHERE
-            BCA_INDEX like '16'
-            )BP LEFT JOIN BOARD_CATEGORY_TBL BC
-            ON(BP.BCA_INDEX = BC.BCA_INDEX)
-            LEFT JOIN MEMBER_TBL MT
-            ON(BP.MB_INDEX=MT.MB_INDEX)
-            WHERE NUM BETWEEN
-            #{start} AND
-            #{end}
-         </when>
-         <when test="postSort.equals('조회순')">
-            SELECT * FROM
-            (SELECT
-            BOARD_POST_TBL.*,
-            ROW_NUMBER()
-            OVER
-            (ORDER BY POST_HIT DESC)
-            AS NUM
-            FROM BOARD_POST_TBL
-            WHERE BCA_INDEX
-            like '16'
-            )BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX =
-            BC.BCA_INDEX)
-            LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
-            WHERE NUM BETWEEN
-            #{start} AND
-            #{end}
-         </when>
-      </choose>
-   </select>
+			</when>
+			<when test="postSort.equals('조회순')">
+				SELECT * FROM
+				(SELECT BP.*,
+				ROW_NUMBER() OVER
+				(ORDER BY
+				POST_HIT
+				DESC)
+				AS NUM FROM BOARD_POST_TBL BP
+				LEFT JOIN MEMBER_TBL MT
+				ON(BP.MB_INDEX=MT.MB_INDEX)
+				<choose>
+					<when test="type.equals('15')">
+						WHERE BCA_INDEX like '15'
+					</when>
+					<when test="type.equals('17')">
+						WHERE BCA_INDEX like '17'
+					</when>
+					<when test="type.equals('18')">
+						WHERE BCA_INDEX like '18'
+					</when>
+					<when test="type.equals('19')">
+						WHERE BCA_INDEX LIKE '19'
+					</when>
+					<otherwise>   <!-- comAll인 경우 -->
+						WHERE BCA_INDEX > 0
+					</otherwise>
+				</choose>
 
-   <!-- 조회수 카운트 -->
-   <update id="postHit" parameterType="Integer">
-      UPDATE BOARD_POST_TBL
-      SET
-      POST_HIT = POST_HIT+1
-      WHERE POST_INDEX = #{postIndex}
-   </update>
+				<choose>
+					<when test="category.equals('title')">
+						AND POST_TITLE LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('titleContents')">
+						AND (POST_TITLE LIKE '%'||#{searchText}||'%'
+						OR
+						POST_CONTENT LIKE '%'||#{searchText}||'%')
+					</when>
+					<when test="category.equals('writer')">
+						AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+					</when>
+				</choose>
 
-   <!-- 검색 -->
-   <select id="searchList" parameterType="communityPage"
-      resultType="community" resultMap="communityDB">
-      SELECT * FROM
-      (SELECT BP.*,
-      ROW_NUMBER() OVER
-      (ORDER BY
-      POST_DATETIME
-      DESC)
-      AS NUM FROM BOARD_POST_TBL BP
-      LEFT JOIN MEMBER_TBL MT
-      ON(BP.MB_INDEX=MT.MB_INDEX)
-      <choose>
-         <when test="category.equals('title')">
-            WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
-         </when>
-         <when test="category.equals('titleContents')">
-            WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
-            OR
-            POST_CONTENT LIKE '%'||#{searchText}||'%'
-         </when>
-         <when test="category.equals('writer')">
-            WHERE MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
-         </when>
-      </choose>
-      )BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
-      WHERE NUM BETWEEN
-      #{start} AND #{end}
-   </select>
 
-   <!-- 페이징 처리 - 내비게이션 생성 -->
-   <select id="getSearchNavi" resultType="java.lang.Integer">
-      SELECT count(*) as totalCount
-      FROM BOARD_POST_TBL BP
-      LEFT JOIN
-      MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
-      <choose>
-         <when test="category.equals('title')">
-            WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
-         </when>
-         <when test="category.equals('titleContents')">
-            WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
-            OR
-            POST_CONTENT LIKE '%'||#{searchText}||'%'
-         </when>
-         <when test="category.equals('writer')">
-            WHERE MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
-         </when>
-      </choose>
-   </select>
-   
-   <!-- 좋아요 체크  -->
-   <select id="checkLike" parameterType="boardLike" resultType="boardLike" resultMap="boardLikeDB">
-      SELECT *
-      FROM BOARD_LIKE_TBL
-      WHERE TARGET_INDEX = #{targetIndex} AND MB_INDEX = #{mbIndex}
-   </select>
-   
-   <!-- 좋아요 테이블 삭제  -->
-   <delete id="likeDown" parameterType="boardLike">
-      DELETE FROM BOARD_LIKE_TBL WHERE MB_INDEX = #{mbIndex}
-   </delete>
-   
-   <!-- 좋아요 테이블 추가 -->
-   <insert id="likeUp" parameterType="boardLike">
-      INSERT INTO BOARD_LIKE_TBL VALUES(BOARD_LIKE_TBL_SEQ.NEXTVAL,#{targetIndex},1,#{mbIndex},#{targetMbIndex})
-   </insert>
-   
-   <!-- 게시글 좋아요 수 -1 -->
-   <update id="postDown" parameterType="boardLike">
-      UPDATE BOARD_POST_TBL
-      SET POST_LIKE = POST_LIKE -1
-      WHERE POST_INDEX = #{targetIndex}
-   </update>
-   
-   <!-- 게시글 좋아요 수 +1 -->
-   <update id="postUp" parameterType="boardLike">
-   UPDATE BOARD_POST_TBL
-   SET POST_LIKE = POST_LIKE +1
-   WHERE POST_INDEX = #{targetIndex}   
-   </update>
-  
-     <!-- 북마크 체크 테이블 -->
-   <select id="checkBookMark" parameterType="bookMark" resultMap="bookMarkDB" resultType="bookMark">
-   SELECT *
-   FROM BOARD_BOOKMARK_TBL
-   WHERE POST_INDEX = #{postIndex} AND MB_INDEX = #{mbIndex}
-   </select>
-   
-   <!-- 북마크 추가 테이블  -->
-   <insert id="bookMarkOn" parameterType="bookMark">
-      INSERT INTO BOARD_BOOKMARK_TBL VALUES(BOARD_BOOKMARK_TBL_SEQ.NEXTVAL,#{mbIndex},#{postIndex})
-   </insert>
-   
-   <!-- 북마크 제거 테이블 -->
-   <delete id="bookMarkOff" parameterType="bookMark">
-      DELETE 
-      FROM BOARD_BOOKMARK_TBL 
-      WHERE POST_INDEX= #{postIndex} AND MB_INDEX = #{mbIndex}
-   </delete>
+				)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+				WHERE NUM BETWEEN
+				#{start} AND #{end}
+				<choose>
+					<when test="category.equals('title')">
+						AND POST_TITLE LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('titleContents')">
+						AND (POST_TITLE LIKE '%'||#{searchText}||'%'
+						OR
+						POST_CONTENT LIKE '%'||#{searchText}||'%')
+					</when>
+					<when test="category.equals('writer')">
+						AND MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+					</when>
+				</choose>
+			</when>
+		</choose>
+	</select>
+
+
+	<!-- 식단&레시피 : 최신순 & 뷰수 정렬 -->
+	<select id="recipeViewList" parameterType="communityPage"
+		resultType="community" resultMap="communityDB">
+		<choose>
+			<when test="postSort.equals('최신순')">
+				SELECT * FROM
+				(SELECT
+				BOARD_POST_TBL.*,
+				ROW_NUMBER()
+				OVER
+				(ORDER BY POST_DATETIME DESC)
+				AS NUM
+				FROM BOARD_POST_TBL
+				WHERE
+				BCA_INDEX like '16'
+				)BP LEFT JOIN BOARD_CATEGORY_TBL BC
+				ON(BP.BCA_INDEX = BC.BCA_INDEX)
+				LEFT JOIN MEMBER_TBL MT
+				ON(BP.MB_INDEX=MT.MB_INDEX)
+				WHERE NUM BETWEEN
+				#{start} AND
+				#{end}
+			</when>
+			<when test="postSort.equals('조회순')">
+				SELECT * FROM
+				(SELECT
+				BOARD_POST_TBL.*,
+				ROW_NUMBER()
+				OVER
+				(ORDER BY POST_HIT DESC)
+				AS NUM
+				FROM BOARD_POST_TBL
+				WHERE BCA_INDEX
+				like '16'
+				)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX =
+				BC.BCA_INDEX)
+				LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+				WHERE NUM BETWEEN
+				#{start} AND
+				#{end}
+			</when>
+		</choose>
+	</select>
+
+	<!-- 조회수 카운트 -->
+	<update id="postHit" parameterType="Integer">
+		UPDATE BOARD_POST_TBL
+		SET
+		POST_HIT = POST_HIT+1
+		WHERE POST_INDEX = #{postIndex}
+	</update>
+
+	<!-- 검색 -->
+	<select id="searchList" parameterType="communityPage"
+		resultType="community" resultMap="communityDB">
+		SELECT * FROM
+		(SELECT BP.*,
+		ROW_NUMBER() OVER
+		(ORDER BY
+		POST_DATETIME
+		DESC)
+		AS NUM FROM BOARD_POST_TBL BP
+		LEFT JOIN MEMBER_TBL MT
+		ON(BP.MB_INDEX=MT.MB_INDEX)
+		<choose>
+			<when test="category.equals('title')">
+				WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
+			</when>
+			<when test="category.equals('titleContents')">
+				WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
+				OR
+				POST_CONTENT LIKE '%'||#{searchText}||'%'
+			</when>
+			<when test="category.equals('writer')">
+				WHERE MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+			</when>
+		</choose>
+		)BP LEFT JOIN BOARD_CATEGORY_TBL BC ON(BP.BCA_INDEX = BC.BCA_INDEX)
+		WHERE NUM BETWEEN
+		#{start} AND #{end}
+	</select>
+
+	<!-- 페이징 처리 - 내비게이션 생성 -->
+	<select id="getSearchNavi" resultType="java.lang.Integer">
+		SELECT count(*) as totalCount
+		FROM BOARD_POST_TBL BP
+		LEFT JOIN
+		MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+		<choose>
+			<when test="category.equals('title')">
+				WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
+			</when>
+			<when test="category.equals('titleContents')">
+				WHERE POST_TITLE LIKE '%'||#{searchText}||'%'
+				OR
+				POST_CONTENT LIKE '%'||#{searchText}||'%'
+			</when>
+			<when test="category.equals('writer')">
+				WHERE MT.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+			</when>
+		</choose>
+	</select>
+
+	<!-- 게시글 좋아요 체크 -->
+	<select id="checkLike" parameterType="boardLike"
+		resultType="boardLike" resultMap="boardLikeDB">
+		SELECT *
+		FROM BOARD_LIKE_TBL
+		WHERE TARGET_INDEX = #{targetIndex} AND MB_INDEX = #{mbIndex} AND TARGET_TYPE = 1
+	</select>
+
+	<!-- 게시글 좋아요 테이블 삭제 -->
+	<delete id="likeDown" parameterType="boardLike">
+		DELETE FROM BOARD_LIKE_TBL WHERE MB_INDEX = #{mbIndex} AND TARGET_INDEX = #{targetIndex} AND TARGET_TYPE = 1
+	</delete>
+
+	<!-- 게시글 좋아요 테이블 추가 -->
+	<insert id="likeUp" parameterType="boardLike">
+		INSERT INTO BOARD_LIKE_TBL
+		VALUES(BOARD_LIKE_TBL_SEQ.NEXTVAL,#{targetIndex},1,#{mbIndex},#{targetMbIndex})
+	</insert>
+
+	<!-- 게시글 좋아요 수 -1 -->
+	<update id="postDown" parameterType="boardLike">
+		UPDATE BOARD_POST_TBL
+		SET POST_LIKE = POST_LIKE -1
+		WHERE POST_INDEX = #{targetIndex}
+	</update>
+
+	<!-- 게시글 좋아요 수 +1 -->
+	<update id="postUp" parameterType="boardLike">
+		UPDATE BOARD_POST_TBL
+		SET POST_LIKE = POST_LIKE +1
+		WHERE POST_INDEX = #{targetIndex}
+	</update>
+
+	<!-- 북마크 체크 테이블 -->
+	<select id="checkBookMark" parameterType="bookMark"
+		resultMap="bookMarkDB" resultType="bookMark">
+		SELECT *
+		FROM BOARD_BOOKMARK_TBL
+		WHERE POST_INDEX = #{postIndex} AND MB_INDEX = #{mbIndex}
+	</select>
+
+	<!-- 북마크 추가 테이블 -->
+	<insert id="bookMarkOn" parameterType="bookMark">
+		INSERT INTO BOARD_BOOKMARK_TBL
+		VALUES(BOARD_BOOKMARK_TBL_SEQ.NEXTVAL,#{mbIndex},#{postIndex})
+	</insert>
+
+	<!-- 북마크 제거 테이블 -->
+	<delete id="bookMarkOff" parameterType="bookMark">
+		DELETE
+		FROM BOARD_BOOKMARK_TBL
+		WHERE POST_INDEX= #{postIndex} AND MB_INDEX = #{mbIndex}
+	</delete>
+	
+	<!-- 게시글 신고 확인 테이블 -->
+	<select id="checkPostBlame" parameterType="boardBlame" resultMap="boardBlameDB">
+		SELECT *
+		FROM BOARD_BLAME_TBL
+		WHERE TARGET_INDEX = #{targetIndex} AND MB_INDEX = #{mbIndex} AND TARGET_TYPE = 1
+	</select>
+	
+	<!-- 게시글 신고 테이블 -->
+	<insert id="postReport" parameterType="boardBlame">
+		INSERT INTO BOARD_BLAME_TBL VALUES(BOARD_BLAME_TBL_SEQ.NEXTVAL,#{targetIndex},1,#{mbIndex},#{targetMbIndex},#{targetContents},SYSDATE)
+	</insert>
 </mapper>

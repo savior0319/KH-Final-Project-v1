@@ -100,6 +100,7 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO{
 		return ht;
 	}
 
+	// 이전글 다음글 
 	@Override
 	public ArrayList<HomeTrainingVO> pnWriteList(SqlSessionTemplate session, int indexNo) {
 		//List<HomeTrainingVO> list = session.selectList("homeTraining.getpnWriteList", indexNo);
@@ -107,33 +108,41 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO{
 		return null;
 	}
 
+	// 좋아요 부분
 	@Override
-	public BoardLikeVO checkBoardLike(SqlSessionTemplate session, BoardLikeVO checkVO) {
-		BoardLikeVO htlv = session.selectOne("community.checkLike", checkVO);
+	public HomeTrainingLikeVO checkBoardLike(SqlSessionTemplate session, HomeTrainingLikeVO checkVO) {
+		HomeTrainingLikeVO htlv = session.selectOne("community.checkLike", checkVO);
 		return htlv;
 	}
 
 	@Override
-	public int boardLikeDown(SqlSessionTemplate session, BoardLikeVO htlv) {
+	public int boardLikeDown(SqlSessionTemplate session, HomeTrainingLikeVO htlv) {
 		int result = session.delete("community.likeDown",htlv);
 		return result;
 	}
 
 	@Override
-	public int postLikeDown(SqlSessionTemplate session, BoardLikeVO htlv) {
+	public int postLikeDown(SqlSessionTemplate session, HomeTrainingLikeVO htlv) {
 		int result = session.update("community.postDown", htlv);
 		return result;
 	}
 
 	@Override
-	public int boardLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO) {
+	public int boardLikeUp(SqlSessionTemplate session, HomeTrainingLikeVO checkVO) {
 		int result = session.insert("community.likeUp", checkVO);
 		return result;
 	}
 
 	@Override
-	public int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO) {
+	public int postLikeUp(SqlSessionTemplate session, HomeTrainingLikeVO checkVO) {
 		int result = session.update("community.postUp", checkVO);
+		return result;
+	}
+
+	@Override
+	public int homeTrainingHits(SqlSessionTemplate session, int hits) {
+		System.out.println(hits);
+		int result = session.update("homeTraining.hits", hits);
 		return result;
 	}
 		

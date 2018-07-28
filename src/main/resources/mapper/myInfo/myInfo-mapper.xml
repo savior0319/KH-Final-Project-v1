@@ -51,11 +51,13 @@
 
 	<!-- 한명의 회원정보 -->
 
-	<select id="selectOneMember" parameterType="member" resultType="member">
+	<select id="selectOneMember" parameterType="member"
+		resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
-		MB_REPORT AS mbReport,
+		MB_REPORT AS
+		mbReport,
 		MB_PWD AS mbPwd,
 		MB_NAME AS mbName,
 		MB_NICKNAME AS mbNickName,
@@ -83,8 +85,10 @@
 	</delete>
 
 	<!-- 마이페이지 - 일대일 문의 -->
-	<select id="allMyOneToOneQuestion" parameterType="member" resultType="question">
-		SELECT QS_INDEX AS qsIndex, QS_TITLE AS qsTitle,QS_CONTENT AS qsContent,
+	<select id="allMyOneToOneQuestion" parameterType="member"
+		resultType="question">
+		SELECT QS_INDEX AS qsIndex, QS_TITLE AS qsTitle,QS_CONTENT
+		AS qsContent,
 		QS_WRITETIME AS qsWriteTime, QS_ANSWERCHECK AS
 		qsAnswerCheck
 		FROM
@@ -94,7 +98,8 @@
 
 	<!-- 마이페이지 - 장바구니 -->
 
-	<select id="myWishList" parameterType="member" resultType="product">
+	<select id="myWishList" parameterType="member"
+		resultType="product">
 		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS
 		pdImage,
 		PD_PRICE AS pdPrice FROM PRODUCT_TBL
@@ -118,18 +123,16 @@
 		SYSDATE)
 	</insert>
 
-
-	<!-- <select id="myActivity" parameterType="member" resultType="myActivity"> SELECT MB_INDEX AS mbIndex, MY_ATTENDANCE AS myAttendance, MY_COMMNET_COUNT AS myCommentCount, </select> -->
 	<!-- 나의 활동 정보 (출석,댓글,게시물,가입날짜) -->
-	<select id="myActivity" parameterType="member" resultType="myActivity">
-		SELECT
-		MB_INDEX AS mbIndex ,
-		MY_ATTENDANCE AS myAttendance ,
-		MY_COMMENT_COUNT AS myCommentCount ,
-		MY_BOARD_COUNT AS myBoardCount,
-		MY_ENROLLDATE as mbEnrollDate
-		FROM MY_ACTIVITY_TBL
-		WHERE MB_INDEX = #{mbIndex}
+	<select id="myActivity" parameterType="member"
+		resultType="myActivity">
+		SELECT MB_INDEX AS mbIndex,
+		(SELECT COUNT(*) FROM ON_SESSION_TBL WHERE SS_INDEX = #{mbIndex}) AS myAttendance,
+		(SELECT COUNT(*) FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) AS myCommentCount,
+		(SELECT COUNT(*) FROM BOARD_POST_TBL WHERE MB_INDEX =  #{mbIndex}) AS myBoardCount,
+		MY_ENROLLDATE as mbEnrollDate,
+        MB_GRADE AS mbGrade
+        FROM MY_ACTIVITY_TBL JOIN MEMBER_TBL USING(MB_INDEX) where mb_index =  #{mbIndex}
 	</select>
 
 	<resultMap type="community" id="communityDB">
@@ -153,7 +156,8 @@
 	</select>
 
 	<!-- 전체게시판 -->
-	<select id="allCommunityList" parameterType="myActivityPageData" resultType="community" resultMap="communityDB">
+	<select id="allCommunityList" parameterType="myActivityPageData"
+		resultType="community" resultMap="communityDB">
 		SELECT *
 		FROM (SELECT
 		BOARD_POST_TBL.*,
@@ -161,8 +165,9 @@
 		POST_DATETIME
 		DESC) AS NUM
 		FROM
-		BOARD_POST_TBL
-		) WHERE NUM BETWEEN #{start} AND #{end}
+		BOARD_POST_TBL where mb_Index = #{mbIndex}
+		) WHERE NUM BETWEEN
+		#{start} AND #{end}
 	</select>
 
 	<select id="myBookMarkGetList">
@@ -173,10 +178,12 @@
 		DESC) AS NUM
 		FROM
 		BOARD_BOOKMARK_TBL
-		) WHERE NUM BETWEEN #{start} AND #{end}
+		) WHERE
+		NUM BETWEEN #{start} AND #{end}
 	</select>
 
-	<select id="nickNameCheck" parameterType="member" resultType="member">
+	<select id="nickNameCheck" parameterType="member"
+		resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
@@ -190,17 +197,20 @@
 		mbImage,
 		MB_PROMISE AS mbPromise,
 		MB_AGE AS mbAge,
-		MB_PHONE AS mbPhone,
+		MB_PHONE AS
+		mbPhone,
 		MB_ADDRESS AS mbAddress,
 		MB_INTEREST AS mbInterest,
-		MB_GRADE AS mbGrade,
+		MB_GRADE AS
+		mbGrade,
 		MB_HEIGHT AS mbHeight,
 		MB_WEIGHT AS mbWeight,
 		MB_BMI AS
 		mbBmi,
 		MB_REPORT AS mbReport,
 		MB_ENROLLDATE AS mbEnrollDate
-		FROM MEMBER_TBL WHERE MB_NICKNAME = #{nickName}
+		FROM MEMBER_TBL
+		WHERE MB_NICKNAME = #{nickName}
 	</select>
 
 	<!-- 마이페이지 - 프로필 사진 업데이트 -->
@@ -210,32 +220,40 @@
 	</update>
 
 	<!-- 마이페이지 - 나의 게시물 -->
-	<select id="myPost" resultType="community" resultMap="communityDB" parameterType="member">
+	<select id="myPost" resultType="community"
+		resultMap="communityDB" parameterType="member">
 		SELECT
 		POST_TITLE AS postTitle,
 		POST_CONTENT AS postContent,
 		POST_DATETIME AS postDateTime,
-		POST_INDEX AS postIndex
+		POST_INDEX
+		AS postIndex
 		FROM BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 	<!-- 마이페이지 - 나의 댓글 -->
-	<select id="myCommentGetList" resultType="comment" parameterType="member">
-		SELECT POST_TITLE, CMT_CONTENT ,CMT_DATETIME FROM BOARD_POST_TBL
-		LEFT JOIN BOARD_COMMENT_TBL
-		USING(MB_INDEX) WHERE MB_INDEX =
+	<select id="myCommentGetList" resultType="comment"
+		parameterType="member">
+		SELECT POST_TITLE, CMT_CONTENT ,CMT_DATETIME FROM
+		BOARD_POST_TBL
+		FULL JOIN BOARD_COMMENT_TBL
+		USING(MB_INDEX) WHERE
+		MB_INDEX =
 		(SELECT
-		MB_INDEX FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex})
+		MB_INDEX FROM BOARD_COMMENT_TBL WHERE MB_INDEX =
+		#{mbIndex})
 	</select>
 
 	<!-- 나의 댓글 페이징 처리 - 내비게이션 생성 -->
 	<select id="getNaviComment" resultType="java.lang.Integer">
-		select count(*) as totalCount
-		from BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex})
+		select count(*) as
+		totalCount
+		from BOARD_COMMENT_TBL
 	</select>
 
 	<!-- 마이페이지 - 나의 북마크 -->
-	<select id="myBookMark" resultType="bookMark" parameterType="bookMark">
+	<select id="myBookMark" resultType="bookMark"
+		parameterType="bookMark">
 
 		SELECT POST_HIT AS postHit,MB_INDEX,POST_TITLE,POST_HIT,
 		POST_DATETIME AS postDateTime
@@ -243,5 +261,21 @@
 		BOARD_POST_TBL USING(MB_INDEX) WHERE MB_INDEX = #{mbIndex}
 	</select>
 
+	<!-- 마이페이지 - 일대일 문의 관리자 답변 -->
+	<select id="questionAnswer" resultType="question"
+		parameterType="Integer">
+		SELECT
+		QS_INDEX AS qsIndex,
+		QS_TITLE AS qsTitle,
+		QS_CONTENT AS qsContent,
+		MB_NICKNAME AS mbNickName,
+		QS_WRITETIME AS
+		qsWriteTime,
+		QS_ANSWERCHECK AS qsAnswerCheck,
+		ANS_CONTENT AS ansContent
+		FROM MEMBER_TBL JOIN QUESTION_TBL USING (MB_INDEX)
+		LEFT OUTER JOIN
+		ANSWER_TBL USING(QS_INDEX) WHERE QS_INDEX = #{qsIndex}
+	</select>
 </mapper>
 

@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
 import spring.kh.diet.model.service.MyInfoService;
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
@@ -54,6 +57,43 @@ public class MyInfoControllerImpl implements MyInfoController {
 		int result = myInfoService.question(qv);
 		response.getWriter().print(String.valueOf(result));
 		response.getWriter().close();
+	}
+
+	/* 1:1 문의 관리자 답변 */
+	@Override
+	@RequestMapping(value = "/questionAnswer.diet")
+	public void questionAnswer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		int qsIndex = Integer.parseInt(request.getParameter("qsIndex"));
+
+		QuestionVO qv = new QuestionVO();
+		qv.setMbIndex(mv.getMbIndex());
+		qv.setQsIndex(qsIndex);
+		QuestionVO answer = myInfoService.questionAnswer(qv);
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(answer, response.getWriter());
+
+	}
+
+	/* 일대일 문의 */
+	@Override
+	@RequestMapping(value = "/allMyOneToOneQuestion.diet")
+	public Object allMyOneToOneQuestion(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		ArrayList<QuestionVO> list = myInfoService.allMyOneToOneQuestion(mv);
+		ModelAndView view = new ModelAndView();
+		if (!list.isEmpty()) {
+			view.addObject("list", list);
+			view.setViewName("myInfo/myOneToOneQuestion");
+			return view;
+		} else {
+			System.out.println("list값이 없음");
+			view.setViewName("myInfo/myOneToOneQuestion");
+			return view;
+		}
 	}
 
 	/* 회원탈퇴 */
@@ -164,25 +204,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 	}
 
-	/* 일대일 문의 */
-	@Override
-	@RequestMapping(value = "/allMyOneToOneQuestion.diet")
-	public Object allMyOneToOneQuestion(HttpSession session) {
-		MemberVO mv = (MemberVO) session.getAttribute("member");
-		ArrayList<QuestionVO> list = myInfoService.allMyOneToOneQuestion(mv);
-		System.out.println("일대일 list" + list);
-		ModelAndView view = new ModelAndView();
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.setViewName("myInfo/myOneToOneQuestion");
-			return view;
-		} else {
-			System.out.println("list값이 없음");
-			view.setViewName("myInfo/myOneToOneQuestion");
-			return view;
-		}
-	}
-
 	/* 회원 가입 */
 	@Override
 	@RequestMapping(value = "/signupsave.diet")
@@ -236,20 +257,18 @@ public class MyInfoControllerImpl implements MyInfoController {
 		MemberVO m = (MemberVO) session.getAttribute("member");
 		MyActivityVO ma = myInfoService.myActivity(m);
 		ModelAndView view = new ModelAndView();
-
 		if (ma != null) {
 			view.addObject("ma", ma);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		} else {
-			System.out.println("ma값이 없음");
 			view.addObject("ma", ma);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		}
 	}
 
-	/* 마이페이지 - 내가 올린 게시물 */
+	/* 마이페이지 - 내가 작성한 게시물 */
 	@Override
 	@RequestMapping(value = "/myPost.diet")
 	public String myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
@@ -263,12 +282,11 @@ public class MyInfoControllerImpl implements MyInfoController {
 		MyActivityPageDataVO cpdv = myInfoService.allCommunityList(currentPage, type, ma);
 		request.setAttribute("cpdv", cpdv);
 		return "myInfo/myPost";
-		  
-		
+
 	}
 
 	/* 마이페이지 - 내가 작성한 댓글 */
-	
+
 	@Override
 	@RequestMapping(value = "/myComment.diet")
 	public String myCommentGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
@@ -282,7 +300,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 		MyActivityPageDataVO cpdv = myInfoService.myCommentGetList(currentPage, type, ma);
 		request.setAttribute("cpdv", cpdv);
 		return "myInfo/myComment";
-		
-		
+
 	}
 }

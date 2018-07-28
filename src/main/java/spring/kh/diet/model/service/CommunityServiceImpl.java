@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.CommunityDAO;
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -22,12 +23,6 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Autowired
 	private SqlSessionTemplate SqlSessionTemplate;
-
-	// 커뮤니티 전체 게시판
-	/*
-	 * @Override public List<BoardPostVO> allCommunityList() { List<BoardPostVO>
-	 * list = communityDAO.allCommunityList(SqlSessionTemplate); return list; }
-	 */
 
 	// 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력
 	@Override
@@ -207,5 +202,17 @@ public class CommunityServiceImpl implements CommunityService {
 	public int boardBookMarkOn(BoardBookMarkVO checkVO) {
 		int result = communityDAO.bookMarkOn(SqlSessionTemplate,checkVO);
 		return result;
+	}
+
+	@Override
+	public int postReport(BoardBlameVO report) {
+		int result = communityDAO.postReport(SqlSessionTemplate,report);
+		return result;
+	}
+
+	@Override
+	public BoardBlameVO checkPostBlame(BoardBlameVO checkBlame) {
+		BoardBlameVO bbv = communityDAO.checkPostBlame(SqlSessionTemplate,checkBlame);
+		return bbv;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.BoardCommentVO;
+import spring.kh.diet.model.vo.BoardPostVO;
 
 public interface CommonDAO {
 
@@ -20,6 +21,13 @@ public interface CommonDAO {
 	int deleteComment(SqlSessionTemplate session, int commentIndex);
 
 	int modifyComment(SqlSessionTemplate session, BoardCommentVO bc);
+
+	int cmdCount(SqlSessionTemplate session, BoardCommentVO bc);
+
+	int cmdCountUp(SqlSessionTemplate session, BoardPostVO bpv);
+
+	int cmdDelCount(SqlSessionTemplate session, int parseInt);
+
 
 
 }

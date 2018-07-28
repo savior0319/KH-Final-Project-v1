@@ -16,16 +16,16 @@ public interface HomeTrainingService {
 	
 	ArrayList<HomeTrainingVO> pnWriteList(int index);
 	
-	BoardLikeVO checkBoardLike(BoardLikeVO checkVO);
+	HomeTrainingLikeVO checkBoardLike(HomeTrainingLikeVO checkVO);
 
-	int boardLikeDown(BoardLikeVO htlv);
+	int boardLikeDown(HomeTrainingLikeVO htlv);
 
-	int boardLikeUp(BoardLikeVO checkVO);
+	int boardLikeUp(HomeTrainingLikeVO checkVO);
 
-	int postLikeDown(BoardLikeVO htlv);
+	int postLikeDown(HomeTrainingLikeVO htlv);
 
-	int postLikeUp(BoardLikeVO checkVO);
+	int postLikeUp(HomeTrainingLikeVO checkVO);
 
-	
+	int homeTrainingHits(int hits);
 
 }

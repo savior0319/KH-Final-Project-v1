@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -47,6 +48,8 @@ public interface MyInfoService {
 	MyActivityPageDataVO myBookmarkGetList(int currentPage, String type, MyActivityVO ma);
 
 	MyActivityPageDataVO myCommentGetList(int currentPage, String type, MyActivityVO ma);
+
+	QuestionVO questionAnswer(QuestionVO qv);
 
 
 }
