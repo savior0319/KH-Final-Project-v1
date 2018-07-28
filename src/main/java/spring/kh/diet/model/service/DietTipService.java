@@ -16,5 +16,7 @@ public interface DietTipService {
 	DietTipVO loadUpdateDietTip(int indexNo);
 
 	int updateDietTip(DietTipVO dt);
+
+	int postHit(int indexNo);
 	
 }

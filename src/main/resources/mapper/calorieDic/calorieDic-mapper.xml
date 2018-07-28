@@ -24,6 +24,7 @@
 		select count(*) from FOOD_CALORIE_TBL
 	</select>
 	
+	<!-- 음식 칼로리 정보 가져오기 -->
 	<select id="getFoodCalInfo" resultType="foodCal">
 		SELECT 
 		FC_INDEX AS fcIndex,
@@ -39,5 +40,35 @@
         WHERE FC_INDEX = #{fcIndex}
 	</select>
 	
-
+	<!-- 운동 칼로리 리스트 가져오기 -->
+	<select id="getHealthCalList" resultType="healthCal">
+		SELECT 
+		HC_INDEX AS hcIndex,
+        HC_NAME AS hcName,
+        HC_HARD AS hcHard,
+        HC_SET AS hcSet,
+        HC_CAL AS hcCal
+		FROM (SELECT HC_CALORIE_TBL.*,
+		ROW_NUMBER()
+		OVER(ORDER BY 1 DESC) AS NUM
+		FROM HC_CALORIE_TBL
+        ) WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 운동 칼로리 리스트 내비 가져오기 -->
+	<select id="getHealthCalNavi" resultType="java.lang.Integer">
+		select count(*) from HC_CALORIE_TBL
+	</select>
+	
+	<!-- 운동 칼로리 정보 가져오기 -->
+	<select id="getHealthCalInfo" resultType="healthCal">
+		SELECT 
+		HC_INDEX AS hcIndex,
+        HC_NAME AS hcName,
+        HC_HARD AS hcHard,
+        SUBSTR(HC_SET,1,LENGTH(HC_SET)-3) AS hcSet,
+        HC_CAL AS hcCal
+        FROM HC_CALORIE_TBL
+        WHERE HC_INDEX = #{hcIndex}
+	</select>
 </mapper>

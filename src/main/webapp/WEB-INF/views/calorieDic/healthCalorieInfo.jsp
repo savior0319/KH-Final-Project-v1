@@ -62,7 +62,7 @@
           <tbody>
              <tr>
               <th>운동명</th>
-              <td>보통 걷기</td>
+              <td>${requestScope.hc.hcName }</td>
               </tr>
               <tr>
                   <th>운동강도</th>
@@ -78,16 +78,16 @@
                   <th>운동시간(분)</th>
                   <td>
                   <div class="ui input" style=width:120px;height:30px;>
-                  <input type="text">
+                  <input id="set" type="text" value="${requestScope.hc.hcSet }" readonly="readonly">
                   <div class="mini ui basic buttons">
-                  <div class="ui button" ><i class="angle left icon"></i></div>
-                  <div class="ui button" ><i class="angle right icon"></i></div>
+                  <div class="ui button" onclick="setDown();"><i class="angle left icon"></i></div>
+                  <div class="ui button" onclick="setUp();"><i class="angle right icon"></i></div>
                   </div>
                     </div></td>
               </tr>
               <tr>
                   <th>칼로리</th>
-                  <td>21 kcal</td>
+                  <td id="cal">${hc.hcCal } Kcal</td>
               </tr>
           </tbody>
       </table>
@@ -125,7 +125,25 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+	var initSet = document.getElementById('set').value;
+	var initCal = '${hc.hcCal}';
+	function setUp(){
+		var set = document.getElementById('set');
+		
+		if(set.value!=initSet*20){
+			document.getElementById('set').value = Number(set.value) + Number(initSet);
+			document.getElementById('cal').innerHTML = Number(set.value)/10 * Number(initCal) + ' Kcal'; 
+		}
+	}
 	
+	function setDown(){
+		var set = document.getElementById('set');
+		
+		if(set.value != initSet){
+			document.getElementById('set').value = Number(set.value) - Number(initSet);
+			document.getElementById('cal').innerHTML = Number(set.value)/10 * Number(initCal) + ' Kcal';
+		}
+	}
 </script>
 
 </html>
