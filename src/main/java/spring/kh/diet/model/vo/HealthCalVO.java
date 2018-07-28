@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HealthCalVO {
-	private String hcName, hcHard, hcSet, hcCal;
+	private String hcName, hcType, hcHard, hcSet, hcCal, hcExplain, hcVideo;
 	private int hcIndex;
 }

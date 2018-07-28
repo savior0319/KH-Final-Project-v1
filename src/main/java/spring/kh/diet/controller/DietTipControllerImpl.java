@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import spring.kh.diet.model.service.CommonService;
+import spring.kh.diet.model.service.CommunityService;
 import spring.kh.diet.model.service.DietTipServiceImpl;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
@@ -32,6 +34,9 @@ public class DietTipControllerImpl implements DietTipController {
 
 	@Resource(name = "commonService")
 	private CommonService commonService;
+	
+	@Resource(name = "communityService")
+	private CommunityService communityService;
 
 	// 다이어트 팁 리스트 불러오기
 	@Override
@@ -92,6 +97,14 @@ public class DietTipControllerImpl implements DietTipController {
 			} else {
 				dt.setLikeYN(0);
 			}
+		}
+
+		// 북마크 체크하는 로직
+		BoardBookMarkVO bbmv = checkBookMark(indexNo, sessionIndex);
+		if (bbmv != null) {
+			dt.setBookMarkYN(1);
+		} else {
+			dt.setBookMarkYN(0);
 		}
 
 		request.setAttribute("dt", dt);
@@ -263,31 +276,36 @@ public class DietTipControllerImpl implements DietTipController {
 		return sessionIndex;
 	}
 
+	// 좋아요 버튼 눌렀을 때
 	@Override
 	@ResponseBody
 	@RequestMapping(value = "/dtLike.diet")
 	public String dtLike(BoardLikeVO checkVO, HttpSession session) {
-		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
-		int postIndex = checkVO.getTargetIndex();
-		checkVO.setMbIndex(sessionIndex);
+		if (session.getAttribute("member") != null) {
+			int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
+			int postIndex = checkVO.getTargetIndex();
+			checkVO.setMbIndex(sessionIndex);
 
-		BoardLikeVO blv = checkLike(postIndex, sessionIndex);
+			BoardLikeVO blv = checkLike(postIndex, sessionIndex);
 
-		int result2 = 0;
-		if (blv != null) {
-			int result = dietTipService.boardLikeDown(blv);
-			if (result > 0) {
-				result2 = dietTipService.postLikeDown(blv);
+			int result2 = 0;
+			if (blv != null) {
+				int result = dietTipService.boardLikeDown(blv);
+				if (result > 0) {
+					result2 = dietTipService.postLikeDown(blv);
+				}
+			} else {
+				int result = dietTipService.boardLikeUp(checkVO);
+				if (result > 0) {
+					result2 = dietTipService.postLikeUp(checkVO);
+				}
 			}
-		} else {
-			int result = dietTipService.boardLikeUp(checkVO);
-			if (result > 0) {
-				result2 = dietTipService.postLikeUp(checkVO);
-			}
-		}
 
-		if (result2 > 0) {
-			return "success";
+			if (result2 > 0) {
+				return "success";
+			} else {
+				return "failed";
+			}
 		} else {
 			return "failed";
 		}
@@ -302,4 +320,15 @@ public class DietTipControllerImpl implements DietTipController {
 		System.out.println(blv);
 		return blv;
 	}
+	
+	// 북마크 확인 메소드
+		public BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex) {
+			BoardBookMarkVO bookMarkCheckVO = new BoardBookMarkVO();
+			bookMarkCheckVO.setPostIndex(postIndex);
+			bookMarkCheckVO.setMbIndex(sessionIndex);
+			BoardBookMarkVO bbmv = communityService.checkBoardBookMark(bookMarkCheckVO);
+			return bbmv;
+
+		}
+
 }
