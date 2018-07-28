@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="calorieDic">
+	<select id="getFoodCalList" resultType="foodCal">
+		SELECT 
+		FC_INDEX AS fcIndex,
+        FC_NAME AS fcName,
+        FC_GRAM AS fcGram,
+        FC_CAL AS fcCal,
+        FC_TAN AS fcTan,
+        FC_DAN AS fcDan,
+        FC_FAT AS fcFat,
+        FC_SUGAR AS fcSugar,
+        FC_NAT AS fcNat
+		FROM (SELECT FOOD_CALORIE_TBL.*,
+		ROW_NUMBER()
+		OVER(ORDER BY 1 DESC) AS NUM
+		FROM FOOD_CALORIE_TBL
+        ) WHERE NUM BETWEEN #{start} AND #{end}
+	
+	</select>
+	
+	<select id="getFoodCalNavi" resultType="java.lang.Integer">
+		select count(*) from FOOD_CALORIE_TBL
+	</select>
+	
+	<select id="getFoodCalInfo" resultType="foodCal">
+		SELECT 
+		FC_INDEX AS fcIndex,
+        FC_NAME AS fcName,
+        FC_GRAM AS fcGram,
+        FC_CAL AS fcCal,
+        FC_TAN AS fcTan,
+        FC_DAN AS fcDan,
+        FC_FAT AS fcFat,
+        FC_SUGAR AS fcSugar,
+        FC_NAT AS fcNat
+        FROM FOOD_CALORIE_TBL
+        WHERE FC_INDEX = #{fcIndex}
+	</select>
+	
+
+</mapper>

@@ -40,4 +40,10 @@
 	DELETE FROM BOARD_COMMENT_TBL WHERE CMT_INDEX = #{commentIndex}
 	</delete>
 
+	<!-- 댓글 수정 -->
+	
+	<update id="modifyComment" parameterType="comment" >
+	UPDATE BOARD_COMMENT_TBL SET CMT_CONTENT = #{cmtContent} WHERE CMT_INDEX = #{cmtIndex}
+	</update>
+
 </mapper>

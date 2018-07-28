@@ -11,4 +11,6 @@ public interface CommonService {
 
 	int deleteComment(int commentIndex);
 
+	int modifyComment(BoardCommentVO bc);
+
 }

@@ -165,6 +165,17 @@
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
+	<select id="myBookMarkGetList">
+		SELECT *
+		FROM (SELECT
+		BOARD_BOOKMARK_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY
+		DESC) AS NUM
+		FROM
+		BOARD_BOOKMARK_TBL
+		) WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+
 	<select id="nickNameCheck" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
@@ -202,16 +213,25 @@
 	<select id="myPost" resultType="community" resultMap="communityDB" parameterType="member">
 		SELECT
 		POST_TITLE AS postTitle,
-		POST_CONTENT AS postContent
+		POST_CONTENT AS postContent,
+		POST_DATETIME AS postDateTime,
+		POST_INDEX AS postIndex
 		FROM BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 	<!-- 마이페이지 - 나의 댓글 -->
-	<select id="myComment" resultType="comment" parameterType="member">
+	<select id="myCommentGetList" resultType="comment" parameterType="member">
 		SELECT POST_TITLE, CMT_CONTENT ,CMT_DATETIME FROM BOARD_POST_TBL
 		LEFT JOIN BOARD_COMMENT_TBL
-		USING(MB_INDEX) WHERE MB_INDEX = (SELECT
+		USING(MB_INDEX) WHERE MB_INDEX =
+		(SELECT
 		MB_INDEX FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex})
+	</select>
+
+	<!-- 나의 댓글 페이징 처리 - 내비게이션 생성 -->
+	<select id="getNaviComment" resultType="java.lang.Integer">
+		select count(*) as totalCount
+		from BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex})
 	</select>
 
 	<!-- 마이페이지 - 나의 북마크 -->
@@ -219,7 +239,8 @@
 
 		SELECT POST_HIT AS postHit,MB_INDEX,POST_TITLE,POST_HIT,
 		POST_DATETIME AS postDateTime
-		FROM BOARD_BOOKMARK_TBL LEFT JOIN BOARD_POST_TBL USING(MB_INDEX) WHERE MB_INDEX = #{mbIndex}
+		FROM BOARD_BOOKMARK_TBL LEFT JOIN
+		BOARD_POST_TBL USING(MB_INDEX) WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 </mapper>

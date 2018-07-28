@@ -117,20 +117,23 @@ html, body {
 									</c:if>
 								</tbody>
 							</table>
+							<div class="ui grid">
+								<div class="three column row">
+									<div class="column"></div>
+									<div class="column">
+										<div class="ui center aligned basic segment">
+											<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
+										</div>
+									</div>
+									<div class="column">
+										<div class="ui right aligned container"></div>
+									</div>
+								</div>
+								<br>
+							</div>
 						</div>
 					</div>
 					<br>
-					<div class="ui grid">
-						<div class="three column row">
-							<div class="column"></div>
-							<div class="column">
-								<div class="ui center aligned basic segment">
-									<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
-								</div>
-							</div>
-						</div>
-						<br>
-					</div>
 				</div>
 			</c:if>
 		</div>

@@ -1,7 +1,7 @@
 package spring.kh.diet.model.service;
 
 import spring.kh.diet.model.vo.AllSessionListPDVO;
-import spring.kh.diet.model.vo.AllSessionVO;
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.NoticeVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
@@ -20,5 +20,7 @@ public interface AdminService {
 	QuestionVO getQuestionContent(int index);
 
 	AllSessionListPDVO getSessionList(int currentPage);
+	
+	int answerReg(AnswerVO avo);
 
 }

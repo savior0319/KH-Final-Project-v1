@@ -75,7 +75,7 @@
 
 <!-- 강제종료시 확인할수 있는 스크립트 -->
 <script language="javascript">
-
+	
 </script>
 <!--  -->
 
@@ -84,7 +84,31 @@
 .menu {
 	margin-right: 15px;
 }
+
+#load {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	display: block;
+	opacity: 1;
+	background: rgb(235, 235, 235);
+	z-index: 99;
+	text-align: center;
+}
+
+#load>img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 100;
+}
 </style>
+
+<div id="load">
+	<img src="/resources/image/loading.gif" alt="loading">
+</div>
 
 <!-- 메인 메뉴 -->
 <div style="background: rgb(242, 242, 242);">
@@ -131,7 +155,7 @@
 <div class="ui stackable menu" style="margin-top: 0;">
 	<div class="ui container">
 		<a href="/">
-			<img class="logo" src="/resources/image/logo.gif" style="margin: 5px;">
+			<img class="logo" src="/resources/image/logo.png" style="margin: 5px;">
 		</a>
 
 		<div class="ui simple dropdown item">
@@ -154,8 +178,8 @@
 				<i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="/foodCalorieRank.diet">음식칼로리</a>
-				<a class="item" href="/sportsCalorieRank.diet">운동칼로리</a>
+				<a class="item" href="/foodCalorieList.diet">음식칼로리</a>
+				<a class="item" href="/sportsCalorieList.diet">운동칼로리</a>
 			</div>
 		</div>
 
@@ -225,5 +249,9 @@
 <script type="text/javascript">
 	function bookMark() {
 		alert('CTRL + D키를 누르면 즐겨찾기에 추가 할 수 있습니다');
+	}
+	
+	window.onload = function() {
+		$('#load').hide();
 	}
 </script>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -256,6 +257,7 @@ public class AdminDAOImpl implements AdminDAO {
 		return sb.toString();
 	}
 
+	/* 관리자 - 1:1 문의 내용 가져오기 */
 	@Override
 	public QuestionVO getQuestionContent(SqlSessionTemplate session, int index) {
 		QuestionVO qData = session.selectOne("admin.getQuestionContent", index);
@@ -336,5 +338,16 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 
+	/* 관리자 - 1:1 문의 답변 */
+	@Override
+	public int answerReg(SqlSessionTemplate session, AnswerVO avo) {
+		int check = session.update("admin.anserRegCheck", avo);
+		int result = session.insert("admin.answerReg", avo);
+		if (check == 1 && result == 1) {
+			return result;
+		} else {
+			return 0;
+		}
+	}
 
 }

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.AllSessionVO;
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
 import spring.kh.diet.model.vo.QuestionVO;
@@ -35,5 +36,7 @@ public interface AdminDAO {
 
 	String getSessionListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage);
+
+	int answerReg(SqlSessionTemplate session, AnswerVO avo);
 
 }

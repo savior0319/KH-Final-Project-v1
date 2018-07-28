@@ -7,6 +7,7 @@
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
 <title>다이어트 꿀팁</title>
+<script src="/resources/slider/responsiveslides.min.js"></script>
 </head>
 
 <!-- CSS -->
@@ -19,6 +20,38 @@ p>span {
 	text-indent: 10px;
 	display: inline-block;
 }
+
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
 </style>
 
 
@@ -29,9 +62,22 @@ p>span {
 	<input id="indexNo" type="hidden" value="${requestScope.dt.dtIndex }">
 	<!-- CONTENTS -->
 	<div class="ui container">
-		<div class="ui panorama test ad" data-text="광고광고광고"></div>
-		<br> <br>
-
+		<!-- 슬라이드-->
+		<ul class="rslides">
+			<li>
+				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
+			</li>
+		</ul>
+		<br>
 		<!-- 상단 게시판 종류 -->
 		<h2 class="ui header">
 			<i class="comment icon"></i>
@@ -262,6 +308,14 @@ p>span {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+		// 슬라이드
+	$(function() {
+		$(".rslides").responsiveSlides({
+			auto : true,
+			timeout : 1500,
+		});
+	});
+
 	var check = true;
 	/* 북마크 버튼*/
 	$('#bookMark').click(

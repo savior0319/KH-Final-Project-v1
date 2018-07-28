@@ -3,22 +3,24 @@
 <mapper namespace="homeTraining">
 	
 	<resultMap type="homeTraining" id="homeTrainingDB">
-		<result property="htIndex" column="ht_Index" />
+		<result property="indexNo" column="index_No" />
 		<result property="htNo" column="ht_No" />
-		<result property="htMainVideo" column="ht_Main_Video" />
+		<result property="htMainPhoto" column="ht_Main_Photo" />
 		<result property="htType" column="ht_Type" />
 		<result property="htTitle" column="ht_Title" />
 		<result property="htPart" column="ht_Part" />
 		<result property="htLike" column="ht_Like" />
-		<result property="htCommentNumber" column="ht_Comment_Number"/>
+		<result property="htCommentNo" column="ht_Comment_No"/>
 		<result property="htHits" column="ht_Hits" />
-		<result property="htVideoMinute" column="ht_Video_Minute" />
-		<result property="htLevel" column="ht_Level" />
-		<result property="htCalories" column="ht_Calories" />
-		<result property="htExplain" column="ht_Explain" />
-		<result property="htDate" column="ht_Date" />
+		<result property="htVideo" column="HT_VIDEO" />
+		<result property="htStepTime" column="ht_Step_Time" />
+		<result property="htStepType" column="ht_Step_Type" />
+		<result property="htStepHard" column="ht_Step_Hard" />
+		<result property="htStepKal" column="ht_Step_Kal" />
+		<result property="htEnrollDate" column="ht_EnrollDate" />
 		<result property="htWriterNo" column="ht_Writer_No"/>
 		<result property="htNickname" column="mb_Nickname"/>
+		<result property="htExplain" column="ht_Explain"/>
 	</resultMap>
 	
 	<!-- 페이징 처리 - 리스트 불러오기 -->
@@ -26,7 +28,7 @@
 		resultType="homeTraining" resultMap="homeTrainingDB">
 		SELECT *
 		FROM (SELECT HOMETRAINING_TB.*,
-		ROW_NUMBER() OVER(ORDER BY HT_DATE DESC) AS
+		ROW_NUMBER() OVER(ORDER BY HT_EnrollDate DESC) AS
 		NUM FROM HOMETRAINING_TB
 		<choose>
 			<when test="type.equals('wholeBody')">
@@ -66,20 +68,21 @@
 	<!-- 게시물 불러오기 -->
 	<select id="getOne" resultType="homeTraining" resultMap="homeTrainingDB">
 		SELECT *
-		FROM HOMETRAINING_TB HT,
-		MEMBER_TBL MB WHERE HT.HT_WRITER_NO = MB.MB_INDEX AND HT_INDEX = #{index}
-
+		FROM HOMETRAINING_TB HT,MEMBER_TBL MB 
+		WHERE HT.HT_WRITER_NO = MB.MB_INDEX (+) AND HT.INDEX_NO = #{index}
 	</select>
 	
 	
+	
+	
 	<!-- 이전글 다음글 -->
-	<select id="getpnWriteList" resultType="homeTraining" resultMap="homeTrainingDB" parameterType="homeTraining">
+<!-- 	<select id="getpnWriteList" resultType="homeTraining" resultMap="homeTrainingDB" parameterType="homeTraining">
 	<![CDATA[
 	SELECT * FROM HOMETRAINING_TB WHERE HT_INDEX = #{htIndex}
 	UNION ALL(SELECT * FROM HOMETRAINING_TB WHERE HT_INDEX < #{htIndex} ORDER BY HT_INDEX DESC LIMIT 1)
 	UNION ALL(SELECT * FROM HOMETRAINING_TB WHERE HT_INDEX > #{htIndex} ORDER BY HT_INDEX ASC LIMIT 1)
 	ORDER BY HT_INDEX DESC
 	]]>
-	</select>
+	</select> -->
 
 </mapper>

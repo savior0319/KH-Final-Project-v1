@@ -114,8 +114,6 @@ public class MainDAOImpl implements MainDAO {
 	@Override
 	public int updateOnsession(SqlSessionTemplate session, UpdateSSVO uSSVO) {
 		int result = session.update("main.updateOnSesssion", uSSVO);
-		
-		
 		return result;
 	}
 

@@ -51,4 +51,19 @@ public class DietTipServiceImpl implements DietTipService {
 		return dietTipDAO.registDietTip(session, dt);
 	}
 
+	@Override
+	public int deleteDietTip(int indexNo) {
+		return dietTipDAO.deleteDietTip(session, indexNo);
+	}
+
+	@Override
+	public DietTipVO loadUpdateDietTip(int indexNo) {
+		return dietTipDAO.loadUpdateDietTip(session, indexNo);
+	}
+
+	@Override
+	public int updateDietTip(DietTipVO dt) {
+		return dietTipDAO.updateDietTip(session, dt);
+	}
+
 }

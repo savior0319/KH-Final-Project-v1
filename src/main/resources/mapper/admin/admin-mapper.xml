@@ -30,7 +30,8 @@
 		mbInterest,
 		MB_GRADE as mbGrade,
 		MB_ENROLLDATE as mbEnrollDate
-		FROM (SELECT MEMBER_TBL.*, ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
+		FROM (SELECT
+		MEMBER_TBL.*, ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
 		WHERE NUM BETWEEN #{start} and #{end}
 	</select>
 
@@ -62,7 +63,8 @@
 		mbInterest,
 		MB_GRADE AS MBGRADE,
 		DELETE_DATE as mbEnrollDate
-		FROM (SELECT DEL_MEMBER_TBL.*,
+		FROM (SELECT
+		DEL_MEMBER_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM DEL_MEMBER_TBL)
 		WHERE NUM BETWEEN #{start} and #{end}
 	</select>
@@ -75,18 +77,21 @@
 
 	<!-- 1:1문의 리스트 -->
 	<select id="getAnswerList" parameterType="answerListPageData" resultType="question">
-		SELECT
+		<!-- SELECT QS_INDEX AS qsIndex, QS_TITLE AS qsTitle, QS_CONTENT AS qsContent, (SELECT DISTINCT MB_NICKNAME FROM MEMBER_TBL MT, QUESTION_TBL QT WHERE MT.MB_INDEX = QT.MB_INDEX) AS mbNickName, QS_WRITETIME 
+			AS qsWriteTime, QS_ANSWERCHECK AS qsAnswerCheck FROM (SELECT QUESTION_TBL.*, ROW_NUMBER() OVER(ORDER BY QS_INDEX DESC) AS NUM FROM QUESTION_TBL) WHERE NUM BETWEEN #{start} and #{end} -->
+		SELECT * from
+		(SELECT
 		QS_INDEX AS qsIndex,
 		QS_TITLE AS qsTitle,
 		QS_CONTENT AS qsContent,
-		(SELECT DISTINCT MB_NICKNAME FROM MEMBER_TBL MT,
-		QUESTION_TBL QT WHERE MT.MB_INDEX = QT.MB_INDEX) AS mbNickName,
+		MB_NICKNAME AS mbNickName,
 		QS_WRITETIME AS qsWriteTime,
-		QS_ANSWERCHECK AS qsAnswerCheck
-		FROM (SELECT QUESTION_TBL.*,
-		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM
-		FROM QUESTION_TBL)
-		WHERE NUM BETWEEN #{start} and #{end}
+		QS_ANSWERCHECK AS qsAnswerCheck,
+		ROW_NUMBER() OVER(ORDER BY QS_INDEX DESC) AS NUM
+		FROM MEMBER_TBL JOIN QUESTION_TBL USING (MB_INDEX)
+		LEFT OUTER JOIN ANSWER_TBL USING(QS_INDEX)
+		ORDER BY qsIndex DESC)
+		WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 관리자 탈퇴 회원 리스트 네비게이션 -->
@@ -101,12 +106,12 @@
 		QS_INDEX AS qsIndex,
 		QS_TITLE AS qsTitle,
 		QS_CONTENT AS qsContent,
-		(SELECT DISTINCT MB_NICKNAME FROM MEMBER_TBL MT,
-		QUESTION_TBL QT WHERE MT.MB_INDEX = QT.MB_INDEX) AS mbNickName,
+		MB_NICKNAME AS mbNickName,
 		QS_WRITETIME AS qsWriteTime,
-		QS_ANSWERCHECK AS qsAnswerCheck
-		FROM QUESTION_TBL
-		WHERE QS_INDEX = #{index}
+		QS_ANSWERCHECK AS qsAnswerCheck,
+		ANS_CONTENT AS ansContent
+		FROM MEMBER_TBL JOIN QUESTION_TBL USING (MB_INDEX)
+		LEFT OUTER JOIN ANSWER_TBL USING(QS_INDEX) WHERE QS_INDEX = #{qsIndex}
 	</select>
 
 	<!-- 관리자 접속자 통계  : 현제접속자 list 가져오가 -->
@@ -125,12 +130,20 @@
 		WHERE NUM BETWEEN #{start} and #{end}
 	</select>
 	
-	
 	<!-- 관리자 접속자 통계  : 현제접속자 리스트 네비게이션 -->
 	<select id="getSessionListPageNavi" resultType="java.lang.Integer" parameterType="allSessionListPDVO">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM ON_SESSION_TBL
 	</select>
 
+	<!-- 관리자 1:1문의 답변 -->
+	<insert id="answerReg" parameterType="answer">
+		INSERT INTO ANSWER_TBL VALUES(ANSWER_SEQ.NEXTVAL, #{index}, #{content})
+	</insert>
+
+	<!-- 관리자 1:1문의 답변 여부 변경 -->
+	<update id="anserRegCheck" parameterType="answer">
+		UPDATE QUESTION_TBL SET QS_ANSWERCHECK = 'y' WHERE QS_INDEX = #{index}
+	</update>
 
 </mapper>

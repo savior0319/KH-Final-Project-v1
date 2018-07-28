@@ -18,6 +18,7 @@ import com.sun.mail.iap.Response;
 import spring.kh.diet.model.service.AdminService;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -159,15 +160,29 @@ public class AdminControllerImpl implements AdminController {
 		return "admin/answer";
 	}
 
-	/* 1:1 문의 질문내용 */
+	/* 1:1 문의 질문 내용 */
 	@Override
 	@RequestMapping(value = "/qaContent.diet")
 	public String qaContent(int index, HttpServletRequest request) {
 
 		QuestionVO qData = as.getQuestionContent(index);
 		request.setAttribute("qData", qData);
-
+		
 		return "admin/qaContent";
 	}
 
+	/* 1:1문의 답변 등록 */
+	@Override
+	@RequestMapping(value = "/answerReg.diet")
+	public void answerReg(@RequestParam String content, @RequestParam int index, HttpServletResponse response)
+			throws IOException {
+
+		AnswerVO avo = new AnswerVO(index, content);
+		int result = as.answerReg(avo);
+		response.getWriter().print(String.valueOf(result));
+		response.getWriter().close();
+		
+	}
+
+	
 }

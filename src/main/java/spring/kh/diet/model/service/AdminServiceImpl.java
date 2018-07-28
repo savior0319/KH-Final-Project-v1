@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import spring.kh.diet.model.dao.AdminDAO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
+import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -89,6 +90,7 @@ public class AdminServiceImpl implements AdminService {
 		return qpd;
 	}
 
+	/* 1:1문의 내용 가져오기 */
 	@Override
 	public QuestionVO getQuestionContent(int index) {
 		QuestionVO qData = aDao.getQuestionContent(session, index);
@@ -111,6 +113,12 @@ public class AdminServiceImpl implements AdminService {
 		return ASLPDVO;
 	}
 
+	/* 1:1문의 답변하기 */
+	@Override
+	public int answerReg(AnswerVO avo) {
+		int result = aDao.answerReg(session, avo);
+		return result;
+	}
 
 
 }

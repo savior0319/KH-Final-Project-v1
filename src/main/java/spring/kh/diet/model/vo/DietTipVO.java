@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DietTipVO {
 	private String dtTitle, dtMainPhoto, dtExplain, dtSammary, dtNickname;
-	private int dtIndex, dtNo, dtType, dtWriterNo, dtLike, dtSee;
+	private int dtIndex, dtNo, dtType, dtWriterNo, dtLike, dtSee, dtCmtNo;
 	private Timestamp dtDate;
 	
 	
