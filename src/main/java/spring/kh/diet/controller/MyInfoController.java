@@ -40,5 +40,7 @@ public interface MyInfoController {
 
 	String myCommentGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma);
 
+	void questionAnswer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException;
 
 }

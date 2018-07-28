@@ -101,7 +101,7 @@
 	</select>
 
 	<!-- 관리자 1:1문의 질문 내용 -->
-	<select id="getQuestionContent" resultType="question" parameterType="Integer">
+	<select id="getQuestionContent" resultType="question" parameterType="question">
 		SELECT
 		QS_INDEX AS qsIndex,
 		QS_TITLE AS qsTitle,
@@ -116,12 +116,12 @@
 
 	<!-- 관리자 1:1문의 답변 -->
 	<insert id="answerReg" parameterType="answer">
-		INSERT INTO ANSWER_TBL VALUES(ANSWER_SEQ.NEXTVAL, #{index}, #{content})
+		INSERT INTO ANSWER_TBL VALUES(ANSWER_SEQ.NEXTVAL, #{ansIndex}, #{ansContent})
 	</insert>
 
 	<!-- 관리자 1:1문의 답변 여부 변경 -->
 	<update id="anserRegCheck" parameterType="answer">
-		UPDATE QUESTION_TBL SET QS_ANSWERCHECK = 'y' WHERE QS_INDEX = #{index}
+		UPDATE QUESTION_TBL SET QS_ANSWERCHECK = 'y' WHERE QS_INDEX = #{ansIndex}
 	</update>
 
 </mapper>

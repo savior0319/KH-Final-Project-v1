@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MyActivityVO {
 	private int mbIndex, myAttendance, myCommentCount, myBoardCount;
+	private String mbGrade;
 	private Date mbEnrollDate;
 }
