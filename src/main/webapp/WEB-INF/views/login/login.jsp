@@ -97,7 +97,7 @@ a {
 								<input type="password" placeholder="비밀번호.." name="memberPwd" />
 							</div>
 							<br> <input type="submit" class="ui button loginBtn"
-								id="loginBtn" value="로그인" />
+								id="loginBtn" value="로그인" style="color:white;"/>
 						</form>
 						<br> <br>
 						<div>

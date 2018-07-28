@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnswerVO {
-	private int index;
-	private String content;
+	private int ansIndex;
+	private String ansContent;
+	
 }

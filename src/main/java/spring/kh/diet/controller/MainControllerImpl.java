@@ -270,7 +270,7 @@ public class MainControllerImpl implements MainController {
 	}
 
 	@Override
-	@Scheduled(cron="0 0/30 * * * ?") // 30분단위로 실행 스케쥴러
+	@Scheduled(cron="0 0/1 * * * ?") // 30분단위로 실행 스케쥴러
 //	@Scheduled(cron="0/1 * * * * ?") // 1초단위로 실행(테스트용)
 	public void autoDeleteSession() {
 		ArrayList<AllSessionVO> list  = mService.selectAllSessionList2();

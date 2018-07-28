@@ -62,6 +62,10 @@ public interface MyInfoDAO {
 	String getMyCommentListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String type, MyActivityVO ma);
 
+	QuestionVO questionAnswer(SqlSessionTemplate sqlSessionTemplate, QuestionVO qv);
+
+	
+
 
 }
 

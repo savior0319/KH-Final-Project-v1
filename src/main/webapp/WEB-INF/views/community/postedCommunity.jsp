@@ -258,69 +258,69 @@
 				<h5 class="ui center aligned container">(신고 사유를 선택해 주세요.)</h5>
 				<br>
 
-					<div class="ui container" align="center">
-						<div class="content">
-							<div class="ui form">
+				<div class="ui container" align="center">
+					<div class="content">
+						<div class="ui form">
 
-								<div class="grouped fields">
+							<div class="grouped fields">
 
-									<div class="ui clearing segment" style="width: 350px; padding-left: 60px;">
-										<br>
-										<div class="field singo">
-											<div class="ui radio checkbox">
-												<input type="radio" id="blame" name="example2" checked="checked" value="광고/상업성 게시글" />
-												<label>&emsp;&emsp;광고/상업성 게시글</label>
-											</div>
+								<div class="ui clearing segment" style="width: 350px; padding-left: 60px;">
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="example2" checked="checked" value="광고/상업성 게시글" />
+											<label>&emsp;&emsp;광고/상업성 게시글</label>
 										</div>
-										<br>
-										<div class="field singo">
-											<div class="ui radio checkbox">
-												<input type="radio" id="blame" name="example2" value="비방/욕설 게시글" />
-												<label>&emsp;&emsp;비방/욕설 게시글</label>
-											</div>
-										</div>
-										<br>
-										<div class="field singo">
-											<div class="ui radio checkbox">
-												<input type="radio" id="blame" name="example2" value="개인정보 유출 게시물" />
-												<label>&emsp;&emsp;개인정보 유출 게시물</label>
-											</div>
-										</div>
-										<br>
-										<div class="field singo">
-											<div class="ui radio checkbox">
-												<input type="radio" id="blame" name="example2" value="청소년 유해(음란) 게시물">
-												<label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
-											</div>
-										</div>
-										<br>
-										<div class="field singo">
-											<div class="ui radio checkbox">
-												<input type="radio" id="blame" name="example2" value="명예훼손/저작권 침해 게시물">
-												<label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
-											</div>
-										</div>
-										<br>
-										<div class="field singo">
-											<div class="ui radio checkbox">
-												<input type="radio" id="blame" name="example2" value="도배성 게시물">
-												<label>&emsp;&emsp;도배성 게시물</label>
-											</div>
-										</div>
-										<br>
-										<div class="field singo">
-											<div class="ui radio checkbox">
-												<input type="radio" id="blame" name="example2" value="불명확/추측성 게시물">
-												<label>&emsp;&emsp;불명확/추측성 게시물</label>
-											</div>
-										</div>
-										<br>
-										<br>
 									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="example2" value="비방/욕설 게시글" />
+											<label>&emsp;&emsp;비방/욕설 게시글</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="example2" value="개인정보 유출 게시물" />
+											<label>&emsp;&emsp;개인정보 유출 게시물</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="example2" value="청소년 유해(음란) 게시물">
+											<label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="example2" value="명예훼손/저작권 침해 게시물">
+											<label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="example2" value="도배성 게시물">
+											<label>&emsp;&emsp;도배성 게시물</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="example2" value="불명확/추측성 게시물">
+											<label>&emsp;&emsp;불명확/추측성 게시물</label>
+										</div>
+									</div>
+									<br>
+									<br>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 
 				<br>
 				<br>
@@ -336,7 +336,7 @@
 						</div>
 					</div>
 				</div>
-     
+
 			</div>
 
 		</div>
@@ -344,6 +344,7 @@
 		<script>
 			function sendBlame(){
 				var blameReport = $(':input:radio[name=example2]:checked').val();
+				var targetMbIndex = '${requestScope.bpv.mbIndex}';
 				$.ajax({
 					url : '/blameBoard.diet',
 					type : 'post',
@@ -353,7 +354,7 @@
 						'targetContents' : blameReport
 					},
 					success : function() {
-						alert('성공');
+						location.reload();
 					},
 					error : function() {
 							alert('실패');
@@ -528,7 +529,6 @@
 			});
 
 	var likeCheck;
-
 	var likeYN = '${requestScope.bpv.likeYN}';
 	var postLike = '${requestScope.bpv.postLike}';
 
@@ -577,8 +577,17 @@
 
 	/* 신고버튼 */
 	$('#reportBtn').click(function() {
-
-		$('.ui.basic.modal').modal('show').modal('setting', 'closable', false);
+		var blameCheck = '${requestScope.bpv.blameYN}';
+		var mbId = '${sessionScope.member.mbNickName}';
+		if(mbId!=''){
+			if(blameCheck == 0){
+				$('.ui.basic.modal').modal('show').modal('setting', 'closable', false);
+			}else{
+				alert('이미 신고한 게시물입니다.');
+			}
+		} else{
+			alert('로그인 후 신고를 하실수 있습니다.');
+		}
 	});
 
 	
@@ -598,10 +607,11 @@
 		location.href = "/modifyCommunity.diet";
 	});
 
+	var postIndex = '${requestScope.bpv.postIndex}';
 	/*글 삭제 확인*/
 	function deleteBtn() {
 
-		var postIndex = '${requestScope.bpv.postIndex}';
+		
 		var check = window.confirm("정말 삭제하시겠습니까?");
 
 		if (check == true) {
