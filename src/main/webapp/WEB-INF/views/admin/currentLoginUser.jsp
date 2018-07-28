@@ -14,7 +14,6 @@
 body {
 	margin-left: 240px;
 }
-
 </style>
 
 
@@ -34,8 +33,7 @@ body {
 		</div>
 		<br> <br>
 		<div class="ui center aligned segment">
-			<h1>현재 접속자 : ?? 명</h1>
-			<button>갱신</button>
+			<h1>현재 접속자 : ${requestScope.size} 명</h1>
 		</div>
 		<div class="ui center aligned segment">
 			<table class="ui celled table">
@@ -48,6 +46,8 @@ body {
 						<th>비고</th>
 						<th>비고</th>
 					</tr>
+				</thead>
+				<tbody>
 					<tr align="center">
 						<td>127.0.0.1</td>
 						<td>ON</td>
@@ -64,9 +64,45 @@ body {
 						<td>PC</td>
 						<td>기타</td>
 					</tr>
-				</thead>
+					<c:forEach items="${requestScope.currentSession.ssList}" var="ss">
+						<tr align="center">
+							<td>${ss.sessionIp}</td>
+							<td>${ss.state }</td>
+							<c:choose>
+								<c:when test="${ss.state eq 'OFF'}">
+									<td>비회원</td>
+								</c:when>
+								<c:when test="${ss.state eq 'ON'}">
+									<td>${ss.logInNickName }</td>
+								</c:when>
+							</c:choose>
+							<td>${ss.firstOn }</td>
+							<td>${ss.device }</td>
+							<td>기타</td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
+			<div class="ui center aligned basic segment">
+				<div class="ui pagination menu">${requestScope.currentSession.pageNavi}</div>
+			</div>
 		</div>
+		<br>
+		<div class="ui three column divided grid">
+			<div class="row">
+				<div class="column">
+					<p></p>
+				</div>
+				<div class="column">
+					<p></p>
+				</div>
+				<div class="column">
+					<p></p>
+				</div>
+			</div>
+		</div>
+
+
 		<br>
 
 		<div class="ui center aligned segment">
@@ -91,7 +127,7 @@ body {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-   
+	
 </script>
 
 </html>

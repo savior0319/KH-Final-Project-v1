@@ -16,6 +16,8 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import com.sun.mail.iap.Response;
 
 import spring.kh.diet.model.service.AdminService;
+import spring.kh.diet.model.vo.AllSessionListPDVO;
+import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -60,11 +62,23 @@ public class AdminControllerImpl implements AdminController {
 
 	@Autowired
 	ServletContext context;
-
 	@RequestMapping(value = "/currentLoginUser.diet")
 	@ApplicationScope
+	public String currentLoginUser(HttpServletRequest request, HttpServletResponse response) {
+		int currentPage;
 
-	public String currentLoginUser(HttpServletResponse response) {
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		AllSessionListPDVO ASLPDVO = as.getSessionList(currentPage);
+
+		ASLPDVO.setType(request.getParameter("type"));
+		request.setAttribute("currentSession", ASLPDVO);
+		request.setAttribute("size", ASLPDVO.getSsList().size());
+		
 		return "admin/currentLoginUser";
 		// System.out.println(session.getAttribute("key"));
 	}

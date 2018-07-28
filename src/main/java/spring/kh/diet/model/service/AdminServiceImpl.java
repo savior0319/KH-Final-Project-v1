@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.AdminDAO;
+import spring.kh.diet.model.vo.AllSessionListPDVO;
+import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -92,5 +94,23 @@ public class AdminServiceImpl implements AdminService {
 		QuestionVO qData = aDao.getQuestionContent(session, index);
 		return qData;
 	}
+
+	@Override
+	public AllSessionListPDVO getSessionList(int currentPage) {
+		int recordCountPerPage = 5;
+		int naviCountPerPage = 5;
+
+		AllSessionListPDVO ASLPDVO = new AllSessionListPDVO();
+
+		ArrayList<AllSessionVO> list = aDao.getSessionList(session, currentPage, recordCountPerPage);
+
+		String pageNavi = aDao.getSessionListPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage);
+
+		ASLPDVO.setSsList(list);
+		ASLPDVO.setPageNavi(pageNavi);
+		return ASLPDVO;
+	}
+
+
 
 }
