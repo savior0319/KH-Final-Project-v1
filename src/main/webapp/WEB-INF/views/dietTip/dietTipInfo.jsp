@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -64,18 +65,14 @@ p>span {
 	<div class="ui container">
 		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li>
-				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
-			</li>
-			<li>
-				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
-			</li>
-			<li>
-				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
-			</li>
-			<li>
-				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
-			</li>
+			<li><img src="/resources/image/mainPic.jpg"
+				style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic1.jpg"
+				style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic2.jpg"
+				style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic3.jpg"
+				style="height: 250px;"></li>
 		</ul>
 		<br>
 		<!-- 상단 게시판 종류 -->
@@ -91,7 +88,8 @@ p>span {
 		<!-- 제목 -->
 
 		<h2 class="ui center aligned container">
-			<i class="quote left icon"></i>${requestScope.dt.dtTitle }<i class="quote right icon"></i>
+			<i class="quote left icon"></i>${requestScope.dt.dtTitle }<i
+				class="quote right icon"></i>
 		</h2>
 
 
@@ -99,15 +97,21 @@ p>span {
 		<div class="ui black segment">
 			<div class="ui grid">
 				<div class="four column row">
-					<span class="left floated column" style=""> <span class="ui left aligned"> <a> <img class="ui avatar image" src="/resources/image/mainPic.jpg">
+					<span class="left floated column" style=""> <span
+						class="ui left aligned"> <a> <img
+								class="ui avatar image" src="/resources/image/mainPic.jpg">
 								${requestScope.dt.dtNickname }
 						</a>
 					</span>
-					</span> <span class="right floated column"> <!-- 날짜 --> <span class="ui right aligned"> <i class="calendar icon"></i>
-					<fmt:formatDate value="${requestScope.dt.dtDate }"
-					pattern="yyyy-MM-dd HH:mm" /> 
-					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 뷰수 --> <span class="ui right aligned"> <i class="eye icon"></i> ${requestScope.dt.dtSee }
-					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 댓글수 --> <span class="ui right aligned"> <i class="pen square icon"></i> ${requestScope.bcpd.totalCommentNo }
+					</span> <span class="right floated column"> <!-- 날짜 --> <span
+						class="ui right aligned"> <i class="calendar icon"></i> <fmt:formatDate
+								value="${requestScope.dt.dtDate }" pattern="yyyy-MM-dd HH:mm" />
+					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 뷰수 --> <span
+						class="ui right aligned"> <i class="eye icon"></i>
+							${requestScope.dt.dtSee }
+					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 댓글수 --> <span
+						class="ui right aligned"> <i class="pen square icon"></i>
+							${requestScope.bcpd.totalCommentNo }
 					</span>
 					</span>
 				</div>
@@ -130,9 +134,18 @@ p>span {
 				<!-- 좋아요 버튼 -->
 				<div class="ui labeled button" tabindex="0">
 					<button class="ui red button" id="heartBtn" style="height: 40px;">
-						<i class="heart outline icon" id="emptyHeart"></i> 공감
+						<c:choose>
+							<c:when test="${requestScope.dt.likeYN==0}">
+								<i class="heart outline icon" id="emptyHeart"></i>
+							</c:when>
+							<c:when test="${requestScope.dt.likeYN==1}">
+								<i class="heart icon" id="heart"></i>
+							</c:when>
+						</c:choose>
+						좋아요
 					</button>
-					<a class="ui basic red left pointing label"> ${requestScope.dt.dtLike } </a>
+					<a class="ui basic red left pointing label" id="postLike">
+						${requestScope.dt.dtLike } </a>
 				</div>
 
 
@@ -157,47 +170,55 @@ p>span {
 						<div class="ui form">
 							<div class="grouped fields">
 
-								<div class="ui clearing segment" style="width: 350px; padding-left: 60px;">
+								<div class="ui clearing segment"
+									style="width: 350px; padding-left: 60px;">
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" name="example2" checked="checked"> <label>&emsp;&emsp;광고/상업성 게시글</label>
+											<input type="radio" name="example2" checked="checked">
+											<label>&emsp;&emsp;광고/상업성 게시글</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;비방/욕설 게시글</label>
+											<input type="radio" name="example2"> <label>&emsp;&emsp;비방/욕설
+												게시글</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;개인정보 유출 게시물</label>
+											<input type="radio" name="example2"> <label>&emsp;&emsp;개인정보
+												유출 게시물</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
+											<input type="radio" name="example2"> <label>&emsp;&emsp;청소년
+												유해(음란) 게시물</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
+											<input type="radio" name="example2"> <label>&emsp;&emsp;명예훼손/저작권
+												침해 게시물</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;도배성 게시물</label>
+											<input type="radio" name="example2"> <label>&emsp;&emsp;도배성
+												게시물</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;불명확/추측성 게시물</label>
+											<input type="radio" name="example2"> <label>&emsp;&emsp;불명확/추측성
+												게시물</label>
 										</div>
 									</div>
 									<br> <br>
@@ -227,7 +248,8 @@ p>span {
 
 		<!-- 글쓰기, 목록으로 돌아가기 버튼 -->
 		<div class="ui right aligned container">
-			<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
+			<button class="ui right red basic button" style="margin-top: 19px;"
+				id="writeBtn">
 				<i class="edit icon"></i>글쓰기
 			</button>
 			<button class="ui black basic button" id="listBtn">
@@ -247,7 +269,9 @@ p>span {
 					<textarea id="commentContent" style="resize: none;" name="content"></textarea>
 				</div>
 				<div class="ui right aligned container">
-					<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="addComment();">
+					<div class="ui labeled submit icon button"
+						style="background-color: #fa2828; color: white;"
+						onclick="addComment();">
 						<i class="icon edit"></i>등록
 					</div>
 				</div>
@@ -260,14 +284,18 @@ p>span {
 					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
 
 						<div class="comment">
-							<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
+							<a class="avatar"> <img src="${bc.mbImage }"
+								style="width: 40px; height: 40px; border-radius: 25px;">
 							</a>
 							<div class="content" style="width: 93%;">
 								<div class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</div>
 								<div class="metadata" style="width: 100%;">
-									<span class="date" style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
-									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
-										<button class="ui red basic tiny button" style="margin-right: 10px;">
+									<span class="date"
+										style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
+									<div class="ui right aligned container" align="right"
+										style="width: 70%; float: right;">
+										<button class="ui red basic tiny button"
+											style="margin-right: 10px;">
 											<i class="thumbs up outline icon"></i>공감 ${bc.cmtLike }
 										</button>
 										<button class="ui black basic tiny button">
@@ -308,7 +336,7 @@ p>span {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-		// 슬라이드
+	// 슬라이드
 	$(function() {
 		$(".rslides").responsiveSlides({
 			auto : true,
@@ -316,35 +344,90 @@ p>span {
 		});
 	});
 
-	var check = true;
+	var category = '${requestScope.dt.dtIndex}';
+	var check = '${requestScope.dt.bookMarkYN}';
+
 	/* 북마크 버튼*/
 	$('#bookMark').click(
 			function() {
-				if (check == true) {
-					$('#emptyBookMark').removeClass("bookmark outline icon")
-							.addClass("bookmark icon");
-					return check = false;
-				} else if (check == false) {
-					$('#emptyBookMark').removeClass("bookmark icon").addClass(
-							"bookmark outline icon");
-					return check = true;
-				}
+				var postIndex = '${requestScope.dt.dtIndex}';
+				if (check == 0) {
 
+				} else if (check == 1) {
+
+				}
+				$.ajax({
+					url : '/dtBookMark.diet',
+					type : 'post',
+					data : {
+						'postIndex' : postIndex
+					},
+					success : function() {
+						if (check == 0) {
+							$('#bookMarkOff').removeClass(
+									"bookmark outline icon").addClass(
+									"bookmark icon");
+							$('#bookMarkOff').attr('id', 'bookMarkOn');
+							check = 1;
+						} else if (check == 1) {
+							$('#bookMarkOn').removeClass("bookmark icon")
+									.addClass("bookmark outline icon");
+							$('#bookMarkOn').attr('id', 'bookMarkOff');
+							check = 0;
+						}
+					},
+					error : function() {
+						alert('실패');
+					}
+				});
 			});
 
-	var likeCheck = true;
+	var likeCheck;
+
+	var likeYN = '${requestScope.dt.likeYN}';
+	var postLike = '${requestScope.dt.dtLike}';
+
 	/* 좋아요 버튼 */
 	$('#heartBtn').click(
 			function() {
-				if (likeCheck == true) {
-					$('#emptyHeart').removeClass("heart outline icon")
-							.addClass("heart icon");
-					likeCheck = false;
-				} else if (likeCheck == false) {
-					$('#emptyHeart').removeClass("heart icon").addClass(
-							"heart outline icon");
+				if (likeYN == 0) {
 					likeCheck = true;
+					likeYN = 1;
+				} else {
+					likeCheck = false;
+					likeYN = 0;
 				}
+				var targetIndex = '${requestScope.dt.dtIndex}';
+				var targetType = 1;
+				var targetMbIndex = '${requestScope.dt.dtWriterNo}';
+
+				$.ajax({
+					url : '/dtLike.diet',
+					type : 'post',
+					data : {
+						'targetIndex' : targetIndex,
+						'targetType' : targetType,
+						'targetMbIndex' : targetMbIndex
+					},
+					success : function() {
+						if (likeCheck) {
+							$('#emptyHeart').removeClass("heart outline icon")
+									.addClass("heart icon");
+							$('#emptyHeart').attr('id', 'heart')
+							$('#postLike').text(++postLike);
+							likeCheck = false;
+						} else {
+							$('#heart').removeClass("heart icon").addClass(
+									"heart outline icon");
+							$('#heart').attr('id', 'emptyHeart');
+							$('#postLike').text(--postLike);
+							likeCheck = true;
+						}
+					},
+					error : function() {
+						alert('실패');
+					}
+				});
 			});
 
 	/* 신고버튼 */

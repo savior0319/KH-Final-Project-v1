@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.DietTipDAOImpl;
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 
@@ -30,7 +31,8 @@ public class DietTipServiceImpl implements DietTipService {
 
 		ArrayList<DietTipVO> list = dietTipDAO.selectAllDietTip(session, currentPage, recordCountPerPage, pdvo);
 
-		String pageNavi = dietTipDAO.getDietTipPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage, pdvo);
+		String pageNavi = dietTipDAO.getDietTipPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage,
+				pdvo);
 
 		dtpd.setDtList(list);
 		dtpd.setPageNavi(pageNavi);
@@ -40,9 +42,9 @@ public class DietTipServiceImpl implements DietTipService {
 
 	@Override
 	public DietTipVO getDietTip(int indexNo) {
-		
+
 		DietTipVO dt = dietTipDAO.getDietTip(session, indexNo);
-		
+
 		return dt;
 	}
 
@@ -64,6 +66,33 @@ public class DietTipServiceImpl implements DietTipService {
 	@Override
 	public int updateDietTip(DietTipVO dt) {
 		return dietTipDAO.updateDietTip(session, dt);
+	}
+
+	// 조회수 카운트
+	@Override
+	public int postHit(int indexNo) {
+		int result = dietTipDAO.postHit(session, indexNo);
+		return result;
+	}
+
+	public int boardLikeDown(BoardLikeVO blv) {
+		return dietTipDAO.boardLikeDown(session, blv);
+	}
+
+	public int postLikeDown(BoardLikeVO blv) {
+		return dietTipDAO.postLikeDown(session, blv);
+	}
+
+	public int boardLikeUp(BoardLikeVO checkVO) {
+		return dietTipDAO.boardLikeUp(session, checkVO);
+	}
+
+	public int postLikeUp(BoardLikeVO checkVO) {
+		return dietTipDAO.postLikeUp(session, checkVO);
+	}
+
+	public BoardLikeVO checkBoardLike(BoardLikeVO checkVO) {
+		return dietTipDAO.checkBoardLike(session, checkVO);
 	}
 
 }

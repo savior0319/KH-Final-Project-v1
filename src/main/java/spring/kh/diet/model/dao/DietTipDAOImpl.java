@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 
@@ -139,6 +140,31 @@ public class DietTipDAOImpl implements DietTipDAO {
 	@Override
 	public int updateDietTip(SqlSessionTemplate session, DietTipVO dt) {
 		return session.update("dietTip.updateDietTip", dt);
+	}
+
+	public int postHit(SqlSessionTemplate session, int indexNo) {
+		return session.update("dietTip.postHit", indexNo);
+	}
+
+	public int boardLikeDown(SqlSessionTemplate session, BoardLikeVO blv) {
+		return session.delete("dietTip.likeDown", blv);
+	}
+
+	public int boardLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		return session.insert("dietTip.likeUp", checkVO);
+	}
+
+	public int postLikeDown(SqlSessionTemplate session, BoardLikeVO blv) {
+		return session.update("dietTip.postDown", blv);
+	}
+
+	public int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		System.out.println(checkVO.getTargetIndex());
+		return session.update("dietTip.postUp", checkVO);
+	}
+
+	public BoardLikeVO checkBoardLike(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		return session.selectOne("dietTip.checkLike", checkVO);
 	}
 
 }

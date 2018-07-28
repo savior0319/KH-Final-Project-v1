@@ -2,28 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="dietTip">
 
+	<resultMap type="boardLike" id="boardLikeDB">
+		<result property="likeIndex" column="LIKE_INDEX" />
+		<result property="targetIndex" column="TARGET_INDEX" />
+		<result property="targetType" column="TARGET_TYPE" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="targetMbIndex" column="TARGET_MB_INDEX" />
+	</resultMap>
+
+	<resultMap type="bookMark" id="bookMarkDB">
+		<result property="bmkIndex" column="BMK_INDEX" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="postIndex" column="POST_INDEX" />
+	</resultMap>
+
 	<!-- 페이징 처리 - 리스트 불러오기 -->
 	<select id="getList" parameterType="dietTipPageData" resultType="dietTip">
 		SELECT
-		(SELECT COUNT(*) FROM BOARD_COMMENT_TBL C WHERE C.POST_INDEX = D.DT_INDEX) AS
+		(SELECT COUNT(*) FROM BOARD_COMMENT_TBL C WHERE C.POST_INDEX =
+		D.DT_INDEX) AS
 		dtCmtNo,
 		DT_INDEX AS dtIndex,
 		DT_NO AS dtNo,
-		DT_TYPE AS dtType,
+		DT_TYPE AS
+		dtType,
 		DT_TITLE
 		AS
 		dtTitle,
 		DT_MAIN_PHOTO AS dtMainPhoto,
-		DT_WRITER_NO AS dtWriterNo,
+		DT_WRITER_NO AS
+		dtWriterNo,
 		DT_SAMMARY AS dtSammary,
 		DT_EXPLAIN AS dtExplain,
-		DT_DATE AS dtDate,
+		DT_DATE AS
+		dtDate,
 		DT_SEE AS dtSee,
 		DT_LIKE AS dtLike
 		FROM (SELECT DT.*,
 		ROW_NUMBER()
 		OVER(ORDER BY DT_DATE DESC) AS NUM
-		FROM DIETTIP_TB DT, MEMBER_TBL MB
+		FROM DIETTIP_TB DT,
+		MEMBER_TBL MB
 		WHERE DT.DT_WRITER_NO = MB.MB_INDEX (+)
 		<choose>
 			<!-- 게시물 타입에 따라 출력, 앞에 WHERE 문이 있어서 AND로 썼어요 -->
@@ -174,4 +193,50 @@
 		WHERE DT_INDEX = #{dtIndex}
 	</select>
 
+	<!-- 조회수 증가 -->
+	<update id="postHit" parameterType="Integer">
+		UPDATE DIETTIP_TB
+		SET
+		DT_SEE =
+		DT_SEE + 1
+		WHERE DT_INDEX = #{indexNo}
+
+	</update>
+
+
+	<!-- 좋아요 테이블 삭제 -->
+	<delete id="likeDown" parameterType="boardLike">
+		DELETE FROM BOARD_LIKE_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</delete>
+
+	<!-- 좋아요 테이블 추가 -->
+	<insert id="likeUp" parameterType="boardLike">
+		INSERT INTO BOARD_LIKE_TBL
+		VALUES(BOARD_LIKE_TBL_SEQ.NEXTVAL,#{targetIndex},1,#{mbIndex},#{targetMbIndex})
+	</insert>
+
+	<!-- 게시글 좋아요 수 -1 -->
+	<update id="postDown" parameterType="boardLike">
+		UPDATE DIETTIP_TB
+		SET
+		DT_LIKE = DT_LIKE -1
+		WHERE DT_INDEX = #{targetIndex}
+	</update>
+
+	<!-- 게시글 좋아요 수 +1 -->
+	<update id="postUp" parameterType="boardLike">
+		UPDATE DIETTIP_TB
+		SET
+		DT_LIKE = DT_LIKE +1
+		WHERE DT_INDEX = #{targetIndex}
+	</update>
+
+	<!-- 좋아요 체크 -->
+	<select id="checkLike" parameterType="boardLike" resultType="boardLike"
+		resultMap="boardLikeDB">
+		SELECT *
+		FROM BOARD_LIKE_TBL
+		WHERE TARGET_INDEX = #{targetIndex} AND MB_INDEX = #{mbIndex}
+	</select>
 </mapper>
