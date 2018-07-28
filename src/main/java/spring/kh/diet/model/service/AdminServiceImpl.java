@@ -123,12 +123,10 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public ArrayList<OffSessionVO> getOfSesssionList() {
-		// TODO Auto-generated method stub
-		
+
 		ArrayList<OffSessionVO> list = aDao.getOfSessionList(session);
-		
+
 		return list;
 	}
-
 
 }

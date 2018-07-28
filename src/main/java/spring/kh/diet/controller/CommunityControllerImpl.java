@@ -136,7 +136,7 @@ public class CommunityControllerImpl implements CommunityController {
 	public Object postedCommunity(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
 		// 쿠키 등록
-		int sIndex = configCookie(session, request, response, postIndex);
+		configCookie(session, request, response, postIndex);
 		int sessionIndex = 0;
 		if (session.getAttribute("member") != null) {
 			sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
@@ -211,7 +211,7 @@ public class CommunityControllerImpl implements CommunityController {
 			}
 			// 쿠키가 없는 경우
 			if (!isGet) {
-				int result = communityService.postHit(postIndex);// 조회수증가
+				communityService.postHit(postIndex);// 조회수증가
 				Cookie c1 = new Cookie(String.valueOf(postIndex), String.valueOf(postIndex));
 				c1.setMaxAge(1 * 24 * 60 * 60);// 하루저장
 				response.addCookie(c1);
@@ -387,7 +387,7 @@ public class CommunityControllerImpl implements CommunityController {
 	@RequestMapping(value = "/blameBoard.diet")
 	public String postReport(BoardBlameVO report, HttpSession session) {
 		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
-		int postIndex = report.getTargetIndex();
+		report.getTargetIndex();
 		
 		report.setMbIndex(sessionIndex);
 		

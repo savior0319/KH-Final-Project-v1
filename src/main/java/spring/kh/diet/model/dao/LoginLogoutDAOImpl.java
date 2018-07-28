@@ -6,7 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.OneSessionVO;
 
 @Repository("loginDAO")
@@ -71,24 +70,24 @@ public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 	}
 
 	public int updateOnsession(SqlSessionTemplate sqlSessionTemplate, MemberVO m, HttpServletRequest request) {
-		
-		int result =  sqlSessionTemplate.update("login.updateOnSession",m);
+
+		int result = sqlSessionTemplate.update("login.updateOnSession", m);
 		return result;
 	}
 
 	public void tranSession(SqlSessionTemplate sqlSessionTemplate, String sessionId) {
-		int result = sqlSessionTemplate.delete("login.transSession",sessionId);
+		sqlSessionTemplate.delete("login.transSession", sessionId);
 	}
- 
+
 	@Override
 	public OneSessionVO selectOneSession(SqlSessionTemplate sqlSessionTemplate, String sessionId) {
-		
-		OneSessionVO OSV= sqlSessionTemplate.selectOne("login.selectOneSession",sessionId);
+
+		OneSessionVO OSV = sqlSessionTemplate.selectOne("login.selectOneSession", sessionId);
 		return OSV;
 	}
 
 	public int insertSession(SqlSessionTemplate sqlSessionTemplate, OneSessionVO oSV) {
-		int result = sqlSessionTemplate.insert("login.insertSession",oSV);
+		int result = sqlSessionTemplate.insert("login.insertSession", oSV);
 		return result;
 	}
 

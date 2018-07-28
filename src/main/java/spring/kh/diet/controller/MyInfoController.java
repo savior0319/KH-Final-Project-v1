@@ -6,11 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.MyActivityPageDataVO;
 import spring.kh.diet.model.vo.MyActivityVO;
 
 public interface MyInfoController {

@@ -7,13 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -30,30 +25,6 @@ public class CommonControllerImpl implements CommonController {
 	private CommonService commonService;
 
 	public CommonControllerImpl() {
-	}
-
-	@ResponseBody
-	@PostMapping("/imageUpload.diet")
-	public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
-
-		try {
-			System.out.println("호출ddddd");
-			System.out.println(file.getOriginalFilename());
-			/* UploadFile uploadedFile = imageService.store(file); */
-
-			return null;
-			/* return ResponseEntity.ok().body("/image/" + uploadedFile.getId()); */
-		} catch (Exception e) {
-			System.out.println("호출");
-			e.printStackTrace();
-			return ResponseEntity.badRequest().build();
-		}
-	}
-
-	@Override
-	public void imageUpload() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/* 댓글 등록 */
@@ -78,7 +49,7 @@ public class CommonControllerImpl implements CommonController {
 				bpv.setPostIndex(Integer.parseInt(request.getParameter("indexNo")));
 				bpv.setPostComCount(cmdCount);
 
-				int result2 = commonService.cmdCountUp(bpv);
+				commonService.cmdCountUp(bpv);
 
 				response.getWriter().print(result);
 				response.getWriter().close();
@@ -121,7 +92,7 @@ public class CommonControllerImpl implements CommonController {
 				bpv.setPostIndex(Integer.parseInt(request.getParameter("indexNo")));
 				bpv.setPostComCount(cmdCount);
 
-				int result2 = commonService.cmdCountUp(bpv);
+				commonService.cmdCountUp(bpv);
 
 				response.getWriter().print(result);
 				response.getWriter().close();

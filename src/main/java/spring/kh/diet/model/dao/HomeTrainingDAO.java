@@ -2,10 +2,8 @@ package spring.kh.diet.model.dao;
 
 import java.util.ArrayList;
 
-
 import org.mybatis.spring.SqlSessionTemplate;
 
-import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
 
