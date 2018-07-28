@@ -34,4 +34,7 @@ public interface CommunityController {
 
 	String boardBookMark(BoardBookMarkVO checkVO, HttpSession session);
 
+	void getMainCommunityList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException;
+
 }
