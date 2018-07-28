@@ -24,12 +24,6 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	private SqlSessionTemplate SqlSessionTemplate;
 
-	// 커뮤니티 전체 게시판
-	/*
-	 * @Override public List<BoardPostVO> allCommunityList() { List<BoardPostVO>
-	 * list = communityDAO.allCommunityList(SqlSessionTemplate); return list; }
-	 */
-
 	// 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력
 	@Override
 	public CommunityPageDataVO allCommunityList(int currentPage, String type) {

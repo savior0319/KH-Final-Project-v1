@@ -415,20 +415,21 @@
 							<div class="content" style="width: 93%;">
 								<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</a>
 								<div class="metadata" style="width: 100%;">
-									<span class="date" style="width: 30%; display: inline; margin-left: 10%;">${bc.cmtDateTime }</span>
+								
+									<span class="date" style="width: 30%; display: inline; margin-left: 10%;"><fmt:formatDate value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" /></span>
 									<div id="modiDelete_${bc.cmtIndex}">
 										<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex" id="cmdIndex_${bc.cmtIndex}" />
 										<a class="modifyComment" style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
 										&nbsp;&nbsp;|&nbsp;&nbsp;
 										<a class="deleteComment" onclick="deleteComment(${bc.cmtIndex});" style="cursor: pointer;">삭제</a>
 									</div>
-									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;">취소</a>
+										<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
 									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
 										<button class="ui red basic tiny button" style="margin-right: 10px;">
 											<i class="thumbs up outline icon"></i>
 											좋아요 ${bc.cmtLike }
 										</button>
-										<button class="ui black basic tiny button">
+										<button class="ui black basic tiny button" id="cmdReportBtn">
 											<i class="ban icon"></i>
 											신고 ${bc.cmtBlame}
 										</button>
@@ -589,6 +590,8 @@
 		}
 	});
 
+	
+	
 	/* 글쓰기 등록하기 버튼 */
 	$('#writeBtn').click(function() {
 		location.href = "/registCommunity.diet";
@@ -635,6 +638,13 @@
 	}
 
 	
+	
+	/* 댓글신고버튼 */
+	$('#cmdReportBtn').click(function() {
+
+		$('.ui.basic.modal').modal('show').modal('setting', 'closable', false);
+	});
+	
 	/* 댓글 삭제 */
 	function deleteComment(ci){
 		var indexNo = $('#postIndex').val();
@@ -643,7 +653,8 @@
 			url : '/deleteComment.diet',
 			type : 'post',
 			data : {
-				'commentIndex' : ci
+				'commentIndex' : ci,
+				'indexNo' : indexNo
 			},
 			success : function() {
 				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
@@ -661,22 +672,20 @@
 	
 
 	$("body").on("click", "[id^=changeCmd_]", function(event) { 
-		var cmdIndex = $(this).siblings('input').val(); 
 		/* 해당 댓글 번호 */
-		console.log(cmdIndex);
-        
-       	// 수정 해야할 코멘트  //<div id="modiDelete_${bc.cmtIndex}">  cancleComment
+		var cmdIndex = $(this).siblings('input').val(); 
+		// 수정 해야할 코멘트
 		$('#cmd_'+cmdIndex).attr("style","display:none;");
-		var modifyContents = $('#modifyContents_'+cmdIndex).attr("style","display:inline");
+		var modifyContents = $('#modifyContents_'+cmdIndex).attr("style","display:inline;");
 		var modiDelete = $("#modiDelete_"+cmdIndex).attr("style","display:none;");
-		var cancleComment = $('#cancleComment_'+cmdIndex).attr("style","display:inline");
+		var cancleComment = $('#cancleComment_'+cmdIndex).attr("style","display:inline;");
     });
 	
 	function modifyComment(ci){
 		var indexNo = $('#postIndex').val();
-		//내용가져오기 modifyText_"+data.bcList[i].cmtIndex    modifyText_
+		//내용가져오기
 		var comment = $('#modifyText_'+ci).val();
-		//alert(comment);
+		
 		
 		 $.ajax({
 			url : '/modifyComment.diet',
@@ -688,9 +697,9 @@
 			success : function() {
 				//alert('수정 성공');
 				$('#cmd_'+ci).attr("style","display:inline;");
-				var modifyContents = $('#modifyContents_'+ci).attr("style","display:none");
+				var modifyContents = $('#modifyContents_'+ci).attr("style","display:none;");
 				var modiDelete = $("#modiDelete_"+ci).attr("style","display:inline;");
-				var cancleComment = $('#cancleComment_'+ci).attr("style","display:none");
+				var cancleComment = $('#cancleComment_'+ci).attr("style","display:none;");
 				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
 
 			},
@@ -702,9 +711,9 @@
 	
 	function cancleComment(ci){
 		$('#cmd_'+ci).attr("style","display:inline;");
-		var modifyContents = $('#modifyContents_'+ci).attr("style","display:none");
+		var modifyContents = $('#modifyContents_'+ci).attr("style","display:none;");
 		var modiDelete = $("#modiDelete_"+ci).attr("style","display:inline;");
-		var cancleComment = $('#cancleComment_'+ci).attr("style","display:none");
+		var cancleComment = $('#cancleComment_'+ci).attr("style","display:none;");
 	}
 	
 		
@@ -758,6 +767,8 @@
 				$('#comment').html("");
 				/* 작성된 댓글 리스트 불러오는 부분  */
 				for (var i = 0; i < data.bcList.length; i++) {
+					
+					
 					var commentDiv = $("<div>").attr("class", "comment");
 					
 
@@ -782,6 +793,15 @@
 							"width: 30%; display: inline; margin-left: 10%;");
 					span.html(data.bcList[i].cmtDateTime);
 					
+					/* 날짜 형식 추가! */
+					 var date = new Date(data.bcList[i].cmtDateTime);
+					var dateFor = date.getFullYear() + "-"+
+					doublePos((date.getMonth() + 1)) +"-"+doublePos(date.getDate()) + " " + doublePos(date.getHours())+":"+
+					doublePos(date.getMinutes()) 
+							+":"+ doublePos(date.getSeconds());
+					span.html(dateFor);
+					
+					
 					
 					var modiDelete = $("<div>").attr("id","modiDelete_"+data.bcList[i].cmtIndex);
 					
@@ -803,15 +823,12 @@
 					deleteA.attr("style","cursor:pointer;");
 					deleteA.append("삭제");
 					
-					/* ☆지현 추가 - 취소 */
-					/*
-<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;">취소</a>
-					*/
-					
+					/* ☆지현 추가 - 취소 */					
 					var cancleA = $("<a>").attr("class","cancleComment");
 					cancleA.attr("onclick","cancleComment("+data.bcList[i].cmtIndex+")");
 					cancleA.attr("id","cancleComment_"+data.bcList[i].cmtIndex);
 					cancleA.attr("style","cursor: pointer; display: none;");
+					cancleA.attr("href","javascript:void(0);")
 					cancleA.append("취소");
 					
 										
@@ -847,8 +864,6 @@
 					containerDiv.append(blameBtn);
 
 					metadataDiv.append(span);
-					metadataDiv.append(containerDiv);
-					
 					/* ☆지현 추가 - 수정 삭제 버튼 */
 					metadataDiv.append(modiDelete);
 					modiDelete.append(hiddenInput);
@@ -858,6 +873,10 @@
 					
 					metadataDiv.append(cancleA);
 					
+					
+					metadataDiv.append(containerDiv);
+					
+
 					textDiv.append(pre);
 
 					contentDiv.append(aAuthor);
@@ -888,7 +907,7 @@
 					
 					var divLabel = $("<div>").attr("class","ui labeled submit icon button");
 					divLabel.attr("style","background-color: #fa2828; color: white;");
-					divLabel.attr("onclick","modifyComment("+data.bcList[i].cmtIndex+"));")
+					divLabel.attr("onclick","modifyComment("+data.bcList[i].cmtIndex+");")
 					
 					var editIcon = $("<i>").attr("class","icon edit");
 					
@@ -927,6 +946,12 @@
 	$('#modify').click(function(){
 		console.log('클릭');
 	});
+	
+	/* 날짜 형식 추가하기 */
+	function doublePos(num)
+	{
+		return num>9?num:"0"+num;
+	}
 	
 
 </script>

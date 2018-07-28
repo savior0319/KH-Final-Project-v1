@@ -16,3 +16,4 @@ public class BoardPostVO {
 	private int postIndex, brdIndex, mbIndex, postComCount, postHit, postLike, bcaIndex,likeYN,bookMarkYN,blameYN;
 	private Timestamp postDateTime;
 }
+
