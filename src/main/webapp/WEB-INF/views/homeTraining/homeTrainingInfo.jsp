@@ -76,9 +76,19 @@
 				※ 소모 칼로리는 개인 또는 운동자세 등에 따라 차이가 있습니다<br> <br>
 
 				<!-- 좋아요 버튼 부분 -->
-				<button class="ui big basic button"
-					style="border-radius: 30px; text-align: center;" onclick="likeBtn();">
-					<i class="heart outline icon" style="color: red;"></i>${requestScope.ht.htLike}</button>
+				<div class="ui big basic button" tabindex="0" style="border-radius: 30px; text-align: center;" >
+					<button class="ui red button" id="heartBtn" style="height: 40px;">
+						<c:choose>
+							<c:when test="${requestScope.ht.likeYN==0}">
+								<i class="heart outline icon" id="emptyHeart"></i>
+							</c:when>
+							<c:when test="${requestScope.ht.likeYN==1}">
+								<i class="heart icon" id="heart"></i>
+							</c:when>
+						</c:choose>
+				</button>
+							
+					<a class="ui basic red left pointing label" id="postLike">${requestScope.ht.htLike}</a>
 			</div>
 			<br> <br> <br> <br>
 			<hr>
@@ -336,7 +346,48 @@
 		return num>9?num:"0"+num;
 	}
 	
-	
+	/* 좋아요 버튼 */
+	$('#heartBtn').click(
+			function() {
+				if (likeYN == 0) {
+					likeCheck = true;
+					likeYN = 1;
+				} else {
+					likeCheck = false;
+					likeYN = 0;
+				}
+				var targetIndex = '${requestScope.ht.likeIndex}';
+				var targetType = 1;
+				var targetMbIndex = '${requestScope.ht.mbIndex}';
+
+				$.ajax({
+					url : '/postLike.diet',
+					type : 'post',
+					data : {
+						'targetIndex' : targetIndex,
+						'targetType' : targetType,
+						'targetMbIndex' : targetMbIndex
+					},
+					success : function() {
+						if (likeCheck) {
+							$('#emptyHeart').removeClass("heart outline icon")
+									.addClass("heart icon");
+							$('#emptyHeart').attr('id', 'heart')
+							$('#postLike').text(++postLike);
+							likeCheck = false;
+						} else {
+							$('#heart').removeClass("heart icon").addClass(
+									"heart outline icon");
+							$('#heart').attr('id', 'emptyHeart');
+							$('#postLike').text(--postLike);
+							likeCheck = true;
+						}
+					},
+					error : function() {
+						alert('실패');
+					}
+				});
+			});	
 	
  
 	
