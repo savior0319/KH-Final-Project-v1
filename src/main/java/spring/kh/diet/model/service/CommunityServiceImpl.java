@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.CommunityDAO;
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -207,5 +208,17 @@ public class CommunityServiceImpl implements CommunityService {
 	public int boardBookMarkOn(BoardBookMarkVO checkVO) {
 		int result = communityDAO.bookMarkOn(SqlSessionTemplate,checkVO);
 		return result;
+	}
+
+	@Override
+	public int postReport(BoardBlameVO report) {
+		int result = communityDAO.postReport(SqlSessionTemplate,report);
+		return result;
+	}
+
+	@Override
+	public BoardBlameVO checkPostBlame(BoardBlameVO checkBlame) {
+		BoardBlameVO bbv = communityDAO.checkPostBlame(SqlSessionTemplate,checkBlame);
+		return bbv;
 	}
 }
