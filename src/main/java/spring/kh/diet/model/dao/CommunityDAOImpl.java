@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -390,5 +391,15 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Override
 	public int bookMarkOn(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO checkVO) {
 		return sqlSessionTemplate.insert("community.bookMarkOn",checkVO);
+	}
+
+	@Override
+	public BoardBlameVO checkPostBlame(SqlSessionTemplate sqlSessionTemplate, BoardBlameVO checkBlame) {
+		return sqlSessionTemplate.selectOne("community.checkPostBlame",checkBlame);
+	}
+
+	@Override
+	public int postReport(SqlSessionTemplate sqlSessionTemplate, BoardBlameVO report) {
+		return sqlSessionTemplate.insert("community.postReport",report);
 	}	
 }

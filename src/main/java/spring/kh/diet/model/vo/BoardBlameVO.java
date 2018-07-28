@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BoardBlameVO {
 	private String targetContents;
-	private int blaIndex, targetIndex, targetType, userIndex, targetMBIndex;
+	private int blaIndex, targetIndex, targetType, mbIndex, targetMbIndex;
 	private Timestamp blaDateTime;
 }
