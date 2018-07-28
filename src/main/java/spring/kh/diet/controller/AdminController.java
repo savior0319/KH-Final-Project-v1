@@ -9,7 +9,7 @@ public interface AdminController {
 
 	void noticeRegisterData(String title, String content, HttpServletResponse response) throws IOException;
 
-	String currentLoginUser(HttpServletResponse response);
+	String currentLoginUser(HttpServletRequest request, HttpServletResponse response);
 
 	String memberList(HttpServletRequest request, HttpServletResponse response);
 

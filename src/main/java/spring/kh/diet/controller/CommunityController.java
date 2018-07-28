@@ -37,4 +37,7 @@ public interface CommunityController {
 
 	String postReport(BoardBlameVO report, HttpSession session);
 
+	void getMainCommunityList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException;
+
 }
