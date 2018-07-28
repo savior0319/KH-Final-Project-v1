@@ -223,7 +223,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	@Override
 	public String getMyBookMarkGetListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, int naviCountPerPage, String type, MyActivityVO ma) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

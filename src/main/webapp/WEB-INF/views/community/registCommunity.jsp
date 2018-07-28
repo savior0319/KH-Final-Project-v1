@@ -17,7 +17,7 @@
 		$.ajax({
 			data : form,
 			type : "POST",
-			url : "/imageUpload1.diet",
+			url : "/imageUpload.diet",
 			cache : false,
 			contentType : false,
 			processData : false,

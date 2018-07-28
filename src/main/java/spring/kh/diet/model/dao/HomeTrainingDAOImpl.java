@@ -6,7 +6,6 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;

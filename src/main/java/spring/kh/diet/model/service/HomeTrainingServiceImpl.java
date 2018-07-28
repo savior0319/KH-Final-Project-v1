@@ -8,9 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import spring.kh.diet.model.dao.HomeTrainingDAOImpl;
-import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -71,14 +72,6 @@
 		});
 	</script>
 </c:if>
-<!--  -->
-
-<!-- 강제종료시 확인할수 있는 스크립트 -->
-<script language="javascript">
-	
-</script>
-<!--  -->
-
 
 <style type="text/css" media="screen">
 .menu {
@@ -122,7 +115,6 @@
 
 		<!-- 로그인 , 로그아웃  -->
 		<c:if test="${sessionScope.member==null}">
-
 			<span class="menu">
 				<a href="/login.diet">로그인</a>
 			</span>
@@ -154,12 +146,14 @@
 <!-- 네비게이션 -->
 <div class="ui stackable menu" style="margin-top: 0;">
 	<div class="ui container">
+		<div id="resizeLogo">
 		<a href="/">
-			<img class="logo" src="/resources/image/logo.png" style="margin: 5px;">
+			<img class="logo" src="/resources/image/logo.png" style="height: 90%; margin-right: 15px; margin-top: 5px;">
 		</a>
+		</div>
 
-		<div class="ui simple dropdown item">
-			<div style="font-weight: 600">
+		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+			<div style="font-weight: 600; padding: 0;">
 				다이어트꿀팁
 				<i class="dropdown icon"></i>
 			</div>
@@ -172,8 +166,8 @@
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item">
-			<div style="font-weight: 600">
+		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+			<div style="font-weight: 600; padding: 0;">
 				칼로리사전
 				<i class="dropdown icon"></i>
 			</div>
@@ -183,8 +177,8 @@
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item">
-			<div style="font-weight: 600">
+		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+			<div style="font-weight: 600; padding: 0;">
 				홈트레이닝
 				<i class="dropdown icon"></i>
 			</div>
@@ -201,8 +195,8 @@
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item">
-			<div style="font-weight: 600">
+		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+			<div style="font-weight: 600; padding: 0;">
 				커뮤니티
 				<i class="dropdown icon"></i>
 			</div>
@@ -216,27 +210,30 @@
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item">
-			<div style="font-weight: 600">
+		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+			<div style="font-weight: 600; padding: 0;">
 				고객센터
 				<i class="dropdown icon"></i>
 			</div>
 			<div class="menu">
-				<a class="item" href="#">공지사항</a>
+				<a class="item" href="/notice.diet">공지사항</a>
 				<a class="item" href="#">자주 묻는 질문</a>
 				<a class="item" href="#">Q&#38;A</a>
 				<a class="item" href="/trainerReg.diet">트레이너 회원 등록</a>
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item">
-			<div style="font-weight: 600">다이어트샵</div>
+		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+			<div style="font-weight: 600; padding: 0;">다이어트샵</div>
 		</div>
 	</div>
 </div>
 
 <style type="text/css" media="screen">
 @media ( max-width : 768px) {
+	#resizeLogo{
+		margin : 0 auto;
+	}
 	#resize1 {
 		display: none;
 	}
@@ -250,7 +247,7 @@
 	function bookMark() {
 		alert('CTRL + D키를 누르면 즐겨찾기에 추가 할 수 있습니다');
 	}
-	
+
 	window.onload = function() {
 		$('#load').hide();
 	}

@@ -3,7 +3,6 @@ package spring.kh.diet.model.service;
 
 import java.util.ArrayList;
 
-import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;

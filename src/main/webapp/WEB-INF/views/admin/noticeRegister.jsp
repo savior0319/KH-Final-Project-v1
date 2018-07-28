@@ -6,11 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
-	<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
-	<script src="/resources/summernote/dist/summernote-lite.js"></script>
-	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<title>다이어트</title>
+<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
+<script src="/resources/summernote/dist/summernote-lite.js"></script>
+<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 </head>
 </head>
 
@@ -20,9 +20,6 @@ body {
 	margin-left: 240px;
 }
 </style>
-
-
-
 
 <body>
 	<!-- HEADER -->
@@ -34,7 +31,7 @@ body {
 	<div class="ui container">
 		<div class="ui left aligned basic segment">
 			<div class="ui medium message">
-				<div class="ui large header" align="center">공지사항 등록(사진 빼고 글 부터 테스트 중)</div>
+				<div class="ui large header" align="center">공지사항 등록</div>
 			</div>
 			<br>
 			<div class="ui form">
@@ -61,34 +58,34 @@ body {
 			placeholder : '내용을 입력해주세요',
 			tabsize : 2,
 			height : 500,
-/*			callbacks: {
+			callbacks : {
 				onImageUpload : function(files, editor, welEditable) {
 					for (var i = files.length - 1; i >= 0; i--) {
 						sendFile(files[i], this);
 					}
+				},
+				onMediaDelete : function() {
 				}
-			}*/
+			}
 		});
 	});
 
-/*	function sendFile(file, el) {
-		var form_data = new FormData();
-		form_data.append('file', file);
+	function sendFile(file, el) {
+		form = new FormData();
+		form.append("file", file);
 		$.ajax({
-			data: form_data,
-			type: "POST",
-			url: '/imageUpload.diet',
-			cache: false,
-			contentType: false,
-			enctype: 'multipart/form-data',
-			processData: false,
-			success: function(url) {
-				alert('ajax');
+			data : form,
+			type : "POST",
+			url : "/imageUpload.diet",
+			cache : false,
+			contentType : false,
+			processData : false,
+			encType : "multipart/form-data",
+			success : function(url) {
 				$(el).summernote('editor.insertImage', url);
-				$('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
 			}
 		});
-	}*/
+	}
 
 	function register() {
 		var title = $('#title').val();

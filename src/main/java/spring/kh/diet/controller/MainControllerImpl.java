@@ -70,7 +70,7 @@ public class MainControllerImpl implements MainController {
 		int ageInt = Integer.parseInt(ageStr);
 		int ageRs = ageInt - Integer.parseInt(age);
 		double resultBMI = weightConvertDouble / (heightConvertMeter * heightConvertMeter);
-		
+
 		String ageStrRs = String.valueOf(ageRs);
 		String weightStrRs = String.valueOf((int) weightConvertDouble);
 		String heightStrRs = String.valueOf((int) (heightConvertMeter * 100));
@@ -204,7 +204,7 @@ public class MainControllerImpl implements MainController {
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
+
 		HealthCenterPDVO hcData = mService.getHealthCenterList(currentPage, location);
 		hcData.setType(request.getParameter("type"));
 		request.setAttribute("hcpd", hcData);
@@ -221,6 +221,7 @@ public class MainControllerImpl implements MainController {
 	@Autowired
 	ServletContext context;
 
+	@SuppressWarnings("static-access")
 	@ApplicationScope
 	@Override
 	@RequestMapping(value = "/createSession.diet")
@@ -229,26 +230,22 @@ public class MainControllerImpl implements MainController {
 		session = request.getSession();
 		this.count++;
 		boolean result = false;
-		ArrayList<OnSessionVO> list  = mService.selectAllSessionList();
-		if (!list.isEmpty()) 
-		{
-			for (int i = 0; i < list.size(); i++) 
-			{
+		ArrayList<OnSessionVO> list = mService.selectAllSessionList();
+		if (!list.isEmpty()) {
+			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i).getSessionId().equals(session.getId())) {
-					
+
 					result = true;
 				}
 			}
 			if (!result) {
 				mService.insertSessionToList(session, request);
+			} else {
+				UpdateSSVO USSVO = new UpdateSSVO((String) request.getParameter("data"), session.getId(),
+						(String) request.getParameter("device"));
+				mService.updateAlreadyOnsession(USSVO);
 			}
-			else {
-				UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),session.getId(),(String)request.getParameter("device"));
-				int result2 = mService.updateAlreadyOnsession(USSVO);
-			}
-		}
-		else 
-		{
+		} else {
 			mService.insertSessionToList(session, request);
 		}
 
@@ -259,33 +256,27 @@ public class MainControllerImpl implements MainController {
 	}
 
 	@Override
-	@RequestMapping(value="/updateOnSession.diet")
+	@RequestMapping(value = "/updateOnSession.diet")
 	@ResponseBody
 	public void updateOnsession(HttpServletRequest request) {
-		HttpSession session= request.getSession();
-		
-		UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),session.getId(),(String)request.getParameter("device"));
-		
+		HttpSession session = request.getSession();
+
+		UpdateSSVO USSVO = new UpdateSSVO((String) request.getParameter("data"), session.getId(),
+				(String) request.getParameter("device"));
+
 		mService.updateOnsession(USSVO);
 	}
 
 	@Override
-	@Scheduled(cron="0 0/1 * * * ?") // 30분단위로 실행 스케쥴러
-//	@Scheduled(cron="0/1 * * * * ?") // 1초단위로 실행(테스트용)
+	@Scheduled(cron = "0 0/1 * * * ?") // 30분단위로 실행 스케쥴러
+	// @Scheduled(cron="0/1 * * * * ?") // 1초단위로 실행(테스트용)
 	public void autoDeleteSession() {
-		ArrayList<AllSessionVO> list  = mService.selectAllSessionList2();
-		for(int i=0; i<list.size(); i++)
-		{
-		int insertResult = mService.autoTransSession(list.get(i)); 
-		int deleteResult = mService.autoDeleteSession(list.get(i));
-		
+		ArrayList<AllSessionVO> list = mService.selectAllSessionList2();
+		for (int i = 0; i < list.size(); i++) {
+			mService.autoTransSession(list.get(i));
+			mService.autoDeleteSession(list.get(i));
+
 		}
 	}
-	
-	
-	
-
-	
-
 
 }
