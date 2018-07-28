@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HomeTrainingVO {
 	private String htMainPhoto, htVideo, htTitle, htType, htPart, htStepTime, htStepType, htStepKal, htStepHard, htExplain, htNickname;
-	private int indexNo, htNo, htLike, htHits, htWriterNo, htCommentNo;
+	private int indexNo, mbIndex, htNo, htLike, htHits, htWriterNo, htCommentNo, likeYN;
 	private Timestamp htEnrollDate;
 }

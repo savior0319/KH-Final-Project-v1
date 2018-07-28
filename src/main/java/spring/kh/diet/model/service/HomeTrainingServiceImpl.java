@@ -54,33 +54,39 @@ public class HomeTrainingServiceImpl implements HomeTrainingService{
 	}
 	
 	@Override
-	public int boardLikeDown(BoardLikeVO htlv) {
+	public int boardLikeDown(HomeTrainingLikeVO htlv) {
 		int result = homeTrainingDAO.boardLikeDown(session, htlv);
 		return result;
 	}
 
 	@Override	
-	public int postLikeDown(BoardLikeVO htlv) {
+	public int postLikeDown(HomeTrainingLikeVO htlv) {
 		int result = homeTrainingDAO.postLikeDown(session, htlv);
 		return result;
 	}
 	
 	@Override
-	public int boardLikeUp(BoardLikeVO checkVO) {
+	public int boardLikeUp(HomeTrainingLikeVO checkVO) {
 		int result = homeTrainingDAO.boardLikeUp(session, checkVO);
 		return result;
 	}
 	
 	@Override
-	public int postLikeUp(BoardLikeVO checkVO) {
+	public int postLikeUp(HomeTrainingLikeVO checkVO) {
 		int result = homeTrainingDAO.postLikeUp(session, checkVO);
 		return result;
 	}
 	
 	@Override
-	public BoardLikeVO checkBoardLike(BoardLikeVO checkVO) {
-		BoardLikeVO htlv = homeTrainingDAO.checkBoardLike(session, checkVO);
+	public HomeTrainingLikeVO checkBoardLike(HomeTrainingLikeVO checkVO) {
+		HomeTrainingLikeVO htlv = homeTrainingDAO.checkBoardLike(session, checkVO);
 		return htlv;
+	}
+
+	@Override
+	public int homeTrainingHits(int hits) {
+		int result = homeTrainingDAO.homeTrainingHits(session, hits);
+		return result;
 	}
 
 

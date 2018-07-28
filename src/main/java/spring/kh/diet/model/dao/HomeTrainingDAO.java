@@ -19,13 +19,15 @@ public interface HomeTrainingDAO {
 
 	ArrayList<HomeTrainingVO> pnWriteList(SqlSessionTemplate session, int indexNo);
 
-	BoardLikeVO checkBoardLike(SqlSessionTemplate session, BoardLikeVO checkVO);
+	HomeTrainingLikeVO checkBoardLike(SqlSessionTemplate session, HomeTrainingLikeVO checkVO);
 
-	int boardLikeDown(SqlSessionTemplate session, BoardLikeVO blv);
+	int boardLikeDown(SqlSessionTemplate session, HomeTrainingLikeVO blv);
 
-	int boardLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO);
+	int boardLikeUp(SqlSessionTemplate session, HomeTrainingLikeVO checkVO);
 
-	int postLikeDown(SqlSessionTemplate session, BoardLikeVO blv);
+	int postLikeDown(SqlSessionTemplate session, HomeTrainingLikeVO blv);
 
-	int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO);
+	int postLikeUp(SqlSessionTemplate session, HomeTrainingLikeVO checkVO);
+
+	int homeTrainingHits(SqlSessionTemplate session, int hits);
 }
