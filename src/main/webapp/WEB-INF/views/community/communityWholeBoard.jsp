@@ -7,7 +7,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>성공후기</title>
+<title>커뮤니티</title>
 <script src="/resources/slider/responsiveslides.min.js"></script>
 </head>
 
@@ -67,18 +67,10 @@
 	<div class="ui center aligned container">
 		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li>
-				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
-			</li>
-			<li>
-				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
-			</li>
-			<li>
-				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
-			</li>
-			<li>
-				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
-			</li>
+			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
 		</ul>
 		<br>
 		<div class="ui left aligned container">
@@ -115,12 +107,12 @@
 		<br>
 
 		<%-- <c:if test="${requestScope.cpdv.category == null}"> --%>
-			<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
-				<div class="small ui basic buttons">
-					<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
-					<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
-				</div>
+		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
+			<div class="small ui basic buttons">
+				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
+				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
 			</div>
+		</div>
 		<%-- </c:if> --%>
 		<br>
 		<!-- 글목록 -->
@@ -140,9 +132,7 @@
 					<c:forEach items="${requestScope.cpdv.comList}" var="c">
 						<tr align="center">
 							<td>${c.bcaName}</td>
-							<td style="padding-top: 15px; padding-bottom: 15px;">
-								<a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}">
-									<c:choose>
+							<td style="padding-top: 15px; padding-bottom: 15px;"><a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}"> <c:choose>
 										<c:when test="${fn:length(c.postTitle)>30}">
 											<c:out value="${fn:substring(c.postTitle,0,29)}" />...
 								</c:when>
@@ -150,16 +140,10 @@
 									${c.postTitle}
 								</c:otherwise>
 									</c:choose>
-								</a>
-							</td>
-							<td>
-								<img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
-								${c.postNickname}
-							</td>
+							</a></td>
+							<td><img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'> ${c.postNickname}</td>
 							<td>${c.postHit}</td>
-							<td>
-								<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
-							</td>
+							<td><fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -182,8 +166,7 @@
 					<div class="ui right aligned container">
 						<c:if test="${sessionScope.member!=null}">
 							<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="return loginCheck();">
-								<i class="edit icon"></i>
-								등록
+								<i class="edit icon"></i> 등록
 							</button>
 						</c:if>
 					</div>
@@ -204,8 +187,7 @@
 						<div class="item">작성자</div>
 					</div>
 				</div>
-				<input type="text" placeholder="Search..." id="searchText">
-				<i class="circular search link icon" onclick="searchBtn()"></i>
+				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)" /> <i class="circular search link icon" onclick="searchBtn()"></i>
 			</div>
 		</div>
 
@@ -229,7 +211,7 @@
 	});
 
 	/* 클릭시 각 페이지로 이동 ????????????????????????????????????????? */
- 	function recipeLink(pi) {
+	function recipeLink(pi) {
 		location.href = "/postedCommunity.diet?postIndex=" + pi;
 	}
 
@@ -259,12 +241,22 @@
 		}
 	});
 
-	/* 검색 */
-
+	/* 검색  - 엔터*/
+	function runScript(e) {
+		if (e.keyCode == 13) {
+			searchBtn();
+		}
+	}
 	function searchBtn() {
 		$searchText = $('#searchText').val();
-		location.href = "/communitySearch.diet?category=" + category
-				+ "&searchText=" + $searchText;
+		
+		if (category == "") {
+			alert('카테고리를 선택하여주세요.');
+		}else{
+			location.href = "/communitySearch.diet?category=" + category
+			+ "&searchText=" + $searchText;
+		}
+		
 		/* + "&type=" + type */
 
 	}

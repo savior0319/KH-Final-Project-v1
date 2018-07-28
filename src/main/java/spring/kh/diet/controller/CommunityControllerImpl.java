@@ -136,7 +136,9 @@ public class CommunityControllerImpl implements CommunityController {
 		} else {
 			bpv.setBookMarkYN(0);
 		}
-
+System.out.println(bpv.getPostTitle());
+System.out.println(bpv.getPostComCount());
+System.out.println(bpv.getPostNickname());
 		request.setAttribute("bpv", bpv);
 
 		// 현재 호출하는 메소드(서블릿)의 이름을 담아서 같이 넘겨쥼 -> 슬래쉬(/)빼야 해요
@@ -303,9 +305,6 @@ public class CommunityControllerImpl implements CommunityController {
 
 		CommunityPageDataVO cpdv = communityService.searchList(currentPage, searchText, category);
 		cpdv.setType(type);
-		// System.out.println(type);
-		System.out.println("검색어 : " + cpdv.getSearchText());
-		System.out.println("카테고리 : " + category);
 
 		request.setAttribute("cpdv", cpdv);
 
