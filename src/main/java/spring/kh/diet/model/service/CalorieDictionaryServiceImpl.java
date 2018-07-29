@@ -24,15 +24,15 @@ public class CalorieDictionaryServiceImpl implements CalorieDictionaryService{
 	private SqlSessionTemplate session;
 
 	@Override
-	public FoodCalPageDataVO getFoodCalList(int currentPage) {
+	public FoodCalPageDataVO getFoodCalList(int currentPage, String searchText) {
 		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 		
 		FoodCalPageDataVO fcpd = new FoodCalPageDataVO();
 		
-		ArrayList<FoodCalVO> list = calorieDictionaryDAO.getFoodCalList(session, currentPage, recordCountPerPage);
+		ArrayList<FoodCalVO> list = calorieDictionaryDAO.getFoodCalList(session, currentPage, recordCountPerPage, searchText);
 		
-		String pageNavi = calorieDictionaryDAO.getFoodCalPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage);
+		String pageNavi = calorieDictionaryDAO.getFoodCalPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage, searchText);
 		
 		fcpd.setFcList(list);
 		fcpd.setPageNavi(pageNavi);

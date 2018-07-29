@@ -9,11 +9,11 @@ import spring.kh.diet.model.vo.HealthCalVO;
 
 public interface CalorieDictionaryDAO {
 	String getFoodCalPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
-			int naviCountPerPage);
+			int naviCountPerPage, String searchText);
 
 	FoodCalVO getFoodCalInfo(SqlSessionTemplate session, int fcIndex);
 
-	ArrayList<FoodCalVO> getFoodCalList(SqlSessionTemplate session, int currentPage, int recordCountPerPage);
+	ArrayList<FoodCalVO> getFoodCalList(SqlSessionTemplate session, int currentPage, int recordCountPerPage, String searchText);
 
 	ArrayList<HealthCalVO> getHealthCalList(SqlSessionTemplate session, int currentPage, int recordCountPerPage);
 

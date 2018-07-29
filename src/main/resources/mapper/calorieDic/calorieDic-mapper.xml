@@ -1,80 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="calorieDic">
+
+	<!-- 음식 칼로리 정보 가져오기 -->
 	<select id="getFoodCalList" resultType="foodCal">
-		SELECT 
+		SELECT
 		FC_INDEX AS fcIndex,
-        FC_NAME AS fcName,
-        FC_GRAM AS fcGram,
-        FC_CAL AS fcCal,
-        FC_TAN AS fcTan,
-        FC_DAN AS fcDan,
-        FC_FAT AS fcFat,
-        FC_SUGAR AS fcSugar,
-        FC_NAT AS fcNat
+		FC_NAME AS fcName,
+		FC_GRAM AS fcGram,
+		FC_CAL AS fcCal,
+		FC_TAN AS fcTan,
+		FC_DAN AS fcDan,
+		FC_FAT AS fcFat,
+		FC_SUGAR AS fcSugar,
+		FC_NAT AS fcNat
 		FROM (SELECT FOOD_CALORIE_TBL.*,
 		ROW_NUMBER()
-		OVER(ORDER BY 1 DESC) AS NUM
+		OVER(ORDER BY 1
+		DESC) AS NUM
 		FROM FOOD_CALORIE_TBL
-        ) WHERE NUM BETWEEN #{start} AND #{end}
-	
+		WHERE FC_NAME LIKE
+		'%'||#{searchText}||'%'
+		) WHERE NUM BETWEEN #{start} AND #{end}
+
 	</select>
-	
+
+	<!-- 음식 칼로리 내비 가져오기 -->
 	<select id="getFoodCalNavi" resultType="java.lang.Integer">
-		select count(*) from FOOD_CALORIE_TBL
+		SELECT COUNT(*) FROM
+		FOOD_CALORIE_TBL WHERE FC_NAME LIKE '%'||#{searchText}||'%'
 	</select>
-	
+
 	<!-- 음식 칼로리 정보 가져오기 -->
 	<select id="getFoodCalInfo" resultType="foodCal">
-		SELECT 
+		SELECT
 		FC_INDEX AS fcIndex,
-        FC_NAME AS fcName,
-        FC_GRAM AS fcGram,
-        FC_CAL AS fcCal,
-        FC_TAN AS fcTan,
-        FC_DAN AS fcDan,
-        FC_FAT AS fcFat,
-        FC_SUGAR AS fcSugar,
-        FC_NAT AS fcNat
-        FROM FOOD_CALORIE_TBL
-        WHERE FC_INDEX = #{fcIndex}
+		FC_NAME AS fcName,
+		FC_GRAM AS fcGram,
+		FC_CAL AS fcCal,
+		FC_TAN AS fcTan,
+		FC_DAN AS fcDan,
+		FC_FAT AS fcFat,
+		FC_SUGAR AS fcSugar,
+		FC_NAT AS fcNat
+		FROM FOOD_CALORIE_TBL
+		WHERE FC_INDEX = #{fcIndex}
 	</select>
-	
+
 	<!-- 운동 칼로리 리스트 가져오기 -->
 	<select id="getHealthCalList" resultType="healthCal">
-		SELECT 
+		SELECT
 		HC_INDEX AS hcIndex,
-        HC_NAME AS hcName,
-        HC_TYPE AS hcType,
-        HC_HARD AS hcHard,
-        HC_SET AS hcSet,
-        HC_CAL AS hcCal,
-        HC_EXPLAIN AS hcExplain,
-        HC_VIDEO AS hcVideo
+		HC_NAME AS hcName,
+		HC_TYPE AS hcType,
+		HC_HARD AS hcHard,
+		HC_SET AS hcSet,
+		HC_CAL AS hcCal,
+		HC_EXPLAIN AS hcExplain,
+		HC_VIDEO AS hcVideo
 		FROM (SELECT HC_CALORIE_TBL.*,
 		ROW_NUMBER()
-		OVER(ORDER BY 1 DESC) AS NUM
+		OVER(ORDER BY 1
+		DESC) AS NUM
 		FROM HC_CALORIE_TBL
-        ) WHERE NUM BETWEEN #{start} AND #{end}
+		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
-	
+
 	<!-- 운동 칼로리 리스트 내비 가져오기 -->
 	<select id="getHealthCalNavi" resultType="java.lang.Integer">
-		select count(*) from HC_CALORIE_TBL
+		select count(*) from
+		HC_CALORIE_TBL
 	</select>
-	
+
 	<!-- 운동 칼로리 정보 가져오기 -->
 	<select id="getHealthCalInfo" resultType="healthCal">
-		SELECT 
+		SELECT
 		HC_INDEX AS hcIndex,
-        HC_NAME AS hcName,
-        HC_TYPE AS hcType,
-        HC_HARD AS hcHard,
-        SUBSTR(HC_SET,1,LENGTH(HC_SET)-3) AS hcSet,
-        HC_CAL AS hcCal,
-        HC_EXPLAIN AS hcExplain,
-        HC_VIDEO AS hcVideo
-        FROM HC_CALORIE_TBL
-        WHERE HC_INDEX = #{hcIndex}
+		HC_NAME AS hcName,
+		HC_TYPE AS hcType,
+		HC_HARD AS hcHard,
+		SUBSTR(HC_SET,1,LENGTH(HC_SET)-3) AS hcSet,
+		HC_CAL AS hcCal,
+		HC_EXPLAIN AS hcExplain,
+		HC_VIDEO AS hcVideo
+		FROM HC_CALORIE_TBL
+		WHERE HC_INDEX = #{hcIndex}
 	</select>
 </mapper>
