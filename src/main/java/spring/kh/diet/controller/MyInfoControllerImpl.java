@@ -23,8 +23,10 @@ import com.google.gson.JsonIOException;
 import spring.kh.diet.model.service.MyInfoService;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityVO;
+import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
+import spring.kh.diet.model.vo.MyQuestionPageData;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @SuppressWarnings("all")
@@ -70,24 +72,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(answer, response.getWriter());
 
-	}
-
-	/* 일대일 문의 */
-	@Override
-	@RequestMapping(value = "/allMyOneToOneQuestion.diet")
-	public Object allMyOneToOneQuestion(HttpSession session) {
-		MemberVO mv = (MemberVO) session.getAttribute("member");
-		ArrayList<QuestionVO> list = myInfoService.allMyOneToOneQuestion(mv);
-		ModelAndView view = new ModelAndView();
-		if (!list.isEmpty()) {
-			view.addObject("list", list);
-			view.setViewName("myInfo/myOneToOneQuestion");
-			return view;
-		} else {
-			System.out.println("list값이 없음");
-			view.setViewName("myInfo/myOneToOneQuestion");
-			return view;
-		}
 	}
 
 	/* 회원탈퇴 */
@@ -268,6 +252,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public String myActivityGetList(HttpSession session, HttpServletResponse response, HttpServletRequest request,
 			MyActivityVO ma) throws JsonIOException, IOException {
 		String type = request.getParameter("type");
+
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		MemberVO m = (MemberVO) session.getAttribute("member");
 		ma.setMbIndex(m.getMbIndex());
@@ -303,6 +288,46 @@ public class MyInfoControllerImpl implements MyInfoController {
 		MyCommentPageDataVO myComment = myInfoService.myCommentList(currentPage, type, ma);
 		request.setAttribute("myComment", myComment);
 		return "myInfo/myComment";
+
+	}
+
+	/* 마이페이지 - 내가 작성한 댓글 */
+
+	@Override
+	@RequestMapping(value = "/myBookMark.diet")
+	public String myBookMarkGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
+		String type = request.getParameter("type");
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		MemberVO m = (MemberVO) session.getAttribute("member");
+		ma.setMbIndex(m.getMbIndex());
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		MyBookMarkPageDataVO myBookMark = myInfoService.myBookMarkList(currentPage, type, ma);
+		request.setAttribute("myBookMark", myBookMark);
+		return "myInfo/myBookMark";
+
+	}
+
+	/* 일대일 문의 */
+	@Override
+	@RequestMapping(value = "/allMyOneToOneQuestion.diet")
+	public Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		MyQuestionPageData myQuestion = myInfoService.allMyOneToOneQuestion(currentPage,mv);
+		request.setAttribute("myQuestion", myQuestion);
+		return "myInfo/myOneToOneQuestion";
 
 	}
 }

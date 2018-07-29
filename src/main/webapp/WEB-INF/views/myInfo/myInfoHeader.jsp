@@ -13,14 +13,14 @@
 				<jsp:include page="/WEB-INF/views/myInfo/myInfoAd.jsp"></jsp:include>
 			</div>
 			<div class="ui eight item menu" id="myInfoMenu">
-					<a class="item" href="/myInfoUpdate.diet">내 정보 변경</a> 
-					<a class="item" href="/myActivityInfo.diet">내 활동 정보</a> 
-					<a class="item" href="/allMyOneToOneQuestion.diet">1:1 문의</a>
-					<a class="item" href="/myPost.diet">작성한게시물</a>
-					<a class="item" href="/myComment.diet">작성한댓글</a>
-					<a class="item" href="/myBookMark.diet">북마크</a>
-					<a class="item" href="/myBookMark.diet">트레이너신청</a>
-					<a class="item" href="/secession.diet">회원탈퇴</a>
+					<a class="item" href="/myInfoUpdate.diet"><i class="info icon"></i>내 정보 변경</a> 
+					<a class="item" href="/myActivityInfo.diet"><i class="clipboard check  outline icon"></i>내 활동 정보</a> 
+					<a class="item" href="/allMyOneToOneQuestion.diet"><i class="question circle outline icon"></i> 1:1 문의</a>
+					<a class="item" href="/myPost.diet"><i class="clipboard outline icon"></i>작성한게시물</a>
+					<a class="item" href="/myComment.diet"><i class="comment outline icon"></i>작성한댓글</a>
+					<a class="item" href="/myBookMark.diet"><i class="bookmark outline icon"></i>북마크</a>
+					<a class="item" href="/myTrainer.diet"><i class="h square icon"></i>트레이너신청</a>
+					<a class="item" href="/secession.diet"><i class="hand paper icon"></i>회원탈퇴</a>
 			</div>
 		</div>
 	           <script>

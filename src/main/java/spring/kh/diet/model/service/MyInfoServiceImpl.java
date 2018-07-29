@@ -14,8 +14,10 @@ import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityVO;
+import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
+import spring.kh.diet.model.vo.MyQuestionPageData;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @Service("myInfoService")
@@ -55,12 +57,6 @@ public class MyInfoServiceImpl implements MyInfoService {
 	public MemberVO selectOneMember(MemberVO memberVO) {
 		MemberVO mv = myInfoDAO.selectOneMember(SqlSessionTemplate, memberVO);
 		return mv;
-	}
-
-	@Override
-	public ArrayList<QuestionVO> allMyOneToOneQuestion(MemberVO mv) {
-		ArrayList<QuestionVO> list = myInfoDAO.allMyOneToOneQuestion(SqlSessionTemplate, mv);
-		return list;
 	}
 
 	@Override
@@ -144,10 +140,11 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 		MyCommentPageDataVO myComment = new MyCommentPageDataVO();
 
-		ArrayList<BoardCommentVO> list = (ArrayList<BoardCommentVO>) myInfoDAO.myCommentList(SqlSessionTemplate, currentPage,
-				recordCountPerPage, type, ma);
+		ArrayList<BoardCommentVO> list = (ArrayList<BoardCommentVO>) myInfoDAO.myCommentList(SqlSessionTemplate,
+				currentPage, recordCountPerPage, type, ma);
 		String pageNavi = myInfoDAO.myCommentListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, type, ma);
+
 		myComment.setComList(list);
 		myComment.setPageNavi(pageNavi);
 		myComment.setType(type);
@@ -156,21 +153,37 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	/* 마이페이지 - 북마크 페이징 처리 */
 	@Override
-	public MyPostPageDataVO myBookmarkGetList(int currentPage, String type, MyActivityVO ma) {
+	public MyBookMarkPageDataVO myBookMarkList(int currentPage, String type, MyActivityVO ma) {
 		int recordCountPerPage = 5;
 		int naviCountPerPage = 5;
 
-		MyPostPageDataVO cpdv = new MyPostPageDataVO();
+		MyBookMarkPageDataVO myBookMark = new MyBookMarkPageDataVO();
 
-		ArrayList<BoardPostVO> list = (ArrayList<BoardPostVO>) myInfoDAO.myBookMarkGetList(SqlSessionTemplate,
+		ArrayList<BoardBookMarkVO> list = (ArrayList<BoardBookMarkVO>) myInfoDAO.myBookMarkList(SqlSessionTemplate,
 				currentPage, recordCountPerPage, type, ma);
-		String pageNavi = myInfoDAO.getMyBookMarkGetListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
+		String pageNavi = myInfoDAO.myBookMarkListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, type, ma);
 
-		cpdv.setComList(list);
-		cpdv.setPageNavi(pageNavi);
-		cpdv.setType(type);
-		return cpdv;
+		myBookMark.setComList(list);
+		myBookMark.setPageNavi(pageNavi);
+		myBookMark.setType(type);
+		return myBookMark;
+	}
+
+	@Override
+	public MyQuestionPageData allMyOneToOneQuestion(int currentPage, MemberVO mv) {
+		int recordCountPerPage = 5;
+		int naviCountPerPage = 5;
+		MyQuestionPageData myQuestion = new MyQuestionPageData();
+
+		ArrayList<QuestionVO> list = (ArrayList<QuestionVO>) myInfoDAO.myQuestionList(SqlSessionTemplate, currentPage,
+				recordCountPerPage, mv);
+		String pageNavi = myInfoDAO.myQuestionListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
+				naviCountPerPage, mv);
+
+		myQuestion.setComList(list);
+		myQuestion.setPageNavi(pageNavi);
+		return myQuestion;
 	}
 
 }

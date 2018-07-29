@@ -31,11 +31,12 @@ html, body {
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 	<!-- CONTENTS -->
-	<div class="ui container">
-		<div class="ui center aligned basic segment">
-			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
-			<br>
-			<c:if test="${sessionScope.member!=null}">
+	<c:if test="${sessionScope.member!=null}">
+		<div class="ui container">
+			<div class="ui center aligned basic segment">
+				<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
+				<br>
+
 				<table class="ui gray table">
 					<thead>
 						<tr id="title" align="center">
@@ -46,9 +47,10 @@ html, body {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${myComment.commentList2}" var="m">
+						<c:forEach items="${myComment.comList}" var="m">
 							<tr align="center">
-								<td><a href="">${m.postTitle}</a></td>
+								<td><a
+									href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle}</a></td>
 								<td>${m.cmtContent}</td>
 								<td>${m.cmtDateTime}</td>
 								<td>${m.cmtLike}</td>
@@ -56,21 +58,20 @@ html, body {
 						</c:forEach>
 					</tbody>
 				</table>
-			</c:if>
-		</div>
-	</div>
-	<div class="ui grid">
-		<div class="three column row">
-			<div class="column"></div>
-			<div class="column">
-				<div class="ui center aligned basic segment">
-					<div class="ui pagination menu">${requestScope.myComment.pageNavi }</div>
-				</div>
 			</div>
 		</div>
-		<br>
-	</div>
-
+		<div class="ui grid">
+			<div class="three column row">
+				<div class="column"></div>
+				<div class="column">
+					<div class="ui center aligned basic segment">
+						<div class="ui pagination menu">${requestScope.myComment.pageNavi }</div>
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+	</c:if>
 	<br>
 
 	<c:if test="${sessionScope.member==null}">

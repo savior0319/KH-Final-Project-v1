@@ -25,10 +25,8 @@ public interface MyInfoDAO {
 
 	MemberVO selectOneMember(SqlSessionTemplate sqlSessionTemplate, MemberVO memberVO);
 
-	ArrayList<QuestionVO> allMyOneToOneQuestion(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
-
 	int signupsave(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
-	
+
 	MyActivityVO myActivity(SqlSessionTemplate sqlSessionTemplate, MemberVO m);
 
 	int idCheck(SqlSessionTemplate sqlSessionTemplate, String id);
@@ -41,15 +39,6 @@ public interface MyInfoDAO {
 
 	ArrayList<BoardBookMarkVO> myBookmark(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
-	ArrayList<BoardPostVO> myBookMarkGetList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, String type, MyActivityVO ma);
-
-	ArrayList<BoardPostVO> getCurrentPage(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, MyActivityVO ma);
-
-	String getMyBookMarkGetListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
-			int naviCountPerPage, String type, MyActivityVO ma);
-
 	QuestionVO questionAnswer(SqlSessionTemplate sqlSessionTemplate, QuestionVO qv);
 
 	ArrayList<BoardPostVO> myPostList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
@@ -58,14 +47,22 @@ public interface MyInfoDAO {
 	String myPostListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String type, MyActivityVO ma);
 
-	ArrayList<BoardCommentVO> myCommentList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
-			String type, MyActivityVO ma);
+	ArrayList<BoardCommentVO> myCommentList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, String type, MyActivityVO ma);
 
 	String myCommentListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String type, MyActivityVO ma);
 
-	
+	ArrayList<BoardBookMarkVO> myBookMarkList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, String type, MyActivityVO ma);
 
+	String myBookMarkListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String type, MyActivityVO ma);
+
+	ArrayList<QuestionVO> myQuestionList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			MemberVO mv);
+
+	String myQuestionListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, MemberVO mv);
 
 }
-

@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardBookMarkVO {
-	private int bmkIndex, mbIndex, postIndex;
+	private int bmkIndex, mbIndex, postIndex, postHit, postLike,bcaIndex;
+	private String postTitle, mbId;
 }
