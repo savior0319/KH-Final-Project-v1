@@ -10,12 +10,20 @@ import org.springframework.stereotype.Repository;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
 import spring.kh.diet.model.vo.OffSessionVO;
+import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.todayCommentsVO;
+import spring.kh.diet.model.vo.todayHitsVO;
+import spring.kh.diet.model.vo.todayLikeVO;
+import spring.kh.diet.model.vo.todayPostVO;
+import spring.kh.diet.model.vo.yesterdayAnalytic;
+import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 
 @Repository(value = "adminDAO")
 public class AdminDAOImpl implements AdminDAO {
@@ -354,6 +362,79 @@ public class AdminDAOImpl implements AdminDAO {
 		List<?> list = session.selectList("admin.selectOffSessionList");
 		
 		return (ArrayList<OffSessionVO>)list;
+	}
+
+	@Override
+	public todayHitsVO searchHits(SqlSessionTemplate session) {
+		todayHitsVO tHVO = session.selectOne("admin.searchHits");
+		return tHVO;
+	}
+
+	@Override
+	public todayCommentsVO searchComments(SqlSessionTemplate session) {
+		todayCommentsVO tCVO = session.selectOne("admin.searchComments");
+		return tCVO;
+	}
+
+	@Override
+	public todayPostVO searchPost(SqlSessionTemplate session) {
+		todayPostVO tPVO = session.selectOne("admin.searchPost");
+		return tPVO;
+	}
+
+	@Override
+	public todayLikeVO searchLike(SqlSessionTemplate session) {
+		todayLikeVO tLVO = session.selectOne("admin.searchLike");
+		return tLVO;
+	}
+
+	@Override
+	public ArrayList<MemberVO> searchMember(SqlSessionTemplate session) {
+		List<?> list = session.selectList("admin.searchMember");
+		return (ArrayList<MemberVO>)list;
+	}
+
+	@Override
+	public ArrayList<DelMemberVO> searchDelMember(SqlSessionTemplate session) {
+		List<?> list = session.selectList("admin.searchDelMember");
+		return (ArrayList<DelMemberVO>)list;
+	}
+
+	@Override
+	public ArrayList<OnSessionVO> searchOnSession(SqlSessionTemplate session) {
+		List<?> list = session.selectList("admin.searchOnSession");
+		return (ArrayList<OnSessionVO>)list;
+	}
+
+	@Override
+	public ArrayList<AllSessionVO> searchOffSession(SqlSessionTemplate session) {
+		List<?> list = session.selectList("admin.searchOffSession");
+		return (ArrayList<AllSessionVO>)list;
+	}
+
+	@Override
+	public void yesterdayInsert(SqlSessionTemplate session, yesterdayAnalyticsPDVO yAPDVO) {
+		
+		int result = session.insert("admin.yesterdayInsert",yAPDVO);
+		
+		
+		
+	}
+
+	@Override
+	public yesterdayAnalytic searchAllBefore(SqlSessionTemplate session) {
+		yesterdayAnalytic yAPDVO = session.selectOne("admin.searchAllBefore");
+		return yAPDVO;
+	}
+
+	@Override
+	public int yesterdayAutoInsertBefore(SqlSessionTemplate session) {
+		int result=0;
+		if(session.selectOne("admin.yesterdayAutoInsertBefore")!=null)
+		{
+			result = 1;
+		}
+		return result;
 	}
 
 }

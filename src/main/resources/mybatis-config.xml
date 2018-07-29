@@ -32,6 +32,14 @@
 		<typeAlias type="spring.kh.diet.model.vo.SportCalVO" alias="sportCal"/>
 		<typeAlias type="spring.kh.diet.model.vo.AllSessionListPDVO" alias="allSessionListPDVO"/><!--관리자  세션통계 현재접속리스트  -->
 		<typeAlias type="spring.kh.diet.model.vo.OffSessionVO" alias="offSessionList"/>
+		<typeAlias type="spring.kh.diet.model.vo.todayCommentsVO" alias="todayComments"/>
+		<typeAlias type="spring.kh.diet.model.vo.todayHitsVO" alias="todayHits"/>
+		<typeAlias type="spring.kh.diet.model.vo.todayLikeVO" alias="todayLike"/>
+		<typeAlias type="spring.kh.diet.model.vo.todayPostVO" alias="todayPost"/>
+		<typeAlias type="spring.kh.diet.model.vo.DelMemberVO" alias="delMember"/>
+		<typeAlias type="spring.kh.diet.model.vo.todayAnalyticPDVO" alias="todayAnalytic"/>
+		<typeAlias type="spring.kh.diet.model.vo.yesterdayAnalyticsPDVO" alias="yesterdayAnalytic"/>
+		<typeAlias type="spring.kh.diet.model.vo.yesterdayAnalytic" alias="yesterday"/>
 	</typeAliases>
 
 </configuration>
