@@ -140,21 +140,21 @@
 					<br>
 					트레이너 찾기
 					<br>
+				</button>
+			</td>
+			<td style="padding: 0px; width: 70px;">
+				<button  onclick="healthCenter();" type="button"
+				style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+				<i class="large sistrix icon" id="icon4"></i>
+				<div class="disappear">
+					<br>
+					인바디 측정
+					<br>
+					보건소 찾기
+				</div>
 			</button>
 		</td>
-		<td style="padding: 0px; width: 70px;">
-			<button  onclick="healthCenter();" type="button"
-			style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
-			<i class="large sistrix icon" id="icon4"></i>
-			<div class="disappear">
-				<br>
-				인바디 측정
-				<br>
-				보건소 찾기
-			</div>
-		</button>
-	</td>
-</tr>
+	</tr>
 </table>
 </div>
 </div>
@@ -164,7 +164,7 @@
 		<table id="boardTbl1" class="ui table">
 			<thead>
 				<tr align="center">
-					<th><a href="/communityWholeBoard.diet?type=comAll">커뮤니티</a></th>
+					<th><a href="/communityWholeBoard.diet?type=comAll" style="color:rgb(250,40,40);">커뮤니티 - 전체</a></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -196,20 +196,10 @@
 		<table id="boardTbl3" class="ui table">
 			<thead>
 				<tr align="center">
-					<th>홈트레이닝</th>
+					<th><a href="/notice.diet" style="color:rgb(250,40,40);">공지사항</a></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
 			</tbody>
 		</table>
 	</div>
@@ -325,27 +315,56 @@ $.ajax({
 	url : '/mainCommunity.diet',
 	type : 'post',
 	success : function(data){
-
-
 		for (var i = 0; i < 10; i++) {
 			var tr = $('<tr>');
 
-			var tempChar = data.comList[i].postTitle;
+			var tempChar = '';
 			var charSize = (data.comList[i].postTitle).length;
 
-			if(charSize > 18){
-				data.comList[i].postTitle
+			if(charSize > 21){
+				var value = data.comList[i].postTitle;
+				tempChar = value.substring(0,21) + '...';
+			} else {
+				tempChar = data.comList[i].postTitle;
 			}
 
-			var title = $('<td>').text(data.comList[i].postTitle);
+			var title = $('<td>').html('ㆍ ' + "<a href='#'>" + tempChar + "</a>");
 			
 			tr.append(title);
 			$('#boardTbl1').append(tr);
 		}
-
 	},
 	error : function(){
 		console.log('[Error] 메인 - 자유게시판 출력 실패');
+	}
+});
+
+/* 메인 페이지 - 공지사항 출력 */
+$.ajax({
+	url : '/mainNotice.diet',
+	type : 'post',
+	success : function(data){
+		for (var i = 0; i < 10; i++) {
+			var tr = $('<tr>');
+
+			var tempChar = data.noList[i].noticeTitle;
+			var charSize = (data.noList[i].noticeTitle).length;
+
+			if(charSize > 21){
+				var value = data.noList[i].noticeTitle;
+				tempChar = value.substring(0,21) + '...';
+			} else {
+				tempChar = data.noList[i].noticeTitle;
+			}
+
+			var title = $('<td>').html('ㆍ ' + "<a href='#'>" + tempChar + "</a>");
+
+			tr.append(title);
+			$('#boardTbl3').append(tr);
+		}
+	},
+	error : function(){
+		console.log('[Error] 메인 - 공지사항  출력 실패');
 	}
 });
 

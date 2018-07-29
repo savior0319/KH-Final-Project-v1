@@ -72,8 +72,7 @@
 			<table class="ui very compact table">
 				<thead>
 					<tr align="center">
-						<th style="width: 10%;">분류</th>
-						<th style="width: 50%;">제목</th>
+						<th style="width: 60%;">제목</th>
 						<th style="width: 15%;">작성자</th>
 						<th style="width: 10%;">조회수</th>
 						<th style="width: 15%;">작성일</th>
@@ -82,11 +81,10 @@
 				<tbody>
 					<c:forEach items="${requestScope.npd.noList}" var="n">
 						<tr align="center">
-							<td style="padding-top: 15px; padding-bottom: 15px;">공지사항</td>
-							<td>
+							<td style="padding-top: 15px; padding-bottom: 15px;">
 								<a href="/noticeContent.diet?index=${n.noticeIndex}">${n.noticeTitle}</a>
 							</td>
-							<td>${n.noticeWriter}</td>
+							<td><img class="ui avatar image" src="/resources/image/admin.png" /> ${n.noticeWriter}</td>
 							<td>${n.noticeView}</td>
 							<td>
 								<fmt:formatDate value="${n.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
