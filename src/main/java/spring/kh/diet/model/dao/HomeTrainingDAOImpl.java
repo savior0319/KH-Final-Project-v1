@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
@@ -109,32 +110,32 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO{
 
 	// 좋아요 부분
 	@Override
-	public HomeTrainingLikeVO checkBoardLike(SqlSessionTemplate session, HomeTrainingLikeVO checkVO) {
-		HomeTrainingLikeVO htlv = session.selectOne("community.checkLike", checkVO);
-		return htlv;
+	public BoardLikeVO checkBoardLike(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		BoardLikeVO blv = session.selectOne("homeTraining.checkLike", checkVO);
+		return blv;
 	}
 
 	@Override
-	public int boardLikeDown(SqlSessionTemplate session, HomeTrainingLikeVO htlv) {
-		int result = session.delete("community.likeDown",htlv);
+	public int boardLikeDown(SqlSessionTemplate session, BoardLikeVO blv) {
+		int result = session.delete("homeTraining.likeDown",blv);
 		return result;
 	}
 
 	@Override
-	public int postLikeDown(SqlSessionTemplate session, HomeTrainingLikeVO htlv) {
-		int result = session.update("community.postDown", htlv);
+	public int postLikeDown(SqlSessionTemplate session, BoardLikeVO blv) {
+		int result = session.update("homeTraining.postDown", blv);
 		return result;
 	}
 
 	@Override
-	public int boardLikeUp(SqlSessionTemplate session, HomeTrainingLikeVO checkVO) {
-		int result = session.insert("community.likeUp", checkVO);
+	public int boardLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		int result = session.insert("homeTraining.likeUp", checkVO);
 		return result;
 	}
 
 	@Override
-	public int postLikeUp(SqlSessionTemplate session, HomeTrainingLikeVO checkVO) {
-		int result = session.update("community.postUp", checkVO);
+	public int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		int result = session.update("homeTraining.postUp", checkVO);
 		return result;
 	}
 
