@@ -18,7 +18,6 @@
 		<typeAlias type="spring.kh.diet.model.vo.HomeTrainingVO" alias="homeTraining" />
 		<typeAlias type="spring.kh.diet.model.vo.HomeTrainingPageDataVO" alias="homeTrainingPageData" />
 		<typeAlias type="spring.kh.diet.model.vo.MyActivityVO" alias="myActivity" />
-		<typeAlias type="spring.kh.diet.model.vo.MyActivityPageDataVO" alias="myActivityPageData" />
 		<typeAlias type="spring.kh.diet.model.vo.OnSessionVO" alias="onSession" />
 		<typeAlias type="spring.kh.diet.model.vo.OneSessionVO" alias="oneSession" />
 		<typeAlias type="spring.kh.diet.model.vo.UpdateSSVO" alias="upDateSSVO" />
@@ -35,6 +34,8 @@
 		<typeAlias type="spring.kh.diet.model.vo.AllSessionListPDVO" alias="allSessionListPDVO" /> <!--관리자 세션통계 현재접속리스트 -->
 		<typeAlias type="spring.kh.diet.model.vo.OffSessionVO" alias="offSessionList" />
 		<typeAlias type="spring.kh.diet.model.vo.NoticePDVO" alias="noticePDVO" /> <!-- 공지사항 페이지 리스트 -->
+		<typeAlias type="spring.kh.diet.model.vo.MyCommentPageDataVO" alias="myCommentPDVO" /> 
+		<typeAlias type="spring.kh.diet.model.vo.MyPostPageDataVO" alias="myPostPDVO" /> 
 	</typeAliases>
 
 </configuration>

@@ -164,8 +164,8 @@
 		MB_INDEX = #{mbIndex}
 	</select>
 
-	<!-- 전체게시판 -->
-	<select id="myPostList" parameterType="myActivityPageData"
+
+	<select id="myPostList" parameterType="myPostPDVO"
 		resultType="community" resultMap="communityDB">
 		SELECT *
 		FROM (SELECT
