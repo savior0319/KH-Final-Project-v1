@@ -23,7 +23,7 @@
 		<result property="htExplain" column="ht_Explain"/>
 	</resultMap>
 	
-	<resultMap type="homeTrainingLike" id="homeTrainingLikeDB">
+	<resultMap type="boardLike" id="boardLikeDB">
 		<result property="likeIndex" column="LIKE_INDEX"/>
 		<result property="targetIndex" column="TARGET_INDEX" />
 		<result property="targetType" column="TARGET_TYPE"/>
@@ -89,10 +89,35 @@
 	</update>
 	
 	<!-- 좋아요 체크 -->
-	<!--  <select id="checkLike" parameterType="" resultType="" resultMap="">
-		SELECT * FROM BOARD_LIKE
+    <select id="checkLike" parameterType="boardLike" resultType="boardLike" resultMap="boardLikeDB">
+		SELECT * FROM BOARD_LIKE_TBL
 		WHERE TARGET_INDEX = #{targetIndex} AND MB_INDEX = #{mbIndex}
-	</select>  -->
+	</select>  
+	
+	<!-- 게시글 좋아요 테이블 삭제 -->
+	<delete id="likeDown" parameterType="boardLike">
+		DELETE FROM BOARD_LIKE_TBL WHERE MB_INDEX = #{mbIndex} AND TARGET_INDEX = #{targetIndex} AND TARGET_TYPE = 1
+	</delete>
+
+	<!-- 게시글 좋아요 테이블 추가 -->
+	<insert id="likeUp" parameterType="boardLike">
+		INSERT INTO BOARD_LIKE_TBL
+		VALUES(BOARD_LIKE_TBL_SEQ.NEXTVAL,#{targetIndex},1,#{mbIndex},#{targetMbIndex})
+	</insert>
+
+	<!-- 게시글 좋아요 수 -1 -->
+	<update id="postDown" parameterType="boardLike">
+		UPDATE HOMETRAINING_TB
+		SET HT_LIKE = HT_LIKE -1
+		WHERE INDEX_NO = #{targetIndex}
+	</update>
+
+	<!-- 게시글 좋아요 수 +1 -->
+	<update id="postUp" parameterType="boardLike">
+		UPDATE HOMETRAINING_TB
+		SET HT_LIKE = HT_LIKE +1
+		WHERE INDEX_NO = #{targetIndex}
+	</update>
 	
 	
 	
