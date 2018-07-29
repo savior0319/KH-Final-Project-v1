@@ -6,13 +6,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
+import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
 
 public interface HomeTrainingDAO {
-	
-	ArrayList<HomeTrainingVO> selectAllHomeTraining(SqlSessionTemplate session,int currentPage, int recordCountPerPage,String type);
 
-	String homeTrainingPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage, int naviCountPerPage,String type);
+	ArrayList<HomeTrainingVO> selectAllHomeTraining(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			HomeTrainingPageDataVO pdvo);
+
+	String homeTrainingPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, HomeTrainingPageDataVO pdvo);
 
 	HomeTrainingVO homeTraining(SqlSessionTemplate session, int indexNo);
 
@@ -29,4 +32,6 @@ public interface HomeTrainingDAO {
 	int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO);
 
 	int homeTrainingHits(SqlSessionTemplate session, int hits);
+
+
 }

@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HomeTrainingPageDataVO {
 	private ArrayList<HomeTrainingVO> htList;
-	private String pageNavi, type;
+	private String pageNavi, type, searchText, category;
 	private int start, end;
 }

@@ -1,5 +1,6 @@
 package spring.kh.diet.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -29,26 +30,22 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 
 	@Resource(name = "homeTrainingService")
 	private HomeTrainingServiceImpl homeTrainingService;
-	
+
 	@Resource(name = "commonService")
 	private CommonService commonService;
 
 	@Resource(name = "communityService")
 	private CommunityService communityService;
-		
+
 	/* 홈트레이닝 - 전체 */
 	@Override
 	@RequestMapping(value = "/homeTrainingAll.diet")
 	public String homeTrainingAll(HttpServletRequest request) {
-		return "homeTraining/homeTrainingAll";
-	}
+		HomeTrainingPageDataVO pdvo = new HomeTrainingPageDataVO();
 
-	/* 홈트레이닝 - 목록 */
-	@Override
-	@RequestMapping(value = "/homeTrainingList.diet")
-	public String homeTraining(HttpServletRequest request) {
-		String type = request.getParameter("type");
-		
+		// type에 빈값 넣어줌 이건 안써요
+		pdvo.setType("");
+
 		int currentPage;
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
@@ -56,12 +53,47 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 
-		HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingList(currentPage, type);
+		if (request.getParameter("category") != null && request.getParameter("searchText") != null) {
+			pdvo.setCategory(request.getParameter("category"));
+			pdvo.setSearchText(request.getParameter("searchText"));
+		}
 
-		htpd.setType(type);
+		HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingAll(currentPage, pdvo);
+		htpd.setCategory(pdvo.getCategory());
+		htpd.setSearchText(pdvo.getSearchText());
+
 		request.setAttribute("htpd", htpd);
-		
-		
+
+		return "homeTraining/homeTrainingAll";
+	}
+
+	/* 홈트레이닝 - 목록 */
+	@Override
+	@RequestMapping(value = "/homeTrainingList.diet")
+	public String homeTraining(HttpServletRequest request) {
+		HomeTrainingPageDataVO pdvo = new HomeTrainingPageDataVO();
+		String type = request.getParameter("type");
+		pdvo.setType(type);
+
+		if (request.getParameter("category") != null && request.getParameter("searchText") != null) {
+			pdvo.setCategory(request.getParameter("category"));
+			pdvo.setSearchText(request.getParameter("searchText"));
+		}
+
+		int currentPage;
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingList(currentPage, pdvo);
+		htpd.setType(type);
+		htpd.setCategory(pdvo.getCategory());
+		htpd.setSearchText(pdvo.getSearchText());
+
+		request.setAttribute("htpd", htpd);
+
 		return "homeTraining/homeTrainingList";
 	}
 
@@ -70,14 +102,14 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 	@RequestMapping(value = "/homeTrainingInfo.diet")
 	public String homeTrainingInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int indexNo = Integer.parseInt(request.getParameter("indexNo"));
-		
+
 		String servletName = "homeTrainingInfo.diet";
 		configCookie(session, request, response, indexNo);
-						
+
 		HomeTrainingVO ht = homeTrainingService.homeTraining(indexNo);
-		
+
 		request.setAttribute("ht", ht);
-				
+
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
@@ -85,69 +117,69 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
-		
+
 		BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, indexNo);
-		
+
 		request.setAttribute("bcpd", bcpd);
-		
-		/* 이전글 다음글*/
-		/*ArrayList<HomeTrainingVO> list = new ArrayList<HomeTrainingVO>();
-		list = (ArrayList<HomeTrainingVO>) homeTrainingService.pnWriteList(indexNo);
-		request.setAttribute("list", list);*/
-		
+
+		/* 이전글 다음글 */
+		/*
+		 * ArrayList<HomeTrainingVO> list = new ArrayList<HomeTrainingVO>(); list =
+		 * (ArrayList<HomeTrainingVO>) homeTrainingService.pnWriteList(indexNo);
+		 * request.setAttribute("list", list);
+		 */
+
 		int postIndex = Integer.parseInt(request.getParameter("indexNo"));
 		// 쿠키 등록
-		
+
 		int sessionIndex = 0;
-		if(session.getAttribute("member")!=null) {
-			sessionIndex = ((MemberVO)session.getAttribute("member")).getMbIndex();
+		if (session.getAttribute("member") != null) {
+			sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
 		}
 		// 등록된 정보 가져오는 로직
 		BoardPostVO bpv = communityService.postedCommunity(postIndex);
-		
+
 		// 좋아요 체크하는 로직
-		if (session.getAttribute("member")!=null) {
+		if (session.getAttribute("member") != null) {
 			BoardLikeVO blv = checkLike(indexNo, sessionIndex);
-			
+
 			if (blv != null) {
 				ht.setLikeYN(1);
 			} else {
 				ht.setLikeYN(0);
 			}
 		}
-		
-						
+
 		return "homeTraining/homeTrainingInfo";
 	}
 
 	// 쿠키 저장 메소드
-	public int configCookie(HttpSession session, HttpServletRequest request, HttpServletResponse response,
-			int hits) {
+	public int configCookie(HttpSession session, HttpServletRequest request, HttpServletResponse response, int hits) {
 		String mbIndex = "";
 		int sessionIndex = 0;
-		if(session.getAttribute("member") != null) {
+		if (session.getAttribute("member") != null) {
 			mbIndex = String.valueOf(((MemberVO) session.getAttribute("member")).getMbIndex());
 			sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
 		} else {
 			mbIndex = request.getRemoteAddr();
-			if(mbIndex.equals("0:0:0:0:0:0:0:1")) {
+			if (mbIndex.equals("0:0:0:0:0:0:0:1")) {
 				mbIndex = "localHost";
 			}
 		}
 		boolean isGet = false;
-		
+
 		// 조회수 카운트 시작
 		Cookie[] cookies = request.getCookies();
-		if(cookies != null) {
+		if (cookies != null) {
 			for (Cookie c : cookies) {
 				// 쿠키가 있는 경우
-				if(c.getName().equals(String.valueOf(hits))) {
+				if (c.getName().equals(String.valueOf(hits))) {
 					isGet = true;
 				}
 			}
 			// 쿠키가 없는 경우
-			if(!isGet) {
-				int result = homeTrainingService.homeTrainingHits(hits); //조회수 증가
+			if (!isGet) {
+				int result = homeTrainingService.homeTrainingHits(hits); // 조회수 증가
 				Cookie c1 = new Cookie(String.valueOf(hits), String.valueOf(hits));
 				c1.setMaxAge(1 * 24 * 60 * 60); // 하루저장
 				response.addCookie(c1);
@@ -155,55 +187,70 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		}
 		return sessionIndex;
 	}
-	
-	
+
 	private BoardLikeVO checkLike(int hits, int sessionIndex) {
 		BoardLikeVO likeCheckVO = new BoardLikeVO();
 		likeCheckVO.setTargetIndex(hits);
 		System.out.println("postIndexController : " + hits);
 		likeCheckVO.setMbIndex(sessionIndex);
-		System.out.println("sessionController : "+sessionIndex);
+		System.out.println("sessionController : " + sessionIndex);
 		System.out.println("likecheckVOController : " + likeCheckVO);
 		BoardLikeVO blv = communityService.checkBoardLike(likeCheckVO);
 		System.out.println("blvController : " + blv);
 		return blv;
 	}
-	
-	
-	
+
 	// 좋아요 부분
-		@Override
-		@ResponseBody
-		@RequestMapping(value = "/homeTrainingLike.diet")
-		public String boardLike(BoardLikeVO checkVO, HttpSession session) {
-			int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
-			int postIndex = checkVO.getTargetIndex();
-			checkVO.setMbIndex(sessionIndex);
-			
-			
-			BoardLikeVO blv = checkLike(postIndex,sessionIndex);
-			int result2 = 0;
-			
-			if(blv != null) {
-				int result = homeTrainingService.boardLikeDown(blv);
-				if(result>0) {
-					result2 = homeTrainingService.postLikeDown(blv);
-				}
-			} else {
-				int result = homeTrainingService.boardLikeUp(checkVO);
-				if(result>0) {
-					result2 = homeTrainingService.postLikeUp(checkVO);
-				}
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/homeTrainingLike.diet")
+	public String boardLike(BoardLikeVO checkVO, HttpSession session) {
+		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
+		int postIndex = checkVO.getTargetIndex();
+		checkVO.setMbIndex(sessionIndex);
+
+		BoardLikeVO blv = checkLike(postIndex, sessionIndex);
+		int result2 = 0;
+
+		if (blv != null) {
+			int result = homeTrainingService.boardLikeDown(blv);
+			if (result > 0) {
+				result2 = homeTrainingService.postLikeDown(blv);
 			}
-			
-			if(result2>0) {
-				return "success";
-			} else {
-				return "failed";
+		} else {
+			int result = homeTrainingService.boardLikeUp(checkVO);
+			if (result > 0) {
+				result2 = homeTrainingService.postLikeUp(checkVO);
 			}
-			
 		}
-		
-		
+
+		if (result2 > 0) {
+			return "success";
+		} else {
+			return "failed";
+		}
+
+	}
+
+	// 글을 작성할 수 있는 회원인지 권한 확인
+	// 실제로 할려면 DB를 거쳐서 회원 구분(ex.관리자, 트레이너 등)을 확인 해야 함
+	@Override
+	@RequestMapping(value = "/htWriteAuthorityCheck.diet")
+	public void htWriteAuthorityCheck(HttpSession session, HttpServletResponse response) throws IOException {
+		int result = 0;
+		if (session.getAttribute("member") != null && ((MemberVO) session.getAttribute("member")).getMbIndex() == 1) {
+			result = 1;
+		}
+
+		response.getWriter().println(result);
+		response.getWriter().close();
+	}
+	
+	// 다이어트 팁 글쓰기 불러오기
+	@Override
+	@RequestMapping(value = "/loadHomeTrainingWrite.diet")
+	public String redirectLoadHomeTrainingWrite() {
+		return "homeTraining/registHomeTraining";
+	}
 
 }

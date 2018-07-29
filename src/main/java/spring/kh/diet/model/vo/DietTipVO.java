@@ -1,6 +1,5 @@
 package spring.kh.diet.model.vo;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
