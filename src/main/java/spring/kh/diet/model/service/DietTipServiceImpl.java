@@ -75,22 +75,32 @@ public class DietTipServiceImpl implements DietTipService {
 		return result;
 	}
 
+	// 좋아요 테이블에서 행 삭제
+	@Override
 	public int boardLikeDown(BoardLikeVO blv) {
 		return dietTipDAO.boardLikeDown(session, blv);
 	}
 
+	// 좋아요 -1
+	@Override
 	public int postLikeDown(BoardLikeVO blv) {
 		return dietTipDAO.postLikeDown(session, blv);
 	}
 
+	// 좋아요 테이블에서 행 추가
+	@Override
 	public int boardLikeUp(BoardLikeVO checkVO) {
 		return dietTipDAO.boardLikeUp(session, checkVO);
 	}
 
+	// 좋아요 +1
+	@Override
 	public int postLikeUp(BoardLikeVO checkVO) {
 		return dietTipDAO.postLikeUp(session, checkVO);
 	}
 
+	// 해당 회원이 좋아요 했는지 확인
+	@Override
 	public BoardLikeVO checkBoardLike(BoardLikeVO checkVO) {
 		return dietTipDAO.checkBoardLike(session, checkVO);
 	}

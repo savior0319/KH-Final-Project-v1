@@ -34,7 +34,7 @@ public class DietTipControllerImpl implements DietTipController {
 
 	@Resource(name = "commonService")
 	private CommonService commonService;
-	
+
 	@Resource(name = "communityService")
 	private CommunityService communityService;
 
@@ -312,23 +312,24 @@ public class DietTipControllerImpl implements DietTipController {
 	}
 
 	// 좋아요 확인 메소드
+	@Override
 	public BoardLikeVO checkLike(int postIndex, int sessionIndex) {
 		BoardLikeVO likeCheckVO = new BoardLikeVO();
 		likeCheckVO.setTargetIndex(postIndex);
 		likeCheckVO.setMbIndex(sessionIndex);
 		BoardLikeVO blv = dietTipService.checkBoardLike(likeCheckVO);
-		System.out.println(blv);
 		return blv;
 	}
-	
-	// 북마크 확인 메소드
-		public BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex) {
-			BoardBookMarkVO bookMarkCheckVO = new BoardBookMarkVO();
-			bookMarkCheckVO.setPostIndex(postIndex);
-			bookMarkCheckVO.setMbIndex(sessionIndex);
-			BoardBookMarkVO bbmv = communityService.checkBoardBookMark(bookMarkCheckVO);
-			return bbmv;
 
-		}
+	// 북마크 확인 메소드
+	@Override
+	public BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex) {
+		BoardBookMarkVO bookMarkCheckVO = new BoardBookMarkVO();
+		bookMarkCheckVO.setPostIndex(postIndex);
+		bookMarkCheckVO.setMbIndex(sessionIndex);
+		BoardBookMarkVO bbmv = communityService.checkBoardBookMark(bookMarkCheckVO);
+		return bbmv;
+
+	}
 
 }

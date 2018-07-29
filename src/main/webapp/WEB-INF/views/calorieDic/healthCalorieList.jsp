@@ -102,7 +102,7 @@
 	function healthCalSearch(){
 		var searchText = $('#searchText').val();
 		
-		location.href="/foodCalorieList.diet?searchText=" + searchText;
+		location.href="/healthCalorieList.diet?searchText=" + searchText;
 	}
 </script>
 
