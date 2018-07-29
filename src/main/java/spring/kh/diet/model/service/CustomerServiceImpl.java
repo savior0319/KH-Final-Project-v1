@@ -3,6 +3,9 @@ package spring.kh.diet.model.service;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,14 @@ public class CustomerServiceImpl implements CustomerService {
 		nPd.setPageNavi(pageNavi);
 
 		return nPd;
+	}
+
+	/* 공지사항 선택된 글 가져오기 */
+	@Override
+	public NoticeVO noticeContent(HttpSession sessionCheck, int index, HttpServletResponse response,
+			HttpServletRequest request) {
+		NoticeVO nVo = cDao.noticeContent(sessionCheck, session, index, response, request);
+		return nVo;
 	}
 
 }

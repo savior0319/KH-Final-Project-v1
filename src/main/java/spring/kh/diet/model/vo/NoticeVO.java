@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NoticeVO {
 	private String noticeTitle, noticeContent, noticeWriter;
-	private int noticeIndex;
+	private int noticeIndex, noticeView;
 	private Timestamp noticeWriteDay;
 }
