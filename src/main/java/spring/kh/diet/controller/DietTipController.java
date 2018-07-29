@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 
 public interface DietTipController {
@@ -31,4 +32,8 @@ public interface DietTipController {
 	void updateDietTip(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 	String dtLike(BoardLikeVO checkVO, HttpSession session);
+
+	BoardLikeVO checkLike(int postIndex, int sessionIndex);
+
+	BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex);
 }
