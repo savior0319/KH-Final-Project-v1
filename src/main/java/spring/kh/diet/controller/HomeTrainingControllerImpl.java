@@ -77,8 +77,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		HomeTrainingVO ht = homeTrainingService.homeTraining(indexNo);
 		
 		request.setAttribute("ht", ht);
-		System.out.println(ht);
-		
+				
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
@@ -108,12 +107,12 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		
 		// 좋아요 체크하는 로직
 		if (session.getAttribute("member")!=null) {
-			BoardLikeVO blv = checkLike(postIndex, sessionIndex);
+			BoardLikeVO blv = checkLike(indexNo, sessionIndex);
 			
 			if (blv != null) {
-				bpv.setLikeYN(1);
+				ht.setLikeYN(1);
 			} else {
-				bpv.setLikeYN(0);
+				ht.setLikeYN(0);
 			}
 		}
 		
@@ -170,34 +169,25 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		return blv;
 	}
 	
-
-	public HomeTrainingLikeVO checkBoardLike(HomeTrainingLikeVO checkVO, HttpSession session) {
-		HomeTrainingLikeVO htlv = null;
-		if(session.getAttribute("member")!=null) {
-			int mbIndex = ((MemberVO)session.getAttribute("member")).getMbIndex();
-			checkVO.setMbIndex(mbIndex);
-			htlv = homeTrainingService.checkBoardLike(checkVO);
-		}
-		return htlv;
-	}
+	
 	
 	// 좋아요 부분
 		@Override
 		@ResponseBody
 		@RequestMapping(value = "/homeTrainingLike.diet")
-		public String boardLike(HomeTrainingLikeVO checkVO, HttpSession session) {
+		public String boardLike(BoardLikeVO checkVO, HttpSession session) {
 			int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
 			int postIndex = checkVO.getTargetIndex();
 			checkVO.setMbIndex(sessionIndex);
 			
 			
-			HomeTrainingLikeVO htlv = checkBoardLike(checkVO,session);
+			BoardLikeVO blv = checkLike(postIndex,sessionIndex);
 			int result2 = 0;
 			
-			if(htlv != null) {
-				int result = homeTrainingService.boardLikeDown(htlv);
+			if(blv != null) {
+				int result = homeTrainingService.boardLikeDown(blv);
 				if(result>0) {
-					result2 = homeTrainingService.postLikeDown(htlv);
+					result2 = homeTrainingService.postLikeDown(blv);
 				}
 			} else {
 				int result = homeTrainingService.boardLikeUp(checkVO);
@@ -213,5 +203,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 			}
 			
 		}
+		
+		
 
 }

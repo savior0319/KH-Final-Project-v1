@@ -77,18 +77,19 @@
 
 				<!-- 좋아요 버튼 부분 -->
 				<div class="ui big basic button" tabindex="0" style="border-radius: 30px; text-align: center;" >
-					<button class="ui red button" id="heartBtn" style="height: 40px;">
+					<div id="heartBtn" style="height: 20px; width:100px;">
 						<c:choose>
 							<c:when test="${requestScope.ht.likeYN==0}">
-								<i class="heart outline icon" id="emptyHeart"></i>
+								<i class="large heart outline icon" id="emptyHeart" style="color:red;"></i>
 							</c:when>
 							<c:when test="${requestScope.ht.likeYN==1}">
-								<i class="heart icon" id="heart"></i>
+								<i class="large heart icon" id="heart" style="color:red;"></i>
 							</c:when>
 						</c:choose>
-				</button>
+				
 							
-					<a class="ui basic red left pointing label" id="postLike">${requestScope.ht.htLike}</a>
+					<a class="ui basic left" id="postLike">${requestScope.ht.htLike}</a>
+					</div>
 			</div>
 			<br> <br> <br> <br>
 			<hr>
@@ -132,7 +133,7 @@
 
 
 			<div class="ui comments" style="max-width: 1220px;">
-				<h3 class="ui dividing header" style="margin-top: 8px">
+				<h3 class="ui dividing header" style="margin-top: 8px; text-align:left;">
 					<i class="chevron red circle right icon"> </i>댓글 쓰기
 				</h3>
 
@@ -167,6 +168,20 @@
 										<fmt:formatDate value="${bc.cmtDateTime }"
 											pattern="yyyy-MM-dd HH:mm:ss" />
 									</span>
+									
+									<div id="modiDelete_${bc.cmtIndex}">
+										<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex"
+											id="cmdIndex_${bc.cmtIndex}" /> <a class="modifyComment"
+											style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
+										&nbsp;&nbsp;|&nbsp;&nbsp; <a class="deleteComment"
+											onclick="deleteComment(${bc.cmtIndex});"
+											style="cursor: pointer;">삭제</a>
+									</div>
+									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}"
+										onclick="cancleComment(${bc.cmtIndex});"
+										style="cursor: pointer; display: none;"
+										href="javascript:void(0)">취소</a>
+										
 									<div class="ui right aligned container" align="right"
 										style="width: 70%; float: right;">
 										<button class="ui red basic tiny button"
@@ -178,11 +193,28 @@
 										</button>
 									</div>
 								</div>
-								<div class="text" style="text-align:left; margin-left: 3%;">
+								<div class="text" style="text-align:left; margin-left: 3%;" id="cmd_${bc.cmtIndex}">
 									<pre>${bc.cmtContent }</pre>
 								</div>
 							</div>
 						</div>
+						
+						<!-- 수정 -->
+						<form class="ui reply form" id="modifyContents_${bc.cmtIndex}"
+							style="display: none;">
+							<div class="field">
+								<textarea id="modifyText_${bc.cmtIndex}" style="resize: none;"
+									name="content">${bc.cmtContent}</textarea>
+							</div>
+							<div class="ui right aligned container" id="rightContainer">
+								<div class="ui labeled submit icon button"
+									style="background-color: #fa2828; color: white;"
+									onclick="modifyComment(${bc.cmtIndex});">
+									<i class="icon edit"></i> 수정
+								</div>
+							</div>
+						</form>
+						
 						<br>
 						<hr style="border: 1px solid #F6F6F6">
 						<br>
@@ -273,6 +305,34 @@
 							+":"+ doublePos(date.getSeconds());
 					span.html(dateFor);
 					
+					var modiDelete = $("<div>").attr("id","modiDelete_"+data.bcList[i].cmtIndex);
+					
+					
+					var hiddenInput = $("<input>").attr("type","hidden");
+					hiddenInput.attr("value",data.bcList[i].cmtIndex);
+					hiddenInput.attr("id","cmdIndex_"+data.bcList[i].cmtIndex);
+					
+					
+					var modifyA = $("<a>").attr("class","modifyComment");
+					//modifyA.attr("onclick","changeCmd_data.bcList[i].cmtIndex();");
+					modifyA.attr('id','changeCmd_'+data.bcList[i].cmtIndex+'()')
+					modifyA.attr("style","cursor:pointer;");
+					modifyA.append("수정");
+					
+					
+					var deleteA = $("<a>").attr("class","deleteComment");
+					deleteA.attr("onclick","deleteComment("+data.bcList[i].cmtIndex+")");
+					deleteA.attr("style","cursor:pointer;");
+					deleteA.append("삭제");
+					
+										
+					var cancleA = $("<a>").attr("class","cancleComment");
+					cancleA.attr("onclick","cancleComment("+data.bcList[i].cmtIndex+")");
+					cancleA.attr("id","cancleComment_"+data.bcList[i].cmtIndex);
+					cancleA.attr("style","cursor: pointer; display: none;");
+					cancleA.attr("href","javascript:void(0);")
+					cancleA.append("취소");
+					
 					
 					var containerDiv = $("<div>").attr("class",
 							"ui right aligned container");
@@ -292,6 +352,7 @@
 					var blameI = $("<i>").attr("class", "ban icon");
 
 					var textDiv = $("<div>").attr("class", "text");
+					textDiv.attr("align", "left");
 					textDiv.attr("style", "margin-left:3%;");
 
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
@@ -306,6 +367,14 @@
 					containerDiv.append(blameBtn);
 
 					metadataDiv.append(span);
+				
+					metadataDiv.append(modiDelete);
+					modiDelete.append(hiddenInput);
+					modiDelete.append(modifyA);
+					modiDelete.append('&nbsp;&nbsp;|&nbsp;&nbsp;');
+					modiDelete.append(deleteA);
+									
+					metadataDiv.append(cancleA);
 					metadataDiv.append(containerDiv);
 
 					textDiv.append(pre);
@@ -320,6 +389,36 @@
 					commentDiv.append(contentDiv);
 
 					$('#comment').append(commentDiv);
+					
+					var modifyContents = $("<form>").attr("class","ui reply form");
+					modifyContents.attr("id","modifyContents_"+data.bcList[i].cmtIndex);
+					modifyContents.attr("style","display:none;");
+					
+					var modifyField = $("<div>").attr("class","field");
+					
+					var textArea = $("<textarea>").attr("id","modifyText_"+data.bcList[i].cmtIndex);
+					textArea.attr("style","resize:none;");
+					textArea.attr("name","content");
+					textArea.append(data.bcList[i].cmtContent);
+					
+					var divRight = $("<div>").attr("class","ui right aligned container");
+					divRight.attr("id","rightnContainer");
+					
+					var divLabel = $("<div>").attr("class","ui labeled submit icon button");
+					divLabel.attr("style","background-color: #fa2828; color: white;");
+					divLabel.attr("onclick","modifyComment("+data.bcList[i].cmtIndex+");")
+					
+					var editIcon = $("<i>").attr("class","icon edit");
+					
+			
+					$('#comment').append(modifyContents);
+					modifyContents.append(modifyField);
+					modifyField.append(textArea);
+					modifyContents.append(divRight);
+					divRight.append(divLabel);
+					divLabel.append(editIcon);
+					divLabel.append("수정");
+					
 					$('#comment').append($("<br>"));
 					$('#comment').append(
 							$("<hr>").attr('style',
@@ -346,6 +445,10 @@
 		return num>9?num:"0"+num;
 	}
 	
+	 var likeCheck;
+	 
+	 var likeYN = '${requestScope.ht.likeYN}';
+	 var postLike = '${requestScope.ht.htLike}';
 	/* 좋아요 버튼 */
 	$('#heartBtn').click(
 			function() {
@@ -356,12 +459,12 @@
 					likeCheck = false;
 					likeYN = 0;
 				}
-				var targetIndex = '${requestScope.ht.likeIndex}';
+				var targetIndex = '${requestScope.ht.indexNo}';
 				var targetType = 1;
-				var targetMbIndex = '${requestScope.ht.mbIndex}';
+				var targetMbIndex = '${requestScope.ht.htWriterNo}';
 
 				$.ajax({
-					url : '/postLike.diet',
+					url : '/homeTrainingLike.diet',
 					type : 'post',
 					data : {
 						'targetIndex' : targetIndex,
@@ -383,13 +486,82 @@
 							likeCheck = true;
 						}
 					},
-					error : function() {
+						error : function() {
 						alert('실패');
 					}
 				});
 			});	
 	
  
+	/* 댓글 삭제 */
+	function deleteComment(ci){
+		var indexNo = $('#indexNo').val();
+		
+		$.ajax({
+			url : '/deleteComment.diet',
+			type : 'post',
+			data : {
+				'commentIndex' : ci,
+				'indexNo' : indexNo
+			},
+			success : function() {
+				location.href = "/homeTrainingInfo.diet?indexNo=" + indexNo;
+
+			},
+			error : function() {
+				alert('삭제에 실패하였습니다.');
+			}
+		});
+	} 
+	
+	
+/* 댓글 수정 */
+	
+
+	$("body").on("click", "[id^=changeCmd_]", function(event) { 
+		/* 해당 댓글 번호 */
+		var cmdIndex = $(this).siblings('input').val(); 
+		// 수정 해야할 코멘트
+		$('#cmd_'+cmdIndex).attr("style","display:none;");
+		var modifyContents = $('#modifyContents_'+cmdIndex).attr("style","display:inline;");
+		var modiDelete = $("#modiDelete_"+cmdIndex).attr("style","display:none;");
+		var cancleComment = $('#cancleComment_'+cmdIndex).attr("style","display:inline;");
+    });
+	
+	function modifyComment(ci){
+		var indexNo = $('#indexNo').val();
+		//내용가져오기
+		var comment = $('#modifyText_'+ci).val();
+		
+		
+		 $.ajax({
+			url : '/modifyComment.diet',
+			type : 'post',
+			data : {
+				'commentIndex' : ci,
+				'comment' : comment
+			},
+			success : function() {
+				//alert('수정 성공');
+				$('#cmd_'+ci).attr("style","display:inline;");
+				var modifyContents = $('#modifyContents_'+ci).attr("style","display:none;");
+				var modiDelete = $("#modiDelete_"+ci).attr("style","display:inline;");
+				var cancleComment = $('#cancleComment_'+ci).attr("style","display:none;");
+				location.href = "/homeTrainingInfo.diet?indexNo=" + indexNo;
+
+			},
+			error : function() {
+				alert('수정에 실패하였습니다.');
+			}
+		}); 
+	}
+	
+	function cancleComment(ci){
+		$('#cmd_'+ci).attr("style","display:inline;");
+		var modifyContents = $('#modifyContents_'+ci).attr("style","display:none;");
+		var modiDelete = $("#modiDelete_"+ci).attr("style","display:inline;");
+		var cancleComment = $('#cancleComment_'+ci).attr("style","display:none;");
+	}
 	
 </script>
 

@@ -9,8 +9,9 @@
 		NOTICE_WRITER AS noticeWriter,
 		NOTICE_TITLE AS noticeTitle,
 		NOTICE_CONTENT AS noticeContent,
+		NOTICE_VIEW AS noticeView,
 		NOTICE_WRITEDAY AS noticeWriteDay
-		FROM (SELECT NOTICE_TBL.*, ROW_NUMBER() OVER(ORDER BY NOTICE_INDEX ASC) AS NUM FROM NOTICE_TBL)
+		FROM (SELECT NOTICE_TBL.*, ROW_NUMBER() OVER(ORDER BY NOTICE_INDEX DESC) AS NUM FROM NOTICE_TBL)
 		WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
@@ -19,5 +20,23 @@
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM NOTICE_TBL
 	</select>
-
+	
+	<!-- 공지사항 내용 가져오기 -->
+	<select id="noticeContent" parameterType="Integer" resultType="notice">
+		SELECT 
+		NOTICE_INDEX AS noticeIndex,
+		NOTICE_WRITER AS noticeWriter,
+		NOTICE_TITLE AS noticeTitle,
+		NOTICE_CONTENT AS noticeContent,
+		NOTICE_VIEW AS noticeView,
+		NOTICE_WRITEDAY AS noticeWriteDay
+		FROM NOTICE_TBL
+		WHERE NOTICE_INDEX = #{index}
+	</select>
+	
+	<!-- 공지 게시글 조회수 증가 -->
+	<update id="viewCount" parameterType="Integer">
+		UPDATE NOTICE_TBL SET NOTICE_VIEW = NOTICE_VIEW + 1  WHERE NOTICE_INDEX = #{index} 
+	</update>
+	
 </mapper>

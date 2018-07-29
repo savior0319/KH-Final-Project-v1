@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
 
@@ -17,15 +18,15 @@ public interface HomeTrainingDAO {
 
 	ArrayList<HomeTrainingVO> pnWriteList(SqlSessionTemplate session, int indexNo);
 
-	HomeTrainingLikeVO checkBoardLike(SqlSessionTemplate session, HomeTrainingLikeVO checkVO);
+	BoardLikeVO checkBoardLike(SqlSessionTemplate session, BoardLikeVO checkVO);
 
-	int boardLikeDown(SqlSessionTemplate session, HomeTrainingLikeVO blv);
+	int boardLikeDown(SqlSessionTemplate session, BoardLikeVO blv);
 
-	int boardLikeUp(SqlSessionTemplate session, HomeTrainingLikeVO checkVO);
+	int boardLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO);
 
-	int postLikeDown(SqlSessionTemplate session, HomeTrainingLikeVO blv);
+	int postLikeDown(SqlSessionTemplate session, BoardLikeVO blv);
 
-	int postLikeUp(SqlSessionTemplate session, HomeTrainingLikeVO checkVO);
+	int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO);
 
 	int homeTrainingHits(SqlSessionTemplate session, int hits);
 }

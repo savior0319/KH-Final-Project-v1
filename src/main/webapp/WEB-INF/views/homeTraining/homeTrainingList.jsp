@@ -54,7 +54,7 @@
 								<a class="header" style=height:50px;>${ht.htTitle }</a>
 								<div class="meta">
 									<span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">${ht.htHits }</span>
+									좋아요 <span class="like" style="color: red">${ht.htLike }</span>
 								</div>
 							</div>
 						</div>

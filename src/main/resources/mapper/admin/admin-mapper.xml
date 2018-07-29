@@ -5,7 +5,7 @@
 	<!-- 관리자 - 공지사항 등록 -->
 	<insert id="noticeRegisterData" parameterType="notice">
 		INSERT INTO NOTICE_TBL 
-		VALUES(NOTICE_SEQ.NEXTVAL, DEFAULT, #{noticeTitle}, #{noticeContent}, DEFAULT)
+		VALUES(NOTICE_SEQ.NEXTVAL, DEFAULT, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT)
 	</insert>
 
 	<!-- 관리자 전체 회원 조회 리스트 -->
