@@ -6,11 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>다이어트</title>
-<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
-<script src="/resources/summernote/dist/summernote-lite.js"></script>
-<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+	<title>다이어트</title>
+	<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
+	<script src="/resources/summernote/dist/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 </head>
 </head>
 
@@ -53,7 +53,20 @@ body {
 <!-- SCRIPT -->
 <script>
 	$(document).ready(function() {
-		$('#summernote').summernote({
+		$('#summernote').summernote({ 
+			toolbar: [
+			['style', ['bold', 'italic', 'underline', 'clear']],
+			['fontsize', ['fontsize']], 
+			['color', ['color']],
+			['hr'],
+			['para', ['ul', 'ol', 'paragraph']],
+			['table'], 
+			['height', ['height']],
+			['codeview'],
+			['link'],
+			['video'],
+			['picture']
+			],
 			lang : 'ko-KR',
 			placeholder : '내용을 입력해주세요',
 			tabsize : 2,
@@ -61,7 +74,7 @@ body {
 			callbacks : {
 				onImageUpload : function(files, editor, welEditable) {
 					for (var i = files.length - 1; i >= 0; i--) {
-						sendFile(files[i], this);
+						imgUpload(files[i], this);
 					}
 				},
 				onMediaDelete : function() {
@@ -70,7 +83,7 @@ body {
 		});
 	});
 
-	function sendFile(file, el) {
+	function imgUpload(file, el) {
 		form = new FormData();
 		form.append("file", file);
 		$.ajax({
