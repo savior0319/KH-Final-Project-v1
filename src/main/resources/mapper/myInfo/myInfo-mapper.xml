@@ -127,12 +127,19 @@
 	<select id="myActivity" parameterType="member"
 		resultType="myActivity">
 		SELECT MB_INDEX AS mbIndex,
-		(SELECT COUNT(*) FROM ON_SESSION_TBL WHERE SS_INDEX = #{mbIndex}) AS myAttendance,
-		(SELECT COUNT(*) FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) AS myCommentCount,
-		(SELECT COUNT(*) FROM BOARD_POST_TBL WHERE MB_INDEX =  #{mbIndex}) AS myBoardCount,
+		(SELECT COUNT(*) FROM
+		ON_SESSION_TBL WHERE SS_INDEX = #{mbIndex}) AS myAttendance,
+		(SELECT
+		COUNT(*) FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) AS
+		myCommentCount,
+		(SELECT COUNT(*) FROM BOARD_POST_TBL WHERE MB_INDEX =
+		#{mbIndex}) AS myBoardCount,
 		MY_ENROLLDATE as mbEnrollDate,
-        MB_GRADE AS mbGrade
-        FROM MY_ACTIVITY_TBL JOIN MEMBER_TBL USING(MB_INDEX) where mb_index =  #{mbIndex}
+		MB_GRADE AS
+		mbGrade
+		FROM MY_ACTIVITY_TBL JOIN MEMBER_TBL USING(MB_INDEX) where
+		mb_index =
+		#{mbIndex}
 	</select>
 
 	<resultMap type="community" id="communityDB">
@@ -149,14 +156,16 @@
 		<result property="bcaIndex" column="BCA_INDEX" />
 	</resultMap>
 
-	<!-- 페이징 처리 - 내비게이션 생성 -->
-	<select id="getNavi" resultType="java.lang.Integer">
-		select count(*) as totalCount
-		from BOARD_POST_TBL
+	<!-- 마이페이지 나의게시물 내비게이션 생성 -->
+	<select id="myPostGetNavi" resultType="java.lang.Integer"
+		parameterType="myActivity">
+		SELECT COUNT(*) AS totalCount
+		FROM BOARD_POST_TBL WHERE
+		MB_INDEX = #{mbIndex}
 	</select>
 
 	<!-- 전체게시판 -->
-	<select id="allCommunityList" parameterType="myActivityPageData"
+	<select id="myPostList" parameterType="myActivityPageData"
 		resultType="community" resultMap="communityDB">
 		SELECT *
 		FROM (SELECT
@@ -165,7 +174,7 @@
 		POST_DATETIME
 		DESC) AS NUM
 		FROM
-		BOARD_POST_TBL where mb_Index = #{mbIndex}
+		BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}
 		) WHERE NUM BETWEEN
 		#{start} AND #{end}
 	</select>
@@ -232,24 +241,35 @@
 	</select>
 
 	<!-- 마이페이지 - 나의 댓글 -->
-	<select id="myCommentGetList" resultType="comment"
+	<select id="myCommentList" resultType="comment"
 		parameterType="member">
-		SELECT POST_TITLE, CMT_CONTENT ,CMT_DATETIME FROM
-		BOARD_POST_TBL
-		FULL JOIN BOARD_COMMENT_TBL
-		USING(MB_INDEX) WHERE
-		MB_INDEX =
+
+		SELECT BOARD_POST_TBL.POST_INDEX AS postIndex,
+		BOARD_POST_TBL.POST_TITLE AS postTitle,CMT_CONTENT AS cmtContent,
+		CMT_DATETIME AS cmtDateTime FROM BOARD_POST_TBL
+		RIGHT JOIN
+		BOARD_COMMENT_TBL
+		ON (BOARD_POST_TBL.POST_INDEX =
+		BOARD_COMMENT_TBL.POST_INDEX)
+		WHERE
+		BOARD_COMMENT_TBL.MB_INDEX =
 		(SELECT
-		MB_INDEX FROM BOARD_COMMENT_TBL WHERE MB_INDEX =
-		#{mbIndex})
+		DISTINCT MB_INDEX FROM
+		BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex})
+
+
 	</select>
 
 	<!-- 나의 댓글 페이징 처리 - 내비게이션 생성 -->
-	<select id="getNaviComment" resultType="java.lang.Integer">
-		select count(*) as
-		totalCount
-		from BOARD_COMMENT_TBL
+
+	<select id="myCommentGetNavi" resultType="java.lang.Integer"
+		parameterType="myActivity">
+		SELECT COUNT(*) AS totalCount
+		FROM BOARD_COMMENT_TBL
+		WHERE MB_INDEX = #{mbIndex}
+
 	</select>
+
 
 	<!-- 마이페이지 - 나의 북마크 -->
 	<select id="myBookMark" resultType="bookMark"

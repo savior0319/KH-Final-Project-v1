@@ -31,12 +31,6 @@ public interface MyInfoDAO {
 	
 	MyActivityVO myActivity(SqlSessionTemplate sqlSessionTemplate, MemberVO m);
 
-	ArrayList<BoardPostVO> allCommunityList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, String type, MyActivityVO ma);
-
-	String getallCommunityListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
-			int naviCountPerPage, String type, MyActivityVO ma);
-
 	int idCheck(SqlSessionTemplate sqlSessionTemplate, String id);
 
 	int nickNameCheck(SqlSessionTemplate sqlSessionTemplate, String nickName);
@@ -56,13 +50,19 @@ public interface MyInfoDAO {
 	String getMyBookMarkGetListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String type, MyActivityVO ma);
 
-	ArrayList<BoardPostVO> myCommentGetList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, String type, MyActivityVO ma);
+	QuestionVO questionAnswer(SqlSessionTemplate sqlSessionTemplate, QuestionVO qv);
 
-	String getMyCommentListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+	ArrayList<BoardPostVO> myPostList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			String type, MyActivityVO ma);
+
+	String myPostListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String type, MyActivityVO ma);
 
-	QuestionVO questionAnswer(SqlSessionTemplate sqlSessionTemplate, QuestionVO qv);
+	ArrayList<BoardCommentVO> myCommentList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			String type, MyActivityVO ma);
+
+	String myCommentListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String type, MyActivityVO ma);
 
 	
 
