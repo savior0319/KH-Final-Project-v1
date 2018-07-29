@@ -46,58 +46,63 @@ html, body {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list}" var="m">
+						<c:forEach items="${myPost.comList}" var="m">
 							<tr align="center">
-								<td>${m.qsIndex}</td>
-								<td><a href="javascript:void(0);"
-									onclick="showMyQuestion(${m.qsIndex});">${m.qsTitle}</a></td>
-								<td>${m.qsWriteTime}</td>
-								<c:if test="${m.qsAnswerCheck=='n'}">
-									<td>답변대기중</td>
-								</c:if>
-								<c:if test="${m.qsAnswerCheck =='y'}">
-									<td>답변완료</td>
-								</c:if>
+								<td><c:choose>
+										<c:when test="${requestScope.m.type.equals('15') }">
+											<h1>자유게시판</h1>
+										</c:when>
+										<c:when test="${requestScope.m.type.equals('16') }">
+											<h1>레시피&#38;식단</h1>
+										</c:when>
+										<c:when test="${requestScope.m.type.equals('17') }">
+											<h1>팁&#38;노하우</h1>
+										</c:when>
+										<c:when test="${requestScope.m.type.equals('18') }">
+											<h1>고민&#38;질문</h1>
+										</c:when>
+										<c:when test="${requestScope.m.type.equals('19') }">
+											<h1>비포&#38;애프터</h1>
+										</c:when>
+									</c:choose></td>
+								<td>${m.postIndex }</td>
+								<td><a href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle }</a></td>
+								<td>${m.postDateTime }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 			</c:if>
 		</div>
-	</div>
-
-	<div class="ui grid">
-		<div class="three column row">
-			<div class="column"></div>
-			<div class="column">
-				<div class="ui center aligned basic segment">
-					<div class="ui pagination menu">${requestScope.cpdv.pageNavi}</div>
+		<div class="ui grid">
+			<div class="three column row">
+				<div class="column"></div>
+				<div class="column">
+					<div class="ui center aligned basic segment">
+						<div class="ui pagination menu">${requestScope.myPost.pageNavi}</div>
+					</div>
 				</div>
+				<div class="column"></div>
 			</div>
-			<div class="column"></div>
+			<br>
 		</div>
-		<br>
-	</div>
-	</div>
-
 	</div>
 	<br>
-
 	<c:if test="${sessionScope.member==null}">
 		<script>
-				alert("로그인 후 이용해주세요~");
-				location.href = "/";
-			</script>
+			alert("로그인 후 이용해주세요~");
+			location.href = "/";
+		</script>
 	</c:if>
 	<script>
-			$(function() {
-				var sBtn = $("#myActivity2");
-				sBtn.find('a').click(function() {
-					sBtn.find('a').removeClass("active");
-					$(this).addClass("active");
-				});
+		$(function() {
+			var sBtn = $("#myActivity2");
+			sBtn.find('a').click(function() {
+				sBtn.find('a').removeClass("active");
+				$(this).addClass("active");
 			});
-		</script>
+		});
+	</script>
 	<!--  ui container 닫기  -->
 	</div>
 	<input type="hidden" value="${member.mbId}" id="mbId" />

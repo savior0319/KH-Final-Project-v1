@@ -2,9 +2,7 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,16 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 
 import spring.kh.diet.model.service.MyInfoService;
-import spring.kh.diet.model.vo.AnswerVO;
-import spring.kh.diet.model.vo.BMIVO;
-import spring.kh.diet.model.vo.BoardBookMarkVO;
-import spring.kh.diet.model.vo.BoardCommentVO;
-import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.MyActivityPageDataVO;
 import spring.kh.diet.model.vo.MyActivityVO;
+import spring.kh.diet.model.vo.MyCommentPageDataVO;
+import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @SuppressWarnings("all")
@@ -271,16 +265,21 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 마이페이지 - 내가 작성한 게시물 */
 	@Override
 	@RequestMapping(value = "/myPost.diet")
-	public String myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
+	public String myActivityGetList(HttpSession session, HttpServletResponse response, HttpServletRequest request,
+			MyActivityVO ma) throws JsonIOException, IOException {
 		String type = request.getParameter("type");
 		int currentPage; // 현재 페이지 값을 저장하는 변수
+		MemberVO m = (MemberVO) session.getAttribute("member");
+		ma.setMbIndex(m.getMbIndex());
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		MyActivityPageDataVO cpdv = myInfoService.allCommunityList(currentPage, type, ma);
-		request.setAttribute("cpdv", cpdv);
+
+		MyPostPageDataVO myPost = myInfoService.myPostList(currentPage, type, ma);
+		request.setAttribute("myPost", myPost);
+
 		return "myInfo/myPost";
 
 	}
@@ -292,13 +291,17 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public String myCommentGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
 		String type = request.getParameter("type");
 		int currentPage; // 현재 페이지 값을 저장하는 변수
+		MemberVO m = (MemberVO) session.getAttribute("member");
+		ma.setMbIndex(m.getMbIndex());
+
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		MyActivityPageDataVO cpdv = myInfoService.myCommentGetList(currentPage, type, ma);
-		request.setAttribute("cpdv", cpdv);
+
+		MyCommentPageDataVO myComment = myInfoService.myCommentList(currentPage, type, ma);
+		request.setAttribute("myComment", myComment);
 		return "myInfo/myComment";
 
 	}
