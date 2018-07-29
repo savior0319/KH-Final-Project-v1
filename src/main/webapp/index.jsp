@@ -164,11 +164,17 @@
 		<table id="boardTbl1" class="ui table">
 			<thead>
 				<tr align="center">
-					<th><a href="/communityWholeBoard.diet?type=comAll" style="color:rgb(250,40,40);">커뮤니티 - 전체</a></th>
+					<th>커뮤니티
+						<span style="margin-left: 20px;">
+							<a href="/communityWholeBoard.diet?type=comAll" style="color:rgb(250,40,40);">
+								<i class="plus square outline icon"></i>
+							</a>
+						</span>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
-			</tbody>
+			</tbody> 
 		</table>
 	</div>
 	<div class="column">
@@ -179,16 +185,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
+				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
+				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
+				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
+				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
+				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
+				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
+				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
+				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
+				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
+				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
 			</tbody>
 		</table>
 	</div>
@@ -196,7 +202,15 @@
 		<table id="boardTbl3" class="ui table">
 			<thead>
 				<tr align="center">
-					<th><a href="/notice.diet" style="color:rgb(250,40,40);">공지사항</a></th>
+					<th>
+						공지사항
+						<span style="margin-left: 20px;">
+							<a href="/notice.diet" style="color:rgb(250,40,40);">
+								<i class="plus square outline icon"></i>
+							</a>
+						</span>
+					</th>
+
 				</tr>
 			</thead>
 			<tbody>
@@ -210,20 +224,20 @@
 		<table id="boardTbl4" class="ui table">
 			<thead>
 				<tr align="center">
-					<th>제목제목</th>
+					<th>햄버거버거</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
+				<tr><td>ㆍ 킹갓엠페러제너럴 버거킹</td></tr>
+				<tr><td>ㆍ 킹갓엠페러제너럴 버거킹</td></tr>
+				<tr><td>ㆍ 킹갓엠페러제너럴 버거킹</td></tr>
+				<tr><td>ㆍ 킹갓엠페러제너럴 버거킹</td></tr>
+				<tr><td>ㆍ 킹갓엠페러제너럴 버거킹</td></tr>
+				<tr><td>ㆍ 킹갓엠페러제너럴 버거킹</td></tr>
+				<tr><td>ㆍ 킹갓엠페러제너럴 버거킹</td></tr>
+				<tr><td>ㆍ 킹갓엠페러제너럴 버거킹</td></tr>
+				<tr><td>ㆍ 킹갓엠페러제너럴 버거킹</td></tr>
+				<tr><td>ㆍ 킹갓엠페러제너럴 버거킹</td></tr>
 			</tbody>
 		</table>
 	</div>
@@ -231,20 +245,20 @@
 		<table id="boardTbl5" class="ui table">
 			<thead>
 				<tr align="center">
-					<th>제목제목</th>
+					<th>피자피이자</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
+				<tr><td>ㆍ 충무공마제스티쇼군 도미노피자</td></tr>
+				<tr><td>ㆍ 충무공마제스티쇼군 도미노피자</td></tr>
+				<tr><td>ㆍ 충무공마제스티쇼군 도미노피자</td></tr>
+				<tr><td>ㆍ 충무공마제스티쇼군 도미노피자</td></tr>
+				<tr><td>ㆍ 충무공마제스티쇼군 도미노피자</td></tr>
+				<tr><td>ㆍ 충무공마제스티쇼군 도미노피자</td></tr>
+				<tr><td>ㆍ 충무공마제스티쇼군 도미노피자</td></tr>
+				<tr><td>ㆍ 충무공마제스티쇼군 도미노피자</td></tr>
+				<tr><td>ㆍ 충무공마제스티쇼군 도미노피자</td></tr>
+				<tr><td>ㆍ 충무공마제스티쇼군 도미노피자</td></tr>
 			</tbody>
 		</table>
 	</div>
@@ -252,20 +266,20 @@
 		<table id="boardTbl6" class="ui table">
 			<thead>
 				<tr align="center">
-					<th>제목제목</th>
+					<th>치킨치이킨</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
-				<tr><td>글제목</td></tr>
+				<tr><td>ㆍ 교촌레드콤보허니콤보</td></tr>
+				<tr><td>ㆍ 교촌레드콤보허니콤보</td></tr>
+				<tr><td>ㆍ 교촌레드콤보허니콤보</td></tr>
+				<tr><td>ㆍ 교촌레드콤보허니콤보</td></tr>
+				<tr><td>ㆍ 교촌레드콤보허니콤보</td></tr>
+				<tr><td>ㆍ 교촌레드콤보허니콤보</td></tr>
+				<tr><td>ㆍ 교촌레드콤보허니콤보</td></tr>
+				<tr><td>ㆍ 교촌레드콤보허니콤보</td></tr>
+				<tr><td>ㆍ 교촌레드콤보허니콤보</td></tr>
+				<tr><td>ㆍ 교촌레드콤보허니콤보</td></tr>
 			</tbody>
 		</table>
 	</div>
