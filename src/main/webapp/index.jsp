@@ -135,13 +135,11 @@
 	<tr align="center">
 		<td style="padding: 0px; width: 70px;">
 			<button type="button" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px;">
-				<i class="large mobile alternate icon" id="icon3"></i>
+				<i class="large child icon" id="icon3"></i>
 				<div class="disappear">
 					<br>
-					다이어트
+					트레이너 찾기
 					<br>
-					어플리케이션
-				</div>
 			</button>
 		</td>
 		<td style="padding: 0px; width: 70px;">
