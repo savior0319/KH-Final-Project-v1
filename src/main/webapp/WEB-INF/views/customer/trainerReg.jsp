@@ -28,13 +28,10 @@
 			<div class="ui small red message">
 				<div class="ui small header">
 					※ 트레이너 회원은 아래 항목 입력 후 관리자의 승인이 필요합니다
-				<div>
-
-					
+				</div>
 			</div>
 		</div>
 	</div>
-	
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>

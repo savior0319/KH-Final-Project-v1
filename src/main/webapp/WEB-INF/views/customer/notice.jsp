@@ -89,11 +89,10 @@
 				<tbody>
 					<c:forEach items="${requestScope.npd.noList}" var="n">
 					<tr align="center"> 
-						<input type="hidden" value="${n.noticeIndex}">
 						<td style="padding-top: 15px; padding-bottom: 15px;">공지사항</td>
-						<td><div style="cursor: pointer; color: rgb(65,131,196);" onclick="noticeContent(this);">${n.noticeTitle}</div></td>
+						<td><a href="/noticeContent.diet?index=${n.noticeIndex}">${n.noticeTitle}</a></td>
 						<td>${n.noticeWriter}</td>
-						<td><fmt:formatDate value="${n.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td><fmt:formatDate value="${n.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -117,11 +116,6 @@
 			timeout : 1500,
 		});
 	});
-
-	function noticeContent(no){
-		var index = $(no).parent().siblings('input').val();
-		location.href="/noticeContent.diet?index=" + index;
-	}
 </script>
 
 </html>
