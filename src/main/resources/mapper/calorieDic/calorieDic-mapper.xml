@@ -45,9 +45,12 @@
 		SELECT 
 		HC_INDEX AS hcIndex,
         HC_NAME AS hcName,
+        HC_TYPE AS hcType,
         HC_HARD AS hcHard,
         HC_SET AS hcSet,
-        HC_CAL AS hcCal
+        HC_CAL AS hcCal,
+        HC_EXPLAIN AS hcExplain,
+        HC_VIDEO AS hcVideo
 		FROM (SELECT HC_CALORIE_TBL.*,
 		ROW_NUMBER()
 		OVER(ORDER BY 1 DESC) AS NUM
@@ -65,9 +68,12 @@
 		SELECT 
 		HC_INDEX AS hcIndex,
         HC_NAME AS hcName,
+        HC_TYPE AS hcType,
         HC_HARD AS hcHard,
         SUBSTR(HC_SET,1,LENGTH(HC_SET)-3) AS hcSet,
-        HC_CAL AS hcCal
+        HC_CAL AS hcCal,
+        HC_EXPLAIN AS hcExplain,
+        HC_VIDEO AS hcVideo
         FROM HC_CALORIE_TBL
         WHERE HC_INDEX = #{hcIndex}
 	</select>
