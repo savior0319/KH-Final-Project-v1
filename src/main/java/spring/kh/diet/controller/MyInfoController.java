@@ -21,8 +21,6 @@ public interface MyInfoController {
 
 	String deleteMyPicture(String mbId, HttpSession session, HttpServletResponse response) throws IOException;
 
-	Object allMyOneToOneQuestion(HttpSession session);
-
 	String signupsave(String mbId, String mbNickName, String mbPwd, String[] gender, String[] interest);
 
 	Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request);
@@ -43,5 +41,9 @@ public interface MyInfoController {
 
 	String myActivityGetList(HttpSession session, HttpServletResponse response, HttpServletRequest request,
 			MyActivityVO ma) throws JsonIOException, IOException;
+
+	String myBookMarkGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma);
+
+	Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request);
 
 }

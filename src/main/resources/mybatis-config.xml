@@ -35,7 +35,8 @@
 		<typeAlias type="spring.kh.diet.model.vo.OffSessionVO" alias="offSessionList" />
 		<typeAlias type="spring.kh.diet.model.vo.NoticePDVO" alias="noticePDVO" /> <!-- 공지사항 페이지 리스트 -->
 		<typeAlias type="spring.kh.diet.model.vo.MyCommentPageDataVO" alias="myCommentPDVO" /> 
-		<typeAlias type="spring.kh.diet.model.vo.MyPostPageDataVO" alias="myPostPDVO" /> 
+		<typeAlias type="spring.kh.diet.model.vo.MyPostPageDataVO" alias="myPostPDVO" />
+		<typeAlias type="spring.kh.diet.model.vo.MyBookMarkPageDataVO" alias="myBookMarkPDVO" /> 
 	</typeAliases>
 
 </configuration>
