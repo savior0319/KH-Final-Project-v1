@@ -15,10 +15,10 @@ public interface CalorieDictionaryDAO {
 
 	ArrayList<FoodCalVO> getFoodCalList(SqlSessionTemplate session, int currentPage, int recordCountPerPage, String searchText);
 
-	ArrayList<HealthCalVO> getHealthCalList(SqlSessionTemplate session, int currentPage, int recordCountPerPage);
+	ArrayList<HealthCalVO> getHealthCalList(SqlSessionTemplate session, int currentPage, int recordCountPerPage, String searchText);
 
 	String getHealthCalPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
-			int naviCountPerPage);
+			int naviCountPerPage, String searchText);
 
 	HealthCalVO getHealthCalInfo(SqlSessionTemplate session, int hcIndex);
 

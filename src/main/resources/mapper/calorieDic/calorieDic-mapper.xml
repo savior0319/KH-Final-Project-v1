@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="calorieDic">
 
-	<!-- 음식 칼로리 정보 가져오기 -->
+	<!-- 음식 칼로리 정보 가져오기 + 검색 기능 -->
 	<select id="getFoodCalList" resultType="foodCal">
 		SELECT
 		FC_INDEX AS fcIndex,
@@ -25,7 +25,7 @@
 
 	</select>
 
-	<!-- 음식 칼로리 내비 가져오기 -->
+	<!-- 음식 칼로리 내비 가져오기 + 검색 기능  -->
 	<select id="getFoodCalNavi" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM
 		FOOD_CALORIE_TBL WHERE FC_NAME LIKE '%'||#{searchText}||'%'
@@ -47,7 +47,7 @@
 		WHERE FC_INDEX = #{fcIndex}
 	</select>
 
-	<!-- 운동 칼로리 리스트 가져오기 -->
+	<!-- 운동 칼로리 리스트 가져오기 + 검색 기능 -->
 	<select id="getHealthCalList" resultType="healthCal">
 		SELECT
 		HC_INDEX AS hcIndex,
@@ -63,13 +63,15 @@
 		OVER(ORDER BY 1
 		DESC) AS NUM
 		FROM HC_CALORIE_TBL
+		WHERE HC_NAME LIKE '%'||#{searchText}||'%'
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
-	<!-- 운동 칼로리 리스트 내비 가져오기 -->
+	<!-- 운동 칼로리 리스트 내비 가져오기 + 검색 기능 -->
 	<select id="getHealthCalNavi" resultType="java.lang.Integer">
 		select count(*) from
 		HC_CALORIE_TBL
+		WHERE HC_NAME LIKE '%'||#{searchText}||'%'
 	</select>
 
 	<!-- 운동 칼로리 정보 가져오기 -->

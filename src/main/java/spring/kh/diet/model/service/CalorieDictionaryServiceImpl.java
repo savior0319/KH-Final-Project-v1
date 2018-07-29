@@ -47,15 +47,15 @@ public class CalorieDictionaryServiceImpl implements CalorieDictionaryService{
 	}
 
 	@Override
-	public HealthCalPageDataVO getHealthCalList(int currentPage) {
+	public HealthCalPageDataVO getHealthCalList(int currentPage, String searchText) {
 		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 		
 		HealthCalPageDataVO hcpd = new HealthCalPageDataVO();
 		
-		ArrayList<HealthCalVO> list = calorieDictionaryDAO.getHealthCalList(session, currentPage, recordCountPerPage);
+		ArrayList<HealthCalVO> list = calorieDictionaryDAO.getHealthCalList(session, currentPage, recordCountPerPage, searchText);
 		
-		String pageNavi = calorieDictionaryDAO.getHealthCalPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage);
+		String pageNavi = calorieDictionaryDAO.getHealthCalPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage, searchText);
 		
 		hcpd.setHcList(list);
 		hcpd.setPageNavi(pageNavi);
