@@ -823,7 +823,7 @@
 					deleteA.attr("style","cursor:pointer;");
 					deleteA.append("삭제");
 					
-					/* ☆지현 추가 - 취소 */					
+					/* ☆지현 추가 - 취소 (지현아 스펠링이..ㅠ.ㅠ.ㅠㅠㅠ)*/					
 					var cancleA = $("<a>").attr("class","cancleComment");
 					cancleA.attr("onclick","cancleComment("+data.bcList[i].cmtIndex+")");
 					cancleA.attr("id","cancleComment_"+data.bcList[i].cmtIndex);
