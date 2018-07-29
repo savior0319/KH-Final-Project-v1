@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HealthCalPageDataVO {
 	private ArrayList<HealthCalVO> hcList;
-	private String pageNavi;
+	private String pageNavi, searchText;
 	private int start, end;
 }

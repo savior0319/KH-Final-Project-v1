@@ -46,7 +46,14 @@ public class CalorieDictionaryControllerImpl implements CalorieDictionaryControl
 			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 		
-		FoodCalPageDataVO fcpd = calorieDictionaryService.getFoodCalList(currentPage);
+		String searchText;
+		if(request.getParameter("searchText")!=null) {
+			searchText = request.getParameter("searchText");
+		}else {
+			searchText = "";
+		}
+		
+		FoodCalPageDataVO fcpd = calorieDictionaryService.getFoodCalList(currentPage, searchText);
 		
 		request.setAttribute("fcpd", fcpd);
 		
@@ -78,7 +85,14 @@ public class CalorieDictionaryControllerImpl implements CalorieDictionaryControl
 			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 		
-		HealthCalPageDataVO hcpd = calorieDictionaryService.getHealthCalList(currentPage);
+		String searchText;
+		if(request.getParameter("searchText")!=null) {
+			searchText = request.getParameter("searchText");
+		}else {
+			searchText = "";
+		}
+		
+		HealthCalPageDataVO hcpd = calorieDictionaryService.getHealthCalList(currentPage, searchText);
 		
 		request.setAttribute("hcpd", hcpd);
 		

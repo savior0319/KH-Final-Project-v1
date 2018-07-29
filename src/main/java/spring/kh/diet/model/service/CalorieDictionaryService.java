@@ -9,9 +9,9 @@ public interface CalorieDictionaryService {
 
 	FoodCalVO getFoodCalInfo(int fcIndex);
 
-	FoodCalPageDataVO getFoodCalList(int currentPage);
+	FoodCalPageDataVO getFoodCalList(int currentPage, String searchText);
 
-	HealthCalPageDataVO getHealthCalList(int currentPage);
+	HealthCalPageDataVO getHealthCalList(int currentPage, String searchText);
 
 	HealthCalVO getHealthCalInfo(int hcIndex);
 

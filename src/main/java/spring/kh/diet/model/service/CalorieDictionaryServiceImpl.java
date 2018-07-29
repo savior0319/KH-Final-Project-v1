@@ -24,15 +24,15 @@ public class CalorieDictionaryServiceImpl implements CalorieDictionaryService{
 	private SqlSessionTemplate session;
 
 	@Override
-	public FoodCalPageDataVO getFoodCalList(int currentPage) {
+	public FoodCalPageDataVO getFoodCalList(int currentPage, String searchText) {
 		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 		
 		FoodCalPageDataVO fcpd = new FoodCalPageDataVO();
 		
-		ArrayList<FoodCalVO> list = calorieDictionaryDAO.getFoodCalList(session, currentPage, recordCountPerPage);
+		ArrayList<FoodCalVO> list = calorieDictionaryDAO.getFoodCalList(session, currentPage, recordCountPerPage, searchText);
 		
-		String pageNavi = calorieDictionaryDAO.getFoodCalPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage);
+		String pageNavi = calorieDictionaryDAO.getFoodCalPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage, searchText);
 		
 		fcpd.setFcList(list);
 		fcpd.setPageNavi(pageNavi);
@@ -47,15 +47,15 @@ public class CalorieDictionaryServiceImpl implements CalorieDictionaryService{
 	}
 
 	@Override
-	public HealthCalPageDataVO getHealthCalList(int currentPage) {
+	public HealthCalPageDataVO getHealthCalList(int currentPage, String searchText) {
 		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 		
 		HealthCalPageDataVO hcpd = new HealthCalPageDataVO();
 		
-		ArrayList<HealthCalVO> list = calorieDictionaryDAO.getHealthCalList(session, currentPage, recordCountPerPage);
+		ArrayList<HealthCalVO> list = calorieDictionaryDAO.getHealthCalList(session, currentPage, recordCountPerPage, searchText);
 		
-		String pageNavi = calorieDictionaryDAO.getHealthCalPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage);
+		String pageNavi = calorieDictionaryDAO.getHealthCalPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage, searchText);
 		
 		hcpd.setHcList(list);
 		hcpd.setPageNavi(pageNavi);

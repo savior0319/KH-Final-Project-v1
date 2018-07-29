@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FoodCalPageDataVO {
 	private ArrayList<FoodCalVO> fcList;
-	private String pageNavi;
+	private String pageNavi, searchText;
 	private int start, end; 
 }

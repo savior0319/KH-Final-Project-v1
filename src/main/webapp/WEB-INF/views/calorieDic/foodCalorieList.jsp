@@ -27,9 +27,9 @@
 			<!-- 음식검색 -->
 			<div class="ui secondary segment">
 				<div class="ui right action left icon input">
-					<i class="search icon"></i> <input type="text" placeholder="검색어 입력"
+					<i class="search icon"></i> <input id="searchText" type="text" placeholder="검색어 입력"
 						style="width: 600px;">
-					<div class="ui basic floating dropdown button">
+					<div class="ui basic floating dropdown button" onclick="foodCalSearch();">
 						<div class="text">검색</div>
 					</div>
 				</div>
@@ -97,7 +97,11 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+function foodCalSearch(){
+	var searchText = $('#searchText').val();
 	
+	location.href="/foodCalorieList.diet?searchText=" + searchText;
+}
 </script>
 
 </html>
