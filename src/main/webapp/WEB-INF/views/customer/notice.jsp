@@ -6,9 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>공지사항</title>
-	<script src="/resources/slider/responsiveslides.min.js"></script>
+<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<title>공지사항</title>
+<script src="/resources/slider/responsiveslides.min.js"></script>
 </head>
 
 <!-- CSS -->
@@ -57,18 +57,10 @@
 	<div class="ui center aligned container">
 		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li>
-				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
-			</li>
-			<li>
-				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
-			</li>
-			<li>
-				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
-			</li>
-			<li>
-				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
-			</li>
+			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
 		</ul>
 		<br>
 		<div class="ui left aligned container">
@@ -81,30 +73,36 @@
 				<thead>
 					<tr align="center">
 						<th style="width: 10%;">분류</th>
-						<th style="width: 60%;">제목</th>
+						<th style="width: 50%;">제목</th>
 						<th style="width: 15%;">작성자</th>
+						<th style="width: 10%;">조회수</th>
 						<th style="width: 15%;">작성일</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${requestScope.npd.noList}" var="n">
-					<tr align="center"> 
-						<td style="padding-top: 15px; padding-bottom: 15px;">공지사항</td>
-						<td><a href="/noticeContent.diet?index=${n.noticeIndex}">${n.noticeTitle}</a></td>
-						<td>${n.noticeWriter}</td>
-						<td><fmt:formatDate value="${n.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<div class="ui center aligned basic segment">
-			<div class="ui pagination menu">${requestScope.npd.pageNavi}</div>
+						<tr align="center">
+							<td style="padding-top: 15px; padding-bottom: 15px;">공지사항</td>
+							<td>
+								<a href="/noticeContent.diet?index=${n.noticeIndex}">${n.noticeTitle}</a>
+							</td>
+							<td>${n.noticeWriter}</td>
+							<td>${n.noticeView}</td>
+							<td>
+								<fmt:formatDate value="${n.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<div class="ui center aligned basic segment">
+				<div class="ui pagination menu">${requestScope.npd.pageNavi}</div>
+			</div>
 		</div>
+		<br>
 	</div>
-	<br>
-</div>
-<!-- FOOTER -->
-<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
+	<!-- FOOTER -->
+	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
 <!-- SCRIPT -->
@@ -116,6 +114,12 @@
 			timeout : 1500,
 		});
 	});
+	// 리로드
+	if (self.name != 'reload') {
+		self.name = 'reload';
+		self.location.reload(true);
+	} else
+		self.name = '';
 </script>
 
 </html>

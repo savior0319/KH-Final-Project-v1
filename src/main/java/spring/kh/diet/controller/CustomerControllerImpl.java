@@ -3,13 +3,16 @@ package spring.kh.diet.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.CustomerService;
 import spring.kh.diet.model.vo.NoticePDVO;
+import spring.kh.diet.model.vo.NoticeVO;
 
 @Controller
 public class CustomerControllerImpl implements CustomerController {
@@ -41,13 +44,18 @@ public class CustomerControllerImpl implements CustomerController {
 		return "customer/notice";
 	}
 
-	/* TODO: 팀장_공지사항 글 가져오기 */
+	/* 공지사항 글 가져오기 */
 	@Override
 	@RequestMapping(value = "/noticeContent")
-	public void noticeContent(@RequestParam int index) {
+	public Object noticeContent(HttpSession sessionCheck, @RequestParam int index, HttpServletResponse response,
+			HttpServletRequest request) {
 
-		// 테스트용 출력
-		System.out.println(index + "번째 글 선택");
+		NoticeVO nVo = cs.noticeContent(sessionCheck, index, response, request);
+		ModelAndView view = new ModelAndView();
+		view.addObject("nvo", nVo);
+		view.setViewName("customer/noticeContent");
+		return view;
+
 	}
 
 }
