@@ -140,9 +140,9 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		BoardPostVO bpv = communityService.postedCommunity(postIndex);
 
 		// 좋아요 체크하는 로직
+
 		if (session.getAttribute("member") != null) {
 			BoardLikeVO blv = checkLike(indexNo, sessionIndex);
-
 			if (blv != null) {
 				ht.setLikeYN(1);
 			} else {
@@ -200,6 +200,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		return blv;
 	}
 
+
 	// 좋아요 부분
 	@Override
 	@ResponseBody
@@ -223,7 +224,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 				result2 = homeTrainingService.postLikeUp(checkVO);
 			}
 		}
-
+		
 		if (result2 > 0) {
 			return "success";
 		} else {

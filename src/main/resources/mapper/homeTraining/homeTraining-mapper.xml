@@ -167,6 +167,7 @@
 	</update>
 
 	<!-- 좋아요 체크 -->
+
 	<select id="checkLike" parameterType="boardLike" resultType="boardLike"
 		resultMap="boardLikeDB">
 		SELECT * FROM BOARD_LIKE_TBL
@@ -203,8 +204,6 @@
 		WHERE INDEX_NO = #{targetIndex}
 	</update>
 
-
-
 	<!-- 이전글 다음글 -->
 	<!-- <select id="getpnWriteList" resultType="homeTraining" resultMap="homeTrainingDB" 
 		parameterType="homeTraining"> <![CDATA[ SELECT * FROM HOMETRAINING_TB WHERE 
@@ -212,7 +211,5 @@
 		< #{htIndex} ORDER BY HT_INDEX DESC LIMIT 1) UNION ALL(SELECT * FROM HOMETRAINING_TB 
 		WHERE HT_INDEX > #{htIndex} ORDER BY HT_INDEX ASC LIMIT 1) ORDER BY HT_INDEX 
 		DESC ]]> </select> -->
-
-
 
 </mapper>

@@ -20,11 +20,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
+import spring.kh.diet.model.service.CommunityService;
+import spring.kh.diet.model.service.CustomerService;
 import spring.kh.diet.model.service.MainService;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
+import spring.kh.diet.model.vo.NoticePDVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.UpdateSSVO;
 
@@ -33,8 +39,14 @@ public class MainControllerImpl implements MainController {
 	@SuppressWarnings("all")
 	private ApplicationScope Appscope;
 
-	@Resource
+	@Resource(name = "mainService")
 	private MainService mService;
+
+	@Resource(name = "communityService")
+	private CommunityService communityService;
+
+	@Resource(name = "customerService")
+	private CustomerService cs;
 
 	public MainControllerImpl() {
 	}
@@ -212,6 +224,55 @@ public class MainControllerImpl implements MainController {
 		return "main/healthCenter";
 
 	}
+
+	// 메인페이지에서 자유게시판 목록 출력
+	@Override
+	@RequestMapping(value = "/mainCommunity.diet")
+	public void getMainCommunityList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+
+		String type = "comAll";
+
+		int currentPage;
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		CommunityPageDataVO cpdv = communityService.allCommunityList(currentPage, type);
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(cpdv, response.getWriter());
+	}
+
+	// 메인페이지에서 공지사항 전체 목록 출력
+	@Override
+	@RequestMapping(value = "/mainNotice.diet")
+	public void getMainNoticeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		int currentPage;
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		NoticePDVO nData = cs.getNoticeList(currentPage);
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(nData, response.getWriter());
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// 접속자 수를 가지고 있는 static 변수
 
