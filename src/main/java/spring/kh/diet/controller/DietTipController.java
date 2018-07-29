@@ -21,7 +21,7 @@ public interface DietTipController {
 	void saveDietTipMainPhotoPath(HttpServletRequest request, HttpServletResponse response,
 			MultipartHttpServletRequest req) throws IOException;
 
-	void sessionCheck(HttpSession session, HttpServletResponse response) throws IOException;
+	void dtWriteAuthorityCheck(HttpSession session, HttpServletResponse response) throws IOException;
 
 	String redirectLoadDietTipWrite();
 

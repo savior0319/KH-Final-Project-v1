@@ -124,12 +124,13 @@ public class DietTipControllerImpl implements DietTipController {
 		return "dietTip/dietTipInfo";
 	}
 
-	// 로그인 되어있는지 확인
+	// 관리자인지 권한 확인
+	//실제로 할려면 DB를 거쳐서 회원 구분(ex.관리자, 트레이너 등)을 확인 해야 함
 	@Override
-	@RequestMapping(value = "/sessionCheck.diet")
-	public void sessionCheck(HttpSession session, HttpServletResponse response) throws IOException {
+	@RequestMapping(value = "/dtWriteAuthorityCheck.diet")
+	public void dtWriteAuthorityCheck(HttpSession session, HttpServletResponse response) throws IOException {
 		int result = 0;
-		if (session.getAttribute("member") != null) {
+		if (session.getAttribute("member") != null && ((MemberVO)session.getAttribute("member")).getMbIndex()==1) {
 			result = 1;
 		}
 

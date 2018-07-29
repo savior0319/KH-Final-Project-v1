@@ -24,15 +24,15 @@ public class HomeTrainingServiceImpl implements HomeTrainingService{
 	private SqlSessionTemplate session;
 	
 	@Override
-	public HomeTrainingPageDataVO homeTrainingList(int currentPage, String type) {
+	public HomeTrainingPageDataVO homeTrainingList(int currentPage, HomeTrainingPageDataVO pdvo) {
 		int recordCountPerPage = 12;
 		int naviCountPerPage = 5;
 		
 		HomeTrainingPageDataVO htpd = new HomeTrainingPageDataVO();
 		
-		ArrayList<HomeTrainingVO> list = homeTrainingDAO.selectAllHomeTraining(session, currentPage, recordCountPerPage, type);
+		ArrayList<HomeTrainingVO> list = homeTrainingDAO.selectAllHomeTraining(session, currentPage, recordCountPerPage, pdvo);
 		
-		String pageNavi = homeTrainingDAO.homeTrainingPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage, type);
+		String pageNavi = homeTrainingDAO.homeTrainingPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage, pdvo);
 		
 		htpd.setHtList(list);
 		htpd.setPageNavi(pageNavi);
@@ -86,6 +86,23 @@ public class HomeTrainingServiceImpl implements HomeTrainingService{
 	public int homeTrainingHits(int hits) {
 		int result = homeTrainingDAO.homeTrainingHits(session, hits);
 		return result;
+	}
+	
+	@Override
+	public HomeTrainingPageDataVO homeTrainingAll(int currentPage, HomeTrainingPageDataVO pdvo) {
+		int recordCountPerPage = 9;
+		int naviCountPerPage = 5;
+		
+		HomeTrainingPageDataVO htpd = new HomeTrainingPageDataVO();
+		
+		ArrayList<HomeTrainingVO> list = homeTrainingDAO.selectAllHomeTraining(session, currentPage, recordCountPerPage, pdvo);
+		
+		String pageNavi = homeTrainingDAO.homeTrainingAllPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage, pdvo);
+		
+		htpd.setHtList(list);
+		htpd.setPageNavi(pageNavi);
+		
+		return htpd;
 	}
 
 

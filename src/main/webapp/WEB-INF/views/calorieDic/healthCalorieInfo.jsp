@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -30,9 +31,10 @@
 
 			<div class="ui secondary segment">
 				<div class="ui right action left icon input">
-					<i class="search icon"></i> <input type="text" placeholder="검색어 입력"
-						style="width: 600px;">
-					<div class="ui basic floating dropdown button">
+					<i class="search icon"></i> <input id="searchText" type="text"
+						placeholder="검색어 입력" style="width: 600px;">
+					<div class="ui basic floating dropdown button"
+						onclick="healthCalSearch();">
 						<div class="text">검색</div>
 					</div>
 				</div>
@@ -61,7 +63,6 @@ tr>th {
 
 			<!-- 운동 강도와 시간 선택에 따른 칼로리 -->
 
-					${requestScope.hc.hcType }
 			<table border="2" bordercolor="#a1a0a0"
 				style="width: 100%; height: 120px; border-collapse: collapse;">
 				<colgroup>
@@ -74,17 +75,19 @@ tr>th {
 						<td>${requestScope.hc.hcName }</td>
 					</tr>
 					<tr>
-						<th>운동강도</th>
-						<td><select class="ui dropdown">
+						<th>강도/세트</th>
+						<td>
+							<!-- <select class="ui dropdown">
 								<option value="">가볍게</option>
 								<option value="1">느리게</option>
 								<option value="0">빠르게</option>
 								<option value="2">아주빠르게</option>
-						</select></td>
+							</select> -->
+							${requestScope.hc.hcHard }
+						</td>
 					</tr>
 					<tr>
-						<th>
-							<c:choose>
+						<th><c:choose>
 								<c:when test="${requestScope.hc.hcType=='numbers' }">
 									운동 횟수
 								</c:when>
@@ -94,8 +97,7 @@ tr>th {
 								<c:when test="${requestScope.hc.hcType=='seconds' }">
 									운동 시간(초)
 								</c:when>
-							</c:choose>
-						</th>
+							</c:choose></th>
 						<td>
 							<div class="ui input" style="width: 120px; height: 30px;">
 								<input id="set" type="text" value="${requestScope.hc.hcSet }"
@@ -113,7 +115,8 @@ tr>th {
 					</tr>
 					<tr>
 						<th>칼로리</th>
-						<td id="cal">${hc.hcCal }Kcal</td>
+						<td id="cal"><fmt:formatNumber
+								value="${requestScope.hc.hcCal }" pattern="#.0" /> Kcal</td>
 					</tr>
 				</tbody>
 			</table>
@@ -146,7 +149,7 @@ tr>th {
 						</div>
 					</div>
 				</div>
-				
+
 			</c:if>
 		</div>
 	</div>
@@ -165,8 +168,9 @@ tr>th {
 		if (set.value != initSet * 20) {
 			document.getElementById('set').value = Number(set.value)
 					+ Number(initSet);
-			document.getElementById('cal').innerHTML = (Number(set.value) / Number(initSet)
-					* Number(initCal)).toFixed(1) + ' Kcal';
+			document.getElementById('cal').innerHTML = (Number(set.value)
+					/ Number(initSet) * Number(initCal)).toFixed(1)
+					+ ' Kcal';
 		}
 	}
 
@@ -176,9 +180,16 @@ tr>th {
 		if (set.value != initSet) {
 			document.getElementById('set').value = Number(set.value)
 					- Number(initSet);
-			document.getElementById('cal').innerHTML = (Number(set.value) / Number(initSet)
-					* Number(initCal)).toFixed(1) + ' Kcal';
+			document.getElementById('cal').innerHTML = (Number(set.value)
+					/ Number(initSet) * Number(initCal)).toFixed(1)
+					+ ' Kcal';
 		}
+	}
+
+	function healthCalSearch() {
+		var searchText = $('#searchText').val();
+
+		location.href = "/healthCalorieList.diet?searchText=" + searchText;
 	}
 </script>
 

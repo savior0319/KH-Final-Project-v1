@@ -126,10 +126,11 @@
 		location.href="/dietTipInfo.diet?indexNo="+me;
 	}
 	
+	// 게시물 등록
 	function dietTipWrite(){
 		
 		$.ajax({
-			url : '/sessionCheck.diet',
+			url : '/dtWriteAuthorityCheck.diet',
 			type : 'post',
 			success : function(result){
 				if(result>0){
