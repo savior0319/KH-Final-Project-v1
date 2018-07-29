@@ -161,8 +161,19 @@ public class CommunityControllerImpl implements CommunityController {
 		} else {
 			bpv.setBookMarkYN(0);
 		}
+		
+
+		// 신고상태 체크 로직(게시글)
+	      BoardBlameVO bbv = checkPostBlame(postIndex, sessionIndex);
+	      if (bbv != null) {
+	         bpv.setBlameYN(1);
+	      } else {
+	         bpv.setBlameYN(0);
+	      }
+		
 		request.setAttribute("bpv", bpv);
 
+		
 		// 현재 호출하는 메소드(서블릿)의 이름을 담아서 같이 넘겨쥼 -> 슬래쉬(/)빼야 해요
 		String servletName = "postedCommunity.diet";
 
