@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,7 +20,15 @@
 					<a class="item" href="/myPost.diet"><i class="clipboard outline icon"></i>작성한게시물</a>
 					<a class="item" href="/myComment.diet"><i class="comment outline icon"></i>작성한댓글</a>
 					<a class="item" href="/myBookMark.diet"><i class="bookmark outline icon"></i>북마크</a>
-					<a class="item" href="/myTrainer.diet"><i class="h square icon"></i>트레이너신청</a>
+					<c:if test="${member.mbGrade == '일반회원'}">
+					<a class="item" href="/myTrainer.diet"><i class="h square icon"></i>트레이너-일반</a>
+					</c:if>
+					<c:if test="${member.mbGrade == '트레이너'}">
+					<a class="item" href="/myPageTrainer.diet"><i class="h square icon"></i>트레이너 매칭</a>
+					</c:if>
+					<c:if test="${member.mbGrade == '관리자'}">
+					<a class="item" href="#"><i class="h square icon"></i>관리자-페이지</a>
+					</c:if>
 					<a class="item" href="/secession.diet"><i class="hand paper icon"></i>회원탈퇴</a>
 			</div>
 		</div>

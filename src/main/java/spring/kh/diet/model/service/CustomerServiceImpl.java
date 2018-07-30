@@ -52,5 +52,11 @@ public class CustomerServiceImpl implements CustomerService {
 		NoticeVO nVo = cDao.noticeContent(sessionCheck, session, index, response, request);
 		return nVo;
 	}
+	
+	/* 조회수 up */
+	@Override
+	public void noticeHit(int index) {
+		cDao.noticeHit(session, index);
+	}
 
 }

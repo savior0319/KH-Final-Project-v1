@@ -11,6 +11,7 @@
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script>
 	/* summernote에서 이미지 업로드시 실행할 함수 */
+	var postImage;
 	function sendFile(file, el) {
 		form = new FormData();
 		form.append("file", file);
@@ -24,6 +25,7 @@
 			encType : "multipart/form-data",
 			success : function(url) {
 				$(el).summernote('editor.insertImage', url);
+				postImage = url;
 			}
 		});
 	}
@@ -133,6 +135,9 @@
 	function register() {
 		var $title = $('#title').val();
 		var $content = $('#summernote').summernote('code');
+		if (postImage == null){
+			postImage = "";
+		}
 		if (category != null && $title != '' && $content != '') {
 			$.ajax({
 				url : '/communityPostRegist.diet',
@@ -140,13 +145,20 @@
 				data : {
 					'title' : $title,
 					'content' : $content,
-					'category' : category
+					'category' : category,
+					'postImage' : postImage
 				},
 				success : function(data) {
 					if (data == 'success') {
 						alert('게시글 등록 완료');
-						location.href = "/communityWholeBoard.diet?type="
-								+ category;
+						if(category == 16){
+							location.href = "/recipeBoard.diet?type=" + category;
+						}
+						else{
+							location.href = "/communityWholeBoard.diet?type="
+								+ category;	
+						}
+						
 					}
 				},
 				error : function() {

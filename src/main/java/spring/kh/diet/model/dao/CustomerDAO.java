@@ -19,4 +19,6 @@ public interface CustomerDAO {
 	NoticeVO noticeContent(HttpSession sessionCheck, SqlSessionTemplate session, int index, HttpServletResponse response,
 			HttpServletRequest request);
 
+	int noticeHit(SqlSessionTemplate session, int index);
+
 }

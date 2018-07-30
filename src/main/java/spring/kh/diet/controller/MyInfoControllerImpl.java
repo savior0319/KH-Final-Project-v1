@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -206,7 +207,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		mv.setMbInterest(interestStr);
 
 		int result = myInfoService.signupsave(mv);
-
+		
 		return "redirect:/";
 	}
 
@@ -234,13 +235,16 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request) {
 		MemberVO m = (MemberVO) session.getAttribute("member");
 		MyActivityVO ma = myInfoService.myActivity(m);
+		MyActivityVO loginCount = myInfoService.myLoginCount(m);
 		ModelAndView view = new ModelAndView();
 		if (ma != null) {
 			view.addObject("ma", ma);
+			view.addObject("loginCount", loginCount);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		} else {
 			view.addObject("ma", ma);
+			view.addObject("loginCount", loginCount);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		}
@@ -291,7 +295,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	}
 
-	/* 마이페이지 - 내가 작성한 댓글 */
+	/* 마이페이지 - 내 북마크 */
 
 	@Override
 	@RequestMapping(value = "/myBookMark.diet")
@@ -329,5 +333,20 @@ public class MyInfoControllerImpl implements MyInfoController {
 		request.setAttribute("myQuestion", myQuestion);
 		return "myInfo/myOneToOneQuestion";
 
+	}
+	
+	/* 블랙리스트 확인 */
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/checkReport.diet")
+	public String checkReport(MemberVO mbId) {
+		MemberVO mv = myInfoService.selectOneMember(mbId);
+		
+		if(mv != null) {
+			String result = mv.getMbReport();
+			return result;
+		}else {
+			return "error";
+		}
 	}
 }

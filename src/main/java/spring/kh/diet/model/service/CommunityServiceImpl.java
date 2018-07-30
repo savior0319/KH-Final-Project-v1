@@ -215,4 +215,29 @@ public class CommunityServiceImpl implements CommunityService {
 		BoardBlameVO bbv = communityDAO.checkPostBlame(SqlSessionTemplate,checkBlame);
 		return bbv;
 	}
+
+	@Override
+	public int modifyRegistCommunity(BoardPostVO bpv) {
+		int result = communityDAO.modifyResgistCommunity(SqlSessionTemplate,bpv);
+		return result;
+	}
+
+	@Override
+	public BoardLikeVO checkCommnetLike(BoardLikeVO likeCheckVO) {
+		System.out.println(likeCheckVO);
+		BoardLikeVO blv = communityDAO.checkCommentLike(SqlSessionTemplate, likeCheckVO);
+		return blv;
+	}
+
+	@Override
+	public int commentLikeUp(BoardLikeVO blv) {
+		int result = communityDAO.commentLikeUp(SqlSessionTemplate, blv);
+		return result;
+	}
+
+	@Override
+	public int commentTBLikeUp(BoardLikeVO blv) {
+		int result = communityDAO.commentTBLikeUp(SqlSessionTemplate, blv);
+		return result;
+	}
 }

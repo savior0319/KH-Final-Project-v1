@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.JsonIOException;
+
 public interface MainController {
 
 	Object BMICalResult(String[] gender, String age, String height, String weight);
@@ -26,5 +28,7 @@ public interface MainController {
 			throws IOException;
 
 	void getMainNoticeList(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
+	void getList(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException;
 
 }

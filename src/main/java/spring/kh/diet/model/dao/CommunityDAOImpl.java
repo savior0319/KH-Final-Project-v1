@@ -401,5 +401,26 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Override
 	public int postReport(SqlSessionTemplate sqlSessionTemplate, BoardBlameVO report) {
 		return sqlSessionTemplate.insert("community.postReport",report);
+	}
+
+	@Override
+	public int modifyResgistCommunity(SqlSessionTemplate sqlSessionTemplate, BoardPostVO bpv) {
+		return sqlSessionTemplate.update("community.modifyRegist",bpv);
+		
+	}
+
+	@Override
+	public BoardLikeVO checkCommentLike(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO likeCheckVO) {
+		return sqlSessionTemplate.selectOne("community.checkCmtLike",likeCheckVO);
+	}
+
+	@Override
+	public int commentLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv) {
+		return sqlSessionTemplate.insert("community.cmtLikeUp",blv);
+	}
+
+	@Override
+	public int commentTBLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv) {
+		return sqlSessionTemplate.update("community.cmtTBLikeUp",blv);
 	}	
 }

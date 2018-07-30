@@ -26,7 +26,8 @@
 		CMT.CMT_DATETIME AS cmtDateTime,
 		CMT.CMT_LIKE AS cmtLike,
 		CMT.CMT_BLAME
-		AS cmtBlame
+		AS cmtBlame,
+		MB.MB_INDEX as mbIndex
 		FROM (SELECT
 		BOARD_COMMENT_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY

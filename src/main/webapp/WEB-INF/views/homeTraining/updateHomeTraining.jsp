@@ -5,15 +5,11 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>글 등록하기 페이지</title>
-<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
-<script src="/resources/summernote/dist/summernote-lite.js"></script>
-<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+<title>다이어트</title>
 </head>
 
 <!-- CSS -->
 <style>
-
 
 .fileBox .fileName {
 	display: inline-block;
@@ -46,14 +42,13 @@
 	margin: -1px;
 	overflow: hidden;
 }
-</style>
 
+</style>
 
 
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
-
 
 	<!-- CONTENTS -->
 	<input id="mainPhotoPath" type="hidden">
@@ -122,7 +117,8 @@
 			</div>
 		</div>
 	</div>
-
+		
+	
 	<!-- 이미지 선택 모달 -->
 
 	<div class="ui modal" id="updateProfile">

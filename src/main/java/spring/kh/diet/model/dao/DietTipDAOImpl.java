@@ -178,4 +178,11 @@ public class DietTipDAOImpl implements DietTipDAO {
 		return session.selectOne("dietTip.checkLike", checkVO);
 	}
 
+	// 이전글 다음글 가져오기
+	public ArrayList<DietTipVO> getNextPreDt(SqlSessionTemplate session, int indexNo) {
+		List<DietTipVO> list = session.selectList("dietTip.nextPreDt", indexNo);
+		System.out.println(list);
+		return (ArrayList<DietTipVO>)list;
+	}
+
 }

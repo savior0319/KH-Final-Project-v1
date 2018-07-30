@@ -30,5 +30,13 @@ public interface HomeTrainingService {
 
 	HomeTrainingPageDataVO homeTrainingAll(int currentPage, HomeTrainingPageDataVO pdvo);
 
-
+    int registHomeTraining(HomeTrainingVO ht);
+   
+    int deleteHomeTraining(int indexNo);
+    
+    HomeTrainingVO loadUpdateHomeTraining(int indexNo);
+    
+    int updateHomeTraining(HomeTrainingVO ht);
+    
+    
 }

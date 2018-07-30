@@ -22,5 +22,12 @@ public interface HomeTrainingController {
 	void htWriteAuthorityCheck(HttpSession session, HttpServletResponse response) throws IOException;
 
 	String redirectLoadHomeTrainingWrite();
+	
+	void registHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
+	void homeTrainingDelete(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
+	String loadUpdateHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException;
+		
+	void updateHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException;
 }

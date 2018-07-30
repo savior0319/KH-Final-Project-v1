@@ -6,14 +6,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
+import spring.kh.diet.model.vo.BoardPostVO;
 
 public interface CommunityController {
 
-	void registCommunity(String title, String content, int category, HttpSession session, HttpServletResponse response)
-			throws IOException;
+	void registCommunity(String title, String content, int category, String postImage, HttpSession session,
+			HttpServletResponse response) throws IOException;
 
 	String recipeBoardList(HttpSession session, HttpServletRequest request);
 
@@ -34,5 +37,11 @@ public interface CommunityController {
 	String boardBookMark(BoardBookMarkVO checkVO, HttpSession session);
 
 	String postReport(BoardBlameVO report, HttpSession session);
+
+	String redirectModifyCommunity(HttpServletRequest request);
+	
+	void modifyRegistCommunity(BoardPostVO bpv, HttpSession session, HttpServletResponse response) throws IOException;
+
+	String commentLike(BoardLikeVO checkVO, HttpSession session);
 
 }
