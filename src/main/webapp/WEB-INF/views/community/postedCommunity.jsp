@@ -408,6 +408,7 @@
 				<c:if test="${requestScope.bcpd.bcList[0] !=null}">
 					<!-- 작성된 댓글 리스트 -->
 					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
+						<input type="hidden" value="${bc.cmtLike}" id="cmtLike_${bc.cmtIndex}"/>
 						<div class="comment">
 							<a class="avatar">
 								<img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
@@ -415,19 +416,21 @@
 							<div class="content" style="width: 93%;">
 								<a class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</a>
 								<div class="metadata" style="width: 100%;">
-								
-									<span class="date" style="width: 30%; display: inline; margin-left: 10%;"><fmt:formatDate value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" /></span>
+
+									<span class="date" style="width: 30%; display: inline; margin-left: 10%;">
+										<fmt:formatDate value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" />
+									</span>
 									<div id="modiDelete_${bc.cmtIndex}">
 										<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex" id="cmdIndex_${bc.cmtIndex}" />
 										<a class="modifyComment" style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
 										&nbsp;&nbsp;|&nbsp;&nbsp;
 										<a class="deleteComment" onclick="deleteComment(${bc.cmtIndex});" style="cursor: pointer;">삭제</a>
 									</div>
-										<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
+									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
 									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
-										<button class="ui red basic tiny button" style="margin-right: 10px;">
+										<button class="ui red basic tiny button" onclick="cmtLike(${bc.cmtIndex},${bc.mbIndex})" style="margin-right: 10px;">
 											<i class="thumbs up outline icon"></i>
-											좋아요 ${bc.cmtLike }
+											좋아요 <label id="cmtLikeCount_${bc.cmtIndex}">${bc.cmtLike}</label>
 										</button>
 										<button class="ui black basic tiny button" id="cmdReportBtn">
 											<i class="ban icon"></i>
@@ -440,6 +443,7 @@
 								</div>
 							</div>
 						</div>
+
 						<!-- 수정 -->
 						<form class="ui reply form" id="modifyContents_${bc.cmtIndex}" style="display: none;">
 							<div class="field">
@@ -532,7 +536,7 @@
 	var likeYN = '${requestScope.bpv.likeYN}';
 	var postLike = '${requestScope.bpv.postLike}';
 
-	/* 좋아요 버튼 */
+	/* 게시글 좋아요 버튼 */
 	$('#heartBtn').click(
 			function() {
 				if (likeYN == 0) {
@@ -574,10 +578,37 @@
 					}
 				});
 			});
-
-	/* 신고버튼 */
+	/* 댓글 좋아요 버튼 */
+	function cmtLike(index,mbIndex){
+		var targetIndex = index;
+		var targetType = 2;
+		var targetMbIndex = mbIndex;
+		var cmtLike = $("#cmtLike_"+index).val();
+		console.log(cmtLike);
+		$.ajax({
+			url : '/cmtLike.diet',
+			type : 'post',
+			data : {
+				'targetIndex' : targetIndex,
+				'targetType' : targetType,
+				'targetMbIndex' : targetMbIndex
+			},
+			success : function(data){
+				if(data=='success'){
+					$('#cmtLikeCount_'+index).text(++cmtLike);
+				} else if(data=='failed') {
+					alert('페이지에 오류가 발생하였습니다.');
+				} else if(data=='used') {
+					alert('이미 추천한 게시물 입니다.');
+				}
+			}
+		})
+	}
+	
+	/* 게시글 신고버튼 */
 	$('#reportBtn').click(function() {
 		var blameCheck = '${requestScope.bpv.blameYN}';
+		console.log(blameCheck);
 		var mbId = '${sessionScope.member.mbNickName}';
 		if(mbId!=''){
 			if(blameCheck == 0){
@@ -604,7 +635,7 @@
 
 	/* 수정하기 버튼 */
 	$('#modifyBtn').click(function() {
-		location.href = "/modifyCommunity.diet";
+		location.href="/modifyCommunity.diet?postIndex=${bpv.postIndex}"
 	});
 
 	var postIndex = '${requestScope.bpv.postIndex}';

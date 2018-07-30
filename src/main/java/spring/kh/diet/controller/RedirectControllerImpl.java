@@ -115,13 +115,6 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectRegistCommunity() {
 		return "community/registCommunity";
 	}
-
-	/* 커뮤니티 - 글수정 페이지 */
-	@Override
-	@RequestMapping(value = "/modifyCommunity.diet")
-	public String redirectModifyCommunity() {
-		return "community/modifyCommunity";
-	}
 	
 	/* 고객센터 - 트레이너 회원 등록 */
 	@Override

@@ -66,4 +66,12 @@ public interface CommunityDAO {
 
 	int postReport(SqlSessionTemplate sqlSessionTemplate, BoardBlameVO report);
 
+	int modifyResgistCommunity(SqlSessionTemplate sqlSessionTemplate, BoardPostVO bpv);
+
+	BoardLikeVO checkCommentLike(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO likeCheckVO);
+
+	int commentLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv);
+
+	int commentTBLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv);
+
 }

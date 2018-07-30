@@ -6,9 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
+import spring.kh.diet.model.vo.BoardPostVO;
 
 public interface CommunityController {
 
@@ -37,5 +40,11 @@ public interface CommunityController {
 
 	void getMainCommunityList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws IOException;
+
+	String redirectModifyCommunity(HttpServletRequest request);
+	
+	void modifyRegistCommunity(BoardPostVO bpv, HttpSession session, HttpServletResponse response) throws IOException;
+
+	String commentLike(BoardLikeVO checkVO, HttpSession session);
 
 }

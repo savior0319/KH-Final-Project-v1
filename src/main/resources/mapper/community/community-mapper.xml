@@ -445,4 +445,31 @@
 	<insert id="postReport" parameterType="boardBlame">
 		INSERT INTO BOARD_BLAME_TBL VALUES(BOARD_BLAME_TBL_SEQ.NEXTVAL,#{targetIndex},1,#{mbIndex},#{targetMbIndex},#{targetContents},SYSDATE)
 	</insert>
+	
+	<!-- 게시글 수정 테이블 -->
+	<update id="modifyRegist" parameterType="community">
+		UPDATE BOARD_POST_TBL
+		SET POST_TITLE = #{postTitle}, POST_CONTENT= #{postContent}, BCA_INDEX = #{bcaIndex}
+		WHERE POST_INDEX = #{postIndex}
+	</update>
+	
+	<!-- 댓글 좋아요 확인 테이블 -->
+	<select id="checkCmtLike" parameterType="boardLike"	resultType="boardLike" resultMap="boardLikeDB">
+		SELECT *
+		FROM BOARD_LIKE_TBL
+		WHERE TARGET_INDEX = #{targetIndex} AND MB_INDEX = #{mbIndex} AND TARGET_TYPE = 2
+	</select>
+	
+	<!-- 댓글 좋아요 추가 테이블 -->
+	<insert id="cmtLikeUp" parameterType="boardLike">
+		INSERT INTO BOARD_LIKE_TBL
+		VALUES(BOARD_LIKE_TBL_SEQ.NEXTVAL,#{targetIndex},2,#{mbIndex},#{targetMbIndex})
+	</insert>
+	
+	<!-- 댓글 테이블 좋아요 +1 -->
+	<update id="cmtTBLikeUp" parameterType="boardLike">
+		UPDATE BOARD_COMMENT_TBL
+		SET CMT_LIKE = CMT_LIKE +1
+		WHERE CMT_INDEX = #{targetIndex}
+	</update>
 </mapper>
