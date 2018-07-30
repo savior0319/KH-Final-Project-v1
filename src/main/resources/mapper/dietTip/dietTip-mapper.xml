@@ -220,7 +220,8 @@
 	<update id="postDown" parameterType="boardLike">
 		UPDATE DIETTIP_TB
 		SET
-		DT_LIKE = DT_LIKE -1
+		DT_LIKE
+		= DT_LIKE -1
 		WHERE DT_INDEX = #{targetIndex}
 	</update>
 
@@ -228,7 +229,8 @@
 	<update id="postUp" parameterType="boardLike">
 		UPDATE DIETTIP_TB
 		SET
-		DT_LIKE = DT_LIKE +1
+		DT_LIKE =
+		DT_LIKE +1
 		WHERE DT_INDEX = #{targetIndex}
 	</update>
 
@@ -237,6 +239,32 @@
 		resultMap="boardLikeDB">
 		SELECT *
 		FROM BOARD_LIKE_TBL
-		WHERE TARGET_INDEX = #{targetIndex} AND MB_INDEX = #{mbIndex}
+		WHERE TARGET_INDEX =
+		#{targetIndex} AND MB_INDEX = #{mbIndex}
+	</select>
+
+	<!-- 이전글 다음글 가져오기 -->
+	<select id="nextPreDt" resultType="dietTip" parameterType="Integer">
+		<![CDATA[ 
+		SELECT 
+		DT_INDEX AS dtIndex,
+		DT_TYPE AS dtType,
+		DT_TITLE AS dtTitle,
+		DT_DATE AS dtDate,
+		DT_SEE AS dtSee
+		FROM (SELECT DIETTIP_TB.*, ROW_NUMBER() OVER(ORDER 
+			BY DT_INDEX DESC) AS NUM FROM DIETTIP_TB WHERE DIETTIP_TB.DT_NO<#{indexNo}
+			) WHERE NUM = 1 
+		UNION ALL
+		SELECT
+		DT_INDEX AS dtIndex,
+		DT_TYPE AS dtType,
+		DT_TITLE AS dtTitle,
+		DT_DATE AS dtDate,
+		DT_SEE AS dtSee
+		 FROM (SELECT DIETTIP_TB.*, ROW_NUMBER() 
+			OVER(ORDER BY DT_INDEX ASC) AS NUM FROM DIETTIP_TB WHERE DIETTIP_TB.DT_NO>#{indexNo}
+			) WHERE NUM = 1 
+		]]>
 	</select>
 </mapper>

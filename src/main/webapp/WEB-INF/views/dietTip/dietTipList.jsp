@@ -41,10 +41,10 @@
 
 				<div class="row" style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;">
 					<div class="four wide column">
-						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;"  onclick="goInfo(${dt.dtIndex});">
+						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex});">
 					</div>
 					<div class="twelve wide column">
-						<strong style="cursor: pointer;"  onclick="goInfo(${dt.dtIndex});">${dt.dtTitle }</strong>
+						<strong style="cursor: pointer;" onclick="goInfo(${dt.dtIndex});">${dt.dtTitle }</strong>
 						<div style="cursor: pointer; width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;" onclick="goInfo(${dt.dtIndex});">${dt.dtSammary }</div>
 						<br>
 						<div class="ui grid">
@@ -59,11 +59,9 @@
 								<i class="comment icon"></i> ${dt.dtCmtNo }
 							</div>
 							<c:if test="${dt.dtWriterNo == sessionScope.member.mbIndex }">
-							<div class="four wide column">
-								<a style="cursor:pointer;" onclick="updateDietTip(${dt.dtIndex})">수정</a>
-								&nbsp;|&nbsp;&nbsp;
-								<a style="cursor:pointer;" onclick="deleteDietTip(${dt.dtIndex});">삭제</a>
-							</div>
+								<div class="four wide column">
+									<a style="cursor: pointer;" onclick="updateDietTip(${dt.dtIndex})">수정</a> &nbsp;|&nbsp;&nbsp; <a style="cursor: pointer;" onclick="deleteDietTip(${dt.dtIndex});">삭제</a>
+								</div>
 							</c:if>
 						</div>
 					</div>
@@ -78,9 +76,11 @@
 			<div class="three column row">
 				<div class="four wide column"></div>
 				<div class="eight wide column">
-					<div class="ui center aligned basic segment">
-						<div class="ui pagination menu">${requestScope.dtpd.pageNavi }</div>
-					</div>
+					<c:if test="${requestScope.dtpd.dtList[0]!=null }">
+						<div class="ui center aligned basic segment">
+							<div class="ui pagination menu">${requestScope.dtpd.pageNavi }</div>
+						</div>
+					</c:if>
 				</div>
 				<div class="four wide column">
 					<div class="ui right aligned container">

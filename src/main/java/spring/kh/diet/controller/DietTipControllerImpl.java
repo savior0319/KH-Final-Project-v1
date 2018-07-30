@@ -2,6 +2,7 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -120,6 +121,10 @@ public class DietTipControllerImpl implements DietTipController {
 		BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, indexNo);
 
 		request.setAttribute("bcpd", bcpd);
+		
+		// 이전글 다음글 보여주는 거
+		ArrayList<DietTipVO> nextPreDt = dietTipService.getNextPreDt(indexNo);
+		request.setAttribute("nextPreDt", nextPreDt);
 
 		return "dietTip/dietTipInfo";
 	}
@@ -332,5 +337,7 @@ public class DietTipControllerImpl implements DietTipController {
 		return bbmv;
 
 	}
+	
+	
 
 }

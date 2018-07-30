@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -65,14 +64,10 @@ p>span {
 	<div class="ui container">
 		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li><img src="/resources/image/mainPic.jpg"
-				style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic1.jpg"
-				style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic2.jpg"
-				style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic3.jpg"
-				style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
 		</ul>
 		<br>
 		<!-- 상단 게시판 종류 -->
@@ -88,8 +83,7 @@ p>span {
 		<!-- 제목 -->
 
 		<h2 class="ui center aligned container">
-			<i class="quote left icon"></i>${requestScope.dt.dtTitle }<i
-				class="quote right icon"></i>
+			<i class="quote left icon"></i>${requestScope.dt.dtTitle }<i class="quote right icon"></i>
 		</h2>
 
 
@@ -97,21 +91,14 @@ p>span {
 		<div class="ui black segment">
 			<div class="ui grid">
 				<div class="four column row">
-					<span class="left floated column" style=""> <span
-						class="ui left aligned"> <a> <img
-								class="ui avatar image" src="/resources/image/mainPic.jpg">
+					<span class="left floated column" style=""> <span class="ui left aligned"> <a> <img class="ui avatar image" src="/resources/image/mainPic.jpg">
 								${requestScope.dt.dtNickname }
 						</a>
 					</span>
-					</span> <span class="right floated column"> <!-- 날짜 --> <span
-						class="ui right aligned"> <i class="calendar icon"></i> <fmt:formatDate
-								value="${requestScope.dt.dtDate }" pattern="yyyy-MM-dd HH:mm" />
-					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 뷰수 --> <span
-						class="ui right aligned"> <i class="eye icon"></i>
-							${requestScope.dt.dtSee }
-					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 댓글수 --> <span
-						class="ui right aligned"> <i class="pen square icon"></i>
-							${requestScope.bcpd.totalCommentNo }
+					</span> <span class="right floated column"> <!-- 날짜 --> <span class="ui right aligned"> <i class="calendar icon"></i> <fmt:formatDate value="${requestScope.dt.dtDate }"
+								pattern="yyyy-MM-dd HH:mm" />
+					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 뷰수 --> <span class="ui right aligned"> <i class="eye icon"></i> ${requestScope.dt.dtSee }
+					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 댓글수 --> <span class="ui right aligned"> <i class="pen square icon"></i> ${requestScope.bcpd.totalCommentNo }
 					</span>
 					</span>
 				</div>
@@ -125,7 +112,7 @@ p>span {
 			<br> <br>
 
 			<!-- 사이즈 455px 보다 클때 -->
-			<div id="rediv1" class="ui center aligned container" style="margin:0; padding:0;">
+			<div id="rediv1" class="ui center aligned container" style="margin: 0; padding: 0;">
 				<!-- 북마크 버튼 -->
 				<button class="ui yellow button" id="bookMark" style="height: 40px;">
 					<c:choose>
@@ -153,17 +140,16 @@ p>span {
 						</c:choose>
 						좋아요
 					</button>
-					<a class="ui basic red left pointing label" id="postLike">
-						${requestScope.dt.dtLike } </a>
+					<a class="ui basic red left pointing label" id="postLike"> ${requestScope.dt.dtLike } </a>
 				</div>
 
 
 				<!-- 신고 버튼 -->
-				<button class="ui black button" style="height: 40px;" id="reportBtn">
+				<!-- <button class="ui black button" style="height: 40px;" id="reportBtn">
 					<i class="bullhorn icon"></i> 신고
-				</button>
+				</button> -->
 			</div>
-			
+
 			<!-- 사이즈 455px 보다 작을 때 -->
 			<div id="rediv2" style="margin: 0; padding: 0; display: none;">
 				<!-- 북마크 버튼 -->
@@ -193,20 +179,19 @@ p>span {
 						</c:choose>
 						좋아요
 					</button>
-					<a class="ui basic red left pointing label" id="postLike">
-						${requestScope.dt.dtLike } </a>
+					<a class="ui basic red left pointing label" id="postLike"> ${requestScope.dt.dtLike } </a>
 				</div>
 
 
 				<!-- 신고 버튼 -->
-				<button class="ui black button" style="height: 40px;" id="reportBtn">
+				<!-- <button class="ui black button" style="height: 40px;" id="reportBtn">
 					<i class="bullhorn icon"></i> 신고
-				</button>
+				</button> -->
 			</div>
 			<br> <br> <br>
 
 			<!-- 신고 모달 -->
-			<div class="ui basic modal" id="reportModal">
+			<!-- <div class="ui basic modal" id="reportModal">
 				<div class="ui icon header">
 					<i class="exclamation triangle icon"></i> 신고하기
 				</div>
@@ -291,20 +276,54 @@ p>span {
 					</div>
 				</div>
 
-			</div>
+			</div> -->
 		</div>
 
 
 		<!-- 글쓰기, 목록으로 돌아가기 버튼 -->
 		<div class="ui right aligned container">
-			<button class="ui right red basic button" style="margin-top: 19px;"
-				id="writeBtn">
-				<i class="edit icon"></i>글쓰기
-			</button>
 			<button class="ui black basic button" id="listBtn">
 				<i class="list ul icon"></i>목록
 			</button>
 		</div>
+		<br>
+		<br>
+
+		<table class="ui very basic table">
+
+			<tbody>
+				<tr></tr>
+				
+				<c:if test="${requestScope.nextPreDt[0]!=null }">
+				<tr style="cursor:pointer;" onclick="goInfo(${requestScope.nextPreDt[0].dtIndex })">
+					<td>이전글 <i class="angle up icon"></i></td>
+					<td>${requestScope.nextPreDt[0].dtTitle }</td>
+					<td><fmt:formatDate value="${requestScope.nextPreDt[0].dtDate }"
+								pattern="yyyy-MM-dd" /></td>
+					<td>조회수 : ${requestScope.nextPreDt[0].dtSee }</td>
+				</tr>
+				</c:if>
+				
+				<c:if test="${requestScope.nextPreDt[1]!=null }">
+				<tr style="cursor:pointer;" onclick="goInfo(${requestScope.nextPreDt[1].dtIndex})">
+					<td>다음글 <i class="angle down icon"></i></td>
+					<td>${requestScope.nextPreDt[1].dtTitle }</td>
+					<td><fmt:formatDate value="${requestScope.nextPreDt[1].dtDate }"
+								pattern="yyyy-MM-dd" /></td>
+					<td>조회수 : ${requestScope.nextPreDt[1].dtSee }</td>
+				</tr>
+				</c:if>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+
 
 		<!-- 댓글 -->
 		<div class="ui comments" style="max-width: 1220px;">
@@ -318,9 +337,7 @@ p>span {
 					<textarea id="commentContent" style="resize: none;" name="content"></textarea>
 				</div>
 				<div class="ui right aligned container">
-					<div class="ui labeled submit icon button"
-						style="background-color: #fa2828; color: white;"
-						onclick="addComment();">
+					<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="addComment();">
 						<i class="icon edit"></i>등록
 					</div>
 				</div>
@@ -333,33 +350,21 @@ p>span {
 					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
 
 						<div class="comment">
-							<a class="avatar"> <img src="${bc.mbImage }"
-								style="width: 40px; height: 40px; border-radius: 25px;">
+							<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
 							</a>
 							<div class="content" style="width: 93%;">
 								<div class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</div>
 								<div class="metadata" style="width: 100%;">
-									<span class="date"
-										style="width: 30%; display: inline; margin-left: 10%;"><fmt:formatDate
-											value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" /></span>
+									<span class="date" style="width: 30%; display: inline; margin-left: 10%;"><fmt:formatDate value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" /></span>
 
 									<div id="modiDelete_${bc.cmtIndex}">
-										<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex"
-											id="cmdIndex_${bc.cmtIndex}" /> <a class="modifyComment"
-											style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
-										&nbsp;&nbsp;|&nbsp;&nbsp; <a class="deleteComment"
-											onclick="deleteComment(${bc.cmtIndex});"
-											style="cursor: pointer;">삭제</a>
+										<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex" id="cmdIndex_${bc.cmtIndex}" /> <a class="modifyComment" style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
+										&nbsp;&nbsp;|&nbsp;&nbsp; <a class="deleteComment" onclick="deleteComment(${bc.cmtIndex});" style="cursor: pointer;">삭제</a>
 									</div>
-									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}"
-										onclick="cancleComment(${bc.cmtIndex});"
-										style="cursor: pointer; display: none;"
-										href="javascript:void(0)">취소</a>
+									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
 
-									<div class="ui right aligned container" align="right"
-										style="width: 70%; float: right;">
-										<button class="ui red basic tiny button"
-											style="margin-right: 10px;">
+									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+										<button class="ui red basic tiny button" style="margin-right: 10px;">
 											<i class="thumbs up outline icon"></i>좋아요 ${bc.cmtLike }
 										</button>
 										<button class="ui black basic tiny button">
@@ -374,16 +379,12 @@ p>span {
 						</div>
 
 						<!-- 수정 -->
-						<form class="ui reply form" id="modifyContents_${bc.cmtIndex}"
-							style="display: none;">
+						<form class="ui reply form" id="modifyContents_${bc.cmtIndex}" style="display: none;">
 							<div class="field">
-								<textarea id="modifyText_${bc.cmtIndex}" style="resize: none;"
-									name="content">${bc.cmtContent}</textarea>
+								<textarea id="modifyText_${bc.cmtIndex}" style="resize: none;" name="content">${bc.cmtContent}</textarea>
 							</div>
 							<div class="ui right aligned container" id="rightContainer">
-								<div class="ui labeled submit icon button"
-									style="background-color: #fa2828; color: white;"
-									onclick="modifyComment(${bc.cmtIndex});">
+								<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="modifyComment(${bc.cmtIndex});">
 									<i class="icon edit"></i> 수정
 								</div>
 							</div>
@@ -837,6 +838,11 @@ p>span {
 	function doublePos(num)
 	{
 		return num>9?num:"0"+num;
+	}
+	
+	// 이전글 다음글
+	function goInfo(me){
+		location.href="/dietTipInfo.diet?indexNo="+me;
 	}
 </script>
 

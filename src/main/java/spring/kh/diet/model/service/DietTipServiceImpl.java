@@ -105,4 +105,8 @@ public class DietTipServiceImpl implements DietTipService {
 		return dietTipDAO.checkBoardLike(session, checkVO);
 	}
 
+	public ArrayList<DietTipVO> getNextPreDt(int indexNo) {
+		return dietTipDAO.getNextPreDt(session, indexNo);
+	}
+
 }
