@@ -62,6 +62,13 @@
 										class="heart outline icon"></i> 좋아요 <span class="like"
 										style="color: red">${ht.htLike }</span>
 								</div>
+								<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
+							<div class="four wide column">
+								<a style="cursor:pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a>
+								&nbsp;|&nbsp;&nbsp;
+								<a style="cursor:pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
+							</div>
+							</c:if>
 							</div>
 						</div>
 					</div>
@@ -100,7 +107,6 @@
 				<i class="dropdown icon"></i>
 				<div class="menu">
 					<div class="item">제목</div>
-					<div class="item">내용</div>
 					<div class="item">작성자</div>
 				</div>
 
@@ -184,6 +190,31 @@ function homeTrainingWrite(){
 	});
 }
 
+//게시물 삭제
+function deleteHomeTraining(me){
+	var type = $('#type').val();
+	$.ajax({
+		url : "homeTrainingDelete.diet?indexNo="+me,
+		type : 'post',
+		success : function(data){
+			if(data>0){
+				alert('삭제 완료');
+			}else{
+				alert('삭제 실패');
+			}
+		},
+		error : function(data){
+			alert('에러 발생');
+		}
+	});
+	
+	location.href = 'homeTrainingList.diet?type='+type;
+}
+
+// 게시물 수정
+function updateHomeTraining(me){
+	location.href = "loadUpdateHomeTraining.diet?indexNo=" + me;
+}
 
 
 </script>

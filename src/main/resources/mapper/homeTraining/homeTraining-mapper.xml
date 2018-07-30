@@ -203,6 +203,39 @@
 		HT_LIKE = HT_LIKE +1
 		WHERE INDEX_NO = #{targetIndex}
 	</update>
+	
+	<!-- 홈트레이닝 게시물 쓰기 -->
+	<insert id="registHomeTraining" parameterType="homeTraining">
+	INSERT INTO
+	HOMETRAINING_TB
+	VALUES(INDEX_NO_SEQ.NEXTVAL, HT_NO_SEQ.NEXTVAL, #{htMainPhoto},
+	#{htType}, #{htTitle}, #{htPart}, 0, SYSDATE, #{htExplain}, 0, 0, 1,
+	#{htVideo}, #{htStepTime}, #{htStepType}, #{htStepHard}, #{htStepKal})
+	</insert> 
+	
+	<!-- 홈트레이닝 게시물 삭제 -->
+	<delete id="deleteHomeTraining">
+		DELETE HOMETRAINING_TB WHERE INDEX_NO = #{indexNo}
+	</delete>
+	
+	<!-- 홈트레이닝 수정 페이지 불러오기 -->
+	<select id="loadUpdateHomeTraining" resultType="homeTraining">
+	SELECT * FROM
+	HOMETRAINING_TB HT,
+	MEMBER_TBL MB WHERE HT.HT_WRITER_NO = MB.MB_INDEX AND INDEX_NO = #{index}
+	</select>
+	
+	<!-- 홈트레이닝 페이지 수정 -->
+	<select id="updateHomeTraining" parameterType="homeTraining">
+		UPDATE HOMETRAINING_TB SET
+		HT_MAIN_PHOTO = #{htMainPhoto}, HT_TYPE = #{htType}, HT_TITLE = #{htTitle},
+		HT_PART = #{htPart}, HT_EXPLAIN = #{htExplain}, HT_VIDEO = #{htVideo},
+		HT_STEP_TIME = #{htStepTime}, HT_STEP_TYPE = #{htStepType},
+		HT_STEP_HARD = #{htStepHard}, HT_STEP_Kal = #{htStepKal}
+		WHERE INDEX_NO = #{indexNo}
+	</select>
+
+	
 
 	<!-- 이전글 다음글 -->
 	<!-- <select id="getpnWriteList" resultType="homeTraining" resultMap="homeTrainingDB" 
