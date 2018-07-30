@@ -12,6 +12,7 @@ import spring.kh.diet.model.dao.AdminDAO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -222,5 +223,12 @@ public class AdminServiceImpl implements AdminService {
 		mbPd.setPageNavi(pageNavi);
 
 		return mbPd;
+	}
+
+	/* 블랙리스트 변경 */
+	@Override
+	public int blackListReg(BlackListRegVO bVo) {
+		int result = aDao.blackListReg(session, bVo);
+		return result;
 	}
 }

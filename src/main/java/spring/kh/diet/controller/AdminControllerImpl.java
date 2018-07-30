@@ -1,7 +1,6 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -20,6 +19,7 @@ import spring.kh.diet.model.service.AdminService;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -377,4 +377,20 @@ public class AdminControllerImpl implements AdminController {
 		return yAPDVO;
 	}
 
+	/* TODO : 블랙리스트 등록 */
+	@Override
+	@RequestMapping(value = "/blackListReg.diet")
+	public void blackListReg(@RequestParam int index, @RequestParam String status, HttpServletResponse response)
+			throws IOException {
+		
+		BlackListRegVO bVo = new BlackListRegVO();
+		
+		bVo.setIndex(index);
+		bVo.setStatus(status);
+		
+		int result = as.blackListReg(bVo);
+		
+		response.sendRedirect("/blackList.diet");
+
+	}
 }

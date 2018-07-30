@@ -201,7 +201,8 @@
 		select
 		(select SUM(DT_SEE)from DIETTIP_TB ) as dtHits,
 		(select sum(HT_HITS) from HOMEtrainING_tb) as htHits,
-		(select sum(POST_HIT) from BOARD_POST_TBL) as brHits
+		(select sum(POST_HIT) from BOARD_POST_TBL) as
+		brHits
 		from dual
 	</select>
 
@@ -209,7 +210,8 @@
 		select
 		(SELECT COUNT(*) FROM DIETTIP_TB,BOARD_COMMENT_TBL WHERE DT_INDEX =
 		POST_INDEX) AS dtComments,
-		(SELECT COUNT(*) FROM HOMEtrainING_tb,BOARD_COMMENT_TBL WHERE INDEX_NO =
+		(SELECT COUNT(*) FROM
+		HOMEtrainING_tb,BOARD_COMMENT_TBL WHERE INDEX_NO =
 		POST_INDEX) AS htComments,
 		(SELECT COUNT(*) FROM BOARD_POST_TBL,BOARD_COMMENT_TBL WHERE
 		BOARD_POST_TBL.POST_INDEX = BOARD_COMMENT_TBL.POST_INDEX) as
@@ -222,14 +224,16 @@
 		(select COUNT(*) from DIETTIP_TB ) as dtBoard,
 		(select COUNT(*) from HOMEtrainING_tb) as htBoard,
 		(select COUNT(*) from BOARD_POST_TBL) as brBoard
-		from dual
+		from
+		dual
 	</select>
 
 	<select id="searchLike" resultType="todayLike">
 		select
 		(select SUM(DT_LIKE)from DIETTIP_TB ) as dtLike,
 		(select sum(HT_LIKE) from HOMEtrainING_tb) as htLike,
-		(select sum(POST_LIKE) from BOARD_POST_TBL) as brLike
+		(select sum(POST_LIKE) from BOARD_POST_TBL) as
+		brLike
 		from dual
 	</select>
 
@@ -284,7 +288,8 @@
 		BR_HITS as brHits,
 		DT_COMMENTS As dtComments,
 		HT_COMMENTS as htComments,
-		BR_COMMENTS As brComments,
+		BR_COMMENTS As
+		brComments,
 		DT_BOARD as dtBoard,
 		HT_BOARD As htBoard,
 		BR_BOARD as brBoard,
@@ -308,7 +313,8 @@
 		MB_WEIGHT as mbWeight,
 		MB_ID as mbId,
 		MB_PWD as mbPwd,
-		MB_NAME as mbName,
+		MB_NAME as
+		mbName,
 		MB_NICKNAME as mbNickName,
 		MB_GENDER as mbGender,
 		MB_IMAGE as mbImage,
@@ -321,16 +327,17 @@
 		MB_ENROLLDATE as mbEnrollDate
 		FROM (SELECT MEMBER_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
-		WHERE NUM BETWEEN #{start} AND #{end} AND MB_INDEX IN (SELECT TARGET_MB_INDEX
+		WHERE NUM BETWEEN #{start} AND #{end} AND MB_INDEX IN
+		(SELECT TARGET_MB_INDEX
 		FROM BOARD_BLAME_TBL
 		GROUP BY TARGET_MB_INDEX
 		HAVING COUNT(*) >= 5)
 	</select>
-	
+
 	<!-- 블랙리스트 전체 갯수 -->
 	<select id="getBlackListNavi" resultType="Integer" parameterType="Integer">
-	  	SELECT COUNT(*)	FROM
-   		(SELECT
+		SELECT COUNT(*) FROM
+		(SELECT
 		MB_AGE as mbAge,
 		MB_Index as mbIndex,
 		MB_HEIGHT as mbHeight,
@@ -354,5 +361,15 @@
 		FROM BOARD_BLAME_TBL
 		GROUP BY TARGET_MB_INDEX
 		HAVING COUNT(*) >= 5))
-		</select>
+	</select>
+
+	<!-- 블랙리스트 등록 -->
+	<update id="blackListReg" parameterType="black">
+		UPDATE MEMBER_TBL SET MB_REPORT = 'y' WHERE MB_INDEX = #{index}
+	</update>
+
+	<!-- 블랙리스트 취소 -->
+	<update id="blackListDel" parameterType="black">
+		UPDATE MEMBER_TBL SET MB_REPORT = 'n' WHERE MB_INDEX = #{index}
+	</update>
 </mapper>
