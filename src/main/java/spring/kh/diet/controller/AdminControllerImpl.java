@@ -364,7 +364,7 @@ public class AdminControllerImpl implements AdminController {
 	public yesterdayAnalytic yesterdayAnalytics() {
 		
 		yesterdayAnalytic yAPDVO = as.searchAllBefore();
-		System.out.println(yAPDVO.toString());
+//		System.out.println(yAPDVO.toString());
 		return yAPDVO;
 	}
 
