@@ -61,7 +61,13 @@ html, body {
 							<c:forEach items="${myComment.comList}" var="m">
 								<tr align="center">
 									<td>
-										<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${m.postTitle}</a>
+										<c:if test="${m.dtTitle==null}">
+											<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${m.postTitle}</a>
+										</c:if>
+										
+										<c:if test="${m.dtTitle!=null}">
+											<a href="/postedCommunity.diet?postIndex=${m.dtIndex}">${m.dtTitle}</a>
+										</c:if>
 									</td>
 									<td>${m.cmtContent}</td>
 									<td>${m.cmtDateTime}</td>
