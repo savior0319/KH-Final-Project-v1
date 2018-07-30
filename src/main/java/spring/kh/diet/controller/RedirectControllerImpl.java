@@ -120,7 +120,7 @@ public class RedirectControllerImpl implements RedirectController {
 	@Override
 	@RequestMapping(value = "/trainerReg.diet")
 	public String trainerReg() {
-		return "customer/trainerReg";
+		return "main/trainerReg";
 	}
 	
 	/* 마이페이지 - 나의 트레이너(일반) */
