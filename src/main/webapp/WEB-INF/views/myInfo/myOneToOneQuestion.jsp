@@ -30,7 +30,7 @@
 					</thead>
 
 					<tbody>
-						<c:forEach items="${list}" var="m">
+						<c:forEach items="${myQuestion.comList}" var="m">
 							<tr align="center">
 								<td>${m.qsIndex}</td>
 								<td><a href="javascript:void(0);"
@@ -46,6 +46,21 @@
 						</c:forEach>
 					</tbody>
 				</table>
+
+				<div class="ui grid">
+					<div class="three column row">
+						<div class="column"></div>
+						<div class="column">
+							<div class="ui center aligned basic segment">
+								<div class="ui pagination menu">${myQuestion.pageNavi }</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="ui right aligned container"></div>
+						</div>
+					</div>
+					<br>
+				</div>
 			</div>
 		</div>
 		<!-- 1:1 문의하기 -->
@@ -71,7 +86,8 @@
 							id="contentAnswer"></textarea>
 					</div>
 				</div>
-				<br> <br>
+				<br>
+				<br>
 			</div>
 			<input type="hidden" value="" id="qsIndex" />
 		</div>

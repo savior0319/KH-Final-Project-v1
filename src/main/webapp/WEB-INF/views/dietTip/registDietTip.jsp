@@ -112,7 +112,7 @@
 
 	<div class="ui modal" id="updateProfile">
 		<i class="close icon"></i>
-		<div class="header">프로필 사진 변경</div>
+		<div class="header">메인 사진 등록</div>
 		<div class="image content">
 			<form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data">
 				<div class="description">

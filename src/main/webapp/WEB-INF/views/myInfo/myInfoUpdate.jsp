@@ -125,14 +125,14 @@
 									<img id="femailImage" class="genderImage" src="${member.mbImage}" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="female" name="gender" value="f" checked>
-										<label>여 자</label>
+										<label><i class="female icon"></i>여 자</label>
 									</div>
 								</div>
 								<div class="gender_Img1">
 									<img id="mailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="male" name="gender" value="m">
-										<label>남 자</label>
+										<label><i class="male icon"></i>남 자</label>
 									</div>
 								</div>
 								<script>
@@ -144,14 +144,14 @@
 									<img id="femailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="female" name="gender" value="f">
-										<label>여 자</label>
+										<label><i class="female icon"></i>여 자</label>
 									</div>
 								</div>
 								<div class="gender_Img1">
 									<img id="mailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="male" name="gender" value="m">
-										<label>남 자</label>
+										<label><i class="male icon"></i>남 자</label>
 									</div>
 								</div>
 							</c:if>
@@ -160,14 +160,14 @@
 									<img id="mailImage" class="genderImage" src="${member.mbImage}" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="male" name="gender" value="m" checked>
-										<label>남 자</label>
+										<label><i class="male icon"></i>남 자</label>
 									</div>
 								</div>
 								<div class="gender_Img1">
 									<img id="femailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="female" name="gender" value="f">
-										<label>여 자</label>
+										<label><i class="female icon"></i>여 자</label>
 									</div>
 								</div>
 								<script>

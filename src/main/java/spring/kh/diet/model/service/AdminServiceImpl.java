@@ -12,12 +12,20 @@ import spring.kh.diet.model.dao.AdminDAO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
 import spring.kh.diet.model.vo.OffSessionVO;
+import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.todayCommentsVO;
+import spring.kh.diet.model.vo.todayHitsVO;
+import spring.kh.diet.model.vo.todayLikeVO;
+import spring.kh.diet.model.vo.todayPostVO;
+import spring.kh.diet.model.vo.yesterdayAnalytic;
+import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -121,6 +129,7 @@ public class AdminServiceImpl implements AdminService {
 		return result;
 	}
 
+	
 	@Override
 	public ArrayList<OffSessionVO> getOfSesssionList() {
 
@@ -129,4 +138,72 @@ public class AdminServiceImpl implements AdminService {
 		return list;
 	}
 
+	@Override
+	public todayHitsVO searchHits() {
+		
+		todayHitsVO tHVO = aDao.searchHits(session);
+		
+		return tHVO;
+	}
+
+	@Override
+	public todayCommentsVO searchComments() {
+
+		todayCommentsVO tCVO = aDao.searchComments(session);
+		return tCVO;
+	}
+
+	@Override
+	public todayPostVO searchPost() {
+		todayPostVO tPVO = aDao.searchPost(session);
+		return tPVO;
+	}
+
+	@Override
+	public todayLikeVO searchLike() {
+		todayLikeVO tLVO = aDao.searchLike(session); 
+		return tLVO;
+	}
+
+	@Override
+	public ArrayList<MemberVO> searchMember() {
+		ArrayList<MemberVO> list = aDao.searchMember(session);
+		return list;
+	}
+
+	@Override
+	public ArrayList<DelMemberVO> searchDelMember() {
+		ArrayList<DelMemberVO> list = aDao.searchDelMember(session);
+		return list;
+	}
+
+	@Override
+	public ArrayList<OnSessionVO> searchOnSession() {
+		ArrayList<OnSessionVO>  list = aDao.searchOnSession(session);
+		return list;
+	}
+
+	@Override
+	public ArrayList<AllSessionVO> searchOffSession() {
+		 ArrayList<AllSessionVO> list = aDao.searchOffSession(session);
+		return list;
+	}
+
+	@Override
+	public void yesterdayInsert(yesterdayAnalyticsPDVO yAPDVO) {
+		aDao.yesterdayInsert(session,yAPDVO);
+		
+	}
+
+	@Override
+	public yesterdayAnalytic searchAllBefore() {
+		yesterdayAnalytic yAPDVO = aDao.searchAllBefore(session);
+		return yAPDVO;
+	}
+
+	@Override
+	public int yesterdayAutoInsertBefore() {
+		int result = aDao.yesterdayAutoInsertBefore(session);
+		return result;
+	}
 }

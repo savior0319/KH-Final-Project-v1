@@ -54,7 +54,7 @@
 		<div class="menu dropdown">
 			<a class="ui simple item" href="/currentLoginUser.diet">접속자 통계</a>
 			<a class="ui simple item" href="#">회원 접속 기록관리</a>
-			<a class="ui simple item" href="#">사이트 통계</a>
+			<a class="ui simple item" href="/todayAnalytics.diet">사이트 통계</a>
 		</div>
 	</div>
 
