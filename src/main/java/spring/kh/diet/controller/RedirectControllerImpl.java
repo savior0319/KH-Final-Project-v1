@@ -13,11 +13,18 @@ public class RedirectControllerImpl implements RedirectController {
 	}
 
 	@Override
-	@RequestMapping(value="loginFailed.diet")
+	@RequestMapping(value = "loginFailed.diet")
 	public String redirectLogin() {
 		return "login/login";
 	}
-	
+
+	/* 메인 페이지 - 트레이너 매칭 */
+	@Override
+	@RequestMapping(value = "/trainerMatch.diet")
+	public String redirectTrainerMath() {
+		return "main/trainerMatch";
+	}
+
 	/* 메인 페이지 - BMI 계산하기 */
 	@Override
 	@RequestMapping(value = "/bmiCal.diet")
@@ -115,27 +122,26 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectRegistCommunity() {
 		return "community/registCommunity";
 	}
-	
+
 	/* 고객센터 - 트레이너 회원 등록 */
 	@Override
 	@RequestMapping(value = "/trainerReg.diet")
 	public String trainerReg() {
-		return "customer/trainerReg";
+		return "main/trainerReg";
 	}
-	
+
 	/* 마이페이지 - 나의 트레이너(일반) */
 	@Override
-	@RequestMapping(value="myTrainer.diet")
+	@RequestMapping(value = "myTrainer.diet")
 	public String redirectMyTrainer() {
 		return "myInfo/myTrainer";
 	}
 
-	
-	/* 마이페이지 -  트레이너 매칭 (트레이너) */
+	/* 마이페이지 - 트레이너 매칭 (트레이너) */
 	@Override
-	@RequestMapping(value="myPageTrainer.diet")
+	@RequestMapping(value = "myPageTrainer.diet")
 	public String redirectMyPageTrainer() {
 		return "myInfo/myPageTrainer";
 	}
-	
+
 }
