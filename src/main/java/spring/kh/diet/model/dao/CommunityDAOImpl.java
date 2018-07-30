@@ -411,7 +411,6 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public BoardLikeVO checkCommentLike(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO likeCheckVO) {
-		System.out.println(likeCheckVO);
 		return sqlSessionTemplate.selectOne("community.checkCmtLike",likeCheckVO);
 	}
 
