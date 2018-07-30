@@ -18,6 +18,13 @@ public class RedirectControllerImpl implements RedirectController {
 		return "login/login";
 	}
 
+	/* 메인 페이지 - 트레이너 찾기 */
+	@Override
+	@RequestMapping(value = "/trainerFind.diet")
+	public String redirectTrainerFind() {
+		return "main/trainerFind";
+	}
+
 	/* 메인 페이지 - 트레이너 매칭 */
 	@Override
 	@RequestMapping(value = "/trainerMatch.diet")
