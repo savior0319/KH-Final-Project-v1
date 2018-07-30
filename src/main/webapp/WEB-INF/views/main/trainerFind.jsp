@@ -25,7 +25,7 @@
 				<div class="ui large header">트레이너 찾기</div>
 			</div>
 			<br>
-			<div class="ui red message"><div class="ui medium header">※ 트레이닝 받을 지역을 선택합니다</div></div>
+			<div class="ui red message"><div class="ui medium header">※ 해당 지역의 트레이너를 검색합니다</div></div>
 			<br>
 			<div class="ui small header">시선택</div>
 			<select name="skills" class="ui fluid normal dropdown" id="dropdown1">
