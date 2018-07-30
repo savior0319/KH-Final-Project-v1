@@ -61,6 +61,8 @@ public interface AdminService {
 
 	int yesterdayAutoInsertBefore();
 
+	MemberListPDVO getBlackList(int currentPage);
+
 
 
 }

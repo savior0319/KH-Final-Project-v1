@@ -129,7 +129,6 @@ public class AdminServiceImpl implements AdminService {
 		return result;
 	}
 
-	
 	@Override
 	public ArrayList<OffSessionVO> getOfSesssionList() {
 
@@ -140,9 +139,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public todayHitsVO searchHits() {
-		
+
 		todayHitsVO tHVO = aDao.searchHits(session);
-		
+
 		return tHVO;
 	}
 
@@ -161,7 +160,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public todayLikeVO searchLike() {
-		todayLikeVO tLVO = aDao.searchLike(session); 
+		todayLikeVO tLVO = aDao.searchLike(session);
 		return tLVO;
 	}
 
@@ -179,20 +178,20 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public ArrayList<OnSessionVO> searchOnSession() {
-		ArrayList<OnSessionVO>  list = aDao.searchOnSession(session);
+		ArrayList<OnSessionVO> list = aDao.searchOnSession(session);
 		return list;
 	}
 
 	@Override
 	public ArrayList<AllSessionVO> searchOffSession() {
-		 ArrayList<AllSessionVO> list = aDao.searchOffSession(session);
+		ArrayList<AllSessionVO> list = aDao.searchOffSession(session);
 		return list;
 	}
 
 	@Override
 	public void yesterdayInsert(yesterdayAnalyticsPDVO yAPDVO) {
-		aDao.yesterdayInsert(session,yAPDVO);
-		
+		aDao.yesterdayInsert(session, yAPDVO);
+
 	}
 
 	@Override
@@ -205,5 +204,23 @@ public class AdminServiceImpl implements AdminService {
 	public int yesterdayAutoInsertBefore() {
 		int result = aDao.yesterdayAutoInsertBefore(session);
 		return result;
+	}
+
+	/* 블랙 리스트 페이징 */
+	@Override
+	public MemberListPDVO getBlackList(int currentPage) {
+		int recordCountPerPage = 20;
+		int naviCountPerPage = 5;
+
+		MemberListPDVO mbPd = new MemberListPDVO();
+
+		ArrayList<MemberVO> list = aDao.getBlackList(session, currentPage, recordCountPerPage);
+
+		String pageNavi = aDao.getBlackListPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage);
+
+		mbPd.setMbList(list);
+		mbPd.setPageNavi(pageNavi);
+
+		return mbPd;
 	}
 }

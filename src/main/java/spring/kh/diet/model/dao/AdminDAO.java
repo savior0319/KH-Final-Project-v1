@@ -72,5 +72,10 @@ public interface AdminDAO {
 
 	int yesterdayAutoInsertBefore(SqlSessionTemplate session);
 
+	ArrayList<MemberVO> getBlackList(SqlSessionTemplate session, int currentPage, int recordCountPerPage);
+
+	String getBlackListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage);
+
 
 }
