@@ -32,6 +32,14 @@ public interface HomeTrainingDAO {
 	int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO);
 
 	int homeTrainingHits(SqlSessionTemplate session, int hits);
+	
+	int registHomeTraining(SqlSessionTemplate session, HomeTrainingVO ht);
+	
+	int deleteHomeTraining(SqlSessionTemplate session, int indexNo);
+	
+	HomeTrainingVO loadUpdateHomeTraining(SqlSessionTemplate session, int indexNo);
+	
+	int updateHomeTraining(SqlSessionTemplate session, HomeTrainingVO ht);
 
 
 }

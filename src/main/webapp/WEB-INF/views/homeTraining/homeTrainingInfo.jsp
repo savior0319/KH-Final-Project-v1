@@ -22,6 +22,7 @@
 
 
 	<input id="indexNo" type="hidden" value="${requestScope.ht.indexNo }">
+	<input id="htType" type="hidden" value="${requestScope.ht.htType }">
 	
 	<!-- CONTENTS -->
 	
@@ -125,12 +126,12 @@
 			<hr>
 			<br>
 
-			<div class="listButton" style="text-align: right;">
-				<button class="ui secondary button">
+		<div class="ui right aligned container">
+				<button onclick="back()" class="ui secondary button">
 					<i class="list icon"></i>목록
 				</button>
 			</div>
-
+		</div>
 
 			<div class="ui comments" style="max-width: 1220px;">
 				<h3 class="ui dividing header" style="margin-top: 8px; text-align:left;">
@@ -162,7 +163,7 @@
 							</a>
 							<div class="content" style="width: 93%;">
 								<a class="author" style="position: absolute; width: 10%; text-align:center;">${bc.mbNickname}</a>
-								<div class="metadata" style="width: 100%;">
+								<div class="metadata" style="width: 100%; text-align:left;">
 									<span class="date"
 										style="width: 30%; display: inline; margin-left: 10%;">
 										<fmt:formatDate value="${bc.cmtDateTime }"
@@ -294,8 +295,8 @@
 					aAuthor.html(data.bcList[i].mbNickname);
 
 					var metadataDiv = $("<div>").attr("class", "metadata");
-					metadataDiv.attr("style", "width:100%;");
-
+					metadataDiv.attr("style", "width:100%; text-align:left;");
+				
 					var span = $("<span>").attr("class", "date");
 					span.attr("style","width: 30%; display: inline; margin-left: 10%;");
 					var date = new Date(data.bcList[i].cmtDateTime);
@@ -562,6 +563,11 @@
 		var modiDelete = $("#modiDelete_"+ci).attr("style","display:inline;");
 		var cancleComment = $('#cancleComment_'+ci).attr("style","display:none;");
 	}
+	
+	function back(){
+		history.go(-1);
+	}
+	
 	
 </script>
 
