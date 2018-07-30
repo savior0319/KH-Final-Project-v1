@@ -279,6 +279,99 @@
 		)
 	</insert>
 
+	<select id="searchMember" resultType="member" resultMap="memberDB">
+		select * from(
+		select member_tbl.*, row_number() over(order by mb_index asc) as num from
+		member_tbl where mb_enrolldate like sysdate) where
+		num between 1 and 5
+	</select>
+
+	<select id="searchDelMember" resultType="delMember" resultMap="delmemberDB">
+		select * from(
+      select del_member_tbl.*, row_number() over(order by mb_index asc) as num from del_member_tbl where delete_date like sysdate) where
+      num between 1 and 5
+	</select>
+
+	<select id="searchOnSession" resultType="onSession">
+		SELECT
+		SS_INDEX AS indexNo,
+		SS_ID AS sessionId,
+		SS_IP AS sessionIp,
+		SS_STATE AS state,
+		SS_LOGIN AS loginId,
+		SS_DEVICE AS device
+		FROM On_session_tbl
+		order by ss_index desc
+	</select>
+
+	<select id="searchOffSession" resultType="offSessionList">
+		SELECT
+		SS_INDEX as indexNo,
+		SS_ID as sessionId,
+		SS_IP as sessionIp,
+		SS_firstOn as
+		firstOn,
+		ss_stay as stay,
+		ss_login as nickName,
+		ss_device as device,
+		ss_LastIn as lastIn
+		FROM off_session_tbl
+		order by ss_index desc
+	</select>
+
+	<insert id="yesterdayInsert" parameterType="yesterdayAnalytic">
+		insert into
+		BEFORE_DAY_TBL values
+		(BD_INDEX_SEQ.nextval,#{tHVO.dtHits},#{tHVO.htHits},#{tHVO.brHits},
+		#{tCVO.dtComments},#{tCVO.htComments},#{tCVO.brComments},
+		#{tPVO.dtBoard},#{tPVO.htBoard},#{tPVO.brBoard},
+		#{tLVO.dtLike},#{tLVO.htLike},#{tLVO.brLike},to_char(sysdate,'yyyy/MM/dd')
+		)
+	</insert>
+
+	<select id="searchAllBefore" resultType="yesterday">
+		select
+		BD_INDEX as bdIndex,
+		DT_HITS as dtHits,
+		HT_HITS as htHits,
+		BR_HITS as brHits,
+		DT_COMMENTS As dtComments,
+		HT_COMMENTS as htComments,
+		BR_COMMENTS As brComments,
+		DT_BOARD as dtBoard,
+		HT_BOARD As htBoard,
+		BR_BOARD as brBoard,
+		DT_LIKE as dtLike,
+		HT_LIKE as htLike,
+		BR_LIKE as brLike,
+		BD_TODAY as bdToday
+		from BEFORE_DAY_TBL
+	</select>
+
+	<select id="yesterdayAutoInsertBefore" resultType="java.lang.Integer">
+		select BD_INDEX from BEFORE_DAY_TBL where bd_today like
+		to_Char(sysdate,'yyyy/MM/dd')
+	</select>
+
+	<select id="getOnSessionList" resultType="onSession">
+		SELECT
+		SS_INDEX AS indexNo,
+		SS_ID AS sessionId,
+		SS_IP AS sessionIp,
+		SS_STATE AS state,
+		SS_LOGIN AS loginId,
+		SS_DEVICE AS device
+		FROM On_Session_Tbl
+	</select>
+	
+	<select id="memberList" resultType="member" resultMap="memberDB">
+	select * from member_tbl where mb_enrolldate like sysdate
+	</select>
+	
+	<select id="delmemberList" resultType="delMember" resultMap="delmemberDB">
+	select * from del_member_tbl where delete_date like sysdate
+	</select>
+
 	<select id="searchAllBefore" resultType="yesterday">
 		select
 		BD_INDEX as bdIndex,
@@ -371,4 +464,5 @@
 	<update id="blackListDel" parameterType="black">
 		UPDATE MEMBER_TBL SET MB_REPORT = 'n' WHERE MB_INDEX = #{index}
 	</update>
+
 </mapper>

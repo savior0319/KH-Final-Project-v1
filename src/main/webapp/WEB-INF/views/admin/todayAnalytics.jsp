@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <!DOCTYPE html>
@@ -75,10 +75,14 @@ body {
 	<c:set var="chthits" value="${requestScope.Current.THVO.htHits}" />
 	<c:set var="cbrhits" value="${requestScope.Current.THVO.brHits}" />
 	<c:set var="ctotalhits" value="${cdthits+chthits+cbrhits }" />
-	<c:set var="cdtComments" value="${requestScope.Current.TCVO.dtComments}" />
-	<c:set var="chtComments" value="${requestScope.Current.TCVO.htComments}" />
-	<c:set var="cbrComments" value="${requestScope.Current.TCVO.brComments}" />
-	<c:set var="ctotalComments" value="${cdtComments+chtComments+cbrComments }" />
+	<c:set var="cdtComments"
+		value="${requestScope.Current.TCVO.dtComments}" />
+	<c:set var="chtComments"
+		value="${requestScope.Current.TCVO.htComments}" />
+	<c:set var="cbrComments"
+		value="${requestScope.Current.TCVO.brComments}" />
+	<c:set var="ctotalComments"
+		value="${cdtComments+chtComments+cbrComments }" />
 
 	<c:set var="cdtBoard" value="${requestScope.Current.TPVO.dtBoard}" />
 	<c:set var="chtBoard" value="${requestScope.Current.TPVO.htBoard}" />
@@ -98,11 +102,12 @@ body {
 	<c:set var="bdtComments" value="${requestScope.Before.dtComments}" />
 	<c:set var="bhtComments" value="${requestScope.Before.htComments}" />
 	<c:set var="bbrComments" value="${requestScope.Before.brComments}" />
-	<c:set var="btotalComments" value="${bdComments+bhComments+bbrComments }" />
+	<c:set var="btotalComments"
+		value="${bdtComments+bhtComments+bbrComments }" />
 	<c:set var="bdtBoard" value="${requestScope.Before.dtBoard}" />
 	<c:set var="bhtBoard" value="${requestScope.Before.htBoard}" />
 	<c:set var="bbrBoard" value="${requestScope.Before.brBoard}" />
-	<c:set var="btotalBoard" value="${bdtBorad+bhtBoard+bbrBoard }" />
+	<c:set var="btotalBoard" value="${bdtBoard+bhtBoard+bbrBoard }" />
 	<c:set var="bdtLike" value="${requestScope.Before.dtLike}" />
 	<c:set var="bhtLike" value="${requestScope.Before.htLike}" />
 	<c:set var="bbrLike" value="${requestScope.Before.brLike}" />
@@ -111,198 +116,358 @@ body {
 
 
 
-	<c:set var="todayhits" value="${ctotalhits- btotalhits}" />
-	<c:set var="todayComments" value="${ctotalComments - btotalComments }"/>
-	<c:set var="todayBoard" value="${ctotalBoard-btotalBoard} "/>
-	<c:set var="todayLike" value="${ctotalLike-btotalLike}"/> 
+	<c:set var="todayhits" value="${ctotalhits - btotalhits}" />
+	<c:set var="todayComments" value="${ctotalComments - btotalComments }" />
+	<c:set var="todayBoard" value="${ctotalBoard - btotalBoard}" />
+	<c:set var="todayLike" value="${ctotalLike - btotalLike}" />
 	<!-- 변수종료 -->
 
 	<!-- CONTENTS -->
 	<br>
-	<br>
 	<div class="ui container">
-		<div class="ui center aligned segment">
-			<h1>사이트 통계</h1>
-		</div>
 
 		<div class="ui horizontal segments">
-			<div class="ui center aligned segment" style="width:20%">
+			<div class="ui center aligned segment" style="width: 20%">
 				<h3>
-					<i> </i> 오늘의 조회수
+					<i class="eye icon"></i>   조회수 증가량   
 				</h3>
 				<div class="ui segment">
-					<c:out value="${todayhits}"></c:out>
+					<h4 style="color: green">${todayhits} (▲)</h4>
 				</div>
-				<h4 style="color: green">
-					<c:out value="${todayhits}" />
-					▲ 상승
-				</h4>
 			</div>
-			<div class="ui center aligned segment" style="width:20%">
+			<div class="ui center aligned segment" style="width: 20%">
 				<h3>
-					<i> </i>댓글수
+					<i class="comment alternate outline icon"></i>   댓글 증가량    
 				</h3>
-				<div class="ui segment"> <c:out value="${todayComments }"/>
+				<div class="ui segment">
+					<c:choose>
+						<c:when test="${todayComments > 0}">
+							<h4 style="color: green">
+								<c:out value="${todayComments}" />
+								(▲)
+							</h4>
+						</c:when>
+						<c:when test="${todayComments == 0}">
+							<h4 style="color: black">
+								<c:out value="${todayComments}" />
+								(-)
+							</h4>
+						</c:when>
+						<c:otherwise>
+							<h4 style="color: red">
+								<c:out value="${todayComments}" />
+								(▼)
+							</h4>
+						</c:otherwise>
+					</c:choose>
+
+
 				</div>
+
+			</div>
+			<div class="ui center aligned segment" style="width: 20%">
+				<h3>
+					<i class="edit icon"></i>  게시물 증가량
+				</h3>
+				<div class="ui segment">
+					<c:choose>
+						<c:when test="${ todayBoard > 0 } ">
+							<h4 style="color: green">
+								<c:out value="${todayBoard}" />
+								(▲)
+							</h4>
+						</c:when>
+						<c:when test="${todayBoard == 0}">
+							<h4 style="color: black">
+								<c:out value="${todayBoard}" />
+								(-)
+							</h4>
+						</c:when>
+						<c:otherwise>
+							<h4 style="color: red">
+								<c:out value="${todayBoard}" />
+								(▼)
+							</h4>
+						</c:otherwise>
+					</c:choose>
+
+
+				</div>
+
+
+			</div>
+			<div class="ui center aligned segment" style="width: 20%">
+				<h3>
+					<i class="heart icon"></i> 좋아요 증가량
+				</h3>
+				<div class="ui segment">
+					<c:choose>
+						<c:when test="${ todayLike > 0 }">
+							<h4 style="color: green">
+								<c:out value="${todayLike}" />
+								(▲)
+							</h4>
+						</c:when>
+						<c:when test="${todayLike == 0}">
+							<h4 style="color: black">
+								<c:out value="${todayLike}" />
+								(-)
+							</h4>
+						</c:when>
+						<c:otherwise>
+							<h4 style="color: red">
+								<c:out value="${todayLike}" />
+								(▼)
+							</h4>
+						</c:otherwise>
+					</c:choose>
+
+				</div>
+
+
+			</div>
+			
+			<div class="ui center aligned segment" style="width: 20%">
+				<h3>
+					<i class="chart line icon"></i> 방문자수 
+				</h3>
+				<div class="ui segment">
 					<h4 style="color: green">
-						<c:out value="${todayComments}" />
-						▲ 상승
+						${requestScope.OnSessionSize+requestScope.AllSessionSize} (▲)
 					</h4>
-			</div>
-			<div class="ui center aligned segment" style="width:20%">
-				<h3> <i> </i> 게시물 작성수</h3>
-				<div class="ui segment"> <c:out value="${todayBoard}" /></div>
-				<h4 style="color: green">
-					<c:out value="${todayBoard}" />
-					▲ 상승
-				</h4>
-			</div>
-			<div class="ui center aligned segment" style="width:20%">
-				<h3><i></i> 좋아요 </h3>
-				<div class="ui segment"><c:out value="${todayLike}" /></div>
-				<h4 style="color: green">
-					<c:out value="${todayLike}" />
-					▲ 상승
-				</h4>
+				</div>
+
 
 			</div>
 
 		</div>
-		<div class = "ui horizontal segments">
-			<div class="ui center aligned segment" style="width:50%">
-				<h3>
-					<i> </i> 오늘 가입한 맴버 : <span style="color:green"> ${requestScope.todayInsertMemberSize} 명 ▲</span>
-				</h3>
+		<div class="ui horizontal segments">
+			<div class="ui center aligned segment" style="width: 50%">
+				<c:choose>
+					<c:when test="${requestScope.todayInsertMemberSize == 0}">
+						<h3>
+							<i class="user plus icon"></i> 오늘 가입한 맴버 : <span>
+								${requestScope.todayInsertMemberSize} 명 (-)</span>
+						</h3>
+					</c:when>
+					<c:otherwise>
+						<h3>
+							<i class="user plus icon"></i>   오늘 가입한 맴버 : <span style="color: green">
+								${requestScope.todayInsertMemberSize} 명(▲)</span>
+						</h3>
+					</c:otherwise>
+				</c:choose>
+
+
+
+
+				<div class="ui center aligned segment"
+				style="overflow: auto; height: 300px">
+					<table class="ui celled table">
+						<thead>
+							<tr align="center">
+								<th style="width: 10%">비고</th>
+								<th style="width: 30%">아이디</th>
+								<th style="width: 30%">닉네임</th>
+								<th style="width: 30%">성 별</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${requestScope.todayInsertMember}" var="is" varStatus="status">
+								<tr align="center">
+									<td style="width:10%"> <c:out value="${status.index+1}" /></td>
+									<td style="width: 30%">${is.mbId}</td>
+									<td style="width: 30%">${is.mbNickName}</td>
+									<c:choose>
+										<c:when test="${is.mbGender eq 'm'}">
+											<td style="width: 30%">남 성</td>
+										</c:when>
+										<c:otherwise>
+											<td style="width: 30%">여 성</td>
+										</c:otherwise>
+									</c:choose>
+
+
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="ui center aligned segment" style="width: 50%">
+				<c:choose>
+					<c:when test="${requestScope.todayDelMemberSize  == 0}">
+						<h3>
+							<i class="user times icon"></i>  오늘 탈퇴한 맴버 : <span>
+								${requestScope.todayDelMemberSize } 명 (-)</span>
+						</h3>
+					</c:when>
+					<c:otherwise>
+						<h3>
+							<i class="user times icon"></i>	 오늘 탈퇴한 맴버 : <span style="color: red">
+								${requestScope.todayDelMemberSize } 명 (▼)</span>
+						</h3>
+					</c:otherwise>
+				</c:choose>
+
 				<div>
-				<table class="ui celled table">
-				<thead>
-					<tr align="center">
-						<th>아이디</th>
-						<th>닉네임</th>
-						<th>성  별</th>
-						<th>가입일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${requestScope.todayInsertMember}" var="is">
-					<tr align="center">
-						<td>${is.mbId}</td>
-						<td>${is.mbNickName}</td>
-						<td>${is.mbGender}</td>
-						<td>${is.mbEnrollDate}</td>
-					</tr>
-					</c:forEach>
-				</tbody>
-				</table>
+					<table class="ui celled table">
+						<thead>
+							<tr align="center">	
+								<th style="width:10%">비고</th>
+								<th style="width:40%">아이디</th>
+								<th style="width:15%">닉네임</th>
+								<th style="width:15%">성 별</th>
+								<th style="width:20%">가입일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${requestScope.todayDelMember}" var="ds" varStatus="status">
+								<tr align="center">
+								<td style="width:10%"> <c:out value="${status.index+1}" /></td>
+									<td style="width: 40%">${ds.mbId}</td>
+									<td style="width: 15%">${ds.mbNickName}</td>
+									<c:choose>
+										<c:when test="${ds.mbGender eq 'm'}">
+											<td style="width: 15%">남 성</td>
+										</c:when>
+										<c:otherwise>
+											<td style="width: 15%">여 성</td>
+										</c:otherwise>
+									</c:choose>
+									<td style="width: 20%">${ds.mbDeleteDate}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
-			
-			<div class="ui center aligned segment" style="width:50%">
-				<h3>
-					<i> </i> 오늘 탈퇴한 멤버 : <span style="color:red"> ${requestScope.todayDelMemberSize } 명 ▼ </span>
-				</h3>
-					<div>
-				<table class="ui celled table">
-				<thead>
-					<tr align="center">
-						<th>아이디</th>
-						<th>닉네임</th>
-						<th>성  별</th>
-						<th>가입일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${requestScope.todayDelMember}" var="ds">
-					<tr align="center">
-						<td>${ds.mbId}</td>
-						<td>${ds.mbNickName}</td>
-						<td>${ds.mbGender}</td>
-						<td>${ds.mbDeleteDate}</td>
-					</tr>
-					</c:forEach>
-				</tbody>
-				</table>
-				</div>
-			</div>
-		
-		</div>
-		
-		<div class = "ui  segments">
-			
-				<div class="ui center aligned segment">
-				<h3>
-					<i> </i> 현재 접속중인 유저: ${requestScope.OnSessionSize} 명
-				</h3>
-				</div>
-				<div>
-				<table class="ui celled table">
-				<thead>
-					<tr align="center">
-						<th style="width:33%">닉네임</th>
-						<th style="width:33%">기   기</th>
-						<th style="width:33%">I  P</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${requestScope.OnSession}" var="on">
-					<tr align="center">
-						<td style="width:33%">${on.loginId}</td>
-						<td style="width:33%">${on.device}</td>
-						<td style="width:33%">${on.sessionIp}</td>
-					</tr>
-					</c:forEach>
-				</tbody>
-				</table>
-				</div>
-	
-				<br>
-				<br>
-			
-				<div class="ui center aligned segment">
-				<h3>
-					<i> </i> 오늘 접속헀던 유저 : ${requestScope.AllSessionSize} 명
-				</h3>
-				</div>
-					<div>
-				<table class="ui celled table">
-				<thead>
-					<tr align="center">
-						<th style="width:15%">닉네임</th>
-						<th style="width:15%">기   기</th>
-						<th style="width:15%">I  P</th>
-						<th style="width:15%">접속시간</th>
-						<th style="width:15%">유지시간</th>
-						<th style="width:15%">로그아웃</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${requestScope.AllSession}" var="off">
-					<tr align="center">
-						<td style="width:15%">${off.nickName}</td>
-						<td style="width:15%">${off.device}</td>
-						<td style="width:15%">${off.sessionIp}</td>
-						<td style="width:15%">${off.firstOn}</td>
-						<td style="width:15%">${off.stay+(1-(off.stay%1))%1}초 [ ${off.stay%60} 분]</td>
-						<td style="width:15%">${off.lastIn}</td>
-					</tr>
-					</c:forEach>
-				</tbody>
-				</table>
-		
-			</div>
-		
+
 		</div>
 
-		<!-- <div id="chart_div" class="ui segment"
+		<div class="ui  segments">
+
+			<div class="ui center aligned segment">
+			
+				<h3>
+						<i class="hourglass  icon"> </i> 현재 접속중인 유저: ${requestScope.OnSessionSize} 명
+				</h3>
+			</div>
+			<div class="ui center aligned segment"
+				style="overflow: auto; height: 300px">
+				<table class="ui celled table">
+					<thead>
+						<tr align="center">
+							<th style="width: 10%">비고 </th>
+							<th style="width: 30%">닉네임</th>
+							<th style="width: 30%">기 기</th>
+							<th style="width: 30%">I P</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${requestScope.OnSession}" var="on" varStatus="status">
+							<tr align="center">
+									<td style="width:10%"> <c:out value="${status.index+1}" /></td>
+								<c:choose>
+									<c:when test="${on.loginId eq 'NULL'}">
+										<td style="width: 30%">비회원</td>
+									</c:when>
+									<c:otherwise>
+										<td style="width: 30%">${on.loginId}</td>
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${on.device eq 'pc' }">
+										<td style="width: 30%">P&nbsp;&nbsp;&nbsp; C</td>
+									</c:when>
+									<c:otherwise>
+										<td style="width: 30%">모바일</td>
+									</c:otherwise>
+								</c:choose>
+								<td style="width: 30%">${on.sessionIp}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+
+			<br> <br>
+
+			<div class="ui center aligned segment">
+				<h3>
+					<i class="hourglass outline icon"> </i> 오늘 접속했던 유저 : ${requestScope.AllSessionSize} 명
+				</h3>
+			</div>
+			<div class="ui center aligned segment"
+				style="overflow: auto; height: 300px">
+				<table class="ui celled table">
+					<thead>
+						<tr align="center">
+							<th style="width: 10%">비고</th>
+							<th style="width: 15%">닉네임</th>
+							<th style="width: 15%">기 기</th>
+							<th style="width: 15%">I P</th>
+							<th style="width: 15%">접속시간</th>
+							<th style="width: 15%">로그아웃</th>
+							<th style="width: 15%">유지시간</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${requestScope.AllSession}" var="off" varStatus="status">
+							<tr align="center">
+										<td><c:out value="${status.index+1}" /></td>
+								<c:choose>
+									<c:when test="${off.nickName eq 'NULL'}">
+										<td style="width: 15%">비회원</td>
+									</c:when>
+									<c:otherwise>
+										<td style="width: 15%">${off.nickName}</td>
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${off.device eq 'pc' }">
+										<td style="width: 15%">P&nbsp;&nbsp;&nbsp; C</td>
+									</c:when>
+									<c:otherwise>
+										<td style="width: 15%">모바일</td>
+									</c:otherwise>
+								</c:choose>
+								<td style="width: 15%">${off.sessionIp}</td>
+								<td style="width: 15%">${off.firstOn}</td>
+								<td style="width: 15%">${off.lastIn}</td>
+								<c:choose>
+									<c:when test="${off.stay > 60}">
+										<td style="width: 15%"><fmt:formatNumber
+												value="${off.stay/60.1}" pattern="#" />분</td>
+									</c:when>
+									<c:otherwise>
+										<td style="width: 15%"><fmt:formatNumber
+												value="${off.stay}" pattern="#" />초</td>
+									</c:otherwise>
+								</c:choose>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	<br>
+	<br>
+	<br>
+	<!-- <div id="chart_div" class="ui segment"
 					style="width: 900px; height: 500px;"></div>
 			</div> -->
 
-		<!-- FOOTER -->
+	<!-- FOOTER -->
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-   
+	
 </script>
 
 </html>

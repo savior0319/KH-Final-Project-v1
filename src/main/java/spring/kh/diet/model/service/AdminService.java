@@ -61,6 +61,12 @@ public interface AdminService {
 
 	int yesterdayAutoInsertBefore();
 
+	ArrayList<OnSessionVO> getOnSessionList();
+
+	ArrayList<MemberVO> memberList();
+
+	ArrayList<DelMemberVO> delmemberList();
+
 	MemberListPDVO getBlackList(int currentPage);
 
 	int blackListReg(BlackListRegVO bVo);

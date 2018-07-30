@@ -287,7 +287,7 @@ public class AdminControllerImpl implements AdminController {
 		todayAnalyticPDVO tAPDVO = todayAutoAnalytics();
 		tAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Current", tAPDVO);
-		// System.out.println(tAPDVO.toString());
+
 
 		// BEFORE_DAY_TBL 를 불러와서 데이터를 가져오는것.
 		yesterdayAnalytic yAPDVO = yesterdayAnalytics();
@@ -297,22 +297,30 @@ public class AdminControllerImpl implements AdminController {
 		// 오늘 가입한 맴버 가져오기
 		ArrayList<MemberVO> MVO = as.searchMember();
 
+		ArrayList<MemberVO> MVO2 = as.memberList();
+
 		// 오늘 탈퇴한 멤버 가져오기
 		ArrayList<DelMemberVO> DMVO = as.searchDelMember();
-		// 현재 꺼진 세션 들고오기
+		ArrayList<DelMemberVO> DMVO2 = as.delmemberList();
+		
+		// 현재 꺼진 세션 들고오기 (가장최근에 꺼진것 1~5명)
 		ArrayList<AllSessionVO> ASVO = as.searchOffSession();
-		// 현재 접속중인 세션 가져오기
-		ArrayList<OnSessionVO> OSVO = as.searchOnSession();
+		ArrayList<OffSessionVO> ASVO2 = as.getOfSesssionList();
 
-		// System.out.println(yAPDVO.toString());
-		request.setAttribute("todayInsertMember", MVO);
-		request.setAttribute("todayInsertMemberSize", MVO.size());
-		request.setAttribute("todayDelMember", DMVO);
-		request.setAttribute("todayDelMemberSize", DMVO.size());
+		// 현재 접속중인 세션 가져오기 (가장 최근에 켜진 1~5명)
+		ArrayList<OnSessionVO> OSVO = as.searchOnSession();
+		ArrayList<OnSessionVO> OSVO2 = as.getOnSessionList();
+
+//		System.out.println(yAPDVO.toString());
+		request.setAttribute("todayInsertMember", MVO2);
+		request.setAttribute("todayInsertMemberSize", MVO2.size());
+		request.setAttribute("todayDelMember", DMVO2);
+		request.setAttribute("todayDelMemberSize", DMVO2.size());
+
 		request.setAttribute("OnSession", OSVO);
-		request.setAttribute("OnSessionSize", OSVO.size());
+		request.setAttribute("OnSessionSize", OSVO2.size());
 		request.setAttribute("AllSession", ASVO);
-		request.setAttribute("AllSessionSize", ASVO.size());
+		request.setAttribute("AllSessionSize", ASVO2.size());
 		return "admin/todayAnalytics";
 	}
 
@@ -363,7 +371,9 @@ public class AdminControllerImpl implements AdminController {
 			todayPostVO tPVO = as.searchPost();
 			// 현재 좋아요 가져오기
 			todayLikeVO tLVO = as.searchLike();
+
 			yesterdayAnalyticsPDVO yAPDVO = new yesterdayAnalyticsPDVO("type", tHVO, tCVO, tPVO, tLVO);
+
 			as.yesterdayInsert(yAPDVO);
 		}
 
@@ -372,6 +382,7 @@ public class AdminControllerImpl implements AdminController {
 	// 전날의 저장된값을 불러오는메소드
 	@Override
 	public yesterdayAnalytic yesterdayAnalytics() {
+
 		yesterdayAnalytic yAPDVO = as.searchAllBefore();
 		// System.out.println(yAPDVO.toString());
 		return yAPDVO;

@@ -207,6 +207,24 @@ public class AdminServiceImpl implements AdminService {
 		return result;
 	}
 
+	@Override
+	public ArrayList<OnSessionVO> getOnSessionList() {
+		 ArrayList<OnSessionVO> list = aDao.getOnSessionList(session);
+		return list;
+	}
+
+	@Override
+	public ArrayList<MemberVO> memberList() {
+		ArrayList<MemberVO> list = aDao.memberList(session);
+		return list;
+	}
+
+	@Override
+	public ArrayList<DelMemberVO> delmemberList() {
+		ArrayList<DelMemberVO> list = aDao.delmemberList(session);
+		return list;
+	}
+
 	/* 블랙 리스트 페이징 */
 	@Override
 	public MemberListPDVO getBlackList(int currentPage) {
@@ -231,4 +249,5 @@ public class AdminServiceImpl implements AdminService {
 		int result = aDao.blackListReg(session, bVo);
 		return result;
 	}
+
 }
