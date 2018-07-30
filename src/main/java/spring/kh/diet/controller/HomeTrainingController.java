@@ -27,7 +27,7 @@ public interface HomeTrainingController {
 
 	void homeTrainingDelete(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-	String loadUpdateHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException;
+	String loadUpdateHomeTraining(HttpServletRequest request);
 		
 	void updateHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException;
 }

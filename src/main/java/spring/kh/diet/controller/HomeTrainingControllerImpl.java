@@ -331,7 +331,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 	// 홈트레이닝 수정 페이지 불러오기
 	@Override
 	@RequestMapping(value = "/loadUpdateHomeTraining.diet")
-	public String loadUpdateHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String loadUpdateHomeTraining(HttpServletRequest request) {
 		HomeTrainingVO ht = homeTrainingService.loadUpdateHomeTraining(Integer.parseInt(request.getParameter("indexNo")));
 		
 		request.setAttribute("ht", ht);
@@ -350,6 +350,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		ht.setHtStepTime(request.getParameter("time"));
 		ht.setHtStepHard(request.getParameter("hard"));
 		ht.setHtStepKal(request.getParameter("kal"));
+		ht.setIndexNo(Integer.parseInt(request.getParameter("indexNo")));
 
     	ht.setHtType(request.getParameter("category"));
 		

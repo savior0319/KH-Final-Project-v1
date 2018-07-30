@@ -21,6 +21,7 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO {
 		pdvo.setStart((currentPage - 1) * recordCountPerPage + 1);
 		pdvo.setEnd(currentPage * recordCountPerPage);
 
+		System.out.println(pdvo);
 		List<HomeTrainingVO> list = session.selectList("homeTraining.getList", pdvo);
 
 		return (ArrayList<HomeTrainingVO>) list;
