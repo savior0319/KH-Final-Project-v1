@@ -115,11 +115,19 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return answer;
 	}
 
+
+	@Override
+	public MyActivityVO myLoginCount(SqlSessionTemplate sqlSessionTemplate, MemberVO m) {
+		MyActivityVO mv = sqlSessionTemplate.selectOne("myInfo.myCount",m);
+		return mv;
+	}
+
 	/* 마이페이지 - 내 게시물 페이징 처리 출력 */
 
 	@Override
 	public ArrayList<BoardPostVO> myPostList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, String type, MyActivityVO ma) {
+
 		MyPostPageDataVO myPost = new MyPostPageDataVO();
 
 		myPost.setStart((currentPage - 1) * recordCountPerPage + 1);
@@ -288,7 +296,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		myBookMark.setMbIndex(ma.getMbIndex());
 
 		List<BoardBookMarkVO> list = sqlSessionTemplate.selectList("myInfo.myBookMarkList", myBookMark);
-		
+
 		return (ArrayList<BoardBookMarkVO>) list;
 
 	}
@@ -366,7 +374,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		myQuestion.setMbIndex(mv.getMbIndex());
 
 		List<QuestionVO> list = sqlSessionTemplate.selectList("myInfo.myQuestionList", myQuestion);
-		
+
 		return (ArrayList<QuestionVO>) list;
 	}
 
@@ -433,4 +441,5 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return sb.toString();
 	}
 
+	
 }

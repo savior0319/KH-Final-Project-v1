@@ -113,6 +113,13 @@ public class MyInfoServiceImpl implements MyInfoService {
 		return answer;
 	}
 
+	@Override
+	public MyActivityVO myLoginCount(MemberVO m) {
+		MyActivityVO mv = myInfoDAO.myLoginCount(SqlSessionTemplate,m);
+		return null;
+	}
+
+	
 	/* 마이페이지 - 내 게시물 정보 페이징 처리 */
 	@Override
 	public MyPostPageDataVO myPostList(int currentPage, String type, MyActivityVO ma) {
@@ -185,5 +192,6 @@ public class MyInfoServiceImpl implements MyInfoService {
 		myQuestion.setPageNavi(pageNavi);
 		return myQuestion;
 	}
+
 
 }

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -40,23 +39,55 @@ html, body {
 					<table class="ui celled padded table">
 						<thead>
 							<tr align="center">
-								<th><i class="github alternate icon"></i>출석횟수</th>
-								<th><i class="edit outline icon"></i>게시물 작성수</th>
-								<th><i class="pencil alternate icon"></i>댓글작성수</th>
-								<th><i class="shield alternate icon"></i>나의 등급</th>
-								<th><i class="user icon"></i>가입일</th>
+								<th>
+									<i class="github alternate icon"></i>
+									출석횟수
+								</th>
+								<th>
+									<i class="edit outline icon"></i>
+									게시물 작성수
+								</th>
+								<th>
+									<i class="pencil alternate icon"></i>
+									댓글작성수
+								</th>
+								<th>
+									<i class="shield alternate icon"></i>
+									나의 등급
+								</th>
+								<th>
+									<i class="user icon"></i>
+									가입일
+								</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr align="center">
 								<td>
-									<h3 class="ui center aligned header">${ma.myAttendance}</h3>
+									<c:if test="${loginCount.myAttendance == null}">
+										<h3 class="ui center aligned header">1</h3>
+									</c:if>
+									<c:if test="${loginCount.myAttendance!= null}">
+										<h3 class="ui center aligned header">${ma.myAttendance}</h3>
+									</c:if>
+
 								</td>
 								<td class="single line">
-									<h3>${ma.myBoardCount }</h3>
+									<c:if test="${ma.myBoardCount == null}">
+										<h3>0</h3>
+									</c:if>
+									<c:if test="${ma.myBoardCount != null}">
+										<h3>${ma.myBoardCount }</h3>
+									</c:if>
+
 								</td>
 								<td>
-									<h3>${ma.myCommentCount}</h3>
+									<c:if test="${ma.myCommentCount == null}">
+										<h3>0</h3>
+									</c:if>
+									<c:if test="${ma.myCommentCount != null}">
+										<h3>${ma.myCommentCount}</h3>
+									</c:if>
 								</td>
 								<td>
 									<h3>${ma.mbGrade}</h3>

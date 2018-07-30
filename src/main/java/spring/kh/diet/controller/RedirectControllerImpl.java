@@ -123,10 +123,19 @@ public class RedirectControllerImpl implements RedirectController {
 		return "customer/trainerReg";
 	}
 	
-	/* 마이페이지 - 나의 트레이너 */
+	/* 마이페이지 - 나의 트레이너(일반) */
 	@Override
 	@RequestMapping(value="myTrainer.diet")
 	public String redirectMyTrainer() {
 		return "myInfo/myTrainer";
 	}
+
+	
+	/* 마이페이지 -  트레이너 매칭 (트레이너) */
+	@Override
+	@RequestMapping(value="myPageTrainer.diet")
+	public String redirectMyPageTrainer() {
+		return "myInfo/myPageTrainer";
+	}
+	
 }
