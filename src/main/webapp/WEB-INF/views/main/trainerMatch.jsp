@@ -77,7 +77,7 @@
 	}
 
 	function trainerFind(){
-		location.href="#";
+		location.href="/trainerFind.diet";
 	}
 </script>
 
