@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.service.CommunityService;
-import spring.kh.diet.model.vo.BoardLikeVO;
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
-import spring.kh.diet.model.vo.DietTipVO;
 import spring.kh.diet.model.vo.MemberVO;
 
 @Controller
@@ -80,7 +80,6 @@ public class CommunityControllerImpl implements CommunityController {
 		CommunityPageDataVO cpdv = communityService.allCommunityList(currentPage, type);
 
 		request.setAttribute("cpdv", cpdv);
-
 		return "community/communityWholeBoard";
 	}
 
@@ -111,24 +110,24 @@ public class CommunityControllerImpl implements CommunityController {
 	public Object postedCommunity(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
 		// 쿠키 등록
-		int sIndex = configCookie(session, request, response, postIndex);
+		configCookie(session, request, response, postIndex);
 		int sessionIndex = 0;
-		if(session.getAttribute("member")!=null) {
-			sessionIndex = ((MemberVO)session.getAttribute("member")).getMbIndex();
+		if (session.getAttribute("member") != null) {
+			sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
 		}
 		// 등록된 정보 가져오는 로직
 		BoardPostVO bpv = communityService.postedCommunity(postIndex);
 
-		// 좋아요 체크하는 로직
+		// 게시글 좋아요 체크하는 로직
 		if (session.getAttribute("member") != null) {
 			BoardLikeVO blv = checkLike(postIndex, sessionIndex);
-
 			if (blv != null) {
 				bpv.setLikeYN(1);
 			} else {
 				bpv.setLikeYN(0);
 			}
 		}
+		
 		// 북마크 체크하는 로직
 		BoardBookMarkVO bbmv = checkBookMark(postIndex, sessionIndex);
 		if (bbmv != null) {
@@ -136,7 +135,6 @@ public class CommunityControllerImpl implements CommunityController {
 		} else {
 			bpv.setBookMarkYN(0);
 		}
-
 		request.setAttribute("bpv", bpv);
 
 		// 현재 호출하는 메소드(서블릿)의 이름을 담아서 같이 넘겨쥼 -> 슬래쉬(/)빼야 해요
@@ -187,7 +185,7 @@ public class CommunityControllerImpl implements CommunityController {
 			}
 			// 쿠키가 없는 경우
 			if (!isGet) {
-				int result = communityService.postHit(postIndex);// 조회수증가
+				communityService.postHit(postIndex);// 조회수증가
 				Cookie c1 = new Cookie(String.valueOf(postIndex), String.valueOf(postIndex));
 				c1.setMaxAge(1 * 24 * 60 * 60);// 하루저장
 				response.addCookie(c1);
@@ -200,12 +198,8 @@ public class CommunityControllerImpl implements CommunityController {
 	public BoardLikeVO checkLike(int postIndex, int sessionIndex) {
 		BoardLikeVO likeCheckVO = new BoardLikeVO();
 		likeCheckVO.setTargetIndex(postIndex);
-		System.out.println("postIndexController : " + postIndex);
 		likeCheckVO.setMbIndex(sessionIndex);
-		System.out.println("sessionController : "+sessionIndex);
-		System.out.println("likecheckVOController : " + likeCheckVO);
 		BoardLikeVO blv = communityService.checkBoardLike(likeCheckVO);
-		System.out.println("blvController : " + blv);
 		return blv;
 	}
 
@@ -213,9 +207,7 @@ public class CommunityControllerImpl implements CommunityController {
 	public BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex) {
 		BoardBookMarkVO bookMarkCheckVO = new BoardBookMarkVO();
 		bookMarkCheckVO.setPostIndex(postIndex);
-		System.out.println("CCpostIndex : " + postIndex);
 		bookMarkCheckVO.setMbIndex(sessionIndex);
-		System.out.println("CCsessionIndex : " + sessionIndex);
 		BoardBookMarkVO bbmv = communityService.checkBoardBookMark(bookMarkCheckVO);
 		return bbmv;
 
@@ -303,16 +295,13 @@ public class CommunityControllerImpl implements CommunityController {
 
 		CommunityPageDataVO cpdv = communityService.searchList(currentPage, searchText, category);
 		cpdv.setType(type);
-		// System.out.println(type);
-		System.out.println("검색어 : " + cpdv.getSearchText());
-		System.out.println("카테고리 : " + category);
 
 		request.setAttribute("cpdv", cpdv);
 
 		return "community/communityWholeBoard";
 	}
 
-	// 좋아요 버튼
+	// 게시글 좋아요 버튼
 	@Override
 	@ResponseBody
 	@RequestMapping(value = "/postLike.diet")
@@ -350,11 +339,8 @@ public class CommunityControllerImpl implements CommunityController {
 	public String boardBookMark(BoardBookMarkVO checkVO, HttpSession session) {
 		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
 		int postIndex = checkVO.getPostIndex();
-		System.out.println("C sessionIndex : " + sessionIndex);
-		System.out.println("C postIndex : " + postIndex);
 		checkVO.setMbIndex(sessionIndex);
 		BoardBookMarkVO bbmv = checkBookMark(postIndex, sessionIndex);
-		System.out.println("C bbmv : " + bbmv);
 		int result = 0;
 		if (bbmv != null) {
 			result = communityService.boardBookMarkOff(bbmv);
@@ -368,5 +354,32 @@ public class CommunityControllerImpl implements CommunityController {
 			return "failed";
 		}
 	}
-
+	
+	// 게시글 신고하기
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/blameBoard.diet")
+	public String postReport(BoardBlameVO report, HttpSession session) {
+		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
+		report.getTargetIndex();
+		
+		report.setMbIndex(sessionIndex);
+		
+		int result = communityService.postReport(report);
+		
+		if(result>0) {
+			return "success";
+		} else {
+			return "failed";
+		}
+	}
+	
+	// 게시글 신고 체크
+	public BoardBlameVO checkPostBlame(int postIndex, int sessionIndex) {
+		BoardBlameVO checkBlame = new BoardBlameVO();
+		checkBlame.setTargetIndex(postIndex);
+		checkBlame.setMbIndex(sessionIndex);
+		BoardBlameVO bbv = communityService.checkPostBlame(checkBlame);
+		return bbv;
+	}
 }

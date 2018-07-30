@@ -7,7 +7,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>레시피&#38;식단</title>
+<title>커뮤니티</title>
 <script src="/resources/slider/responsiveslides.min.js"></script>
 </head>
 
@@ -84,7 +84,7 @@ else self.name = '';
 		<br>
 		<br>
 		<div class="ui left aligned container">
-			<h1>&emsp;&nbsp;&nbsp;레시피&#38;식단</h1>
+			<h1>레시피&#38;식단</h1>
 		</div>
 		<hr style="border: 2px solid #D5D5D5;">
 		<br>
@@ -192,7 +192,7 @@ else self.name = '';
 					</div>
 				</div>
 
-				<input type="text" placeholder="Search..." id="searchText">
+				<input type="text" placeholder="Search..." id="searchText"  onkeypress="runScript(event)" >
 				<i class="circular search link icon" onclick="searchBtn()"></i>
 
 			</div>
@@ -250,11 +250,23 @@ else self.name = '';
 		}
 	});
 	
+	/* 검색  - 엔터*/
+	function runScript(e) {
+		if (e.keyCode == 13) {
+			searchBtn();
+		}
+	}
+	
 	/* 검색 */
 	function searchBtn(){
 		$searchText = $('#searchText').val();
+		
+		if (category == "") {
+			alert('카테고리를 선택하여주세요.');
+		}else{
 		location.href = "/communitySearch.diet?category="+ category +"&searchText=" + $searchText; 
-		 /* + "&type=" + type */
+		}
+		
 		
 	}
 

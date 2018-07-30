@@ -6,11 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.JsonIOException;
+
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.MyActivityPageDataVO;
 import spring.kh.diet.model.vo.MyActivityVO;
 
 public interface MyInfoController {
@@ -20,8 +20,6 @@ public interface MyInfoController {
 	String updateMyInfo(MemberVO memberVO, HttpSession session, HttpServletResponse response) throws IOException;
 
 	String deleteMyPicture(String mbId, HttpSession session, HttpServletResponse response) throws IOException;
-
-	Object allMyOneToOneQuestion(HttpSession session);
 
 	String signupsave(String mbId, String mbNickName, String mbPwd, String[] gender, String[] interest);
 
@@ -36,9 +34,16 @@ public interface MyInfoController {
 
 	void question(String title, String content, String mbIndex, HttpServletResponse response) throws IOException;
 
-	String myActivityGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma);
-
 	String myCommentGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma);
 
+	void questionAnswer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException;
+
+	String myActivityGetList(HttpSession session, HttpServletResponse response, HttpServletRequest request,
+			MyActivityVO ma) throws JsonIOException, IOException;
+
+	String myBookMarkGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma);
+
+	Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request);
 
 }

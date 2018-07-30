@@ -56,7 +56,7 @@
 		<br>
 		<div class="ui form" style="font-weight: 600;">
 			<label>제목</label>
-			<input type="text" placeholder="제목입력" id="title" style="margin-top: 5px;">
+			<input type="text" placeholder="제목입력" id="title1" style="margin-top: 5px;">
 			<br>
 			<br>
 			<div class="field">
@@ -88,15 +88,14 @@
 
 	function questionSub(){
 
-
 		var mbIndex = '${sessionScope.member.mbIndex}';
-		var title = $('#title').val();
+		var title1 = $('#title1').val();
 		var content = $('#content').val();
 
 		$.ajax({
 			url : '/question.diet',
 			type : 'post',
-			data : {'title' : title, 'content' : content, 'mbIndex' : mbIndex},
+			data : {'title' : title1, 'content' : content, 'mbIndex' : mbIndex},
 
 			success : function(data){
 				if(data == '1'){

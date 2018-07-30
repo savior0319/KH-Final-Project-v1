@@ -4,8 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import spring.kh.diet.model.vo.MemberVO;
+import javax.servlet.http.HttpSession;
 
 public interface MainController {
 
@@ -16,10 +15,16 @@ public interface MainController {
 
 	void createSession(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-	String redirectHealthCenter(HttpServletRequest request, String location, HttpServletResponse response) throws IOException;
+	String redirectHealthCenter(HttpServletRequest request, String location, HttpServletResponse response)
+			throws IOException;
 
 	void updateOnsession(HttpServletRequest request);
-	
+
 	void autoDeleteSession();
+
+	void getMainCommunityList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException;
+
+	void getMainNoticeList(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 }

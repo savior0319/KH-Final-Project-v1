@@ -11,32 +11,19 @@
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script>
 	/* summernote에서 이미지 업로드시 실행할 함수 */
-	function sendFile(file, editor, welEditable) {
-		var fileName=false;
-		try{
-			fileName=file['name'];
-		}catch (e) {
-			fileName=false;
-		}
-		if(!fileName){
-			$(".note-alarm").remove();
-		}
-		console.log(fileName);
-		data = new FormData();
-		data.append("file", file);
-		data.append("key",fileName);
-		
+	function sendFile(file, el) {
+		form = new FormData();
+		form.append("file", file);
 		$.ajax({
-			data : data,
+			data : form,
 			type : "POST",
-			url : "/imageUpload1.diet",
+			url : "/imageUpload.diet",
 			cache : false,
 			contentType : false,
 			processData : false,
+			encType : "multipart/form-data",
 			success : function(url) {
-				var path = url.path;
-				alert(path);
-				$('#summernote').summernote('insertImage',path);
+				$(el).summernote('editor.insertImage', url);
 			}
 		});
 	}
@@ -108,6 +95,9 @@
 					for (var i = files.length - 1; i >= 0; i--) {
 						sendFile(files[i], this);
 					}
+				},
+				onMediaDelete : function() {
+					alert('이미지 삭제 콜백');
 				}
 			}
 		});
@@ -117,9 +107,7 @@
 		allowAdditions : true,
 		allowCategorySelection : true
 	});
-	
-	
-	
+
 	// 카테고리 선택
 	var category;
 	$('.select > .item').click(function() {
@@ -157,7 +145,8 @@
 				success : function(data) {
 					if (data == 'success') {
 						alert('게시글 등록 완료');
-						location.href = "/communityWholeBoard.diet?type="+category;
+						location.href = "/communityWholeBoard.diet?type="
+								+ category;
 					}
 				},
 				error : function() {

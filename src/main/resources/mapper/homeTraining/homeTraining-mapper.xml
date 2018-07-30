@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="homeTraining">
-	
+
 	<resultMap type="homeTraining" id="homeTrainingDB">
 		<result property="indexNo" column="index_No" />
 		<result property="htNo" column="ht_No" />
@@ -10,7 +10,6 @@
 		<result property="htTitle" column="ht_Title" />
 		<result property="htPart" column="ht_Part" />
 		<result property="htLike" column="ht_Like" />
-		<result property="htCommentNo" column="ht_Comment_No"/>
 		<result property="htHits" column="ht_Hits" />
 		<result property="htVideo" column="HT_VIDEO" />
 		<result property="htStepTime" column="ht_Step_Time" />
@@ -18,71 +17,199 @@
 		<result property="htStepHard" column="ht_Step_Hard" />
 		<result property="htStepKal" column="ht_Step_Kal" />
 		<result property="htEnrollDate" column="ht_EnrollDate" />
-		<result property="htWriterNo" column="ht_Writer_No"/>
-		<result property="htNickname" column="mb_Nickname"/>
-		<result property="htExplain" column="ht_Explain"/>
+		<result property="htWriterNo" column="ht_Writer_No" />
+		<result property="htNickname" column="mb_Nickname" />
+		<result property="htExplain" column="ht_Explain" />
+		<!-- HT_COMMENT_NO 컬럼 지움 -->
 	</resultMap>
-	
-	<!-- 페이징 처리 - 리스트 불러오기 -->
+
+	<resultMap type="boardLike" id="boardLikeDB">
+		<result property="likeIndex" column="LIKE_INDEX" />
+		<result property="targetIndex" column="TARGET_INDEX" />
+		<result property="targetType" column="TARGET_TYPE" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="targetMbIndex" column="TARGET_MB_INDEX" />
+	</resultMap>
+
+	<!-- 페이징 처리 - 리스트 불러오기 + 검색 -->
 	<select id="getList" parameterType="homeTrainingPageData"
 		resultType="homeTraining" resultMap="homeTrainingDB">
 		SELECT *
-		FROM (SELECT HOMETRAINING_TB.*,
-		ROW_NUMBER() OVER(ORDER BY HT_EnrollDate DESC) AS
-		NUM FROM HOMETRAINING_TB
+		FROM (SELECT HT.*,
+		ROW_NUMBER() OVER(ORDER BY
+		HT_EnrollDate DESC) AS
+		NUM FROM HOMETRAINING_TB HT,
+		MEMBER_TBL MB
+		WHERE HT.HT_WRITER_NO = MB.MB_INDEX (+)
 		<choose>
 			<when test="type.equals('wholeBody')">
-				WHERE HT_TYPE LIKE '1'
+				AND HT_TYPE LIKE '1'
 			</when>
 			<when test="type.equals('abdomen')">
-				WHERE HT_TYPE LIKE '2'
+				AND HT_TYPE LIKE '2'
 			</when>
 			<when test="type.equals('upperBody')">
-				WHERE HT_TYPE LIKE '3'
+				AND HT_TYPE LIKE '3'
 			</when>
 			<when test="type.equals('lowerBody')">
-				WHERE HT_TYPE LIKE '4'
+				AND HT_TYPE LIKE '4'
 			</when>
 			<when test="type.equals('stretching')">
-				WHERE HT_TYPE LIKE '5'
+				AND HT_TYPE LIKE '5'
 			</when>
 			<when test="type.equals('dance')">
-				WHERE HT_TYPE LIKE '6'
+				AND HT_TYPE LIKE '6'
 			</when>
 			<when test="type.equals('yoga')">
-				WHERE HT_TYPE LIKE '7'
+				AND HT_TYPE LIKE '7'
 			</when>
 			<when test="type.equals('fourChallenge')">
-				WHERE HT_TYPE LIKE '8'
+				AND HT_TYPE LIKE '8'
 			</when>
 		</choose>
+		
+		<choose>
+			<when test="category!=null">
+				<!-- 검색할 때 -->
+				<choose>
+					<when test="category.equals('title')">
+						AND HT_TITLE LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('titleContents')">
+						AND HT_TITLE LIKE '%'||#{searchText}||'%'
+						OR
+						HT_EXPLAIN LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('writer')">
+						AND MB.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+					</when>
+				</choose>
+
+			</when>
+		</choose>
+		
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
-	<!-- 페이징 처리 - 내비게이션 생성 -->
+	<!-- 페이징 처리 - 내비게이션 생성 + 검색 -->
 	<select id="getNavi" resultType="java.lang.Integer">
 		SELECT COUNT(*) AS TOTALCOUNT
-		FROM HOMETRAINING_TB
+		FROM HOMETRAINING_TB HT, MEMBER_TBL MB
+		WHERE
+		HT.HT_WRITER_NO = MB.MB_INDEX (+)
+		<choose>
+			<when test="type.equals('wholeBody')">
+				AND HT_TYPE LIKE '1'
+			</when>
+			<when test="type.equals('abdomen')">
+				AND HT_TYPE LIKE '2'
+			</when>
+			<when test="type.equals('upperBody')">
+				AND HT_TYPE LIKE '3'
+			</when>
+			<when test="type.equals('lowerBody')">
+				AND HT_TYPE LIKE '4'
+			</when>
+			<when test="type.equals('stretching')">
+				AND HT_TYPE LIKE '5'
+			</when>
+			<when test="type.equals('dance')">
+				AND HT_TYPE LIKE '6'
+			</when>
+			<when test="type.equals('yoga')">
+				AND HT_TYPE LIKE '7'
+			</when>
+			<when test="type.equals('fourChallenge')">
+				AND HT_TYPE LIKE '8'
+			</when>
+		</choose>
+		
+		<choose>
+			<when test="category!=null">
+				<!-- 검색할 때 -->
+				<choose>
+					<when test="category.equals('title')">
+						AND HT_TITLE LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('titleContents')">
+						AND HT_TITLE LIKE '%'||#{searchText}||'%'
+						OR
+						HT_EXPLAIN LIKE '%'||#{searchText}||'%'
+					</when>
+					<when test="category.equals('writer')">
+						AND MB.MB_NICKNAME LIKE '%'||#{searchText}||'%'
+					</when>
+				</choose>
+
+			</when>
+		</choose>
+		
+		
 	</select>
 
 	<!-- 게시물 불러오기 -->
 	<select id="getOne" resultType="homeTraining" resultMap="homeTrainingDB">
-		SELECT *
-		FROM HOMETRAINING_TB HT,MEMBER_TBL MB 
+		SELECT
+		(SELECT COUNT(*) FROM BOARD_COMMENT_TBL C WHERE C.POST_INDEX =
+		HT.INDEX_NO) AS
+		htCommentNo,
+		HT.*,MB.*
+		FROM HOMETRAINING_TB HT,MEMBER_TBL MB
 		WHERE HT.HT_WRITER_NO = MB.MB_INDEX (+) AND HT.INDEX_NO = #{index}
 	</select>
-	
-	
-	
-	
+
+	<!-- 조회수 카운트 -->
+	<update id="hits">
+		UPDATE HOMETRAINING_TB
+		SET
+		ht_HITS = ht_HITS+1
+		WHERE INDEX_NO = #{indexNo}
+	</update>
+
+	<!-- 좋아요 체크 -->
+
+	<select id="checkLike" parameterType="boardLike" resultType="boardLike"
+		resultMap="boardLikeDB">
+		SELECT * FROM BOARD_LIKE_TBL
+		WHERE TARGET_INDEX =
+		#{targetIndex} AND MB_INDEX = #{mbIndex}
+	</select>
+
+	<!-- 게시글 좋아요 테이블 삭제 -->
+	<delete id="likeDown" parameterType="boardLike">
+		DELETE FROM BOARD_LIKE_TBL
+		WHERE MB_INDEX = #{mbIndex} AND TARGET_INDEX = #{targetIndex} AND
+		TARGET_TYPE = 1
+	</delete>
+
+	<!-- 게시글 좋아요 테이블 추가 -->
+	<insert id="likeUp" parameterType="boardLike">
+		INSERT INTO BOARD_LIKE_TBL
+		VALUES(BOARD_LIKE_TBL_SEQ.NEXTVAL,#{targetIndex},1,#{mbIndex},#{targetMbIndex})
+	</insert>
+
+	<!-- 게시글 좋아요 수 -1 -->
+	<update id="postDown" parameterType="boardLike">
+		UPDATE HOMETRAINING_TB
+		SET
+		HT_LIKE = HT_LIKE -1
+		WHERE INDEX_NO = #{targetIndex}
+	</update>
+
+	<!-- 게시글 좋아요 수 +1 -->
+	<update id="postUp" parameterType="boardLike">
+		UPDATE HOMETRAINING_TB
+		SET
+		HT_LIKE = HT_LIKE +1
+		WHERE INDEX_NO = #{targetIndex}
+	</update>
+
 	<!-- 이전글 다음글 -->
-<!-- 	<select id="getpnWriteList" resultType="homeTraining" resultMap="homeTrainingDB" parameterType="homeTraining">
-	<![CDATA[
-	SELECT * FROM HOMETRAINING_TB WHERE HT_INDEX = #{htIndex}
-	UNION ALL(SELECT * FROM HOMETRAINING_TB WHERE HT_INDEX < #{htIndex} ORDER BY HT_INDEX DESC LIMIT 1)
-	UNION ALL(SELECT * FROM HOMETRAINING_TB WHERE HT_INDEX > #{htIndex} ORDER BY HT_INDEX ASC LIMIT 1)
-	ORDER BY HT_INDEX DESC
-	]]>
-	</select> -->
+	<!-- <select id="getpnWriteList" resultType="homeTraining" resultMap="homeTrainingDB" 
+		parameterType="homeTraining"> <![CDATA[ SELECT * FROM HOMETRAINING_TB WHERE 
+		HT_INDEX = #{htIndex} UNION ALL(SELECT * FROM HOMETRAINING_TB WHERE HT_INDEX 
+		< #{htIndex} ORDER BY HT_INDEX DESC LIMIT 1) UNION ALL(SELECT * FROM HOMETRAINING_TB 
+		WHERE HT_INDEX > #{htIndex} ORDER BY HT_INDEX ASC LIMIT 1) ORDER BY HT_INDEX 
+		DESC ]]> </select> -->
 
 </mapper>

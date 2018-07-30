@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,11 +13,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import spring.kh.diet.model.service.CommonService;
+import spring.kh.diet.model.service.CommunityService;
 import spring.kh.diet.model.service.DietTipServiceImpl;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -29,6 +34,9 @@ public class DietTipControllerImpl implements DietTipController {
 
 	@Resource(name = "commonService")
 	private CommonService commonService;
+
+	@Resource(name = "communityService")
+	private CommunityService communityService;
 
 	// 다이어트 팁 리스트 불러오기
 	@Override
@@ -64,12 +72,40 @@ public class DietTipControllerImpl implements DietTipController {
 	// 다이어트 팁 정보 페이지 보여주기
 	@Override
 	@RequestMapping(value = "/dietTipInfo.diet")
-	public String getInfo(HttpServletRequest request) {
+	public String getInfo(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		int indexNo = Integer.parseInt(request.getParameter("indexNo"));
+
+		// 조회수 증가
+		configCookie(session, request, response, indexNo);
+
+		int sessionIndex = 0;
+		if (session.getAttribute("member") != null) {
+			sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
+		}
+
 		// 현재 호출하는 메소드(서블릿)의 이름을 담아서 같이 넘겨쥼 -> 슬래쉬(/)빼야 해요
 		String servletName = "dietTipInfo.diet";
 
 		DietTipVO dt = dietTipService.getDietTip(indexNo);
+
+		// 좋아요 체크하는 로직
+		if (session.getAttribute("member") != null) {
+			BoardLikeVO blv = checkLike(indexNo, sessionIndex);
+
+			if (blv != null) {
+				dt.setLikeYN(1);
+			} else {
+				dt.setLikeYN(0);
+			}
+		}
+
+		// 북마크 체크하는 로직
+		BoardBookMarkVO bbmv = checkBookMark(indexNo, sessionIndex);
+		if (bbmv != null) {
+			dt.setBookMarkYN(1);
+		} else {
+			dt.setBookMarkYN(0);
+		}
 
 		request.setAttribute("dt", dt);
 
@@ -88,12 +124,13 @@ public class DietTipControllerImpl implements DietTipController {
 		return "dietTip/dietTipInfo";
 	}
 
-	// 로그인 되어있는지 확인
+	// 관리자인지 권한 확인
+	//실제로 할려면 DB를 거쳐서 회원 구분(ex.관리자, 트레이너 등)을 확인 해야 함
 	@Override
-	@RequestMapping(value = "/sessionCheck.diet")
-	public void sessionCheck(HttpSession session, HttpServletResponse response) throws IOException {
+	@RequestMapping(value = "/dtWriteAuthorityCheck.diet")
+	public void dtWriteAuthorityCheck(HttpSession session, HttpServletResponse response) throws IOException {
 		int result = 0;
-		if (session.getAttribute("member") != null) {
+		if (session.getAttribute("member") != null && ((MemberVO)session.getAttribute("member")).getMbIndex()==1) {
 			result = 1;
 		}
 
@@ -203,4 +240,97 @@ public class DietTipControllerImpl implements DietTipController {
 		response.getWriter().close();
 
 	}
+
+	// 쿠키저장 메소드
+	public int configCookie(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			int postIndex) {
+		String mbIndex = "";
+		int sessionIndex = 0;
+		if (session.getAttribute("member") != null) {
+			mbIndex = String.valueOf(((MemberVO) session.getAttribute("member")).getMbIndex());
+			sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
+		} else {
+			mbIndex = request.getRemoteAddr();
+			if (mbIndex.equals("0:0:0:0:0:0:0:1")) {
+				mbIndex = "localHost";
+			}
+		}
+		boolean isGet = false;
+
+		// 조회수 카운트 시작
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie c : cookies) {//
+				// 쿠키가 있는 경우
+				if (c.getName().equals(String.valueOf(postIndex))) {
+					isGet = true;
+				}
+			}
+			// 쿠키가 없는 경우
+			if (!isGet) {
+				int result = dietTipService.postHit(postIndex);// 조회수증가
+				Cookie c1 = new Cookie(String.valueOf(postIndex), String.valueOf(postIndex));
+				c1.setMaxAge(1 * 24 * 60 * 60);// 하루저장
+				response.addCookie(c1);
+			}
+		}
+		return sessionIndex;
+	}
+
+	// 좋아요 버튼 눌렀을 때
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/dtLike.diet")
+	public String dtLike(BoardLikeVO checkVO, HttpSession session) {
+		if (session.getAttribute("member") != null) {
+			int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
+			int postIndex = checkVO.getTargetIndex();
+			checkVO.setMbIndex(sessionIndex);
+
+			BoardLikeVO blv = checkLike(postIndex, sessionIndex);
+
+			int result2 = 0;
+			if (blv != null) {
+				int result = dietTipService.boardLikeDown(blv);
+				if (result > 0) {
+					result2 = dietTipService.postLikeDown(blv);
+				}
+			} else {
+				int result = dietTipService.boardLikeUp(checkVO);
+				if (result > 0) {
+					result2 = dietTipService.postLikeUp(checkVO);
+				}
+			}
+
+			if (result2 > 0) {
+				return "success";
+			} else {
+				return "failed";
+			}
+		} else {
+			return "failed";
+		}
+	}
+
+	// 좋아요 확인 메소드
+	@Override
+	public BoardLikeVO checkLike(int postIndex, int sessionIndex) {
+		BoardLikeVO likeCheckVO = new BoardLikeVO();
+		likeCheckVO.setTargetIndex(postIndex);
+		likeCheckVO.setMbIndex(sessionIndex);
+		BoardLikeVO blv = dietTipService.checkBoardLike(likeCheckVO);
+		return blv;
+	}
+
+	// 북마크 확인 메소드
+	@Override
+	public BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex) {
+		BoardBookMarkVO bookMarkCheckVO = new BoardBookMarkVO();
+		bookMarkCheckVO.setPostIndex(postIndex);
+		bookMarkCheckVO.setMbIndex(sessionIndex);
+		BoardBookMarkVO bbmv = communityService.checkBoardBookMark(bookMarkCheckVO);
+		return bbmv;
+
+	}
+
 }

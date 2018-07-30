@@ -1,5 +1,6 @@
 package spring.kh.diet.model.service;
 
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -41,4 +42,8 @@ public interface CommunityService {
 	int boardBookMarkOff(BoardBookMarkVO bbmv);
 
 	int boardBookMarkOn(BoardBookMarkVO checkVO);
+
+	int postReport(BoardBlameVO report);
+
+	BoardBlameVO checkPostBlame(BoardBlameVO checkBlame);
 }

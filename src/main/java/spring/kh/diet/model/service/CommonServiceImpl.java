@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import spring.kh.diet.model.dao.CommonDAO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
+import spring.kh.diet.model.vo.BoardPostVO;
 
 @Service("commonService")
 public class CommonServiceImpl implements CommonService {
@@ -47,17 +48,45 @@ public class CommonServiceImpl implements CommonService {
 		return commonDAO.addComment(session, bc);
 	}
 
+	//댓글 삭제
 	@Override
 	public int deleteComment(int commentIndex) {
 		return commonDAO.deleteComment(session, commentIndex);
 	}
 
 
+	//댓글 수정
 	@Override
 	public int modifyComment(BoardCommentVO bc) {
 		
 		return commonDAO.modifyComment(session, bc);
 	}
+
+	//댓글 갯수
+	@Override
+	public int cmdCount(BoardCommentVO bc) {
+		return commonDAO.cmdCount(session, bc);
+	}
+
+	//댓글 카운트 높이기
+	@Override
+	public int cmdCountUp(BoardPostVO bpv) {
+		int result = commonDAO.cmdCountUp(session, bpv);
+
+		return result;
+	}
+
+	@Override
+	public int cmdDelCount(int parseInt) {
+		return commonDAO.cmdDelCount(session, parseInt);
+	}
+
+
+
+
+
+	
+
 	
 	
 	

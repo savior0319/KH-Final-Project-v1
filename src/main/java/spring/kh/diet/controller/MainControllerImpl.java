@@ -20,11 +20,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
+import spring.kh.diet.model.service.CommunityService;
+import spring.kh.diet.model.service.CustomerService;
 import spring.kh.diet.model.service.MainService;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
+import spring.kh.diet.model.vo.NoticePDVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.UpdateSSVO;
 
@@ -33,8 +39,14 @@ public class MainControllerImpl implements MainController {
 	@SuppressWarnings("all")
 	private ApplicationScope Appscope;
 
-	@Resource
+	@Resource(name = "mainService")
 	private MainService mService;
+
+	@Resource(name = "communityService")
+	private CommunityService communityService;
+
+	@Resource(name = "customerService")
+	private CustomerService cs;
 
 	public MainControllerImpl() {
 	}
@@ -70,7 +82,7 @@ public class MainControllerImpl implements MainController {
 		int ageInt = Integer.parseInt(ageStr);
 		int ageRs = ageInt - Integer.parseInt(age);
 		double resultBMI = weightConvertDouble / (heightConvertMeter * heightConvertMeter);
-		
+
 		String ageStrRs = String.valueOf(ageRs);
 		String weightStrRs = String.valueOf((int) weightConvertDouble);
 		String heightStrRs = String.valueOf((int) (heightConvertMeter * 100));
@@ -204,7 +216,7 @@ public class MainControllerImpl implements MainController {
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
+
 		HealthCenterPDVO hcData = mService.getHealthCenterList(currentPage, location);
 		hcData.setType(request.getParameter("type"));
 		request.setAttribute("hcpd", hcData);
@@ -212,6 +224,55 @@ public class MainControllerImpl implements MainController {
 		return "main/healthCenter";
 
 	}
+
+	// 메인페이지에서 자유게시판 목록 출력
+	@Override
+	@RequestMapping(value = "/mainCommunity.diet")
+	public void getMainCommunityList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+
+		String type = "comAll";
+
+		int currentPage;
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		CommunityPageDataVO cpdv = communityService.allCommunityList(currentPage, type);
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(cpdv, response.getWriter());
+	}
+
+	// 메인페이지에서 공지사항 전체 목록 출력
+	@Override
+	@RequestMapping(value = "/mainNotice.diet")
+	public void getMainNoticeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		int currentPage;
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		NoticePDVO nData = cs.getNoticeList(currentPage);
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(nData, response.getWriter());
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// 접속자 수를 가지고 있는 static 변수
 
@@ -221,6 +282,7 @@ public class MainControllerImpl implements MainController {
 	@Autowired
 	ServletContext context;
 
+	@SuppressWarnings("static-access")
 	@ApplicationScope
 	@Override
 	@RequestMapping(value = "/createSession.diet")
@@ -229,26 +291,22 @@ public class MainControllerImpl implements MainController {
 		session = request.getSession();
 		this.count++;
 		boolean result = false;
-		ArrayList<OnSessionVO> list  = mService.selectAllSessionList();
-		if (!list.isEmpty()) 
-		{
-			for (int i = 0; i < list.size(); i++) 
-			{
+		ArrayList<OnSessionVO> list = mService.selectAllSessionList();
+		if (!list.isEmpty()) {
+			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i).getSessionId().equals(session.getId())) {
-					
+
 					result = true;
 				}
 			}
 			if (!result) {
 				mService.insertSessionToList(session, request);
+			} else {
+				UpdateSSVO USSVO = new UpdateSSVO((String) request.getParameter("data"), session.getId(),
+						(String) request.getParameter("device"));
+				mService.updateAlreadyOnsession(USSVO);
 			}
-			else {
-				UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),session.getId(),(String)request.getParameter("device"));
-				int result2 = mService.updateAlreadyOnsession(USSVO);
-			}
-		}
-		else 
-		{
+		} else {
 			mService.insertSessionToList(session, request);
 		}
 
@@ -259,13 +317,14 @@ public class MainControllerImpl implements MainController {
 	}
 
 	@Override
-	@RequestMapping(value="/updateOnSession.diet")
+	@RequestMapping(value = "/updateOnSession.diet")
 	@ResponseBody
 	public void updateOnsession(HttpServletRequest request) {
-		HttpSession session= request.getSession();
-		
-		UpdateSSVO USSVO = new UpdateSSVO((String)request.getParameter("data"),session.getId(),(String)request.getParameter("device"));
-		
+		HttpSession session = request.getSession();
+
+		UpdateSSVO USSVO = new UpdateSSVO((String) request.getParameter("data"), session.getId(),
+				(String) request.getParameter("device"));
+
 		mService.updateOnsession(USSVO);
 	}
 
@@ -275,19 +334,12 @@ public class MainControllerImpl implements MainController {
 	@Scheduled(cron="0 0/1 * * * ?") 
 //	@Scheduled(cron="0/1 * * * * ?") // 1초단위로 실행(테스트용)
 	public void autoDeleteSession() {
-		ArrayList<AllSessionVO> list  = mService.selectAllSessionList2();
-		for(int i=0; i<list.size(); i++)
-		{
-		int insertResult = mService.autoTransSession(list.get(i)); 
-		int deleteResult = mService.autoDeleteSession(list.get(i));
-		
+		ArrayList<AllSessionVO> list = mService.selectAllSessionList2();
+		for (int i = 0; i < list.size(); i++) {
+			mService.autoTransSession(list.get(i));
+			mService.autoDeleteSession(list.get(i));
+
 		}
 	}
-	
-	
-	
-
-	
-
 
 }

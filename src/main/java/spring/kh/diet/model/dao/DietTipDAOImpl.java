@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 
@@ -139,6 +140,42 @@ public class DietTipDAOImpl implements DietTipDAO {
 	@Override
 	public int updateDietTip(SqlSessionTemplate session, DietTipVO dt) {
 		return session.update("dietTip.updateDietTip", dt);
+	}
+
+	// 조회수 증가
+	@Override
+	public int postHit(SqlSessionTemplate session, int indexNo) {
+		return session.update("dietTip.postHit", indexNo);
+	}
+
+	// 좋아요 테이블에서 행 삭제
+	@Override
+	public int boardLikeDown(SqlSessionTemplate session, BoardLikeVO blv) {
+		return session.delete("dietTip.likeDown", blv);
+	}
+
+	// 좋아요 테이블에서 행 추가
+	@Override
+	public int boardLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		return session.insert("dietTip.likeUp", checkVO);
+	}
+
+	// 좋아요 -1
+	@Override
+	public int postLikeDown(SqlSessionTemplate session, BoardLikeVO blv) {
+		return session.update("dietTip.postDown", blv);
+	}
+
+	// 좋아요 +1
+	@Override
+	public int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		return session.update("dietTip.postUp", checkVO);
+	}
+
+	// 해당 회원이 좋아요 했는지 확인
+	@Override
+	public BoardLikeVO checkBoardLike(SqlSessionTemplate session, BoardLikeVO checkVO) {
+		return session.selectOne("dietTip.checkLike", checkVO);
 	}
 
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer">
+
+	<!-- 공지사항 리스트 -->
+	<select id="getNoticeList" parameterType="noticePDVO" resultType="notice">
+		SELECT
+		NOTICE_INDEX AS noticeIndex,
+		NOTICE_WRITER AS noticeWriter,
+		NOTICE_TITLE AS noticeTitle,
+		NOTICE_CONTENT AS noticeContent,
+		NOTICE_VIEW AS noticeView,
+		NOTICE_WRITEDAY AS noticeWriteDay
+		FROM (SELECT NOTICE_TBL.*, ROW_NUMBER() OVER(ORDER BY NOTICE_INDEX DESC) AS NUM FROM NOTICE_TBL)
+		WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 관리자 전체 회원 리스트 네비게이션 -->
+	<select id="getNoticeNavi" resultType="Integer" parameterType="noticePDVO">
+		SELECT COUNT(*) AS TOTALCOUNT
+		FROM NOTICE_TBL
+	</select>
+	
+	<!-- 공지사항 내용 가져오기 -->
+	<select id="noticeContent" parameterType="Integer" resultType="notice">
+		SELECT 
+		NOTICE_INDEX AS noticeIndex,
+		NOTICE_WRITER AS noticeWriter,
+		NOTICE_TITLE AS noticeTitle,
+		NOTICE_CONTENT AS noticeContent,
+		NOTICE_VIEW AS noticeView,
+		NOTICE_WRITEDAY AS noticeWriteDay
+		FROM NOTICE_TBL
+		WHERE NOTICE_INDEX = #{index}
+	</select>
+	
+	<!-- 공지 게시글 조회수 증가 -->
+	<update id="viewCount" parameterType="Integer">
+		UPDATE NOTICE_TBL SET NOTICE_VIEW = NOTICE_VIEW + 1  WHERE NOTICE_INDEX = #{index} 
+	</update>
+	
+</mapper>

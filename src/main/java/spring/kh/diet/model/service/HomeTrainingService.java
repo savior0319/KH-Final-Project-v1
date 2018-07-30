@@ -9,8 +9,8 @@ import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
 
 public interface HomeTrainingService {
-	
-	HomeTrainingPageDataVO homeTrainingList(int currentPage, String type);
+
+	HomeTrainingPageDataVO homeTrainingList(int currentPage, HomeTrainingPageDataVO pdvo);
 
 	HomeTrainingVO homeTraining(int index);
 	
@@ -18,14 +18,17 @@ public interface HomeTrainingService {
 	
 	BoardLikeVO checkBoardLike(BoardLikeVO checkVO);
 
-	int boardLikeDown(BoardLikeVO htlv);
+	int boardLikeDown(BoardLikeVO blv);
 
 	int boardLikeUp(BoardLikeVO checkVO);
 
-	int postLikeDown(BoardLikeVO htlv);
+	int postLikeDown(BoardLikeVO blv);
 
 	int postLikeUp(BoardLikeVO checkVO);
 
-	
+	int homeTrainingHits(int hits);
+
+	HomeTrainingPageDataVO homeTrainingAll(int currentPage, HomeTrainingPageDataVO pdvo);
+
 
 }

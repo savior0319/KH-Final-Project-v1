@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
+import spring.kh.diet.model.vo.BoardPostVO;
 
 @Repository(value ="commonDAO")
 public class CommonDAOImpl implements CommonDAO{
@@ -121,5 +122,25 @@ public class CommonDAOImpl implements CommonDAO{
 		
 		return  result;
 	}
+
+	@Override
+	public int cmdCount(SqlSessionTemplate session, BoardCommentVO bc) {
+		return session.selectOne("common.countCmd", bc);
+	}
+
+	@Override
+	public int cmdCountUp(SqlSessionTemplate session, BoardPostVO bpv) {
+		int result = session.update("common.cmdCountUp", bpv);
+		
+		return result;
+	}
+
+	@Override
+	public int cmdDelCount(SqlSessionTemplate session, int parseInt) {
+		return session.selectOne("common.countCmd", parseInt);
+	}
+
+
+
 	
 }

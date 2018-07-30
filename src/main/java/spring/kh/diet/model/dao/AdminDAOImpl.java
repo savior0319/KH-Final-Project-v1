@@ -356,6 +356,7 @@ public class AdminDAOImpl implements AdminDAO {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<OffSessionVO> getOfSessionList(SqlSessionTemplate session) {
 	

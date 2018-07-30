@@ -3,10 +3,12 @@
 <mapper namespace="common">
 
 	<!-- 페이징 처리 - 리스트 불러오기 -->
-	<select id="getList" parameterType="commentPageData" resultType="comment">
+	<select id="getList" parameterType="commentPageData"
+		resultType="comment">
 
 		SELECT CMT.CMT_INDEX AS cmtIndex,
-		CMT.POST_INDEX AS postIndex,
+		CMT.POST_INDEX AS
+		postIndex,
 		MB.MB_NICKNAME AS mbNickname,
 		MB.MB_IMAGE AS mbImage,
 		CMT.CMT_CONTENT AS cmtContent,
@@ -14,12 +16,16 @@
 		CMT.CMT_LIKE AS cmtLike,
 		CMT.CMT_BLAME
 		AS cmtBlame
-		FROM (SELECT BOARD_COMMENT_TBL.*,
+		FROM (SELECT
+		BOARD_COMMENT_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY
-		CMT_INDEX DESC) AS NUM FROM BOARD_COMMENT_TBL WHERE POST_INDEX =
-		#{indexNo}) CMT, MEMBER_TBL MB WHERE CMT.MB_INDEX = MB.MB_INDEX(+) AND
+		CMT_INDEX DESC) AS NUM
+		FROM BOARD_COMMENT_TBL WHERE POST_INDEX =
+		#{indexNo}) CMT, MEMBER_TBL
+		MB WHERE CMT.MB_INDEX = MB.MB_INDEX(+) AND
 		NUM BETWEEN #{start}
-		AND #{end} ORDER BY 1 DESC
+		AND
+		#{end} ORDER BY 1 DESC
 	</select>
 
 	<!-- 페이징 처리 - 내비게이션 생성 -->
@@ -32,18 +38,32 @@
 	<select id="addComment" parameterType="comment">
 		INSERT INTO
 		BOARD_COMMENT_TBL
-		VALUES(BOARD_COMMENT_TBL_SEQ.NEXTVAL, #{postIndex}, #{mbIndex}, #{cmtContent}, SYSDATE, 0, 0)
+		VALUES(BOARD_COMMENT_TBL_SEQ.NEXTVAL, #{postIndex},
+		#{mbIndex}, #{cmtContent}, SYSDATE, 0, 0)
 	</select>
-	
+
 	<!-- 댓글 삭제 -->
 	<delete id="deleteComment" parameterType="comment">
-	DELETE FROM BOARD_COMMENT_TBL WHERE CMT_INDEX = #{commentIndex}
+		DELETE FROM BOARD_COMMENT_TBL WHERE CMT_INDEX = #{commentIndex}
 	</delete>
 
 	<!-- 댓글 수정 -->
-	
-	<update id="modifyComment" parameterType="comment" >
-	UPDATE BOARD_COMMENT_TBL SET CMT_CONTENT = #{cmtContent} WHERE CMT_INDEX = #{cmtIndex}
+	<update id="modifyComment" parameterType="comment">
+		UPDATE BOARD_COMMENT_TBL SET CMT_CONTENT = #{cmtContent} WHERE CMT_INDEX =
+		#{cmtIndex}
 	</update>
+
+	<!-- 댓글 개수 -->
+	<select id="countCmd" resultType="java.lang.Integer" parameterType="comment">
+	SELECT COUNT(*) AS totalCount
+	FROM BOARD_COMMENT_TBL WHERE POST_INDEX = #{postIndex}
+	</select>
+	
+   	
+	<!-- 댓글수 추가 -->
+	<update id="cmdCountUp" parameterType="community" >
+	UPDATE BOARD_POST_TBL SET POST_COMMENT_COUNT = #{postComCount} WHERE POST_INDEX = #{postIndex}
+	</update>
+	
 
 </mapper>

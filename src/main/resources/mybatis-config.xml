@@ -18,7 +18,6 @@
 		<typeAlias type="spring.kh.diet.model.vo.HomeTrainingVO" alias="homeTraining" />
 		<typeAlias type="spring.kh.diet.model.vo.HomeTrainingPageDataVO" alias="homeTrainingPageData" />
 		<typeAlias type="spring.kh.diet.model.vo.MyActivityVO" alias="myActivity" />
-		<typeAlias type="spring.kh.diet.model.vo.MyActivityPageDataVO" alias="myActivityPageData" />
 		<typeAlias type="spring.kh.diet.model.vo.OnSessionVO" alias="onSession" />
 		<typeAlias type="spring.kh.diet.model.vo.OneSessionVO" alias="oneSession" />
 		<typeAlias type="spring.kh.diet.model.vo.UpdateSSVO" alias="upDateSSVO" />
@@ -28,11 +27,20 @@
 		<typeAlias type="spring.kh.diet.model.vo.AllSessionVO" alias="allSession" />
 		<typeAlias type="spring.kh.diet.model.vo.QuestionAnswerPDVO" alias="answerListPageData" /> <!-- 1:1문의 페이지 리스트 -->
 		<typeAlias type="spring.kh.diet.model.vo.AnswerVO" alias="answer" /> <!-- 1:1문의 페이지 리스트 -->
-		<typeAlias type="spring.kh.diet.model.vo.FoodCalVO" alias="foodCal"/>
-		<typeAlias type="spring.kh.diet.model.vo.SportCalVO" alias="sportCal"/>
-		<typeAlias type="spring.kh.diet.model.vo.AllSessionListPDVO" alias="allSessionListPDVO"/><!--관리자  세션통계 현재접속리스트  -->
-		<typeAlias type="spring.kh.diet.model.vo.OffSessionVO" alias="offSessionList"/>
-		<typeAlias type="spring.kh.diet.model.vo.todayCommentsVO" alias="todayComments"/>
+		<typeAlias type="spring.kh.diet.model.vo.FoodCalVO" alias="foodCal" />
+		<typeAlias type="spring.kh.diet.model.vo.HealthCalVO" alias="healthCal" />
+		<typeAlias type="spring.kh.diet.model.vo.BoardBlameVO" alias="boardBlame" />
+		<typeAlias type="spring.kh.diet.model.vo.HomeTrainingLikeVO" alias="homeTrainingLike" />
+		<typeAlias type="spring.kh.diet.model.vo.AllSessionListPDVO" alias="allSessionListPDVO" /> <!--관리자 세션통계 현재접속리스트 -->
+		<typeAlias type="spring.kh.diet.model.vo.OffSessionVO" alias="offSessionList" />
+		<typeAlias type="spring.kh.diet.model.vo.NoticePDVO" alias="noticePDVO" /> <!-- 공지사항 페이지 리스트 -->
+		<typeAlias type="spring.kh.diet.model.vo.MyCommentPageDataVO" alias="myCommentPDVO" /> 
+		<typeAlias type="spring.kh.diet.model.vo.MyPostPageDataVO" alias="myPostPDVO" />
+		<typeAlias type="spring.kh.diet.model.vo.MyBookMarkPageDataVO" alias="myBookMarkPDVO" /> 
+
+    
+    
+    <typeAlias type="spring.kh.diet.model.vo.todayCommentsVO" alias="todayComments"/>
 		<typeAlias type="spring.kh.diet.model.vo.todayHitsVO" alias="todayHits"/>
 		<typeAlias type="spring.kh.diet.model.vo.todayLikeVO" alias="todayLike"/>
 		<typeAlias type="spring.kh.diet.model.vo.todayPostVO" alias="todayPost"/>
