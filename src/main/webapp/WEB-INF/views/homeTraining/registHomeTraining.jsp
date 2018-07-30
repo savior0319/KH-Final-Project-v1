@@ -224,8 +224,7 @@
     		contentType: false,
     		success : function (data){
     			$('#mainPhotoPath').val(data);
-    			alert('돼써요');
-    			 
+    		    			 
     			// 사진 저장 성공하면 전체 등록 진행
     			var $title = $('#title').val();
     			var $content = $('#summernote').summernote('code');
@@ -234,7 +233,7 @@
     			var $kal = $('#kal').val();
     			var $video = $('#video').val();
     			var $mainPhotoPath = $('#mainPhotoPath').val();
-    			alert(category);
+    			
     			if (category != null && $title != '' && $content != '') {
     				$.ajax({
     					url : '/registHomeTraining.diet',

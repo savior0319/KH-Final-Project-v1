@@ -219,7 +219,7 @@
 	</delete>
 	
 	<!-- 홈트레이닝 수정 페이지 불러오기 -->
-	<select id="loadUpdateHomeTraining" resultType="homeTraining">
+	<select id="loadUpdateHomeTraining" resultType="homeTraining" resultMap="homeTrainingDB">
 	SELECT * FROM
 	HOMETRAINING_TB HT,
 	MEMBER_TBL MB WHERE HT.HT_WRITER_NO = MB.MB_INDEX AND INDEX_NO = #{index}
@@ -228,7 +228,7 @@
 	<!-- 홈트레이닝 페이지 수정 -->
 	<select id="updateHomeTraining" parameterType="homeTraining">
 		UPDATE HOMETRAINING_TB SET
-		HT_MAIN_PHOTO = #{htMainPhoto}, HT_TYPE = #{htType}, HT_TITLE = #{htTitle},
+		HT_MAIN_PHOTO = #{htMainPhoto}, HT_TITLE = #{htTitle},
 		HT_PART = #{htPart}, HT_EXPLAIN = #{htExplain}, HT_VIDEO = #{htVideo},
 		HT_STEP_TIME = #{htStepTime}, HT_STEP_TYPE = #{htStepType},
 		HT_STEP_HARD = #{htStepHard}, HT_STEP_Kal = #{htStepKal}

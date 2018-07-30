@@ -6,6 +6,9 @@
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
 <title>다이어트</title>
+<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
+<script src="/resources/summernote/dist/summernote-lite.js"></script>
+<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 </head>
 
 <!-- CSS -->
@@ -51,7 +54,8 @@
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
 	<!-- CONTENTS -->
-	<input id="mainPhotoPath" type="hidden">
+	<input id="mainPhotoPath" type="hidden" value="${requestScope.ht.htMainPhoto }">
+	<input type="hidden" id="indexNo" value="${requestScope.ht.indexNo }">
 	<br>
 	<br>
 	<div class="ui container">
@@ -65,7 +69,34 @@
 				<div class="ui medium header" style="margin-bottom: 5px;">제목</div>
 				<div class="ui fluid left action icon input">
 					<div class="ui basic floating dropdown button">
-						<div class="text">카테고리</div>
+						<div class="text">
+						<c:choose>
+							<c:when test="${requestScope.ht.htType==1 }">
+							전신
+							</c:when>
+							<c:when test="${requestScope.ht.htType==2 }">
+							복부
+							</c:when>
+							<c:when test="${requestScope.ht.htType==3 }">
+							상체
+							</c:when>
+							<c:when test="${requestScope.ht.htType==4 }">
+							하체
+							</c:when>
+							<c:when test="${requestScope.ht.htType==5 }">
+							스트레칭
+							</c:when>
+							<c:when test="${requestScope.ht.htType==6 }">
+							댄스
+							</c:when>
+							<c:when test="${requestScope.ht.htType==7 }">
+							요가
+							</c:when>
+							<c:when test="${requestScope.ht.htType==8 }">
+							4주챌린지
+							</c:when>
+						</c:choose>
+						</div>
 						<i class="dropdown icon"></i>
 						<div class="menu select">
 							<div class="item">전신</div>
@@ -78,7 +109,7 @@
 							<div class="item">4주챌린지</div>
 						</div>
 					</div>
-					<input type="text" id="title" placeholder="제목을 입력해주세요" />
+					<input type="text" id="title" value="${requestScope.ht.htTitle }"/>
 				</div>
 
 			</div>
@@ -86,7 +117,7 @@
 			<div class="ui grid">
 				<div class="six wide column">
 					<div style="width: 100%;">
-						<img id="img" style="width:230px; height:180px;">
+						<img id="img" style="width:230px; height:180px;" src="${requestScope.ht.htMainPhoto }">
 					</div>
 					<div style="width: 100%; height: 30px; margin-top:20px;">
 						<button type="button" class="ui button" onclick="uploadPictureBtn();" style="width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
@@ -94,10 +125,10 @@
 				</div>
 				<div class="ten wide column">
 					<div style="width: 100%; height: 30px; margin-top:8%;"><h2>4단계 작성 및 유튜브 주소</h2><br><br>
-					<h3>영상 시간 : <input type="text" id="time" placeholder="시간을 입력"></h3>
-					<h3>운동 난이도 : <input type="text" id="hard" placeholder="운동 난이도를 입력"></h3>
-					<h3>칼로리 소모량 : <input type="text" id="kal" placeholder="소모 칼로리를 입력"></h3>
-					<h3>유튜브 주소 : <input type="text" id="video" placeholder="유튜브 주소 입력"></h3>
+					<h3>영상 시간 : <input type="text" id="time" value="${requestScope.ht.htStepTime }"></h3>
+					<h3>운동 난이도 : <input type="text" id="hard" value="${requestScope.ht.htStepHard }"></h3>
+					<h3>칼로리 소모량 : <input type="text" id="kal" value="${requestScope.ht.htStepKal }"></h3>
+					<h3>유튜브 주소 : <input type="text" id="video" value="${requestScope.ht.htVideo }"></h3>
 					</div>
 				</div>
 				
@@ -113,7 +144,7 @@
 			<div id="summernote"></div>
 			<br>
 			<div align="center">
-				<button class="ui red basic button" onclick="register();">등록</button>
+				<button class="ui red basic button" onclick="register();">수정완료</button>
 			</div>
 		</div>
 	</div>
@@ -123,7 +154,7 @@
 
 	<div class="ui modal" id="updateProfile">
 		<i class="close icon"></i>
-		<div class="header">메인 사진 등록</div>
+		<div class="header">메인 사진 변경</div>
 		<div class="image content">
 			<form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data">
 				<div class="description">
@@ -164,6 +195,7 @@
 			height : 500,
 			
 		});
+		category = '${requestScope.ht.htType}';
 	});
 
 	$('.ui.dropdown').dropdown({
@@ -220,8 +252,7 @@
     		contentType: false,
     		success : function (data){
     			$('#mainPhotoPath').val(data);
-    			alert('돼써요');
-    			 
+        			 
     			// 사진 저장 성공하면 전체 등록 진행
     			var $title = $('#title').val();
     			var $content = $('#summernote').summernote('code');
@@ -230,10 +261,11 @@
     			var $kal = $('#kal').val();
     			var $video = $('#video').val();
     			var $mainPhotoPath = $('#mainPhotoPath').val();
-    			alert(category);
+    			var $indexNo = $('#indexNo').val();
+    		
     			if (category != null && $title != '' && $content != '') {
     				$.ajax({
-    					url : '/registHomeTraining.diet',
+    					url : '/updateHomeTraining.diet',
     					type : 'post',
     					data : {
     						'title' : $title,
@@ -243,20 +275,21 @@
     						'kal' : $kal,
     						'category' : category,
     						'video' : $video,
-    						'mainPhotoPath' : $mainPhotoPath
+    						'mainPhotoPath' : $mainPhotoPath,
+    						'indexNo' : $indexNo
     					},
     					success : function(result) {
     						if (result == 1) {
-    							alert('게시글 등록 완료');
-    							location.href = "/homeTrainingAll.diet";
+    							alert('게시글 수정 완료');
+    							location.href = "/homeTrainingList.diet?type=";
     						} else {
     							alert('게시글 등록 실패');
-    							location.href = "/homeTrainingAll.diet";
+    							location.href = "/homeTrainingList.diet";
     						}
     					},
     					error : function() {
     						alert('게시글 등록 실패(과정 오류)');
-    						location.href = "/homeTrainingAll.diet";
+    						location.href = "/homeTrainingList.diet";
     					}
     				});
     			} else {
