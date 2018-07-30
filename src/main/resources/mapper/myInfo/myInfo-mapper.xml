@@ -85,12 +85,20 @@
 
 	<!-- 마이페이지 - 일대일 문의 -->
 	<select id="myQuestionList" parameterType="member" resultType="question">
-		SELECT QS_INDEX AS qsIndex, QS_TITLE AS qsTitle,QS_CONTENT
-		AS qsContent,
-		QS_WRITETIME AS qsWriteTime, QS_ANSWERCHECK AS
-		qsAnswerCheck
-		FROM
-		QUESTION_TBL WHERE MB_INDEX = #{mbIndex}
+		SELECT MB_INDEX AS mbIndex, 
+        QS_INDEX AS qsIndex, 
+        QS_TITLE AS qsTitle,
+        QS_CONTENT AS qsContent,
+		QS_WRITETIME AS qsWriteTime, 
+        QS_ANSWERCHECK AS qsAnswerCheck FROM
+		(SELECT
+		QUESTION_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY
+		QS_WRITETIME
+		DESC) AS NUM FROM QUESTION_TBL
+		WHERE MB_INDEX = #{mbIndex}
+		)WHERE NUM BETWEEN
+		#{start} AND #{end}
 	</select>
 
 
@@ -226,17 +234,29 @@
 	<!-- 마이페이지 - 나의 댓글 -->
 	<select id="myCommentList" resultType="comment" parameterType="myCommentPDVO">
 
-		SELECT POST_TITLE AS postTitle,
-		CMT_CONTENT AS cmtContent,
-		CMT_DATETIME AS cmtDateTime,
-		CMT_LIKE AS cmtLike,
-		POST_INDEX AS postIndex
+		 SELECT 
+        BPT.POST_INDEX AS postIndex,
+		BCA_INDEX AS bcaIndex,
+		DT_TYPE AS dtType,
+		DT_INDEX AS dtIndex,
+        POST_TITLE AS postTitle,
+        DT_TITLE AS dtTitle,
+        DT_DATE AS dtDate,
+        DT_LIKE AS dtLike,
+        DT_SEE AS dtSee,
+        POST_DATETIME AS postDateTime,
+        POST_LIKE AS postLike,
+        CMT_DATETIME AS cmtDateTime,
+        CMT_CONTENT AS cmtContent,
+        CMT_LIKE AS cmtLike
 		FROM (SELECT BOARD_COMMENT_TBL.*,ROW_NUMBER() OVER(ORDER BY CMT_DATETIME DESC)
-		AS NUM FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) BCT
-		JOIN BOARD_POST_TBL BPT USING(POST_INDEX)
-		WHERE BCT.MB_INDEX = 
-		(SELECT DISTINCT MB_INDEX FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex})
+		AS NUM FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) BCT,
+        BOARD_POST_TBL BPT, DIETTIP_TB DT 
+        WHERE (BCT.POST_INDEX = BPT.POST_INDEX(+))
+        AND (BCT.POST_INDEX = DT.DT_INDEX(+))
+		AND BCT.MB_INDEX = #{mbIndex}
 		AND NUM BETWEEN #{start} AND #{end}
+        
 	</select>
 
 	<!-- 나의 댓글 페이징 처리 - 내비게이션 생성 -->
@@ -250,18 +270,24 @@
 
 	<!-- 마이페이지 - 나의 북마크 -->
 	<select id="myBookMarkList" resultType="bookMark" parameterType="myBookMarkPDVO">
-		SELECT BPT.POST_TITLE as postTitle,
-        BPT.POST_HIT as postHit,
-		BPT.POST_INDEX as postIndex, 
-        BCA_INDEX AS bcaIndex,
-		POST_LIKE as postLike,
-		BPT.MB_INDEX as mbIndex,MB_ID as mbId 
+		SELECT 
+		BPT.POST_INDEX AS postIndex,
+		BCA_INDEX AS bcaIndex,
+		DT_TYPE AS dtType,
+		MB_ID AS mbId,
+		DT_INDEX AS dtIndex,
+        POST_TITLE AS postTitle,
+        DT_TITLE AS dtTitle,
+        DT_SAMMARY AS dtSammary,
+        DT_DATE AS dtDate,
+        DT_LIKE AS dtLike,
+        DT_SEE AS dtSee,
+        POST_DATETIME AS postDateTime,
+        POST_LIKE AS postLike 
         FROM (SELECT BOARD_BOOKMARK_TBL.*,ROW_NUMBER() OVER(ORDER BY BMK_INDEX DESC)
-		AS NUM FROM BOARD_BOOKMARK_TBL WHERE MB_INDEX = 1) BMK
-		JOIN BOARD_POST_TBL BPT
-		ON(BPT.POST_INDEX = BMK.POST_INDEX)
-		JOIN MEMBER_TBL MBT	ON(BMK.MB_INDEX= MBT.MB_INDEX)
-		WHERE BMK.MB_INDEX =  #{mbIndex}
+		AS NUM FROM BOARD_BOOKMARK_TBL  WHERE MB_INDEX = #{mbIndex}) BMK,  MEMBER_TBL MBT,DIETTIP_TB DT ,BOARD_POST_TBL BPT
+        WHERE BMK.MB_INDEX = MBT.MB_INDEX(+) AND BMK.POST_INDEX = DT.DT_INDEX(+) AND BPT.POST_INDEX(+) = BMK.POST_INDEX AND BMK.MB_INDEX= #{mbIndex}
+        and NUM between #{start} and #{end}
 	</select>
 
 	<!-- 나의 북마크 - 페이징 처리 -->

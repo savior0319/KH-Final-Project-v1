@@ -66,6 +66,26 @@ html, body {
 								<tr align="center">
 									<td style="width: 20%;">
 										<c:choose>
+											<c:when test="${m.dtType=='1'}">
+												<label>
+													<a href="dietTipList.diet?type=1">칼럼</a>
+												</label>
+											</c:when>
+											<c:when test="${m.dtType=='2' }">
+												<label>
+													<a href="dietTipList.diet?type=sport">운동</a>
+												</label>
+											</c:when>
+											<c:when test="${m.dtType=='3' }">
+												<label>
+													<a href="dietTipList.diet?type=dietFood">식단</a>
+												</label>
+											</c:when>
+											<c:when test="${m.dtType=='4' }">
+												<label>
+													<a href="dietTipList.diet?type=successLatter">성공</a>
+												</label>
+											</c:when>
 											<c:when test="${m.bcaIndex=='15'}">
 												<label>
 													<a href="recipeBoard.diet?type=15">자유게시판</a>
@@ -78,29 +98,39 @@ html, body {
 											</c:when>
 											<c:when test="${m.bcaIndex=='17' }">
 												<label>
-													<a href="recipeBoard.diet?type=16">팁&#38;노하우</a>
+													<a href="recipeBoard.diet?type=17">팁&#38;노하우</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='18' }">
 												<label>
-													<a href="recipeBoard.diet?type=16">고민&#38;질문</a>
+													<a href="recipeBoard.diet?type=18">고민&#38;질문</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='19' }">
 												<label>
-													<a href="recipeBoard.diet?type=16">비포&#38;애프터</a>
+													<a href="recipeBoard.diet?type=19">비포&#38;애프터</a>
 												</label>
 											</c:when>
 										</c:choose>
 									</td>
 									<td style="width: 40%;">
-										<a href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle}</a>
+										<c:if test="${m.dtIndex==0}">
+											<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${m.postTitle}</a>
+										</c:if>
+										<c:if test="${m.dtIndex!=0}">
+											<a href="/dietTipInfo.diet?indexNo=${m.dtIndex}">${m.dtTitle}</a>
+										</c:if>
 									</td>
-									<td style="width: 15%;">${m.mbId}</td>
-									<td style="width: 10%;">${m.postHit}</td>
+									<td>${m.mbId }</td>
+									<td style="width: 10%;">
+										<c:if test="${m.dtSee==0}">${m.postHit}</c:if>
+										<c:if test="${m.dtSee!=0}">${m.dtSee}</c:if>
+									</td>
 									<td style="width: 10%;">
 										<i class="heart icon"></i>
-										&nbsp;&nbsp;${m.postLike}
+										&nbsp;&nbsp;
+										<c:if test="${m.dtLike==0}">${m.postLike}</c:if>
+										<c:if test="${m.dtLike!=0}">${m.dtLike}</c:if>
 									</td>
 								</tr>
 							</c:forEach>
