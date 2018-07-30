@@ -115,10 +115,11 @@
 		</choose>
 	</select>
 
+	<!-- 게시글 작성 -->
 	<insert id="registCommunity" parameterType="community">
 		INSERT INTO
 		BOARD_POST_TBL
-		VALUES(INDEX_NO_SEQ.NEXTVAL,4,#{postTitle},#{postContent},#{bcaIndex},#{mbIndex},SYSDATE,0,0,0,'')
+		VALUES(INDEX_NO_SEQ.NEXTVAL,4,#{postTitle},#{postContent},#{bcaIndex},#{mbIndex},SYSDATE,0,0,0,#{postImage})
 	</insert>
 
 	<!-- 식단&레시피 -->
@@ -449,7 +450,7 @@
 	<!-- 게시글 수정 테이블 -->
 	<update id="modifyRegist" parameterType="community">
 		UPDATE BOARD_POST_TBL
-		SET POST_TITLE = #{postTitle}, POST_CONTENT= #{postContent}, BCA_INDEX = #{bcaIndex}
+		SET POST_TITLE = #{postTitle}, POST_CONTENT= #{postContent}, BCA_INDEX = #{bcaIndex}, POST_IMAGE = #{postImage}
 		WHERE POST_INDEX = #{postIndex}
 	</update>
 	

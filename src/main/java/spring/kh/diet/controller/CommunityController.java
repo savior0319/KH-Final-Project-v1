@@ -15,8 +15,8 @@ import spring.kh.diet.model.vo.BoardPostVO;
 
 public interface CommunityController {
 
-	void registCommunity(String title, String content, int category, HttpSession session, HttpServletResponse response)
-			throws IOException;
+	void registCommunity(String title, String content, int category, String postImage, HttpSession session,
+			HttpServletResponse response) throws IOException;
 
 	String recipeBoardList(HttpSession session, HttpServletRequest request);
 
