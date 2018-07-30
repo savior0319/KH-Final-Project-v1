@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -506,6 +507,20 @@ public class AdminDAOImpl implements AdminDAO {
 		}
 
 		return sb.toString();
+	}
+
+	/* 블랙리스트 회원 등록 */
+	@Override
+	public int blackListReg(SqlSessionTemplate session, BlackListRegVO bVo) {
+
+		int result = 0;
+
+		if (bVo.getStatus().equals("x")) {
+			result = session.update("admin.blackListReg", bVo);
+		} else {
+			result = session.update("admin.blackListDel", bVo);
+		}
+		return result;
 	}
 
 }
