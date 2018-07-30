@@ -51,8 +51,7 @@
 
 	<!-- 한명의 회원정보 -->
 
-	<select id="selectOneMember" parameterType="member"
-		resultType="member">
+	<select id="selectOneMember" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
@@ -85,8 +84,7 @@
 	</delete>
 
 	<!-- 마이페이지 - 일대일 문의 -->
-	<select id="myQuestionList" parameterType="member"
-		resultType="question">
+	<select id="myQuestionList" parameterType="member" resultType="question">
 		SELECT QS_INDEX AS qsIndex, QS_TITLE AS qsTitle,QS_CONTENT
 		AS qsContent,
 		QS_WRITETIME AS qsWriteTime, QS_ANSWERCHECK AS
@@ -98,8 +96,7 @@
 
 	<!-- 마이페이지 - 장바구니 -->
 
-	<select id="myWishList" parameterType="member"
-		resultType="product">
+	<select id="myWishList" parameterType="member" resultType="product">
 		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS
 		pdImage,
 		PD_PRICE AS pdPrice FROM PRODUCT_TBL
@@ -123,23 +120,22 @@
 		SYSDATE)
 	</insert>
 
-	<!-- 나의 활동 정보 (출석,댓글,게시물,가입날짜) -->
-	<select id="myActivity" parameterType="member"
-		resultType="myActivity">
+
+	<!-- 나의 활동 정보 (댓글,게시물,가입날짜) -->
+	<select id="myActivity" parameterType="member" resultType="myActivity">
 		SELECT MB_INDEX AS mbIndex,
-		(SELECT COUNT(*) FROM
-		ON_SESSION_TBL WHERE SS_INDEX = #{mbIndex}) AS myAttendance,
-		(SELECT
-		COUNT(*) FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) AS
-		myCommentCount,
-		(SELECT COUNT(*) FROM BOARD_POST_TBL WHERE MB_INDEX =
-		#{mbIndex}) AS myBoardCount,
-		MY_ENROLLDATE as mbEnrollDate,
-		MB_GRADE AS
-		mbGrade
-		FROM MY_ACTIVITY_TBL JOIN MEMBER_TBL USING(MB_INDEX) where
-		mb_index =
-		#{mbIndex}
+		(SELECT COUNT(*) FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) AS myCommentCount,
+		(SELECT COUNT(*)
+		FROM BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}) AS myBoardCount,
+		Mb_ENROLLDATE as mbEnrollDate,
+		MB_GRADE AS mbGrade
+		FROM MEMBER_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</select>
+
+	<select id="myCount" resultType="myActivity">
+		SELECT COUNT(DISTINCT SS_LOGIN) + 1 FROM
+		OFF_SESSION_TBL WHERE SS_LOGIN = #{mbNickName}
 	</select>
 
 	<resultMap type="community" id="communityDB">
@@ -157,16 +153,14 @@
 	</resultMap>
 
 	<!-- 마이페이지 나의게시물 내비게이션 생성 -->
-	<select id="myPostGetNavi" resultType="java.lang.Integer"
-		parameterType="myActivity">
+	<select id="myPostGetNavi" resultType="java.lang.Integer" parameterType="myActivity">
 		SELECT COUNT(*) AS totalCount
 		FROM BOARD_POST_TBL WHERE
 		MB_INDEX = #{mbIndex}
 	</select>
 
 
-	<select id="myPostList" parameterType="myPostPDVO"
-		resultType="community" resultMap="communityDB">
+	<select id="myPostList" parameterType="myPostPDVO" resultType="community" resultMap="communityDB">
 
 		SELECT *
 		FROM (SELECT
@@ -174,16 +168,14 @@
 		ROW_NUMBER() OVER(ORDER BY
 		POST_DATETIME
 		DESC)
-		AS NUM
-		FROM
-		BOARD_POST_TBL  WHERE MB_INDEX = #{mbIndex}
+		AS NUM FROM BOARD_POST_TBL
+		WHERE MB_INDEX = #{mbIndex}
 		) WHERE NUM BETWEEN
 		#{start} AND #{end}
 	</select>
 
 
-	<select id="nickNameCheck" parameterType="member"
-		resultType="member">
+	<select id="nickNameCheck" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
@@ -220,41 +212,36 @@
 	</update>
 
 	<!-- 마이페이지 - 나의 게시물 -->
-	<select id="myPost" resultType="community"
-		resultMap="communityDB" parameterType="member">
+	<select id="myPost" resultType="community" resultMap="communityDB" parameterType="member">
 		SELECT
 		POST_TITLE AS postTitle,
 		POST_CONTENT AS postContent,
 		POST_DATETIME AS postDateTime,
 		POST_INDEX
 		AS postIndex
+		,
 		FROM BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 	<!-- 마이페이지 - 나의 댓글 -->
-	<select id="myCommentList" resultType="comment"
-		parameterType="myCommentPDVO">
+	<select id="myCommentList" resultType="comment" parameterType="myCommentPDVO">
 
-		SELECT BOARD_POST_TBL.POST_INDEX AS postIndex,
-		BOARD_POST_TBL.POST_TITLE AS postTitle,CMT_CONTENT AS cmtContent,
-		CMT_DATETIME AS cmtDateTime FROM BOARD_POST_TBL
-		RIGHT JOIN
-		BOARD_COMMENT_TBL
-		ON (BOARD_POST_TBL.POST_INDEX =
-		BOARD_COMMENT_TBL.POST_INDEX)
-		WHERE
-		BOARD_COMMENT_TBL.MB_INDEX =
-		(SELECT
-		DISTINCT MB_INDEX FROM
-		BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex})
-
-
+		SELECT POST_TITLE AS postTitle,
+		CMT_CONTENT AS cmtContent,
+		CMT_DATETIME AS cmtDateTime,
+		CMT_LIKE AS cmtLike,
+		POST_INDEX AS postIndex
+		FROM (SELECT BOARD_COMMENT_TBL.*,ROW_NUMBER() OVER(ORDER BY CMT_DATETIME DESC)
+		AS NUM FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) BCT
+		JOIN BOARD_POST_TBL BPT USING(POST_INDEX)
+		WHERE BCT.MB_INDEX = 
+		(SELECT DISTINCT MB_INDEX FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex})
+		AND NUM BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 나의 댓글 페이징 처리 - 내비게이션 생성 -->
 
-	<select id="myCommentGetNavi" resultType="java.lang.Integer"
-		parameterType="myCommentPDVO">
+	<select id="myCommentGetNavi" resultType="java.lang.Integer" parameterType="myCommentPDVO">
 		SELECT COUNT(*) AS totalCount
 		FROM BOARD_COMMENT_TBL
 		WHERE MB_INDEX = #{mbIndex}
@@ -262,25 +249,23 @@
 	</select>
 
 	<!-- 마이페이지 - 나의 북마크 -->
-	<select id="myBookMarkList" resultType="bookMark"
-		parameterType="myBookMarkPDVO">
-		SELECT BOARD_POST_TBL.POST_TITLE as postTitle, POST_HIT
-		as postHit , BOARD_POST_TBL.POST_INDEX as postIndex, BCA_INDEX AS bcaIndex,
+	<select id="myBookMarkList" resultType="bookMark" parameterType="myBookMarkPDVO">
+		SELECT BPT.POST_TITLE as postTitle,
+        BPT.POST_HIT as postHit,
+		BPT.POST_INDEX as postIndex, 
+        BCA_INDEX AS bcaIndex,
 		POST_LIKE as postLike,
-		BOARD_POST_TBL.MB_INDEX as mbIndex,MB_ID as mbId FROM
-		BOARD_POST_TBL
-		LEFT JOIN BOARD_BOOKMARK_TBL
-		ON(BOARD_POST_TBL.POST_INDEX = BOARD_BOOKMARK_TBL.POST_INDEX)
-		LEFT JOIN
-		MEMBER_TBL
-		ON(BOARD_POST_TBL.MB_INDEX= MEMBER_TBL.MB_INDEX)
-		WHERE
-		BOARD_BOOKMARK_TBL.MB_INDEX = #{mbIndex}
+		BPT.MB_INDEX as mbIndex,MB_ID as mbId 
+        FROM (SELECT BOARD_BOOKMARK_TBL.*,ROW_NUMBER() OVER(ORDER BY BMK_INDEX DESC)
+		AS NUM FROM BOARD_BOOKMARK_TBL WHERE MB_INDEX = 1) BMK
+		JOIN BOARD_POST_TBL BPT
+		ON(BPT.POST_INDEX = BMK.POST_INDEX)
+		JOIN MEMBER_TBL MBT	ON(BMK.MB_INDEX= MBT.MB_INDEX)
+		WHERE BMK.MB_INDEX =  #{mbIndex}
 	</select>
 
 	<!-- 나의 북마크 - 페이징 처리 -->
-	<select id="myBookMarkGetNavi" resultType="java.lang.Integer"
-		parameterType="myBookMarkPDVO">
+	<select id="myBookMarkGetNavi" resultType="java.lang.Integer" parameterType="myBookMarkPDVO">
 		SELECT COUNT(*) AS totalCount
 		FROM BOARD_BOOKMARK_TBL
 		WHERE MB_INDEX = #{mbIndex}
@@ -288,8 +273,7 @@
 	</select>
 
 	<!-- 마이페이지 - 일대일 문의 관리자 답변 -->
-	<select id="questionAnswer" resultType="question"
-		parameterType="Integer">
+	<select id="questionAnswer" resultType="question" parameterType="Integer">
 		SELECT
 		QS_INDEX AS qsIndex,
 		QS_TITLE AS qsTitle,
@@ -303,16 +287,15 @@
 		LEFT OUTER JOIN
 		ANSWER_TBL USING(QS_INDEX) WHERE QS_INDEX = #{qsIndex}
 	</select>
-	
-	
+
+
 	<!-- 나의 북마크 - 페이징 처리 -->
-	<select id="myQuestionGetNavi" resultType="java.lang.Integer"
-		parameterType="myBookMarkPDVO">
+	<select id="myQuestionGetNavi" resultType="java.lang.Integer" parameterType="myBookMarkPDVO">
 		SELECT COUNT(*) AS totalCount
 		FROM QUESTION_TBL
 		WHERE MB_INDEX = #{mbIndex}
 
 	</select>
-	
+
 </mapper>
 

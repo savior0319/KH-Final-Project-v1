@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -36,44 +35,66 @@ html, body {
 			<div class="ui center aligned basic segment">
 				<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 				<br>
-
-				<table class="ui gray table">
-					<thead>
-						<tr id="title" align="center">
-							<th><i class="question circle icon"></i> 게 시 물 제 목</th>
-							<th><i class="question circle icon"></i> 댓 글 내 용</th>
-							<th><i class="question circle icon"></i> 작 성 일</th>
-							<th><i class="question circle icon"></i> 좋 아 요</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${myComment.comList}" var="m">
-							<tr align="center">
-								<td><a
-									href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle}</a></td>
-								<td>${m.cmtContent}</td>
-								<td>${m.cmtDateTime}</td>
-								<td>${m.cmtLike}</td>
+				<c:if test="${!myComment.comList.isEmpty()}">
+					<table class="ui gray table">
+						<thead>
+							<tr id="title" align="center">
+								<th>
+									<i class="question circle icon"></i>
+									게 시 물 제 목
+								</th>
+								<th>
+									<i class="question circle icon"></i>
+									댓 글 내 용
+								</th>
+								<th>
+									<i class="question circle icon"></i>
+									작 성 일
+								</th>
+								<th>
+									<i class="question circle icon"></i>
+									좋 아 요
+								</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="ui grid">
-			<div class="three column row">
-				<div class="column"></div>
-				<div class="column">
-					<div class="ui center aligned basic segment">
-						<div class="ui pagination menu">${requestScope.myComment.pageNavi }</div>
+						</thead>
+						<tbody>
+							<c:forEach items="${myComment.comList}" var="m">
+								<tr align="center">
+									<td>
+										<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${m.postTitle}</a>
+									</td>
+									<td>${m.cmtContent}</td>
+									<td>${m.cmtDateTime}</td>
+									<td>${m.cmtLike}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<div class="ui grid">
+						<div class="three column row">
+							<div class="column"></div>
+							<div class="column">
+								<div class="ui center aligned basic segment">
+									<div class="ui pagination menu">${myComment.pageNavi }</div>
+								</div>
+							</div>
+							<div class="column">
+								<div class="ui right aligned container"></div>
+							</div>
+						</div>
+						<br>
 					</div>
-				</div>
+				</c:if>
+
+				<c:if test="${myComment.comList.isEmpty()}">
+					<div class="ui small red message">
+						<div class="ui small header">※등록된 댓글이 없습니다 ~ ^^</div>
+					</div>
+				</c:if>
 			</div>
-			<br>
 		</div>
 	</c:if>
 	<br>
-
 	<c:if test="${sessionScope.member==null}">
 		<script>
 			alert("로그인 후 이용해주세요~");

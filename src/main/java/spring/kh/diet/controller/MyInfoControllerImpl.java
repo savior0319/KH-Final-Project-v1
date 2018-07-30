@@ -206,7 +206,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		mv.setMbInterest(interestStr);
 
 		int result = myInfoService.signupsave(mv);
-
+		
 		return "redirect:/";
 	}
 
@@ -234,13 +234,16 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request) {
 		MemberVO m = (MemberVO) session.getAttribute("member");
 		MyActivityVO ma = myInfoService.myActivity(m);
+		MyActivityVO loginCount = myInfoService.myLoginCount(m);
 		ModelAndView view = new ModelAndView();
 		if (ma != null) {
 			view.addObject("ma", ma);
+			view.addObject("loginCount", loginCount);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		} else {
 			view.addObject("ma", ma);
+			view.addObject("loginCount", loginCount);
 			view.setViewName("myInfo/myActivityInfo");
 			return view;
 		}
@@ -291,7 +294,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	}
 
-	/* 마이페이지 - 내가 작성한 댓글 */
+	/* 마이페이지 - 내 북마크 */
 
 	@Override
 	@RequestMapping(value = "/myBookMark.diet")
