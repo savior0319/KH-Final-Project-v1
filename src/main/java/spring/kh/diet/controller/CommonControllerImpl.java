@@ -9,10 +9,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
 import spring.kh.diet.model.service.CommonService;
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -118,6 +120,52 @@ public class CommonControllerImpl implements CommonController {
 			response.getWriter().print(result);
 			response.getWriter().close();
 		}
+	}
+
+	/* 댓글 신고 확인 */
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/checkBlameCmd.diet")
+	public String checkBlameCmd(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		BoardBlameVO checkBlame = new BoardBlameVO();
+		BoardPostVO bpv = new BoardPostVO();
+
+		checkBlame.setTargetIndex(Integer.parseInt(request.getParameter("targetIndex")));
+		checkBlame.setMbIndex(Integer.parseInt(request.getParameter("mbIndex")));
+
+		BoardBlameVO cbbv = commonService.checkPostBlame(checkBlame);
+
+		if (cbbv != null) {
+			return "used";
+		} else {
+			return "success";
+		}
+
+	}
+
+	/* 댓글 신고 하기 */
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/blameCmd.diet")
+	public String blameCmd(BoardBlameVO report, HttpSession session) throws IOException {
+		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
+
+		report.setMbIndex(sessionIndex);
+
+		int result = commonService.blameCmd(report);
+
+		System.out.println(result);
+
+		if (result > 0) {
+			int result2 = commonService.cmtBlameUp(report);
+			if (result2 > 0) {
+				return "success";
+			}
+			return "error";
+		} else {
+			return "failed";
+		}
+
 	}
 
 }

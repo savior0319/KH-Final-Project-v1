@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="common">
 
+	<resultMap type="boardBlame" id="boardBlameDB">
+		<result property="blaIndex" column="BLA_INDEX" />
+		<result property="targetIndex" column="TARGET_INDEX" />
+		<result property="targetType" column="TARGET_TYPE" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="targetMbIndex" column="TARGET_MB_INDEX" />
+		<result property="targetContents" column="TARGET_CONTENTS" />
+		<result property="blaDateTime" column="BLA_DATETIME" />
+	</resultMap>
+
+
 	<!-- 페이징 처리 - 리스트 불러오기 -->
 	<select id="getList" parameterType="commentPageData"
 		resultType="comment">
@@ -64,6 +75,26 @@
 	<!-- 댓글수 추가 -->
 	<update id="cmdCountUp" parameterType="community" >
 	UPDATE BOARD_POST_TBL SET POST_COMMENT_COUNT = #{postComCount} WHERE POST_INDEX = #{postIndex}
+	</update>
+	
+	
+	<!--댓글 신고 확인 -->
+	<select id="checkPostBlame" parameterType="boardBlame" resultMap="boardBlameDB">
+		SELECT *
+		FROM BOARD_BLAME_TBL
+		WHERE TARGET_INDEX = #{targetIndex} AND MB_INDEX = #{mbIndex} AND TARGET_TYPE = 2
+	</select>
+	
+	<!-- 게시글 신고 테이블 -->
+	<insert id="blameCmd" parameterType="boardBlame">
+		INSERT INTO BOARD_BLAME_TBL VALUES(BOARD_BLAME_TBL_SEQ.NEXTVAL,#{targetIndex},2,#{mbIndex},#{targetMbIndex},#{targetContents},SYSDATE)
+	</insert>
+	
+	<!-- 댓글 신고 +1 -->
+	<update id="cmtBlameUp" parameterType="boardBlame">
+		UPDATE BOARD_COMMENT_TBL
+		SET CMT_BLAME = CMT_BLAME +1
+		WHERE CMT_INDEX = #{targetIndex}
 	</update>
 	
 

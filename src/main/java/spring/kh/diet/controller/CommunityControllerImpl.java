@@ -177,14 +177,13 @@ public class CommunityControllerImpl implements CommunityController {
 			bpv.setBookMarkYN(0);
 		}
 
-		// 신고상태 체크 로직
-		BoardBlameVO bbv = checkPostBlame(postIndex, sessionIndex);
-		if (bbv != null) {
-			bpv.setBlameYN(1);
-		} else {
-			bpv.setBlameYN(0);
-		}
-
+		// 신고상태 체크 로직(게시글)
+	      BoardBlameVO bbv = checkPostBlame(postIndex, sessionIndex);
+	      if (bbv != null) {
+	         bpv.setBlameYN(1);
+	      } else {
+	         bpv.setBlameYN(0);
+	      }
 		request.setAttribute("bpv", bpv);
 
 		
@@ -467,5 +466,4 @@ public class CommunityControllerImpl implements CommunityController {
 		BoardLikeVO blv = communityService.checkCommnetLike(likeCheckVO);
 		return blv;
 	}
-
 }

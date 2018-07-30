@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 
@@ -27,6 +28,12 @@ public interface CommonDAO {
 	int cmdCountUp(SqlSessionTemplate session, BoardPostVO bpv);
 
 	int cmdDelCount(SqlSessionTemplate session, int parseInt);
+
+	BoardBlameVO checkPostBlame(SqlSessionTemplate session, BoardBlameVO checkBlame);
+
+	int blameCmd(SqlSessionTemplate session, BoardBlameVO report);
+
+	int cmtBlameUp(SqlSessionTemplate session, BoardBlameVO report);
 
 
 

@@ -182,7 +182,6 @@
 	</update>
 
 	<!-- 추가!! -->
-
 	<select id="selectOffSessionList" resultType="offSessionList">
 		select
 		SS_INDEX as indexNo,

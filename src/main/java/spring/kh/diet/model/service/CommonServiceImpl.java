@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.CommonDAO;
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -79,6 +80,21 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public int cmdDelCount(int parseInt) {
 		return commonDAO.cmdDelCount(session, parseInt);
+	}
+
+	@Override
+	public BoardBlameVO checkPostBlame(BoardBlameVO checkBlame) {
+		return commonDAO.checkPostBlame(session, checkBlame);
+	}
+
+	@Override
+	public int blameCmd(BoardBlameVO report) {
+		return commonDAO.blameCmd(session, report);
+	}
+
+	@Override
+	public int cmtBlameUp(BoardBlameVO report) {
+		return commonDAO.cmtBlameUp(session, report);
 	}
 
 
