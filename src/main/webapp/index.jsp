@@ -79,7 +79,7 @@
 						<td style="padding: 0px; width: 70px;">
 							<button type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
 								<i class="large child icon" id="icon3"></i>
-								트레이너 찾기
+								트레이너 매칭
 							</button>
 						</td>
 						<td style="padding: 0px; width: 70px;">
@@ -134,11 +134,11 @@
 	</tr>
 	<tr align="center">
 		<td style="padding: 0px; width: 70px;">
-			<button type="button" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px;">
+			<button type="button"  onclick="findTrainer();"style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px;">
 				<i class="large child icon" id="icon3"></i>
 				<div class="disappear">
 					<br>
-					트레이너 찾기
+					트레이너 매칭
 					<br>
 				</button>
 			</td>
@@ -300,9 +300,8 @@
 		window.location.href = "/healthCenter.diet?location=all";
 	}
 
-	/* TODO : 트레이너 찾기 */
 	function findTrainer(){
-		window.location.href = "/";
+		window.location.href = "/trainerMatch.diet";
 	}
 
 	$(document).ready(function() {

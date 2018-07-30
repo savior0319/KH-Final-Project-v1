@@ -38,5 +38,7 @@ public interface RedirectController {
 
 	String redirectMyPageTrainer();
 
+	String redirectTrainerMath();
+
 
 }

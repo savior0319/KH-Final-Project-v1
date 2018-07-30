@@ -133,9 +133,6 @@
 				<a href="/myInfo.diet">마이페이지</a>
 			</span>
 		</c:if>
-
-		<span class="menu">주문배송조회</span>
-		<span class="menu">장바구니</span>
 		<span class="menu" id="resize1">제휴·광고문의</span>
 		<span class="menu" id="resize2">
 			<a href='javascript:void(0);' onClick='bookMark(); return false'>즐겨찾기</a>
@@ -219,12 +216,11 @@
 				<a class="item" href="/notice.diet">공지사항</a>
 				<a class="item" href="#">자주 묻는 질문</a>
 				<a class="item" href="#">Q&#38;A</a>
-				<a class="item" href="/trainerReg.diet">트레이너 회원 등록</a>
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
-			<div style="font-weight: 600; padding: 0;">다이어트샵</div>
+		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;" onclick="trainerMatch();">
+			<div style="font-weight: 600; padding: 0;">트레이너 매칭</div>
 		</div>
 	</div>
 </div>
@@ -250,5 +246,9 @@
 
 	window.onload = function() {
 		$('#load').hide();
+	}
+
+	function trainerMatch(){
+		location.href = "/trainerMatch.diet";
 	}
 </script>
