@@ -98,11 +98,15 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public NoticeVO noticeContent(HttpSession sessionCheck, SqlSessionTemplate session, int index,
 			HttpServletResponse response, HttpServletRequest request) {
 
-		session.update("customer.viewCount", index);
 		NoticeVO nVo = session.selectOne("customer.noticeContent", index);
 
 		return nVo;
 
+	}
+
+	@Override
+	public int noticeHit(SqlSessionTemplate session, int index) {
+		return session.update("customer.viewCount", index);
 	}
 
 }

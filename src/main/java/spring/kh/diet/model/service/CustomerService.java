@@ -14,4 +14,6 @@ public interface CustomerService {
 	NoticeVO noticeContent(HttpSession sessionCheck, int index,
 			HttpServletResponse response, HttpServletRequest request);
 
+	void noticeHit(int index);
+
 }
