@@ -40,7 +40,7 @@ public class CommunityControllerImpl implements CommunityController {
 	@Override
 	@RequestMapping(value = "/communityPostRegist.diet")
 	public void registCommunity(@RequestParam String title, @RequestParam String content, @RequestParam int category,
-			HttpSession session, HttpServletResponse response) throws IOException {
+			@RequestParam String postImage, HttpSession session, HttpServletResponse response) throws IOException {
 
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		BoardPostVO bpv = new BoardPostVO();
@@ -50,6 +50,11 @@ public class CommunityControllerImpl implements CommunityController {
 		bpv.setPostTitle(title);
 		bpv.setPostContent(content);
 		bpv.setBcaIndex(category);
+		if(postImage != "") {
+			bpv.setPostImage(postImage);
+		}else {
+			bpv.setPostImage("");
+		}
 
 		int result = communityService.registCommunity(bpv);
 

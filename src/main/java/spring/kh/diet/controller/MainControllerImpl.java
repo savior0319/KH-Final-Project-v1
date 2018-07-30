@@ -21,14 +21,17 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 
 import spring.kh.diet.model.service.CommunityService;
 import spring.kh.diet.model.service.CustomerService;
+import spring.kh.diet.model.service.DietTipService;
 import spring.kh.diet.model.service.MainService;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.BMIVO;
 import spring.kh.diet.model.vo.BMRVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
+import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.NoticePDVO;
 import spring.kh.diet.model.vo.OnSessionVO;
@@ -48,6 +51,9 @@ public class MainControllerImpl implements MainController {
 	@Resource(name = "customerService")
 	private CustomerService cs;
 
+	@Resource(name = "dietTipService")
+	private DietTipService dietTipService;
+	
 	public MainControllerImpl() {
 	}
 
@@ -245,6 +251,37 @@ public class MainControllerImpl implements MainController {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(cpdv, response.getWriter());
+	}
+	
+	// 메인페이지에서 다이어트꿀팁 목록 출력
+	@Override
+	@RequestMapping(value = "/mainDietTip.diet")
+	public void getList(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+		DietTipPDVO pdvo = new DietTipPDVO();
+		String type = "all";
+		pdvo.setType(type);
+
+		if (request.getParameter("category") != null && request.getParameter("searchText") != null) {
+			pdvo.setCategory(request.getParameter("category"));
+			pdvo.setSearchText(request.getParameter("searchText"));
+		}
+
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+
+		DietTipPDVO dtpd = dietTipService.getDietTipList(currentPage, pdvo);
+		dtpd.setType(pdvo.getType());
+		dtpd.setCategory(pdvo.getCategory());
+		dtpd.setSearchText(pdvo.getSearchText());
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(dtpd, response.getWriter());
 	}
 
 	// 메인페이지에서 공지사항 전체 목록 출력
