@@ -9,6 +9,27 @@
 <link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
 <script src="/resources/summernote/dist/summernote-lite.js"></script>
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+<script>
+	/* summernote에서 이미지 업로드시 실행할 함수 */
+	var postImage;
+	function sendFile(file, el) {
+		form = new FormData();
+		form.append("file", file);
+		$.ajax({
+			data : form,
+			type : "POST",
+			url : "/imageUpload.diet",
+			cache : false,
+			contentType : false,
+			processData : false,
+			encType : "multipart/form-data",
+			success : function(url) {
+				$(el).summernote('editor.insertImage', url);
+				var postImage = url;
+			}
+		});
+	}
+</script>
 </head>
 
 <!-- CSS -->
@@ -40,21 +61,21 @@
 						<i class="dropdown icon"></i>
 						<div class="menu select">
 							<div class="item">자유게시판</div>
-							<div class="item">레시피&식단</div>
-							<div class="item">팁&노하우</div>
-							<div class="item">고민&질문</div>
-							<div class="item">비포&에프터</div>
+							<div class="item">레시피&#38;식단</div>
+							<div class="item">팁&#38;노하우</div>
+							<div class="item">고민&#38;질문</div>
+							<div class="item">비포&#38;애프터</div>
 						</div>
 					</div>
-					<input type="text" id="title" placeholder="제목을 입력해주세요" />
+					<input type="text" id="title" value = "${requestScope.bpv.postTitle}"/>
 				</div>
 
 			</div>
 			<br>
-			<div id="summernote"></div>
+			<div id="summernote">${requestScope.bpv.postContent}</div>
 			<br>
 			<div align="center">
-				<button class="ui red basic button" onclick="register();">수정</button>
+				<button class="ui red basic button" onclick="register();">등록</button>
 			</div>
 		</div>
 	</div>
@@ -76,27 +97,13 @@
 					for (var i = files.length - 1; i >= 0; i--) {
 						sendFile(files[i], this);
 					}
+				},
+				onMediaDelete : function() {
+					alert('이미지 삭제 콜백');
 				}
 			}
 		});
 	});
-
-	function sendFile(file, el) {
-		var form_data = new FormData();
-		form_data.append('file', file);
-		$.ajax({
-			data : form_data,
-			type : "POST",
-			url : './profileImage.mpf',
-			cache : false,
-			contentType : false,
-			enctype : 'multipart/form-data',
-			processData : false,
-			success : function(img_name) {
-				$(el).summernote('editor.insertImage', img_name);
-			}
-		});
-	}
 
 	$('.ui.dropdown').dropdown({
 		allowAdditions : true,
@@ -104,47 +111,70 @@
 	});
 
 	// 카테고리 선택
-	   var category;
-	   $('.select > .item').click(function() {
-	      switch($(this).text()){
-	      case '자유게시판' : category=15; break;
-	      case '레시피&식단' : category=16; break;
-	      case '팁&노하우' : category=17; break;
-	      case '고민&질문' : category=18; break;
-	      case '비포&애프터' : category=19; break;
-	      }
-	   });
+	var category;
+	$('.select > .item').click(function() {
+		switch ($(this).text()) {
+		case '자유게시판':
+			category = 15;
+			break;
+		case '레시피&식단':
+			category = 16;
+			break;
+		case '팁&노하우':
+			category = 17;
+			break;
+		case '고민&질문':
+			category = 18;
+			break;
+		case '비포&애프터':
+			category = 19;
+			break;
+		}
+	});
 
-	   function register() {
-	      var $title = $('#title').val();
-	      var $content = $('#summernote').summernote('code');
-	      if (category != null && $title != '' && $content != '') {
-	         $.ajax({
-	            url : '/communityPostRegist.diet',
-	            type : 'post',
-	            data : {
-	               'title' : $title,
-	               'content' : $content,
-	               'category' : category
-	            },
-	            success : function(data) {
-	               if (data == 'success') {
-	                  alert('게시글 등록 완료');
-	                  location.href = "/communityWholeBoard.diet"
-	               }
-	            },
-	            error : function() {
-	               alert('게시글 등록 실패');
-	            }
-	         });
-	      } else {
-	         if (category == null) {
-	            alert('카테고리를 선택하여주세요.');
-	         }else{
-	            alert('내용을 반드시 기입하여주세요.');
-	         }
-	      }
-	   }
+	function register() {
+		var postTitle = $('#title').val();
+		var postContent = $('#summernote').summernote('code');
+		var bcaIndex = category;
+		var postIndex = "${requestScope.bpv.postIndex}";
+		if (postImage == null){
+			postImage = "";
+		}
+		if (category != null && postTitle != '' && postContent != '') {
+			$.ajax({
+				url : '/communityPostModify.diet',
+				type : 'post',
+				data : {
+					'postTitle' : postTitle,
+					'postContent' : postContent,
+					'bcaIndex' : bcaIndex,
+					'postIndex' : postIndex,
+					'postImage' : postImage
+				},
+				success : function(data) {
+					if (data == 'success') {
+						alert('게시글 수정 완료');
+						if(category == 16){
+							location.href = "/recipeBoard.diet?type=" + category;
+						}
+						else{
+							location.href = "/communityWholeBoard.diet?type="
+								+ category;	
+						}
+					}
+				},
+				error : function() {
+					alert('게시글 수정 실패');
+				}
+			});
+		} else {
+			if (category == null) {
+				alert('카테고리를 선택하여주세요.');
+			} else {
+				alert('내용을 반드시 기입하여주세요.');
+			}
+		}
+	}
 </script>
 
 </html>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -33,11 +34,10 @@ public interface AdminService {
 	QuestionVO getQuestionContent(int index);
 
 	AllSessionListPDVO getSessionList(int currentPage);
-	
+
 	int answerReg(AnswerVO avo);
 
 	ArrayList<OffSessionVO> getOfSesssionList();
-
 
 	todayHitsVO searchHits();
 
@@ -67,6 +67,8 @@ public interface AdminService {
 
 	ArrayList<DelMemberVO> delmemberList();
 
+	MemberListPDVO getBlackList(int currentPage);
 
+	int blackListReg(BlackListRegVO bVo);
 
 }

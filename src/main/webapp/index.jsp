@@ -181,20 +181,16 @@
 		<table id="boardTbl2" class="ui table">
 			<thead>
 				<tr align="center">
-					<th>다이어트꿀팁</th>
+					<th>다이어트꿀팁
+						<span style="margin-left: 20px;">
+							<a href="/dietTipList.diet?type=all" style="color:rgb(250,40,40);">
+								<i class="plus square outline icon"></i>
+							</a>
+						</span>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
-				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
-				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
-				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
-				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
-				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
-				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
-				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
-				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
-				<tr><td>ㆍ <a href="https://www.suyongso.com/files/attach/images/115/118/340/005/39d6d3b67d12077a7df0db32113bb296.jpg" style="color:red;">이거 누르면 집중 잘댐</a></td></tr>
 			</tbody>
 		</table>
 	</div>
@@ -341,8 +337,8 @@ $.ajax({
 			} else {
 				tempChar = data.comList[i].postTitle;
 			}
-
-			var title = $('<td>').html('ㆍ ' + "<a href='#'>" + tempChar + "</a>");
+			var link = data.comList[i].postIndex;
+			var title = $('<td>').html('ㆍ ' + "<a href='/postedCommunity.diet?postIndex="+link+"'>" + tempChar + "</a>");
 			
 			tr.append(title);
 			$('#boardTbl1').append(tr);
@@ -350,6 +346,35 @@ $.ajax({
 	},
 	error : function(){
 		console.log('[Error] 메인 - 자유게시판 출력 실패');
+	}
+});
+
+/* 메인 페이지 - 다이어트꿀팁 출력 */
+$.ajax({
+	url : '/mainDietTip.diet',
+	type : 'post',
+	success : function(data){
+		for (var i = 0; i < 10; i++) {
+			var tr = $('<tr>');
+
+			var tempChar = data.dtList[i].dtTitle;
+			var charSize = (data.dtList[i].dtTitle).length;
+
+			if(charSize > 21){
+				var value = data.dtList[i].dtTitle;
+				tempChar = value.substring(0,21) + '...';
+			} else {
+				tempChar = data.dtList[i].dtTitle;
+			}
+			var link = data.dtList[i].dtIndex;
+			var title = $('<td>').html('ㆍ ' + "<a href='/dietTipInfo.diet?indexNo="+link+"'>" + tempChar + "</a>");
+
+			tr.append(title);
+			$('#boardTbl2').append(tr);
+		}
+	},
+	error : function(){
+		console.log('[Error] 메인 - 다이어트꿀팁  출력 실패');
 	}
 });
 
@@ -370,8 +395,8 @@ $.ajax({
 			} else {
 				tempChar = data.noList[i].noticeTitle;
 			}
-
-			var title = $('<td>').html('ㆍ ' + "<a href='#'>" + tempChar + "</a>");
+			var link = data.noList[i].noticeIndex;
+			var title = $('<td>').html('ㆍ ' + "<a href='/noticeContent.diet?index="+link+"'>" + tempChar + "</a>");
 
 			tr.append(title);
 			$('#boardTbl3').append(tr);

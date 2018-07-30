@@ -120,7 +120,9 @@
 
 		<!-- 내용 들어가는 부분! -->
 		<div class="ui clearing segment">
-			${requestScope.bpv.postContent} <br> <br> <br> <br>
+			${requestScope.bpv.postContent}
+			
+			 <br> <br> <br> <br>
 			<hr style="border: 1px dashed #D5D5D5;">
 			<br> <br>
 
@@ -307,9 +309,11 @@
 
 		<!-- 글쓰기, 목록으로 돌아가기 버튼 -->
 		<div class="ui right aligned container">
+		<c:if test="${sessionScope.member!=null}">
 			<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
 				<i class="edit icon"></i> 글쓰기
 			</button>
+			</c:if>
 			<button class="ui black basic button" id="listBtn">
 				<i class="list ul icon"></i> 목록
 			</button>
@@ -356,43 +360,46 @@
 				<c:if test="${requestScope.bcpd.bcList[0] !=null}">
 					<!-- 작성된 댓글 리스트 -->
 					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
+						<input type="hidden" value="${bc.cmtLike}" id="cmtLike_${bc.cmtIndex}"/>
 						<div class="comment">
 							<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
 							</a>
 							<div class="content" style="width: 93%;">
 								<span class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</span>
 								<div class="metadata" style="width: 100%;">
-
-									<span class="date" style="width: 30%; display: inline; margin-left: 10%;"><fmt:formatDate value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" /></span>
+									<span class="date" style="width: 30%; display: inline; margin-left: 10%;">
+										<fmt:formatDate value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" />
+									</span>
 									<div id="modiDelete_${bc.cmtIndex}">
-									
-									<c:if test="${bc.mbNickname eq sessionScope.member.mbNickName}">
+                    <c:if test="${bc.mbNickname eq sessionScope.member.mbNickName}">
 										<!-- 로그인시 이용 & 작성자와 같은 경우 수정, 삭제, 수정시 취소  가능 -->
-											<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex" id="cmdIndex_${bc.cmtIndex}" />
-											<a class="modifyComment" style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
-											&nbsp;&nbsp;|&nbsp;&nbsp; 
-											<a class="deleteComment" onclick="deleteComment(${bc.cmtIndex});" style="cursor: pointer;">삭제</a>
-									</c:if>
+										<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex" id="cmdIndex_${bc.cmtIndex}" />
+										<a class="modifyComment" style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
+										&nbsp;&nbsp;|&nbsp;&nbsp;
+										<a class="deleteComment" onclick="deleteComment(${bc.cmtIndex});" style="cursor: pointer;">삭제</a>
+                    </c:if>
 									</div>
-									<a class="cancelComment" id="cancelComment_${bc.cmtIndex}" onclick="cancelComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
-
-									<!-- 로그인 하지 않았을 경우 좋아요 & 신고 못하게 막기! -->
-									<c:if test="${sessionScope.member!=null}">
-										<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
-											<button class="ui red basic tiny button" style="margin-right: 10px;">
-												<i class="thumbs up outline icon"></i> 좋아요 ${bc.cmtLike }
+                  
+									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
+								<c:if test="${sessionScope.member!=null}">
+									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+										<button class="ui red basic tiny button" onclick="cmtLike(${bc.cmtIndex},${bc.mbIndex})" style="margin-right: 10px;">
+											<i class="thumbs up outline icon"></i>
+											좋아요 <label id="cmtLikeCount_${bc.cmtIndex}">${bc.cmtLike}</label>
+										</button>
+				          	<button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
+												<i class="ban icon"></i> 신고 <label id="cmtBlame_${bc.cmtIndex}">${bc.cmtBlame}</label>
 											</button>
-											<button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
-												<i class="ban icon"></i> 신고 ${bc.cmtBlame}
-											</button>
-										</div>
+									</div>
 									</c:if>
+									
 								</div>
 								<div class="text" id="cmd_${bc.cmtIndex}">
 									<pre>${bc.cmtContent}</pre>
 								</div>
 							</div>
 						</div>
+
 						<!-- 수정 -->
 						<form class="ui reply form" id="modifyContents_${bc.cmtIndex}" style="display: none;">
 							<div class="field">
@@ -562,7 +569,9 @@
 	var likeCheck;
 	var likeYN = '${requestScope.bpv.likeYN}';
 	var postLike = '${requestScope.bpv.postLike}';
-	/* 좋아요 버튼 */
+
+
+	/* 게시글 좋아요 버튼 */
 	$('#heartBtn').click(
 			function() {
 				if (likeYN == 0) {
@@ -603,9 +612,38 @@
 					}
 				});
 			});
-	/* 신고버튼 */
+
+	/* 댓글 좋아요 버튼 */
+	function cmtLike(index,mbIndex){
+		var targetIndex = index;
+		var targetType = 2;
+		var targetMbIndex = mbIndex;
+		var cmtLike = $("#cmtLike_"+index).val();
+		console.log(cmtLike);
+		$.ajax({
+			url : '/cmtLike.diet',
+			type : 'post',
+			data : {
+				'targetIndex' : targetIndex,
+				'targetType' : targetType,
+				'targetMbIndex' : targetMbIndex
+			},
+			success : function(data){
+				if(data=='success'){
+					$('#cmtLikeCount_'+index).text(++cmtLike);
+				} else if(data=='failed') {
+					alert('페이지에 오류가 발생하였습니다.');
+				} else if(data=='used') {
+					alert('이미 추천한 게시물 입니다.');
+				}
+			}
+		})
+	}
+	
+	/* 게시글 신고버튼 */
 	$('#reportBtn').click(function() {
 		var blameCheck = '${requestScope.bpv.blameYN}';
+		console.log(blameCheck);
 		var mbId = '${sessionScope.member.mbNickName}';
 		if(mbId!=''){
 			if(blameCheck == 0){
@@ -629,7 +667,7 @@
 	});
 	/* 수정하기 버튼 */
 	$('#modifyBtn').click(function() {
-		location.href = "/modifyCommunity.diet";
+		location.href="/modifyCommunity.diet?postIndex=${bpv.postIndex}"
 	});
 	
 	
@@ -660,25 +698,49 @@
 		}
 	}
 	
-	
-	/* 댓글신고버튼 */
+	var blameCmd ;
+	/* 댓글신고버튼 : 댓글 신고 여부 확인 -> 댓글 Index,  신고 회원 */
 	function cmdBlame(ci){
-		$('#reportCmdModal').modal('show').modal('setting', 'closable', false);
+		var mbIndex = '${sessionScope.member.mbIndex}';
+		//alert(ci);
+		blameCmd = ci;
+		$.ajax({
+			url : '/checkBlameCmd.diet',
+			type : 'post',
+			data : {
+				'mbIndex' : mbIndex,
+				'targetIndex' : ci
+			},
+			success : function(data) {
+				/* 클릭시 신고 내용 체크 띄운다! */
+				if(data == "success" ){
+				$('#reportCmdModal').modal('show').modal('setting', 'closable', false);
+				}else if(data == "used"){
+					alert("이미 신고한 댓글입니다.");
+				}
+			},
+			error : function() {
+					alert('실패');
+				}
+			});
+		
+		
 		
 		
 		
 	}
 	//댓글 신고 - 라디오 체크후 신고 버튼
 	function sendCmdBlame(){
-		//해당 댓글 번호 가져오기!☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ + community에서 blameYN --> 댓글은 어떻게? 글이랑 신고상태 겹치는거아닌가..?
-		
+		//해당 댓글 번호 가져오기!☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ 
+		//alert(blameCmd);
 		var blameReport = $(':input:radio[name=blameText]:checked').val();
 		var targetMbIndex = '${requestScope.bpv.mbIndex}';
-		$.ajax({
+		
+ 		$.ajax({
 			url : '/blameCmd.diet',
 			type : 'post',
 			data : {
-				'targetIndex' : ci,
+				'targetIndex' : blameCmd,
 				'targetMbIndex' : targetMbIndex,
 				'targetContents' : blameReport
 			},
@@ -689,7 +751,7 @@
 			error : function() {
 					alert('실패');
 				}
-			});
+			}); 
 	}
 	
 	/* 댓글 삭제 */
@@ -880,8 +942,12 @@
 							"ui black basic tiny button");
 					blameBtn.attr("id","cmdReportBtn_"+data.bcList[i].cmtIndex);
 					blameBtn.attr("onclick","cmdBlame("+data.bcList[i].cmtIndex+");");
-					
+											
 					var blameI = $("<i>").attr("class", "ban icon");
+					/* 지현_신고 카운트 추가  */
+					var blameCount = $("<label>").attr("id","cmtBlame_"+data.bcList[i].cmtIndex);
+					blameCount.html(data.bcList[i].cmtBlame);
+					
 					var textDiv = $("<div>").attr("class", "text");
 					textDiv.attr("id","cmd_"+data.bcList[i].cmtIndex);
 					
@@ -889,12 +955,16 @@
 					likeBtn.append(likeI);
 					likeBtn.append("좋아요" + data.bcList[i].cmtLike);
 					blameBtn.append(blameI);
-					blameBtn.append("신고" + data.bcList[i].cmtBlame);
+					blameBtn.append("신고");
+					/* 지현_신고 카운트 추가  */
+					blameBtn.append(blameCount);
 					containerDiv.append(likeBtn);
 					containerDiv.append(blameBtn);
 					metadataDiv.append(span);
 					
-					
+					/* <button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
+												<i class="ban icon"></i> 신고 <label id="cmtBlame_${bc.cmtIndex}">${bc.cmtBlame}</label>
+											</button> */
 					/* ☆지현 추가 - 수정 삭제 버튼 */
 					metadataDiv.append(modiDelete);
 					var getNickName = '${sessionScope.member.mbNickName}';

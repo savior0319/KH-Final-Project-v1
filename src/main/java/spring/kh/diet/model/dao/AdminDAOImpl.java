@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -343,7 +344,6 @@ public class AdminDAOImpl implements AdminDAO {
 		return sb.toString();
 	}
 
-
 	/* 관리자 - 1:1 문의 답변 */
 	@Override
 	public int answerReg(SqlSessionTemplate session, AnswerVO avo) {
@@ -359,10 +359,10 @@ public class AdminDAOImpl implements AdminDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<OffSessionVO> getOfSessionList(SqlSessionTemplate session) {
-	
+
 		List<?> list = session.selectList("admin.selectOffSessionList");
-		
-		return (ArrayList<OffSessionVO>)list;
+
+		return (ArrayList<OffSessionVO>) list;
 	}
 
 	@Override
@@ -392,34 +392,32 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public ArrayList<MemberVO> searchMember(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.searchMember");
-		return (ArrayList<MemberVO>)list;
+		return (ArrayList<MemberVO>) list;
 	}
 
 	@Override
 	public ArrayList<DelMemberVO> searchDelMember(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.searchDelMember");
-		return (ArrayList<DelMemberVO>)list;
+		return (ArrayList<DelMemberVO>) list;
 	}
 
 	@Override
 	public ArrayList<OnSessionVO> searchOnSession(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.searchOnSession");
-		return (ArrayList<OnSessionVO>)list;
+		return (ArrayList<OnSessionVO>) list;
 	}
 
 	@Override
 	public ArrayList<AllSessionVO> searchOffSession(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.searchOffSession");
-		return (ArrayList<AllSessionVO>)list;
+		return (ArrayList<AllSessionVO>) list;
 	}
 
 	@Override
 	public void yesterdayInsert(SqlSessionTemplate session, yesterdayAnalyticsPDVO yAPDVO) {
-		
-		int result = session.insert("admin.yesterdayInsert",yAPDVO);
-		
-		
-		
+
+		int result = session.insert("admin.yesterdayInsert", yAPDVO);
+
 	}
 
 	@Override
@@ -430,13 +428,13 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public int yesterdayAutoInsertBefore(SqlSessionTemplate session) {
-		int result=0;
-		if(session.selectOne("admin.yesterdayAutoInsertBefore")!=null)
-		{
+		int result = 0;
+		if (session.selectOne("admin.yesterdayAutoInsertBefore") != null) {
 			result = 1;
 		}
 		return result;
 	}
+
 
 	@Override
 	public ArrayList<OnSessionVO> getOnSessionList(SqlSessionTemplate session) {
@@ -454,6 +452,94 @@ public class AdminDAOImpl implements AdminDAO {
 	public ArrayList<DelMemberVO> delmemberList(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.delmemberList");
 		return (ArrayList<DelMemberVO>)list;
+
+	/* 블랙리스트 맴버 */
+	@Override
+	public ArrayList<MemberVO> getBlackList(SqlSessionTemplate session, int currentPage, int recordCountPerPage) {
+		MemberListPDVO mDataVo = new MemberListPDVO();
+
+		mDataVo.setStart((currentPage - 1) * recordCountPerPage + 1);
+		mDataVo.setEnd(currentPage * recordCountPerPage);
+
+		List<MemberVO> list = session.selectList("admin.getBlackList", mDataVo);
+
+		return (ArrayList<MemberVO>) list;
+	}
+
+	/* 블랙리스트 페이징 */
+	@Override
+	public String getBlackListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage) {
+		QuestionAnswerPDVO qPdvo = new QuestionAnswerPDVO();
+
+		int recordTotalCount = session.selectOne("admin.getBlackListNavi", qPdvo);
+
+		int pageTotalCount = 0;
+		if (recordTotalCount % recordCountPerPage != 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
+
+		int endNavi = startNavi + naviCountPerPage - 1;
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) {
+			sb.append("<a class='item' href='/blackList.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (i == currentPage) {
+				sb.append(
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/blackList.diet?currentPage="
+								+ i + "'>  " + i + " </a>");
+			} else {
+				sb.append("<a class='item' href='/blackList.diet?currentPage=" + i + "'> " + i + " </a>");
+			}
+		}
+		if (needNext) {
+			sb.append("<a class='item' href='/blackList.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+		}
+
+		return sb.toString();
+	}
+
+	/* 블랙리스트 회원 등록 */
+	@Override
+	public int blackListReg(SqlSessionTemplate session, BlackListRegVO bVo) {
+
+		int result = 0;
+
+		if (bVo.getStatus().equals("x")) {
+			result = session.update("admin.blackListReg", bVo);
+		} else {
+			result = session.update("admin.blackListDel", bVo);
+		}
+		return result;
+
 	}
 
 }

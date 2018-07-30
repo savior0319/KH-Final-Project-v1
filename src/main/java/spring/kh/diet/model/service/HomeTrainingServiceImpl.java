@@ -105,5 +105,25 @@ public class HomeTrainingServiceImpl implements HomeTrainingService{
 		return htpd;
 	}
 
+	@Override
+	public int registHomeTraining(HomeTrainingVO ht) {
+		return homeTrainingDAO.registHomeTraining(session, ht);
+	}
+
+	@Override
+	public int deleteHomeTraining(int indexNo) {
+		return homeTrainingDAO.deleteHomeTraining(session, indexNo);
+	}
+
+	@Override
+	public HomeTrainingVO loadUpdateHomeTraining(int indexNo) {
+		return homeTrainingDAO.loadUpdateHomeTraining(session, indexNo);
+	}
+
+	@Override
+	public int updateHomeTraining(HomeTrainingVO ht) {
+		return homeTrainingDAO.updateHomeTraining(session, ht);
+	}
+
 
 }

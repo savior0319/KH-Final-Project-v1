@@ -46,4 +46,12 @@ public interface CommunityService {
 	int postReport(BoardBlameVO report);
 
 	BoardBlameVO checkPostBlame(BoardBlameVO checkBlame);
+
+	int modifyRegistCommunity(BoardPostVO bpv);
+
+	BoardLikeVO checkCommnetLike(BoardLikeVO likeCheckVO);
+
+	int commentLikeUp(BoardLikeVO blv);
+
+	int commentTBLikeUp(BoardLikeVO blv);
 }

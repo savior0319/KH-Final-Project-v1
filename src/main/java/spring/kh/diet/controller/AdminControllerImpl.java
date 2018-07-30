@@ -1,7 +1,6 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -20,6 +19,7 @@ import spring.kh.diet.model.service.AdminService;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -209,7 +209,21 @@ public class AdminControllerImpl implements AdminController {
 	/* 블랙리스트 회원 관리 */
 	@Override
 	@RequestMapping(value = "/blackList.diet")
-	public String blackList() {
+	public String blackList(HttpServletRequest request, HttpServletResponse response) {
+
+		int currentPage;
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		MemberListPDVO mbData = as.getBlackList(currentPage);
+
+		mbData.setType(request.getParameter("type"));
+		request.setAttribute("mbpd", mbData);
+
 		return "admin/blackList";
 	}
 
@@ -273,7 +287,7 @@ public class AdminControllerImpl implements AdminController {
 		todayAnalyticPDVO tAPDVO = todayAutoAnalytics();
 		tAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Current", tAPDVO);
-//		System.out.println(tAPDVO.toString());
+
 
 		// BEFORE_DAY_TBL 를 불러와서 데이터를 가져오는것.
 		yesterdayAnalytic yAPDVO = yesterdayAnalytics();
@@ -282,8 +296,9 @@ public class AdminControllerImpl implements AdminController {
 
 		// 오늘 가입한 맴버 가져오기
 		ArrayList<MemberVO> MVO = as.searchMember();
+
 		ArrayList<MemberVO> MVO2 = as.memberList();
-		
+
 		// 오늘 탈퇴한 멤버 가져오기
 		ArrayList<DelMemberVO> DMVO = as.searchDelMember();
 		ArrayList<DelMemberVO> DMVO2 = as.delmemberList();
@@ -301,6 +316,7 @@ public class AdminControllerImpl implements AdminController {
 		request.setAttribute("todayInsertMemberSize", MVO2.size());
 		request.setAttribute("todayDelMember", DMVO2);
 		request.setAttribute("todayDelMemberSize", DMVO2.size());
+
 		request.setAttribute("OnSession", OSVO);
 		request.setAttribute("OnSessionSize", OSVO2.size());
 		request.setAttribute("AllSession", ASVO);
@@ -308,7 +324,6 @@ public class AdminControllerImpl implements AdminController {
 		return "admin/todayAnalytics";
 	}
 
-	
 	// 현재값 갱신용도
 	@Override
 	@Scheduled(cron = "0/15 * * * * ?") // 1분주기로 갱신 (테스트용) // @Scheduled(cron = "0 0 0 * * ?") 0 0/1 * * * ?
@@ -373,4 +388,20 @@ public class AdminControllerImpl implements AdminController {
 		return yAPDVO;
 	}
 
+	/* TODO : 블랙리스트 등록 */
+	@Override
+	@RequestMapping(value = "/blackListReg.diet")
+	public void blackListReg(@RequestParam int index, @RequestParam String status, HttpServletResponse response)
+			throws IOException {
+		
+		BlackListRegVO bVo = new BlackListRegVO();
+		
+		bVo.setIndex(index);
+		bVo.setStatus(status);
+		
+		int result = as.blackListReg(bVo);
+		
+		response.sendRedirect("/blackList.diet");
+
+	}
 }

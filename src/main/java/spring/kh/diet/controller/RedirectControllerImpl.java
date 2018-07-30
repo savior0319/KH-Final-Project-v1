@@ -115,13 +115,6 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectRegistCommunity() {
 		return "community/registCommunity";
 	}
-
-	/* 커뮤니티 - 글수정 페이지 */
-	@Override
-	@RequestMapping(value = "/modifyCommunity.diet")
-	public String redirectModifyCommunity() {
-		return "community/modifyCommunity";
-	}
 	
 	/* 고객센터 - 트레이너 회원 등록 */
 	@Override
@@ -130,10 +123,19 @@ public class RedirectControllerImpl implements RedirectController {
 		return "customer/trainerReg";
 	}
 	
-	/* 마이페이지 - 나의 트레이너 */
+	/* 마이페이지 - 나의 트레이너(일반) */
 	@Override
 	@RequestMapping(value="myTrainer.diet")
 	public String redirectMyTrainer() {
 		return "myInfo/myTrainer";
 	}
+
+	
+	/* 마이페이지 -  트레이너 매칭 (트레이너) */
+	@Override
+	@RequestMapping(value="myPageTrainer.diet")
+	public String redirectMyPageTrainer() {
+		return "myInfo/myPageTrainer";
+	}
+	
 }

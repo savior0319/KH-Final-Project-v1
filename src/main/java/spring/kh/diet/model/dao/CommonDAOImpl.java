@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -138,6 +139,21 @@ public class CommonDAOImpl implements CommonDAO{
 	@Override
 	public int cmdDelCount(SqlSessionTemplate session, int parseInt) {
 		return session.selectOne("common.countCmd", parseInt);
+	}
+
+	@Override
+	public BoardBlameVO checkPostBlame(SqlSessionTemplate session, BoardBlameVO checkBlame) {
+		return session.selectOne("common.checkPostBlame", checkBlame);
+	}
+
+	@Override
+	public int blameCmd(SqlSessionTemplate session, BoardBlameVO report) {
+		return session.insert("common.blameCmd", report);
+	}
+
+	@Override
+	public int cmtBlameUp(SqlSessionTemplate session, BoardBlameVO report) {
+		return session.update("common.cmtBlameUp", report);
 	}
 
 

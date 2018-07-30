@@ -128,6 +128,7 @@
 						<th style="width: 10%;">작성일</th>
 					</tr>
 				</thead>
+				
 				<tbody>
 					<c:forEach items="${requestScope.cpdv.comList}" var="c">
 						<tr align="center">
@@ -147,6 +148,7 @@
 						</tr>
 					</c:forEach>
 				</tbody>
+				
 			</table>
 		</div>
 
@@ -158,9 +160,11 @@
 			<div class="three column row">
 				<div class="column"></div>
 				<div class="column">
+				<c:if test="${requestScope.cpdv.comList[0] !=null}">
 					<div class="ui center aligned basic segment">
 						<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
 					</div>
+					</c:if>
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
@@ -207,7 +211,22 @@
 	});
 
 	$('#writeBtn').click(function() {
-		location.href = "/registCommunity.diet";
+		var mbId = '${sessionScope.member.mbId}';
+		$.ajax({
+			url : '/checkReport.diet',
+			type : 'post',
+			data : {
+				'mbId' : mbId
+			},
+			success : function(data){
+				if(data=='n'){
+					location.href = "/registCommunity.diet";			
+				} else {
+					alert('\n글쓰기 정지당한 회원입니다. \n\n관리자에게 문의하세요.')
+				}
+			}
+		});
+		
 	});
 
 	/* 클릭시 각 페이지로 이동 ????????????????????????????????????????? */

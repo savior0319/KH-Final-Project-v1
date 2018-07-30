@@ -270,4 +270,24 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO {
 		
 	}
 
+	@Override
+	public int registHomeTraining(SqlSessionTemplate session, HomeTrainingVO ht) {
+		return session.insert("homeTraining.registHomeTraining", ht);
+	}
+
+	@Override
+	public int deleteHomeTraining(SqlSessionTemplate session, int indexNo) {
+		return session.delete("homeTraining.deleteHomeTraining", indexNo);
+	}
+
+	@Override
+	public HomeTrainingVO loadUpdateHomeTraining(SqlSessionTemplate session, int indexNo) {
+		return session.selectOne("homeTraining.loadUpdateHomeTraining", indexNo);
+	}
+
+	@Override
+	public int updateHomeTraining(SqlSessionTemplate session, HomeTrainingVO ht) {
+		return session.update("homeTraining.updateHomeTraining", ht);
+	}
+
 }

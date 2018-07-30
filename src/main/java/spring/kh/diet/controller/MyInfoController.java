@@ -46,4 +46,6 @@ public interface MyInfoController {
 
 	Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request);
 
+	String checkReport(MemberVO mbIndex);
+
 }

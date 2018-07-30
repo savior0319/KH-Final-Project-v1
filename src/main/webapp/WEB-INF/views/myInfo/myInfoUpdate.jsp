@@ -125,14 +125,20 @@
 									<img id="femailImage" class="genderImage" src="${member.mbImage}" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="female" name="gender" value="f" checked>
-										<label><i class="female icon"></i>여 자</label>
+										<label>
+											<i class="female icon"></i>
+											여 자
+										</label>
 									</div>
 								</div>
 								<div class="gender_Img1">
 									<img id="mailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="male" name="gender" value="m">
-										<label><i class="male icon"></i>남 자</label>
+										<label>
+											<i class="male icon"></i>
+											남 자
+										</label>
 									</div>
 								</div>
 								<script>
@@ -144,14 +150,20 @@
 									<img id="femailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="female" name="gender" value="f">
-										<label><i class="female icon"></i>여 자</label>
+										<label>
+											<i class="female icon"></i>
+											여 자
+										</label>
 									</div>
 								</div>
 								<div class="gender_Img1">
 									<img id="mailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="male" name="gender" value="m">
-										<label><i class="male icon"></i>남 자</label>
+										<label>
+											<i class="male icon"></i>
+											남 자
+										</label>
 									</div>
 								</div>
 							</c:if>
@@ -160,14 +172,20 @@
 									<img id="mailImage" class="genderImage" src="${member.mbImage}" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="male" name="gender" value="m" checked>
-										<label><i class="male icon"></i>남 자</label>
+										<label>
+											<i class="male icon"></i>
+											남 자
+										</label>
 									</div>
 								</div>
 								<div class="gender_Img1">
 									<img id="femailImage" class="genderImage" src="http://upload.inven.co.kr/upload/2014/11/01/bbs/i3464037277.jpg" />
 									<div class="ui radio checkbox">
 										<input type="radio" class="radioBtn" id="female" name="gender" value="f">
-										<label><i class="female icon"></i>여 자</label>
+										<label>
+											<i class="female icon"></i>
+											여 자
+										</label>
 									</div>
 								</div>
 								<script>
@@ -194,7 +212,7 @@
 										</td>
 										<td>
 											<strong>${sessionScope.member.mbGrade}&nbsp;&nbsp;</strong>
-											<button type="button" class="ui button">
+											<button type="button" class="ui button" onclick="gradeInfo();">
 												<strong>등급안내</strong>
 											</button>
 										</td>
@@ -379,6 +397,10 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+	/* 등급 안내 */
+	function gradeInfo() {
+		alert("준비중입니다.");
+	}
 	/* 정보업데이트 시 별명 null 아닌지 */
 	/* 비밀번호값 정규표현식에 맞게 되었는지 */
 
@@ -506,45 +528,45 @@
 	}
 
 	/* 사진 변경 업로드 */
-/* 	var return_rt;
-	var rs_folder;
-	var IMGNAME;
+	/* 	var return_rt;
+	 var rs_folder;
+	 var IMGNAME;
 
-	$("form#data").submit(function(event) {
-		//disable the default form submission
-		event.preventDefault();
-		var sex = $(':radio[name="sex"]:checked').val();
-		$("#hiddensex").val(sex);
+	 $("form#data").submit(function(event) {
+	 //disable the default form submission
+	 event.preventDefault();
+	 var sex = $(':radio[name="sex"]:checked').val();
+	 $("#hiddensex").val(sex);
 
-		//grab all form data  
-		var formData = new FormData($(this)[0]);
-		alert("g");
-		$.ajax({
-			url : '/updateMyPicture.diet',
-			type : 'POST',
-			data : formData,
-			async : false,
-			cache : false,
-			contentType : false,
-			processData : false,
-			success : function(returndata) {
-				alert("성공");
-				return_rt = returndata.split("|");
-				rs_folder = return_rt[0];
-				IMGNAME = return_rt[1];
+	 //grab all form data  
+	 var formData = new FormData($(this)[0]);
+	 alert("g");
+	 $.ajax({
+	 url : '/updateMyPicture.diet',
+	 type : 'POST',
+	 data : formData,
+	 async : false,
+	 cache : false,
+	 contentType : false,
+	 processData : false,
+	 success : function(returndata) {
+	 alert("성공");
+	 return_rt = returndata.split("|");
+	 rs_folder = return_rt[0];
+	 IMGNAME = return_rt[1];
 
-				if (rs_folder != 'none') {
-					setPicture(rs_folder, IMGNAME);
-				} else {
-					alert('등록할 사진을 첨부해주세요.');
-				}
-				return;
-			}
+	 if (rs_folder != 'none') {
+	 setPicture(rs_folder, IMGNAME);
+	 } else {
+	 alert('등록할 사진을 첨부해주세요.');
+	 }
+	 return;
+	 }
 
-		});
+	 });
 
-		return false;
-	}); */
+	 return false;
+	 }); */
 </script>
 
 </html>

@@ -29,14 +29,14 @@ public interface RedirectController {
 	String redirectRegistCommunity();
   
 	String redirectSignup();
-	
-	String redirectModifyCommunity();
 
 	String redirectLogin();
 
 	String trainerReg();
 
 	String redirectMyTrainer();
+
+	String redirectMyPageTrainer();
 
 
 }
