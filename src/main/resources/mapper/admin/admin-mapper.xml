@@ -135,19 +135,125 @@
 	<update id="anserRegCheck" parameterType="answer">
 		UPDATE QUESTION_TBL SET QS_ANSWERCHECK = 'y' WHERE QS_INDEX = #{ansIndex}
 	</update>
+  
+  <!-- 추가!! -->
+  
+  <select id="selectOffSessionList" resultType="offSessionList">
+      select
+      SS_INDEX as indexNo,
+      SS_ID as sessionId,
+      SS_IP as sessionIp,
+      SS_firstOn as firstOn,
+      ss_stay as stay,
+      ss_login as nickName,
+      ss_device as device,
+      ss_LastIn as lastIn
+      from off_session_tbl
+   </select>
 
-	<!-- 관리자 세션 off -->
-	<select id="selectOffSessionList" resultType="offSessionList">
-		SELECT
-		SS_INDEX AS indexNo,
-		SS_ID AS sessionId,
-		SS_IP AS sessionIp,
-		SS_FIRSTON AS firstOn,
-		SS_STAY AS stay,
-		SS_LOGIN AS nickName,
-		SS_DEVICE AS device,
-		SS_LASTIN AS lastIn
-		FROM OFF_SESSION_TBL
-	</select>
+   <!-- 관리자 - 페이지관리 - 조회수가져오기 -->
+   <select id="searchHits" resultType="todayHits">
+      select
+      (select SUM(DT_SEE)from DIETTIP_TB ) as dtHits,
+      (select sum(HT_HITS) from HOMEtrainING_tb) as htHits,
+      (select sum(POST_HIT) from BOARD_POST_TBL) as brHits
+      from dual
+   </select>
 
+   <select id="searchComments" resultType="todayComments">
+      select
+      (SELECT COUNT(*) FROM DIETTIP_TB,BOARD_COMMENT_TBL WHERE DT_INDEX =
+      POST_INDEX) AS dtComments,
+      (SELECT COUNT(*) FROM HOMEtrainING_tb,BOARD_COMMENT_TBL WHERE INDEX_NO =
+      POST_INDEX) AS htComments,
+      (SELECT COUNT(*) FROM BOARD_POST_TBL,BOARD_COMMENT_TBL WHERE
+      BOARD_POST_TBL.POST_INDEX = BOARD_COMMENT_TBL.POST_INDEX) as
+      brComments
+      from dual
+   </select>
+
+   <select id="searchPost" resultType="todayPost">
+      select
+      (select COUNT(*) from DIETTIP_TB ) as dtBoard,
+      (select COUNT(*) from HOMEtrainING_tb) as htBoard,
+      (select COUNT(*) from BOARD_POST_TBL) as brBoard
+      from dual
+   </select>
+
+   <select id="searchLike" resultType="todayLike">
+      select
+      (select SUM(DT_LIKE)from DIETTIP_TB ) as dtLike,
+      (select sum(HT_LIKE) from HOMEtrainING_tb) as htLike,
+      (select sum(POST_LIKE) from BOARD_POST_TBL) as brLike
+      from dual
+   </select>
+
+   <select id="searchMember" resultType="member"
+      resultMap="memberDB">
+      select * from member_tbl where MB_ENROLLDATE like sysdate
+   </select>
+
+   <select id="searchDelMember" resultType="delMember"
+      resultMap="delmemberDB">
+      select * from DEL_member_tbl where DELETE_DATE like sysdate
+   </select>
+
+   <select id="searchOnSession" resultType="onSession">
+      SELECT
+      SS_INDEX AS indexNo,
+      SS_ID AS sessionId,
+      SS_IP AS sessionIp,
+      SS_STATE AS state,
+      SS_LOGIN AS loginId,
+      SS_DEVICE AS device
+      FROM ON_SESSION_TBL
+   </select>
+
+   <select id="searchOffSession" resultType="offSessionList">
+      SELECT
+      SS_INDEX as indexNo,
+      SS_ID as sessionId,
+      SS_IP as sessionIp,
+      SS_firstOn as
+      firstOn,
+      ss_stay as stay,
+      ss_login as nickName,
+      ss_device as device,
+      ss_LastIn as lastIn
+      FROM OFF_SESSION_TBL
+   </select>
+
+   <insert id="yesterdayInsert" parameterType="yesterdayAnalytic">
+      insert into
+      BEFORE_DAY_TBL values
+      (BD_INDEX_SEQ.nextval,#{tHVO.dtHits},#{tHVO.htHits},#{tHVO.brHits},
+      #{tCVO.dtComments},#{tCVO.htComments},#{tCVO.brComments},
+      #{tPVO.dtBoard},#{tPVO.htBoard},#{tPVO.brBoard},
+      #{tLVO.dtLike},#{tLVO.htLike},#{tLVO.brLike},to_char(sysdate,'yyyy/MM/dd')
+      )
+   </insert>
+
+   <select id="searchAllBefore" resultType="yesterday">
+   select
+      BD_INDEX as bdIndex,
+      DT_HITS as dtHits,
+      HT_HITS as htHits,
+      BR_HITS as brHits,
+      DT_COMMENTS As dtComments,
+      HT_COMMENTS as htComments,
+      BR_COMMENTS As brComments,
+      DT_BOARD as dtBoard,
+      HT_BOARD As htBoard,
+      BR_BOARD as brBoard,
+      DT_LIKE as dtLike,
+      HT_LIKE as htLike,
+      BR_LIKE as brLike,
+      BD_TODAY as bdToday
+      from BEFORE_DAY_TBL
+   </select>
+   
+   <select id="yesterdayAutoInsertBefore" resultType="java.lang.Integer">
+   select BD_INDEX from BEFORE_DAY_TBL where bd_today like to_Char(sysdate,'yyyy/MM/dd')
+   </select>
+ 
 </mapper>

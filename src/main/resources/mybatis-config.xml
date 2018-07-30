@@ -37,6 +37,17 @@
 		<typeAlias type="spring.kh.diet.model.vo.MyCommentPageDataVO" alias="myCommentPDVO" /> 
 		<typeAlias type="spring.kh.diet.model.vo.MyPostPageDataVO" alias="myPostPDVO" />
 		<typeAlias type="spring.kh.diet.model.vo.MyBookMarkPageDataVO" alias="myBookMarkPDVO" /> 
+
+    
+    
+    <typeAlias type="spring.kh.diet.model.vo.todayCommentsVO" alias="todayComments"/>
+		<typeAlias type="spring.kh.diet.model.vo.todayHitsVO" alias="todayHits"/>
+		<typeAlias type="spring.kh.diet.model.vo.todayLikeVO" alias="todayLike"/>
+		<typeAlias type="spring.kh.diet.model.vo.todayPostVO" alias="todayPost"/>
+		<typeAlias type="spring.kh.diet.model.vo.DelMemberVO" alias="delMember"/>
+		<typeAlias type="spring.kh.diet.model.vo.todayAnalyticPDVO" alias="todayAnalytic"/>
+		<typeAlias type="spring.kh.diet.model.vo.yesterdayAnalyticsPDVO" alias="yesterdayAnalytic"/>
+		<typeAlias type="spring.kh.diet.model.vo.yesterdayAnalytic" alias="yesterday"/>
 	</typeAliases>
 
 </configuration>

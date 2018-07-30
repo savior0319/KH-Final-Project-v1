@@ -328,9 +328,11 @@ public class MainControllerImpl implements MainController {
 		mService.updateOnsession(USSVO);
 	}
 
+	
+	// 세션 자동 파기(1분단위로 실행 -> 실제로는 15분단위로변경하는게 맞을듯.)
 	@Override
-	@Scheduled(cron = "0 0/1 * * * ?") // 30분단위로 실행 스케쥴러
-	// @Scheduled(cron="0/1 * * * * ?") // 1초단위로 실행(테스트용)
+	@Scheduled(cron="0 0/1 * * * ?") 
+//	@Scheduled(cron="0/1 * * * * ?") // 1초단위로 실행(테스트용)
 	public void autoDeleteSession() {
 		ArrayList<AllSessionVO> list = mService.selectAllSessionList2();
 		for (int i = 0; i < list.size(); i++) {
