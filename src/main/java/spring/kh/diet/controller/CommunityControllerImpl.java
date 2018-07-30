@@ -144,6 +144,7 @@ public class CommunityControllerImpl implements CommunityController {
 	      } else {
 	         bpv.setBlameYN(0);
 	      }
+	      
 		
 		request.setAttribute("bpv", bpv);
 
@@ -393,4 +394,7 @@ public class CommunityControllerImpl implements CommunityController {
 		BoardBlameVO bbv = communityService.checkPostBlame(checkBlame);
 		return bbv;
 	}
+	
+
+	
 }

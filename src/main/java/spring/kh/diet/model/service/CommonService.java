@@ -1,5 +1,6 @@
 package spring.kh.diet.model.service;
 
+import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -19,6 +20,12 @@ public interface CommonService {
 	int cmdCount(BoardCommentVO bc);
 
 	int cmdDelCount(int parseInt);
+
+	BoardBlameVO checkPostBlame(BoardBlameVO checkBlame);
+
+	int blameCmd(BoardBlameVO report);
+
+	int cmtBlameUp(BoardBlameVO report);
 
 
 

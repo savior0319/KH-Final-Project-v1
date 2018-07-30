@@ -128,6 +128,7 @@
 						<th style="width: 10%;">작성일</th>
 					</tr>
 				</thead>
+				
 				<tbody>
 					<c:forEach items="${requestScope.cpdv.comList}" var="c">
 						<tr align="center">
@@ -147,6 +148,7 @@
 						</tr>
 					</c:forEach>
 				</tbody>
+				
 			</table>
 		</div>
 
@@ -158,9 +160,11 @@
 			<div class="three column row">
 				<div class="column"></div>
 				<div class="column">
+				<c:if test="${requestScope.cpdv.comList[0] !=null}">
 					<div class="ui center aligned basic segment">
 						<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
 					</div>
+					</c:if>
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
