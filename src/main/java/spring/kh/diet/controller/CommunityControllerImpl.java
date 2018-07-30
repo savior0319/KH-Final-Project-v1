@@ -63,6 +63,42 @@ public class CommunityControllerImpl implements CommunityController {
 		response.getWriter().close();
 	}
 
+	// 커뮤니티 - 글수정 페이지 
+	@Override
+	@RequestMapping(value = "/modifyCommunity.diet")
+	public String redirectModifyCommunity(HttpServletRequest request) {
+		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
+		BoardPostVO bpv = communityService.postedCommunity(postIndex);
+		
+		request.setAttribute("bpv", bpv);
+		
+		return "community/modifyCommunity";
+	}
+	
+	// 게시글 수정 메소드
+	@Override
+	@RequestMapping(value = "/communityPostModify.diet")
+	public void modifyRegistCommunity(BoardPostVO bpv, HttpSession session, HttpServletResponse response) throws IOException {
+
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+
+		bpv.setMbIndex(mv.getMbIndex());
+		System.out.println(bpv);
+
+		int result = communityService.modifyRegistCommunity(bpv);
+		
+		if (result > 0) {
+			System.out.println("글수정 완료");
+		} else {
+			System.out.println("글수정 실패");
+		}
+
+		response.getWriter().print("success");
+		response.getWriter().close();
+	}
+	
+	
+	
 	// 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력
 	@Override
 	@RequestMapping(value = "/communityWholeBoard.diet")
@@ -127,7 +163,7 @@ public class CommunityControllerImpl implements CommunityController {
 				bpv.setLikeYN(0);
 			}
 		}
-		
+
 		// 북마크 체크하는 로직
 		BoardBookMarkVO bbmv = checkBookMark(postIndex, sessionIndex);
 		if (bbmv != null) {
@@ -135,16 +171,15 @@ public class CommunityControllerImpl implements CommunityController {
 		} else {
 			bpv.setBookMarkYN(0);
 		}
-		
 
-		// 신고상태 체크 로직(게시글)
-	      BoardBlameVO bbv = checkPostBlame(postIndex, sessionIndex);
-	      if (bbv != null) {
-	         bpv.setBlameYN(1);
-	      } else {
-	         bpv.setBlameYN(0);
-	      }
-		
+		// 신고상태 체크 로직
+		BoardBlameVO bbv = checkPostBlame(postIndex, sessionIndex);
+		if (bbv != null) {
+			bpv.setBlameYN(1);
+		} else {
+			bpv.setBlameYN(0);
+		}
+
 		request.setAttribute("bpv", bpv);
 
 		
@@ -365,7 +400,7 @@ public class CommunityControllerImpl implements CommunityController {
 			return "failed";
 		}
 	}
-	
+
 	// 게시글 신고하기
 	@Override
 	@ResponseBody
@@ -373,18 +408,18 @@ public class CommunityControllerImpl implements CommunityController {
 	public String postReport(BoardBlameVO report, HttpSession session) {
 		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
 		report.getTargetIndex();
-		
+
 		report.setMbIndex(sessionIndex);
-		
+
 		int result = communityService.postReport(report);
-		
-		if(result>0) {
+
+		if (result > 0) {
 			return "success";
 		} else {
 			return "failed";
 		}
 	}
-	
+
 	// 게시글 신고 체크
 	public BoardBlameVO checkPostBlame(int postIndex, int sessionIndex) {
 		BoardBlameVO checkBlame = new BoardBlameVO();
@@ -393,4 +428,39 @@ public class CommunityControllerImpl implements CommunityController {
 		BoardBlameVO bbv = communityService.checkPostBlame(checkBlame);
 		return bbv;
 	}
+	
+	// 댓글 좋아요 버튼
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/cmtLike.diet")
+	public String commentLike(BoardLikeVO checkVO, HttpSession session) {
+		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
+		int postIndex = checkVO.getTargetIndex();
+		int result2 = 0;
+		checkVO.setMbIndex(sessionIndex);
+		BoardLikeVO blv = checkCommentLike(postIndex, sessionIndex);
+		if(blv == null) {
+			int result = communityService.commentLikeUp(checkVO);
+			if (result > 0) {
+				result2 = communityService.commentTBLikeUp(checkVO);
+				if(result2 > 0) {
+					return "success";
+				}
+			}
+		} else {
+			return "used";
+		}
+		return "failed";
+		
+	}
+	
+	// 좋아요 확인 메소드
+	public BoardLikeVO checkCommentLike(int postIndex, int sessionIndex) {
+		BoardLikeVO likeCheckVO = new BoardLikeVO();
+		likeCheckVO.setTargetIndex(postIndex);
+		likeCheckVO.setMbIndex(sessionIndex);
+		BoardLikeVO blv = communityService.checkCommnetLike(likeCheckVO);
+		return blv;
+	}
+
 }
