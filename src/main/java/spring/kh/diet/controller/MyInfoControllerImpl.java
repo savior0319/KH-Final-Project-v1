@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -329,5 +330,20 @@ public class MyInfoControllerImpl implements MyInfoController {
 		request.setAttribute("myQuestion", myQuestion);
 		return "myInfo/myOneToOneQuestion";
 
+	}
+	
+	/* 블랙리스트 확인 */
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/checkReport.diet")
+	public String checkReport(MemberVO mbId) {
+		MemberVO mv = myInfoService.selectOneMember(mbId);
+		
+		if(mv != null) {
+			String result = mv.getMbReport();
+			return result;
+		}else {
+			return "error";
+		}
 	}
 }
