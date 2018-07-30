@@ -123,7 +123,7 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 	function goInfo(me){
-		location.href="/dietTipInfo.diet?indexNo="+me;
+		location.href="/dietTipInfo.diet?indexNo="+me+"&type=${requestScope.type}";
 	}
 	
 	// 게시물 등록

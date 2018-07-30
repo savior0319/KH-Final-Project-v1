@@ -66,6 +66,7 @@ public class DietTipControllerImpl implements DietTipController {
 		dtpd.setSearchText(pdvo.getSearchText());
 
 		request.setAttribute("dtpd", dtpd);
+		request.setAttribute("type", type);
 
 		return "dietTip/dietTipList";
 	}
@@ -75,6 +76,7 @@ public class DietTipControllerImpl implements DietTipController {
 	@RequestMapping(value = "/dietTipInfo.diet")
 	public String getInfo(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		int indexNo = Integer.parseInt(request.getParameter("indexNo"));
+		String type = request.getParameter("type");
 
 		// 조회수 증가
 		configCookie(session, request, response, indexNo);
@@ -123,8 +125,10 @@ public class DietTipControllerImpl implements DietTipController {
 		request.setAttribute("bcpd", bcpd);
 		
 		// 이전글 다음글 보여주는 거
-		ArrayList<DietTipVO> nextPreDt = dietTipService.getNextPreDt(indexNo);
+		ArrayList<DietTipVO> nextPreDt = dietTipService.getNextPreDt(dt.getDtDate());
 		request.setAttribute("nextPreDt", nextPreDt);
+		
+		request.setAttribute("type", type);
 
 		return "dietTip/dietTipInfo";
 	}
