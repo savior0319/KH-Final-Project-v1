@@ -244,7 +244,7 @@
 	</select>
 
 	<!-- 이전글 다음글 가져오기 -->
-	<select id="nextPreDt" resultType="dietTip" parameterType="Integer">
+	<select id="nextPreDt" resultType="dietTip">
 		<![CDATA[ 
 		SELECT 
 		DT_INDEX AS dtIndex,
@@ -253,7 +253,7 @@
 		DT_DATE AS dtDate,
 		DT_SEE AS dtSee
 		FROM (SELECT DIETTIP_TB.*, ROW_NUMBER() OVER(ORDER 
-			BY DT_INDEX DESC) AS NUM FROM DIETTIP_TB WHERE DIETTIP_TB.DT_NO<#{indexNo}
+			BY DT_INDEX DESC) AS NUM FROM DIETTIP_TB WHERE DIETTIP_TB.DT_DATE<#{dtDate}
 			) WHERE NUM = 1 
 		UNION ALL
 		SELECT
@@ -263,7 +263,7 @@
 		DT_DATE AS dtDate,
 		DT_SEE AS dtSee
 		 FROM (SELECT DIETTIP_TB.*, ROW_NUMBER() 
-			OVER(ORDER BY DT_INDEX ASC) AS NUM FROM DIETTIP_TB WHERE DIETTIP_TB.DT_NO>#{indexNo}
+			OVER(ORDER BY DT_INDEX ASC) AS NUM FROM DIETTIP_TB WHERE DIETTIP_TB.DT_DATE>#{dtDate}
 			) WHERE NUM = 1 
 		]]>
 	</select>

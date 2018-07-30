@@ -1,5 +1,6 @@
 package spring.kh.diet.model.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -105,8 +106,8 @@ public class DietTipServiceImpl implements DietTipService {
 		return dietTipDAO.checkBoardLike(session, checkVO);
 	}
 
-	public ArrayList<DietTipVO> getNextPreDt(int indexNo) {
-		return dietTipDAO.getNextPreDt(session, indexNo);
+	public ArrayList<DietTipVO> getNextPreDt(Timestamp dtDate) {
+		return dietTipDAO.getNextPreDt(session, dtDate);
 	}
 
 }

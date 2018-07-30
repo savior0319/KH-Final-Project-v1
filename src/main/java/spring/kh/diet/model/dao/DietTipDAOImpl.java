@@ -1,5 +1,6 @@
 package spring.kh.diet.model.dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,9 +180,8 @@ public class DietTipDAOImpl implements DietTipDAO {
 	}
 
 	// 이전글 다음글 가져오기
-	public ArrayList<DietTipVO> getNextPreDt(SqlSessionTemplate session, int indexNo) {
-		List<DietTipVO> list = session.selectList("dietTip.nextPreDt", indexNo);
-		System.out.println(list);
+	public ArrayList<DietTipVO> getNextPreDt(SqlSessionTemplate session, Timestamp dtDate) {
+		List<DietTipVO> list = session.selectList("dietTip.nextPreDt", dtDate);
 		return (ArrayList<DietTipVO>)list;
 	}
 

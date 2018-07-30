@@ -286,34 +286,31 @@ p>span {
 				<i class="list ul icon"></i>목록
 			</button>
 		</div>
-		<br>
-		<br>
+		<br> <br>
 
 		<table class="ui very basic table">
 
 			<tbody>
 				<tr></tr>
-				
+
 				<c:if test="${requestScope.nextPreDt[0]!=null }">
-				<tr style="cursor:pointer;" onclick="goInfo(${requestScope.nextPreDt[0].dtIndex })">
-					<td>이전글 <i class="angle up icon"></i></td>
-					<td>${requestScope.nextPreDt[0].dtTitle }</td>
-					<td><fmt:formatDate value="${requestScope.nextPreDt[0].dtDate }"
-								pattern="yyyy-MM-dd" /></td>
-					<td>조회수 : ${requestScope.nextPreDt[0].dtSee }</td>
-				</tr>
+					<tr style="cursor: pointer;" onclick="goInfo(${requestScope.nextPreDt[0].dtIndex })">
+						<td>이전글 <i class="angle up icon"></i></td>
+						<td>${requestScope.nextPreDt[0].dtTitle }</td>
+						<td><fmt:formatDate value="${requestScope.nextPreDt[0].dtDate }" pattern="yyyy-MM-dd" /></td>
+						<td>조회수 : ${requestScope.nextPreDt[0].dtSee }</td>
+					</tr>
 				</c:if>
-				
+
 				<c:if test="${requestScope.nextPreDt[1]!=null }">
-				<tr style="cursor:pointer;" onclick="goInfo(${requestScope.nextPreDt[1].dtIndex})">
-					<td>다음글 <i class="angle down icon"></i></td>
-					<td>${requestScope.nextPreDt[1].dtTitle }</td>
-					<td><fmt:formatDate value="${requestScope.nextPreDt[1].dtDate }"
-								pattern="yyyy-MM-dd" /></td>
-					<td>조회수 : ${requestScope.nextPreDt[1].dtSee }</td>
-				</tr>
+					<tr style="cursor: pointer;" onclick="goInfo(${requestScope.nextPreDt[1].dtIndex})">
+						<td>다음글 <i class="angle down icon"></i></td>
+						<td>${requestScope.nextPreDt[1].dtTitle }</td>
+						<td><fmt:formatDate value="${requestScope.nextPreDt[1].dtDate }" pattern="yyyy-MM-dd" /></td>
+						<td>조회수 : ${requestScope.nextPreDt[1].dtSee }</td>
+					</tr>
 				</c:if>
-				
+
 				<tr>
 					<td></td>
 					<td></td>
@@ -348,6 +345,7 @@ p>span {
 				<c:if test="${requestScope.bcpd.bcList[0]!=null }">
 					<!-- 작성된 댓글 리스트 -->
 					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
+					<input type="hidden" value="${bc.cmtLike}" id="cmtLike_${bc.cmtIndex}"/>
 
 						<div class="comment">
 							<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
@@ -364,11 +362,11 @@ p>span {
 									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
 
 									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
-										<button class="ui red basic tiny button" style="margin-right: 10px;">
-											<i class="thumbs up outline icon"></i>좋아요 ${bc.cmtLike }
+										<button class="ui red basic tiny button" style="margin-right: 10px;" onclick="cmtLike(${bc.cmtIndex},${bc.mbIndex})">
+											<i class="thumbs up outline icon"></i>좋아요 <label id="cmtLikeCount_${bc.cmtIndex}">${bc.cmtLike}</label>
 										</button>
-										<button class="ui black basic tiny button">
-											<i class="ban icon"></i>신고 ${bc.cmtBlame }
+										<button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
+											<i class="ban icon"></i>신고<label id="cmtBlame_${bc.cmtIndex}">${bc.cmtBlame}</label>
 										</button>
 									</div>
 								</div>
@@ -405,6 +403,89 @@ p>span {
 			</div>
 
 		</div>
+
+		<!-- 댓글 신고 모달 -->
+		<div class="ui basic modal" id="reportCmdModal">
+			<div class="ui icon header">
+				<i class="exclamation triangle icon"></i> 신고하기
+			</div>
+			<h5 class="ui center aligned container">(신고 사유를 선택해 주세요.)</h5>
+			<br>
+
+			<div class="ui container" align="center">
+				<div class="content">
+					<div class="ui form">
+
+						<div class="grouped fields">
+
+							<div class="ui clearing segment" style="width: 350px; padding-left: 60px;">
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" checked="checked" value="광고/상업성 게시글" /> <label>&emsp;&emsp;광고/상업성 게시글</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="비방/욕설 게시글" /> <label>&emsp;&emsp;비방/욕설 게시글</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="개인정보 유출 게시물" /> <label>&emsp;&emsp;개인정보 유출 게시물</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="청소년 유해(음란) 게시물"> <label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="명예훼손/저작권 침해 게시물"> <label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="도배성 게시물"> <label>&emsp;&emsp;도배성 게시물</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="불명확/추측성 게시물"> <label>&emsp;&emsp;불명확/추측성 게시물</label>
+									</div>
+								</div>
+								<br> <br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br> <br>
+			<div class="ui center aligned container">
+				<div class="actions">
+					<div class="ui red basic cancel inverted button">
+						<i class="remove icon"></i> 취소
+					</div>
+					<div class="ui red ok inverted button" onclick="sendCmdBlame();">
+						<i class="checkmark icon"></i> 신고
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+
 	</div>
 
 
@@ -532,7 +613,7 @@ p>span {
 
 	/* 목록으로 돌아가기 버튼 */
 	$('#listBtn').click(function() {
-		location.href = "/dietTipList.diet?type=all";
+		location.href = "/dietTipList.diet?type=${requestScope.type}";
 	});
 
 	/* 댓글 쓰기 버튼 */
@@ -843,6 +924,85 @@ p>span {
 	// 이전글 다음글
 	function goInfo(me){
 		location.href="/dietTipInfo.diet?indexNo="+me;
+	}
+	
+	//댓글 신고 - 라디오 체크후 신고 버튼
+	function sendCmdBlame(){
+		//해당 댓글 번호 가져오기!☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ 
+		var blameReport = $(':input:radio[name=blameText]:checked').val();
+		var targetMbIndex = '${requestScope.dt.dtWriterNo}';
+		alert(blameReport);
+		alert(targetMbIndex);
+ 		$.ajax({
+			url : '/blameCmd.diet',
+			type : 'post',
+			data : {
+				'targetIndex' : blameCmd,
+				'targetMbIndex' : targetMbIndex,
+				'targetContents' : blameReport
+			},
+			success : function() {
+				alert('신고가 완료되었습니다.');
+				location.reload();
+			},
+			error : function() {
+					alert('실패');
+				}
+			}); 
+	}
+	
+	var blameCmd ;
+	/* 댓글신고버튼 : 댓글 신고 여부 확인 -> 댓글 Index,  신고 회원 */
+	function cmdBlame(ci){
+		var mbIndex = '${sessionScope.member.mbIndex}';
+		//alert(ci);
+		blameCmd = ci;
+		$.ajax({
+			url : '/checkBlameCmd.diet',
+			type : 'post',
+			data : {
+				'mbIndex' : mbIndex,
+				'targetIndex' : ci
+			},
+			success : function(data) {
+				/* 클릭시 신고 내용 체크 띄운다! */
+				if(data == "success" ){
+				$('#reportCmdModal').modal('show').modal('setting', 'closable', false);
+				}else if(data == "used"){
+					alert("이미 신고한 댓글입니다.");
+				}
+			},
+			error : function() {
+					alert('실패');
+				}
+			});
+	}
+	
+	/* 댓글 좋아요 버튼 */
+	function cmtLike(index,mbIndex){
+		var targetIndex = index;
+		var targetType = 2;
+		var targetMbIndex = mbIndex;
+		var cmtLike = $("#cmtLike_"+index).val();
+		console.log(cmtLike);
+		$.ajax({
+			url : '/cmtLike.diet',
+			type : 'post',
+			data : {
+				'targetIndex' : targetIndex,
+				'targetType' : targetType,
+				'targetMbIndex' : targetMbIndex
+			},
+			success : function(data){
+				if(data=='success'){
+					$('#cmtLikeCount_'+index).text(++cmtLike);
+				} else if(data=='failed') {
+					alert('페이지에 오류가 발생하였습니다.');
+				} else if(data=='used') {
+					alert('이미 추천한 게시물 입니다.');
+				}
+			}
+		})
 	}
 </script>
 
