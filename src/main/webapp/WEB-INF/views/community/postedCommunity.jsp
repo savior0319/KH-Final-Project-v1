@@ -376,6 +376,7 @@
                     </c:if>
 									</div>
 									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
+								<c:if test="${sessionScope.member!=null}">
 									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
 										<button class="ui red basic tiny button" onclick="cmtLike(${bc.cmtIndex},${bc.mbIndex})" style="margin-right: 10px;">
 											<i class="thumbs up outline icon"></i>
@@ -386,19 +387,8 @@
 											신고 ${bc.cmtBlame}
 										</button>
 									</div>
-									<a class="cancelComment" id="cancelComment_${bc.cmtIndex}" onclick="cancelComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
-
-									<!-- 로그인 하지 않았을 경우 좋아요 & 신고 못하게 막기! -->
-									<c:if test="${sessionScope.member!=null}">
-										<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
-											<button class="ui red basic tiny button" style="margin-right: 10px;">
-												<i class="thumbs up outline icon"></i> 좋아요 ${bc.cmtLike }
-											</button>
-											<button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
-												<i class="ban icon"></i> 신고 ${bc.cmtBlame}
-											</button>
-										</div>
 									</c:if>
+									
 								</div>
 								<div class="text" id="cmd_${bc.cmtIndex}">
 									<pre>${bc.cmtContent}</pre>
