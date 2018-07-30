@@ -452,7 +452,7 @@ public class AdminDAOImpl implements AdminDAO {
 	public ArrayList<DelMemberVO> delmemberList(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.delmemberList");
 		return (ArrayList<DelMemberVO>)list;
-
+	}
 	/* 블랙리스트 맴버 */
 	@Override
 	public ArrayList<MemberVO> getBlackList(SqlSessionTemplate session, int currentPage, int recordCountPerPage) {
