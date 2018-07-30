@@ -269,42 +269,49 @@ public class AdminControllerImpl implements AdminController {
 	@Override
 	@RequestMapping(value = "/todayAnalytics.diet")
 	public String todayAnalytics(HttpServletRequest request) {
-		
+
 		todayAnalyticPDVO tAPDVO = todayAutoAnalytics();
 		tAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Current", tAPDVO);
 //		System.out.println(tAPDVO.toString());
-	
-		
+
 		// BEFORE_DAY_TBL 를 불러와서 데이터를 가져오는것.
-		yesterdayAnalytic yAPDVO =  yesterdayAnalytics();
+		yesterdayAnalytic yAPDVO = yesterdayAnalytics();
 		yAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Before", yAPDVO);
-		
+
 		// 오늘 가입한 맴버 가져오기
 		ArrayList<MemberVO> MVO = as.searchMember();
+		ArrayList<MemberVO> MVO2 = as.memberList();
 		
 		// 오늘 탈퇴한 멤버 가져오기
 		ArrayList<DelMemberVO> DMVO = as.searchDelMember();
-		// 현재 꺼진 세션 들고오기
-		ArrayList<AllSessionVO> ASVO = as.searchOffSession();
-		// 현재 접속중인 세션 가져오기
-		ArrayList<OnSessionVO> OSVO = as.searchOnSession();
+		ArrayList<DelMemberVO> DMVO2 = as.delmemberList();
 		
+		// 현재 꺼진 세션 들고오기 (가장최근에 꺼진것 1~5명)
+		ArrayList<AllSessionVO> ASVO = as.searchOffSession();
+		ArrayList<OffSessionVO> ASVO2 = as.getOfSesssionList();
+
+		// 현재 접속중인 세션 가져오기 (가장 최근에 켜진 1~5명)
+		ArrayList<OnSessionVO> OSVO = as.searchOnSession();
+		ArrayList<OnSessionVO> OSVO2 = as.getOnSessionList();
+
 //		System.out.println(yAPDVO.toString());
-		request.setAttribute("todayInsertMember", MVO);
-		request.setAttribute("todayInsertMemberSize", MVO.size());
-		request.setAttribute("todayDelMember", DMVO);
-		request.setAttribute("todayDelMemberSize", DMVO.size());
+		request.setAttribute("todayInsertMember", MVO2);
+		request.setAttribute("todayInsertMemberSize", MVO2.size());
+		request.setAttribute("todayDelMember", DMVO2);
+		request.setAttribute("todayDelMemberSize", DMVO2.size());
 		request.setAttribute("OnSession", OSVO);
-		request.setAttribute("OnSessionSize", OSVO.size());
+		request.setAttribute("OnSessionSize", OSVO2.size());
 		request.setAttribute("AllSession", ASVO);
-		request.setAttribute("AllSessionSize", ASVO.size());
+		request.setAttribute("AllSessionSize", ASVO2.size());
 		return "admin/todayAnalytics";
 	}
+
+	
 	// 현재값 갱신용도
 	@Override
-	@Scheduled(cron = "0/15 * * * * ?") // 1분주기로 갱신 (테스트용) //	@Scheduled(cron = "0 0 0 * * ?") 0 0/1 * * * ?
+	@Scheduled(cron = "0/15 * * * * ?") // 1분주기로 갱신 (테스트용) // @Scheduled(cron = "0 0 0 * * ?") 0 0/1 * * * ?
 	public todayAnalyticPDVO todayAutoAnalytics() {
 		// 현재 조회수 들고오기.
 		todayHitsVO tHVO = as.searchHits();
@@ -328,43 +335,41 @@ public class AdminControllerImpl implements AdminController {
 		// 현재 접속중인 세션 가져오기
 		ArrayList<OnSessionVO> OSVO = as.searchOnSession();
 
-		todayAnalyticPDVO tAPDVO = new todayAnalyticPDVO("type",tHVO, tCVO, tPVO, tLVO, MVO, DMVO, ASVO, OSVO);
+		todayAnalyticPDVO tAPDVO = new todayAnalyticPDVO("type", tHVO, tCVO, tPVO, tLVO, MVO, DMVO, ASVO, OSVO);
 		return tAPDVO;
 
 	}
-	
 
 	// 매일 00시 00분 00 초에 값을 갱신 해두고 저장해둠
 	// 테스트를위해서는 30초단위로 우선 값을 테이블에 한번집어넣고 날자값이 중복되지않을때, 그떄에만들어감.
 	// 즉 서버가 동작하고 30초이내의값을 가져옴.
 	@Override
-	@Scheduled(cron = "0/30 * * * * ?")  // 우선 1분주기로 테스트 @Scheduled(cron = "0 0/1 0 * * ?")  // 30 초주기로 갱신.
+	@Scheduled(cron = "0/30 * * * * ?") // 우선 1분주기로 테스트 @Scheduled(cron = "0 0/1 0 * * ?") // 30 초주기로 갱신.
 	public void yesterdayAutoInsertAnalytics() {
 		int result = as.yesterdayAutoInsertBefore();
-		if(result!=1) {
-		// 현재 조회수 들고오기.
-		todayHitsVO tHVO = as.searchHits();
-		// 현재 댓글수 들고오기
-		todayCommentsVO tCVO = as.searchComments();
-		// 현재 게시물 수 들고오기
-		todayPostVO tPVO = as.searchPost();
-		// 현재 좋아요 가져오기
-		todayLikeVO tLVO = as.searchLike();
+		if (result != 1) {
+			// 현재 조회수 들고오기.
+			todayHitsVO tHVO = as.searchHits();
+			// 현재 댓글수 들고오기
+			todayCommentsVO tCVO = as.searchComments();
+			// 현재 게시물 수 들고오기
+			todayPostVO tPVO = as.searchPost();
+			// 현재 좋아요 가져오기
+			todayLikeVO tLVO = as.searchLike();
 
-		yesterdayAnalyticsPDVO yAPDVO = new yesterdayAnalyticsPDVO("type",tHVO, tCVO, tPVO, tLVO);
-		
-		as.yesterdayInsert(yAPDVO);
+			yesterdayAnalyticsPDVO yAPDVO = new yesterdayAnalyticsPDVO("type", tHVO, tCVO, tPVO, tLVO);
+
+			as.yesterdayInsert(yAPDVO);
 		}
-		
 
 	}
 
 	// 전날의 저장된값을 불러오는메소드
 	@Override
 	public yesterdayAnalytic yesterdayAnalytics() {
-		
+
 		yesterdayAnalytic yAPDVO = as.searchAllBefore();
-//		System.out.println(yAPDVO.toString());
+		// System.out.println(yAPDVO.toString());
 		return yAPDVO;
 	}
 

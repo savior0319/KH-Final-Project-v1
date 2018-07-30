@@ -72,5 +72,11 @@ public interface AdminDAO {
 
 	int yesterdayAutoInsertBefore(SqlSessionTemplate session);
 
+	ArrayList<OnSessionVO> getOnSessionList(SqlSessionTemplate session);
+
+	ArrayList<MemberVO> memberList(SqlSessionTemplate session);
+
+	ArrayList<DelMemberVO> delmemberList(SqlSessionTemplate session);
+
 
 }

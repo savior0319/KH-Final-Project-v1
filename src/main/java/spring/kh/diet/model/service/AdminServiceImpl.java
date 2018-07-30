@@ -206,4 +206,24 @@ public class AdminServiceImpl implements AdminService {
 		int result = aDao.yesterdayAutoInsertBefore(session);
 		return result;
 	}
+
+	@Override
+	public ArrayList<OnSessionVO> getOnSessionList() {
+		 ArrayList<OnSessionVO> list = aDao.getOnSessionList(session);
+		return list;
+	}
+
+	@Override
+	public ArrayList<MemberVO> memberList() {
+		ArrayList<MemberVO> list = aDao.memberList(session);
+		return list;
+	}
+
+	@Override
+	public ArrayList<DelMemberVO> delmemberList() {
+		ArrayList<DelMemberVO> list = aDao.delmemberList(session);
+		return list;
+	}
+	
+	
 }

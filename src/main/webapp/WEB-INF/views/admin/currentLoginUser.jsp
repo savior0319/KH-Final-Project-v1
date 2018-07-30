@@ -41,8 +41,8 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 var data = new google.visualization.DataTable();
  data.addColumn('string', '시간대');
- data.addColumn('number', '로그인 유저');
- data.addColumn('number', '비로그인 유저');
+ data.addColumn('number', '회원 ');
+ data.addColumn('number', '비회원');
  data.addRows([
    ['00 - 12', ${requestScope.CD.atoBOn}, ${requestScope.CD.atoBOff}],
    ['12 - 15', ${requestScope.CD.btoCOn}, ${requestScope.CD.btoCOff}],
@@ -84,10 +84,7 @@ body {
 	<br>
 	<br>
 	<div class="ui container">
-		<div class="ui center aligned segment">
-			<h1>접속자 통계</h1>
-		</div>
-		<br> <br>
+
 		<div class="ui center aligned segment">
 			<h1>현재 접속자 : ${requestScope.size} 명</h1>
 		</div>
@@ -99,8 +96,7 @@ body {
 						<th>로그인</th>
 						<th>닉네임</th>
 						<th>접속시간</th>
-						<th>비고</th>
-						<th>비고</th>
+						<th>접속기기</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -117,8 +113,14 @@ body {
 								</c:when>
 							</c:choose>
 							<td>${ss.firstOn }</td>
-							<td>${ss.device }</td>
-							<td>기타</td>
+							<c:choose>
+								<c:when test="${ss.device eq 'pc'}">
+									<td>PC</td>
+								</c:when>
+								<c:otherwise>
+									<td>MOBILE</td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -150,7 +152,7 @@ body {
 		</div>
 
 		<div class="ui horizontal segments">
-			<div class="ui segment" style="width: 100%; display:on">
+			<div class="ui segment" style="width: 100%; display: on">
 				<div class="ui center aligned segment">
 					<h5>사용자 접속 기기 분류</h5>
 				</div>
@@ -173,7 +175,7 @@ body {
 
 			</div>
 
-			<div class="ui segment" style="width: 100%; display:on">
+			<div class="ui segment" style="width: 100%; display: on">
 				<div class="ui center aligned segment">
 					<h5>접속시간</h5>
 				</div>
@@ -183,8 +185,8 @@ body {
 					<thead>
 						<tr align="center">
 							<th style="width: 33%">시간</th>
-							<th style="width: 33%">로그인</th>
-							<th style="width: 33%">비로그인</th>
+							<th style="width: 33%">회원</th>
+							<th style="width: 33%">비회원</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -216,8 +218,16 @@ body {
 					</tbody>
 				</table>
 			</div>
-
-			<br>
+			<br> <br>
+		</div>
+		<div class="ui horizontal segments">
+			
+				<div class="ui center aligned segment" style="width:50%">
+					<h5>접속시간</h5>
+				</div>
+				<div class="ui center aligned segment" style="width:50%">
+				</div>
+			
 		</div>
 </body>
 

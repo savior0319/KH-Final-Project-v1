@@ -438,4 +438,22 @@ public class AdminDAOImpl implements AdminDAO {
 		return result;
 	}
 
+	@Override
+	public ArrayList<OnSessionVO> getOnSessionList(SqlSessionTemplate session) {
+		List<?> list = session.selectList("admin.getOnSessionList");
+		return (ArrayList<OnSessionVO>)list;
+	}
+
+	@Override
+	public ArrayList<MemberVO> memberList(SqlSessionTemplate session) {
+		List<?> list = session.selectList("admin.memberList");
+		return (ArrayList<MemberVO>)list;
+	}
+
+	@Override
+	public ArrayList<DelMemberVO> delmemberList(SqlSessionTemplate session) {
+		List<?> list = session.selectList("admin.delmemberList");
+		return (ArrayList<DelMemberVO>)list;
+	}
+
 }

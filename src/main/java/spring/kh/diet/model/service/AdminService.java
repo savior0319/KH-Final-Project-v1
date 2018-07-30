@@ -61,6 +61,12 @@ public interface AdminService {
 
 	int yesterdayAutoInsertBefore();
 
+	ArrayList<OnSessionVO> getOnSessionList();
+
+	ArrayList<MemberVO> memberList();
+
+	ArrayList<DelMemberVO> delmemberList();
+
 
 
 }
