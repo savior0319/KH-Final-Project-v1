@@ -60,17 +60,20 @@
 			
 			<!-- 음식 검색 -->
 			
-			<div class="ui secondary segment" >
-			<div class="ui right action left icon input">
-				<i class="search icon"></i> <input type="text" placeholder="검색어 입력" style="width:600px;">
-				<div class="ui basic floating dropdown button">
-					<div class="text">검색</div>
+			<div class="ui secondary segment">
+				<div class="ui right action left icon input">
+					<i class="search icon"></i> <input id="searchText" type="text" placeholder="검색어 입력"
+						style="width: 600px;">
+					<div class="ui basic floating dropdown button" onclick="foodCalSearch();">
+						<div class="text">검색</div>
+					</div>
+				</div>
+				<div style="text-align: center; margin-top: 3%; height: 40px;">
+					<i class="chevron circle right icon"></i> 다신 칼로리 사전은 <span
+						style="color: skyblue;">음식의 칼로리 뿐만 아니라 영양소 구성도 함께</span> 나와 다이어트뿐
+					아니라 건강한 식습관 형성에도 도움이 됩니다.
 				</div>
 			</div>
-			<div style="text-align:center; margin-top:3%;  height:40px;"><i class="chevron circle right icon"></i>
-                    다신 칼로리 사전은 <span style="color:skyblue;">음식의 칼로리 뿐만 아니라 영양소 구성도 함께</span> 나와 다이어트뿐 아니라 건강한 식습관 형성에도 도움이 됩니다.			        
-                </div>
-		</div>
 		<br><hr><br>
 		
 		<!-- 음식 검색 결과 -->
@@ -188,7 +191,11 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+function foodCalSearch(){
+	var searchText = $('#searchText').val();
 	
+	location.href="/foodCalorieList.diet?searchText=" + searchText;
+}
 </script>
 
 </html>

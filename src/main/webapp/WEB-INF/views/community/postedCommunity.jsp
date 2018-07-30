@@ -15,7 +15,6 @@
 .singo {
 	text-align: left;
 }
-
 .rslides {
 	position: relative;
 	list-style: none;
@@ -24,7 +23,6 @@
 	padding: 0;
 	margin: 0;
 }
-
 .rslides li {
 	-webkit-backface-visibility: hidden;
 	position: absolute;
@@ -33,13 +31,11 @@
 	left: 0;
 	top: 0;
 }
-
 .rslides li:first-child {
 	position: relative;
 	display: block;
 	float: left;
 }
-
 .rslides img {
 	display: block;
 	height: auto;
@@ -528,19 +524,15 @@
 			timeout : 1500,
 		});
 	});
-
 	
 	var category = '${requestScope.bpv.bcaIndex}';
 	var check = '${requestScope.bpv.bookMarkYN}';
-
 	/* 북마크 버튼*/
 	$('#bookMark').click(
 			function() {
 				var postIndex = '${requestScope.bpv.postIndex}';
 				if (check == 0) {
-
 				} else if (check == 1) {
-
 				}
 				$.ajax({
 					url : '/postBookMark.diet',
@@ -567,11 +559,9 @@
 					}
 				});
 			});
-
 	var likeCheck;
 	var likeYN = '${requestScope.bpv.likeYN}';
 	var postLike = '${requestScope.bpv.postLike}';
-
 	/* 좋아요 버튼 */
 	$('#heartBtn').click(
 			function() {
@@ -585,7 +575,6 @@
 				var targetIndex = '${requestScope.bpv.postIndex}';
 				var targetType = 1;
 				var targetMbIndex = '${requestScope.bpv.mbIndex}';
-
 				$.ajax({
 					url : '/postLike.diet',
 					type : 'post',
@@ -614,7 +603,6 @@
 					}
 				});
 			});
-
 	/* 신고버튼 */
 	$('#reportBtn').click(function() {
 		var blameCheck = '${requestScope.bpv.blameYN}';
@@ -629,33 +617,27 @@
 			alert('로그인 후 신고를 하실수 있습니다.');
 		}
 	});
-
 	
 	
 	/* 글쓰기 등록하기 버튼 */
 	$('#writeBtn').click(function() {
 		location.href = "/registCommunity.diet";
 	});
-
 	/* 목록으로 돌아가기 버튼 */
 	$('#listBtn').click(function() {
 		location.href = "/communityWholeBoard.diet?type=" + category;
 	});
-
 	/* 수정하기 버튼 */
 	$('#modifyBtn').click(function() {
 		location.href = "/modifyCommunity.diet";
 	});
-
 	
 	
 	var postIndex = '${requestScope.bpv.postIndex}';
 	/*글 삭제 확인*/
 	function deleteBtn() {
-
 		
 		var check = window.confirm("정말 삭제하시겠습니까?");
-
 		if (check == true) {
 			$.ajax({
 				url : '/deletePost.diet',
@@ -666,7 +648,6 @@
 				success : function() {
 					alert('삭제를 완료하였습니다.');
 					location.href = "/communityWholeBoard.diet?type="+ category;
-
 				},
 				error : function() {
 					alert('삭제에 실패하였습니다.');
@@ -678,18 +659,15 @@
 			return false;
 		}
 	}
-
 	
 	
 	/* 댓글신고버튼 */
 	function cmdBlame(ci){
 		$('#reportCmdModal').modal('show').modal('setting', 'closable', false);
 		
-
 		
 		
 	}
-
 	//댓글 신고 - 라디오 체크후 신고 버튼
 	function sendCmdBlame(){
 		//해당 댓글 번호 가져오기!☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ + community에서 blameYN --> 댓글은 어떻게? 글이랑 신고상태 겹치는거아닌가..?
@@ -727,19 +705,16 @@
 			},
 			success : function() {
 				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
-
 			},
 			error : function() {
 				alert('삭제에 실패하였습니다.');
 			}
 		});
 	} 
-
 	
 	
 	/* 댓글 수정 */
 	
-
 	$("body").on("click", "[id^=changeCmd_]", function(event) { 
 		/* 해당 댓글 번호 */
 		var cmdIndex = $(this).siblings('input').val(); 
@@ -770,7 +745,6 @@
 				var modiDelete = $("#modiDelete_"+ci).attr("style","display:inline;");
 				var cancelComment = $('#cancelComment_'+ci).attr("style","display:none;");
 				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
-
 			},
 			error : function() {
 				alert('수정에 실패하였습니다.');
@@ -790,7 +764,6 @@
 	function addComment() {
 		var indexNo = $('#postIndex').val();
 		var commentContent = $('#commentContent').val();
-
 		$.ajax({
 			url : '/addComment.diet',
 			type : 'post',
@@ -798,17 +771,14 @@
 				'indexNo' : indexNo,
 				'commentContent' : commentContent
 			},
-
 			success : function(data) {
 				if (data > 0) {
 					// 모달 띄우기
 					//$('.ui.basic.modal').modal('show');
-
 					//alert('댓글을 작성하였습니다.');
 				} else {
 					alert('댓글을 등록하지 못했습니다.');
 				}
-
 				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
 			},
 			error : function() {
@@ -816,14 +786,12 @@
 			}
 		});
 	}
-
 	function naviMo(currentPage, indexNo, servletName) {
 		location.href = "/" + servletName + "?indexNo=" + indexNo
 				+ "&currentPage=" + currentPage;
 	}
 	
 	
-
 	/* 댓글 내비게이션 버튼 ajax 처리를 위한 코드 그대로 가져다 쓰시면 돼요 */
 	function naviMove(currentPage, indexNo, servletName) {
 		$.ajax({
@@ -842,23 +810,17 @@
 					
 					var commentDiv = $("<div>").attr("class", "comment");
 					
-
 					var aAvatar = $("<a>").attr("class", "avatar");
-
 					var img = $("<img>").attr("style",
 							"width: 40px; height: 40px; border-radius: 25px;");
 					img.attr("src", data.bcList[i].mbImage);
-
 					var contentDiv = $("<div>").attr("style", "width:93%;");
 					contentDiv.attr("class", "content");
-
 					var aAuthor = $("<span>").attr("class", "author");
 					aAuthor.attr("style", "position: absolute; width: 10%;");
 					aAuthor.html(data.bcList[i].mbNickname);
-
 					var metadataDiv = $("<div>").attr("class", "metadata");
 					metadataDiv.attr("style", "width:100%;");
-
 					var span = $("<span>").attr("class", "date");
 					span.attr("style",
 							"width: 30%; display: inline; margin-left: 10%;");
@@ -909,36 +871,27 @@
 							"ui right aligned container");
 					containerDiv.attr("align", "right");
 					containerDiv.attr("style", "width: 70%; float: right;");
-
 					var likeBtn = $("<button>").attr("class",
 							"ui red basic tiny button");
 					likeBtn.attr("style", "margin-right: 10px;");
-
 					var likeI = $("<i>")
 							.attr("class", "thumbs up outline icon");
-
 					var blameBtn = $("<button>").attr("class",
 							"ui black basic tiny button");
 					blameBtn.attr("id","cmdReportBtn_"+data.bcList[i].cmtIndex);
 					blameBtn.attr("onclick","cmdBlame("+data.bcList[i].cmtIndex+");");
 					
-
 					var blameI = $("<i>").attr("class", "ban icon");
-
 					var textDiv = $("<div>").attr("class", "text");
 					textDiv.attr("id","cmd_"+data.bcList[i].cmtIndex);
 					
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
-
 					likeBtn.append(likeI);
 					likeBtn.append("좋아요" + data.bcList[i].cmtLike);
-
 					blameBtn.append(blameI);
 					blameBtn.append("신고" + data.bcList[i].cmtBlame);
-
 					containerDiv.append(likeBtn);
 					containerDiv.append(blameBtn);
-
 					metadataDiv.append(span);
 					
 					
@@ -956,18 +909,13 @@
 					
 					metadataDiv.append(containerDiv);
 					
-
 					textDiv.append(pre);
-
 					contentDiv.append(aAuthor);
 					contentDiv.append(metadataDiv);
 					contentDiv.append(textDiv);
-
 					aAvatar.append(img);
-
 					commentDiv.append(aAvatar);
 					commentDiv.append(contentDiv);
-
 					$('#comment').append(commentDiv);
 					
 					/* 지현 추가  - 수정하는 부분*/
@@ -1007,13 +955,11 @@
 									'border: 1px solid #F6F6F6;'));
 					$('#comment').append($("<br>"));
 				}
-
 				/* 댓글 리스트 불러오는 부분 */
 				var naviDiv = $("<div>").attr("class",
 						"ui center aligned basic segment");
 				var menuDiv = $("<div>").attr("class", "ui pagination menu");
 				menuDiv.html(data.pageNavi);
-
 				naviDiv.append(menuDiv);
 				$('#comment').append(naviDiv);
 			},
@@ -1033,7 +979,6 @@
 		return num>9?num:"0"+num;
 	}
 	
-
 </script>
 
 <!-- 미디어 태그 1200px 보다 작아질 때-->
@@ -1052,7 +997,6 @@
 		margin-left: 500px;
 	}
 }
-
 @media ( max-width : 455px) {
 	#bookMark {
 		display: block;

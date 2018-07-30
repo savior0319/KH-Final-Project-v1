@@ -31,6 +31,7 @@ html, body {
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 	<!-- CONTENTS -->
+
 	<div class="ui container">
 		<div class="ui center aligned basic segment">
 			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
@@ -39,8 +40,8 @@ html, body {
 				<table class="ui gray table">
 					<thead>
 						<tr id="title" align="center">
-							<th><i class="question circle icon"></i>게 시 판</th>
-							<th><i class="question circle icon"></i>게 시 물 번 호</th>
+							<th><i class="question circle icon"></i>게 시 물 번 호 </th>
+							<th><i class="question circle icon"></i>게 시 판 </th>
 							<th><i class="question circle icon"></i>제 목</th>
 							<th><i class="question circle icon"></i>작 성 일</th>
 						</tr>
@@ -48,26 +49,27 @@ html, body {
 					<tbody>
 						<c:forEach items="${myPost.comList}" var="m">
 							<tr align="center">
-								<td><c:choose>
-										<c:when test="${requestScope.m.type.equals('15') }">
-											<h1>자유게시판</h1>
+								<td style="width:15%;">${m.postIndex }</td>
+								<td style="width:20%;"><c:choose>
+										<c:when test="${m.bcaIndex=='15'}">
+											<label><a href="recipeBoard.diet?type=15">자유게시판</a></label>
 										</c:when>
-										<c:when test="${requestScope.m.type.equals('16') }">
-											<h1>레시피&#38;식단</h1>
+										<c:when test="${m.bcaIndex=='16' }">
+											<label><a href="recipeBoard.diet?type=16">레시피&#38;식단</a></label>
 										</c:when>
-										<c:when test="${requestScope.m.type.equals('17') }">
-											<h1>팁&#38;노하우</h1>
+										<c:when test="${m.bcaIndex=='17' }">
+											<label><a href="recipeBoard.diet?type=16">팁&#38;노하우</a></label>
 										</c:when>
-										<c:when test="${requestScope.m.type.equals('18') }">
-											<h1>고민&#38;질문</h1>
+										<c:when test="${m.bcaIndex=='18' }">
+											<label><a href="recipeBoard.diet?type=16">고민&#38;질문</a></label>
 										</c:when>
-										<c:when test="${requestScope.m.type.equals('19') }">
-											<h1>비포&#38;애프터</h1>
+										<c:when test="${m.bcaIndex=='19' }">
+											<label><a href="recipeBoard.diet?type=16">비포&#38;애프터</a></label>
 										</c:when>
 									</c:choose></td>
-								<td>${m.postIndex }</td>
-								<td><a href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle }</a></td>
-								<td>${m.postDateTime }</td>
+								<td style="width:45%;"><a
+									href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle }</a></td>
+								<td style="width:20%;">${m.postDateTime }</td>
 							</tr>
 						</c:forEach>
 					</tbody>

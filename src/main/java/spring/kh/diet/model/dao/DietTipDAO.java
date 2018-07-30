@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 
@@ -24,5 +25,17 @@ public interface DietTipDAO {
 	DietTipVO loadUpdateDietTip(SqlSessionTemplate session, int indexNo);
 
 	int updateDietTip(SqlSessionTemplate session, DietTipVO dt);
+
+	int postHit(SqlSessionTemplate session, int indexNo);
+
+	int boardLikeDown(SqlSessionTemplate session, BoardLikeVO blv);
+
+	int boardLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO);
+
+	int postLikeDown(SqlSessionTemplate session, BoardLikeVO blv);
+
+	int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO);
+
+	BoardLikeVO checkBoardLike(SqlSessionTemplate session, BoardLikeVO checkVO);
 	
 }

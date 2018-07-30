@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MyPostPageDataVO {
+public class MyBookMarkPageDataVO {
 
-	private ArrayList<BoardPostVO> comList;
+	private ArrayList<BoardBookMarkVO> comList;
 	private String pageNavi, type;
 	private int start, end, mbIndex,bcaIndex;
 

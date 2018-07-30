@@ -1,9 +1,14 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import spring.kh.diet.model.vo.todayAnalyticPDVO;
+import spring.kh.diet.model.vo.yesterdayAnalytic;
+import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 
 public interface AdminController {
 
@@ -25,4 +30,12 @@ public interface AdminController {
 
 	String qaContent(int index, HttpServletRequest request);
 
+	String todayAnalytics(HttpServletRequest request);
+	
+	yesterdayAnalytic yesterdayAnalytics();
+
+	todayAnalyticPDVO todayAutoAnalytics();
+
+	void yesterdayAutoInsertAnalytics ()  ;
+	
 }

@@ -34,7 +34,7 @@ public class DietTipControllerImpl implements DietTipController {
 
 	@Resource(name = "commonService")
 	private CommonService commonService;
-	
+
 	@Resource(name = "communityService")
 	private CommunityService communityService;
 
@@ -124,12 +124,13 @@ public class DietTipControllerImpl implements DietTipController {
 		return "dietTip/dietTipInfo";
 	}
 
-	// 로그인 되어있는지 확인
+	// 관리자인지 권한 확인
+	//실제로 할려면 DB를 거쳐서 회원 구분(ex.관리자, 트레이너 등)을 확인 해야 함
 	@Override
-	@RequestMapping(value = "/sessionCheck.diet")
-	public void sessionCheck(HttpSession session, HttpServletResponse response) throws IOException {
+	@RequestMapping(value = "/dtWriteAuthorityCheck.diet")
+	public void dtWriteAuthorityCheck(HttpSession session, HttpServletResponse response) throws IOException {
 		int result = 0;
-		if (session.getAttribute("member") != null) {
+		if (session.getAttribute("member") != null && ((MemberVO)session.getAttribute("member")).getMbIndex()==1) {
 			result = 1;
 		}
 
@@ -312,23 +313,24 @@ public class DietTipControllerImpl implements DietTipController {
 	}
 
 	// 좋아요 확인 메소드
+	@Override
 	public BoardLikeVO checkLike(int postIndex, int sessionIndex) {
 		BoardLikeVO likeCheckVO = new BoardLikeVO();
 		likeCheckVO.setTargetIndex(postIndex);
 		likeCheckVO.setMbIndex(sessionIndex);
 		BoardLikeVO blv = dietTipService.checkBoardLike(likeCheckVO);
-		System.out.println(blv);
 		return blv;
 	}
-	
-	// 북마크 확인 메소드
-		public BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex) {
-			BoardBookMarkVO bookMarkCheckVO = new BoardBookMarkVO();
-			bookMarkCheckVO.setPostIndex(postIndex);
-			bookMarkCheckVO.setMbIndex(sessionIndex);
-			BoardBookMarkVO bbmv = communityService.checkBoardBookMark(bookMarkCheckVO);
-			return bbmv;
 
-		}
+	// 북마크 확인 메소드
+	@Override
+	public BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex) {
+		BoardBookMarkVO bookMarkCheckVO = new BoardBookMarkVO();
+		bookMarkCheckVO.setPostIndex(postIndex);
+		bookMarkCheckVO.setMbIndex(sessionIndex);
+		BoardBookMarkVO bbmv = communityService.checkBoardBookMark(bookMarkCheckVO);
+		return bbmv;
+
+	}
 
 }

@@ -11,8 +11,10 @@ import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityVO;
+import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
+import spring.kh.diet.model.vo.MyQuestionPageData;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @SuppressWarnings("all")
@@ -47,12 +49,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	public int deleteMyPicture(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
 		int result = sqlSessionTemplate.delete("myInfo.deleteMyPicture", mv);
 		return result;
-	}
-
-	@Override
-	public ArrayList<QuestionVO> allMyOneToOneQuestion(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		List<?> list = sqlSessionTemplate.selectList("myInfo.allMyOneToOneQuestion", mv);
-		return (ArrayList<QuestionVO>) list;
 	}
 
 	@Override
@@ -278,38 +274,163 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		{
 			sb.append("<a class='item' href='/myComment.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
-		System.out.println("페이지 토탈 카운트 : " + pageTotalCount);
 		return sb.toString();
 	}
 
 	@Override
-	public ArrayList<BoardPostVO> myBookMarkGetList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+	public ArrayList<BoardBookMarkVO> myBookMarkList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, String type, MyActivityVO ma) {
-		MyPostPageDataVO cpdv = new MyPostPageDataVO();
+		MyBookMarkPageDataVO myBookMark = new MyBookMarkPageDataVO();
 
-		cpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
-		cpdv.setEnd(currentPage * recordCountPerPage);
-		cpdv.setType(type);
+		myBookMark.setStart((currentPage - 1) * recordCountPerPage + 1);
+		myBookMark.setEnd(currentPage * recordCountPerPage);
+		myBookMark.setType(type);
+		myBookMark.setMbIndex(ma.getMbIndex());
 
-		List<BoardPostVO> list = sqlSessionTemplate.selectList("myInfo.myBookMarkGetList", cpdv);
-		return (ArrayList<BoardPostVO>) list;
+		List<BoardBookMarkVO> list = sqlSessionTemplate.selectList("myInfo.myBookMarkList", myBookMark);
+		
+		return (ArrayList<BoardBookMarkVO>) list;
 
 	}
 
 	@Override
-	public ArrayList<BoardPostVO> getCurrentPage(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, MyActivityVO ma) {
+	public String myBookMarkListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String type, MyActivityVO ma) {
+		MyBookMarkPageDataVO myBookMark = new MyBookMarkPageDataVO();
+		myBookMark.setType(type);
+		myBookMark.setMbIndex(ma.getMbIndex());
 
-		int start = currentPage * recordCountPerPage - (recordCountPerPage - 1);
-		int end = currentPage * recordCountPerPage;
-		List<BoardPostVO> list = sqlSessionTemplate.selectList("myInfo.myBookMarkGetList", ma);
-		return (ArrayList<BoardPostVO>) list;
+		int recordTotalCount = sqlSessionTemplate.selectOne("myInfo.myBookMarkGetNavi", myBookMark);
+		int pageTotalCount = 0;
+
+		if (recordTotalCount % recordCountPerPage != 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
+
+		int endNavi = startNavi + naviCountPerPage - 1;
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) // 시작이 1페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/myBookMark.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (i == currentPage) {
+				sb.append(
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/myBookMark.diet?currentPage="
+								+ i + "'><strong>" + i + "</strong></a>");
+			} else {
+				sb.append("<a class='item' href='/myBookMark.diet?currentPage=" + i + "'>" + i + " </a>");
+			}
+		}
+		if (needNext) // 끝 페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/myBookMark.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+		}
+		return sb.toString();
 	}
 
 	@Override
-	public String getMyBookMarkGetListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, int naviCountPerPage, String type, MyActivityVO ma) {
-		return null;
+	public ArrayList<QuestionVO> myQuestionList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, MemberVO mv) {
+		MyQuestionPageData myQuestion = new MyQuestionPageData();
+
+		myQuestion.setStart((currentPage - 1) * recordCountPerPage + 1);
+		myQuestion.setEnd(currentPage * recordCountPerPage);
+		myQuestion.setMbIndex(mv.getMbIndex());
+
+		List<QuestionVO> list = sqlSessionTemplate.selectList("myInfo.myQuestionList", myQuestion);
+		
+		return (ArrayList<QuestionVO>) list;
+	}
+
+	@Override
+	public String myQuestionListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, MemberVO mv) {
+		MyQuestionPageData myQuestion = new MyQuestionPageData();
+
+		myQuestion.setMbIndex(mv.getMbIndex());
+
+		int recordTotalCount = sqlSessionTemplate.selectOne("myInfo.myQuestionGetNavi", myQuestion);
+		int pageTotalCount = 0;
+
+		if (recordTotalCount % recordCountPerPage != 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
+
+		int endNavi = startNavi + naviCountPerPage - 1;
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) // 시작이 1페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/myOneToOneQuestion.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (i == currentPage) {
+				sb.append(
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/myOneToOneQuestion.diet?currentPage="
+								+ i + "'><strong>" + i + "</strong></a>");
+			} else {
+				sb.append("<a class='item' href='/myOneToOneQuestion.diet?currentPage=" + i + "'>" + i + " </a>");
+			}
+		}
+		if (needNext) // 끝 페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/myOneToOneQuestion.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+		}
+		return sb.toString();
 	}
 
 }

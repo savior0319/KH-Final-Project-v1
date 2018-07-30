@@ -15,6 +15,7 @@
 
 
 <body>
+	<input type="hidden" id="type" value="${requestScope.htpd.type }">
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
@@ -24,9 +25,10 @@
 
 		<div class="ui center aligned container">
 			<div class="ui panorama test ad" data-text="Panorama"></div>
-		
-		<h1 class="ui left aligned header">홈트레이닝 > 
-			
+
+			<h1 class="ui left aligned header">
+				홈트레이닝 >
+
 				<c:choose>
 					<c:when test="${requestScope.htpd.type.equals('wholeBody') }">전신</c:when>
 					<c:when test="${requestScope.htpd.type.equals('abdomen') }">복부</c:when>
@@ -37,61 +39,84 @@
 					<c:when test="${requestScope.htpd.type.equals('yoga') }">요가</c:when>
 					<c:when test="${requestScope.htpd.type.equals('fourChallenge') }">4주챌린지</c:when>
 				</c:choose>
-				
-				</h1><hr><br>				
-				
-				<!-- 운동부위별 값 넣을곳 -->
-				<div class="ui three column grid">	
+
+			</h1>
+			<hr>
+			<br>
+
+			<!-- 운동부위별 값 넣을곳 -->
+			<div class="ui three column grid">
 				<c:forEach items="${requestScope.htpd.htList }" var="ht">
-				
-				
-					<div class="column" >
+
+
+					<div class="column">
 						<div class="ui card" onclick="InfoPage(${ht.indexNo})">
 							<div class="image">
-								<img src="${ht.htMainPhoto}" style="width: 290px;height:200px;">
+								<img src="${ht.htMainPhoto}"
+									style="width: 290px; height: 200px; cursor: pointer;">
 							</div>
 							<div class="content">
-								<a class="header" style=height:50px;>${ht.htTitle }</a>
+								<a class="header" style="height: 50px;">${ht.htTitle }</a>
 								<div class="meta">
-									<span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i>
-									좋아요 <span class="like" style="color: red">${ht.htHits }</span>
+									<span class="date">${ht.htPart } |</span> <i
+										class="heart outline icon"></i> 좋아요 <span class="like"
+										style="color: red">${ht.htLike }</span>
 								</div>
 							</div>
 						</div>
 					</div>
-				
-				
+
+
 				</c:forEach>
-				</div>	
+			</div>
 
-				<br> <br>
+			<br> <br>
 
 
-				<div class="ui center aligned basic segment">
-				<div class="ui pagination menu">${requestScope.htpd.pageNavi }</div>
-				</div>
-				
-				<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
-				<div class="ui basic floating dropdown button">
-					<div class="text">선택</div>
-					<i class="dropdown icon"></i>
-					<div class="menu">
-						<div class="item">제목</div>
-						<div class="item">내용</div>
-						<div class="item">작성자</div>
+			<div class="ui grid">
+				<div class="three column row">
+					<div class="four wide column"></div>
+					<div class="eight wide column">
+						<div class="ui center aligned basic segment">
+							<div class="ui pagination menu">${requestScope.htpd.pageNavi }</div>
+						</div>
 					</div>
+					<div class="four wide column">
+						<div class="ui right aligned container">
+							<button class="ui right red basic button"
+								style="margin-top: 19px;" id="writeBtn"
+								onclick="homeTrainingWrite();">
+								<i class="edit icon"></i> 등록
+							</button>
+						</div>
+					</div>
+				</div>
+				<br>
+			</div>
 
+			<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
+			<div class="ui basic floating dropdown button">
+				<div class="text">선택</div>
+				<i class="dropdown icon"></i>
+				<div class="menu">
+					<div class="item">제목</div>
+					<div class="item">내용</div>
+					<div class="item">작성자</div>
 				</div>
 
-				<div class="ui right action left icon input">
-					<i class="search icon"></i> <input type="text" placeholder="Search">
+			</div>
 
-					<button class="ui right red basic button"
-						style="margin-left: 4px; margin-right: 40px;">검색</button>
+			<div class="ui right action left icon input">
+				<i class="search icon"></i> <input type="text" placeholder="Search"
+					id="searchText">
 
-				</div>
+				<button class="ui right red basic button"
+					style="margin-left: 4px; margin-right: 40px;"
+					onclick="searchBtn();">검색</button>
+
 			</div>
 		</div>
+	</div>
 
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
@@ -111,6 +136,55 @@ $('.ui.dropdown')
   allowAdditions: true,
   allowCategorySelection: true
 });
+
+//카테고리 선택
+var category = '';
+$('.menu > .item').click(function() {
+	switch ($(this).text()) {
+	case '제목':
+		category = 'title';
+		break;
+	case '제목+내용':
+		category = 'titleContents';
+		break;
+	case '작성자':
+		category = 'writer';
+		break;
+	}
+});
+
+/* 검색 */
+function searchBtn(){
+	if(category==''){
+		alert('분류를 선택해 주세요');
+		return;
+	}
+	$searchText = $('#searchText').val();
+	$type = $('#type').val();
+	location.href = "/homeTrainingList.diet?category="+ category +"&searchText=" + $searchText + "&type=" + $type;
+}
+
+//게시물 등록
+function homeTrainingWrite(){
+	
+	$.ajax({
+		url : '/htWriteAuthorityCheck.diet',
+		type : 'post',
+		success : function(result){
+			if(result>0){
+				location.href = "/loadHomeTrainingWrite.diet";
+			}else{
+				alert('권한이 없습니다.');
+			}
+			
+		},
+		error : function(result){
+			alert('권한이 없습니다.');
+		}
+	});
+}
+
+
 
 </script>
 </html>

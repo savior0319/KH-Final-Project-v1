@@ -85,7 +85,7 @@
 	</delete>
 
 	<!-- 마이페이지 - 일대일 문의 -->
-	<select id="allMyOneToOneQuestion" parameterType="member"
+	<select id="myQuestionList" parameterType="member"
 		resultType="question">
 		SELECT QS_INDEX AS qsIndex, QS_TITLE AS qsTitle,QS_CONTENT
 		AS qsContent,
@@ -167,29 +167,20 @@
 
 	<select id="myPostList" parameterType="myPostPDVO"
 		resultType="community" resultMap="communityDB">
+
 		SELECT *
 		FROM (SELECT
 		BOARD_POST_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY
 		POST_DATETIME
-		DESC) AS NUM
+		DESC)
+		AS NUM
 		FROM
-		BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}
+		BOARD_POST_TBL  WHERE MB_INDEX = #{mbIndex}
 		) WHERE NUM BETWEEN
 		#{start} AND #{end}
 	</select>
 
-	<select id="myBookMarkGetList">
-		SELECT *
-		FROM (SELECT
-		BOARD_BOOKMARK_TBL.*,
-		ROW_NUMBER() OVER(ORDER BY
-		DESC) AS NUM
-		FROM
-		BOARD_BOOKMARK_TBL
-		) WHERE
-		NUM BETWEEN #{start} AND #{end}
-	</select>
 
 	<select id="nickNameCheck" parameterType="member"
 		resultType="member">
@@ -242,7 +233,7 @@
 
 	<!-- 마이페이지 - 나의 댓글 -->
 	<select id="myCommentList" resultType="comment"
-		parameterType="member">
+		parameterType="myCommentPDVO">
 
 		SELECT BOARD_POST_TBL.POST_INDEX AS postIndex,
 		BOARD_POST_TBL.POST_TITLE AS postTitle,CMT_CONTENT AS cmtContent,
@@ -263,22 +254,37 @@
 	<!-- 나의 댓글 페이징 처리 - 내비게이션 생성 -->
 
 	<select id="myCommentGetNavi" resultType="java.lang.Integer"
-		parameterType="myActivity">
+		parameterType="myCommentPDVO">
 		SELECT COUNT(*) AS totalCount
 		FROM BOARD_COMMENT_TBL
 		WHERE MB_INDEX = #{mbIndex}
 
 	</select>
 
-
 	<!-- 마이페이지 - 나의 북마크 -->
-	<select id="myBookMark" resultType="bookMark"
-		parameterType="bookMark">
+	<select id="myBookMarkList" resultType="bookMark"
+		parameterType="myBookMarkPDVO">
+		SELECT BOARD_POST_TBL.POST_TITLE as postTitle, POST_HIT
+		as postHit , BOARD_POST_TBL.POST_INDEX as postIndex, BCA_INDEX AS bcaIndex,
+		POST_LIKE as postLike,
+		BOARD_POST_TBL.MB_INDEX as mbIndex,MB_ID as mbId FROM
+		BOARD_POST_TBL
+		LEFT JOIN BOARD_BOOKMARK_TBL
+		ON(BOARD_POST_TBL.POST_INDEX = BOARD_BOOKMARK_TBL.POST_INDEX)
+		LEFT JOIN
+		MEMBER_TBL
+		ON(BOARD_POST_TBL.MB_INDEX= MEMBER_TBL.MB_INDEX)
+		WHERE
+		BOARD_BOOKMARK_TBL.MB_INDEX = #{mbIndex}
+	</select>
 
-		SELECT POST_HIT AS postHit,MB_INDEX,POST_TITLE,POST_HIT,
-		POST_DATETIME AS postDateTime
-		FROM BOARD_BOOKMARK_TBL LEFT JOIN
-		BOARD_POST_TBL USING(MB_INDEX) WHERE MB_INDEX = #{mbIndex}
+	<!-- 나의 북마크 - 페이징 처리 -->
+	<select id="myBookMarkGetNavi" resultType="java.lang.Integer"
+		parameterType="myBookMarkPDVO">
+		SELECT COUNT(*) AS totalCount
+		FROM BOARD_BOOKMARK_TBL
+		WHERE MB_INDEX = #{mbIndex}
+
 	</select>
 
 	<!-- 마이페이지 - 일대일 문의 관리자 답변 -->
@@ -297,5 +303,16 @@
 		LEFT OUTER JOIN
 		ANSWER_TBL USING(QS_INDEX) WHERE QS_INDEX = #{qsIndex}
 	</select>
+	
+	
+	<!-- 나의 북마크 - 페이징 처리 -->
+	<select id="myQuestionGetNavi" resultType="java.lang.Integer"
+		parameterType="myBookMarkPDVO">
+		SELECT COUNT(*) AS totalCount
+		FROM QUESTION_TBL
+		WHERE MB_INDEX = #{mbIndex}
+
+	</select>
+	
 </mapper>
 
