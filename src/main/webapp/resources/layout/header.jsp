@@ -145,7 +145,7 @@
 	<div class="ui container">
 		<div id="resizeLogo">
 		<a href="/">
-			<img class="logo" src="/resources/image/logo.png" style="height: 90%; margin-right: 15px; margin-top: 5px;">
+			<img class="logo" src="/resources/image/logo.png" style="height: 80px; margin-right: 15px; margin-top: 5px;">
 		</a>
 		</div>
 
