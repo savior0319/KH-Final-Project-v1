@@ -1,8 +1,13 @@
 package spring.kh.diet.model.service;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.UpMbSeeVO;
 
 public interface DietTipService {
 
@@ -29,5 +34,13 @@ public interface DietTipService {
 	int postLikeUp(BoardLikeVO checkVO);
 
 	BoardLikeVO checkBoardLike(BoardLikeVO checkVO);
+
+	ArrayList<DietTipVO> getNextPreDt(int indexNo);
+
+	void upMbDtSee(UpMbSeeVO ums);
+
+	MemberVO getDtSeeList(int mbIndex);
+
+	ArrayList<DietTipVO> getMatchedDtList(String type1);
 	
 }

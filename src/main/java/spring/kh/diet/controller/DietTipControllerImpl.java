@@ -3,6 +3,8 @@ package spring.kh.diet.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
 import spring.kh.diet.model.service.CommonService;
 import spring.kh.diet.model.service.CommunityService;
 import spring.kh.diet.model.service.DietTipServiceImpl;
@@ -26,6 +30,7 @@ import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.UpMbSeeVO;
 
 @Controller
 public class DietTipControllerImpl implements DietTipController {
@@ -67,6 +72,39 @@ public class DietTipControllerImpl implements DietTipController {
 
 		request.setAttribute("dtpd", dtpd);
 		request.setAttribute("type", type);
+		
+		
+		// 종류별로 해당 회원이 게시물을 봤던 횟수 불러오기 
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO)session.getAttribute("member");
+		if(user!=null && type.equals("all")) {
+			MemberVO seeList = dietTipService.getDtSeeList(user.getMbIndex());
+			
+			
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			list.add(seeList.getMbDtColSee());
+			list.add(seeList.getMbDtSpoSee());
+			list.add(seeList.getMbDtDfSee());
+			list.add(seeList.getMbDtSlSee());
+			java.util.Collections.sort(list);
+			java.util.Collections.reverse(list);
+			
+			String type1 = ""; 
+			if(list.get(0) == seeList.getMbDtColSee()) {
+				type1 = "coloumn";
+			}else if(list.get(0) == seeList.getMbDtSpoSee()) {
+				type1 = "sport";
+			}else if(list.get(0) == seeList.getMbDtDfSee()) {
+				type1 = "dietFood";
+			}else {
+				type1 = "successLatter";
+			}
+			
+			ArrayList<DietTipVO> matchedList = dietTipService.getMatchedDtList(type1);
+			request.setAttribute("matchedList", matchedList);
+		}
+		
+		
 
 		return "dietTip/dietTipList";
 	}
@@ -125,10 +163,20 @@ public class DietTipControllerImpl implements DietTipController {
 		request.setAttribute("bcpd", bcpd);
 		
 		// 이전글 다음글 보여주는 거
-		ArrayList<DietTipVO> nextPreDt = dietTipService.getNextPreDt(dt.getDtDate());
+		ArrayList<DietTipVO> nextPreDt = dietTipService.getNextPreDt(dt.getDtIndex());
 		request.setAttribute("nextPreDt", nextPreDt);
 		
 		request.setAttribute("type", type);
+		
+		
+		// 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기
+		MemberVO user = (MemberVO)session.getAttribute("member");
+		if(user!=null) {
+			UpMbSeeVO ums = new UpMbSeeVO();
+			ums.setMbIndex(user.getMbIndex());
+			ums.setType(type);
+			dietTipService.upMbDtSee(ums);
+		}
 
 		return "dietTip/dietTipInfo";
 	}
@@ -139,7 +187,7 @@ public class DietTipControllerImpl implements DietTipController {
 	@RequestMapping(value = "/dtWriteAuthorityCheck.diet")
 	public void dtWriteAuthorityCheck(HttpSession session, HttpServletResponse response) throws IOException {
 		int result = 0;
-		if (session.getAttribute("member") != null && ((MemberVO)session.getAttribute("member")).getMbIndex()==1) {
+		if (session.getAttribute("member") != null && ((MemberVO)session.getAttribute("member")).getMbGrade().equals("관리자")) {
 			result = 1;
 		}
 

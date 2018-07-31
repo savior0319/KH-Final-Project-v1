@@ -46,6 +46,7 @@
 		<typeAlias type="spring.kh.diet.model.vo.yesterdayAnalyticsPDVO" alias="yesterdayAnalytic" />
 		<typeAlias type="spring.kh.diet.model.vo.yesterdayAnalytic" alias="yesterday" />
 		<typeAlias type="spring.kh.diet.model.vo.BlackListRegVO" alias="black" />
+		<typeAlias type="spring.kh.diet.model.vo.UpMbSeeVO" alias="upMbSee" />
 		<typeAlias type="spring.kh.diet.model.vo.MyQuestionPageDataVO" alias="myQuestionPDVO" />
 	</typeAliases>
 
