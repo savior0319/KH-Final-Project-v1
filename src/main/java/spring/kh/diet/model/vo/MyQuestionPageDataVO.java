@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MyQuestionPageData {
+public class MyQuestionPageDataVO {
 	private ArrayList<QuestionVO> comList;
 	private String pageNavi, type;
 	private int start, end, mbIndex,bcaIndex;

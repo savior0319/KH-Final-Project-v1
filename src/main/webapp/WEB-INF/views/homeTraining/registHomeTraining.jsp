@@ -102,7 +102,7 @@
 					<h3>영상 시간 : <input type="text" id="time" placeholder="시간을 입력"></h3>
 					<h3>운동 난이도 : <input type="text" id="hard" placeholder="운동 난이도를 입력"></h3>
 					<h3>칼로리 소모량 : <input type="text" id="kal" placeholder="소모 칼로리를 입력"></h3>
-					<h3>유튜브 주소 : <input type="text" id="video" placeholder="유튜브 주소 입력"></h3>
+					<h3>유튜브 주소 : <input type="text" id="video" placeholder="유튜브 주소 입력" onchange="change();"></h3>
 					</div>
 				</div>
 				
@@ -339,6 +339,12 @@
     function handle(){
         reader.readAsDataURL(ff);
         $("#updateProfile").modal('hide');
+    }
+    
+    
+    // 유튜브 영상 미리보기 
+    function change(){
+    	
     }
 </script>
 

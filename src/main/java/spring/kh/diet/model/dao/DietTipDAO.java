@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.UpMbSeeVO;
 
 public interface DietTipDAO {
 
@@ -37,5 +39,9 @@ public interface DietTipDAO {
 	int postLikeUp(SqlSessionTemplate session, BoardLikeVO checkVO);
 
 	BoardLikeVO checkBoardLike(SqlSessionTemplate session, BoardLikeVO checkVO);
+
+	void upMbDtSee(SqlSessionTemplate session, UpMbSeeVO ums);
+
+	MemberVO getDtSeeList(SqlSessionTemplate session, int mbIndex);
 	
 }

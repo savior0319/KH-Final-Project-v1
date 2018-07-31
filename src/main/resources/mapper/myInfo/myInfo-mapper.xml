@@ -22,6 +22,24 @@
 		<result property="mbEnrollDate" column="MB_ENROLLDATE" />
 	</resultMap>
 
+	<delete id="deleteMyBookMark" parameterType="bookMark">
+		DELETE FROM BOARD_BOOKMARK_TBL WHERE BMK_INDEX = #{bmkIndex} AND MB_INDEX = #{mbIndex}
+	</delete>
+
+	<!-- 나의 게시물 삭제 -->
+	<delete id="deleteMyPost" parameterType="community">
+		DELETE FROM BOARD_POST_TBL WHERE POST_INDEX = #{postIndex} AND MB_INDEX = #{mbIndex}
+	</delete>
+
+	<delete id="deleteMyComment" parameterType="comment">
+		DELETE FROM BOARD_COMMENT_TBL WHERE CMT_INDEX = #{cmtIndex} AND MB_INDEX = #{mbIndex}
+	</delete>
+
+	<!-- 1대1 문의 삭제 -->
+	<delete id="deleteMyQuestion" parameterType="question">
+		DELETE FROM QUESTION_TBL WHERE QS_INDEX = #{qsIndex} AND MB_INDEX = #{mbIndex}
+	</delete>
+
 	<!-- 1대1 문의 -->
 	<insert id="question" parameterType="question">
 		INSERT INTO QUESTION_TBL
@@ -75,6 +93,7 @@
 		FROM MEMBER_TBL
 		WHERE MB_ID = #{mbId}
 	</select>
+
 	<!-- 마이페이지 - 프로필 사진 삭제 -->
 	<delete id="deleteMyPicture" parameterType="member">
 		UPDATE MEMBER_TBL SET
@@ -83,27 +102,31 @@
 		WHERE MB_ID = #{mbId}
 	</delete>
 
-	<!-- 마이페이지 - 일대일 문의 -->
-	<select id="myQuestionList" parameterType="member" resultType="question">
-		SELECT MB_INDEX AS mbIndex, 
-        QS_INDEX AS qsIndex, 
-        QS_TITLE AS qsTitle,
-        QS_CONTENT AS qsContent,
-		QS_WRITETIME AS qsWriteTime, 
-        QS_ANSWERCHECK AS qsAnswerCheck FROM
-		(SELECT
-		QUESTION_TBL.*,
-		ROW_NUMBER() OVER(ORDER BY
-		QS_WRITETIME
-		DESC) AS NUM FROM QUESTION_TBL
-		WHERE MB_INDEX = #{mbIndex}
-		)WHERE NUM BETWEEN
-		#{start} AND #{end}
+	<!-- 마이페이지 - 일대일 문의 관리자 답변 -->
+	<select id="questionAnswer" resultType="question" parameterType="Integer">
+		SELECT
+		QS_INDEX AS qsIndex,
+		QS_TITLE AS qsTitle,
+		QS_CONTENT AS qsContent,
+		MB_NICKNAME AS mbNickName,
+		QS_WRITETIME AS
+		qsWriteTime,
+		QS_ANSWERCHECK AS qsAnswerCheck,
+		ANS_CONTENT AS ansContent
+		FROM MEMBER_TBL JOIN QUESTION_TBL USING (MB_INDEX)
+		LEFT OUTER JOIN
+		ANSWER_TBL USING(QS_INDEX) WHERE QS_INDEX = #{qsIndex}
 	</select>
 
 
-	<!-- 마이페이지 - 장바구니 -->
+	<!-- 나의 일대일 문의 - 페이징 처리 -->
+	<select id="myQuestionGetNavi" resultType="java.lang.Integer" parameterType="myQuestionPDVO">
+		SELECT COUNT(*) AS totalCount
+		FROM QUESTION_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</select>
 
+	<!-- 마이페이지 - 장바구니 -->
 	<select id="myWishList" parameterType="member" resultType="product">
 		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS
 		pdImage,
@@ -125,11 +148,12 @@
 		null, null, null, null, #{mbInterest},
 		'일반회원', null,
 		null, null, 'n',
-		SYSDATE)
+		SYSDATE,0,0,0,0,0,0,0,0,0,0,0,0)
 	</insert>
 
 
 	<!-- 나의 활동 정보 (댓글,게시물,가입날짜) -->
+
 	<select id="myActivity" parameterType="member" resultType="myActivity">
 		SELECT MB_INDEX AS mbIndex,
 		(SELECT COUNT(*) FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) AS myCommentCount,
@@ -141,9 +165,10 @@
 		WHERE MB_INDEX = #{mbIndex}
 	</select>
 
-	<select id="myCount" resultType="myActivity">
-		SELECT COUNT(DISTINCT SS_LOGIN) + 1 FROM
-		OFF_SESSION_TBL WHERE SS_LOGIN = #{mbNickName}
+	<!-- 나의 활동 정보 (출석) -->
+
+	<select id="myCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM (SELECT DISTINCT(TRUNC(SS_LASTIN)) FROM OFF_SESSION_TBL WHERE SS_LOGIN =#{mbNickName} GROUP BY SS_LASTIN)
 	</select>
 
 	<resultMap type="community" id="communityDB">
@@ -234,29 +259,35 @@
 	<!-- 마이페이지 - 나의 댓글 -->
 	<select id="myCommentList" resultType="comment" parameterType="myCommentPDVO">
 
-		 SELECT 
-        BPT.POST_INDEX AS postIndex,
+		SELECT
+		BPT.POST_INDEX AS postIndex,
 		BCA_INDEX AS bcaIndex,
 		DT_TYPE AS dtType,
 		DT_INDEX AS dtIndex,
-        POST_TITLE AS postTitle,
-        DT_TITLE AS dtTitle,
-        DT_DATE AS dtDate,
-        DT_LIKE AS dtLike,
-        DT_SEE AS dtSee,
-        POST_DATETIME AS postDateTime,
-        POST_LIKE AS postLike,
-        CMT_DATETIME AS cmtDateTime,
-        CMT_CONTENT AS cmtContent,
-        CMT_LIKE AS cmtLike
-		FROM (SELECT BOARD_COMMENT_TBL.*,ROW_NUMBER() OVER(ORDER BY CMT_DATETIME DESC)
+		POST_TITLE AS postTitle,
+		DT_TITLE AS
+		dtTitle,
+		DT_DATE AS dtDate,
+		DT_LIKE AS dtLike,
+		DT_SEE AS dtSee,
+		POST_DATETIME AS postDateTime,
+		POST_LIKE AS postLike,
+		CMT_DATETIME AS cmtDateTime,
+		CMT_CONTENT AS cmtContent,
+		CMT_LIKE AS cmtLike,
+		CMT_INDEX AS
+		cmtIndex
+		FROM (SELECT
+		BOARD_COMMENT_TBL.*,ROW_NUMBER() OVER(ORDER BY CMT_DATETIME DESC)
 		AS NUM FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) BCT,
-        BOARD_POST_TBL BPT, DIETTIP_TB DT 
-        WHERE (BCT.POST_INDEX = BPT.POST_INDEX(+))
-        AND (BCT.POST_INDEX = DT.DT_INDEX(+))
+		BOARD_POST_TBL BPT, DIETTIP_TB DT
+		WHERE
+		(BCT.POST_INDEX =
+		BPT.POST_INDEX(+))
+		AND (BCT.POST_INDEX = DT.DT_INDEX(+))
 		AND BCT.MB_INDEX = #{mbIndex}
 		AND NUM BETWEEN #{start} AND #{end}
-        
+
 	</select>
 
 	<!-- 나의 댓글 페이징 처리 - 내비게이션 생성 -->
@@ -270,57 +301,67 @@
 
 	<!-- 마이페이지 - 나의 북마크 -->
 	<select id="myBookMarkList" resultType="bookMark" parameterType="myBookMarkPDVO">
-		SELECT 
+		SELECT
 		BPT.POST_INDEX AS postIndex,
 		BCA_INDEX AS bcaIndex,
 		DT_TYPE AS dtType,
 		MB_ID AS mbId,
 		DT_INDEX AS dtIndex,
-        POST_TITLE AS postTitle,
-        DT_TITLE AS dtTitle,
-        DT_SAMMARY AS dtSammary,
-        DT_DATE AS dtDate,
-        DT_LIKE AS dtLike,
-        DT_SEE AS dtSee,
-        POST_DATETIME AS postDateTime,
-        POST_LIKE AS postLike 
-        FROM (SELECT BOARD_BOOKMARK_TBL.*,ROW_NUMBER() OVER(ORDER BY BMK_INDEX DESC)
-		AS NUM FROM BOARD_BOOKMARK_TBL  WHERE MB_INDEX = #{mbIndex}) BMK,  MEMBER_TBL MBT,DIETTIP_TB DT ,BOARD_POST_TBL BPT
-        WHERE BMK.MB_INDEX = MBT.MB_INDEX(+) AND BMK.POST_INDEX = DT.DT_INDEX(+) AND BPT.POST_INDEX(+) = BMK.POST_INDEX AND BMK.MB_INDEX= #{mbIndex}
-        and NUM between #{start} and #{end}
+		POST_TITLE AS
+		postTitle,
+		DT_TITLE AS dtTitle,
+		DT_SAMMARY AS dtSammary,
+		DT_DATE AS dtDate,
+		DT_LIKE AS
+		dtLike,
+		DT_SEE AS dtSee,
+		POST_DATETIME AS postDateTime,
+		POST_LIKE AS postLike,
+		BMK_INDEX AS bmkIndex
+		FROM (SELECT
+		BOARD_BOOKMARK_TBL.*,ROW_NUMBER() OVER(ORDER BY BMK_INDEX DESC)
+		AS NUM FROM
+		BOARD_BOOKMARK_TBL WHERE MB_INDEX = #{mbIndex}) BMK, MEMBER_TBL MBT,DIETTIP_TB DT ,BOARD_POST_TBL BPT
+		WHERE BMK.MB_INDEX =
+		MBT.MB_INDEX(+) AND BMK.POST_INDEX = DT.DT_INDEX(+) AND BPT.POST_INDEX(+) =
+		BMK.POST_INDEX AND BMK.MB_INDEX= #{mbIndex}
+		AND NUM BETWEEN #{start} AND #{end}
+
 	</select>
 
 	<!-- 나의 북마크 - 페이징 처리 -->
 	<select id="myBookMarkGetNavi" resultType="java.lang.Integer" parameterType="myBookMarkPDVO">
+
 		SELECT COUNT(*) AS totalCount
-		FROM BOARD_BOOKMARK_TBL
-		WHERE MB_INDEX = #{mbIndex}
+		FROM (SELECT
+		BOARD_BOOKMARK_TBL.*,ROW_NUMBER() OVER(ORDER BY BMK_INDEX DESC)
+		AS NUM FROM BOARD_BOOKMARK_TBL WHERE MB_INDEX =#{mbIndex}) BMK, MEMBER_TBL MBT,DIETTIP_TB DT
+		,BOARD_POST_TBL
+		BPT
+		WHERE BMK.MB_INDEX =
+		MBT.MB_INDEX(+) AND BMK.POST_INDEX = DT.DT_INDEX(+) AND BPT.POST_INDEX(+) = BMK.POST_INDEX AND BMK.MB_INDEX= #{mbIndex}
+		and (BPT.POST_INDEX IS NOT NULL OR
+		DT.DT_INDEX IS NOT NULL)
 
 	</select>
 
-	<!-- 마이페이지 - 일대일 문의 관리자 답변 -->
-	<select id="questionAnswer" resultType="question" parameterType="Integer">
-		SELECT
+	<!-- 마이페이지 - 일대일 문의 -->
+	<select id="myQuestionList" parameterType="myQuestionPDVO" resultType="question">
+		SELECT MB_INDEX AS mbIndex,
 		QS_INDEX AS qsIndex,
 		QS_TITLE AS qsTitle,
 		QS_CONTENT AS qsContent,
-		MB_NICKNAME AS mbNickName,
-		QS_WRITETIME AS
-		qsWriteTime,
-		QS_ANSWERCHECK AS qsAnswerCheck,
-		ANS_CONTENT AS ansContent
-		FROM MEMBER_TBL JOIN QUESTION_TBL USING (MB_INDEX)
-		LEFT OUTER JOIN
-		ANSWER_TBL USING(QS_INDEX) WHERE QS_INDEX = #{qsIndex}
-	</select>
-
-
-	<!-- 나의 북마크 - 페이징 처리 -->
-	<select id="myQuestionGetNavi" resultType="java.lang.Integer" parameterType="myBookMarkPDVO">
-		SELECT COUNT(*) AS totalCount
-		FROM QUESTION_TBL
+		QS_WRITETIME AS qsWriteTime,
+		QS_ANSWERCHECK AS qsAnswerCheck
+		FROM
+		(SELECT
+		QUESTION_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY
+		QS_WRITETIME
+		DESC) AS NUM FROM QUESTION_TBL
 		WHERE MB_INDEX = #{mbIndex}
-
+		)WHERE NUM BETWEEN
+		#{start} AND #{end}
 	</select>
 
 </mapper>

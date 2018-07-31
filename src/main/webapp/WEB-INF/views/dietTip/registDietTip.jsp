@@ -14,8 +14,6 @@
 
 <!-- CSS -->
 <style>
-
-
 .fileBox .fileName {
 	display: inline-block;
 	width: 190px;
@@ -63,7 +61,7 @@
 	<div class="ui container">
 		<div class="ui left aligned basic segment">
 			<div class="ui medium message">
-				<div class="ui large header" align="center">다어어트팁</div>
+				<div class="ui center large header" align="center">다어어트팁</div>
 			</div>
 			<br>
 
@@ -88,9 +86,9 @@
 			<div class="ui grid">
 				<div class="six wide column">
 					<div style="width: 100%;">
-						<img id="img" style="width:230px; height:180px;">
+						<img id="img" style="width: 230px; height: 180px;">
 					</div>
-					<div style="width: 100%; height: 30px; margin-top:20px;">
+					<div style="width: 100%; height: 30px; margin-top: 20px;">
 						<button type="button" class="ui button" onclick="uploadPictureBtn();" style="width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
 					</div>
 				</div>
@@ -118,26 +116,26 @@
 				<div class="description">
 					<div class="ui header">
 						<div class="fileBox">
-							<input type="text" class="fileName" id="fileName" readonly="readonly" /> 
-							<label for="uploadBtn" class="btn_file">찾아보기</label> 
-							<input type="file" id="uploadBtn" class="uploadBtn"
-								name="uploadFile" />
+							<input type="text" class="fileName" id="fileName" readonly="readonly" />
+							<label for="uploadBtn" class="btn_file">찾아보기</label>
+							<input type="file" id="uploadBtn" class="uploadBtn" name="uploadFile" />
 						</div>
 					</div>
 				</div>
-				
-				
+
+
 			</form>
 			<br>
 			<div class="actions">
-					<!-- <button type="submit" style="background: rgb(250, 40, 40); color: white;" class="ui button">
+				<!-- <button type="submit" style="background: rgb(250, 40, 40); color: white;" class="ui button">
 						사진업데이트 <i class="checkmark icon"></i>
 					</button> -->
-					<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
-						사진 등록 <i class="checkmark icon"></i>
-					</button>
-					<button type="button" class="ui black button" id="modalOff">취소</button>
-				</div>
+				<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
+					사진 등록
+					<i class="checkmark icon"></i>
+				</button>
+				<button type="button" class="ui black button" id="modalOff">취소</button>
+			</div>
 			<input type="hidden" value="${sessionScope.member.mbId}" id="memberId" />
 		</div>
 	</div>
@@ -154,7 +152,7 @@
 			placeholder : '내용을 입력해주세요',
 			tabsize : 2,
 			height : 500,
-			
+
 		});
 	});
 
@@ -189,69 +187,65 @@
 
 	/* 등록 완료 컨트롤러 호출 */
 	function register() {
-		
+
 		// 사진 저장
 		var form = new FormData(document.getElementById('photoForm'));
-    	$.ajax({
-    		url : 'saveDietTipMainPhotoPath.diet',
-    		type : 'post',
-    		data : form,
-    		processData: false,
-    		contentType: false,
-    		success : function (data){
-    			$('#mainPhotoPath').val(data);
-    			alert('돼써요');
-    			 
-    			// 사진 저장 성공하면 전체 등록 진행
-    			var $title = $('#title').val();
-    			var $content = $('#summernote').summernote('code');
-    			var $sammary = $('#sammary').val();
-    			var $mainPhotoPath = $('#mainPhotoPath').val();
-    			if (category != null && $title != '' && $content != '') {
-    				$.ajax({
-    					url : '/registDietTip.diet',
-    					type : 'post',
-    					data : {
-    						'title' : $title,
-    						'content' : $content,
-    						'category' : category,
-    						'sammary' : $sammary,
-    						'mainPhotoPath' : $mainPhotoPath
-    					},
-    					success : function(result) {
-    						if (result == 1) {
-    							alert('게시글 등록 완료');
-    							location.href = "/dietTipList.diet?type=all";
-    						} else {
-    							alert('게시글 등록 실패');
-    							location.href = "/dietTipList.diet?type=all";
-    						}
-    					},
-    					error : function() {
-    						alert('게시글 등록 실패(과정 오류)');
-    						location.href = "/dietTipList.diet?type=all";
-    					}
-    				});
-    			} else {
-    				if (category == null) {
-    					alert('카테고리를 선택하여주세요.');
-    				} else {
-    					alert('내용을 반드시 기입하여주세요.');
-    				}
-    			}
-    			
-    			
-    			
-    		},
-    		error : function (data){
-    			alert('실패ㅋㅋㅋ');
-    		}
-    	});
-		
-		
-		
+		$.ajax({
+			url : 'saveDietTipMainPhotoPath.diet',
+			type : 'post',
+			data : form,
+			processData : false,
+			contentType : false,
+			success : function(data) {
+				$('#mainPhotoPath').val(data);
+				alert('돼써요');
+
+				// 사진 저장 성공하면 전체 등록 진행
+				var $title = $('#title').val();
+				var $content = $('#summernote').summernote('code');
+				var $sammary = $('#sammary').val();
+				var $mainPhotoPath = $('#mainPhotoPath').val();
+				if (category != null && $title != '' && $content != '') {
+					$.ajax({
+						url : '/registDietTip.diet',
+						type : 'post',
+						data : {
+							'title' : $title,
+							'content' : $content,
+							'category' : category,
+							'sammary' : $sammary,
+							'mainPhotoPath' : $mainPhotoPath
+						},
+						success : function(result) {
+							if (result == 1) {
+								alert('게시글 등록 완료');
+								location.href = "/dietTipList.diet?type=all";
+							} else {
+								alert('게시글 등록 실패');
+								location.href = "/dietTipList.diet?type=all";
+							}
+						},
+						error : function() {
+							alert('게시글 등록 실패(과정 오류)');
+							location.href = "/dietTipList.diet?type=all";
+						}
+					});
+				} else {
+					if (category == null) {
+						alert('카테고리를 선택하여주세요.');
+					} else {
+						alert('내용을 반드시 기입하여주세요.');
+					}
+				}
+
+			},
+			error : function(data) {
+				alert('실패ㅋㅋㅋ');
+			}
+		});
+
 	}
-	
+
 	/* 모달 창 종료 */
 	$("#modalOff").click(function() {
 		$("#updateProfile").modal('hide');
@@ -267,49 +261,47 @@
 		}
 		$(this).siblings('.fileName').val(filename);
 	});
-	
-	
-	
+
 	/* 올린 이미지 미리보기 */
 	var sel_file;
-    var reader;
-    var ff;
+	var reader;
+	var ff;
 
-    $(document).ready(function() {
-        $("#uploadBtn").on("change", handleImgFileSelect);
-    }); 
+	$(document).ready(function() {
+		$("#uploadBtn").on("change", handleImgFileSelect);
+	});
 
-    function photoPreview(){
-    	handle();
-    	
-    }
-    
-    function handleImgFileSelect(e) {
-        
-        var files = e.target.files;
-        var filesArr = Array.prototype.slice.call(files);
+	function photoPreview() {
+		handle();
 
-        filesArr.forEach(function(f) {
-            if(!f.type.match("image.*")) {
-                alert("확장자는 이미지 확장자만 가능합니다.");
-                return;
-            }
+	}
 
-            sel_file = f;
+	function handleImgFileSelect(e) {
 
-            reader = new FileReader();
-            
-            reader.onload = function(e) {
-                $("#img").attr("src", e.target.result);
-            }
-            ff = f;
-        });
-    }
-    
-    function handle(){
-        reader.readAsDataURL(ff);
-        $("#updateProfile").modal('hide');
-    }
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+
+		filesArr.forEach(function(f) {
+			if (!f.type.match("image.*")) {
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
+
+			sel_file = f;
+
+			reader = new FileReader();
+
+			reader.onload = function(e) {
+				$("#img").attr("src", e.target.result);
+			}
+			ff = f;
+		});
+	}
+
+	function handle() {
+		reader.readAsDataURL(ff);
+		$("#updateProfile").modal('hide');
+	}
 </script>
 
 </html>

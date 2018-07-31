@@ -13,6 +13,8 @@ import spring.kh.diet.model.dao.DietTipDAOImpl;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.UpMbSeeVO;
 
 @Service("dietTipService")
 public class DietTipServiceImpl implements DietTipService {
@@ -106,8 +108,26 @@ public class DietTipServiceImpl implements DietTipService {
 		return dietTipDAO.checkBoardLike(session, checkVO);
 	}
 
-	public ArrayList<DietTipVO> getNextPreDt(Timestamp dtDate) {
-		return dietTipDAO.getNextPreDt(session, dtDate);
+	
+	@Override
+	public ArrayList<DietTipVO> getNextPreDt(int indexNo) {
+		return dietTipDAO.getNextPreDt(session, indexNo);
+	}
+
+	// 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기
+	@Override
+	public void upMbDtSee(UpMbSeeVO ums) {
+		dietTipDAO.upMbDtSee(session, ums);
+	}
+
+	@Override
+	public MemberVO getDtSeeList(int mbIndex) {
+		return dietTipDAO.getDtSeeList(session, mbIndex);
+	}
+
+	@Override
+	public ArrayList<DietTipVO> getMatchedDtList(String type1) {
+		return dietTipDAO.getMatchedDtList(session, type1);
 	}
 
 }

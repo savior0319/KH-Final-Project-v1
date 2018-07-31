@@ -226,10 +226,10 @@
 	</select>
 	
 	<!-- 홈트레이닝 페이지 수정 -->
-	<select id="updateHomeTraining" parameterType="homeTraining">
+	<select id="updateHomeTraining" parameterType="homeTraining" >
 		UPDATE HOMETRAINING_TB SET
 		HT_MAIN_PHOTO = #{htMainPhoto}, HT_TITLE = #{htTitle},
-		HT_PART = #{htPart}, HT_EXPLAIN = #{htExplain}, HT_VIDEO = #{htVideo},
+		HT_TYPE = #{htType}, HT_PART = #{htPart}, HT_EXPLAIN = #{htExplain}, HT_VIDEO = #{htVideo},
 		HT_STEP_TIME = #{htStepTime}, HT_STEP_TYPE = #{htStepType},
 		HT_STEP_HARD = #{htStepHard}, HT_STEP_Kal = #{htStepKal}
 		WHERE INDEX_NO = #{indexNo}
@@ -238,11 +238,29 @@
 	
 
 	<!-- 이전글 다음글 -->
-	<!-- <select id="getpnWriteList" resultType="homeTraining" resultMap="homeTrainingDB" 
-		parameterType="homeTraining"> <![CDATA[ SELECT * FROM HOMETRAINING_TB WHERE 
-		HT_INDEX = #{htIndex} UNION ALL(SELECT * FROM HOMETRAINING_TB WHERE HT_INDEX 
-		< #{htIndex} ORDER BY HT_INDEX DESC LIMIT 1) UNION ALL(SELECT * FROM HOMETRAINING_TB 
-		WHERE HT_INDEX > #{htIndex} ORDER BY HT_INDEX ASC LIMIT 1) ORDER BY HT_INDEX 
-		DESC ]]> </select> -->
+	 <select id="getpnWriteList" resultType="homeTraining" resultMap="homeTrainingDB">
+		<![CDATA[ 
+		SELECT 
+		INDEX_NO AS indexNo,
+		HT_TYPE AS htType,
+		HT_TITLE AS htTitle,
+		HT_ENROLLDATE AS htEnrollDate,
+		HT_HITS AS htHits
+		FROM (SELECT HOMETRAINING_TB.*, ROW_NUMBER() OVER(ORDER 
+			BY INDEX_NO DESC) AS NUM FROM HOMETRAINING_TB WHERE HOMETRAINING_TB.INDEX_NO<#{indexNo}
+			) WHERE NUM = 1 
+		UNION ALL
+		SELECT
+		INDEX_NO AS indexNo,
+		HT_TYPE AS htType,
+		HT_TITLE AS htTitle,
+		HT_ENROLLDATE AS htEnrollDate,
+		HT_HITS AS htHits
+		 FROM (SELECT HOMETRAINING_TB.*, ROW_NUMBER() 
+			OVER(ORDER BY INDEX_NO ASC) AS NUM FROM HOMETRAINING_TB WHERE HOMETRAINING_TB.INDEX_NO>#{indexNo}
+			) WHERE NUM = 1 
+		]]>
+		
+	</select>
 
 </mapper>

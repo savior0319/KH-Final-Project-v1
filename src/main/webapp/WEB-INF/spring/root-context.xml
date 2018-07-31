@@ -50,4 +50,11 @@
 	</property>
 	
 	</bean>
+	
+	<!-- AOP -->
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* spring.kh.*.*.*.*.*(*))" id="tranPointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="tranPointcut"/>
+	</aop:config>
 </beans>

@@ -287,29 +287,43 @@ p>span {
 			</button>
 		</div>
 		<br> <br>
-
 		<table class="ui very basic table">
 
 			<tbody>
 				<tr></tr>
 
-				<c:if test="${requestScope.nextPreDt[0]!=null }">
-					<tr style="cursor: pointer;" onclick="goInfo(${requestScope.nextPreDt[0].dtIndex })">
-						<td>이전글 <i class="angle up icon"></i></td>
-						<td>${requestScope.nextPreDt[0].dtTitle }</td>
-						<td><fmt:formatDate value="${requestScope.nextPreDt[0].dtDate }" pattern="yyyy-MM-dd" /></td>
-						<td>조회수 : ${requestScope.nextPreDt[0].dtSee }</td>
-					</tr>
-				</c:if>
+				<c:choose>
+					<c:when test="${requestScope.dt.dtNo!=1 }">
+						<tr style="cursor: pointer;" onclick="goInfo(${requestScope.nextPreDt[0].dtIndex })">
+							<td>이전글 <i class="angle up icon"></i></td>
+							<td>${requestScope.nextPreDt[0].dtTitle }</td>
+							<td><fmt:formatDate value="${requestScope.nextPreDt[0].dtDate }" pattern="yyyy-MM-dd" /></td>
+							<td>조회수 : ${requestScope.nextPreDt[0].dtSee }</td>
+						</tr>
 
-				<c:if test="${requestScope.nextPreDt[1]!=null }">
-					<tr style="cursor: pointer;" onclick="goInfo(${requestScope.nextPreDt[1].dtIndex})">
-						<td>다음글 <i class="angle down icon"></i></td>
-						<td>${requestScope.nextPreDt[1].dtTitle }</td>
-						<td><fmt:formatDate value="${requestScope.nextPreDt[1].dtDate }" pattern="yyyy-MM-dd" /></td>
-						<td>조회수 : ${requestScope.nextPreDt[1].dtSee }</td>
-					</tr>
-				</c:if>
+						<c:if test="${requestScope.nextPreDt[1]!=null }">
+							<tr style="cursor: pointer;" onclick="goInfo(${requestScope.nextPreDt[1].dtIndex})">
+								<td>다음글 <i class="angle down icon"></i></td>
+								<td>${requestScope.nextPreDt[1].dtTitle }</td>
+								<td><fmt:formatDate value="${requestScope.nextPreDt[1].dtDate }" pattern="yyyy-MM-dd" /></td>
+								<td>조회수 : ${requestScope.nextPreDt[1].dtSee }</td>
+							</tr>
+						</c:if>
+
+					</c:when>
+					<c:when test="${requestScope.dt.dtNo==1 }">
+						<tr style="cursor: pointer;" onclick="goInfo(${requestScope.nextPreDt[0].dtIndex})">
+							<td>다음글 <i class="angle down icon"></i></td>
+							<td>${requestScope.nextPreDt[0].dtTitle }</td>
+							<td><fmt:formatDate value="${requestScope.nextPreDt[0].dtDate }" pattern="yyyy-MM-dd" /></td>
+							<td>조회수 : ${requestScope.nextPreDt[0].dtSee }</td>
+						</tr>
+
+					</c:when>
+				</c:choose>
+
+
+
 
 				<tr>
 					<td></td>
@@ -345,7 +359,7 @@ p>span {
 				<c:if test="${requestScope.bcpd.bcList[0]!=null }">
 					<!-- 작성된 댓글 리스트 -->
 					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
-					<input type="hidden" value="${bc.cmtLike}" id="cmtLike_${bc.cmtIndex}"/>
+						<input type="hidden" value="${bc.cmtLike}" id="cmtLike_${bc.cmtIndex}" />
 
 						<div class="comment">
 							<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
@@ -824,7 +838,7 @@ p>span {
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
 
 					likeBtn.append(likeI);
-					likeBtn.append("공감" + data.bcList[i].cmtLike);
+					likeBtn.append("좋아요" + data.bcList[i].cmtLike);
 
 					blameBtn.append(blameI);
 					blameBtn.append("신고" + data.bcList[i].cmtBlame);
@@ -923,7 +937,7 @@ p>span {
 	
 	// 이전글 다음글
 	function goInfo(me){
-		location.href="/dietTipInfo.diet?indexNo="+me;
+		location.href="/dietTipInfo.diet?indexNo=" + me + "&type=" + '${requestScope.dt.dtType}';
 	}
 	
 	//댓글 신고 - 라디오 체크후 신고 버튼

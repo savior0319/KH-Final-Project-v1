@@ -2,7 +2,6 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -22,12 +21,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
 import spring.kh.diet.model.service.MyInfoService;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentVO;
+import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
-import spring.kh.diet.model.vo.MyQuestionPageData;
+import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @SuppressWarnings("all")
@@ -40,7 +42,113 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public MyInfoControllerImpl() {
 	}
 
+	/* 나의 북마크 삭제 */
+	@Override
+	@RequestMapping(value = "deleteMyBookMark.diet")
+	public void deleteMyBookMark(HttpServletResponse response, HttpServletRequest request, HttpSession session)
+			throws IOException {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		BoardBookMarkVO pv = new BoardBookMarkVO();
+
+		String[] arr = request.getParameterValues("bmkIndex");
+		int[] arr2 = new int[arr.length];
+
+		pv.setMbIndex(mv.getMbIndex());
+
+		int result = 0;
+		for (int i = 0; i < arr.length; i++) {
+			arr2[i] = Integer.parseInt(arr[i]);
+			pv.setBmkIndex(arr2[i]);
+			result = myInfoService.deleteMyBookMark(pv);
+
+		}
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(arr2, response.getWriter());
+
+	}
+
+	/* 나의 게시물 삭제 */
+	@Override
+	@RequestMapping(value = "deleteMyPost.diet")
+	public void deleteMyPost(HttpServletResponse response, HttpServletRequest request, HttpSession session)
+			throws IOException {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		BoardPostVO pv = new BoardPostVO();
+
+		String[] arr = request.getParameterValues("postIndex");
+		int[] arr2 = new int[arr.length];
+
+		pv.setMbIndex(mv.getMbIndex());
+
+		int result = 0;
+		for (int i = 0; i < arr.length; i++) {
+			arr2[i] = Integer.parseInt(arr[i]);
+			pv.setPostIndex(arr2[i]);
+			result = myInfoService.deleteMyPost(pv);
+
+		}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(arr2, response.getWriter());
+		;
+	}
+
+	/* 나의 댓글 삭제 */
+	@Override
+	@RequestMapping(value = "deleteMyComment.diet")
+	public void deleteMyComment(HttpServletResponse response, HttpServletRequest request, HttpSession session)
+			throws IOException {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		BoardCommentVO pv = new BoardCommentVO();
+
+		String[] arr = request.getParameterValues("cmtIndex");
+		int[] arr2 = new int[arr.length];
+
+		pv.setMbIndex(mv.getMbIndex());
+
+		int result = 0;
+		for (int i = 0; i < arr.length; i++) {
+			arr2[i] = Integer.parseInt(arr[i]);
+			pv.setCmtIndex(arr2[i]);
+			result = myInfoService.deleteMyComment(pv);
+
+		}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(arr2, response.getWriter());
+		;
+	}
+
+	/* 1:1 질문 삭제 */
+	@Override
+	@RequestMapping(value = "/deleteMyQuestion.diet")
+	public void deleteMyQuestion(HttpServletResponse response, HttpServletRequest request, HttpSession session)
+			throws IOException {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		QuestionVO pv = new QuestionVO();
+
+		String[] arr = request.getParameterValues("qsIndex");
+		int[] arr2 = new int[arr.length];
+
+		pv.setMbIndex(mv.getMbIndex());
+
+		int result = 0;
+		for (int i = 0; i < arr.length; i++) {
+			arr2[i] = Integer.parseInt(arr[i]);
+			pv.setQsIndex(arr2[i]);
+			result = myInfoService.deleteMyQuestion(pv);
+
+		}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(arr2, response.getWriter());
+		;
+	}
+
 	/* 1:1질문 */
+
 	@Override
 	@RequestMapping(value = "/question.diet")
 	public void question(@RequestParam String title, @RequestParam String content, @RequestParam String mbIndex,
@@ -207,7 +315,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		mv.setMbInterest(interestStr);
 
 		int result = myInfoService.signupsave(mv);
-		
+
 		return "redirect:/";
 	}
 
@@ -235,7 +343,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request) {
 		MemberVO m = (MemberVO) session.getAttribute("member");
 		MyActivityVO ma = myInfoService.myActivity(m);
-		MyActivityVO loginCount = myInfoService.myLoginCount(m);
+		int loginCount = myInfoService.myLoginCount(m);
 		ModelAndView view = new ModelAndView();
 		if (ma != null) {
 			view.addObject("ma", ma);
@@ -312,40 +420,43 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 
 		MyBookMarkPageDataVO myBookMark = myInfoService.myBookMarkList(currentPage, type, ma);
+		for (int i = 0; i < myBookMark.getComList().size(); i++) {
+			System.out.println(myBookMark.getComList().get(i));
+		}
+
 		request.setAttribute("myBookMark", myBookMark);
 		return "myInfo/myBookMark";
 
 	}
 
-	/* 일대일 문의 */
+	/* 마이페이지 - 일대일 문의 */
 	@Override
 	@RequestMapping(value = "/allMyOneToOneQuestion.diet")
 	public Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request) {
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		int currentPage; // 현재 페이지 값을 저장하는 변수
-
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		MyQuestionPageData myQuestion = myInfoService.allMyOneToOneQuestion(currentPage,mv);
+		MyQuestionPageDataVO myQuestion = myInfoService.allMyOneToOneQuestion(currentPage, mv);
 		request.setAttribute("myQuestion", myQuestion);
 		return "myInfo/myOneToOneQuestion";
 
 	}
-	
+
 	/* 블랙리스트 확인 */
 	@Override
 	@ResponseBody
 	@RequestMapping(value = "/checkReport.diet")
 	public String checkReport(MemberVO mbId) {
 		MemberVO mv = myInfoService.selectOneMember(mbId);
-		
-		if(mv != null) {
+
+		if (mv != null) {
 			String result = mv.getMbReport();
 			return result;
-		}else {
+		} else {
 			return "error";
 		}
 	}

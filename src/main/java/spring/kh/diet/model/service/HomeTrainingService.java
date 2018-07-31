@@ -14,8 +14,6 @@ public interface HomeTrainingService {
 
 	HomeTrainingVO homeTraining(int index);
 	
-	ArrayList<HomeTrainingVO> pnWriteList(int index);
-	
 	BoardLikeVO checkBoardLike(BoardLikeVO checkVO);
 
 	int boardLikeDown(BoardLikeVO blv);
