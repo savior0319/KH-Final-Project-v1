@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -70,5 +71,7 @@ public interface AdminService {
 	MemberListPDVO getBlackList(int currentPage);
 
 	int blackListReg(BlackListRegVO bVo);
+
+	ArrayList<BlackListContentVO> blackListContent(int index);
 
 }

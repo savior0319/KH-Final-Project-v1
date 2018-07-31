@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -73,7 +74,6 @@ public interface AdminDAO {
 
 	int yesterdayAutoInsertBefore(SqlSessionTemplate session);
 
-
 	ArrayList<OnSessionVO> getOnSessionList(SqlSessionTemplate session);
 
 	ArrayList<MemberVO> memberList(SqlSessionTemplate session);
@@ -87,5 +87,6 @@ public interface AdminDAO {
 
 	int blackListReg(SqlSessionTemplate session, BlackListRegVO bVo);
 
+	ArrayList<BlackListContentVO> blackListContent(SqlSessionTemplate session, int index);
 
 }

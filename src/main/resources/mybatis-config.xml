@@ -45,7 +45,8 @@
 		<typeAlias type="spring.kh.diet.model.vo.todayAnalyticPDVO" alias="todayAnalytic" />
 		<typeAlias type="spring.kh.diet.model.vo.yesterdayAnalyticsPDVO" alias="yesterdayAnalytic" />
 		<typeAlias type="spring.kh.diet.model.vo.yesterdayAnalytic" alias="yesterday" />
-		<typeAlias type="spring.kh.diet.model.vo.BlackListRegVO" alias="black" />
+		<typeAlias type="spring.kh.diet.model.vo.BlackListRegVO" alias="black" /> <!-- 블랙리스트 회원 조회 -->
+		<typeAlias type="spring.kh.diet.model.vo.BlackListContentVO" alias="blackContent" /> <!-- 블랙리스트 신고 내역 조회 -->
 	</typeAliases>
 
 </configuration>

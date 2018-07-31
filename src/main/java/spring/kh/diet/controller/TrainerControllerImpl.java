@@ -10,6 +10,9 @@ public class TrainerControllerImpl implements TrainerController {
 	public TrainerControllerImpl() {
 	}
 
+	// Controller 만 있음 Service랑 DAO만들어야 함 //
+
+	/* 트레이너 찾기 */
 	@Override
 	@RequestMapping(value = "/trainerSearchResult.diet")
 	public String trainerSearchResult(@RequestParam String city, @RequestParam String[] area) {

@@ -51,7 +51,7 @@ body {
 				<tbody>
 					<c:forEach items="${requestScope.mbpd.mbList}" var="mb">
 					<tr align="center">
-						<td>${mb.mbId}</td>
+						<td><a href="/blackListContent.diet?index=${mb.mbIndex}">${mb.mbId}</a></td>
 						<c:choose>
 							<c:when test="${mb.mbName eq null}">
 						<td>(미기입)</td>

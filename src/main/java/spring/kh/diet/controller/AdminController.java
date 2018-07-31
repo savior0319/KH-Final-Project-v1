@@ -38,4 +38,6 @@ public interface AdminController {
 
 	void blackListReg(int index, String status, HttpServletResponse response) throws IOException;
 
+	String blackListContent(int index);
+
 }

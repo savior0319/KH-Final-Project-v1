@@ -19,6 +19,7 @@ import spring.kh.diet.model.service.AdminService;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.DelMemberVO;
@@ -279,6 +280,41 @@ public class AdminControllerImpl implements AdminController {
 
 	}
 
+	/* 블랙리스트 등록 */
+	@Override
+	@RequestMapping(value = "/blackListReg.diet")
+	public void blackListReg(@RequestParam int index, @RequestParam String status, HttpServletResponse response)
+			throws IOException {
+
+		BlackListRegVO bVo = new BlackListRegVO();
+
+		bVo.setIndex(index);
+		bVo.setStatus(status);
+
+		int result = as.blackListReg(bVo);
+
+		response.sendRedirect("/blackList.diet");
+	}
+
+	/* 블랙리스트 신고당한 회원 조회 */
+	@Override
+	@RequestMapping(value = "/blackListContent.diet")
+	public String blackListContent(@RequestParam int index) {
+
+		ArrayList<BlackListContentVO> bcv = as.blackListContent(index);
+
+		System.out.println(bcv.toString());
+		return null;
+	}
+
+	////////////////////////////
+	////////////////////////////
+	////////////////////////////
+	////////////////////////////
+	////////////////////////////
+	////////////////////////////
+	////////////////////////////
+
 	/* 사이트 통계 */
 	@Override
 	@RequestMapping(value = "/todayAnalytics.diet")
@@ -287,7 +323,6 @@ public class AdminControllerImpl implements AdminController {
 		todayAnalyticPDVO tAPDVO = todayAutoAnalytics();
 		tAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Current", tAPDVO);
-
 
 		// BEFORE_DAY_TBL 를 불러와서 데이터를 가져오는것.
 		yesterdayAnalytic yAPDVO = yesterdayAnalytics();
@@ -302,7 +337,7 @@ public class AdminControllerImpl implements AdminController {
 		// 오늘 탈퇴한 멤버 가져오기
 		ArrayList<DelMemberVO> DMVO = as.searchDelMember();
 		ArrayList<DelMemberVO> DMVO2 = as.delmemberList();
-		
+
 		// 현재 꺼진 세션 들고오기 (가장최근에 꺼진것 1~5명)
 		ArrayList<AllSessionVO> ASVO = as.searchOffSession();
 		ArrayList<OffSessionVO> ASVO2 = as.getOfSesssionList();
@@ -311,7 +346,7 @@ public class AdminControllerImpl implements AdminController {
 		ArrayList<OnSessionVO> OSVO = as.searchOnSession();
 		ArrayList<OnSessionVO> OSVO2 = as.getOnSessionList();
 
-//		System.out.println(yAPDVO.toString());
+		// System.out.println(yAPDVO.toString());
 		request.setAttribute("todayInsertMember", MVO2);
 		request.setAttribute("todayInsertMemberSize", MVO2.size());
 		request.setAttribute("todayDelMember", DMVO2);
@@ -388,20 +423,4 @@ public class AdminControllerImpl implements AdminController {
 		return yAPDVO;
 	}
 
-	/* TODO : 블랙리스트 등록 */
-	@Override
-	@RequestMapping(value = "/blackListReg.diet")
-	public void blackListReg(@RequestParam int index, @RequestParam String status, HttpServletResponse response)
-			throws IOException {
-		
-		BlackListRegVO bVo = new BlackListRegVO();
-		
-		bVo.setIndex(index);
-		bVo.setStatus(status);
-		
-		int result = as.blackListReg(bVo);
-		
-		response.sendRedirect("/blackList.diet");
-
-	}
 }

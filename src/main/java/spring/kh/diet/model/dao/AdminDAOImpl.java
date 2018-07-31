@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -26,6 +27,7 @@ import spring.kh.diet.model.vo.todayPostVO;
 import spring.kh.diet.model.vo.yesterdayAnalytic;
 import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 
+@SuppressWarnings("all")
 @Repository(value = "adminDAO")
 public class AdminDAOImpl implements AdminDAO {
 
@@ -435,24 +437,24 @@ public class AdminDAOImpl implements AdminDAO {
 		return result;
 	}
 
-
 	@Override
 	public ArrayList<OnSessionVO> getOnSessionList(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.getOnSessionList");
-		return (ArrayList<OnSessionVO>)list;
+		return (ArrayList<OnSessionVO>) list;
 	}
 
 	@Override
 	public ArrayList<MemberVO> memberList(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.memberList");
-		return (ArrayList<MemberVO>)list;
+		return (ArrayList<MemberVO>) list;
 	}
 
 	@Override
 	public ArrayList<DelMemberVO> delmemberList(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.delmemberList");
-		return (ArrayList<DelMemberVO>)list;
+		return (ArrayList<DelMemberVO>) list;
 	}
+
 	/* 블랙리스트 맴버 */
 	@Override
 	public ArrayList<MemberVO> getBlackList(SqlSessionTemplate session, int currentPage, int recordCountPerPage) {
@@ -530,9 +532,7 @@ public class AdminDAOImpl implements AdminDAO {
 	/* 블랙리스트 회원 등록 */
 	@Override
 	public int blackListReg(SqlSessionTemplate session, BlackListRegVO bVo) {
-
 		int result = 0;
-
 		if (bVo.getStatus().equals("x")) {
 			result = session.update("admin.blackListReg", bVo);
 		} else {
@@ -540,6 +540,13 @@ public class AdminDAOImpl implements AdminDAO {
 		}
 		return result;
 
+	}
+
+	/* 블랙리스트 신고 내역 */
+	@Override
+	public ArrayList<BlackListContentVO> blackListContent(SqlSessionTemplate session, int index) {
+		List<BlackListContentVO> list = session.selectList("admin.blackListContent", index);
+		return (ArrayList<BlackListContentVO>) list;
 	}
 
 }
