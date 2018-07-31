@@ -29,31 +29,40 @@
 					<thead>
 						<tr id="title" align="center">
 							<th>
-								<i class="question circle icon"></i>
-								test
+								<i class="h square icon"></i>
+								번 호
 							</th>
 							<th>
-								<i class="question circle icon"></i>
+								<i class="h square icon"></i>
 								제 목
 							</th>
 							<th>
-								<i class="question circle icon"></i>
-								요청자 닉네임
+								<i class="h square icon"></i>
+								요 청 자
 							</th>
 							<th>
-								<i class="question circle icon"></i>
-								작 성 일
+								<i class="h square icon"></i>
+								요 청 일
 							</th>
+							<th>
+								<i class="h square icon"></i>
+								수 락 여 부
+							</th>
+
 						</tr>
 					</thead>
 					<tbody>
 						<tr align="center">
-							<td></td>
-							<td>
-								<a href="javascript:void(0);" onclick="showMyTrainer();">test</a>
+							<td style="width:10%;">111</td>
+							<td style="width:30%;">
+								<a href="javascript:void(0);" onclick="showMyTrainer();">test123214214214</a>
 							</td>
-							<td></td>
-							<td></td>
+							<td style="width:15%;">111</td>
+							<td style="width:15%;">2018-18-182</td>
+							<td style="width:23%;">
+								<button class="ui red button">수락</button>
+								<button class="ui grey button">거절</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -78,14 +87,33 @@
 			<div class="ui left aligned basic segment">
 				<br>
 				<div class="ui form" style="font-weight: 600;">
-					<label style="margin-right: 3%;">제목</label>
+					<label style="margin-right: 3%; font-size: 15px;">제목</label>
 					<lavel id="mtTitle"></lavel>
 					<br>
 					<br>
 					<div class="field">
 						<label>내 용</label>
+						<br>
 						<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none;" id="contentQuestion"></textarea>
 					</div>
+					<br>
+					<div class="field">
+						<label>거 절 사 유</label>
+						<br>
+						<select style="width: 300px;">
+							<option>거리가 멀어서 수락이 어렵습니다.</option>
+							<option>요청 시간이 맞지 않아 어렵습니다.</option>
+							<option>기타 - 직접 입력</option>
+						</select>
+						<br>
+						<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none;" id="contentQuestion"></textarea>
+					</div>
+					<div class="ui small red message" style="width: 300px; float: left;">
+						<div class="ui small header">※ 수락시 '수락'버튼을 눌러주세요 ~</div>
+					</div>
+					<button style="float: right; margin-top:13px;" class="ui red button">수락</button>
+					<button style="float: right; margin-top:13px;" class="ui grey button">거절</button>
+
 				</div>
 				<br>
 				<br>
@@ -119,19 +147,20 @@
 		$.ajax({
 			url : "/myTrainer1.diet",
 			type : 'POST',
-			data : {
-				'mtIndex' : mtIndex
-			},
+
 			success : function(data) {
 				$("#mtTitle").text(data.mtTitle);
 				$("#contentQuestion").text(data.qsContent);
-				$('#questionModal1').modal({
+				$('#questionModal2').modal({
 					centered : false
 				}).modal('show');
 			},
 			error : function() {
-				alert("실패");
+				$('#questionModal2').modal({
+					centered : false
+				}).modal('show');
 			}
+
 		});
 	}
 </script>

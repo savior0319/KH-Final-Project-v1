@@ -41,15 +41,15 @@ html, body {
 							<tr align="center">
 								<th>
 									<i class="github alternate icon"></i>
-									출석횟수
+									출 석 횟 수
 								</th>
 								<th>
 									<i class="edit outline icon"></i>
-									게시물 작성수
+									게 시 물 작 성 수
 								</th>
 								<th>
 									<i class="pencil alternate icon"></i>
-									댓글작성수
+									댓 글 작 성 수
 								</th>
 								<th>
 									<i class="shield alternate icon"></i>
@@ -57,7 +57,7 @@ html, body {
 								</th>
 								<th>
 									<i class="user icon"></i>
-									가입일
+									가 입 일
 								</th>
 							</tr>
 						</thead>
