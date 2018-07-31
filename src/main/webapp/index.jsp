@@ -94,11 +94,11 @@
 		</div>
 		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li><img src="/resources/image/mainPic.jpg"></li>
-			<li><img src="/resources/image/mainPic1.jpg"></li>
-			<li><img src="/resources/image/mainPic2.jpg"></li>
-			<li><img src="/resources/image/mainPic3.jpg"></li>
-			<li><img src="/resources/image/advertise.png"></li>
+			<li><a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974"><img src="/resources/image/mainPic.jpg"></a></li>
+			<li><a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974"><img src="/resources/image/mainPic1.jpg"></a></li>
+			<li><a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974"><img src="/resources/image/mainPic2.jpg"></a></li>
+			<li><a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974"><img src="/resources/image/mainPic3.jpg"></a></li>
+			<li><a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974"><img src="/resources/image/advertise.png"></a></li>
 		</ul>
 
 	</div>
