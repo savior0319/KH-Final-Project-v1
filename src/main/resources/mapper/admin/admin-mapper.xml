@@ -414,5 +414,24 @@
 		AND BBL.TARGET_MB_INDEX = MT2.MB_INDEX(+)
 		AND TARGET_MB_INDEX = #{index}
 	</select>
+	
+	<!-- 세션통계 추가하기, 디테일 anlaytics -->
+	<insert id="insertAnalytics" parameterType="todayAnalyticsDetail">
+	INSERT INTO today_Analytics VALUES(#{hits}, #{like}, #{comments}, #{post}, sysdate, #{timeType},#{listType})
+	</insert>
+	
+	<select id="selectAnalytics" resultType="todayAnalyticsDetail">
+	select 
+	T_hits as hits,
+	T_Like as Like,
+	T_Comments as Comments,
+	T_Post as post,
+	T_UPdate_Time as updateTime,
+	T_Time_Type as timeType,
+	T_List_type as listType
+	from today_Analytics 
+	where T_Time_Type = #{TimeType}
+		
+	</select>
 
 </mapper>

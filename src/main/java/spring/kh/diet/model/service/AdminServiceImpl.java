@@ -22,6 +22,7 @@ import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
 import spring.kh.diet.model.vo.todayLikeVO;
@@ -256,6 +257,20 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<BlackListContentVO> blackListContent(int index) {
 		ArrayList<BlackListContentVO> list = aDao.blackListContent(session, index);
 		return list;
+	}
+
+	@Override
+	public int insertAnalytics(TodayAnalyticsDetail tAD) {
+		int result = aDao.insertAnalytics(session,tAD);
+		return result;
+	}
+
+	@Override
+	public int selectAnalytics(int timeType) {
+		System.out.println("@");
+		int result = aDao.selectAnalytics(session,timeType);
+		System.out.println(result+10);
+		return result;
 	}
 
 }
