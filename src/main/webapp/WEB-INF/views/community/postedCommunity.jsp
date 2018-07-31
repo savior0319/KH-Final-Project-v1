@@ -796,27 +796,41 @@
 		
 	/* 댓글 쓰기 버튼 */
 	function addComment() {
-		var indexNo = $('#postIndex').val();
-		var commentContent = $('#commentContent').val();
+		var mbId = '${sessionScope.member.mbId}';
 		$.ajax({
-			url : '/addComment.diet',
+			url : '/checkReport.diet',
 			type : 'post',
 			data : {
-				'indexNo' : indexNo,
-				'commentContent' : commentContent
+				'mbId' : mbId
 			},
-			success : function(data) {
-				if (data > 0) {
-					// 모달 띄우기
-					//$('.ui.basic.modal').modal('show');
-					//alert('댓글을 작성하였습니다.');
+			success : function(data){
+				if(data=='n'){
+					var indexNo = $('#postIndex').val();
+					var commentContent = $('#commentContent').val();
+					$.ajax({
+						url : '/addComment.diet',
+						type : 'post',
+						data : {
+							'indexNo' : indexNo,
+							'commentContent' : commentContent
+						},
+						success : function(data) {
+							if (data > 0) {
+								// 모달 띄우기
+								//$('.ui.basic.modal').modal('show');
+								//alert('댓글을 작성하였습니다.');
+							} else {
+								alert('댓글을 등록하지 못했습니다.');
+							}
+							location.href = "/postedCommunity.diet?postIndex=" + indexNo;
+						},
+						error : function() {
+							alert('댓글을 등록하지 못했습니다.');
+						}
+					});		
 				} else {
-					alert('댓글을 등록하지 못했습니다.');
+					alert('\n글쓰기 정지당한 회원입니다. \n\n관리자에게 문의하세요.')
 				}
-				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
-			},
-			error : function() {
-				alert('댓글을 등록하지 못했습니다.');
 			}
 		});
 	}
