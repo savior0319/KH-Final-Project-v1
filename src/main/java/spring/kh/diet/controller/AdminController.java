@@ -33,6 +33,8 @@ public interface AdminController {
 	String blackList(HttpServletRequest request, HttpServletResponse response);
 
 	void blackListReg(int index, String status, HttpServletResponse response) throws IOException;
+  
+	String blackListContent(int index);
 
 	void yesterdayAutoInsertAnalytics();
 

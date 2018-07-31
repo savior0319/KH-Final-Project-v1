@@ -12,6 +12,7 @@ import spring.kh.diet.model.dao.AdminDAO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
+import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -209,7 +210,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public ArrayList<OnSessionVO> getOnSessionList() {
-		 ArrayList<OnSessionVO> list = aDao.getOnSessionList(session);
+		ArrayList<OnSessionVO> list = aDao.getOnSessionList(session);
 		return list;
 	}
 
@@ -248,6 +249,13 @@ public class AdminServiceImpl implements AdminService {
 	public int blackListReg(BlackListRegVO bVo) {
 		int result = aDao.blackListReg(session, bVo);
 		return result;
+	}
+
+	/* 블랙리스트 신고 내역 */
+	@Override
+	public ArrayList<BlackListContentVO> blackListContent(int index) {
+		ArrayList<BlackListContentVO> list = aDao.blackListContent(session, index);
+		return list;
 	}
 
 }

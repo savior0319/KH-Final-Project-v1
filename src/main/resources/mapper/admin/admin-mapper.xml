@@ -267,7 +267,8 @@
 		SS_LOGIN AS loginId,
 		SS_DEVICE AS device
 		FROM On_session_tbl
-		order by ss_index desc
+		order by
+		ss_index desc
 	</select>
 
 	<select id="searchOffSession" resultType="offSessionList">
@@ -296,13 +297,13 @@
 		SS_DEVICE AS device
 		FROM On_Session_Tbl
 	</select>
-	
+
 	<select id="memberList" resultType="member" resultMap="memberDB">
-	select * from member_tbl where mb_enrolldate like sysdate
+		select * from member_tbl where mb_enrolldate like sysdate
 	</select>
-	
+
 	<select id="delmemberList" resultType="delMember" resultMap="delmemberDB">
-	select * from del_member_tbl where delete_date like sysdate
+		select * from del_member_tbl where delete_date like sysdate
 	</select>
 
 	<select id="searchAllBefore" resultType="yesterday">
@@ -382,7 +383,8 @@
 		MB_ENROLLDATE as mbEnrollDate
 		FROM (SELECT MEMBER_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
-		WHERE NUM BETWEEN 1 AND 10 AND MB_INDEX IN (SELECT TARGET_MB_INDEX
+		WHERE NUM BETWEEN 1 AND 10 AND
+		MB_INDEX IN (SELECT TARGET_MB_INDEX
 		FROM BOARD_BLAME_TBL
 		GROUP BY TARGET_MB_INDEX
 		HAVING COUNT(*) >= 5))
@@ -397,5 +399,20 @@
 	<update id="blackListDel" parameterType="black">
 		UPDATE MEMBER_TBL SET MB_REPORT = 'n' WHERE MB_INDEX = #{index}
 	</update>
+	
+	<!-- 블랙리스트 신고 내역 조회 -->
+	<select id="blackListContent" resultType="blackContent" parameterType="Integer">
+		SELECT DISTINCT  
+		BPT.POST_INDEX AS postIndex,
+	    POST_TITLE AS postTitle,
+	    CMT_CONTENT,BBL.TARGET_CONTENTS AS cmtContent,
+	    MT.MB_NICKNAME AS mbNickName,
+		MT2.MB_NICKNAME AS targetMbNickName
+		FROM BOARD_BLAME_TBL BBL, BOARD_POST_TBL BPT, BOARD_COMMENT_TBL BCT, MEMBER_TBL MT, MEMBER_TBL MT2
+		WHERE BBL.TARGET_INDEX = BPT.POST_INDEX(+) AND BBL.TARGET_INDEX = BCT.CMT_INDEX(+) 
+		AND BBL.MB_INDEX = MT.MB_INDEX(+) 
+		AND BBL.TARGET_MB_INDEX = MT2.MB_INDEX(+)
+		AND TARGET_MB_INDEX = #{index}
+	</select>
 
 </mapper>
