@@ -42,5 +42,6 @@ public interface RedirectController {
 
 	String trainerFind();
 
+	String redirectTrainerFind();
 
 }

@@ -10,6 +10,19 @@
 
 <!-- CSS -->
 <style>
+#div1{
+	background: rgba(250,40,40,1); 
+	cursor: pointer; 
+	margin-right: 10px; 
+	border-radius: 15px;
+}
+
+#div2{
+	background: rgba(171,171,171,0.9); 
+	cursor: pointer; 
+	margin-left: 10px;
+	border-radius: 15px;
+}
 </style>
 
 
@@ -18,21 +31,21 @@
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
 	<!-- CONTENTS -->
-	<div class="ui container">
-		<div class="ui center aligned basic segment">
+	<div class="ui container" style="border: 0;">
+		<div class="ui center aligned basic segment" style="border: 0;">
 			<br>
 			<div class="ui large message">
 				<div class="ui large header">트레이너 매칭</div>
 			</div>
 			<br>
-			<div class="ui horizontal basic segments" align="center">
-				<div class="ui segment" style="background: rgba(250,40,40,0.9); cursor: pointer; margin-right: 10px; border-radius: 15px;" onclick="trainerFind();">
+			<div class="ui horizontal basic segments" align="center" style="border: 0;">
+				<div class="ui segment" id="div1" onclick="trainerFind();" style="border: 0;">
 					<br>
-					<h2 class="ui header" style="color:white;">
+					<h2 class="ui header" style="color:white;" style="border: 0;">
 						<br>
 						<br>
 						<span align="center">
-							<i class="huge child icon"></i>
+							<i class="huge child icon" id="icon1"></i>
 						</span>
 						<br>
 						<br>
@@ -42,13 +55,13 @@
 					<div class="ui message"><div class="ui small header">트레이너를 찾고 싶다면 찾기go</div></div>
 					<br>
 				</div>
-				<div class="ui segment" style="background: rgba(171,171,171,0.9); cursor: pointer; margin-left: 10px; border-radius: 15px;" onclick="trainerReg();">
+				<div class="ui segment" id="div2" onclick="trainerReg();" style="border: 0;">
 					<br>
-					<h2 class="ui header" style="color:white;">
+					<h2 class="ui header" style="color:white;" style="border: 0;"> 
 						<br>
 						<br>
 						<span align="center">
-							<i class="huge edit icon"></i>
+							<i class="huge edit icon" id="icon2"></i>
 						</span>
 						<br>
 						<br>
@@ -79,6 +92,23 @@
 	function trainerFind(){
 		location.href="/trainerFind.diet";
 	}
+
+	$('#div1').hover(function() {
+		$('#div1').css('background', 'rgb(170,10,10)'); 
+		$('#icon1').css('color', 'rgb(90,90,90)');
+	}, function() {
+		$('#div1').css('background', 'rgba(250,40,40)'); 
+		$('#icon1').css('color', 'rgb(255,255,255)');
+	});
+
+	$('#div2').hover(function() {
+		$('#div2').css('background', 'rgb(141,140,140)'); 
+		$('#icon2').css('color', 'rgb(250,40,40)');
+	}, function() {
+		$('#div2').css('background', 'rgba(171,171,171)'); 
+		$('#icon2').css('color', 'rgb(255,255,255)');
+	});
 </script>
 
 </html>
+
