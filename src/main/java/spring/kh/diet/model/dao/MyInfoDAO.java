@@ -65,8 +65,7 @@ public interface MyInfoDAO {
 	String myQuestionListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, MemberVO mv);
 
-	MyActivityVO myLoginCount(SqlSessionTemplate sqlSessionTemplate, MemberVO m);
-
+	int myLoginCount(SqlSessionTemplate sqlSessionTemplate, MemberVO m);
 
 	int deleteMyQuestion(SqlSessionTemplate sqlSessionTemplate, QuestionVO pv);
 

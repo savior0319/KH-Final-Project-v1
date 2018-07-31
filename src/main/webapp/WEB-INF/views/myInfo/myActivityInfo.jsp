@@ -64,13 +64,12 @@ html, body {
 						<tbody>
 							<tr align="center">
 								<td>
-									<c:if test="${loginCount.myAttendance == null}">
+									<c:if test="${loginCount == 0}">
 										<h3 class="ui center aligned header">1</h3>
 									</c:if>
-									<c:if test="${loginCount.myAttendance!= null}">
-										<h3 class="ui center aligned header">${ma.myAttendance}</h3>
+									<c:if test="${loginCount != 0}">
+										<h3 class="ui center aligned header">${loginCount}</h3>
 									</c:if>
-
 								</td>
 								<td class="single line">
 									<c:if test="${ma.myBoardCount == null}">

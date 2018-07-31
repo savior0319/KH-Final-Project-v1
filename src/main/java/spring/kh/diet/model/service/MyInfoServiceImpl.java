@@ -138,9 +138,9 @@ public class MyInfoServiceImpl implements MyInfoService {
 	}
 
 	@Override
-	public MyActivityVO myLoginCount(MemberVO m) {
-		MyActivityVO mv = myInfoDAO.myLoginCount(SqlSessionTemplate, m);
-		return null;
+	public int myLoginCount(MemberVO m) {
+		int loginCount = myInfoDAO.myLoginCount(SqlSessionTemplate, m);
+		return loginCount;
 	}
 
 	/* 마이페이지 - 내 게시물 정보 페이징 처리 */

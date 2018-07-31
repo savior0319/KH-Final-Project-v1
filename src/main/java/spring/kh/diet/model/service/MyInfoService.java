@@ -51,7 +51,7 @@ public interface MyInfoService {
 
 	MyBookMarkPageDataVO myBookMarkList(int currentPage, String type, MyActivityVO ma);
 
-	MyActivityVO myLoginCount(MemberVO m);
+	int myLoginCount(MemberVO m);
 
 	int deleteMyQuestion(QuestionVO pv);
 

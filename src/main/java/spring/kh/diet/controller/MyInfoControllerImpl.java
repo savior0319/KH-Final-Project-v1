@@ -66,7 +66,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(arr2, response.getWriter());
-		
+
 	}
 
 	/* 나의 게시물 삭제 */
@@ -343,7 +343,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request) {
 		MemberVO m = (MemberVO) session.getAttribute("member");
 		MyActivityVO ma = myInfoService.myActivity(m);
-		MyActivityVO loginCount = myInfoService.myLoginCount(m);
+		int loginCount = myInfoService.myLoginCount(m);
 		ModelAndView view = new ModelAndView();
 		if (ma != null) {
 			view.addObject("ma", ma);
@@ -420,6 +420,10 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 
 		MyBookMarkPageDataVO myBookMark = myInfoService.myBookMarkList(currentPage, type, ma);
+		for (int i = 0; i < myBookMark.getComList().size(); i++) {
+			System.out.println(myBookMark.getComList().get(i));
+		}
+
 		request.setAttribute("myBookMark", myBookMark);
 		return "myInfo/myBookMark";
 
