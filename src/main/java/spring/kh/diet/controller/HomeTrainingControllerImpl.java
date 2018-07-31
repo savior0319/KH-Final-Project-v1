@@ -102,6 +102,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 	@RequestMapping(value = "/homeTrainingInfo.diet")
 	public String homeTrainingInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int indexNo = Integer.parseInt(request.getParameter("indexNo"));
+		String type = request.getParameter("type");
 
 		String servletName = "homeTrainingInfo.diet";
 		configCookie(session, request, response, indexNo);
@@ -123,11 +124,13 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		request.setAttribute("bcpd", bcpd);
 
 		/* 이전글 다음글 */
-		/*
-		 * ArrayList<HomeTrainingVO> list = new ArrayList<HomeTrainingVO>(); list =
-		 * (ArrayList<HomeTrainingVO>) homeTrainingService.pnWriteList(indexNo);
-		 * request.setAttribute("list", list);
-		 */
+		
+		  ArrayList<HomeTrainingVO> list = homeTrainingService.pnWriteList(ht.getIndexNo());;
+		  request.setAttribute("list", list);
+		  request.setAttribute("type", type);
+		  
+	
+	
 
 		int postIndex = Integer.parseInt(request.getParameter("indexNo"));
 		// 쿠키 등록
