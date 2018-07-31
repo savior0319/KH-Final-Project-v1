@@ -139,8 +139,8 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	}
 
 	@Override
-	public MyActivityVO myLoginCount(SqlSessionTemplate sqlSessionTemplate, MemberVO m) {
-		MyActivityVO mv = sqlSessionTemplate.selectOne("myInfo.myCount", m);
+	public int myLoginCount(SqlSessionTemplate sqlSessionTemplate, MemberVO m) {
+		int mv = sqlSessionTemplate.selectOne("myInfo.myCount", m);
 		return mv;
 	}
 

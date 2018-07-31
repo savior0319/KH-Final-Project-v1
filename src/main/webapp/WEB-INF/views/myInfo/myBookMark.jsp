@@ -126,15 +126,10 @@ html, body {
 										</c:choose>
 									</td>
 									<td style="width: 40%;">
-										<c:if test="${m.dtIndex==0}">
+										<c:if test="${m.dtIndex==null}">
 											<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${m.postTitle}</a>
 										</c:if>
-										<c:if test="${m.dtIndex==0}">
-											<c:if test="${m.postIndex==null}">
-												<span></span>
-											</c:if>
-										</c:if>
-										<c:if test="${m.dtIndex!=0}">
+										<c:if test="${m.dtIndex!=null}">
 											<a href="/dietTipInfo.diet?indexNo=${m.dtIndex}">${m.dtTitle}</a>
 										</c:if>
 									</td>
@@ -156,6 +151,7 @@ html, body {
 					<button class="ui red button" style="float: right;" onclick="deleteMyBookMark();">삭제하기</button>
 					<br>
 					<br>
+					
 					<div class="ui grid">
 						<div class="three column row">
 							<div class="column"></div>
