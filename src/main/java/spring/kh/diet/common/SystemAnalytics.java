@@ -64,8 +64,8 @@ public class SystemAnalytics {
 		int todayMinute = Integer.parseInt(tD3.nextToken());
 		int todaySecond = Integer.parseInt(tD3.nextToken());
 
-		System.out.println("숏트링 : " + shortString);
-		System.out.println("메소드네임:" + methodName);
+//		System.out.println("숏트링 : " + shortString);
+//		System.out.println("메소드네임:" + methodName);
 		boolean timeSet = false;
 		int timeType = 0;
 		boolean oneTime = false;
@@ -165,7 +165,7 @@ public class SystemAnalytics {
 			case "CommunityServiceImpl":
 				if (methodName.equals("postHit")) // 커뮤니티 조회수
 				{
-					System.out.println("조회수증가 // 커뮤니티");
+//					System.out.println("조회수증가 // 커뮤니티");
 				}
 				timeSet = false;
 				break;
