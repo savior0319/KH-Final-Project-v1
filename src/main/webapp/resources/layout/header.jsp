@@ -68,7 +68,6 @@
 					'device' : device
 				}
 			});
-
 		});
 	</script>
 </c:if>
@@ -125,7 +124,7 @@
 		</c:if>
 
 		<c:if test="${sessionScope.member!=null}">
-			<span class="menu"> ${member.mbNickName}님 환영합니다 ^^ </span>
+			<span class="menu"> ${member.mbNickName}님 환영합니다</span>
 			<span class="menu">
 				<a href="/logout.diet">로그아웃</a>
 			</span>
@@ -133,7 +132,9 @@
 				<a href="/myInfo.diet">마이페이지</a>
 			</span>
 		</c:if>
-		<span class="menu" id="resize1">제휴·광고문의</span>
+		<span class="menu" id="resize1">
+			<a href='javascript:void(0);' onClick='requestAdvertise(); return false'>제휴·광고문의</a>
+		</span>
 		<span class="menu" id="resize2">
 			<a href='javascript:void(0);' onClick='bookMark(); return false'>즐겨찾기</a>
 		</span>
@@ -242,6 +243,10 @@
 <script type="text/javascript">
 	function bookMark() {
 		alert('CTRL + D키를 누르면 즐겨찾기에 추가 할 수 있습니다');
+	}
+
+	function requestAdvertise(){
+		alert('로그인 후 관리자에게 문의하세요');
 	}
 
 	window.onload = function() {
