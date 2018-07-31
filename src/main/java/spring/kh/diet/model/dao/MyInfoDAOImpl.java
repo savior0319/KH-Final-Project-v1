@@ -14,12 +14,35 @@ import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
-import spring.kh.diet.model.vo.MyQuestionPageData;
+import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @SuppressWarnings("all")
 @Repository("myInfoDAO")
 public class MyInfoDAOImpl implements MyInfoDAO {
+
+	@Override
+	public int deleteMyPost(SqlSessionTemplate sqlSessionTemplate, BoardPostVO pv) {
+		int result = sqlSessionTemplate.delete("myInfo.deleteMyPost", pv);
+		return result;
+	}
+
+	@Override
+	public int deleteMyBookMark(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO pv) {
+		int result = sqlSessionTemplate.delete("myInfo.deleteMyBookMark", pv);
+		return result;
+	}
+
+	@Override
+	public int deleteMyComment(SqlSessionTemplate sqlSessionTemplate, BoardCommentVO pv) {
+		int result = sqlSessionTemplate.delete("myInfo.deleteMyComment", pv);
+		return result;
+	}
+
+	public int deleteMyQuestion(SqlSessionTemplate sqlSessionTemplate, QuestionVO pv) {
+		int result = sqlSessionTemplate.delete("myInfo.deleteMyQuestion", pv);
+		return result;
+	}
 
 	@Override
 	public int question(SqlSessionTemplate sqlSessionTemplate, QuestionVO qv) {
@@ -115,10 +138,9 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return answer;
 	}
 
-
 	@Override
 	public MyActivityVO myLoginCount(SqlSessionTemplate sqlSessionTemplate, MemberVO m) {
-		MyActivityVO mv = sqlSessionTemplate.selectOne("myInfo.myCount",m);
+		MyActivityVO mv = sqlSessionTemplate.selectOne("myInfo.myCount", m);
 		return mv;
 	}
 
@@ -286,22 +308,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	}
 
 	@Override
-	public ArrayList<BoardBookMarkVO> myBookMarkList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, String type, MyActivityVO ma) {
-		MyBookMarkPageDataVO myBookMark = new MyBookMarkPageDataVO();
-
-		myBookMark.setStart((currentPage - 1) * recordCountPerPage + 1);
-		myBookMark.setEnd(currentPage * recordCountPerPage);
-		myBookMark.setType(type);
-		myBookMark.setMbIndex(ma.getMbIndex());
-
-		List<BoardBookMarkVO> list = sqlSessionTemplate.selectList("myInfo.myBookMarkList", myBookMark);
-
-		return (ArrayList<BoardBookMarkVO>) list;
-
-	}
-
-	@Override
 	public String myBookMarkListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String type, MyActivityVO ma) {
 		MyBookMarkPageDataVO myBookMark = new MyBookMarkPageDataVO();
@@ -365,9 +371,25 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	}
 
 	@Override
+	public ArrayList<BoardBookMarkVO> myBookMarkList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, String type, MyActivityVO ma) {
+		MyBookMarkPageDataVO myBookMark = new MyBookMarkPageDataVO();
+
+		myBookMark.setStart((currentPage - 1) * recordCountPerPage + 1);
+		myBookMark.setEnd(currentPage * recordCountPerPage);
+		myBookMark.setType(type);
+		myBookMark.setMbIndex(ma.getMbIndex());
+
+		List<BoardBookMarkVO> list = sqlSessionTemplate.selectList("myInfo.myBookMarkList", myBookMark);
+
+		return (ArrayList<BoardBookMarkVO>) list;
+
+	}
+
+	@Override
 	public ArrayList<QuestionVO> myQuestionList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, MemberVO mv) {
-		MyQuestionPageData myQuestion = new MyQuestionPageData();
+		MyQuestionPageDataVO myQuestion = new MyQuestionPageDataVO();
 
 		myQuestion.setStart((currentPage - 1) * recordCountPerPage + 1);
 		myQuestion.setEnd(currentPage * recordCountPerPage);
@@ -381,8 +403,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	@Override
 	public String myQuestionListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, MemberVO mv) {
-		MyQuestionPageData myQuestion = new MyQuestionPageData();
-
+		MyQuestionPageDataVO myQuestion = new MyQuestionPageDataVO();
 		myQuestion.setMbIndex(mv.getMbIndex());
 
 		int recordTotalCount = sqlSessionTemplate.selectOne("myInfo.myQuestionGetNavi", myQuestion);
@@ -441,5 +462,4 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return sb.toString();
 	}
 
-	
 }

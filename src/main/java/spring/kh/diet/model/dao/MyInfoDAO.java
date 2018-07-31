@@ -67,4 +67,13 @@ public interface MyInfoDAO {
 
 	MyActivityVO myLoginCount(SqlSessionTemplate sqlSessionTemplate, MemberVO m);
 
+
+	int deleteMyQuestion(SqlSessionTemplate sqlSessionTemplate, QuestionVO pv);
+
+	int deleteMyPost(SqlSessionTemplate sqlSessionTemplate, BoardPostVO pv);
+
+	int deleteMyComment(SqlSessionTemplate sqlSessionTemplate, BoardCommentVO pv);
+
+	int deleteMyBookMark(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO pv);
+
 }
