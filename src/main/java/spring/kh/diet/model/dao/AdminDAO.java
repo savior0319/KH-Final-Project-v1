@@ -15,6 +15,7 @@ import spring.kh.diet.model.vo.NoticeVO;
 import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
 import spring.kh.diet.model.vo.todayLikeVO;
@@ -88,5 +89,9 @@ public interface AdminDAO {
 	int blackListReg(SqlSessionTemplate session, BlackListRegVO bVo);
 
 	ArrayList<BlackListContentVO> blackListContent(SqlSessionTemplate session, int index);
+
+	int insertAnalytics(SqlSessionTemplate session, TodayAnalyticsDetail tAD);
+
+	int selectAnalytics(SqlSessionTemplate session, int timeType);
 
 }

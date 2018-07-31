@@ -42,7 +42,7 @@ import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 @Controller
 public class AdminControllerImpl implements AdminController {
 
-	@Resource(name = "adminService")
+	@Resource(name="adminService")
 	private AdminService as;
 
 	@SuppressWarnings("unused")

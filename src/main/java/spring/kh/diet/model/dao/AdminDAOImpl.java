@@ -20,6 +20,7 @@ import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
 import spring.kh.diet.model.vo.todayLikeVO;
@@ -547,6 +548,26 @@ public class AdminDAOImpl implements AdminDAO {
 	public ArrayList<BlackListContentVO> blackListContent(SqlSessionTemplate session, int index) {
 		List<BlackListContentVO> list = session.selectList("admin.blackListContent", index);
 		return (ArrayList<BlackListContentVO>) list;
+	}
+
+
+	@Override
+	public int insertAnalytics(SqlSessionTemplate session, TodayAnalyticsDetail tAD) {
+		int result = session.insert("admin.insertAnalytics",tAD);
+		return result;
+	}
+
+	@Override
+	public int selectAnalytics(SqlSessionTemplate session,int timeType) {
+		System.out.println("1");
+		List<?> list = session.selectList("admin.selectAnalytics",timeType);
+		System.out.println(list.toString());
+		int result=0;
+		if(!list.isEmpty())
+		{
+			result=1;
+		}
+		return result;
 	}
 
 }
