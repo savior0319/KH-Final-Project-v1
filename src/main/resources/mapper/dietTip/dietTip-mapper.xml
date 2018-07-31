@@ -40,7 +40,7 @@
 		DT_LIKE AS dtLike
 		FROM (SELECT DT.*,
 		ROW_NUMBER()
-		OVER(ORDER BY DT_DATE DESC) AS NUM
+		OVER(ORDER BY DT_INDEX DESC) AS NUM
 		FROM DIETTIP_TB DT,
 		MEMBER_TBL MB
 		WHERE DT.DT_WRITER_NO = MB.MB_INDEX (+)
@@ -253,7 +253,7 @@
 		DT_DATE AS dtDate,
 		DT_SEE AS dtSee
 		FROM (SELECT DIETTIP_TB.*, ROW_NUMBER() OVER(ORDER 
-			BY DT_INDEX DESC) AS NUM FROM DIETTIP_TB WHERE DIETTIP_TB.DT_DATE<#{dtDate}
+			BY DT_INDEX DESC) AS NUM FROM DIETTIP_TB WHERE DIETTIP_TB.DT_INDEX < #{dtIndex}
 			) WHERE NUM = 1 
 		UNION ALL
 		SELECT
@@ -263,8 +263,89 @@
 		DT_DATE AS dtDate,
 		DT_SEE AS dtSee
 		 FROM (SELECT DIETTIP_TB.*, ROW_NUMBER() 
-			OVER(ORDER BY DT_INDEX ASC) AS NUM FROM DIETTIP_TB WHERE DIETTIP_TB.DT_DATE>#{dtDate}
+			OVER(ORDER BY DT_INDEX ASC) AS NUM FROM DIETTIP_TB WHERE DIETTIP_TB.DT_INDEX > #{dtIndex}
 			) WHERE NUM = 1 
 		]]>
+	</select>
+
+	<!-- 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기 -->
+	<update id="upMbDtSee" parameterType="upMbSee">
+		UPDATE MEMBER_TBL SET
+		<choose>
+			<when test="type.equals('column')">
+				MB_DT_COLUMN_SEE = MB_DT_COLUMN_SEE + 1
+			</when>
+			<when test="type.equals('sport')">
+				MB_DT_SPORT_SEE = MB_DT_SPORT_SEE + 1
+			</when>
+			<when test="type.equals('dietFood')">
+				MB_DT_DIETFOOD_SEE = MB_DT_DIETFOOD_SEE + 1
+			</when>
+			<when test="type.equals('successLatter')">
+				MB_DT_SUCCESS_LATTER_SEE = MB_DT_SUCCESS_LATTER_SEE +
+				1
+			</when>
+			<!-- 의미 없는 거 -->
+			<otherwise>
+				MB_DT_SUCCESS_LATTER_SEE = MB_DT_SUCCESS_LATTER_SEE
+			</otherwise>
+		</choose>
+		WHERE MB_INDEX = #{mbIndex}
+	</update>
+
+	<!-- 종류별로 해당 회원이 게시물을 봤던 횟수 불러오기 -->
+	<select id="getDtSeeList" resultType="member">
+		SELECT
+		MB_DT_COLUMN_SEE AS
+		mbDtColSee,
+		MB_DT_SPORT_SEE AS mbDtspoSee,
+		MB_DT_DIETFOOD_SEE AS mbDtDfSee,
+		MB_DT_SUCCESS_LATTER_SEE AS mbDtSlSee
+		FROM MEMBER_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</select>
+
+	<!-- -->
+	<select id="getMatchedDtList" parameterType="java.lang.String" resultType="dietTip">
+		SELECT
+		DT_INDEX AS dtIndex,
+		DT_NO AS dtNo,
+		DT_TYPE AS
+		dtType,
+		DT_TITLE
+		AS
+		dtTitle,
+		DT_MAIN_PHOTO AS dtMainPhoto,
+		DT_WRITER_NO AS
+		dtWriterNo,
+		DT_SAMMARY AS
+		dtSammary,
+		DT_EXPLAIN AS dtExplain,
+		DT_DATE AS
+		dtDate,
+		DT_SEE AS dtSee,
+		DT_LIKE AS dtLike
+		FROM (SELECT DIETTIP_TB.*,
+		ROW_NUMBER()
+		OVER(ORDER BY DT_DATE DESC) AS NUM
+		FROM DIETTIP_TB
+		<choose>
+			<when test="type.equals('column')">
+				WHERE DIETTIP_TB.DT_TYPE = 1
+			</when>
+			<when test="type.equals('sport')">
+				WHERE DIETTIP_TB.DT_TYPE = 2
+			</when>
+			<when test="type.equals('dietFood')">
+				WHERE DIETTIP_TB.DT_TYPE = 3
+			</when>
+			<when test="type.equals('successLatter')">
+				WHERE DIETTIP_TB.DT_TYPE = 4
+			</when>
+			<otherwise>
+				WHERE DIETTIP_TB.DT_TYPE = 4
+			</otherwise>
+		</choose>
+		)WHERE NUM BETWEEN 1 AND 3
 	</select>
 </mapper>

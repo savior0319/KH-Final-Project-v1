@@ -125,7 +125,7 @@
 		null, null, null, null, #{mbInterest},
 		'일반회원', null,
 		null, null, 'n',
-		SYSDATE)
+		SYSDATE,0,0,0,0,0,0,0,0,0,0,0,0)
 	</insert>
 
 

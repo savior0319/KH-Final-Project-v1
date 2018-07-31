@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.DietTipVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.UpMbSeeVO;
 
 @Repository("dietTipDAO")
 public class DietTipDAOImpl implements DietTipDAO {
@@ -118,6 +121,7 @@ public class DietTipDAOImpl implements DietTipDAO {
 
 	@Override
 	public DietTipVO getDietTip(SqlSessionTemplate session, int indexNo) {
+		System.out.println(indexNo);
 		DietTipVO dt = session.selectOne("dietTip.getOne", indexNo);
 		return dt;
 	}
@@ -180,8 +184,26 @@ public class DietTipDAOImpl implements DietTipDAO {
 	}
 
 	// 이전글 다음글 가져오기
-	public ArrayList<DietTipVO> getNextPreDt(SqlSessionTemplate session, Timestamp dtDate) {
-		List<DietTipVO> list = session.selectList("dietTip.nextPreDt", dtDate);
+	public ArrayList<DietTipVO> getNextPreDt(SqlSessionTemplate session, int indexNo) {
+		List<DietTipVO> list = session.selectList("dietTip.nextPreDt", indexNo);
+		return (ArrayList<DietTipVO>)list;
+	}
+
+	// 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기
+	@Override
+	public void upMbDtSee(SqlSessionTemplate session, UpMbSeeVO ums) {
+		session.update("dietTip.upMbDtSee", ums);
+	}
+
+	@Override
+	public MemberVO getDtSeeList(SqlSessionTemplate session, int mbIndex) {
+		return session.selectOne("dietTip.getDtSeeList", mbIndex);
+	}
+
+	public ArrayList<DietTipVO> getMatchedDtList(SqlSessionTemplate session, String type1) {
+		DietTipPDVO dtpd = new DietTipPDVO();
+		dtpd.setType(type1);
+		List<DietTipVO> list = session.selectList("dietTip.getMatchedDtList", dtpd);
 		return (ArrayList<DietTipVO>)list;
 	}
 
