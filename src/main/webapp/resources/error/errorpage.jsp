@@ -5,12 +5,11 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>자주 묻는 질문</title>
+<title>유불유불</title>
 </head>
 
 <!-- CSS -->
 <style>
-
 </style>
 
 
@@ -20,13 +19,17 @@
 
 	<!-- CONTENTS -->
 	<div class="ui container">
-		<br>
 		<div class="ui center aligned basic segment">
-		
-		
+			<div class="ui huge message">
+				<div class="ui huge header">유저 불량^^ (잘 좀하지 ㅎㅎ)</div><br>
+				<div class="ui huge header">유저 불량^^ (잘 좀하지 ㅎㅎ)</div><br>
+				<div class="ui huge header">유저 불량^^ (잘 좀하지 ㅎㅎ)</div><br>
+				<div class="ui huge header">유저 불량^^ (잘 좀하지 ㅎㅎ)</div><br>
+				<div class="ui huge header">유저 불량^^ (잘 좀하지 ㅎㅎ)</div><br>
+			</div>
 		</div>
 	</div>
-	
+
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>

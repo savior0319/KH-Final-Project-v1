@@ -190,7 +190,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			@RequestParam String[] gender, @RequestParam String[] interest) {
 
 		String interestStr = "";
-
+		
 		MemberVO mv = new MemberVO();
 		mv.setMbId(mbId);
 		mv.setMbPwd(mbPwd);
