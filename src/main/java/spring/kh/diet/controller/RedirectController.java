@@ -40,7 +40,8 @@ public interface RedirectController {
 
 	String redirectTrainerMath();
 
-	String redirectTrainerFind();
+	String trainerFind();
 
+	String redirectTrainerFind();
 
 }

@@ -151,4 +151,12 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myPageTrainer";
 	}
 
+	/* 메인 - 트레이너 찾기 */
+	@Override
+	@RequestMapping(value = "/trainerFind.diet")
+	public String trainerFind() {
+		return "main/trainerFind";
+	}
+
+	
 }

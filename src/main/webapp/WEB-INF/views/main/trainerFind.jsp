@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<title>트레이너 찾기</title>
 </head>
 
 <!-- CSS -->
@@ -121,7 +121,6 @@
 			$('#ifIncheon').show();
 		}
 	});
-
 </script>
 
 </html>
