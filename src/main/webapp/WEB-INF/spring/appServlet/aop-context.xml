@@ -6,6 +6,6 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<aop:aspectj-autoproxy/>
-
+	<!-- <bean id ="SystemAnalytics" class="spring.kh.diet.common.SystemAnalytics"/> -->
 
 </beans>
