@@ -58,51 +58,13 @@
 										<tr>
 											<td>
 												<!-- 사진 첨부 -->
-												<div class="ui center aligned basic segment" style="margin: 0px; padding: 0px;">
-
-													<div class="fileWrap">
-														<br>
-														<!-- <input type="file" class="form-control-file" id="exampleFormControlFile1"> -->
-														<input type="file" id="stepImgFile0" multiple="multiple" style="display: none;" onchange="readURL(this,0);" />
-														<img src="/resources/image/user.png" width="150" height="150" style="cursor: pointer;" id="imgFile_Step_0" name="buyingAfterImage" class="rounded"
-															onclick="document.all.stepImgFile0.click();" onerror='this.src="/resources/image/user.png"'>
+												<div class="six wide column">
+													<div style="width: 100%;">
+														<img id="img" style="width: 300px; height: 300px;">
 													</div>
-
-
-													<label for="stepImgFile0" style="color: #BDBDBD; font-size: 6pt;"> 사진 파일 1개만 첨부 가능합니다. </label>
-													<br>
-													<hr>
-													<!-- 이미지 선택 모달 -->
-													<div class="ui modal" id="updateProfile">
-														<i class="close icon"></i>
-														<div class="header">메인 사진 등록</div>
-														<div class="image content">
-															<!-- <form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data"> -->
-															<div class="description">
-																<div class="ui header">
-																	<div class="fileBox">
-																		<input type="text" class="fileName" id="fileName" readonly="readonly" />
-																		<label for="uploadBtn" class="btn_file">찾아보기</label>
-																		<input type="file" id="uploadBtn" class="uploadBtn" name="uploadFile" />
-																	</div>
-																</div>
-															</div>
-
-															<!-- </form> -->
-															<br>
-															<div class="actions">
-																<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
-																	사진 등록
-																	<i class="checkmark icon"></i>
-																</button>
-																<button type="button" class="ui black button" id="modalOff">취소</button>
-															</div>
-															<input type="hidden" value="멤버 ID 값" id="memberId" />
-														</div>
+													<div style="width: 100%; height: 20%; margin-top: 20px;" align="center">
+														<button type="button" class="ui button" onclick="uploadPictureBtn();" style="background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
 													</div>
-
-													<!-- 사진 추가  버튼 -->
-													<button type="button" class="ui button" onclick="uploadPictureBtn();" style="width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
 												</div>
 												<!-- 사진 첨부 끝 -->
 											</td>
@@ -114,34 +76,35 @@
 									<thead align="center">
 										<tr>
 											<td style="width: 13%;">이름</td>
-											<td>
+											<td style="padding-bottom: 30px; padding-top: 30px;">
 												<span class="ui form">
-													<input type="text" name="name" placeholder="이름 입력" id="numberCheck2" maxlength="5"  autocomplete="off" required />
-
+													<input type="text" name="name" placeholder="이름 입력" id="nameCheck" maxlength="5" autocomplete="off" required />
 												</span>
+												<div id="nameMessage" style="display: none;"></div>
 											</td>
 										</tr>
 
 										<tr>
 
 											<td style="width: 13%;">연락처</td>
-											<td style="border-top: 1px solid #EAEAEA;">
+											<td style="border-top: 1px solid #EAEAEA; padding-top: 30px; padding-bottom: 30px;">
 												<span class="ui form">
-													<input type="text" name="phone" placeholder="01*********" id="numberCheck" maxlength="11" required  autocomplete="off" />
+													<input type="text" name="phone" placeholder="01*********" id="numberCheck" maxlength="11" required autocomplete="off" />
 
 												</span>
 												<div id="phoneMessage" style="display: none;"></div>
+
 											</td>
 										</tr>
 										<tr>
 											<td style="width: 13%;">주소</td>
-											<td style="border-top: 1px solid #EAEAEA;">
+											<td style="border-top: 1px solid #EAEAEA;padding-top: 30px;padding-bottom: 30px;">
 												<span class="ui form">
 													<input type="text" id="postcode" name="postcode" class="form-control" style="width: 100px; float: left; margin-right: 10px;" value="" placeholder="우편번호" readonly required />
-													<input type="button" class="btn btn-default" id="postBtn" onclick="execDaumPostcode();" value="주소 찾기" style="width: 100px; float: left; height: 38px; magin: 0; padding: 0 5px;" required />
+													<button class="samll ui button" id="postBtn" onclick="execDaumPostcode();" style="float: left; background: rgb(250,40,40); color: white;"> 주소찾기</button>
 													<br>
 													<input type="text" id="roadAddress" name="roadAddress" style="margin-top: 20px;" value="" class="form-control" placeholder="주소" readonly required />
-													<input type="text" id="addAddress" name="addAddress" style="margin-top: 10px;" value="" class="form-control" placeholder="상세 주소 입력" required  autocomplete="off" />
+													<input type="text" id="addAddress" name="addAddress" style="margin-top: 10px;" value="" class="form-control" placeholder="상세 주소 입력" autocomplete="off" />
 													<span id="guide" style="color: #999"> </span>
 												</span>
 											</td>
@@ -200,7 +163,7 @@
 							<th style="text-align: center;">키</th>
 							<td>
 								<span class="ui form">
-									<input type="text" name="height" placeholder="키 입력(176)" style="width: 40%;" id="heightCheck" maxlength="3" required  autocomplete="off" />
+									<input type="text" name="height" placeholder="키 입력(176)" style="width: 40%;" id="heightCheck" maxlength="3" required autocomplete="off" />
 								</span>
 								<span class="ui medium header" style="line-height: 40px;"> cm </span>
 								<div id="heightMessage" style="display: none;"></div>
@@ -210,7 +173,7 @@
 							<th style="text-align: center;">몸무게</th>
 							<td>
 								<span class="ui form">
-									<input type="text" name="weight" placeholder="몸무게 입력(76)" style="width: 40%;" id="weightCheck" maxlength="3" required  autocomplete="off" />
+									<input type="text" name="weight" placeholder="몸무게 입력(76)" style="width: 40%;" id="weightCheck" maxlength="3" required autocomplete="off" />
 								</span>
 								<span class="ui medium header" style="line-height: 40px;"> kg </span>
 								<div id="weightMessage" style="display: none;"></div>
@@ -230,8 +193,9 @@
 										</div>
 										<div class="field">
 											<div id="ifSeoul">
-												<select multiple="" name="area1" class="ui  search fluid normal dropdown" id="dropdown2">
+												<select multiple="" name="area1" class="ui search fluid normal dropdown" id="dropdown2">
 													<option value="">선택</option>
+													<option value="전체">전체</option>
 													<option value="강남구">강남구</option>
 													<option value="강동구">강동구</option>
 													<option value="강북구">강북구</option>
@@ -258,11 +222,11 @@
 													<option value="중구">중구</option>
 												</select>
 											</div>
-										</div>
-										<div class="field">
+
 											<div id="ifIncheon" style="display: none;">
-												<select multiple="" name="area2" class="ui  search fluid normal dropdown" id="dropdown3">
+												<select multiple="" name="area2" class="ui search fluid normal dropdown" id="dropdown3">
 													<option value="">선택</option>
+													<option value="전체">전체</option>
 													<option value="강화군">강화군</option>
 													<option value="계양구">계양구</option>
 													<option value="남동구">남동구</option>
@@ -280,7 +244,7 @@
 								</div>
 							</td>
 						</tr>
-						<tr  style="text-align: center;">
+						<tr style="text-align: center;">
 							<th style="width: 15%;">지도 방법</th>
 							<td>
 								<div class="ui form">
@@ -306,6 +270,7 @@
 							<td>
 								<select multiple="" name="time" class="ui  search fluid normal dropdown" id="dropdown4" required>
 									<option value="">요일 선택</option>
+									<option value="전체">전체</option>
 									<option value="월요일">월요일</option>
 									<option value="화요일">화요일</option>
 									<option value="수요일">수요일</option>
@@ -322,7 +287,7 @@
 							<td>
 								<div class="ui form">
 									<div class="field">
-										<textarea style="margin-top: 0px; margin-bottom: 0px; height: 203px; resize: none;" required="required"  autocomplete="off" placeholder="ex) 2018.01.30 ~ 2018.07.31 KH 헬스트레이너 "></textarea>
+										<textarea id="trComment" style="margin-top: 0px; margin-bottom: 0px; height: 203px; resize: none;" required="required" autocomplete="off" placeholder="ex) 2018.01.30 ~ 2018.07.31 KH 헬스트레이너 "></textarea>
 									</div>
 								</div>
 							</td>
@@ -343,157 +308,111 @@
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
+<!-- 이미지 선택 모달 -->
 
+<div class="ui modal" id="updateProfile">
+	<i class="close icon"></i>
+	<div class="header">메인 사진 등록</div>
+	<div class="image content">
+		<form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data">
+			<div class="description">
+				<div class="ui header">
+					<div class="fileBox">
+						<input type="text" class="fileName" id="fileName" readonly="readonly" />
+						<label for="uploadBtn" class="btn_file">찾아보기</label>
+						<input type="file" id="uploadBtn" class="uploadBtn" name="uploadFile" />
+					</div>
+				</div>
+			</div>
+
+
+		</form>
+		<br>
+		<div class="actions">
+			<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
+				사진 등록
+				<i class="checkmark icon"></i>
+			</button>
+			<button type="button" class="ui black button" id="modalOff">취소</button>
+		</div>
+		<%-- <input type="hidden" value="${sessionScope.member.mbId}" id="memberId" /> --%>
+	</div>
+</div>
 <!-- SCRIPT -->
 
 
 <script type="text/javascript">
-	/* function submitBtn() {
-
-		var city = $('#dropdown1').val();
-		var area1 = $('#dropdown2').val();
-		var area2 = $('#dropdown3').val();
-		if (city == '서울특별시') {
-			//location.href = "/trainerSearchResult.diet?city=" + city + "&area=" + area1;
-			alert(city);
-			alert(area1);
-		} else if (city == '인천광역시') {
-			//location.href = "/trainerSearchResult.diet?city=" + city + "&area=" + area2;
-			alert(city);
-			alert(area2);
-		}
-	}; */
-	
-	//양식 체크 확인
-	function submitBtn(){
-		if(phonePass == false || weightPass == false || heightPass == false){
-			alert('트레이너 전환 양식을 확인해주세요');
-			return false;
-		}else{
-			alert('신청이 완료되었습니다.');
-			return true;
-		}
-		
+	/* 사진등록,변경버튼 클릭시 모달 보여주기 */
+	function uploadPictureBtn() {
+		$("#updateProfile").modal('show');
 	}
+
 	
-
-	//정규표현식하기!
-	var phoneRegExp = /^01([0|1|6|7|8|9]{1})([0-9]{3,4})([0-9]{4})$/;
-	var numRegExp = /^[0-9]*$/;
-
-	var phonePass = false;
-	var weightPass = false;
-	var heightPass = false;
 	
-	$(document).ready(
-			function() {
+	
+	
+	/* 모달 창 종료 */
+	$("#modalOff").click(function() {
+		$("#updateProfile").modal('hide');
+	});
 
-				$('#numberCheck').keyup(
-						function() {
-							var phone = $('#numberCheck').val();
-
-							var phoneCheck = phoneRegExp.test(phone);
-
-							if (phoneCheck == false) {
-								$('#phoneMessage').html('* 형식을 확인해주세요').attr(
-										"style", "display:block; color:red;");
-								phonePass = false;
-							} else if (phoneCheck == true) {
-								$('#phoneMessage').attr("style",
-										"display:none;");
-								phonePass = true;
-							}
-
-						});
-
-				$('#heightCheck').keyup(
-						function() {
-							var height = $('#heightCheck').val();
-
-							var numCheck = numRegExp.test(height);
-
-							if (numCheck == false) {
-								$('#heightMessage').html('* 형식을 확인해주세요').attr(
-										"style", "display:block; color:red;");
-								heightPass = false;
-							} else if (numCheck == true) {
-								$('#heightMessage').attr("style",
-										"display:none;");
-								heightPass = true;
-							}
-
-						});
-
-				$('#weightCheck').keyup(
-						function() {
-							var weight = $('#weightCheck').val();
-
-							var numCheck = numRegExp.test(weight);
-
-							if (numCheck == false) {
-								$('#weightMessage').html('* 형식을 확인해주세요').attr(
-										"style", "display:block; color:red;");
-								weightPass = false;
-							} else if (numCheck == true) {
-								$('#weightMessage').attr("style",
-										"display:none;");
-								weightPass = true;
-							}
-
-						});
-
-			});
-
-	$('#dropdown1').change(function() {
-		var loc = $('#dropdown1').val();
-		if (loc == '서울특별시') {
-			$('#ifIncheon').hide();
-			$('#ifSeoul').show();
-		} else if (loc == '인천광역시') {
-			$('#ifSeoul').hide();
-			$('#ifIncheon').show();
+	/* 모달 파일 input 부분 스크립트 */
+	var uploadFile = $('.fileBox .uploadBtn');
+	uploadFile.on('change', function() {
+		if (window.FileReader) {
+			var filename = $(this)[0].files[0].name;
+		} else {
+			var filename = $(this).val().split('/').pop().split('\\').pop();
 		}
+		$(this).siblings('.fileName').val(filename);
 	});
 
-	$('#dropdown1').change(function() {
-		var loc = $('#dropdown1').val();
+	/* 올린 이미지 미리보기 */
+	var sel_file;
+	var reader;
+	var ff;
 
-		if (loc == 'seoul') {
-			$('#ifIncheon').hide();
-			$('#ifSeoul').show();
-		} else if (loc = 'incheon') {
-			$('#ifSeoul').hide();
-			$('#ifIncheon').show();
-		}
+	$(document).ready(function() {
+		$("#uploadBtn").on("change", handleImgFileSelect);
 	});
 
-	/* 생년월일 달력 */
-	$.datepicker.setDefaults({
-		dateFormat : 'yy-mm-dd',
-		prevText : '이전 달',
-		nextText : '다음 달',
-		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
-				'10월', '11월', '12월' ],
-		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
-				'9월', '10월', '11월', '12월' ],
-		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-		showMonthAfterYear : true,
-		yearSuffix : '년',
-		changeMonth : true,
-		changeYear : true,
-		yearRange : '1920:2000',
-		defaultDate : new Date(1990, 0, 1)
-	});
+	function photoPreview() {
+		handle();
 
-	$(function() {
-		$("#birth").datepicker();
-	});
+	}
 
-	/* 시멘틱 셀렉트 드롭박스 */
-	$('select.dropdown').dropdown();
+	function handleImgFileSelect(e) {
 
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+
+		filesArr.forEach(function(f) {
+			if (!f.type.match("image.*")) {
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
+
+			sel_file = f;
+
+			reader = new FileReader();
+
+			reader.onload = function(e) {
+				$("#img").attr("src", e.target.result);
+			}
+			ff = f;
+		});
+	}
+
+	function handle() {
+		reader.readAsDataURL(ff);
+		$("#updateProfile").modal('hide');
+	}
+
+	
+	
+	
+	
+	
 	/* 사진등록,변경버튼 클릭시 모달 보여주기 */
 	function uploadPictureBtn() {
 		$("#updateProfile").modal('show');
@@ -522,6 +441,191 @@
 		}
 
 	};
+	
+	
+	
+	
+	
+	
+	
+	/* function submitBtn() {
+
+		var city = $('#dropdown1').val();
+		var area1 = $('#dropdown2').val();
+		var area2 = $('#dropdown3').val();
+		if (city == '서울특별시') {
+			//location.href = "/trainerSearchResult.diet?city=" + city + "&area=" + area1;
+			alert(city);
+			alert(area1);
+		} else if (city == '인천광역시') {
+			//location.href = "/trainerSearchResult.diet?city=" + city + "&area=" + area2;
+			alert(city);
+			alert(area2);
+		}
+	}; */
+
+	//양식 체크 확인
+	function submitBtn() {
+		if (phonePass == false || weightPass == false || heightPass == false || namePass == false) {
+			alert('트레이너 전환 양식을 확인해주세요');
+			return false;
+		} else {
+			alert('신청이 완료되었습니다.');
+			return true;
+		}
+
+	}
+
+	//정규표현식하기!
+	var phoneRegExp = /^01([0|1|6|7|8|9]{1})([0-9]{3,4})([0-9]{4})$/;
+	var numRegExp = /^[0-9]*$/;
+	var nameRegExp = /^[가-힣]{2,5}$/;
+	
+	
+	var phonePass = false;
+	var weightPass = false;
+	var heightPass = false;
+	var namePass = false;
+
+	$(document).ready(
+			function() {
+
+				$('#numberCheck').keyup(
+						function() {
+							var phone = $('#numberCheck').val();
+
+							var phoneCheck = phoneRegExp.test(phone);
+
+							if (phoneCheck == false) {
+								$('#phoneMessage').html("* '-'을 제외한 11자리 숫자를 입력해주세요 ").attr(
+										"style", "display:block; color:red;");
+								phonePass = false;
+							} else if (phoneCheck == true) {
+								$('#phoneMessage').attr("style",
+										"display:none;");
+								phonePass = true;
+							}
+
+						});
+
+				$('#heightCheck').keyup(
+						function() {
+							var height = $('#heightCheck').val();
+
+							var numCheck = numRegExp.test(height);
+
+							if (numCheck == false) {
+								$('#heightMessage').html('* 키는 숫자만 입력이 가능합니다.').attr(
+										"style", "display:block; color:red;");
+								heightPass = false;
+							} else if (numCheck == true) {
+								$('#heightMessage').attr("style",
+										"display:none;");
+								heightPass = true;
+							}
+
+						});
+
+				$('#weightCheck').keyup(
+						function() {
+							var weight = $('#weightCheck').val();
+
+							var numCheck = numRegExp.test(weight);
+
+							if (numCheck == false) {
+								$('#weightMessage').html('* 몸무게는 숫자만 입력이 가능합니다.').attr(
+										"style", "display:block; color:red;");
+								weightPass = false;
+							} else if (numCheck == true) {
+								$('#weightMessage').attr("style",
+										"display:none;");
+								weightPass = true;
+							}
+
+						});
+				
+				
+				$('#nameCheck').keyup(
+						function() {
+							var name = $('#nameCheck').val();
+
+							var nameCheck = nameRegExp.test(name);
+
+							if (nameCheck == false) {
+								$('#nameMessage').html('* 이름은 한글 2~5 글자만 가능합니다.').attr(
+										"style", "display:block; color:red;");
+								namePass = false;
+							} else if (nameCheck == true) {
+								$('#nameMessage').attr("style",
+										"display:none;");
+								namePass = true;
+							}
+
+						});
+				
+
+			});
+	//정규표현식 끝!!!!!!
+	
+	
+
+	/* 지역 드롭다운 */
+	$('#dropdown1').dropdown();
+
+	$('#dropdown2').dropdown({
+		maxSelections : 3
+	});
+
+	$('#dropdown3').dropdown({
+		maxSelections : 3
+	});
+
+	$('#dropdown1').change(function() {
+		var loc = $('#dropdown1').val();
+		if (loc == '서울특별시') {
+			$('#ifIncheon').hide();
+			$('#ifSeoul').show();
+		} else if (loc == '인천광역시') {
+			$('#ifSeoul').hide();
+			$('#ifIncheon').show();
+		}
+	});
+
+	
+	
+	
+	/* 생년월일 달력 : Datepicker */
+	$.datepicker.setDefaults({
+		dateFormat : 'yy-mm-dd',
+		prevText : '이전 달',
+		nextText : '다음 달',
+		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+				'10월', '11월', '12월' ],
+		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+				'9월', '10월', '11월', '12월' ],
+		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+		showMonthAfterYear : true,
+		yearSuffix : '년',
+		changeMonth : true,
+		changeYear : true,
+		yearRange : '1920:2000',
+		defaultDate : new Date(1990, 0, 1)
+	});
+
+	$(function() {
+		$("#birth").datepicker();
+	});
+
+	/* 시멘틱 셀렉트 드롭박스 */
+	$('select.dropdown').dropdown();
+
+	
+
+	
+	
+	
 
 	//주소찾기
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
