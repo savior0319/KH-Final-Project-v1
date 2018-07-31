@@ -30,12 +30,12 @@ public interface AdminController {
 
 	yesterdayAnalytic yesterdayAnalytics();
 
-	todayAnalyticPDVO todayAutoAnalytics();
-
-	void yesterdayAutoInsertAnalytics();
-
 	String blackList(HttpServletRequest request, HttpServletResponse response);
 
 	void blackListReg(int index, String status, HttpServletResponse response) throws IOException;
+
+	void yesterdayAutoInsertAnalytics();
+
+	todayAnalyticPDVO todayAutoAnalytics();
 
 }
