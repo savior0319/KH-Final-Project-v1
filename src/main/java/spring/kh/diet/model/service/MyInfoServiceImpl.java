@@ -17,7 +17,7 @@ import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
-import spring.kh.diet.model.vo.MyQuestionPageData;
+import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.QuestionVO;
 
 @Service("myInfoService")
@@ -32,6 +32,30 @@ public class MyInfoServiceImpl implements MyInfoService {
 	@Override
 	public int question(QuestionVO qv) {
 		int result = myInfoDAO.question(SqlSessionTemplate, qv);
+		return result;
+	}
+
+	@Override
+	public int deleteMyBookMark(BoardBookMarkVO pv) {
+		int result = myInfoDAO.deleteMyBookMark(SqlSessionTemplate, pv);
+		return result;
+	}
+
+	@Override
+	public int deleteMyComment(BoardCommentVO pv) {
+		int result = myInfoDAO.deleteMyComment(SqlSessionTemplate, pv);
+		return result;
+	}
+
+	@Override
+	public int deleteMyQuestion(QuestionVO pv) {
+		int result = myInfoDAO.deleteMyQuestion(SqlSessionTemplate, pv);
+		return result;
+	}
+
+	@Override
+	public int deleteMyPost(BoardPostVO pv) {
+		int result = myInfoDAO.deleteMyPost(SqlSessionTemplate, pv);
 		return result;
 	}
 
@@ -115,11 +139,10 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public MyActivityVO myLoginCount(MemberVO m) {
-		MyActivityVO mv = myInfoDAO.myLoginCount(SqlSessionTemplate,m);
+		MyActivityVO mv = myInfoDAO.myLoginCount(SqlSessionTemplate, m);
 		return null;
 	}
 
-	
 	/* 마이페이지 - 내 게시물 정보 페이징 처리 */
 	@Override
 	public MyPostPageDataVO myPostList(int currentPage, String type, MyActivityVO ma) {
@@ -178,20 +201,20 @@ public class MyInfoServiceImpl implements MyInfoService {
 	}
 
 	@Override
-	public MyQuestionPageData allMyOneToOneQuestion(int currentPage, MemberVO mv) {
+	public MyQuestionPageDataVO allMyOneToOneQuestion(int currentPage, MemberVO mv) {
 		int recordCountPerPage = 5;
 		int naviCountPerPage = 5;
-		MyQuestionPageData myQuestion = new MyQuestionPageData();
+
+		MyQuestionPageDataVO myQuestion = new MyQuestionPageDataVO();
 
 		ArrayList<QuestionVO> list = (ArrayList<QuestionVO>) myInfoDAO.myQuestionList(SqlSessionTemplate, currentPage,
 				recordCountPerPage, mv);
 		String pageNavi = myInfoDAO.myQuestionListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, mv);
-
 		myQuestion.setComList(list);
 		myQuestion.setPageNavi(pageNavi);
+
 		return myQuestion;
 	}
-
 
 }

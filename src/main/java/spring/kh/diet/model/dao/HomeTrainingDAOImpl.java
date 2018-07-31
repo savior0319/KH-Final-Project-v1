@@ -1,5 +1,6 @@
 package spring.kh.diet.model.dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,7 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO {
 
 		pdvo.setStart((currentPage - 1) * recordCountPerPage + 1);
 		pdvo.setEnd(currentPage * recordCountPerPage);
-
-		System.out.println(pdvo);
+		
 		List<HomeTrainingVO> list = session.selectList("homeTraining.getList", pdvo);
 
 		return (ArrayList<HomeTrainingVO>) list;
@@ -131,12 +131,11 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO {
 	}
 
 	// 이전글 다음글
-	@Override
+	
 	public ArrayList<HomeTrainingVO> pnWriteList(SqlSessionTemplate session, int indexNo) {
-		// List<HomeTrainingVO> list = session.selectList("homeTraining.getpnWriteList",
-		// indexNo);
-		// return (ArrayList<HomeTrainingVO>)list;
-		return null;
+		List<HomeTrainingVO> list = session.selectList("homeTraining.getpnWriteList", indexNo);
+	    return (ArrayList<HomeTrainingVO>)list;
+		
 	}
 
 	// 좋아요 부분

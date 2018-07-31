@@ -192,7 +192,8 @@
 		ss_login as nickName,
 		ss_device as device,
 		ss_LastIn as lastIn
-		from off_session_tbl
+		from off_session_tbl where ss_lastIn between trunc(sysdate) and trunc(sysdate+1)
+		order by ss_index desc 
 	</select>
 
 	<!-- 관리자 - 페이지관리 - 조회수가져오기 -->
@@ -281,7 +282,8 @@
 		ss_device as device,
 		ss_LastIn as lastIn
 		FROM off_session_tbl
-		order by ss_index desc
+		where ss_lastIn between trunc(sysdate) and trunc(sysdate+1)
+		order by ss_index desc 
 	</select>
 
 	<select id="getOnSessionList" resultType="onSession">
@@ -320,7 +322,7 @@
 		HT_LIKE as htLike,
 		BR_LIKE as brLike,
 		BD_TODAY as bdToday
-		from BEFORE_DAY_TBL
+		from BEFORE_DAY_TBL where to_date(bd_today,'yyyy/MM/dd') like sysdate
 	</select>
 
 	<select id="yesterdayAutoInsertBefore" resultType="java.lang.Integer">

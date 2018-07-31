@@ -154,6 +154,7 @@ public class AdminControllerImpl implements AdminController {
 
 		CurrentDate CD = new CurrentDate(PC, MOBILE, AtoBOn, BtoCOn, CtoDOn, DtoEOn, EtoFOn, AtoBOff, BtoCOff, CtoDOff,
 				DtoEOff, EtoFOff);
+//		System.out.println(list.toString());
 		ASLPDVO.setType(request.getParameter("type"));
 		request.setAttribute("currentSession", ASLPDVO);
 		request.setAttribute("size", ASLPDVO.getSsList().size());
@@ -287,16 +288,16 @@ public class AdminControllerImpl implements AdminController {
 		todayAnalyticPDVO tAPDVO = todayAutoAnalytics();
 		tAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Current", tAPDVO);
-
+//		System.out.println(tAPDVO.toString());
 
 		// BEFORE_DAY_TBL 를 불러와서 데이터를 가져오는것.
 		yesterdayAnalytic yAPDVO = yesterdayAnalytics();
 		yAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Before", yAPDVO);
-
+//		System.out.println(yAPDVO.toString());
+		
 		// 오늘 가입한 맴버 가져오기
 		ArrayList<MemberVO> MVO = as.searchMember();
-
 		ArrayList<MemberVO> MVO2 = as.memberList();
 
 		// 오늘 탈퇴한 멤버 가져오기
@@ -311,16 +312,15 @@ public class AdminControllerImpl implements AdminController {
 		ArrayList<OnSessionVO> OSVO = as.searchOnSession();
 		ArrayList<OnSessionVO> OSVO2 = as.getOnSessionList();
 
-//		System.out.println(yAPDVO.toString());
 		request.setAttribute("todayInsertMember", MVO2);
 		request.setAttribute("todayInsertMemberSize", MVO2.size());
 		request.setAttribute("todayDelMember", DMVO2);
 		request.setAttribute("todayDelMemberSize", DMVO2.size());
 
 		request.setAttribute("OnSession", OSVO);
-		request.setAttribute("OnSessionSize", OSVO2.size());
+		request.setAttribute("OnSessionSize", OSVO.size());
 		request.setAttribute("AllSession", ASVO);
-		request.setAttribute("AllSessionSize", ASVO2.size());
+		request.setAttribute("AllSessionSize", ASVO.size());
 		return "admin/todayAnalytics";
 	}
 
@@ -359,7 +359,7 @@ public class AdminControllerImpl implements AdminController {
 	// 테스트를위해서는 30초단위로 우선 값을 테이블에 한번집어넣고 날자값이 중복되지않을때, 그떄에만들어감.
 	// 즉 서버가 동작하고 30초이내의값을 가져옴.
 	@Override
-	@Scheduled(cron = "0/30 * * * * ?") // 우선 1분주기로 테스트 @Scheduled(cron = "0 0/1 0 * * ?") // 30 초주기로 갱신.
+	@Scheduled(cron = "0/10 * * * * ?") // 우선 1분주기로 테스트 @Scheduled(cron = "0 0/1 0 * * ?") // 30 초주기로 갱신.
 	public void yesterdayAutoInsertAnalytics() {
 		int result = as.yesterdayAutoInsertBefore();
 		if (result != 1) {

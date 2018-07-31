@@ -245,13 +245,13 @@ body {
 				<c:choose>
 					<c:when test="${requestScope.todayInsertMemberSize == 0}">
 						<h3>
-							<i class="user plus icon"></i> 오늘 가입한 맴버 : <span>
+							<i class="user plus icon"></i> 오늘 가입한 멤버 : <span>
 								${requestScope.todayInsertMemberSize} 명 (-)</span>
 						</h3>
 					</c:when>
 					<c:otherwise>
 						<h3>
-							<i class="user plus icon"></i>   오늘 가입한 맴버 : <span style="color: green">
+							<i class="user plus icon"></i>   오늘 가입한 멤버 : <span style="color: green">
 								${requestScope.todayInsertMemberSize} 명(▲)</span>
 						</h3>
 					</c:otherwise>
@@ -299,13 +299,13 @@ body {
 				<c:choose>
 					<c:when test="${requestScope.todayDelMemberSize  == 0}">
 						<h3>
-							<i class="user times icon"></i>  오늘 탈퇴한 맴버 : <span>
+							<i class="user times icon"></i>  오늘 탈퇴한 멤버 : <span>
 								${requestScope.todayDelMemberSize } 명 (-)</span>
 						</h3>
 					</c:when>
 					<c:otherwise>
 						<h3>
-							<i class="user times icon"></i>	 오늘 탈퇴한 맴버 : <span style="color: red">
+							<i class="user times icon"></i>	 오늘 탈퇴한 멤버 : <span style="color: red">
 								${requestScope.todayDelMemberSize } 명 (▼)</span>
 						</h3>
 					</c:otherwise>
@@ -346,6 +346,7 @@ body {
 
 		</div>
 
+ <!-- 삭제 -->
 		<div class="ui  segments">
 
 			<div class="ui center aligned segment">

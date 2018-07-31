@@ -128,15 +128,22 @@
 					<h3>영상 시간 : <input type="text" id="time" value="${requestScope.ht.htStepTime }"></h3>
 					<h3>운동 난이도 : <input type="text" id="hard" value="${requestScope.ht.htStepHard }"></h3>
 					<h3>칼로리 소모량 : <input type="text" id="kal" value="${requestScope.ht.htStepKal }"></h3>
-					<h3>유튜브 주소 : <input type="text" id="video" value="${requestScope.ht.htVideo }"></h3>
+					<h3>유튜브 주소 : <input type="text" id="video" value="${requestScope.ht.htVideo }" onchange="change();"></h3>
 					</div>
 				</div>
 				
 			    <div class="six wide column">
 			    <div style="width:100%;">
-					<img id="img1" style="width:230px; height:180px;">
+					
+					<!-- 유튜브 미리보기 영상 들어가는 곳 -->
+					<iframe id="lookAhead" width="230px;" height="180px"
+					src=${requestScope.ht.htVideo }" frameborder="0"
+					allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					
 				</div>
-				<div style="width:100%; height:30px; margin-top:20px;"><h4>유튜브 영상 미리보기</h4></div>
+				<div style="width:100%; height:30px; margin-top:20px;">
+				
+				<h4>유튜브 영상 미리보기</h4></div>
 				</div>	
 				
 			</div>
@@ -281,15 +288,15 @@
     					success : function(result) {
     						if (result == 1) {
     							alert('게시글 수정 완료');
-    							location.href = "/homeTrainingList.diet?type=";
+    							location.href = "/homeTrainingList.diet?type=all";
     						} else {
     							alert('게시글 등록 실패');
-    							location.href = "/homeTrainingList.diet";
+    							location.href = "/homeTrainingList.diet?type=all";
     						}
     					},
     					error : function() {
     						alert('게시글 등록 실패(과정 오류)');
-    						location.href = "/homeTrainingList.diet";
+    						location.href = "/homeTrainingList.diet?type=all";
     					}
     				});
     			} else {
@@ -370,6 +377,12 @@
         reader.readAsDataURL(ff);
         $("#updateProfile").modal('hide');
     }
+    
+    // 유튜브 영상 미리보기
+    function change(){
+    	    	
+    }
+    
 </script>
 
 </html>

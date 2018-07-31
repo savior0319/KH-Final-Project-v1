@@ -19,8 +19,6 @@ public interface HomeTrainingDAO {
 
 	HomeTrainingVO homeTraining(SqlSessionTemplate session, int indexNo);
 
-	ArrayList<HomeTrainingVO> pnWriteList(SqlSessionTemplate session, int indexNo);
-
 	BoardLikeVO checkBoardLike(SqlSessionTemplate session, BoardLikeVO checkVO);
 
 	int boardLikeDown(SqlSessionTemplate session, BoardLikeVO blv);

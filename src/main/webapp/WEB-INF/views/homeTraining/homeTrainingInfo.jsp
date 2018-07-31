@@ -96,33 +96,31 @@
 			<hr>
 			
 			
-			<!-- <div class="prev" style="height: 30px; width: 100%; margin: 2%;">
-				<div class="prev" style="height: 100%; width: 20%; float: left;">이전글
-					&ensp;▲</div>
-				<a class="prevTitle" style="height: 100%; width: 50%; float: left;"
-					href="#">10분 안에 지방 태우기</a> <a class="prevHits"
-					style="height: 100%; width: 30%; float: left;" href="#">2018.07.18
-					&ensp;| &ensp; 조회수 : 525</a>
-			</div> -->
+			
 			
 				
-			<c:choose>
-				<c:when test="${fn:length(list) == 2 and list.index == list[0].index}">
-			<div class="prev" style="height: 30px; width: 100%; margin: 2%;">
-				<span>이전</span>이전글이 없습니다.
+		<c:if test="${requestScope.list[0]!=null }">
+			<div class="next" onclick="goInfo(${requestScope.list[0].indexNo})" style="height: 30px; width: 100%; margin: 2%; cursor: pointer;">
+				<div class="next" style="height: 100%; width: 20%; float: left;">이전글
+					&ensp;▲</div>
+				<a class="nextTitle" style="height: 100%; width: 50%; float: left;">${requestScope.list[0].htTitle } </a> 
+				<a class="nextHits"	style="height: 100%; width: 30%; float: left;">
+				<fmt:formatDate value="${requestScope.list[0].htEnrollDate }" pattern="yyyy-MM-dd" />
+					&ensp;| &ensp; 조회수 : ${requestScope.list[0].htHits }</a>
 			</div>
-			<hr>
-			<div class="next" style="height: 30px; width: 100%; margin: 2%;">
+		</c:if>
+		<hr>
+		<c:if test="${requestScope.list[1]!=null }">
+			<div class="next" onclick="goInfo(${requestScope.list[1].indexNo})" style="height: 30px; width: 100%; margin: 2%; cursor: pointer;">
 				<div class="next" style="height: 100%; width: 20%; float: left;">다음글
 					&ensp;▼</div>
-				<a class="nextTitle" style="height: 100%; width: 50%; float: left;"
-					href="/homeTrainingInfo.diet?index=${list[1].index }">${list[1].htTitle }</a> <a class="nextHits"
-					style="height: 100%; width: 30%; float: left;" href="#">2018.07.18
-					&ensp;| &ensp; 조회수 : 525</a>
+				<a class="nextTitle" style="height: 100%; width: 50%; float: left;">${requestScope.list[1].htTitle } </a> 
+				<a class="nextHits"	style="height: 100%; width: 30%; float: left;">
+				<fmt:formatDate value="${requestScope.list[1].htEnrollDate }" pattern="yyyy-MM-dd" />
+					&ensp;| &ensp; 조회수 : ${requestScope.list[1].htHits }</a>
 			</div>
-			</c:when>
+		</c:if>
 			
-			</c:choose>
 			<hr>
 			<br>
 
@@ -137,8 +135,10 @@
 				<h3 class="ui dividing header" style="margin-top: 8px; text-align:left;">
 					<i class="chevron red circle right icon"> </i>댓글 쓰기
 				</h3>
-
-
+				
+			<c:choose>
+				<c:when test="${sessionScope.member!=null}">
+				<!-- 로그인 한경우 -->
 				<form class="ui reply form">
 					<div class="field">
 						<textarea style="resize: none;" id="commentContent"></textarea>
@@ -151,12 +151,24 @@
 						</div>
 					</div>
 				</form>
+				</c:when>
+				<c:otherwise>
+					<!-- 로그인 하지 않았을 경우 -->
+					<form class="ui reply form">
+						<div class="field">
+							<textarea id="commentContent" style="resize: none;" name="content" placeholder="로그인 후 이용이 가능합니다." readonly></textarea>
+						</div>
+
+					</form>
+				</c:otherwise>
+				</c:choose>
 				<br> <br>
 
 				<div id="comment">
+				<c:if test="${requestScope.bcpd.bcList[0] !=null}">
 					<!-- 작성된 댓글 리스트 -->
 					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
-
+						<input type="hidden" value="${bc.cmtLike}" id="cmtLike_${bc.cmtIndex }"/>
 						<div class="comment">
 							<a class="avatar"> <img src="${bc.mbImage }"
 								style="width: 40px; height: 40px; border-radius: 25px;">
@@ -171,28 +183,32 @@
 									</span>
 									
 									<div id="modiDelete_${bc.cmtIndex}">
+									
+									<c:if test="${bc.mbNickname eq sessionScope.member.mbNickName}">
 										<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex"
 											id="cmdIndex_${bc.cmtIndex}" /> <a class="modifyComment"
 											style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
 										&nbsp;&nbsp;|&nbsp;&nbsp; <a class="deleteComment"
 											onclick="deleteComment(${bc.cmtIndex});"
 											style="cursor: pointer;">삭제</a>
+									</c:if>
 									</div>
 									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}"
 										onclick="cancleComment(${bc.cmtIndex});"
 										style="cursor: pointer; display: none;"
 										href="javascript:void(0)">취소</a>
 										
-									<div class="ui right aligned container" align="right"
-										style="width: 70%; float: right;">
-										<button class="ui red basic tiny button"
-											style="margin-right: 10px;">
-											<i class="thumbs up outline icon"></i>공감${bc.cmtLike }
+									<c:if test="${sessionScope.member!=null}">
+									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+										<button class="ui red basic tiny button" onclick="cmtLike(${bc.cmtIndex},${bc.mbIndex})" style="margin-right: 10px;">
+											<i class="thumbs up outline icon"></i>
+											좋아요 <label id="cmtLikeCount_${bc.cmtIndex}">${bc.cmtLike}</label>
 										</button>
-										<button class="ui black basic tiny button">
-											<i class="ban icon"></i>신고${bc.cmtBlame }
+				        			  	<button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
+												<i class="ban icon"></i> 신고 <label id="cmtBlame_${bc.cmtIndex}">${bc.cmtBlame}</label>
 										</button>
 									</div>
+									</c:if>
 								</div>
 								<div class="text" style="text-align:left; margin-left: 3%;" id="cmd_${bc.cmtIndex}">
 									<pre>${bc.cmtContent }</pre>
@@ -209,7 +225,7 @@
 							</div>
 							<div class="ui right aligned container" id="rightContainer">
 								<div class="ui labeled submit icon button"
-									style="background-color: #fa2828; color: white;"
+									style="background-color:#fa2828; color: white;"
 									onclick="modifyComment(${bc.cmtIndex});">
 									<i class="icon edit"></i> 수정
 								</div>
@@ -223,7 +239,88 @@
 					<div class="ui center aligned basic segment">
 						<div class="ui pagination menu">${requestScope.bcpd.pageNavi }</div>
 					</div>
+					</c:if>
 				</div>
+				
+				<!-- 댓글 신고 모달 -->
+			<div class="ui basic modal" id="reportCmdModal">
+				<div class="ui icon header">
+					<i class="exclamation triangle icon"></i> 신고하기
+				</div>
+				<h5 class="ui center aligned container">(신고 사유를 선택해 주세요.)</h5>
+				<br>
+
+				<div class="ui container" align="center">
+					<div class="content">
+						<div class="ui form">
+
+							<div class="grouped fields">
+
+								<div class="ui clearing segment" style="width: 350px; padding-left: 60px;">
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="blameText" checked="checked" value="광고/상업성 게시글" /> <label>&emsp;&emsp;광고/상업성 게시글</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="blameText" value="비방/욕설 게시글" /> <label>&emsp;&emsp;비방/욕설 게시글</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="blameText" value="개인정보 유출 게시물" /> <label>&emsp;&emsp;개인정보 유출 게시물</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="blameText" value="청소년 유해(음란) 게시물"> <label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="blameText" value="명예훼손/저작권 침해 게시물"> <label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="blameText" value="도배성 게시물"> <label>&emsp;&emsp;도배성 게시물</label>
+										</div>
+									</div>
+									<br>
+									<div class="field singo">
+										<div class="ui radio checkbox">
+											<input type="radio" id="blame" name="blameText" value="불명확/추측성 게시물"> <label>&emsp;&emsp;불명확/추측성 게시물</label>
+										</div>
+									</div>
+									<br> <br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<br> <br>
+				<div class="ui center aligned container">
+					<div class="actions">
+						<div class="ui red basic cancel inverted button">
+							<i class="remove icon"></i> 취소
+						</div>
+						<div class="ui red ok inverted button" onclick="sendCmdBlame();">
+							<i class="checkmark icon"></i> 신고
+						</div>
+					</div>
+				</div>
+
+			</div>
+				
+				
 			</div>
 		</div>
 	
@@ -359,7 +456,7 @@
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
 
 					likeBtn.append(likeI);
-					likeBtn.append("공감" + data.bcList[i].cmtLike);
+					likeBtn.append("좋아요" + data.bcList[i].cmtLike);
 
 					blameBtn.append(blameI);
 					blameBtn.append("신고" + data.bcList[i].cmtBlame);
@@ -564,10 +661,98 @@
 		var cancleComment = $('#cancleComment_'+ci).attr("style","display:none;");
 	}
 	
+	// 목록 버튼
 	function back(){
-		history.go(-1);
+		location.href="/homeTrainingList.diet?type=all";
 	}
 	
+	
+	/* 댓글 좋아요 버튼 */
+	function cmtLike(index,mbIndex){
+		var targetIndex = index;
+		var targetType = 2;
+		var targetMbIndex = mbIndex;
+		var cmtLike = $("#cmtLike_"+index).val();
+		console.log(cmtLike);
+		$.ajax({
+			url : '/cmtLike.diet',
+			type : 'post',
+			data : {
+				'targetIndex' : targetIndex,
+				'targetType' : targetType,
+				'targetMbIndex' : targetMbIndex
+			},
+			success : function(data){
+				if(data=='success'){
+					$('#cmtLikeCount_'+index).text(++cmtLike);
+				} else if(data=='failed') {
+					alert('페이지에 오류가 발생하였습니다.');
+				} else if(data=='used') {
+					alert('이미 추천한 게시물 입니다.');
+				}
+			}
+		})
+	}
+	
+		
+	//댓글 신고 - 라디오 체크후 신고 버튼
+	function sendCmdBlame(){
+		//해당 댓글 번호 가져오기!☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ 
+		//alert(blameCmd);
+		var blameReport = $(':input:radio[name=blameText]:checked').val();
+		var targetMbIndex = '${requestScope.ht.htWriterNo}';
+		
+ 		$.ajax({
+			url : '/blameCmd.diet',
+			type : 'post',
+			data : {
+				'targetIndex' : blameCmd,
+				'targetMbIndex' : targetMbIndex,
+				'targetContents' : blameReport
+			},
+			success : function() {
+				alert('신고가 완료되었습니다.');
+				location.reload();
+			},
+			error : function() {
+					alert('실패');
+				}
+			}); 
+	}
+	
+	var blameCmd ;
+	/* 댓글신고버튼 : 댓글 신고 여부 확인 -> 댓글 Index,  신고 회원 */
+	function cmdBlame(ci){
+		var mbIndex = '${sessionScope.member.mbIndex}';
+		//alert(ci);
+		blameCmd = ci;
+		$.ajax({
+			url : '/checkBlameCmd.diet',
+			type : 'post',
+			data : {
+				'mbIndex' : mbIndex,
+				'targetIndex' : ci
+			},
+			success : function(data) {
+				/* 클릭시 신고 내용 체크 띄운다! */
+				if(data == "success" ){
+				$('#reportCmdModal').modal('show').modal('setting', 'closable', false);
+				}else if(data == "used"){
+					alert("이미 신고한 댓글입니다.");
+				}
+			},
+			error : function() {
+					alert('실패');
+				}
+			});
+				
+	}
+	
+	
+	// 이전글 다음글
+	function goInfo(me){
+		location.href="/homeTrainingInfo.diet?indexNo="+me;
+	}
 	
 </script>
 

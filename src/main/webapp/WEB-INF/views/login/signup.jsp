@@ -75,8 +75,8 @@
 										<th><span style="color:red; margin-left: 15px; font-size: 15px; margin-bottom: 0px; margin-top: 0px;">*</span> 성별</th>
 										<td>
 											<div class="ui form">
-												<input type="radio" name="gender" value="f" style="margin-left: 5px;" required> 여자
-												<input type="radio" name="gender" value="m" style="margin-left: 15px;" required> 남자 
+												<input type="radio" name="gender" class="rbtn" value="f" style="margin-left: 5px;" required> 여자
+												<input type="radio" name="gender" class="rbtn" value="m" style="margin-left: 15px;" required> 남자 
 											</div>
 										</td>
 									</tr>
@@ -84,6 +84,7 @@
 										<th><span style="color:red; margin-left: 15px; font-size: 15px; margin-bottom: 0px; margin-top: 0px;"> </span> 관심항목</th>
 										<td>
 											<div class="ui form">
+												<input type="checkbox" name="interest" value=" " style="margin-left: 5px; display: none;" checked="true">
 												<input type="checkbox" name="interest" value="다이어트 식품" style="margin-left: 5px;"> 다이어트 식품
 												<input type="checkbox" name="interest" value="다이어트 레시피" style="margin-left: 5px;"> 다이어트 레시피
 												<input type="checkbox" name="interest" value="다이어트 경험" style="margin-left: 5px;"> 다이어트 경험<br>  
@@ -492,7 +493,9 @@
 			// 가입하기 확인
 			$('#signupCheck').click(function(){
 
-				if(idPass == false || nickNamePass == false || pwdCheck == false || pwdRePass == false){
+				var radio = $('input:radio[class=rbtn]').is(':checked');
+
+				if(idPass == false || nickNamePass == false || pwdCheck == false || pwdRePass == false || radio == false){
 					alert('가입 형식을 확인해주세요');
 					return false;
 				} else if($('#termCheck').is(":checked") == false){

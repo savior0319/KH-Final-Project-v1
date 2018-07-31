@@ -48,4 +48,16 @@ public interface MyInfoController {
 
 	String checkReport(MemberVO mbIndex);
 
+	void deleteMyQuestion(HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException;
+
+	void deleteMyPost(HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException;
+
+	void deleteMyComment(HttpServletResponse response, HttpServletRequest request, HttpSession session)
+			throws IOException;
+
+	void deleteMyBookMark(HttpServletResponse response, HttpServletRequest request, HttpSession session)
+			throws IOException;
+
+
+
 }

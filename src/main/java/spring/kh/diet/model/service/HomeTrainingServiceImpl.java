@@ -1,5 +1,6 @@
 package spring.kh.diet.model.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -46,10 +47,11 @@ public class HomeTrainingServiceImpl implements HomeTrainingService{
 		return ht;
 	}
 	
-	@Override
+	
+	// 이전글 다음글
 	public ArrayList<HomeTrainingVO> pnWriteList(int indexNo) {
-		ArrayList<HomeTrainingVO> list = homeTrainingDAO.pnWriteList(session, indexNo);
-		return list;
+		return homeTrainingDAO.pnWriteList(session, indexNo);
+		
 	}
 	
 	@Override

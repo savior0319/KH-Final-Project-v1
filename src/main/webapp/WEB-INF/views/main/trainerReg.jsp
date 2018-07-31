@@ -5,6 +5,12 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<!-- 주소 api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<!-- 달력 추가 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
 <title>트레이너 등록</title>
 </head>
 
@@ -43,7 +49,9 @@
 								<table class="ui collapsing table" style="width: 100%;">
 									<thead align="center">
 										<tr>
-											<th><strong>사진 등록</strong></th>
+											<th>
+												<strong>사진 등록</strong>
+											</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -55,35 +63,37 @@
 													<div class="fileWrap">
 														<br>
 														<!-- <input type="file" class="form-control-file" id="exampleFormControlFile1"> -->
-														<input type="file" id="stepImgFile0" multiple="multiple" style="display: none;" onchange="readURL(this,0);" /> <img src="/resources/image/user.png" width="150" height="150"
-															style="cursor: pointer;" id="imgFile_Step_0" name="buyingAfterImage" class="rounded" onclick="document.all.stepImgFile0.click();" onerror='this.src="/resources/image/user.png"'
-														>
+														<input type="file" id="stepImgFile0" multiple="multiple" style="display: none;" onchange="readURL(this,0);" />
+														<img src="/resources/image/user.png" width="150" height="150" style="cursor: pointer;" id="imgFile_Step_0" name="buyingAfterImage" class="rounded"
+															onclick="document.all.stepImgFile0.click();" onerror='this.src="/resources/image/user.png"'>
 													</div>
 
 
-													<label for="stepImgFile0" style="color: #BDBDBD; font-size: 6pt;"> 사진 파일 1개만 첨부 가능합니다. </label> <br>
+													<label for="stepImgFile0" style="color: #BDBDBD; font-size: 6pt;"> 사진 파일 1개만 첨부 가능합니다. </label>
+													<br>
 													<hr>
 													<!-- 이미지 선택 모달 -->
 													<div class="ui modal" id="updateProfile">
 														<i class="close icon"></i>
 														<div class="header">메인 사진 등록</div>
 														<div class="image content">
-															<form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data">
-																<div class="description">
-																	<div class="ui header">
-																		<div class="fileBox">
-																			<input type="text" class="fileName" id="fileName" readonly="readonly" /> <label for="uploadBtn" class="btn_file">찾아보기</label> <input type="file" id="uploadBtn" class="uploadBtn"
-																				name="uploadFile"
-																			/>
-																		</div>
+															<!-- <form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data"> -->
+															<div class="description">
+																<div class="ui header">
+																	<div class="fileBox">
+																		<input type="text" class="fileName" id="fileName" readonly="readonly" />
+																		<label for="uploadBtn" class="btn_file">찾아보기</label>
+																		<input type="file" id="uploadBtn" class="uploadBtn" name="uploadFile" />
 																	</div>
 																</div>
+															</div>
 
-															</form>
+															<!-- </form> -->
 															<br>
 															<div class="actions">
 																<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
-																	사진 등록 <i class="checkmark icon"></i>
+																	사진 등록
+																	<i class="checkmark icon"></i>
 																</button>
 																<button type="button" class="ui black button" id="modalOff">취소</button>
 															</div>
@@ -93,7 +103,8 @@
 
 													<!-- 사진 추가  버튼 -->
 													<button type="button" class="ui button" onclick="uploadPictureBtn();" style="width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
-												</div> <!-- 사진 첨부 끝 -->
+												</div>
+												<!-- 사진 첨부 끝 -->
 											</td>
 										</tr>
 									</tbody>
@@ -103,30 +114,36 @@
 									<thead align="center">
 										<tr>
 											<td style="width: 13%;">이름</td>
-											<td><span class="ui form"> 
-											<input type="text" name="name" placeholder="이름 입력" id="numberCheck2" maxlength="5" required>
-											
-											</span></td>
+											<td>
+												<span class="ui form">
+													<input type="text" name="name" placeholder="이름 입력" id="numberCheck2" maxlength="5"  autocomplete="off" required />
+
+												</span>
+											</td>
 										</tr>
 
 										<tr>
-										
+
 											<td style="width: 13%;">연락처</td>
-											<td style="border-top: 1px solid #EAEAEA;"><span class="ui form"> <input type="text" name="address" placeholder="010" id="numberCheck2" maxlength="3" required style="width: 33%"> <input type="text"
-													name="address" placeholder="0000" id="numberCheck2" maxlength="4" required style="width: 33%"
-												> <input type="text" name="address" placeholder="0000" id="numberCheck2" maxlength="4" required style="width: 33%">
-											</span></td>
+											<td style="border-top: 1px solid #EAEAEA;">
+												<span class="ui form">
+													<input type="text" name="phone" placeholder="01*********" id="numberCheck" maxlength="11" required  autocomplete="off" />
+
+												</span>
+												<div id="phoneMessage" style="display: none;"></div>
+											</td>
 										</tr>
 										<tr>
 											<td style="width: 13%;">주소</td>
 											<td style="border-top: 1px solid #EAEAEA;">
-											<span class="ui form"> 
-											<input type="text" id="postcode" name="postcode" class="form-control" style="width: 100px; float: left; margin-right: 10px;" value="" placeholder="우편번호" readonly/> 
-											<input type="button" class="btn btn-default" id="postBtn" onclick="execDaumPostcode();" value="주소 찾기" style="width: 100px; float: left; height: 38px; magin: 0; padding: 0 5px;" /> <br>
-											<input type="text" id="roadAddress" name="roadAddress" style="margin-top: 20px;" value="" class="form-control" placeholder="주소" readonly /> <input type="text" id="addAddress"	name="addAddress" 
-											style="margin-top: 10px;" value="" class="form-control" placeholder="상세 주소 입력"/> 
-											<span id="guide" style="color: #999"> </span>
-											</span>
+												<span class="ui form">
+													<input type="text" id="postcode" name="postcode" class="form-control" style="width: 100px; float: left; margin-right: 10px;" value="" placeholder="우편번호" readonly required />
+													<input type="button" class="btn btn-default" id="postBtn" onclick="execDaumPostcode();" value="주소 찾기" style="width: 100px; float: left; height: 38px; magin: 0; padding: 0 5px;" required />
+													<br>
+													<input type="text" id="roadAddress" name="roadAddress" style="margin-top: 20px;" value="" class="form-control" placeholder="주소" readonly required />
+													<input type="text" id="addAddress" name="addAddress" style="margin-top: 10px;" value="" class="form-control" placeholder="상세 주소 입력" required  autocomplete="off" />
+													<span id="guide" style="color: #999"> </span>
+												</span>
 											</td>
 										</tr>
 
@@ -140,199 +157,182 @@
 				</table>
 
 
-
-
-				<!-- 세미때 형조오빠네 파일좀 ㅠ.ㅠ.ㅠ.ㅠ.ㅠㅠ.ㅠㅠㅠ 집에 있는줄알았는데 안보여 더펜션! ㅠㅠ -->
-
 				<br>
 				<h3 class="ui block header">상세 정보</h3>
-				<form action="/bmiCalResult.diet" method="POST">
-					<table class="ui celled table">
-						<thead>
-							<tr>
-								<th style="width: 15%;">성별</th>
-								<td>
-									<div class="ui form">
-										<div class="inline fields" style="margin-bottom: 0px;">
-											<div class="field">
-												<div class="ui radio checkbox">
-													<input type="radio" name="gender" value="f" checked="checked"> <label>여자</label>
-												</div>
+
+				<table class="ui celled table">
+					<thead>
+						<tr>
+							<th style="width: 15%; text-align: center;">성별</th>
+							<td>
+								<div class="ui form">
+									<div class="inline fields" style="margin-bottom: 0px;">
+										<div class="field">
+											<div class="ui radio checkbox">
+												<input type="radio" name="gender" value="f" required>
+												<label>여자</label>
 											</div>
-											<div class="field">
-												<div class="ui radio checkbox">
-													<input type="radio" name="gender" value="m"> <label>남자</label>
-												</div>
+										</div>
+										<div class="field">
+											<div class="ui radio checkbox">
+												<input type="radio" name="gender" value="m">
+												<label>남자</label>
 											</div>
 										</div>
 									</div>
+								</div>
 
-								</td>
-							</tr>
-							<tr>
-								<th>연령</th>
-								<td><select name="age" class="ui dropdown" required>
-										<option value="1930">1930</option>
-										<option value="1931">1931</option>
-										<option value="1932">1932</option>
-										<option value="1933">1933</option>
-										<option value="1934">1934</option>
-										<option value="1935">1935</option>
-										<option value="1936">1936</option>
-										<option value="1937">1937</option>
-										<option value="1938">1938</option>
-										<option value="1939">1939</option>
-										<option value="1940">1940</option>
-										<option value="1941">1941</option>
-										<option value="1942">1942</option>
-										<option value="1943">1943</option>
-										<option value="1944">1944</option>
-										<option value="1945">1945</option>
-										<option value="1946">1946</option>
-										<option value="1947">1947</option>
-										<option value="1948">1948</option>
-										<option value="1949">1949</option>
-										<option value="1950">1950</option>
-										<option value="1951">1951</option>
-										<option value="1952">1952</option>
-										<option value="1953">1953</option>
-										<option value="1954">1954</option>
-										<option value="1955">1955</option>
-										<option value="1956">1956</option>
-										<option value="1957">1957</option>
-										<option value="1958">1958</option>
-										<option value="1959">1959</option>
-										<option value="1960">1960</option>
-										<option value="1961">1961</option>
-										<option value="1962">1962</option>
-										<option value="1963">1963</option>
-										<option value="1964">1964</option>
-										<option value="1965">1965</option>
-										<option value="1966">1966</option>
-										<option value="1967">1967</option>
-										<option value="1968">1968</option>
-										<option value="1969">1969</option>
-										<option value="1970">1970</option>
-										<option value="1971">1971</option>
-										<option value="1972">1972</option>
-										<option value="1973">1973</option>
-										<option value="1974">1974</option>
-										<option value="1975">1975</option>
-										<option value="1976">1976</option>
-										<option value="1977">1977</option>
-										<option value="1978">1978</option>
-										<option value="1979">1979</option>
-										<option value="1980">1980</option>
-										<option value="1981">1981</option>
-										<option value="1982">1982</option>
-										<option value="1983">1983</option>
-										<option value="1984">1984</option>
-										<option value="1985">1985</option>
-										<option value="1986">1986</option>
-										<option value="1987">1987</option>
-										<option value="1988">1988</option>
-										<option value="1989">1989</option>
-										<option value="1990" selected>1990</option>
-										<option value="1991">1991</option>
-										<option value="1992">1992</option>
-										<option value="1993">1993</option>
-										<option value="1994">1994</option>
-										<option value="1995">1995</option>
-										<option value="1996">1996</option>
-										<option value="1997">1997</option>
-										<option value="1998">1998</option>
-										<option value="1999">1999</option>
-										<option value="2000">2000</option>
-										<option value="2001">2001</option>
-										<option value="2002">2002</option>
-										<option value="2003">2003</option>
-										<option value="2004">2004</option>
-										<option value="2005">2005</option>
-										<option value="2006">2006</option>
-										<option value="2007">2007</option>
-										<option value="2008">2008</option>
-										<option value="2009">2009</option>
-										<option value="2010">2010</option>
-								</select> 년</td>
-							</tr>
-							<tr>
-								<th>키</th>
-								<td><span class="ui form"> <input type="text" name="height" placeholder="키 입력" style="width: 40%;" id="numberCheck1" maxlength="3" required>
-								</span> <span class="ui medium header" style="line-height: 40px;"> cm </span></td>
-							</tr>
-							<tr>
-								<th>몸무게</th>
-								<td><span class="ui form"> <input type="text" name="weight" placeholder="몸무게 입력" style="width: 40%;" id="numberCheck2" maxlength="3" required>
-								</span> <span class="ui medium header" style="line-height: 40px;"> kg </span></td>
-							</tr>
-							<tr>
-								<th style="width: 15%;">지역</th>
-								<td><span class="ui form"> <input type="text" name="location" placeholder="가능 지역1" id="locationCheck" maxlength="10" required style="width: 30%"> <input type="text"
-										name="location" placeholder="가능 지역2" id="locationCheck" maxlength="10" required style="width: 30%"
-									> <input type="text" name="location" placeholder="가능 지역3" id="locationCheck" maxlength="10" required style="width: 30%">
-								</span></td>
-							</tr>
-							<tr>
-								<th style="width: 15%;">지도 방법</th>
-								<td>
-									<div class="ui form">
-										<div class="inline fields" style="margin-bottom: 0px;">
-											<div class="field">
-												<div class="ui radio checkbox">
-													<input type="radio" name="teachingMethod" value="group" checked="checked"> <label>그룹</label>
-												</div>
+							</td>
+						</tr>
+						<tr>
+							<th style="text-align: center;">생년월일</th>
+							<td>
+
+								<div class="field">
+									<div class="ui left icon input">
+										<i class="calendar icon"></i>
+										<input type="text" placeholder="생년월일" id="birth" name="birth" readonly required="required">
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th style="text-align: center;">키</th>
+							<td>
+								<span class="ui form">
+									<input type="text" name="height" placeholder="키 입력(176)" style="width: 40%;" id="heightCheck" maxlength="3" required  autocomplete="off" />
+								</span>
+								<span class="ui medium header" style="line-height: 40px;"> cm </span>
+								<div id="heightMessage" style="display: none;"></div>
+							</td>
+						</tr>
+						<tr>
+							<th style="text-align: center;">몸무게</th>
+							<td>
+								<span class="ui form">
+									<input type="text" name="weight" placeholder="몸무게 입력(76)" style="width: 40%;" id="weightCheck" maxlength="3" required  autocomplete="off" />
+								</span>
+								<span class="ui medium header" style="line-height: 40px;"> kg </span>
+								<div id="weightMessage" style="display: none;"></div>
+							</td>
+						</tr>
+						<tr>
+							<th style="text-align: center;">지역</th>
+							<td>
+
+								<div class="ui form">
+									<div class="two fields">
+										<div class="field">
+											<select name="city" class="ui  search fluid normal dropdown" id="dropdown1" required>
+												<option value="서울특별시">서울특별시</option>
+												<option value="인천광역시">인천광역시</option>
+											</select>
+										</div>
+										<div class="field">
+											<div id="ifSeoul">
+												<select multiple="" name="area1" class="ui  search fluid normal dropdown" id="dropdown2">
+													<option value="">선택</option>
+													<option value="강남구">강남구</option>
+													<option value="강동구">강동구</option>
+													<option value="강북구">강북구</option>
+													<option value="강서구">강서구</option>
+													<option value="관악구">관악구</option>
+													<option value="광진구">광진구</option>
+													<option value="구로구">구로구</option>
+													<option value="금천구">금천구</option>
+													<option value="노원구">노원구</option>
+													<option value="도봉구">도봉구</option>
+													<option value="동대문구">동대문구</option>
+													<option value="동작구">동작구</option>
+													<option value="마포구">마포구</option>
+													<option value="서대문구">서대문구</option>
+													<option value="서초구">서초구</option>
+													<option value="성동구">성동구</option>
+													<option value="성북구">성북구</option>
+													<option value="송파구">송파구</option>
+													<option value="양천구">양천구</option>
+													<option value="영등포구">영등포구</option>
+													<option value="용산구">용산구</option>
+													<option value="은평구">은평구</option>
+													<option value="종로구">종로구</option>
+													<option value="중구">중구</option>
+												</select>
 											</div>
-											<div class="field">
-												<div class="ui radio checkbox">
-													<input type="radio" name="teachingMethod" value="individual"> <label>개인</label>
-												</div>
+										</div>
+										<div class="field">
+											<div id="ifIncheon" style="display: none;">
+												<select multiple="" name="area2" class="ui  search fluid normal dropdown" id="dropdown3">
+													<option value="">선택</option>
+													<option value="강화군">강화군</option>
+													<option value="계양구">계양구</option>
+													<option value="남동구">남동구</option>
+													<option value="동구">동구</option>
+													<option value="미추홀구">미추홀구</option>
+													<option value="부평구">부평구</option>
+													<option value="서구">서구</option>
+													<option value="연수구">연수구</option>
+													<option value="옹진군">옹진군</option>
+													<option value="중구">중구</option>
+												</select>
 											</div>
 										</div>
 									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>가능 시간</th>
-								<td><select name="time" class="ui dropdown" required>
-										<option value="1978">1978</option>
-										<option value="1979">1979</option>
-										<option value="1980">1980</option>
-										<option value="1981">1981</option>
-										<option value="1982">1982</option>
-										<option value="1983">1983</option>
-										<option value="1984">1984</option>
-										<option value="1985">1985</option>
-										<option value="1986">1986</option>
-										<option value="1987">1987</option>
-										<option value="1988">1988</option>
-										<option value="1989">1989</option>
-										<option value="1990" selected>1990</option>
-								</select></td>
-							</tr>
-							<tr>
-								<th>예상 비용</th>
-								<td><select name="time" class="ui dropdown" required>
-										<option value="1978">1978</option>
-										<option value="1979">1979</option>
-										<option value="1980">1980</option>
-										<option value="1981">1981</option>
-										<option value="1982">1982</option>
-										<option value="1983">1983</option>
-										<option value="1984">1984</option>
-										<option value="1985">1985</option>
-										<option value="1986">1986</option>
-										<option value="1987">1987</option>
-										<option value="1988">1988</option>
-										<option value="1989">1989</option>
-										<option value="1990" selected>1990</option>
-								</select> <span class="ui medium header" style="line-height: 15px;"> &nbsp; 원 </span></td>
-							</tr>
+								</div>
+							</td>
+						</tr>
+						<tr  style="text-align: center;">
+							<th style="width: 15%;">지도 방법</th>
+							<td>
+								<div class="ui form">
+									<div class="inline fields" style="margin-bottom: 0px;">
+										<div class="field">
+											<div class="ui radio checkbox">
+												<input type="radio" name="teachingMethod" value="group" required>
+												<label>그룹</label>
+											</div>
+										</div>
+										<div class="field">
+											<div class="ui radio checkbox">
+												<input type="radio" name="teachingMethod" value="individual">
+												<label>개인</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr style="text-align: center;">
+							<th>가능 요일</th>
+							<td>
+								<select multiple="" name="time" class="ui  search fluid normal dropdown" id="dropdown4" required>
+									<option value="">요일 선택</option>
+									<option value="월요일">월요일</option>
+									<option value="화요일">화요일</option>
+									<option value="수요일">수요일</option>
+									<option value="목요일">목요일</option>
+									<option value="금요일">금요일</option>
+									<option value="토요일">토요일</option>
+									<option value="일요일">일요일</option>
 
-						</thead>
-					</table>
-					 <button class="ui inverted red button" type="submit">제출하기</button>
+								</select>
+							</td>
+						</tr>
+						<tr style="text-align: center;">
+							<th>경력</th>
+							<td>
+								<div class="ui form">
+									<div class="field">
+										<textarea style="margin-top: 0px; margin-bottom: 0px; height: 203px; resize: none;" required="required"  autocomplete="off" placeholder="ex) 2018.01.30 ~ 2018.07.31 KH 헬스트레이너 "></textarea>
+									</div>
+								</div>
+							</td>
+						</tr>
 
-				</form>
+					</thead>
+				</table>
+				<button class="ui inverted red button" onclick=" return submitBtn();">제출하기</button>
+
+
 
 
 
@@ -345,9 +345,152 @@
 </body>
 
 <!-- SCRIPT -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 
 <script type="text/javascript">
+	/* function submitBtn() {
+
+		var city = $('#dropdown1').val();
+		var area1 = $('#dropdown2').val();
+		var area2 = $('#dropdown3').val();
+		if (city == '서울특별시') {
+			//location.href = "/trainerSearchResult.diet?city=" + city + "&area=" + area1;
+			alert(city);
+			alert(area1);
+		} else if (city == '인천광역시') {
+			//location.href = "/trainerSearchResult.diet?city=" + city + "&area=" + area2;
+			alert(city);
+			alert(area2);
+		}
+	}; */
+	
+	//양식 체크 확인
+	function submitBtn(){
+		if(phonePass == false || weightPass == false || heightPass == false){
+			alert('트레이너 전환 양식을 확인해주세요');
+			return false;
+		}else{
+			alert('신청이 완료되었습니다.');
+			return true;
+		}
+		
+	}
+	
+
+	//정규표현식하기!
+	var phoneRegExp = /^01([0|1|6|7|8|9]{1})([0-9]{3,4})([0-9]{4})$/;
+	var numRegExp = /^[0-9]*$/;
+
+	var phonePass = false;
+	var weightPass = false;
+	var heightPass = false;
+	
+	$(document).ready(
+			function() {
+
+				$('#numberCheck').keyup(
+						function() {
+							var phone = $('#numberCheck').val();
+
+							var phoneCheck = phoneRegExp.test(phone);
+
+							if (phoneCheck == false) {
+								$('#phoneMessage').html('* 형식을 확인해주세요').attr(
+										"style", "display:block; color:red;");
+								phonePass = false;
+							} else if (phoneCheck == true) {
+								$('#phoneMessage').attr("style",
+										"display:none;");
+								phonePass = true;
+							}
+
+						});
+
+				$('#heightCheck').keyup(
+						function() {
+							var height = $('#heightCheck').val();
+
+							var numCheck = numRegExp.test(height);
+
+							if (numCheck == false) {
+								$('#heightMessage').html('* 형식을 확인해주세요').attr(
+										"style", "display:block; color:red;");
+								heightPass = false;
+							} else if (numCheck == true) {
+								$('#heightMessage').attr("style",
+										"display:none;");
+								heightPass = true;
+							}
+
+						});
+
+				$('#weightCheck').keyup(
+						function() {
+							var weight = $('#weightCheck').val();
+
+							var numCheck = numRegExp.test(weight);
+
+							if (numCheck == false) {
+								$('#weightMessage').html('* 형식을 확인해주세요').attr(
+										"style", "display:block; color:red;");
+								weightPass = false;
+							} else if (numCheck == true) {
+								$('#weightMessage').attr("style",
+										"display:none;");
+								weightPass = true;
+							}
+
+						});
+
+			});
+
+	$('#dropdown1').change(function() {
+		var loc = $('#dropdown1').val();
+		if (loc == '서울특별시') {
+			$('#ifIncheon').hide();
+			$('#ifSeoul').show();
+		} else if (loc == '인천광역시') {
+			$('#ifSeoul').hide();
+			$('#ifIncheon').show();
+		}
+	});
+
+	$('#dropdown1').change(function() {
+		var loc = $('#dropdown1').val();
+
+		if (loc == 'seoul') {
+			$('#ifIncheon').hide();
+			$('#ifSeoul').show();
+		} else if (loc = 'incheon') {
+			$('#ifSeoul').hide();
+			$('#ifIncheon').show();
+		}
+	});
+
+	/* 생년월일 달력 */
+	$.datepicker.setDefaults({
+		dateFormat : 'yy-mm-dd',
+		prevText : '이전 달',
+		nextText : '다음 달',
+		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+				'10월', '11월', '12월' ],
+		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+				'9월', '10월', '11월', '12월' ],
+		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+		showMonthAfterYear : true,
+		yearSuffix : '년',
+		changeMonth : true,
+		changeYear : true,
+		yearRange : '1920:2000',
+		defaultDate : new Date(1990, 0, 1)
+	});
+
+	$(function() {
+		$("#birth").datepicker();
+	});
+
 	/* 시멘틱 셀렉트 드롭박스 */
 	$('select.dropdown').dropdown();
 
