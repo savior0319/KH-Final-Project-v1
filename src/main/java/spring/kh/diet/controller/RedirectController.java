@@ -42,4 +42,6 @@ public interface RedirectController {
 
 	String redirectTrainerFind();
 
+	String redirectSangpoom();
+
 }

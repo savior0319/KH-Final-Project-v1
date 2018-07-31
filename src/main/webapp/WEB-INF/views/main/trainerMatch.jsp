@@ -78,6 +78,7 @@
 			<br>
 		</div>
 	</div> 
+	<button onclick="sangpoom();">상품등록</button>
 
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
@@ -92,7 +93,10 @@
 	function trainerFind(){
 		location.href="/trainerFind.diet";
 	}
-
+	
+	function sangpoom() {
+		location.href="/sangpoom.diet";
+	}
 	$('#div1').hover(function() {
 		$('#div1').css('background', 'rgb(170,10,10)'); 
 		$('#icon1').css('color', 'rgb(90,90,90)');

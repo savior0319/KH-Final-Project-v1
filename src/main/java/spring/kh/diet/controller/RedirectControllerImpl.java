@@ -151,6 +151,11 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myPageTrainer";
 	}
 
-
+	/* 트레이너 상품 등록 */
+	@Override
+	@RequestMapping(value = "/sangpoom.diet")
+	public String redirectSangpoom() {
+		return "main/sangpoom";
+	}
 	
 }
