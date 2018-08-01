@@ -37,7 +37,8 @@
 		resultType="homeTraining" resultMap="homeTrainingDB">
 		SELECT *
 		FROM (SELECT HT.*, MB.MB_NICKNAME, MB.MB_IMAGE,
-		ROW_NUMBER() OVER(ORDER BY
+		ROW_NUMBER()
+		OVER(ORDER BY
 		HT_EnrollDate DESC) AS
 		NUM FROM HOMETRAINING_TB HT,
 		MEMBER_TBL MB
@@ -68,7 +69,7 @@
 				AND HT_TYPE LIKE '8'
 			</when>
 		</choose>
-		
+
 		<choose>
 			<when test="category!=null">
 				<!-- 검색할 때 -->
@@ -88,7 +89,7 @@
 
 			</when>
 		</choose>
-		
+
 		) WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 
@@ -124,7 +125,7 @@
 				AND HT_TYPE LIKE '8'
 			</when>
 		</choose>
-		
+
 		<choose>
 			<when test="category!=null">
 				<!-- 검색할 때 -->
@@ -144,8 +145,8 @@
 
 			</when>
 		</choose>
-		
-		
+
+
 	</select>
 
 	<!-- 게시물 불러오기 -->
@@ -155,7 +156,8 @@
 		HT.INDEX_NO) AS
 		htCommentNo,
 		HT.*,MB.*
-		FROM HOMETRAINING_TB HT,MEMBER_TBL MB
+		FROM HOMETRAINING_TB HT,MEMBER_TBL
+		MB
 		WHERE HT.HT_WRITER_NO = MB.MB_INDEX (+) AND HT.INDEX_NO = #{index}
 	</select>
 
@@ -164,7 +166,8 @@
 		UPDATE HOMETRAINING_TB
 		SET
 		ht_HITS = ht_HITS+1
-		WHERE INDEX_NO = #{indexNo}
+		WHERE
+		INDEX_NO = #{indexNo}
 	</update>
 
 	<!-- 좋아요 체크 -->
@@ -204,42 +207,47 @@
 		HT_LIKE = HT_LIKE +1
 		WHERE INDEX_NO = #{targetIndex}
 	</update>
-	
+
 	<!-- 홈트레이닝 게시물 쓰기 -->
 	<insert id="registHomeTraining" parameterType="homeTraining">
-	INSERT INTO
-	HOMETRAINING_TB
-	VALUES(INDEX_NO_SEQ.NEXTVAL, HT_NO_SEQ.NEXTVAL, #{htMainPhoto},
-	#{htType}, #{htTitle}, #{htPart}, 0, SYSDATE, #{htExplain}, 0, 0, 1,
-	#{htVideo}, #{htStepTime}, #{htStepType}, #{htStepHard}, #{htStepKal})
-	</insert> 
-	
+		INSERT INTO
+		HOMETRAINING_TB
+		VALUES(INDEX_NO_SEQ.NEXTVAL, HT_NO_SEQ.NEXTVAL, #{htMainPhoto},
+		#{htType}, #{htTitle}, #{htPart}, 0, SYSDATE, #{htExplain}, 0, 0, 1,
+		#{htVideo}, #{htStepTime}, #{htStepType}, #{htStepHard}, #{htStepKal})
+	</insert>
+
 	<!-- 홈트레이닝 게시물 삭제 -->
 	<delete id="deleteHomeTraining">
 		DELETE HOMETRAINING_TB WHERE INDEX_NO = #{indexNo}
 	</delete>
-	
+
 	<!-- 홈트레이닝 수정 페이지 불러오기 -->
-	<select id="loadUpdateHomeTraining" resultType="homeTraining" resultMap="homeTrainingDB">
-	SELECT * FROM
-	HOMETRAINING_TB HT,
-	MEMBER_TBL MB WHERE HT.HT_WRITER_NO = MB.MB_INDEX AND INDEX_NO = #{index}
+	<select id="loadUpdateHomeTraining" resultType="homeTraining"
+		resultMap="homeTrainingDB">
+		SELECT * FROM
+		HOMETRAINING_TB HT,
+		MEMBER_TBL MB WHERE HT.HT_WRITER_NO = MB.MB_INDEX AND INDEX_NO = #{index}
 	</select>
-	
+
 	<!-- 홈트레이닝 페이지 수정 -->
-	<select id="updateHomeTraining" parameterType="homeTraining" >
+	<select id="updateHomeTraining" parameterType="homeTraining">
 		UPDATE HOMETRAINING_TB SET
-		HT_MAIN_PHOTO = #{htMainPhoto}, HT_TITLE = #{htTitle},
-		HT_TYPE = #{htType}, HT_PART = #{htPart}, HT_EXPLAIN = #{htExplain}, HT_VIDEO = #{htVideo},
-		HT_STEP_TIME = #{htStepTime}, HT_STEP_TYPE = #{htStepType},
-		HT_STEP_HARD = #{htStepHard}, HT_STEP_Kal = #{htStepKal}
+		HT_MAIN_PHOTO = #{htMainPhoto}, HT_TITLE =
+		#{htTitle},
+		HT_TYPE = #{htType}, HT_PART = #{htPart}, HT_EXPLAIN =
+		#{htExplain}, HT_VIDEO = #{htVideo},
+		HT_STEP_TIME = #{htStepTime},
+		HT_STEP_TYPE = #{htStepType},
+		HT_STEP_HARD = #{htStepHard}, HT_STEP_Kal
+		= #{htStepKal}
 		WHERE INDEX_NO = #{indexNo}
 	</select>
 
-	
+
 
 	<!-- 이전글 다음글 -->
-	 <select id="getpnWriteList" resultType="homeTraining" resultMap="homeTrainingDB">
+	<select id="getpnWriteList" resultType="homeTraining" resultMap="homeTrainingDB">
 		<![CDATA[ 
 		SELECT 
 		INDEX_NO AS indexNo,
@@ -261,9 +269,9 @@
 			OVER(ORDER BY INDEX_NO ASC) AS NUM FROM HOMETRAINING_TB WHERE HOMETRAINING_TB.INDEX_NO>#{indexNo}
 			) WHERE NUM = 1 
 		]]>
-		
+
 	</select>
-	
+
 	<!-- 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기 -->
 	<update id="upMbHtSee" parameterType="upMbSee">
 		UPDATE MEMBER_TBL SET
@@ -295,53 +303,62 @@
 		</choose>
 		WHERE MB_INDEX = #{mbIndex}
 	</update>
-	
-	
+
+
 	<!-- 종류별로 해당 회원이 게시물을 봤던 횟수 불러오기 -->
 	<select id="getHtSeeList" resultType="member">
 		SELECT
-		MB_HT_WB_SEE AS mbHtWbSee,
+		MB_HT_WB_SEE AS
+		mbHtWbSee,
 		MB_HT_ABM_SEE AS mbHtAbmSee,
 		MB_HT_UB_SEE AS mbHtUbSee,
 		MB_HT_LB_SEE AS mbHtLbSee,
 		MB_HT_ST_SEE AS mbHtStSee,
-		MB_HT_DC_SEE AS mbHtDcSee,
+		MB_HT_DC_SEE AS
+		mbHtDcSee,
 		MB_HT_YOGA_SEE AS mbHtYogaSee,
 		MB_HT_FC_SEE AS mbHtFcSee
-		FROM MEMBER_TBL
+		FROM
+		MEMBER_TBL
 		WHERE MB_INDEX = #{mbIndex}
 	</select>
-	
-	
-	<select id="getMatchedHtList" parameterType="java.lang.String" resultMap="homeTrainingDB" resultType="homeTraining">
-		SELECT * 
-		FROM (SELECT HOMETRAINING_TB.*, ROW_NUMBER()
-		OVER(ORDER BY HT_ENROLLDATE DESC) AS NUM
-		FROM HOMETRAINING_TB
+
+
+	<select id="getMatchedHtList" parameterType="java.lang.String"
+		resultMap="homeTrainingDB" resultType="homeTraining">
+		SELECT *
+		FROM (SELECT HT.*, ROW_NUMBER()
+		OVER(ORDER BY HT_ENROLLDATE
+		DESC) AS NUM,
+		MB.*
+		FROM HOMETRAINING_TB HT,
+		MEMBER_TBL MB
+		WHERE
+		HT.HT_WRITER_NO = MB.MB_INDEX (+)
 		<choose>
 			<when test="type.equals('wholeBody')">
-				WHERE HOMETRAINING_TB.HT_TYPE = 1
+				AND HT.HT_TYPE = 1
 			</when>
 			<when test="type.equals('abdomen')">
-				WHERE HOMETRAINING_TB.HT_TYPE = 2
+				AND HT.HT_TYPE = 2
 			</when>
 			<when test="type.equals('upperBody')">
-				WHERE HOMETRAINING_TB.HT_TYPE = 3
+				AND HT.HT_TYPE = 3
 			</when>
 			<when test="type.equals('lowerBody')">
-				WHERE HOMETRAINING_TB.HT_TYPE = 4
+				AND HT.HT_TYPE = 4
 			</when>
 			<when test="type.equals('stretching')">
-				WHERE HOMETRAINING_TB.HT_TYPE = 5
+				AND HT.HT_TYPE = 5
 			</when>
 			<when test="type.equals('dance')">
-				WHERE HOMETRAINING_TB.HT_TYPE = 6
+				AND HT.HT_TYPE = 6
 			</when>
 			<when test="type.equals('yoga')">
-				WHERE HOMETRAINING_TB.HT_TYPE = 7
+				AND HT.HT_TYPE = 7
 			</when>
 			<when test="type.equals('fourChallenge')">
-				WHERE HOMETRAINING_TB.HT_TYPE = 8
+				AND HT.HT_TYPE = 8
 			</when>
 		</choose>
 		) WHERE NUM BETWEEN 1 AND 3

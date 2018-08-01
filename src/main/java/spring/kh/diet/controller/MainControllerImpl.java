@@ -35,6 +35,8 @@ import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
+import spring.kh.diet.model.vo.HomeTrainingVO;
+import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticePDVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.UpdateSSVO;
@@ -55,7 +57,7 @@ public class MainControllerImpl implements MainController {
 
 	@Resource(name = "dietTipService")
 	private DietTipService dietTipService;
-	
+
 	@Resource(name = "homeTrainingService")
 	private HomeTrainingServiceImpl homeTrainingService;
 
@@ -311,30 +313,72 @@ public class MainControllerImpl implements MainController {
 	// 메인페이지에서 홈트레이닝 목록 출력
 	@Override
 	@RequestMapping(value = "/mainHomeTraining.diet")
-	public void getMainHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void getMainHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HomeTrainingPageDataVO pdvo = new HomeTrainingPageDataVO();
-
-		pdvo.setType("");
-
-		int currentPage;
-		if (request.getParameter("currentPage") == null) {
-			currentPage = 1;
-		} else {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-
-		if (request.getParameter("category") != null && request.getParameter("searchText") != null) {
-			pdvo.setCategory(request.getParameter("category"));
-			pdvo.setSearchText(request.getParameter("searchText"));
-		}
-
-		HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingAll(currentPage, pdvo);
-		htpd.setCategory(pdvo.getCategory());
-		htpd.setSearchText(pdvo.getSearchText());
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
-		new Gson().toJson(htpd, response.getWriter());
+
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("member");
+		if (user == null) {		// 로그인을 하지 않은 사용자 일 때
+			pdvo.setType("");
+
+			int currentPage;
+			if (request.getParameter("currentPage") == null) {
+				currentPage = 1;
+			} else {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+
+			if (request.getParameter("category") != null && request.getParameter("searchText") != null) {
+				pdvo.setCategory(request.getParameter("category"));
+				pdvo.setSearchText(request.getParameter("searchText"));
+			}
+
+			HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingAll(currentPage, pdvo);
+			htpd.setCategory(pdvo.getCategory());
+			htpd.setSearchText(pdvo.getSearchText());
+
+			new Gson().toJson(htpd.getHtList(), response.getWriter());
+		}else {		// 로그인 한 사용자 일 때
+			MemberVO seeList = homeTrainingService.getHtSeeList(user.getMbIndex());
+
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			list.add(seeList.getMbHtWbSee());
+			list.add(seeList.getMbHtAbmSee());
+			list.add(seeList.getMbHtUbSee());
+			list.add(seeList.getMbHtLbSee());
+			list.add(seeList.getMbHtStSee());
+			list.add(seeList.getMbHtDcSee());
+			list.add(seeList.getMbHtYogaSee());
+			list.add(seeList.getMbHtFcSee());
+			java.util.Collections.sort(list);
+			java.util.Collections.reverse(list);
+
+			String type1 = "";
+			if (list.get(0) == seeList.getMbHtWbSee()) {
+				type1 = "wholeBody";
+			} else if (list.get(0) == seeList.getMbHtAbmSee()) {
+				type1 = "abdomen";
+			} else if (list.get(0) == seeList.getMbHtUbSee()) {
+				type1 = "upperBody";
+			} else if (list.get(0) == seeList.getMbHtLbSee()) {
+				type1 = "lowerBody";
+			} else if (list.get(0) == seeList.getMbHtStSee()) {
+				type1 = "stretching";
+			} else if (list.get(0) == seeList.getMbHtDcSee()) {
+				type1 = "dance";
+			} else if (list.get(0) == seeList.getMbHtYogaSee()) {
+				type1 = "yoga";
+			} else {
+				type1 = "fourChallenge";
+			}
+
+			ArrayList<HomeTrainingVO> matchedList = homeTrainingService.getMatchedHtList(type1);
+						
+			new Gson().toJson(matchedList, response.getWriter());
+		}
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////

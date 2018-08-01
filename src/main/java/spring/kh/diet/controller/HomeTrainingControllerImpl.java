@@ -429,7 +429,12 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		}
 
 		ht.setHtVideo(request.getParameter("video"));
-		ht.setHtMainPhoto("/imageUpload/" + request.getParameter("mainPhotoPath"));
+		
+		String imgPath = request.getParameter("mainPhotoPath");
+		if(imgPath.substring(0, 13).equals("/imageUpload/")) {
+			imgPath = imgPath.substring(13);
+		}
+		ht.setHtMainPhoto("/imageUpload/" + imgPath);
 
 		int result = homeTrainingService.updateHomeTraining(ht);
 

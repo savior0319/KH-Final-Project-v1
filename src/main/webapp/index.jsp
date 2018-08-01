@@ -176,62 +176,61 @@
 			</div>
 		</div>
 		<br>
-		<label class="ui large header">홈트레이닝</label>
+		<c:choose>
+			<c:when test="${sessionScope.member==null }">
+				<label class="ui large header">홈트레이닝</label>
+			</c:when>
+			<c:when test="${sessionScope.member!=null }">
+				<label class="ui large header">추천 영상</label>
+			</c:when>
+		</c:choose>
+		
 		<hr>
 
 		<!-- 반응형 메뉴 출력 -->
 		<div class="ui relaxed divided items">
 			<div class="item">
 				<div class="ui small image">
-					<img src="/resources/image/kk.jpg" style="height: 100%;">
+					<img id="matchedImg0" src="" style="height: 100%; cursor:pointer;">
 				</div>
 				<div class="content">
-					<a class="header">제목제목제목제목제목제목제목제목</a>
-					<div class="meta">
-						<a>카아아아아앗테고리</a>
-					</div>
-					<div class="description">까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍</div>
-					<div class="extra">
-						<img src="/resources/image/avatar.png" class="ui circular avatar image">
-						관리자
+					<div class="header" id="matchedTitle0" style="cursor:pointer;"></div>
+					<div id="matchedType0" class="meta"></div>
+					<div class="description" id="matchedExplain0" style="text-indent:10px; cursor:pointer;"></div>
+					<div class="extra" id="matchedWriter0">
+						<img id="matchedWriterImg0" src="" class="ui circular avatar image">
 					</div>
 				</div>
 			</div>
 			<div class="item">
 				<div class="ui small image">
-					<img src="/resources/image/kk.jpg" style="height: 100%;">
+					<img id="matchedImg1"  src="" style="height: 100%; cursor:pointer;">
 				</div>
 				<div class="content">
-					<a class="header">제목제목제목제목제목제목제목제목</a>
-					<div class="meta">
-						<a>카아아아아앗테고리</a>
-					</div>
-					<div class="description">까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍</div>
-					<div class="extra">
-						<img src="/resources/image/avatar.png" class="ui circular avatar image">
-						관리자
+					<div class="header" id="matchedTitle1" style="cursor:pointer;"></div>
+					<div id="matchedType1" class="meta"></div>
+					<div class="description" id="matchedExplain1" style="text-indent:10px; cursor:pointer;"></div>
+					<div class="extra" id="matchedWriter1">
+						<img id="matchedWriterImg1" src="" class="ui circular avatar image">
 					</div>
 				</div>
 			</div>
 			<div class="item">
 				<div class="ui small image">
-					<img src="/resources/image/kk.jpg" style="height: 100%;">
+					<img id="matchedImg2" src="" style="height: 100%; cursor:pointer;">
 				</div>
 				<div class="content">
-					<a class="header">제목제목제목제목제목제목제목제목</a>
-					<div class="meta">
-						<a>카아아아아앗테고리</a>
-					</div>
-					<div class="description">까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍</div>
-					<div class="extra">
-						<img src="/resources/image/avatar.png" class="ui circular avatar image">
-						관리자
+					<div class="header" id="matchedTitle2" style="cursor:pointer;"></div>
+					<div id="matchedType2" class="meta"></div>
+					<div class="description" id="matchedExplain2" style="text-indent:10px; cursor:pointer;"></div>
+					<div class="extra" id="matchedWriter2">
+						<img id="matchedWriterImg2" src="" class="ui circular avatar image">
 					</div>
 				</div>
 			</div>
 			<hr>
 		</div>
-		<label class="ui large header">ㅇㅇㅇㅇㅇㅇ</label>
+		<label class="ui large header"> 이름을 머라 할까요??? </label>
 		<hr>
 		<div class="ui three column grid">
 			<div class="column">
@@ -350,9 +349,38 @@
 		type : 'post',
 		success : function(data){
 			for (var i = 0; i < 3; i++) {
-				console.log(data.htList[i]);
-				/*console.log(data.htList[i].htMainPhoto);*/
+				$('#matchedImg'+i).attr("src",data[i].htMainPhoto);
+				$('#matchedTitle'+i).html(data[i].htTitle);
+				switch(data[i].htType){
+				case '1' : $('#matchedType'+i).html("전신");
+				break;
+				case '2' : $('#matchedType'+i).html("복부");
+				break;
+				case '3' : $('#matchedType'+i).html("상체");
+				break;
+				case '4' : $('#matchedType'+i).html("하체");
+				break;
+				case '5' : $('#matchedType'+i).html("스트레칭");
+				break;
+				case '6' : $('#matchedType'+i).html("요가");
+				break;
+				case '7' : $('#matchedType'+i).html("댄스");
+				break;
+				case '8' : $('#matchedType'+i).html("4주 챌린지");
+				break;
+				}
+				
+				$('#matchedExplain'+i).html(data[i].htExplain);
+				$('#matchedWriterImg'+i).attr("src",data[i].htWriterPhoto)
+				$('#matchedWriter'+i).append(data[i].htNickname);
+				
+				$('#matchedImg'+i).attr("onclick", "goInfo(" + data[i].indexNo + "," + data[i].htType + ");");
+				$('#matchedTitle'+i).attr("onclick", "goInfo(" + data[i].indexNo + "," + data[i].htType + ");");
+				$('#matchedExplain'+i).attr("onclick", "goInfo(" + data[i].indexNo + "," + data[i].htType + ");");
 			}
+			
+			
+			
 		},
 		error : function(){
 			console.log('[Error] 메인 - 자유게시판 출력 실패');
@@ -451,6 +479,10 @@
 			console.log('[Error] 메인 - 공지사항  출력 실패');
 		}
 	});
+	
+	function goInfo(me, me2){
+		location.href="/homeTrainingInfo.diet?indexNo="+me+"&type="+me2;
+	}
 </script>
 <style type="text/css" media="screen">
 @media ( max-width : 1200px) {

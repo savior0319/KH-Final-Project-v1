@@ -258,7 +258,10 @@
     		processData: false,
     		contentType: false,
     		success : function (data){
-    			$('#mainPhotoPath').val(data);
+    			if(data!=""){
+    				$('#mainPhotoPath').val(data);
+    			}
+    			
         			 
     			// 사진 저장 성공하면 전체 등록 진행
     			var $title = $('#title').val();
