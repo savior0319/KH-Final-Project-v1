@@ -20,6 +20,7 @@
 		<result property="htWriterNo" column="ht_Writer_No" />
 		<result property="htNickname" column="mb_Nickname" />
 		<result property="htExplain" column="ht_Explain" />
+		<result property="htWriterPhoto" column="MB_IMAGE" />
 		<!-- HT_COMMENT_NO 컬럼 지움 -->
 	</resultMap>
 
@@ -35,7 +36,7 @@
 	<select id="getList" parameterType="homeTrainingPageData"
 		resultType="homeTraining" resultMap="homeTrainingDB">
 		SELECT *
-		FROM (SELECT HT.*,
+		FROM (SELECT HT.*, MB.MB_NICKNAME, MB.MB_IMAGE,
 		ROW_NUMBER() OVER(ORDER BY
 		HT_EnrollDate DESC) AS
 		NUM FROM HOMETRAINING_TB HT,
