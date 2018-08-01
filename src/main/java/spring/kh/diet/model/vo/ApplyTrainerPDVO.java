@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MyRequestTrainerPDVO {
-	private ArrayList<TrainerProgramVOTEST> comList;
+public class ApplyTrainerPDVO {
+	private ArrayList<TrainingRegVO> comList;
 	private String pageNavi, type;
 	private int start, end, mbIndex, bcaIndex;
 
