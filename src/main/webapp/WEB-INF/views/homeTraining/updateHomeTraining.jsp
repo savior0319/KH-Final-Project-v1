@@ -128,7 +128,7 @@
 					<h3>영상 시간 : <input type="text" id="time" value="${requestScope.ht.htStepTime }"></h3>
 					<h3>운동 난이도 : <input type="text" id="hard" value="${requestScope.ht.htStepHard }"></h3>
 					<h3>칼로리 소모량 : <input type="text" id="kal" value="${requestScope.ht.htStepKal }"></h3>
-					<h3>유튜브 주소 : <input type="text" id="video" value="${requestScope.ht.htVideo }" onchange="change();"></h3>
+					<h3>유튜브 주소 : <input type="text" id="video" value="${requestScope.ht.htVideo }" onchange="videoChange();"></h3>
 					</div>
 				</div>
 				
@@ -379,8 +379,11 @@
     }
     
     // 유튜브 영상 미리보기
-    function change(){
+    function videoChange(){
+    	var videoIframe = $('#lookAhead');
+    	var video = $('#video').val();
     	    	
+    	videoIframe.attr("src",video);  	
     }
     
 </script>
