@@ -47,7 +47,7 @@ var data = new google.visualization.DataTable();
    ['00 - 12', ${requestScope.CD.atoBOn}, ${requestScope.CD.atoBOff}],
    ['12 - 15', ${requestScope.CD.btoCOn}, ${requestScope.CD.btoCOff}],
    ['15 - 18', ${requestScope.CD.ctoDOn}, ${requestScope.CD.ctoDOff}],
-   ['15 - 21', ${requestScope.CD.dtoEOn}, ${requestScope.CD.dtoEOff}],
+   ['18 - 21', ${requestScope.CD.dtoEOn}, ${requestScope.CD.dtoEOff}],
    ['21 - 24', ${requestScope.CD.etoFOn}, ${requestScope.CD.etoFOff}]
  ]);
  var options = {width: 450, height: 300};
@@ -145,13 +145,15 @@ body {
 								</tr>
 							</c:forEach>
 						<div class="ui center aligned basic segment">
-						<div class="ui pagination menu">${requestScope.currentSession.pageNavi}</div>
+						
 						</div>
+						
 						</c:otherwise>
 						</c:choose>							
 						</tbody>
+						
 					</table>
-					
+					<div class="ui pagination menu">${requestScope.currentSession.pageNavi}</div>
 				</div>
 			</div>
 			<div class="ui center aligned segment"

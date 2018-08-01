@@ -20,9 +20,15 @@ body {
 
 <!--SCRIPT START  -->
 
+
+<!-- Load the AJAX API -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<!--jQuery CDN -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+
 <!-- 구글차트1 - 조회수  -->
-<script type="text/javascript"
-	src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	google.charts.load('current', {
 		'packages' : [ 'corechart' ]
@@ -31,17 +37,14 @@ body {
 
 	function drawVisualization() {
 		var data = google.visualization.arrayToDataTable([
-				[ '종류','조회수', '댓글수', '게시물수', '좋아요수','총계','평균' ],
-				[ '다이어트팁', 165, 938, 522, 998, 450, 614.6 ],
-				[ '홈트레이닝', 135, 1120, 599, 1268, 288, 682 ],
-				[ '커뮤니티', 157, 1167, 587, 807, 397, 623 ] ]);
+				[ '종류','조회수', '댓글수', '게시물수', '평균','좋아요수','총계' ],
+				[ '다이어트팁', ${thits}, ${tcomments},${tpost}, ${thits+tlike+tcomments+tpost},${tlike}, ${thits+tlike+tcomments+tpost/4}  ],
+				[ '홈트레이닝', ${hhits}, ${hcomments},${hpost}, ${hhits+hlike+hcomments+hpost}, ${hlike}, ${hhits+hlike+hcomments+hpost/4} ],
+				[ '커뮤니티', ${chits}, ${ccomments},${cpost}, ${chits+clike+ccomments+cpost},  ${clike}, ${chits+clike+ccomments+cpost/4}]]);
 		var options = {
 			selectionMode: 'multiple',
 			tooltip: {trigger: 'selection'},
 			aggregationTarget: 'category',
-			title : '게시판별 분석 차트',
-			vAxis : {title : '시간'},
-			hAxis : {title : '게시판'},
 			seriesType : 'bars',
 			series : {
 				3 : {
@@ -54,6 +57,182 @@ body {
 				.getElementById('chart_div'));
 		chart.draw(data, options);
 	}
+</script>
+
+<script type="text/javascript">
+//선형차트 - 다이어트팁
+google.charts.load('current', {'packages':['line']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+var data = new google.visualization.DataTable();
+ data.addColumn('string', '시간대');
+ data.addColumn('number', '조회수');
+ data.addColumn('number', '댓글수');
+ data.addColumn('number', '게시물수');
+ data.addColumn('number', '좋아요수');
+ if(${currentTime==5})
+{
+ data.addRows([
+   ['00 - 12', ${T1.hits}, ${T1.comments}, ${T1.post}, ${T1.likes}],
+   ['12 - 15', ${T2.hits}, ${T2.comments}, ${T2.post}, ${T2.likes}],
+   ['15 - 18', ${T3.hits}, ${T3.comments}, ${T3.post}, ${T3.likes}],
+   ['18 - 21', ${T4.hits}, ${T4.comments}, ${T4.post}, ${T4.likes}],
+   ['21 - 24', ${T5.hits}, ${T5.comments}, ${T5.post}, ${T5.likes}]
+   ]);
+}
+ else if(${currentTime==4})
+ {
+	 data.addRows([
+		   ['00 - 12', ${T1.hits}, ${T1.comments}, ${T1.post}, ${T1.likes}],
+		   ['12 - 15', ${T2.hits}, ${T2.comments}, ${T2.post}, ${T2.likes}],
+		   ['15 - 18', ${T3.hits}, ${T3.comments}, ${T3.post}, ${T3.likes}],
+		   ['18 - 21', ${T4.hits}, ${T4.comments}, ${T4.post}, ${T4.likes}]
+		   ]); 
+ }
+ else if(${currentTime==3})
+ {
+	 data.addRows([
+		   ['00 - 12', ${T1.hits}, ${T1.comments}, ${T1.post}, ${T1.likes}],
+		   ['12 - 15', ${T2.hits}, ${T2.comments}, ${T2.post}, ${T2.likes}],
+		   ['15 - 18', ${T3.hits}, ${T3.comments}, ${T3.post}, ${T3.likes}]
+		   ]);
+ }
+ else if(${currentTime==2})
+ {
+	 data.addRows([
+		   ['00 - 12', ${T1.hits}, ${T1.comments}, ${T1.post}, ${T1.likes}],
+		   ['12 - 15', ${T2.hits}, ${T2.comments}, ${T2.post}, ${T2.likes}]
+		   ]);
+ }
+ else if(${currentTime==1})
+ {
+	 data.addRows([
+		   ['00 - 12', ${T1.hits}, ${T1.comments}, ${T1.post}, ${T1.likes}]
+		   ]);
+ }
+ var options = {width: 500, height: 400};
+ var chart = new google.charts.Line(document.getElementById('linechart_material'));
+ /* chart.draw(data, google.charts.Line.convertOptions(options)); */
+ chart.draw(data,options);
+}
+</script>
+
+
+<script type="text/javascript">
+//선형차트 - 홈트레이닝
+google.charts.load('current', {'packages':['line']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+var data = new google.visualization.DataTable();
+ data.addColumn('string', '시간대');
+ data.addColumn('number', '조회수');
+ data.addColumn('number', '댓글수');
+ data.addColumn('number', '게시물수');
+ data.addColumn('number', '좋아요수');
+ if(${currentTime==5})
+{
+ data.addRows([
+   ['00 - 12', ${H1.hits}, ${H1.comments}, ${H1.post}, ${H1.likes}],
+   ['12 - 15', ${H2.hits}, ${H2.comments}, ${H2.post}, ${H2.likes}],
+   ['15 - 18', ${H3.hits}, ${H3.comments}, ${H3.post}, ${H3.likes}],
+   ['18 - 21', ${H4.hits}, ${H4.comments}, ${H4.post}, ${H4.likes}],
+   ['21 - 24', ${H5.hits}, ${H5.comments}, ${H5.post}, ${H5.likes}]
+   ]);
+}
+ else if(${currentTime==4})
+ {
+	 data.addRows([
+		   ['00 - 12', ${H1.hits}, ${H1.comments}, ${H1.post}, ${H1.likes}],
+		   ['12 - 15', ${H2.hits}, ${H2.comments}, ${H2.post}, ${H2.likes}],
+		   ['15 - 18', ${H3.hits}, ${H3.comments}, ${H3.post}, ${H3.likes}],
+		   ['18 - 21', ${H4.hits}, ${H4.comments}, ${H4.post}, ${H4.likes}]
+		   ]); 
+ }
+ else if(${currentTime==3})
+ {
+	 data.addRows([
+		   ['00 - 12', ${H1.hits}, ${H1.comments}, ${H1.post}, ${H1.likes}],
+		   ['12 - 15', ${H2.hits}, ${H2.comments}, ${H2.post}, ${H2.likes}],
+		   ['15 - 18', ${H3.hits}, ${H3.comments}, ${H3.post}, ${H3.likes}]
+		   ]);
+ }
+ else if(${currentTime==2})
+ {
+	 data.addRows([
+		   ['00 - 12', ${H1.hits}, ${H1.comments}, ${H1.post}, ${H1.likes}],
+		   ['12 - 15', ${H2.hits}, ${H2.comments}, ${H2.post}, ${H2.likes}]
+		   ]);
+ }
+ else if(${currentTime==1})
+ {
+	 data.addRows([
+		   ['00 - 12', ${H1.hits}, ${H1.comments}, ${H1.post}, ${H1.likes}]
+		   ]);
+ }
+ var options = {width: 500, height: 400};
+ var chart = new google.charts.Line(document.getElementById('linechart_material2'));
+ /* chart.draw(data, google.charts.Line.convertOptions(options)); */
+ chart.draw(data,options);
+}
+</script>
+
+
+<script type="text/javascript">
+//선형차트 - 커뮤니티
+google.charts.load('current', {'packages':['line']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+var data = new google.visualization.DataTable();
+ data.addColumn('string', '시간대');
+ data.addColumn('number', '조회수');
+ data.addColumn('number', '댓글수');
+ data.addColumn('number', '게시물수');
+ data.addColumn('number', '좋아요수');
+ if(${currentTime==5})
+{
+ data.addRows([
+   ['00 - 12', ${C1.hits}, ${C1.comments}, ${C1.post}, ${C1.likes}],
+   ['12 - 15', ${C2.hits}, ${C2.comments}, ${C2.post}, ${C2.likes}],
+   ['15 - 18', ${C3.hits}, ${C3.comments}, ${C3.post}, ${C3.likes}],
+   ['18 - 21', ${C4.hits}, ${C4.comments}, ${C4.post}, ${C4.likes}],
+   ['21 - 24', ${C5.hits}, ${C5.comments}, ${C5.post}, ${C5.likes}]
+   ]);
+}
+ else if(${currentTime==4})
+ {
+	 data.addRows([
+		   ['00 - 12', ${C1.hits}, ${C1.comments}, ${C1.post}, ${C1.likes}],
+		   ['12 - 15', ${C2.hits}, ${C2.comments}, ${C2.post}, ${C2.likes}],
+		   ['15 - 18', ${C3.hits}, ${C3.comments}, ${C3.post}, ${C3.likes}],
+		   ['18 - 21', ${C4.hits}, ${C4.comments}, ${C4.post}, ${C4.likes}]
+		   ]); 
+ }
+ else if(${currentTime==3})
+ {
+	 data.addRows([
+		   ['00 - 12', ${C1.hits}, ${C1.comments}, ${C1.post}, ${C1.likes}],
+		   ['12 - 15', ${C2.hits}, ${C2.comments}, ${C2.post}, ${C2.likes}],
+		   ['15 - 18', ${C3.hits}, ${C3.comments}, ${C3.post}, ${C3.likes}]
+		   ]);
+ }
+ else if(${currentTime==2})
+ {
+	 data.addRows([
+		   ['00 - 12', ${C1.hits}, ${C1.comments}, ${C1.post}, ${C1.likes}],
+		   ['12 - 15', ${C2.hits}, ${C2.comments}, ${C2.post}, ${C2.likes}]
+		   ]);
+ }
+ else if(${currentTime==1})
+ {
+	 data.addRows([
+		   ['00 - 12', ${C1.hits}, ${C1.comments}, ${C1.post}, ${C1.likes}]
+		   ]);
+ }
+ var options = {width: 500, height: 400};
+ var chart = new google.charts.Line(document.getElementById('linechart_material3'));
+ /* chart.draw(data, google.charts.Line.convertOptions(options)); */
+ chart.draw(data,options);
+}
 </script>
 
 <!-- SCRIPT END  -->
@@ -133,7 +312,7 @@ body {
 			</div>
 			<div class="ui center aligned segment" style="width: 20%">
 				<h3>
-					<i class="comment alternate outline icon"></i> 댓글 증가량
+					<i class="comment alternate outline icon"></i> 댓글 증감량
 				</h3>
 				<div class="ui segment">
 					<c:choose>
@@ -163,7 +342,7 @@ body {
 			</div>
 			<div class="ui center aligned segment" style="width: 20%">
 				<h3>
-					<i class="edit icon"></i> 게시물 증가량
+					<i class="edit icon"></i> 게시물 증감량
 				</h3>
 				<div class="ui segment">
 					<c:choose>
@@ -194,7 +373,7 @@ body {
 			</div>
 			<div class="ui center aligned segment" style="width: 20%">
 				<h3>
-					<i class="heart icon"></i> 좋아요 증가량
+					<i class="heart icon"></i> 좋아요 증감량
 				</h3>
 				<div class="ui segment">
 					<c:choose>
@@ -386,154 +565,533 @@ body {
 			</div>
 		</div>
 		<br>
-		<div class="ui horizontal segments">
-			<div class="ui center aligned segment" style="width: 50%">
-				<h3>테스트</h3>
-				<div class="ui center aligned segment"
-					style="overflow: auto; height: 300px"></div>
+		<div class="ui center aligned segment">
+			<div class="ui center aligned segment">
+				<h3>전체 게시판 통계</h3>
 			</div>
-			<div class="ui center aligned segment" style="width: 50%">
-				<h3>테스트</h3>
-				<div class="ui center aligned segment"
-					style="overflow: auto; height: 300px"></div>
+			<div class="ui horizontal segments" style="width: 100%">
+
+				<div id="chart_div" class="ui segment" style="width: 100%; height: 500px"></div>
+				
 			</div>
+			<div class="ui center aligned segment" style="width: 100%">					
+						<table class="ui celled table">
+							<thead>
+								<tr align="center">
+									<th style="width: 15%">비고 / 분류</th>
+									<th style="width: 15%"><i class="eye icon"></i>  조회수</th>
+									<th style="width: 15%"><i class="comment icon"></i>  댓글수</th>
+									<th style="width: 15%"><i class="edit outline icon"></i>  게시물수</th>
+									<th style="width: 15%"><i class="heart icon"></i> 좋아요수</th>
+									<th style="width: 15%"><i class="sitemap icon"></i> 합 계</th>
+									<th style="width: 15%"><i class="chart bar icon"></i> 평 균</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr align="center">
+									<td> 다이어트 팁</td>
+									<td> ${thits}</td>
+									<td>${tcomments}</td>
+									<td>${tpost}</td>
+									<td>${tlike}</td>
+									<td>${thits+tcomments+tpost+tlike}</td>
+									<td>${thits+tcomments+tpost+tlike/4}</td>
+								</tr>
+								<tr align="center">
+									<td> 홈트레이닝</td>
+									<td> ${hhits}</td>
+									<td>${hcomments}</td>
+									<td>${hpost}</td>
+									<td>${hlike}</td>
+									<td>${hhits+hcomments+Hpost+hlike}</td>
+									<td>${hhits+hcomments+hpost+hlike/4}</td>
+								</tr>
+								<tr align="center">
+									<td> 커뮤니티</td>
+									<td> ${chits}</td>
+									<td>${ccomments}</td>
+									<td>${cpost}</td>
+									<td>${clike}</td>
+									<td>${chits+ccomments+cpost+clike}</td>
+									<td>${chits+ccomments+cpost+clike/4}</td>
+								</tr>
+							</tbody>
+						</table>
+				</div>
 
 		</div>
 		<br>
-		<div class="ui horizontal segments">
-			<div class="ui center aligned segment" style="width: 50%">
-				<h3>테스트</h3>
-
-				<div id="chart_div" class="ui segment"
-					style="width: 900px; height: 500px;"></div>
-			</div>
-
-		</div>
-		<div class="ui center aligned segment" style="width: 50%">
-			<h3>테스트</h3>
-			<div class="ui center aligned segment"
-				style="overflow: auto; height: 300px"></div>
-		</div>
-
-	</div>
-	<%-- 
- <!-- 삭제 -->
-		<div class="ui  segments">
-
-			<div class="ui center aligned segment">
-			
-				<h3>
-						<i class="hourglass  icon"> </i> 현재 접속중인 유저: ${requestScope.OnSessionSize} 명
-				</h3>
-			</div>
-			<div class="ui center aligned segment"
-				style="overflow: auto; height: 300px">
-				<table class="ui celled table">
-					<thead>
-						<tr align="center">
-							<th style="width: 10%">비고 </th>
-							<th style="width: 30%">닉네임</th>
-							<th style="width: 30%">기 기</th>
-							<th style="width: 30%">I P</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${requestScope.OnSession}" var="on" varStatus="status">
+		<div class="ui center aligned segment" style="width: 100%">
+				<h3>다이어트팁</h3>
+				<div class="ui horizontal segments">
+					<div  class="ui center aligned segment" style="width:50%" id="linechart_material"></div>
+					<div class="ui center aligned segment" style="width:50%" >
+					<div  class="ui center aligned segment">
+						<h3>
+						다이어트팁 상세정보
+						</h3>
+					</div>
+					<table class="ui celled table">
+							<thead>
+								<tr align="center">
+									<th style="width: 20%">시간대</th>
+									<th style="width: 20%">조회수</th>
+									<th style="width: 20%">댓글수</th>
+									<th style="width: 20%">게시물수</th>
+									<th style="width: 20%">좋아요수</th>
+								</tr>
+							</thead>
+							<tbody>
+							<c:choose>
+							<c:when test="${currentTime==5}">
 							<tr align="center">
-									<td style="width:10%"> <c:out value="${status.index+1}" /></td>
-								<c:choose>
-									<c:when test="${on.loginId eq 'NULL'}">
-										<td style="width: 30%">비회원</td>
-									</c:when>
-									<c:otherwise>
-										<td style="width: 30%">${on.loginId}</td>
-									</c:otherwise>
-								</c:choose>
-								<c:choose>
-									<c:when test="${on.device eq 'pc' }">
-										<td style="width: 30%">P&nbsp;&nbsp;&nbsp; C</td>
-									</c:when>
-									<c:otherwise>
-										<td style="width: 30%">모바일</td>
-									</c:otherwise>
-								</c:choose>
-								<td style="width: 30%">${on.sessionIp}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-
-			<br> <br>
-
-			<div class="ui center aligned segment">
-				<h3>
-					<i class="hourglass outline icon"> </i> 오늘 접속했던 유저 : ${requestScope.AllSessionSize} 명
-				</h3>
-			</div>
-			<div class="ui center aligned segment"
-				style="overflow: auto; height: 300px">
-				<table class="ui celled table">
-					<thead>
-						<tr align="center">
-							<th style="width: 10%">비고</th>
-							<th style="width: 15%">닉네임</th>
-							<th style="width: 15%">기 기</th>
-							<th style="width: 15%">I P</th>
-							<th style="width: 15%">접속시간</th>
-							<th style="width: 15%">로그아웃</th>
-							<th style="width: 15%">유지시간</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${requestScope.AllSession}" var="off" varStatus="status">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${T1.hits}</td>
+								<td style="width: 20%">${T1.comments}</td>
+								<td style="width: 20%">${T1.post}</td>
+								<td style="width: 20%">${T1.likes}</td>
+								</tr><tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${T2.hits}</td>
+								<td style="width: 20%">${T2.comments}</td>
+								<td style="width: 20%">${T2.post}</td>
+								<td style="width: 20%">${T2.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">15 - 18 </td>
+								<td style="width: 20%">${T3.hits}</td>
+								<td style="width: 20%">${T3.comments}</td>
+								<td style="width: 20%">${T3.post}</td>
+								<td style="width: 20%">${T3.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">18 - 21 </td>
+								<td style="width: 20%">${T4.hits}</td>
+								<td style="width: 20%">${T4.comments}</td>
+								<td style="width: 20%">${T4.post}</td>
+								<td style="width: 20%">${T4.likes}</td>
+								</tr>
 							<tr align="center">
-										<td><c:out value="${status.index+1}" /></td>
-								<c:choose>
-									<c:when test="${off.nickName eq 'NULL'}">
-										<td style="width: 15%">비회원</td>
-									</c:when>
-									<c:otherwise>
-										<td style="width: 15%">${off.nickName}</td>
-									</c:otherwise>
-								</c:choose>
-								<c:choose>
-									<c:when test="${off.device eq 'pc' }">
-										<td style="width: 15%">P&nbsp;&nbsp;&nbsp; C</td>
-									</c:when>
-									<c:otherwise>
-										<td style="width: 15%">모바일</td>
-									</c:otherwise>
-								</c:choose>
-								<td style="width: 15%">${off.sessionIp}</td>
-								<td style="width: 15%">${off.firstOn}</td>
-								<td style="width: 15%">${off.lastIn}</td>
-								<c:choose>
-									<c:when test="${off.stay > 60}">
-										<td style="width: 15%"><fmt:formatNumber
-												value="${off.stay/60.1}" pattern="#" />분</td>
-									</c:when>
-									<c:otherwise>
-										<td style="width: 15%"><fmt:formatNumber
-												value="${off.stay}" pattern="#" />초</td>
-									</c:otherwise>
-								</c:choose>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+								<td style="width: 20%">21 - 24 </td>
+								<td style="width: 20%">${T5.hits}</td>
+								<td style="width: 20%">${T5.comments}</td>
+								<td style="width: 20%">${T5.post}</td>
+								<td style="width: 20%">${T5.likes}</td>
+								</tr>
+							
+							
+							
+									
+							</c:when>
+							<c:when test="${currentTime==4}">
+							<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${T1.hits}</td>
+								<td style="width: 20%">${T1.comments}</td>
+								<td style="width: 20%">${T1.post}</td>
+								<td style="width: 20%">${T1.likes}</td>
+								</tr>
+									<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${T2.hits}</td>
+								<td style="width: 20%">${T2.comments}</td>
+								<td style="width: 20%">${T2.post}</td>
+								<td style="width: 20%">${T2.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">15 - 18 </td>
+								<td style="width: 20%">${T3.hits}</td>
+								<td style="width: 20%">${T3.comments}</td>
+								<td style="width: 20%">${T3.post}</td>
+								<td style="width: 20%">${T3.likes}</td>
+								</tr>
+							<tr align="center">
+							
+								<td style="width: 20%">18 - 21 </td>
+								<td style="width: 20%">${T4.hits}</td>
+								<td style="width: 20%">${T4.comments}</td>
+								<td style="width: 20%">${T4.post}</td>
+								<td style="width: 20%">${T4.likes}</td>
+								</tr>
+							
+						
+								
+							</c:when>
+							<c:when test="${currentTime==3}">
+							<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${T1.hits}</td>
+								<td style="width: 20%">${T1.comments}</td>
+								<td style="width: 20%">${T1.post}</td>
+								<td style="width: 20%">${T1.likes}</td>
+								</tr>
+									<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${T2.hits}</td>
+								<td style="width: 20%">${T2.comments}</td>
+								<td style="width: 20%">${T2.post}</td>
+								<td style="width: 20%">${T2.likes}</td>
+								</tr>
+								<tr align="center">
+							<tr align="center">
+								<td style="width: 20%">15 - 18 </td>
+								<td style="width: 20%">${T3.hits}</td>
+								<td style="width: 20%">${T3.comments}</td>
+								<td style="width: 20%">${T3.post}</td>
+								<td style="width: 20%">${T3.likes}</td>
+								</tr>
+						
+								
+							</c:when>
+							<c:when test="${currentTime==2}">
+								<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${T1.hits}</td>
+								<td style="width: 20%">${T1.comments}</td>
+								<td style="width: 20%">${T1.post}</td>
+								<td style="width: 20%">${T1.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${T2.hits}</td>
+								<td style="width: 20%">${T2.comments}</td>
+								<td style="width: 20%">${T2.post}</td>
+								<td style="width: 20%">${T2.likes}</td>
+								</tr>
+								
+							</c:when>
+							<c:when test="${currentTime==1}">
+								<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${T1.hits}</td>
+								<td style="width: 20%">${T1.comments}</td>
+								<td style="width: 20%">${T1.post}</td>
+								<td style="width: 20%">${T1.likes}</td>
+								</tr>
+							</c:when>
+							</c:choose>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
 		</div>
-
+		
+		<br>
+		<div class="ui center aligned segment" style="width: 100%">
+				<h3>홈트레이닝</h3>
+				<div class="ui horizontal segments">
+					<div  class="ui center aligned segment" style="width:50%" id="linechart_material2"></div>
+					<div class="ui center aligned segment" style="width:50%" >
+					<div  class="ui center aligned segment">
+						<h3>
+						홈트레이닝 상세정보
+						</h3>
+					</div>
+					<table class="ui celled table">
+							<thead>
+								<tr align="center">
+									<th style="width: 20%">시간대</th>
+									<th style="width: 20%">조회수</th>
+									<th style="width: 20%">댓글수</th>
+									<th style="width: 20%">게시물수</th>
+									<th style="width: 20%">좋아요수</th>
+								</tr>
+							</thead>
+							<tbody>
+							<c:choose>
+							<c:when test="${currentTime==5}">
+							<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${H1.hits}</td>
+								<td style="width: 20%">${H1.comments}</td>
+								<td style="width: 20%">${H1.post}</td>
+								<td style="width: 20%">${H1.likes}</td>
+								</tr>	
+								<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${H2.hits}</td>
+								<td style="width: 20%">${H2.comments}</td>
+								<td style="width: 20%">${H2.post}</td>
+								<td style="width: 20%">${H2.likes}</td>
+								</tr>
+									<tr align="center">
+								<td style="width: 20%">15 - 18 </td>
+								<td style="width: 20%">${H3.hits}</td>
+								<td style="width: 20%">${H3.comments}</td>
+								<td style="width: 20%">${H3.post}</td>
+								<td style="width: 20%">${H3.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">18 - 21 </td>
+								<td style="width: 20%">${H4.hits}</td>
+								<td style="width: 20%">${H4.comments}</td>
+								<td style="width: 20%">${H4.post}</td>
+								<td style="width: 20%">${H4.likes}</td>
+								</tr>
+							<tr align="center">
+								<td style="width: 20%">21 - 24 </td>
+								<td style="width: 20%">${H5.hits}</td>
+								<td style="width: 20%">${H5.comments}</td>
+								<td style="width: 20%">${H5.post}</td>
+								<td style="width: 20%">${H5.likes}</td>
+								</tr>
+							
+						
+							
+								
+							</c:when>
+							<c:when test="${currentTime==4}">
+							<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${H1.hits}</td>
+								<td style="width: 20%">${H1.comments}</td>
+								<td style="width: 20%">${H1.post}</td>
+								<td style="width: 20%">${H1.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${H2.hits}</td>
+								<td style="width: 20%">${H2.comments}</td>
+								<td style="width: 20%">${H2.post}</td>
+								<td style="width: 20%">${H2.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">15 - 18 </td>
+								<td style="width: 20%">${H3.hits}</td>
+								<td style="width: 20%">${H3.comments}</td>
+								<td style="width: 20%">${H3.post}</td>
+								<td style="width: 20%">${H3.likes}</td>
+								</tr>
+							<tr align="center">
+								<td style="width: 20%">18 - 21 </td>
+								<td style="width: 20%">${H4.hits}</td>
+								<td style="width: 20%">${H4.comments}</td>
+								<td style="width: 20%">${H4.post}</td>
+								<td style="width: 20%">${H4.likes}</td>
+								</tr>
+							
+							
+								
+							</c:when>
+							<c:when test="${currentTime==3}">
+							<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${H1.hits}</td>
+								<td style="width: 20%">${H1.comments}</td>
+								<td style="width: 20%">${H1.post}</td>
+								<td style="width: 20%">${H1.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${H2.hits}</td>
+								<td style="width: 20%">${H2.comments}</td>
+								<td style="width: 20%">${H2.post}</td>
+								<td style="width: 20%">${H2.likes}</td>
+								</tr>
+							<tr align="center">
+								<td style="width: 20%">15 - 18 </td>
+								<td style="width: 20%">${H3.hits}</td>
+								<td style="width: 20%">${H3.comments}</td>
+								<td style="width: 20%">${H3.post}</td>
+								<td style="width: 20%">${H3.likes}</td>
+								</tr>
+							
+								
+							</c:when>
+							<c:when test="${currentTime==2}">
+							<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${H1.hits}</td>
+								<td style="width: 20%">${H1.comments}</td>
+								<td style="width: 20%">${H1.post}</td>
+								<td style="width: 20%">${H1.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${H2.hits}</td>
+								<td style="width: 20%">${H2.comments}</td>
+								<td style="width: 20%">${H2.post}</td>
+								<td style="width: 20%">${H2.likes}</td>
+								</tr>
+								
+							</c:when>
+							<c:when test="${currentTime==1}">
+								<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${H1.hits}</td>
+								<td style="width: 20%">${H1.comments}</td>
+								<td style="width: 20%">${H1.post}</td>
+								<td style="width: 20%">${H1.likes}</td>
+								</tr>
+							</c:when>
+							</c:choose>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+		</div>
+		
+		<br>
+		<div class="ui center aligned segment" style="width: 100%">
+				<h3>커뮤니티</h3>
+				<div class="ui horizontal segments">
+					<div  class="ui center aligned segment" style="width:50%" id="linechart_material3"></div>
+					<div class="ui center aligned segment" style="width:50%" >
+					<div  class="ui center aligned segment">
+						<h3>
+						커뮤니티 상세정보
+						</h3>
+					</div>
+					<table class="ui celled table">
+							<thead>
+								<tr align="center">
+									<th style="width: 20%">시간대</th>
+									<th style="width: 20%">조회수</th>
+									<th style="width: 20%">댓글수</th>
+									<th style="width: 20%">게시물수</th>
+									<th style="width: 20%">좋아요수</th>
+								</tr>
+							</thead>
+							<tbody>
+							<c:choose>
+							<c:when test="${currentTime==5}">
+							<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${C1.hits}</td>
+								<td style="width: 20%">${C1.comments}</td>
+								<td style="width: 20%">${C1.post}</td>
+								<td style="width: 20%">${C1.likes}</td>
+								</tr>	
+								<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${C2.hits}</td>
+								<td style="width: 20%">${C2.comments}</td>
+								<td style="width: 20%">${C2.post}</td>
+								<td style="width: 20%">${C2.likes}</td>
+								</tr>
+									<tr align="center">
+								<td style="width: 20%">15 - 18 </td>
+								<td style="width: 20%">${C3.hits}</td>
+								<td style="width: 20%">${C3.comments}</td>
+								<td style="width: 20%">${C3.post}</td>
+								<td style="width: 20%">${C3.likes}</td>
+								</tr>
+									<tr align="center">
+								<td style="width: 20%">18 - 21 </td>
+								<td style="width: 20%">${C4.hits}</td>
+								<td style="width: 20%">${C4.comments}</td>
+								<td style="width: 20%">${C4.post}</td>
+								<td style="width: 20%">${C4.likes}</td>
+								</tr>						
+							<tr align="center">
+								<td style="width: 20%">21 - 24 </td>
+								<td style="width: 20%">${C5.hits}</td>
+								<td style="width: 20%">${C5.comments}</td>
+								<td style="width: 20%">${C5.post}</td>
+								<td style="width: 20%">${C5.likes}</td>
+								</tr>
+						
+							
+								
+							</c:when>
+							<c:when test="${currentTime==4}">
+							<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${C1.hits}</td>
+								<td style="width: 20%">${C1.comments}</td>
+								<td style="width: 20%">${C1.post}</td>
+								<td style="width: 20%">${C1.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${C2.hits}</td>
+								<td style="width: 20%">${C2.comments}</td>
+								<td style="width: 20%">${C2.post}</td>
+								<td style="width: 20%">${C2.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">15 - 18 </td>
+								<td style="width: 20%">${C3.hits}</td>
+								<td style="width: 20%">${C3.comments}</td>
+								<td style="width: 20%">${C3.post}</td>
+								<td style="width: 20%">${C3.likes}</td>
+								</tr>
+							<tr align="center">
+								<td style="width: 20%">18 - 21 </td>
+								<td style="width: 20%">${C4.hits}</td>
+								<td style="width: 20%">${C4.comments}</td>
+								<td style="width: 20%">${C4.post}</td>
+								<td style="width: 20%">${C4.likes}</td>
+								</tr>
+							
+							
+								
+							</c:when>
+							<c:when test="${currentTime==3}">
+							<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${C1.hits}</td>
+								<td style="width: 20%">${C1.comments}</td>
+								<td style="width: 20%">${C1.post}</td>
+								<td style="width: 20%">${C1.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${C2.hits}</td>
+								<td style="width: 20%">${C2.comments}</td>
+								<td style="width: 20%">${C2.post}</td>
+								<td style="width: 20%">${C2.likes}</td>
+								</tr>
+							<tr align="center">
+								<td style="width: 20%">15 - 18 </td>
+								<td style="width: 20%">${C3.hits}</td>
+								<td style="width: 20%">${C3.comments}</td>
+								<td style="width: 20%">${C3.post}</td>
+								<td style="width: 20%">${C3.likes}</td>
+								</tr>
+							
+								
+							</c:when>
+							<c:when test="${currentTime==2}">
+							<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${C1.hits}</td>
+								<td style="width: 20%">${C1.comments}</td>
+								<td style="width: 20%">${C1.post}</td>
+								<td style="width: 20%">${C1.likes}</td>
+								</tr>
+								<tr align="center">
+								<td style="width: 20%">12 - 15 </td>
+								<td style="width: 20%">${C2.hits}</td>
+								<td style="width: 20%">${C2.comments}</td>
+								<td style="width: 20%">${C2.post}</td>
+								<td style="width: 20%">${C2.likes}</td>
+								</tr>
+								
+							</c:when>
+							<c:when test="${currentTime==1}">
+								<tr align="center">
+								<td style="width: 20%">00 - 12 </td>
+								<td style="width: 20%">${C1.hits}</td>
+								<td style="width: 20%">${C1.comments}</td>
+								<td style="width: 20%">${C1.post}</td>
+								<td style="width: 20%">${C1.likes}</td>
+								</tr>
+							</c:when>
+							</c:choose>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+		</div>
+		<BR>
+		
 	</div>
 	<br>
 	<br>
-	<br> --%>
-	<!-- <div id="chart_div" class="ui segment"
-					style="width: 900px; height: 500px;"></div>
-			</div> -->
 
-	<!-- FOOTER -->
 </body>
 
 <!-- SCRIPT -->

@@ -24,7 +24,7 @@ public interface AdminController {
 
 	String qaContent(int index, HttpServletRequest request);
 
-	String todayAnalytics(HttpServletRequest request);
+	Object todayAnalytics(HttpServletRequest request);
 
 	yesterdayAnalytic yesterdayAnalytics();
 
