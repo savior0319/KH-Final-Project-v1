@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HomeTrainingVO {
-	private String htMainPhoto, htVideo, htTitle, htType, htPart, htStepTime, htStepType, htStepKal, htStepHard, htExplain, htNickname;
+	private String htMainPhoto, htVideo, htTitle, htType, htPart, htStepTime, htStepType, htStepKal, htStepHard, htExplain, htNickname, htWriterPhoto;
 	private int indexNo, mbIndex, htNo, htLike, htHits, htWriterNo, htCommentNo, likeYN;
 	private Timestamp htEnrollDate;
 }
