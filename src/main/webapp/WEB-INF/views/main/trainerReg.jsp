@@ -27,7 +27,6 @@
 	<input id="mainPhotoPath" type="hidden">
 	<div class="ui container">
 
-		<form action="/bmiCalResult.diet" method="POST">
 
 
 			<div class="ui center aligned basic segment">
@@ -133,13 +132,13 @@
 									<div class="inline fields" style="margin-bottom: 0px;">
 										<div class="field">
 											<div class="ui radio checkbox">
-												<input type="radio" name="gender" value="여" required>
+												<input type="radio" name="gender" value="f" required>
 												<label>여</label>
 											</div>
 										</div>
 										<div class="field">
 											<div class="ui radio checkbox">
-												<input type="radio" name="gender" value="남">
+												<input type="radio" name="gender" value="m">
 												<label>남</label>
 											</div>
 										</div>
@@ -266,7 +265,7 @@
 
 
 			</div>
-		</form>
+		
 	</div>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
@@ -439,7 +438,7 @@
 		var postCode = $('#postcode').val();
 		var roadAddress = $('#roadAddress').val();
 		var addAddress = $('#addAddress').val();
-		var trAddress = postCode + roadAddress + addAddress;
+		var trAddress = postCode + " " + roadAddress +" "+addAddress;
 		/* 성별 */
 		var trGender = $('input[name=gender]:checked').val();
 		/* 생년월일 */
@@ -455,7 +454,7 @@
 		var IncheonArea = $("select[name=area2]").val();
 		var trArea = seoulArea + IncheonArea;
 		/* 경력 */
-		var trComment = $('#trComment').val();
+		var trContent = $('#trComment').val();
 		/* 이미지 */
 		var trImage = new FormData(document.getElementById('photoForm'));
 		
@@ -468,6 +467,7 @@
 			console.log("이름 : " + trName);
 			console.log("핸드폰 : " + trPhone);
 			console.log("우편번호 : " + postcode);
+			console.log("성별 : " + trGender);			
 			console.log("주소 : " + roadAddress);
 			console.log("상세주소 : " + addAddress);
 			console.log("총 주소 : " + trAddress);
@@ -476,7 +476,7 @@
 			console.log("몸무게 : " + trWeight);
 			console.log("지역 : " + trCity);
 			console.log("상세 지역 : " + trArea);
-			console.log("경력 : " + trComment);
+			console.log("경력 : " + trContent);
 			
 			$.ajax({
 	    		url : '/saveDietTipMainPhotoPath.diet',		// 이거는 그냥 dietTip꺼 쓰면 될듯
@@ -485,18 +485,50 @@
 	    		processData: false,
 	    		contentType: false,
 	    		success : function (data){
-	    			var trImagePath = $('#mainPhotoPath').val(data);
-	    		    			 
-	    			alert("이미지 경로 : " + trImagePath);	
-	    			location.href="/trainerMatch.diet";
+	    			$('#mainPhotoPath').val(data);
+	    			var trImagePath = $('#mainPhotoPath').val();
 	    			
-	    		},
-	    		error : function (data){
-	    			alert('실패ㅋㅋㅋ');
+	    			$.ajax({
+    					url : '/trainerRegister.diet',
+    					type : 'post',
+    					data : {
+    						'trName' : trName,
+    						'trPhone' : trPhone,
+    						'trAddress' : trAddress,
+    						'trBirth' : trBirth,
+    						'trHeight' : trHeight,
+    						'trWeight' : trWeight,
+    						'trCity' : trCity,
+    						'trAreas' : trArea,
+    						'trGender' : trGender,
+    						'trContent' : trContent,
+    				 		'trImagePath' : trImagePath
+    					},
+    					success : function(result) {
+    						
+    						alert('성공 : ' + result);
+    						
+    						if (result == '1') {
+    							alert('신청 완료');
+    							location.href="/trainerMatch.diet";
+    						} else {
+    							alert('신청 실패');
+    							//location.href="/trainerMatch.diet";
+    						}
+    					},
+    					error : function(result) {
+    						
+    						alert('실패 : ' + result );
+    						alert('게시글 등록 실패(과정 오류)');
+    						//location.href="/trainerMatch.diet";
+    					}
+    				});		  
+  			
+	    			
 	    		}
 	    	});
-			alert('신청이 완료되었습니다.');
-			return true;
+
+
 		}
 
 	}

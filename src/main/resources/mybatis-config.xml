@@ -50,6 +50,7 @@
 		<typeAlias type="spring.kh.diet.model.vo.UpMbSeeVO" alias="upMbSee" />
 		<typeAlias type="spring.kh.diet.model.vo.MyQuestionPageDataVO" alias="myQuestionPDVO" />
 		<typeAlias type="spring.kh.diet.model.vo.TodayAnalyticsDetail" alias="todayAnalyticsDetail"/>
+		<typeAlias type="spring.kh.diet.model.vo.TrainingRegVO" alias="trainerReg"/>
 	</typeAliases>
 
 </configuration>

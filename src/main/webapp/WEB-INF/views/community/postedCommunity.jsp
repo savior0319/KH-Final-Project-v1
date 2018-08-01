@@ -390,6 +390,8 @@
 				          	<button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
 												<i class="ban icon"></i> 신고 <label id="cmtBlame_${bc.cmtIndex}">${bc.cmtBlame}</label>
 											</button>
+											<!-- 신고 수정 ☆-->
+											<input type="hidden" value="${bc.mbIndex}" id="cmdWriter_${bc.cmtIndex}" />
 									</div>
 									</c:if>
 									
@@ -731,10 +733,14 @@
 	}
 	//댓글 신고 - 라디오 체크후 신고 버튼
 	function sendCmdBlame(){
+		
+		
+		var indexNo = $('#postIndex').val();
 		//해당 댓글 번호 가져오기!☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ 
 		//alert(blameCmd);
 		var blameReport = $(':input:radio[name=blameText]:checked').val();
-		var targetMbIndex = '${requestScope.bpv.mbIndex}';
+		/* 신고 수정☆ */
+		var targetMbIndex = $('#cmdWriter_'+blameCmd).val();
 		
  		$.ajax({
 			url : '/blameCmd.diet',
@@ -746,7 +752,7 @@
 			},
 			success : function() {
 				alert('신고가 완료되었습니다.');
-				location.reload();
+				location.href = "/postedCommunity.diet?postIndex=" + indexNo;
 			},
 			error : function() {
 					alert('실패');
@@ -962,6 +968,13 @@
 					var blameCount = $("<label>").attr("id","cmtBlame_"+data.bcList[i].cmtIndex);
 					blameCount.html(data.bcList[i].cmtBlame);
 					
+					//<!-- 신고 수정 ☆-->
+					//<input type="hidden" value="${bc.mbIndex}" id="cmdWriter_${bc.cmtIndex}" />
+					var blameIndex = $("<input>").attr("type","hidden");
+					blameIndex.attr("value",data.bcList[i].mbIndex);	
+					blameIndex.attr("id","cmdWriter_"+data.bcList[i].cmtIndex);
+					
+					
 					var textDiv = $("<div>").attr("class", "text");
 					textDiv.attr("id","cmd_"+data.bcList[i].cmtIndex);
 					
@@ -972,6 +985,8 @@
 					blameBtn.append("신고");
 					/* 지현_신고 카운트 추가  */
 					blameBtn.append(blameCount);
+					//<!-- 신고 수정 ☆ : index 추가-->
+					blameBtn.append(blameIndex);
 					containerDiv.append(likeBtn);
 					containerDiv.append(blameBtn);
 					metadataDiv.append(span);
