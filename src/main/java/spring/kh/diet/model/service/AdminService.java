@@ -75,8 +75,6 @@ public interface AdminService {
 
 	ArrayList<BlackListContentVO> blackListContent(int index);
 
-	int insertAnalytics(TodayAnalyticsDetail tAD);
-
-	int selectAnalytics(int timeType);
+	
 
 }

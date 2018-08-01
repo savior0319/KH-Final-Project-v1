@@ -551,23 +551,6 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 
-	@Override
-	public int insertAnalytics(SqlSessionTemplate session, TodayAnalyticsDetail tAD) {
-		int result = session.insert("admin.insertAnalytics",tAD);
-		return result;
-	}
-
-	@Override
-	public int selectAnalytics(SqlSessionTemplate session,int timeType) {
-		System.out.println("1");
-		List<?> list = session.selectList("admin.selectAnalytics",timeType);
-		System.out.println(list.toString());
-		int result=0;
-		if(!list.isEmpty())
-		{
-			result=1;
-		}
-		return result;
-	}
+	
 
 }

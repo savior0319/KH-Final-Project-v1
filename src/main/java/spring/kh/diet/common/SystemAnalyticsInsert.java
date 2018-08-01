@@ -4,14 +4,15 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 
+import spring.kh.diet.model.service.AdminAnalyticService;
 import spring.kh.diet.model.service.AdminService;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 @SuppressWarnings("all")
 @Controller
 public class SystemAnalyticsInsert {
 
-	@Resource(name="adminService")
-	private AdminService as;
+	@Resource(name="adminAnalytics")
+	private AdminAnalyticService as;
 		
 	public int insertAnalytics(TodayAnalyticsDetail tAD) {
 

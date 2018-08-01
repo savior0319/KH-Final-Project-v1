@@ -259,18 +259,6 @@ public class AdminServiceImpl implements AdminService {
 		return list;
 	}
 
-	@Override
-	public int insertAnalytics(TodayAnalyticsDetail tAD) {
-		int result = aDao.insertAnalytics(session,tAD);
-		return result;
-	}
 
-	@Override
-	public int selectAnalytics(int timeType) {
-		System.out.println("@");
-		int result = aDao.selectAnalytics(session,timeType);
-		System.out.println(result+10);
-		return result;
-	}
 
 }
