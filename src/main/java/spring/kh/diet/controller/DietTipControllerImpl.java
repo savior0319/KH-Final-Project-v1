@@ -288,7 +288,11 @@ public class DietTipControllerImpl implements DietTipController {
 		dt.setDtExplain(request.getParameter("content"));
 		dt.setDtType(Integer.parseInt(request.getParameter("category")));
 		dt.setDtSammary(request.getParameter("sammary"));
-		dt.setDtMainPhoto("/imageUpload/" + request.getParameter("mainPhotoPath"));
+		String imgPath = request.getParameter("mainPhotoPath");
+		if(imgPath.substring(0, 13).equals("/imageUpload/")) {
+			imgPath = imgPath.substring(13);
+		}
+		dt.setDtMainPhoto("/imageUpload/" + imgPath);
 		dt.setDtIndex(Integer.parseInt(request.getParameter("indexNo")));
 
 		int result = dietTipService.updateDietTip(dt);
