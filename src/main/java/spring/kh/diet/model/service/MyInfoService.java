@@ -14,7 +14,7 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
-import spring.kh.diet.model.vo.TrainerProgramVOTEST;
+import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
 
 
@@ -66,7 +66,7 @@ public interface MyInfoService {
 
 	int deleteMyBookMark(BoardBookMarkVO pv);
 
-	MyRequestTrainerPDVO requestTrainer(int currentPage, TrainerProgramVOTEST tv);
+	MyRequestTrainerPDVO requestTrainer(int currentPage, TrainerProgramVO tv);
 
 	ApplyTrainerPDVO applyTrainer(int currentPage, TrainingRegVO tv);
 

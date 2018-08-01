@@ -18,7 +18,7 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
-import spring.kh.diet.model.vo.TrainerProgramVOTEST;
+import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
 
 @SuppressWarnings("all")
@@ -467,22 +467,22 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	}
 
 	@Override
-	public ArrayList<TrainerProgramVOTEST> requestTrainerList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, TrainerProgramVOTEST tv) {
+	public ArrayList<TrainerProgramVO> requestTrainerList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainerProgramVO tv) {
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
 
 		myRequest.setStart((currentPage - 1) * recordCountPerPage + 1);
 		myRequest.setEnd(currentPage * recordCountPerPage);
 		myRequest.setMbIndex(tv.getMbIndex());
 
-		List<TrainerProgramVOTEST> list = sqlSessionTemplate.selectList("myInfo.myRequestList", myRequest);
+		List<TrainerProgramVO> list = sqlSessionTemplate.selectList("myInfo.myRequestList", myRequest);
 
-		return (ArrayList<TrainerProgramVOTEST>) list;
+		return (ArrayList<TrainerProgramVO>) list;
 	}
 
 	@Override
 	public String requestTrainerListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, int naviCountPerPage, TrainerProgramVOTEST tv) {
+			int recordCountPerPage, int naviCountPerPage, TrainerProgramVO tv) {
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
 		myRequest.setMbIndex(tv.getMbIndex());
 

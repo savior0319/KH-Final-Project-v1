@@ -21,7 +21,7 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
-import spring.kh.diet.model.vo.TrainerProgramVOTEST;
+import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
 
 
@@ -224,13 +224,13 @@ public class MyInfoServiceImpl implements MyInfoService {
 	}
 
 	@Override
-	public MyRequestTrainerPDVO requestTrainer(int currentPage, TrainerProgramVOTEST tv) {
+	public MyRequestTrainerPDVO requestTrainer(int currentPage, TrainerProgramVO tv) {
 		int recordCountPerPage = 5;
 		int naviCountPerPage = 5;
 
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
 
-		ArrayList<TrainerProgramVOTEST> list = (ArrayList<TrainerProgramVOTEST>) myInfoDAO.requestTrainerList(SqlSessionTemplate, currentPage,
+		ArrayList<TrainerProgramVO> list = (ArrayList<TrainerProgramVO>) myInfoDAO.requestTrainerList(SqlSessionTemplate, currentPage,
 				recordCountPerPage, tv);
 		String pageNavi = myInfoDAO.requestTrainerListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, tv);
