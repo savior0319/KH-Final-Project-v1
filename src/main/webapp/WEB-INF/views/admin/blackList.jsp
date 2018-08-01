@@ -28,7 +28,7 @@ body {
 	<br>
 	<div class="ui container">
 		<div class="ui center aligned segment">
-			<h1>블랙리스트 회원(신고 내역 출력해야 됨 - 추가 중)</h1>
+			<h1>블랙리스트 회원</h1>
 		</div>
 		<div class="ui red message">
 			<div class="ui small header">※ 신고 5회 누적회원으로 블랙리스트 버튼 누르면 블랙리스트 회원으로 변경됨</div>

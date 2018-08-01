@@ -1,6 +1,7 @@
 package spring.kh.diet.model.vo;
 
 import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MyQuestionPageDataVO {
-	private ArrayList<QuestionVO> comList;
-	private String pageNavi, type;
-	private int start, end, mbIndex,bcaIndex;
-	
+public class SystemAnalyticsDetailTotalVO {
 
+	private int tHits,tLike,tComments,tPost,hHits,hLike,hComments,hPost,cHits,cLike,cComments,cPost,timeType;
+	
 
 }

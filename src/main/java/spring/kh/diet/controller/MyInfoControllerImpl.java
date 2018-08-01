@@ -30,7 +30,9 @@ import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
+import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.TrainerProgramVO;
 
 @SuppressWarnings("all")
 @Controller
@@ -298,7 +300,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			@RequestParam String[] gender, @RequestParam String[] interest) {
 
 		String interestStr = "";
-		
+
 		MemberVO mv = new MemberVO();
 		mv.setMbId(mbId);
 		mv.setMbPwd(mbPwd);
@@ -420,9 +422,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 
 		MyBookMarkPageDataVO myBookMark = myInfoService.myBookMarkList(currentPage, type, ma);
-		for (int i = 0; i < myBookMark.getComList().size(); i++) {
-			System.out.println(myBookMark.getComList().get(i));
-		}
 
 		request.setAttribute("myBookMark", myBookMark);
 		return "myInfo/myBookMark";
@@ -432,17 +431,44 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 마이페이지 - 일대일 문의 */
 	@Override
 	@RequestMapping(value = "/allMyOneToOneQuestion.diet")
-	public Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request) {
-		MemberVO mv = (MemberVO) session.getAttribute("member");
+	public Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
+		String type = request.getParameter("type");
 		int currentPage; // 현재 페이지 값을 저장하는 변수
+		MemberVO m = (MemberVO) session.getAttribute("member");
+		ma.setMbIndex(m.getMbIndex());
+
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		MyQuestionPageDataVO myQuestion = myInfoService.allMyOneToOneQuestion(currentPage, mv);
+		MyQuestionPageDataVO myQuestion = myInfoService.allMyOneToOneQuestion(currentPage, ma);
+
 		request.setAttribute("myQuestion", myQuestion);
 		return "myInfo/myOneToOneQuestion";
+
+	}
+
+	/* 트레이너 요청 (일반) */
+
+	@Override
+	@RequestMapping(value = "/requestTrainer.diet")
+	public String requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		TrainerProgramVO tv = new TrainerProgramVO();
+		tv.setMbIndex(mv.getMbIndex());
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage,tv);
+		System.out.println(myRequest.getComList().get(0).getTpLocation());
+		request.setAttribute("myRequest", myRequest);
+		return "myInfo/imTrainer";
+
 
 	}
 

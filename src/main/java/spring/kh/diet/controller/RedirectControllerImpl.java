@@ -146,9 +146,9 @@ public class RedirectControllerImpl implements RedirectController {
 
 	/* 마이페이지 - 트레이너 매칭 (트레이너) */
 	@Override
-	@RequestMapping(value = "myPageTrainer.diet")
+	@RequestMapping(value = "imTrainer.diet")
 	public String redirectMyPageTrainer() {
-		return "myInfo/myPageTrainer";
+		return "myInfo/imTrainer";
 	}
 
 	/* 트레이너 상품 등록 */

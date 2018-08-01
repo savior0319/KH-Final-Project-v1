@@ -30,6 +30,7 @@ import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.todayAnalyticPDVO;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
@@ -42,7 +43,7 @@ import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 @Controller
 public class AdminControllerImpl implements AdminController {
 
-	@Resource(name="adminService")
+	@Resource(name = "adminService")
 	private AdminService as;
 
 	@SuppressWarnings("unused")
@@ -155,7 +156,7 @@ public class AdminControllerImpl implements AdminController {
 
 		CurrentDate CD = new CurrentDate(PC, MOBILE, AtoBOn, BtoCOn, CtoDOn, DtoEOn, EtoFOn, AtoBOff, BtoCOff, CtoDOff,
 				DtoEOff, EtoFOff);
-//		System.out.println(list.toString());
+		// System.out.println(list.toString());
 		ASLPDVO.setType(request.getParameter("type"));
 		request.setAttribute("currentSession", ASLPDVO);
 		request.setAttribute("size", ASLPDVO.getSsList().size());
@@ -300,12 +301,10 @@ public class AdminControllerImpl implements AdminController {
 	/* 블랙리스트 신고당한 회원 조회 */
 	@Override
 	@RequestMapping(value = "/blackListContent.diet")
-	public String blackListContent(@RequestParam int index) {
-
+	public String blackListContent(@RequestParam int index, HttpServletResponse response, HttpServletRequest request) {
 		ArrayList<BlackListContentVO> bcv = as.blackListContent(index);
-
-		System.out.println(bcv.toString());
-		return null;
+		request.setAttribute("content", bcv);
+		return "admin/blackListContent";
 	}
 
 	////////////////////////////
@@ -324,13 +323,13 @@ public class AdminControllerImpl implements AdminController {
 		todayAnalyticPDVO tAPDVO = todayAutoAnalytics();
 		tAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Current", tAPDVO);
-
+		
 		// BEFORE_DAY_TBL 를 불러와서 데이터를 가져오는것.
 		yesterdayAnalytic yAPDVO = yesterdayAnalytics();
 		yAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Before", yAPDVO);
-//		System.out.println(yAPDVO.toString());
-		
+		// System.out.println(yAPDVO.toString());
+
 		// 오늘 가입한 맴버 가져오기
 		ArrayList<MemberVO> MVO = as.searchMember();
 		ArrayList<MemberVO> MVO2 = as.memberList();
@@ -339,7 +338,6 @@ public class AdminControllerImpl implements AdminController {
 		ArrayList<DelMemberVO> DMVO = as.searchDelMember();
 		ArrayList<DelMemberVO> DMVO2 = as.delmemberList();
 
-		// 현재 꺼진 세션 들고오기 (가장최근에 꺼진것 1~5명)
 		ArrayList<AllSessionVO> ASVO = as.searchOffSession();
 		ArrayList<OffSessionVO> ASVO2 = as.getOfSesssionList();
 
@@ -356,6 +354,67 @@ public class AdminControllerImpl implements AdminController {
 		request.setAttribute("OnSessionSize", OSVO.size());
 		request.setAttribute("AllSession", ASVO);
 		request.setAttribute("AllSessionSize", ASVO.size());
+		
+		/// 그래프 분석할 자료들고오기. 
+		ArrayList<TodayAnalyticsDetail> TotalList = as.TodayAnalyticsDetailList();
+		
+		for (int i = 0; i < TotalList.size(); i++) {
+			int ListType = TotalList.get(i).getListType();
+			int TimeType = TotalList.get(i).getTimeType();
+			switch (ListType) {
+			case 1:
+				switch (TimeType) {
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				case 5:
+					break;
+				}
+				break;
+			case 2:
+				switch (TimeType) {
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				case 5:
+					break;
+				}
+				break;
+			case 3:
+				switch (TimeType) {
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				case 5:
+					break;
+				}
+				break;
+
+			}
+
+		}
+		
+//		request.setAttribute("TAD", TotalList);
+		
+		
+		
+		
+		
 		return "admin/todayAnalytics";
 	}
 
@@ -410,6 +469,25 @@ public class AdminControllerImpl implements AdminController {
 			yesterdayAnalyticsPDVO yAPDVO = new yesterdayAnalyticsPDVO("type", tHVO, tCVO, tPVO, tLVO);
 
 			as.yesterdayInsert(yAPDVO);
+		}
+		else {
+			
+			int result2 = as.searchBeforeDayList();
+			
+			if(result2>0)
+			{
+			// 현재 조회수 들고오기.
+			todayHitsVO tHVO = as.searchHits();
+			// 현재 댓글수 들고오기
+			todayCommentsVO tCVO = as.searchComments();
+			// 현재 게시물 수 들고오기
+			todayPostVO tPVO = as.searchPost();
+			// 현재 좋아요 가져오기
+			todayLikeVO tLVO = as.searchLike();
+
+			yesterdayAnalyticsPDVO yAPDVO = new yesterdayAnalyticsPDVO("type", tHVO, tCVO, tPVO, tLVO);
+			as.yesterdayUpdate(yAPDVO);
+			}
 		}
 
 	}

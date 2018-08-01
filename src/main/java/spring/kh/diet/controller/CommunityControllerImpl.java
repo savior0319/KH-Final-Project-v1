@@ -59,9 +59,7 @@ public class CommunityControllerImpl implements CommunityController {
 		int result = communityService.registCommunity(bpv);
 
 		if (result > 0) {
-			System.out.println("글등록 완료");
 		} else {
-			System.out.println("글등록 실패");
 		}
 
 		response.getWriter().print("success");
@@ -88,14 +86,11 @@ public class CommunityControllerImpl implements CommunityController {
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 
 		bpv.setMbIndex(mv.getMbIndex());
-		System.out.println(bpv);
 
 		int result = communityService.modifyRegistCommunity(bpv);
 		
 		if (result > 0) {
-			System.out.println("글수정 완료");
 		} else {
-			System.out.println("글수정 실패");
 		}
 
 		response.getWriter().print("success");

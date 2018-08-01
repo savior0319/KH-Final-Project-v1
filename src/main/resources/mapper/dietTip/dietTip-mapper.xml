@@ -143,7 +143,8 @@
 		DT.DT_DATE AS
 		dtDate,
 		DT.DT_SEE AS dtSee,
-		DT.DT_LIKE AS dtLike
+		DT.DT_LIKE AS dtLike,
+        MB.MB_IMAGE AS dtWriterPhoto
 		FROM DIETTIP_TB DT,
 		MEMBER_TBL MB WHERE DT.DT_WRITER_NO = MB.MB_INDEX AND DT_INDEX =
 		#{index}

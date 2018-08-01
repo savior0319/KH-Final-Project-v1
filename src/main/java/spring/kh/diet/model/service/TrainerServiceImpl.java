@@ -32,6 +32,11 @@ public class TrainerServiceImpl  implements TrainerService {
 	public int registTrainerProgram(TrainerProgramVO tpv) {
 		int result = trDao.registTrainerProgram(session,tpv);
 		return result;
+  }
+
+	@Override
+	public int trainerReg(TrainingRegVO register) {
+		return trDao.trainerReg(session, register);
 	}
 	
 	

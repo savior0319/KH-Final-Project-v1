@@ -259,6 +259,26 @@ public class AdminServiceImpl implements AdminService {
 		return list;
 	}
 
+	@Override
+	public void yesterdayUpdate(yesterdayAnalyticsPDVO yAPDVO) {
+		int result = aDao.yesterdayUpdate(session,yAPDVO);
+		
+	}
+
+	@Override
+	public int searchBeforeDayList() {
+		int result = aDao.searchBeforeDayList(session);
+		
+		return result;
+	}
+
+
+	@Override
+	public ArrayList<TodayAnalyticsDetail> TodayAnalyticsDetailList() {
+		ArrayList<TodayAnalyticsDetail> list = aDao.TodayAnalyticsDetailList(session);
+		return list;
+	}
+
 
 
 }

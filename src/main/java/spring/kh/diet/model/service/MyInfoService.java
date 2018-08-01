@@ -6,12 +6,15 @@ import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.MyPostPageDataVO;
-import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
+import spring.kh.diet.model.vo.MyPostPageDataVO;
+import spring.kh.diet.model.vo.MyQuestionPageDataVO;
+import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.TrainerProgramVO;
+
 
 public interface MyInfoService {
 
@@ -27,7 +30,7 @@ public interface MyInfoService {
 
 	int deleteMyPicture(MemberVO mv);
 
-	MyQuestionPageDataVO allMyOneToOneQuestion(int currentPage, MemberVO mv);
+	MyQuestionPageDataVO allMyOneToOneQuestion(int currentPage, MyActivityVO ma);
 
 	int signupsave(MemberVO mv);
 
@@ -60,5 +63,7 @@ public interface MyInfoService {
 	int deleteMyComment(BoardCommentVO pv);
 
 	int deleteMyBookMark(BoardBookMarkVO pv);
+
+	MyRequestTrainerPDVO requestTrainer(int currentPage, TrainerProgramVO tv);
 
 }

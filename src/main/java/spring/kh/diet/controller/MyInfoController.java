@@ -44,8 +44,6 @@ public interface MyInfoController {
 
 	String myBookMarkGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma);
 
-	Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request);
-
 	String checkReport(MemberVO mbIndex);
 
 	void deleteMyQuestion(HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException;
@@ -57,6 +55,10 @@ public interface MyInfoController {
 
 	void deleteMyBookMark(HttpServletResponse response, HttpServletRequest request, HttpSession session)
 			throws IOException;
+
+	Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request, MyActivityVO ma);
+
+	String requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException;
 
 
 
