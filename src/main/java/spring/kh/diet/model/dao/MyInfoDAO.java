@@ -11,6 +11,7 @@ import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
+import spring.kh.diet.model.vo.TrainingRegVO;
 
 public interface MyInfoDAO {
 
@@ -81,6 +82,12 @@ public interface MyInfoDAO {
 
 	String requestTrainerListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, TrainerProgramVO tv);
+
+	ArrayList<TrainingRegVO> applyTrainerList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainingRegVO tv);
+
+	String applyTrainerListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, TrainingRegVO tv);
 
 
 

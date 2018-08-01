@@ -32,7 +32,7 @@
 				</div>
 				<br>
 				<div id="trainerApply">
-					<div class="ui brown message" style="width: 300px; margin-left: 35%;">
+					<div class="ui brown message" align="center">
 						<div class="ui small header">※ 트레이너 자격 신청</div>
 					</div>
 					<table class="ui gray table">
@@ -58,28 +58,99 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr align="center">
-								<td style="width: 13%;">111</td>
-								<td style="width: 44%;">
-									<a href="javascript:void(0);" onclick="showMyTrainer();">test123214214214</a>
-								</td>
-								<td style="width: 20%;">2018-18-182</td>
-								<td style="width: 23%;">
-									<button class="ui red button">자격승인</button>
-									<button class="ui grey button">자격거절</button>
-								</td>
-							</tr>
+							<c:forEach items="" var="m">
+								<tr align="center">
+									<td style="width: 13%;"></td>
+									<td style="width: 44%;">
+										<a href="javascript:void(0);" onclick="showMyTrainer();"></a>
+									</td>
+									<td style="width: 20%;"></td>
+									<td style="width: 23%;">
+										<button class="ui red button">자격승인</button>
+										<button class="ui grey button">자격거절</button>
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
-					<br>
-					<br>
-					<br>
-				</div>
-
-				<div id="memberApply">
-					<div class="ui brown message" style="width: 300px; margin-left: 35%;">
-						<div class="ui small header">※ 트레이너 요청 리스트</div>
+					<div class="ui grid">
+						<div class="three column row">
+							<div class="column"></div>
+							<div class="column">
+								<div class="ui center aligned basic segment">
+									<div class="ui pagination menu">"${myRequest.pageNavi}"</div>
+								</div>
+							</div>
+							<div class="column"></div>
+						</div>
+						<br>
 					</div>
+					<br>
+
+				</div>
+				<c:if test="${!myRequest.comList.isEmpty()}">
+					<div id="memberApply">
+						<div class="ui brown message" align="center">
+							<div class="ui small header">※ 트레이너 요청 리스트</div>
+						</div>
+						<table class="ui gray table">
+							<thead>
+								<tr id="title" align="center">
+									<th>
+										<i class="h square icon"></i>
+										번 호
+									</th>
+									<th>
+										<i class="h square icon"></i>
+										제 목
+									</th>
+									<th>
+										<i class="h square icon"></i>
+										요 청 자
+									</th>
+									<th>
+										<i class="h square icon"></i>
+										요 청 일
+									</th>
+									<th>
+										<i class="h square icon"></i>
+										수 락 여 부
+									</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${myRequest.comList}" var="m">
+									<tr align="center">
+										<td style="width: 10%;">${m.tpLocation}</td>
+										<td style="width: 30%;">
+											<a href="javascript:void(0);" onclick="showMyTrainer1();">${m.tpName}</a>
+										</td>
+										<td style="width: 15%;">${m.tpLocation}</td>
+										<td style="width: 15%;">${m.tpName}</td>
+										<td style="width: 23%;">
+											<button class="ui red button">수락</button>
+											<button class="ui grey button">거절</button>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div class="ui grid">
+							<div class="three column row">
+								<div class="column"></div>
+								<div class="column">
+									<div class="ui center aligned basic segment">
+										<div class="ui pagination menu">"${myRequest.pageNavi}"</div>
+									</div>
+								</div>
+								<div class="column"></div>
+							</div>
+							<br>
+						</div>
+					</div>
+				</c:if>
+				<c:if test="${myRequest.comList.isEmpty()}">
 					<table class="ui gray table">
 						<thead>
 							<tr id="title" align="center">
@@ -107,36 +178,16 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${myRequest.comList}" var="m">
-								<tr align="center">
-									<td style="width: 10%;">${m.tpLocation}</td>
-									<td style="width: 30%;">
-										<a href="javascript:void(0);" onclick="showMyTrainer1();">test123214214214</a>
-									</td>
-									<td style="width: 15%;">${m.tpLocation}</td>
-									<td style="width: 15%;">${m.tpLocation}</td>
-									<td style="width: 23%;">
-										<button class="ui red button">수락</button>
-										<button class="ui grey button">거절</button>
-									</td>
-								</tr>
-							</c:forEach>
+							<tr>
+								<td>
+									<div class="ui red message" align="center">※ 트레이너 요청 내역이 없습니다.</div>
+								</td>
+							</tr>
 						</tbody>
 					</table>
-					<div class="ui grid">
-						<div class="three column row">
-							<div class="column"></div>
-							<div class="column">
-								<div class="ui center aligned basic segment">
-									<div class="ui pagination menu">"${requestScope.myRequest.pageNavi}"</div>
-								</div>
-							</div>
-							<div class="column"></div>
-						</div>
-						<br>
-					</div>
-				</div>
+				</c:if>
 			</div>
+
 
 			<div class="ui modal" id="questionModal2">
 				<i class="close icon"></i>
@@ -172,19 +223,19 @@
 						<div class="ui floating message" style="width: 25%; float: left;">
 							<p align="center">
 								지 역 :&nbsp;&nbsp;&nbsp;
-								<span>${requsetScope.myRequest.tpLocation}</span>
+								<span></span>
 							</p>
 						</div>
 						<div class="ui floating message" style="width: 25%; float: left; margin-left: 20px;">
 							<p align="center">
 								신 청 시 간 :&nbsp;&nbsp;&nbsp;
-								<span>${requsetScope.myRequest.tpActiveTime}</span>
+								<span></span>
 							</p>
 						</div>
 						<div class="ui floating message" style="width: 20%; float: left; margin-left: 20px;">
 							<p align="center">
 								아 이 디 :&nbsp;&nbsp;&nbsp;
-								<span>바키</span>
+								<span></span>
 							</p>
 						</div>
 						<div class="ui floating message" style="width: 23%; float: left; margin-left: 20px;">

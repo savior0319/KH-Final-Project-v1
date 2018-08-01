@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.MyInfoDAO;
+import spring.kh.diet.model.vo.ApplyTrainerPDVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -21,6 +22,7 @@ import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
+import spring.kh.diet.model.vo.TrainingRegVO;
 
 
 @Service("myInfoService")
@@ -238,6 +240,24 @@ public class MyInfoServiceImpl implements MyInfoService {
 		myRequest.setPageNavi(pageNavi);
 
 		return myRequest;
+	}
+
+	@Override
+	public ApplyTrainerPDVO applyTrainer(int currentPage, TrainingRegVO tv) {
+		int recordCountPerPage = 5;
+		int naviCountPerPage = 5;
+
+		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
+
+		ArrayList<TrainingRegVO> list = (ArrayList<TrainingRegVO>) myInfoDAO.applyTrainerList(SqlSessionTemplate, currentPage,
+				recordCountPerPage, tv);
+		String pageNavi = myInfoDAO.applyTrainerListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
+				naviCountPerPage, tv);
+		
+		applyTrainer.setComList(list);
+		applyTrainer.setPageNavi(pageNavi);
+
+		return applyTrainer;
 	}
 
 }

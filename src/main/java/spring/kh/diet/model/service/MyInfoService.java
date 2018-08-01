@@ -2,6 +2,7 @@ package spring.kh.diet.model.service;
 
 import java.util.ArrayList;
 
+import spring.kh.diet.model.vo.ApplyTrainerPDVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -14,6 +15,7 @@ import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
+import spring.kh.diet.model.vo.TrainingRegVO;
 
 
 public interface MyInfoService {
@@ -65,5 +67,7 @@ public interface MyInfoService {
 	int deleteMyBookMark(BoardBookMarkVO pv);
 
 	MyRequestTrainerPDVO requestTrainer(int currentPage, TrainerProgramVO tv);
+
+	ApplyTrainerPDVO applyTrainer(int currentPage, TrainingRegVO tv);
 
 }
