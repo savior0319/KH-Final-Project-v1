@@ -121,7 +121,6 @@ public class DietTipDAOImpl implements DietTipDAO {
 
 	@Override
 	public DietTipVO getDietTip(SqlSessionTemplate session, int indexNo) {
-		System.out.println(indexNo);
 		DietTipVO dt = session.selectOne("dietTip.getOne", indexNo);
 		return dt;
 	}
