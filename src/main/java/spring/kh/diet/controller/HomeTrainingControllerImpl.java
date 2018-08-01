@@ -23,6 +23,7 @@ import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.UpMbSeeVO;
 
 @SuppressWarnings("all")
 @Controller
@@ -63,6 +64,49 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		htpd.setSearchText(pdvo.getSearchText());
 
 		request.setAttribute("htpd", htpd);
+		
+		request.setAttribute("type", "all");
+
+		// 종류별로 해당 회원이 게시물을 봤던 횟수 불러오기
+		HttpSession session = request.getSession();
+		MemberVO user = (MemberVO) session.getAttribute("member");
+		if (user != null) {
+			MemberVO seeList = homeTrainingService.getHtSeeList(user.getMbIndex());
+
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			list.add(seeList.getMbHtWbSee());
+			list.add(seeList.getMbHtAbmSee());
+			list.add(seeList.getMbHtUbSee());
+			list.add(seeList.getMbHtLbSee());
+			list.add(seeList.getMbHtStSee());
+			list.add(seeList.getMbHtDcSee());
+			list.add(seeList.getMbHtYogaSee());
+			list.add(seeList.getMbHtFcSee());
+			java.util.Collections.sort(list);
+			java.util.Collections.reverse(list);
+
+			String type1 = "";
+			if (list.get(0) == seeList.getMbHtWbSee()) {
+				type1 = "wholeBody";
+			} else if (list.get(0) == seeList.getMbHtAbmSee()) {
+				type1 = "abdomen";
+			} else if (list.get(0) == seeList.getMbHtUbSee()) {
+				type1 = "upperBody";
+			} else if (list.get(0) == seeList.getMbHtLbSee()) {
+				type1 = "lowerBody";
+			} else if (list.get(0) == seeList.getMbHtStSee()) {
+				type1 = "stretching";
+			} else if (list.get(0) == seeList.getMbHtDcSee()) {
+				type1 = "dance";
+			} else if (list.get(0) == seeList.getMbHtYogaSee()) {
+				type1 = "yoga";
+			} else {
+				type1 = "fourChallenge";
+			}
+
+			ArrayList<HomeTrainingVO> matchedList = homeTrainingService.getMatchedHtList(type1);
+			request.setAttribute("matchedList", matchedList);
+		}
 
 		return "homeTraining/homeTrainingAll";
 	}
@@ -93,16 +137,8 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		htpd.setSearchText(pdvo.getSearchText());
 
 		request.setAttribute("htpd", htpd);
-		
-		
-		// 종류별로 해당 회원이 게시물을 봤던 횟수 불러오기
-//		HttpSession session = request.getSession();
-//		MemberVO user = (MemberVO)session.getAttribute("member");
-//		MemberVO seeList = homeTrainingService.getHtSeeList(user.getMbIndex());
-//		
-//		ArrayList<Integer> list = new ArrayList<Integer>();
-//		list.add(seeList.)
-		
+
+		request.setAttribute("type", type);
 
 		return "homeTraining/homeTrainingList";
 	}
@@ -134,13 +170,11 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		request.setAttribute("bcpd", bcpd);
 
 		/* 이전글 다음글 */
-		
-		  ArrayList<HomeTrainingVO> list = homeTrainingService.pnWriteList(ht.getIndexNo());;
-		  request.setAttribute("list", list);
-		  request.setAttribute("type", type);
-		  
-	
-	
+
+		ArrayList<HomeTrainingVO> list = homeTrainingService.pnWriteList(ht.getIndexNo());
+		;
+		request.setAttribute("list", list);
+		request.setAttribute("type", type);
 
 		int postIndex = Integer.parseInt(request.getParameter("indexNo"));
 		// 쿠키 등록
@@ -161,6 +195,15 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 			} else {
 				ht.setLikeYN(0);
 			}
+		}
+
+		// 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기
+		MemberVO user = (MemberVO) session.getAttribute("member");
+		if (user != null &&  type!=null) {
+			UpMbSeeVO ums = new UpMbSeeVO();
+			ums.setMbIndex(user.getMbIndex());
+			ums.setType(type);
+			homeTrainingService.upMbHtSee(ums);
 		}
 
 		return "homeTraining/homeTrainingInfo";
@@ -213,7 +256,6 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		return blv;
 	}
 
-
 	// 좋아요 부분
 	@Override
 	@ResponseBody
@@ -237,7 +279,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 				result2 = homeTrainingService.postLikeUp(checkVO);
 			}
 		}
-		
+
 		if (result2 > 0) {
 			return "success";
 		} else {
@@ -259,105 +301,98 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		response.getWriter().println(result);
 		response.getWriter().close();
 	}
-	
+
 	// 홈트레이닝 글쓰기 불러오기
 	@Override
 	@RequestMapping(value = "/loadHomeTrainingWrite.diet")
 	public String redirectLoadHomeTrainingWrite() {
 		return "homeTraining/registHomeTraining";
 	}
-	
+
 	// 홈트레이닝 글 등록
 	@Override
 	@RequestMapping(value = "/registHomeTraining.diet")
-	public void registHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void registHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 		MemberVO m = (MemberVO) session.getAttribute("member");
-		
+
 		HomeTrainingVO ht = new HomeTrainingVO();
-		
+
 		ht.setHtWriterNo(m.getMbIndex());
-		
+
 		ht.setHtTitle(request.getParameter("title"));
 		ht.setHtExplain(request.getParameter("content"));
 		ht.setHtStepTime(request.getParameter("time"));
 		ht.setHtStepHard(request.getParameter("hard"));
 		ht.setHtStepKal(request.getParameter("kal"));
 
-    	ht.setHtType(request.getParameter("category"));
-		
-    	if(ht.getHtType().equals("1")) {
-    		ht.setHtPart("전신");
-    		ht.setHtStepType("전신");
-    	}
-    	else if(ht.getHtType().equals("2")) {
-    		ht.setHtPart("복부");
-    		ht.setHtStepType("복부");
-    	}
-    	else if(ht.getHtType().equals("3")) {
-    		ht.setHtPart("상체");
-    		ht.setHtStepType("상체");
-    	}
-    	else if(ht.getHtType().equals("4")) {
-    		ht.setHtPart("하체");
-    		ht.setHtStepType("하체");
-    	}
-    	else if(ht.getHtType().equals("5")) {
-    		ht.setHtPart("스트레칭");
-    		ht.setHtStepType("스트레칭");
-    	}
-    	else if(ht.getHtType().equals("6")) {
-    		ht.setHtPart("댄스");
-    		ht.setHtStepType("댄스");
-    	}		
-    	else if(ht.getHtType().equals("7")) {
-    		ht.setHtPart("요가");
-    		ht.setHtStepType("요가");
-    	}
-    	else if(ht.getHtType().equals("8")) {
-    		ht.setHtPart("4주챌린지");
-    		ht.setHtStepType("4주챌린지");
-    	}
-		
+		ht.setHtType(request.getParameter("category"));
+
+		if (ht.getHtType().equals("1")) {
+			ht.setHtPart("전신");
+			ht.setHtStepType("전신");
+		} else if (ht.getHtType().equals("2")) {
+			ht.setHtPart("복부");
+			ht.setHtStepType("복부");
+		} else if (ht.getHtType().equals("3")) {
+			ht.setHtPart("상체");
+			ht.setHtStepType("상체");
+		} else if (ht.getHtType().equals("4")) {
+			ht.setHtPart("하체");
+			ht.setHtStepType("하체");
+		} else if (ht.getHtType().equals("5")) {
+			ht.setHtPart("스트레칭");
+			ht.setHtStepType("스트레칭");
+		} else if (ht.getHtType().equals("6")) {
+			ht.setHtPart("댄스");
+			ht.setHtStepType("댄스");
+		} else if (ht.getHtType().equals("7")) {
+			ht.setHtPart("요가");
+			ht.setHtStepType("요가");
+		} else if (ht.getHtType().equals("8")) {
+			ht.setHtPart("4주챌린지");
+			ht.setHtStepType("4주챌린지");
+		}
+
 		ht.setHtVideo(request.getParameter("video"));
-		
-	
+
 		ht.setHtMainPhoto("/imageUpload/" + request.getParameter("mainPhotoPath"));
-		
+
 		int result = homeTrainingService.registHomeTraining(ht);
-		
+
 		response.getWriter().print(result);
 		response.getWriter().close();
 	}
-	
+
 	// 게시물 삭제
 	@Override
 	@RequestMapping(value = "/homeTrainingDelete.diet")
-	public void homeTrainingDelete(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		
+	public void homeTrainingDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
 		int result = homeTrainingService.deleteHomeTraining(Integer.parseInt(request.getParameter("indexNo")));
-		
+
 		response.getWriter().println(result);
 		response.getWriter().close();
 	}
-	
+
 	// 홈트레이닝 수정 페이지 불러오기
 	@Override
 	@RequestMapping(value = "/loadUpdateHomeTraining.diet")
 	public String loadUpdateHomeTraining(HttpServletRequest request) {
-		HomeTrainingVO ht = homeTrainingService.loadUpdateHomeTraining(Integer.parseInt(request.getParameter("indexNo")));
-		
+		HomeTrainingVO ht = homeTrainingService
+				.loadUpdateHomeTraining(Integer.parseInt(request.getParameter("indexNo")));
+
 		request.setAttribute("ht", ht);
-		
+
 		return "homeTraining/updateHomeTraining";
 	}
-	
+
 	// 홈트레이닝 수정
 	@Override
 	@RequestMapping(value = "/updateHomeTraining.diet")
-	public void updateHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void updateHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HomeTrainingVO ht = new HomeTrainingVO();
-		
+
 		ht.setHtTitle(request.getParameter("title"));
 		ht.setHtExplain(request.getParameter("content"));
 		ht.setHtStepTime(request.getParameter("time"));
@@ -365,46 +400,39 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		ht.setHtStepKal(request.getParameter("kal"));
 		ht.setIndexNo(Integer.parseInt(request.getParameter("indexNo")));
 
-    	ht.setHtType(request.getParameter("category"));
-		
-    	if(ht.getHtType().equals("1")) {
-    		ht.setHtPart("전신");
-    		ht.setHtStepType("전신");
-    	}
-    	else if(ht.getHtType().equals("2")) {
-    		ht.setHtPart("복부");
-    		ht.setHtStepType("복부");
-    	}
-    	else if(ht.getHtType().equals("3")) {
-    		ht.setHtPart("상체");
-    		ht.setHtStepType("상체");
-    	}
-    	else if(ht.getHtType().equals("4")) {
-    		ht.setHtPart("하체");
-    		ht.setHtStepType("하체");
-    	}
-    	else if(ht.getHtType().equals("5")) {
-    		ht.setHtPart("스트레칭");
-    		ht.setHtStepType("스트레칭");
-    	}
-    	else if(ht.getHtType().equals("6")) {
-    		ht.setHtPart("댄스");
-    		ht.setHtStepType("댄스");
-    	}		
-    	else if(ht.getHtType().equals("7")) {
-    		ht.setHtPart("요가");
-    		ht.setHtStepType("요가");
-    	}
-    	else if(ht.getHtType().equals("8")) {
-    		ht.setHtPart("4주챌린지");
-    		ht.setHtStepType("4주챌린지");
-    	}
-		
+		ht.setHtType(request.getParameter("category"));
+
+		if (ht.getHtType().equals("1")) {
+			ht.setHtPart("전신");
+			ht.setHtStepType("전신");
+		} else if (ht.getHtType().equals("2")) {
+			ht.setHtPart("복부");
+			ht.setHtStepType("복부");
+		} else if (ht.getHtType().equals("3")) {
+			ht.setHtPart("상체");
+			ht.setHtStepType("상체");
+		} else if (ht.getHtType().equals("4")) {
+			ht.setHtPart("하체");
+			ht.setHtStepType("하체");
+		} else if (ht.getHtType().equals("5")) {
+			ht.setHtPart("스트레칭");
+			ht.setHtStepType("스트레칭");
+		} else if (ht.getHtType().equals("6")) {
+			ht.setHtPart("댄스");
+			ht.setHtStepType("댄스");
+		} else if (ht.getHtType().equals("7")) {
+			ht.setHtPart("요가");
+			ht.setHtStepType("요가");
+		} else if (ht.getHtType().equals("8")) {
+			ht.setHtPart("4주챌린지");
+			ht.setHtStepType("4주챌린지");
+		}
+
 		ht.setHtVideo(request.getParameter("video"));
 		ht.setHtMainPhoto("/imageUpload/" + request.getParameter("mainPhotoPath"));
-		
+
 		int result = homeTrainingService.updateHomeTraining(ht);
-		
+
 		response.getWriter().print(result);
 		response.getWriter().close();
 	}
