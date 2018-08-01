@@ -170,7 +170,7 @@
 								<option value="7">7</option>
 								<option value="8">8</option>
 								<option value="9">9</option>
-								<option value="10">10</option>
+								<option value="10" selected>10</option>
 								<option value="11">11</option>
 								<option value="12">12</option>
 								<option value="13">13</option>
@@ -404,9 +404,20 @@
 
 	/* 등록 완료 컨트롤러 호출 */
 	function register() {
+		jQuery.ajaxSettings.traditional = true;
 
 		// 사진 저장
 		var form = new FormData(document.getElementById('photoForm'));
+		var tpTitle = $('#title').val();
+		var tpActiveStart = $('#startDay').val();
+		var tpActiveEnd = $('#endDay').val();
+		var tpContent = $('#summernote').summernote('code');
+		var tpLocation = $('#address').val();
+		var tpCost = $('#tpCost').val();
+		tpCost = tpCost.replace(/[^0-9\.]+/g, "");
+		var tpPersonnel = $('#personnel option:selected').val();
+		
+		var tpActiveDays = $('#dropdown4').val();			
 		$.ajax({
 			url : 'saveDietTipMainPhotoPath.diet',
 			type : 'post',
@@ -415,22 +426,13 @@
 			contentType : false,
 			success : function(data) {
 				$('#mainPhotoPath').val(data);
-				alert('돼써요');
+				var tpMainImage = $('#mainPhotoPath').val();
 
-				// 사진 저장 성공하면 전체 등록 진행
-				var tpTitle = $('#title').val();
-				var tpActiveStart = $('#startDay').val();
-				var tpActiveEnd = $('#endDay').val();
-				var tpContent = $('#summernote').summernote('code');
-				var tpLocation = $('#address').val();
-				var tpCost = $('#tpCost').val();
-				var tpPersonnel = $('#personnel option:selected').val();
-				var $mainPhotoPath = $('#mainPhotoPath').val();
-				var tpActiveDays = $('#dropdown4').val();			
-				
+				// 사진 저장 성공하면 전체 등록 진행				
 				if (tpTrainType != null && tpTitle != '' && tpContent != '') {
+					alert('아무거나');
 					$.ajax({
-						url : '/registTrain.diet',
+						url : '/registTrainerProgram.diet',
 						type : 'post',
 						data : {
 							'tpTitle' : tpTitle,
@@ -440,21 +442,22 @@
 							'tpLocation' : tpLocation,
 							'tpCost' : tpCost,
 							'tpPersonnel' : tpPersonnel,
-							'tpMainImage' : $mainPhotoPath,
-							'tpActiveDays' : tpActiveDays			
+							'tpMainImage' : tpMainImage,
+							'tpActiveDays' : tpActiveDays,
+							'tpTrainType' : tpTrainType
 						},
 						success : function(result) {
 							if (result == 1) {
 								alert('게시글 등록 완료');
-								location.href = "/dietTipList.diet?type=all";
+								
 							} else {
 								alert('게시글 등록 실패');
-								location.href = "/dietTipList.diet?type=all";
+								
 							}
 						},
 						error : function() {
 							alert('게시글 등록 실패(과정 오류)');
-							location.href = "/dietTipList.diet?type=all";
+							
 						}
 					});
 				} else {
