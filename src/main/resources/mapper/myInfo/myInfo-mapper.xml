@@ -21,6 +21,42 @@
 		<result property="mbReport" column="MB_REPORT" />
 		<result property="mbEnrollDate" column="MB_ENROLLDATE" />
 	</resultMap>
+	<!-- 트레이너 자격 신청 리스트 -->
+	<!-- <select id="applyTrainerList" resultType="trainerReg" parameterType="applyTrainerPDVO">
+SELECT
+		TP_INDEX AS tpIndex,
+		TR_INDEX AS trIndex,
+		MB_INDEX AS mbIndex,
+		TP_NAME AS tpName,
+		TP_AGE AS tpAge,
+		TP_PHONE AS tpPhone,
+		TP_GENDER AS tpGender,
+		TP_TRAIN_TYPE AS tpTrain,
+		TP_ACTIVE_TIME AS tpActiveTime,
+		TP_LOCATION AS tpLocation,
+		TP_COST AS tpCost,
+		TP_CONTENT AS tpContent,
+		TP_REGDATE AS tpRegDate
+		FROM
+		(SELECT
+		TRAINER_PROGRAM.*,
+		ROW_NUMBER() OVER(ORDER BY
+		TP_REGDATE
+		DESC) AS NUM FROM TRAINER_PROGRAM
+		WHERE MB_INDEX = #{mbIndex}
+		)WHERE NUM BETWEEN
+		#{start} AND #{end}
+	</select>
+	 -->
+	
+	<!-- 트레이너 자격 신청 페이징 -->
+	<select id="applyTrainerGetNavi" resultType="java.lang.Integer" parameterType="applyTrainerPDVO">
+		SELECT COUNT(*) AS totalCount
+		FROM TRAINER_REG_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</select>
+	
+	
 	<!-- 트레이너회원 - 트레이닝 신청 리스트 -->
 	<select id="myRequestList" resultType="trainerProgram" parameterType="myRequestTrainerPDVO">
 		SELECT
@@ -49,9 +85,9 @@
 	</select>
 
 	<!-- 트레이너회원 - 트레이닝 신청 리스트 페이징 처리 -->
-	<select id="myRequestGetNavi" resultType="java.lang.Integer" parameterType="myCommentPDVO">
+	<select id="myRequestGetNavi" resultType="java.lang.Integer" parameterType="myRequestTrainerPDVO">
 		SELECT COUNT(*) AS totalCount
-		FROM TRAINER_REG_TBL
+		FROM TRAINER_PROGRAM
 		WHERE MB_INDEX = #{mbIndex}
 	</select>
 
