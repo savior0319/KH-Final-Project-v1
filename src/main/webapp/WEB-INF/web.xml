@@ -37,7 +37,7 @@
 		<url-pattern>*.diet</url-pattern>
 	</servlet-mapping>
 
-	<error-page>
+	<!-- <error-page>
 		<error-code>400</error-code>
 		<location>/resources/error/errorpage.jsp</location>
 	</error-page>
@@ -56,5 +56,5 @@
 	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/resources/error/errorpage.jsp</location>
-	</error-page>
+	</error-page> -->
 </web-app>
