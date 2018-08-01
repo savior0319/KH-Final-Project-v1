@@ -6,15 +6,15 @@ import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
-import spring.kh.diet.model.vo.MyPostPageDataVO;
-import spring.kh.diet.model.vo.MyQuestionPageDataVO;
-import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
+import spring.kh.diet.model.vo.MyPostPageDataVO;
+import spring.kh.diet.model.vo.MyQuestionPageDataVO;
+import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
-import spring.kh.diet.model.vo.TrainingRegVo;
+
 
 public interface MyInfoService {
 

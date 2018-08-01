@@ -62,7 +62,6 @@ public class TrainerControllerImpl implements TrainerController {
 		int sessionIndex = ((MemberVO) session.getAttribute("member")).getMbIndex();
 		String trArea = "";
 
-		System.out.println("login user : " + sessionIndex);
 		TrainingRegVO trv = new TrainingRegVO();
 
 		trv.setTrName(trName);
@@ -88,7 +87,6 @@ public class TrainerControllerImpl implements TrainerController {
 
 		int result = trService.trainerReg(trv);
 
-		System.out.println("결과를 보여줘! : " + result);
 
 		if (result > 0) {
 			response.getWriter().print("1");
