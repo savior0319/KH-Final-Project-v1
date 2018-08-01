@@ -10,6 +10,8 @@ import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.TrainerProgramVO;
+import spring.kh.diet.model.vo.TrainingRegVo;
 
 public interface MyInfoDAO {
 
@@ -60,10 +62,10 @@ public interface MyInfoDAO {
 			int naviCountPerPage, String type, MyActivityVO ma);
 
 	ArrayList<QuestionVO> myQuestionList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
-			MemberVO mv);
+			MyActivityVO ma);
 
 	String myQuestionListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
-			int naviCountPerPage, MemberVO mv);
+			int naviCountPerPage, MyActivityVO ma);
 
 	int myLoginCount(SqlSessionTemplate sqlSessionTemplate, MemberVO m);
 
@@ -74,5 +76,13 @@ public interface MyInfoDAO {
 	int deleteMyComment(SqlSessionTemplate sqlSessionTemplate, BoardCommentVO pv);
 
 	int deleteMyBookMark(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO pv);
+
+	ArrayList<TrainerProgramVO> requestTrainerList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainerProgramVO tv);
+
+	String requestTrainerListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, TrainerProgramVO tv);
+
+
 
 }

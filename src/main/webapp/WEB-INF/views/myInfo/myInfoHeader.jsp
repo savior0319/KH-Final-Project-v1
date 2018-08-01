@@ -13,7 +13,7 @@
 			<div class="topBanner">
 				<jsp:include page="/WEB-INF/views/myInfo/myInfoAd.jsp"></jsp:include>
 			</div>
-			<div class="ui eight item menu" id="myInfoMenu">
+			<div class="ui nine item menu" id="myInfoMenu">
 					<a class="item" href="/myInfoUpdate.diet"><i class="info icon"></i>내 정보 변경</a> 
 					<a class="item" href="/myActivityInfo.diet"><i class="clipboard check  outline icon"></i>내 활동 정보</a> 
 					<a class="item" href="/allMyOneToOneQuestion.diet"><i class="question circle outline icon"></i> 1:1 문의</a>
@@ -24,10 +24,11 @@
 					<a class="item" href="/myTrainer.diet"><i class="h square icon"></i>트레이너-일반</a>
 					</c:if>
 					<c:if test="${member.mbGrade == '트레이너'}">
-					<a class="item" href="/myPageTrainer.diet"><i class="h square icon"></i>트레이너 매칭</a>
+					<a class="item" href="/imTrainer.diet"><i class="h square icon"></i>트레이너 매칭</a>
 					</c:if>
 					<c:if test="${member.mbGrade == '관리자'}">
-					<a class="item" href="#"><i class="h square icon"></i>관리자-페이지</a>
+					<a class="item" href="/imTrainer.diet"><i class="h square icon"></i>트레이너 매칭</a>
+					<a class="item" href="/myTrainer.diet"><i class="h square icon"></i>트레이너-일반</a>
 					</c:if>
 					<a class="item" href="/secession.diet"><i class="hand paper icon"></i>회원탈퇴</a>
 			</div>

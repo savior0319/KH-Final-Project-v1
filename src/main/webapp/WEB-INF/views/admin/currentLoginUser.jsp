@@ -85,8 +85,11 @@ body {
 	<br>
 	<div class="ui container">
 		<div class="ui horizontal segments">
-			<div class="ui center aligned segment" style="width:50%">
-				<h1>현재 접속자 : ${requestScope.size} 명</h1>
+			<div class="ui center aligned segment" style="width: 50%">
+				<div class="ui center aligned segment">
+					<h3><i class="address book icon"></i>&nbsp현재 접속자 : ${requestScope.size} 명</h3>
+				</div>
+
 				<div class="ui center aligned segment">
 					<table class="ui celled table">
 						<thead>
@@ -100,7 +103,25 @@ body {
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${requestScope.currentSession.ssList}" var="ss">
+						<c:choose>
+						<c:when test="${requestScope.size==0}">
+						<tr >
+						<td style="height:50px"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						</tr>
+						<tr >
+						<td style="height:50px"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						</tr>
+						</c:when>
+						<c:otherwise>
+						<c:forEach items="${requestScope.currentSession.ssList}" var="ss">
 								<tr align="center">
 									<td>${ss.sessionIp}</td>
 									<td>${ss.state }</td>
@@ -123,42 +144,65 @@ body {
 									</c:choose>
 								</tr>
 							</c:forEach>
+						<div class="ui center aligned basic segment">
+						<div class="ui pagination menu">${requestScope.currentSession.pageNavi}</div>
+						</div>
+						</c:otherwise>
+						</c:choose>							
 						</tbody>
 					</table>
-					<div class="ui center aligned basic segment">
-						<div class="ui pagination menu">${requestScope.currentSession.pageNavi}</div>
-					</div>
+					
 				</div>
 			</div>
-			<div class="ui center aligned segment" style="overflow: auto; height: 300px; width:50%">
-			<h1>
-			오늘접속자 : ${requestScope.totalSize} 명
-			</h1>
-			<table class="ui celled table">
-						<thead>
-							<tr align="center">
-								<th>IP</th>
-								<th>닉네임</th>
-								<th>최초 방문 시간</th>
-								<th>유지시간</th>
-								<th>접속기기</th>
+			<div class="ui center aligned segment"
+				style="overflow: auto; height: 300px; width: 50%">
+				<div class="ui center aligned segment">
+					<h3><i class="address book outline icon">&nbsp</i>오늘접속자 : ${requestScope.totalSize} 명</h3>
+				</div>
+			
+				<table class="ui celled table">
+					<thead>
+						<tr align="center">
+							<th>IP</th>
+							<th>닉네임</th>
+							<th>최초 방문 시간</th>
+							<th>유지시간</th>
+							<th>접속기기</th>
 
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${requestScope.onList}" var="aa">
-								<tr align="center">
-									<td>${aa.sessionIp}</td>
-									<c:choose>
-										<c:when test="${aa.nickName eq 'NULL'}">
-											<td>비회원</td>
-										</c:when>
-										<c:otherwise>
-											<td>${aa.nickName}</td>
-										</c:otherwise>
-									</c:choose>
-									<td>${aa.firstOn}</td>
-									<c:choose>
+						</tr>
+					</thead>
+					<tbody>
+						<c:choose>
+						<c:when test="${requestScope.totalSize==0}">
+						<tr >
+						<td style="height:50px"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						</tr>
+						<tr >
+						<td style="height:50px"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						</tr>
+						</c:when>
+						<c:otherwise>
+						<c:forEach items="${requestScope.onList}" var="aa">
+							<tr align="center">
+								<td>${aa.sessionIp}</td>
+								<c:choose>
+									<c:when test="${aa.nickName eq 'NULL'}">
+										<td>비회원</td>
+									</c:when>
+									<c:otherwise>
+										<td>${aa.nickName}</td>
+									</c:otherwise>
+								</c:choose>
+								<td>${aa.firstOn}</td>
+								<c:choose>
 									<c:when test="${aa.stay > 60}">
 										<td><fmt:formatNumber value="${aa.stay/60.1}" pattern="#" />분</td>
 									</c:when>
@@ -167,31 +211,34 @@ body {
 												value="${aa.stay}" pattern="#" />초</td>
 									</c:otherwise>
 								</c:choose>
-									
-									<c:choose>
-										<c:when test="${aa.device eq 'pc'}">
-											<td>PC</td>
-										</c:when>
-										<c:otherwise>
-											<td>MOBILE</td>
-										</c:otherwise>
-									</c:choose>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-			
+
+								<c:choose>
+									<c:when test="${aa.device eq 'pc'}">
+										<td>PC</td>
+									</c:when>
+									<c:otherwise>
+										<td>MOBILE</td>
+									</c:otherwise>
+								</c:choose>
+							</tr>
+						</c:forEach>
+						</c:otherwise>
+						</c:choose>
+						
+					</tbody>
+				</table>
+
 			</div>
 
 			<br>
 		</div>
 
-		
+
 
 		<div class="ui horizontal segments">
 			<div class="ui segment" style="width: 100%; display: on">
 				<div class="ui center aligned segment">
-					<h5>사용자 접속 기기 분류</h5>
+					<h3> <i class="chart pie icon"></i> &nbsp사용자 접속 기기 분류</h3>
 				</div>
 				<!-- 원형차트  -->
 				<div id="chart_div"></div>
@@ -214,7 +261,7 @@ body {
 
 			<div class="ui segment" style="width: 100%; display: on">
 				<div class="ui center aligned segment">
-					<h5>접속시간대 분석</h5>
+					<h3><i class="chart line icon"></i> &nbsp 접속시간대 분석 &nbsp</h3>
 				</div>
 				<!-- 그래프  -->
 				<div id="linechart_material"></div>
@@ -257,6 +304,7 @@ body {
 			</div>
 			<br> <br>
 		</div>
+		<!-- 		
 		<div class="ui horizontal segments">
 
 			<div class="ui center aligned segment" style="width: 50%">
@@ -264,7 +312,8 @@ body {
 			</div>
 			<div class="ui center aligned segment" style="width: 50%"></div>
 
-		</div>
+		</div> 
+		-->
 </body>
 
 <!-- SCRIPT -->

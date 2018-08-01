@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BlackListContentVO {
 
-	private String postTitle, cmtContent, targetContents, mbNickName, targetMbNickName;
+	private String postTitle, targetContent, cmtContent, mbNickName, targetMbNickName;
 	private int postIndex;
 
 }

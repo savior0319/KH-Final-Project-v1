@@ -6,25 +6,66 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<script src="/resources/slider/responsiveslides.min.js"></script>
 <title>다이어트</title>
 </head>
 
 <!-- CSS -->
 <style>
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
 </style>
 
 
 <body>
+
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
 	<!-- CONTENTS -->
 	<div class="ui container">
+	<!-- 슬라이드-->
+		<ul class="rslides">
+			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
+		</ul>
 		<div class="ui center aligned basic segment">
 
 			<h1 class="ui left aligned header">홈트레이닝</h1>
 			<hr>
 			
+			<c:if test="${sessionScope.member!=null  }">
 			<h3 class="ui left aligned header">맞춤 홈트레이닝 동영상</h3>
 			
 			<!-- 제목 이미지 출력  -->
@@ -32,10 +73,10 @@
 				<div class="column">
 					<div class="ui card">
 						<div class="image">
-							<img src="${requestScope.matchedList[0].htMainPhoto} " style="width: 100%; height: 200px;">
+							<img src="${requestScope.matchedList[0].htMainPhoto}" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })" style="width: 100%; height: 200px; cursor: pointer;">
 						</div>
 						<div class="content">
-							<a class="header">${requestScope.matchedList[0].htTitle }</a>
+							<a class="header" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })" style="height: 50px;">${requestScope.matchedList[0].htTitle }</a>
 							<div class="meta">
 								<span class="date"> <c:choose>
 										<c:when test="${requestScope.matchedList[0].htType==1 }">
@@ -65,11 +106,10 @@
 									</c:choose>
 
 								</span> 
-								<a class="header" onclick="InfoPage(${ht.indexNo})" style="height: 50px;">${ht.htTitle }</a>
-								<div class="meta">
+															
 								<span class="date">${ht.htPart } |</span>
 								 <i	class="heart outline icon"></i> 좋아요
-								  <span class="like" style="color: red">${requestScope.matchedList[2].htLike }</span>
+								  <span class="like" style="color: red">${requestScope.matchedList[0].htLike }</span>
 								  <c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
 								<div class="four wide column">
 								<a style="cursor:pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a>
@@ -77,7 +117,7 @@
 								<a style="cursor:pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
 								</div>
 								</c:if>
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -85,10 +125,10 @@
 				<div class="column">
 					<div class="ui card">
 						<div class="image">
-							<img src="${requestScope.matchedList[1].htMainPhoto} " style="width: 100%; height: 200px;">
+							<img src="${requestScope.matchedList[1].htMainPhoto} " onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType } )" style="width: 100%; height: 200px; cursor: pointer;">
 						</div>
 						<div class="content">
-							<a class="header">${requestScope.matchedList[1].htTitle }</a>
+							<a class="header" onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType })" style="height: 50px;">${requestScope.matchedList[1].htTitle }</a>
 							<div class="meta">
 								<span class="date"> <c:choose>
 										<c:when test="${requestScope.matchedList[1].htType==1 }">
@@ -118,11 +158,10 @@
 									</c:choose>
 
 								</span> 
-								<a class="header" onclick="InfoPage(${ht.indexNo})" style="height: 50px;">${ht.htTitle }</a>
-								<div class="meta">
+								
 								<span class="date">${ht.htPart } |</span>
 								 <i	class="heart outline icon"></i> 좋아요
-								  <span class="like" style="color: red">${requestScope.matchedList[2].htLike }</span>
+								  <span class="like" style="color: red">${requestScope.matchedList[1].htLike }</span>
 								  <c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
 								<div class="four wide column">
 								<a style="cursor:pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a>
@@ -130,7 +169,7 @@
 								<a style="cursor:pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
 								</div>
 								</c:if>
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -138,10 +177,10 @@
 				<div class="column">
 					<div class="ui card">
 						<div class="image">
-							<img src="${requestScope.matchedList[2].htMainPhoto} " style="width: 100%; height: 200px;">
+							<img src="${requestScope.matchedList[2].htMainPhoto} "onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType } )" style="width: 100%; height: 200px; cursor: pointer;">
 						</div>
 						<div class="content">
-							<a class="header">${requestScope.matchedList[2].htTitle }</a>
+							<a class="header" onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType })" style="height: 50px;">${requestScope.matchedList[2].htTitle }</a>
 							<div class="meta">
 								<span class="date"> <c:choose>
 										<c:when test="${requestScope.matchedList[2].htType==1 }">
@@ -171,8 +210,7 @@
 									</c:choose>
 
 								</span> 
-								<a class="header" onclick="InfoPage(${ht.indexNo})" style="height: 50px;">${ht.htTitle }</a>
-								<div class="meta">
+								
 								<span class="date">${ht.htPart } |</span>
 								 <i	class="heart outline icon"></i> 좋아요
 								  <span class="like" style="color: red">${requestScope.matchedList[2].htLike }</span>
@@ -183,13 +221,13 @@
 								<a style="cursor:pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
 								</div>
 								</c:if>
-								</div>
+								
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-							
+		</c:if>					
 
 			<h3 class="ui left aligned header">최신 홈트레이닝 동영상</h3>
 			<hr>
@@ -202,11 +240,11 @@
 					<div class="column">
 						<div class="ui card" >
 							<div class="image">
-								<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo})"
+								<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo}, ${ht.htType })"
 									style="width: 290px; height: 200px; cursor: pointer;">
 							</div>
 							<div class="content">
-								<a class="header" onclick="InfoPage(${ht.indexNo})" style="height: 50px;">${ht.htTitle }</a>
+								<a class="header" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="height: 50px;">${ht.htTitle }</a>
 								<div class="meta">
 									<span class="date">${ht.htPart } |</span>
 									 <i	class="heart outline icon"></i> 좋아요
@@ -282,9 +320,6 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 
-function InfoPage(me){
-	location.href="/homeTrainingInfo.diet?indexNo="+me;
-}
 
 $('.ui.dropdown')
 .dropdown({
@@ -365,9 +400,38 @@ function updateHomeTraining(me){
 	location.href = "loadUpdateHomeTraining.diet?indexNo=" + me;
 }
 
-function InfoPage(me){
-	location.href="/homeTrainingInfo.diet?indexNo="+me;
+function InfoPage(me, me2){
+	var type;
+	if(me2==1){
+		type = "wholeBody";
+	}else if(me2==2){
+		type = "abdomen";
+	}else if(me2==3){
+		type = "upperBody";
+	}else if(me2==4){
+		type = "lowerBody";
+	}else if(me2==5){
+		type = "stretching";
+	}else if(me2==6){
+		type = "dance";
+	}else if(me2==7){
+		type = "yoga";
+	}else if(me2==8){
+		type = "fourChallenge";
+	}
+	
+	
+	location.href="/homeTrainingInfo.diet?indexNo="+me+"&type="+type;
 }
+
+
+//슬라이드
+$(function() {
+	$(".rslides").responsiveSlides({
+		auto : true,
+		timeout : 1500,
+	});
+});
 
 </script>
 

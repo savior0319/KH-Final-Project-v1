@@ -11,6 +11,8 @@ import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.UpMbSeeVO;
 
 @Repository("homeTrainingDAO")
 public class HomeTrainingDAOImpl implements HomeTrainingDAO {
@@ -288,6 +290,27 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO {
 	@Override
 	public int updateHomeTraining(SqlSessionTemplate session, HomeTrainingVO ht) {
 		return session.update("homeTraining.updateHomeTraining", ht);
+	}
+
+	@Override
+	public MemberVO getHtSeeList(SqlSessionTemplate session, int mbIndex) {
+		return session.selectOne("homeTraining.getHtSeeList", mbIndex);
+	}
+
+	@Override
+	public ArrayList<HomeTrainingVO> getMatchedHtList(SqlSessionTemplate session, String type1) {
+		HomeTrainingPageDataVO htpd = new HomeTrainingPageDataVO();
+		htpd.setType(type1);
+	
+		List<HomeTrainingVO> list = session.selectList("homeTraining.getMatchedHtList", htpd);
+	
+		return (ArrayList<HomeTrainingVO>)list;
+	}
+
+	// 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기
+	@Override
+	public void upMbHtSee(SqlSessionTemplate session, UpMbSeeVO ums) {
+		session.update("homeTraining.upMbHtSee", ums);
 	}
 
 }

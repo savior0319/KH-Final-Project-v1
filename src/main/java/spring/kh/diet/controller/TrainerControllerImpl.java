@@ -10,12 +10,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.kh.diet.model.service.TrainerService;
 import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
+
+import org.springframework.web.servlet.ModelAndView;
+
+import spring.kh.diet.model.service.TrainerService;
+import spring.kh.diet.model.vo.TrainerSearchVO;
+
 
 @Controller
 public class TrainerControllerImpl implements TrainerController {
@@ -26,20 +33,23 @@ public class TrainerControllerImpl implements TrainerController {
 	public TrainerControllerImpl() {
 	}
 
-	// Controller 만 있음 Service랑 DAO만들어야 함 //
-
 	/* 트레이너 찾기 */
 	@Override
 	@RequestMapping(value = "/trainerSearchResult.diet")
-	public String trainerSearchResult(@RequestParam String city, @RequestParam String[] area) {
+	public Object trainerSearchResult(@RequestParam String city, @RequestParam String[] area) {
 
-		System.out.println(city);
-
+		TrainerSearchVO tsv = new TrainerSearchVO();
+		tsv.setCity(city);
+		
 		for (int i = 0; i < area.length; i++) {
-			System.out.println(area[i]);
+			tsv.getArea().add(area[i]);
 		}
-
-		return null;
+		
+		ModelAndView view = new ModelAndView();
+		view.addObject("tsv", tsv);
+		view.setViewName("main/trainerFindResult");
+		
+		return view;
 	}
 
 	// 일반회원에서 트레이너로 회원 전환 신청
@@ -89,5 +99,4 @@ public class TrainerControllerImpl implements TrainerController {
 			response.getWriter().close();
 		}
 	}
-
 }

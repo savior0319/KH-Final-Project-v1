@@ -18,7 +18,10 @@ import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
+import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.TrainerProgramVO;
+import spring.kh.diet.model.vo.TrainingRegVo;
 
 @Service("myInfoService")
 public class MyInfoServiceImpl implements MyInfoService {
@@ -201,20 +204,40 @@ public class MyInfoServiceImpl implements MyInfoService {
 	}
 
 	@Override
-	public MyQuestionPageDataVO allMyOneToOneQuestion(int currentPage, MemberVO mv) {
+	public MyQuestionPageDataVO allMyOneToOneQuestion(int currentPage, MyActivityVO ma) {
 		int recordCountPerPage = 5;
 		int naviCountPerPage = 5;
 
 		MyQuestionPageDataVO myQuestion = new MyQuestionPageDataVO();
 
 		ArrayList<QuestionVO> list = (ArrayList<QuestionVO>) myInfoDAO.myQuestionList(SqlSessionTemplate, currentPage,
-				recordCountPerPage, mv);
+				recordCountPerPage, ma);
 		String pageNavi = myInfoDAO.myQuestionListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
-				naviCountPerPage, mv);
+				naviCountPerPage, ma);
+		
 		myQuestion.setComList(list);
 		myQuestion.setPageNavi(pageNavi);
 
 		return myQuestion;
+	}
+
+	@Override
+	public MyRequestTrainerPDVO requestTrainer(int currentPage, TrainerProgramVO tv) {
+		int recordCountPerPage = 5;
+		int naviCountPerPage = 5;
+
+		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
+
+		ArrayList<TrainerProgramVO> list = (ArrayList<TrainerProgramVO>) myInfoDAO.requestTrainerList(SqlSessionTemplate, currentPage,
+				recordCountPerPage, tv);
+		String pageNavi = myInfoDAO.requestTrainerListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
+				naviCountPerPage, tv);
+		
+		System.out.println("list:"+list);
+		myRequest.setComList(list);
+		myRequest.setPageNavi(pageNavi);
+
+		return myRequest;
 	}
 
 }

@@ -171,7 +171,7 @@ public class DietTipControllerImpl implements DietTipController {
 		
 		// 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기
 		MemberVO user = (MemberVO)session.getAttribute("member");
-		if(user!=null) {
+		if(user!=null ) {
 			UpMbSeeVO ums = new UpMbSeeVO();
 			ums.setMbIndex(user.getMbIndex());
 			ums.setType(type);
