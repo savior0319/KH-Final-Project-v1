@@ -18,8 +18,6 @@ public interface AdminController {
 
 	String deleteMemberList(HttpServletRequest request, HttpServletResponse response);
 
-	String trainer();
-
 	String answer(HttpServletRequest request, HttpServletResponse response);
 
 	void answerReg(String content, int index, HttpServletResponse response) throws IOException;
@@ -39,5 +37,7 @@ public interface AdminController {
 	todayAnalyticPDVO todayAutoAnalytics();
 
 	String blackListContent(int index, HttpServletResponse response, HttpServletRequest request);
+
+	String trainer(HttpServletRequest request, HttpServletResponse response);
 
 }

@@ -32,7 +32,7 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
-import spring.kh.diet.model.vo.TrainerProgramVO;
+import spring.kh.diet.model.vo.TrainerProgram;
 
 @SuppressWarnings("all")
 @Controller
@@ -456,7 +456,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public String requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		MemberVO mv = (MemberVO) session.getAttribute("member");
-		TrainerProgramVO tv = new TrainerProgramVO();
+		TrainerProgram tv = new TrainerProgram();
 		tv.setMbIndex(mv.getMbIndex());
 
 		if (request.getParameter("currentPage") == null) {

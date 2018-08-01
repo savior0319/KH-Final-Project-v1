@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
-<title>트레이너 등록</title>
+<title>트레이너 신청</title>
 </head>
 
 <!-- CSS -->
@@ -32,7 +32,7 @@
 			<div class="ui center aligned basic segment">
 				<br>
 				<div class="ui large message">
-					<div class="ui large header">트레이너 회원 등록</div>
+					<div class="ui large header">트레이너 신청</div>
 				</div>
 				<div class="ui small red message">
 					<div class="ui small header">※ 트레이너 회원은 아래 항목 입력 후 관리자의 승인이 필요합니다</div>
@@ -195,7 +195,7 @@
 											<div id="ifSeoul">
 												<select multiple="" name="area1" class="ui search fluid normal dropdown" id="dropdown2">
 													<option value="">선택</option>
-													<option value="전체">전체</option>
+													<!-- <option value="전체">전체</option> -->
 													<option value="강남구">강남구</option>
 													<option value="강동구">강동구</option>
 													<option value="강북구">강북구</option>
@@ -226,7 +226,7 @@
 											<div id="ifIncheon" style="display: none;">
 												<select multiple="" name="area2" class="ui search fluid normal dropdown" id="dropdown3">
 													<option value="">선택</option>
-													<option value="전체">전체</option>
+													<!-- <option value="전체">전체</option> -->
 													<option value="강화군">강화군</option>
 													<option value="계양구">계양구</option>
 													<option value="남동구">남동구</option>
@@ -459,8 +459,9 @@
 		var trImage = new FormData(document.getElementById('photoForm'));
 		
 		
-		if (phonePass == false || weightPass == false || heightPass == false || namePass == false) {
-			alert('트레이너 전환 양식을 확인해주세요');
+		if (phonePass == false || weightPass == false || heightPass == false || namePass == false || 
+				postCode != null || roadAddress != null || trBirth != null || trArea !=null) {
+			alert('트레이너 전환 양식을 모두 작성해주세요.');
 			return false;
 		} else {
 			
