@@ -21,7 +21,7 @@ import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
-import spring.kh.diet.model.vo.TrainingRegVo;
+
 
 @Service("myInfoService")
 public class MyInfoServiceImpl implements MyInfoService {

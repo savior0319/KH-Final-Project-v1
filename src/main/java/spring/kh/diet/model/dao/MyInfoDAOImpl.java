@@ -18,7 +18,6 @@ import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
-import spring.kh.diet.model.vo.TrainingRegVo;
 
 @SuppressWarnings("all")
 @Repository("myInfoDAO")
