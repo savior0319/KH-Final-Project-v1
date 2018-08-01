@@ -38,4 +38,5 @@ public class TrainerControllerImpl implements TrainerController {
 		return view;
 	}
 
+	
 }
