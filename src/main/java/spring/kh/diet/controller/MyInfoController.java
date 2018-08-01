@@ -60,7 +60,7 @@ public interface MyInfoController {
 
 	String requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException;
 
-	String applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+	Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws JsonIOException, IOException;
 
 
