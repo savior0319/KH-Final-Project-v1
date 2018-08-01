@@ -24,6 +24,7 @@
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
 	<!-- CONTENTS -->
+	<input id="mainPhotoPath" type="hidden">
 	<div class="ui container">
 
 		<form action="/bmiCalResult.diet" method="POST">
@@ -78,7 +79,7 @@
 											<td style="width: 13%;">이름</td>
 											<td style="padding-bottom: 30px; padding-top: 30px;">
 												<span class="ui form">
-													<input type="text" name="name" placeholder="이름 입력" id="nameCheck" maxlength="5" autocomplete="off" required />
+													<input type="text" name="trVame" placeholder="이름 입력" id="nameCheck" maxlength="5" autocomplete="off" required />
 												</span>
 												<div id="nameMessage" style="display: none;"></div>
 											</td>
@@ -98,10 +99,10 @@
 										</tr>
 										<tr>
 											<td style="width: 13%;">주소</td>
-											<td style="border-top: 1px solid #EAEAEA;padding-top: 30px;padding-bottom: 30px;">
+											<td style="border-top: 1px solid #EAEAEA; padding-top: 30px; padding-bottom: 30px;">
 												<span class="ui form">
 													<input type="text" id="postcode" name="postcode" class="form-control" style="width: 100px; float: left; margin-right: 10px;" value="" placeholder="우편번호" readonly required />
-													<button class="samll ui button" id="postBtn" onclick="execDaumPostcode();" style="float: left; background: rgb(250,40,40); color: white;"> 주소찾기</button>
+													<button class="samll ui button" id="postBtn" onclick="execDaumPostcode();" style="float: left; background: rgb(250, 40, 40); color: white;">주소찾기</button>
 													<br>
 													<input type="text" id="roadAddress" name="roadAddress" style="margin-top: 20px;" value="" class="form-control" placeholder="주소" readonly required />
 													<input type="text" id="addAddress" name="addAddress" style="margin-top: 10px;" value="" class="form-control" placeholder="상세 주소 입력" autocomplete="off" />
@@ -132,14 +133,14 @@
 									<div class="inline fields" style="margin-bottom: 0px;">
 										<div class="field">
 											<div class="ui radio checkbox">
-												<input type="radio" name="gender" value="f" required>
-												<label>여자</label>
+												<input type="radio" name="gender" value="여" required>
+												<label>여</label>
 											</div>
 										</div>
 										<div class="field">
 											<div class="ui radio checkbox">
-												<input type="radio" name="gender" value="m">
-												<label>남자</label>
+												<input type="radio" name="gender" value="남">
+												<label>남</label>
 											</div>
 										</div>
 									</div>
@@ -245,44 +246,6 @@
 							</td>
 						</tr>
 						<tr style="text-align: center;">
-							<th style="width: 15%;">지도 방법</th>
-							<td>
-								<div class="ui form">
-									<div class="inline fields" style="margin-bottom: 0px;">
-										<div class="field">
-											<div class="ui radio checkbox">
-												<input type="radio" name="teachingMethod" value="group" required>
-												<label>그룹</label>
-											</div>
-										</div>
-										<div class="field">
-											<div class="ui radio checkbox">
-												<input type="radio" name="teachingMethod" value="individual">
-												<label>개인</label>
-											</div>
-										</div>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr style="text-align: center;">
-							<th>가능 요일</th>
-							<td>
-								<select multiple="" name="time" class="ui  search fluid normal dropdown" id="dropdown4" required>
-									<option value="">요일 선택</option>
-									<option value="전체">전체</option>
-									<option value="월요일">월요일</option>
-									<option value="화요일">화요일</option>
-									<option value="수요일">수요일</option>
-									<option value="목요일">목요일</option>
-									<option value="금요일">금요일</option>
-									<option value="토요일">토요일</option>
-									<option value="일요일">일요일</option>
-
-								</select>
-							</td>
-						</tr>
-						<tr style="text-align: center;">
 							<th>경력</th>
 							<td>
 								<div class="ui form">
@@ -342,14 +305,15 @@
 
 
 <script type="text/javascript">
+
+
+
 	/* 사진등록,변경버튼 클릭시 모달 보여주기 */
 	function uploadPictureBtn() {
 		$("#updateProfile").modal('show');
 	}
 
-	
-	
-	
+
 	
 	/* 모달 창 종료 */
 	$("#modalOff").click(function() {
@@ -466,10 +430,71 @@
 
 	//양식 체크 확인
 	function submitBtn() {
+		/* 값 가져오기 */
+		/* 이름 */
+		var trName = $('#nameCheck').val();
+		/* 연락처 */
+		var trPhone = $('#numberCheck').val();
+		/* 주소 */
+		var postCode = $('#postcode').val();
+		var roadAddress = $('#roadAddress').val();
+		var addAddress = $('#addAddress').val();
+		var trAddress = postCode + roadAddress + addAddress;
+		/* 성별 */
+		var trGender = $('input[name=gender]:checked').val();
+		/* 생년월일 */
+		var trBirth = $('#birth').val();
+		/* 키 */
+		var trHeight = $('#heightCheck').val();
+		/* 몸무게 */
+		var trWeight = $('#weightCheck').val();
+		/* 지역 */
+		var trCity =  $("select[name=city]").val();
+		/* 상세 지역 */
+		var seoulArea = $("select[name=area1]").val();
+		var IncheonArea = $("select[name=area2]").val();
+		var trArea = seoulArea + IncheonArea;
+		/* 경력 */
+		var trComment = $('#trComment').val();
+		/* 이미지 */
+		var trImage = new FormData(document.getElementById('photoForm'));
+		
+		
 		if (phonePass == false || weightPass == false || heightPass == false || namePass == false) {
 			alert('트레이너 전환 양식을 확인해주세요');
 			return false;
 		} else {
+			
+			console.log("이름 : " + trName);
+			console.log("핸드폰 : " + trPhone);
+			console.log("우편번호 : " + postcode);
+			console.log("주소 : " + roadAddress);
+			console.log("상세주소 : " + addAddress);
+			console.log("총 주소 : " + trAddress);
+			console.log("생년월일 : " + trBirth);
+			console.log(" 키 : " + trHeight);
+			console.log("몸무게 : " + trWeight);
+			console.log("지역 : " + trCity);
+			console.log("상세 지역 : " + trArea);
+			console.log("경력 : " + trComment);
+			
+			$.ajax({
+	    		url : '/saveDietTipMainPhotoPath.diet',		// 이거는 그냥 dietTip꺼 쓰면 될듯
+	    		type : 'post',
+	    		data : trImage,
+	    		processData: false,
+	    		contentType: false,
+	    		success : function (data){
+	    			var trImagePath = $('#mainPhotoPath').val(data);
+	    		    			 
+	    			alert("이미지 경로 : " + trImagePath);	
+	    			location.href="/trainerMatch.diet";
+	    			
+	    		},
+	    		error : function (data){
+	    			alert('실패ㅋㅋㅋ');
+	    		}
+	    	});
 			alert('신청이 완료되었습니다.');
 			return true;
 		}
@@ -566,19 +591,33 @@
 
 			});
 	//정규표현식 끝!!!!!!
-	
-	
+		
 
+	
 	/* 지역 드롭다운 */
 	$('#dropdown1').dropdown();
 
 	$('#dropdown2').dropdown({
-		maxSelections : 3
-	});
-
+		 maxSelections : 3 
+		});
+	
 	$('#dropdown3').dropdown({
 		maxSelections : 3
 	});
+	
+	
+/* 	$("select[name=area1]").on('change').change(function() {
+		var seoulArea = $("select[name=area1]").val();
+		
+		console.log(seoulArea);
+		
+		if(seoulArea[0] == "전체"){
+			   $(this).siblings().off();
+			$(this).maxSelections = false;
+		}
+		
+		}); */
+	
 
 	$('#dropdown1').change(function() {
 		var loc = $('#dropdown1').val();

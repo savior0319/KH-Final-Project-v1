@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainingRegVo {
-	private String trName, trAddress, trPhone, trDay, trCity, trArea, trTrainType, trImagePath, trComment;
+	private String trName, trAddress, trPhone, trDay, trGender, trCity, trArea, trTrainType, trImagePath, trComment;
 	private int trIndex, mbIndex, trHeight, trWeight;
 	private Timestamp trRegDate;
 	private Date trBirth;

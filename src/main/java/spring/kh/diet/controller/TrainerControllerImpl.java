@@ -1,11 +1,18 @@
 package spring.kh.diet.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import spring.kh.diet.model.service.TrainerService;
+
 @Controller
 public class TrainerControllerImpl implements TrainerController {
+	
+	@Resource(name = "trainerService")
+	private TrainerService trService;
 
 	public TrainerControllerImpl() {
 	}
