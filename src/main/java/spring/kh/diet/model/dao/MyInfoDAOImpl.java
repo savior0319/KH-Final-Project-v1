@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.ApplyTrainerPDVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -17,7 +18,8 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
-import spring.kh.diet.model.vo.TrainerProgram;
+import spring.kh.diet.model.vo.TrainerProgramVO;
+import spring.kh.diet.model.vo.TrainingRegVO;
 
 @SuppressWarnings("all")
 @Repository("myInfoDAO")
@@ -465,26 +467,102 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	}
 
 	@Override
-	public ArrayList<TrainerProgram> requestTrainerList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, TrainerProgram tv) {
+	public ArrayList<TrainerProgramVO> requestTrainerList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainerProgramVO tv) {
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
 
 		myRequest.setStart((currentPage - 1) * recordCountPerPage + 1);
 		myRequest.setEnd(currentPage * recordCountPerPage);
 		myRequest.setMbIndex(tv.getMbIndex());
 
-		List<TrainerProgram> list = sqlSessionTemplate.selectList("myInfo.myRequestList", myRequest);
+		List<TrainerProgramVO> list = sqlSessionTemplate.selectList("myInfo.myRequestList", myRequest);
 
-		return (ArrayList<TrainerProgram>) list;
+		return (ArrayList<TrainerProgramVO>) list;
 	}
 
 	@Override
 	public String requestTrainerListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, int naviCountPerPage, TrainerProgram tv) {
+			int recordCountPerPage, int naviCountPerPage, TrainerProgramVO tv) {
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
 		myRequest.setMbIndex(tv.getMbIndex());
 
 		int recordTotalCount = sqlSessionTemplate.selectOne("myInfo.myRequestGetNavi", myRequest);
+		int pageTotalCount = 0;
+
+		if (recordTotalCount % recordCountPerPage != 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
+
+		int endNavi = startNavi + naviCountPerPage - 1;
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) // 시작이 1페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/imTrainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (i == currentPage) {
+				sb.append(
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/imTrainer.diet?currentPage="
+								+ i + "'><strong>" + i + "</strong></a>");
+			} else {
+				sb.append("<a class='item' href='/imTrainer.diet?currentPage=" + i + "'>" + i + " </a>");
+			}
+		}
+		if (needNext) // 끝 페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/imTrainer.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+		}
+		return sb.toString();
+	}
+
+	@Override
+	public ArrayList<TrainingRegVO> applyTrainerList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainingRegVO tv) {
+		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
+
+		applyTrainer.setStart((currentPage - 1) * recordCountPerPage + 1);
+		applyTrainer.setEnd(currentPage * recordCountPerPage);
+		applyTrainer.setMbIndex(tv.getMbIndex());
+
+		List<TrainingRegVO> list = sqlSessionTemplate.selectList("myInfo.applyTrainerList", applyTrainer);
+
+		return (ArrayList<TrainingRegVO>) list;
+	}
+
+	@Override
+	public String applyTrainerListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, int naviCountPerPage, TrainingRegVO tv) {
+		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
+		applyTrainer.setMbIndex(tv.getMbIndex());
+
+		int recordTotalCount = sqlSessionTemplate.selectOne("myInfo.applyTrainerGetNavi", applyTrainer);
 		int pageTotalCount = 0;
 
 		if (recordTotalCount % recordCountPerPage != 0) {

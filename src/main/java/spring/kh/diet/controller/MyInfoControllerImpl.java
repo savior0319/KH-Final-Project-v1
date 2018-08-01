@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
 import spring.kh.diet.model.service.MyInfoService;
+import spring.kh.diet.model.vo.ApplyTrainerPDVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -32,7 +33,8 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
-import spring.kh.diet.model.vo.TrainerProgram;
+import spring.kh.diet.model.vo.TrainerProgramVO;
+import spring.kh.diet.model.vo.TrainingRegVO;
 
 @SuppressWarnings("all")
 @Controller
@@ -456,7 +458,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public String requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		MemberVO mv = (MemberVO) session.getAttribute("member");
-		TrainerProgram tv = new TrainerProgram();
+		TrainerProgramVO tv = new TrainerProgramVO();
 		tv.setMbIndex(mv.getMbIndex());
 
 		if (request.getParameter("currentPage") == null) {
@@ -465,10 +467,30 @@ public class MyInfoControllerImpl implements MyInfoController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage,tv);
-		System.out.println(myRequest.getComList().get(0).getTpLocation());
 		request.setAttribute("myRequest", myRequest);
 		return "myInfo/imTrainer";
 
+
+	}
+
+	/* 트레이너 자격 신청 (트레이너) */
+
+	@Override
+	@RequestMapping(value = "/applyTrainer.diet")
+	public String applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		TrainingRegVO tv = new TrainingRegVO();
+		tv.setMbIndex(mv.getMbIndex());
+
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage,tv);
+		request.setAttribute("applyTrainer", applyTrainer);
+		return "myInfo/imTrainer";
 
 	}
 

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TrainerProgram {
+public class TrainerProgramVO {
 
 	private int tpIndex, mbIndex, trIndex, tpCost;
 	private String tpName, tpAge, tpPhone, tpGender, tpTrainType, tpActiveTime, tpLocation, tpContent;
