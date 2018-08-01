@@ -12,4 +12,7 @@ public class MyQuestionPageDataVO {
 	private ArrayList<QuestionVO> comList;
 	private String pageNavi, type;
 	private int start, end, mbIndex,bcaIndex;
+	
+
+
 }

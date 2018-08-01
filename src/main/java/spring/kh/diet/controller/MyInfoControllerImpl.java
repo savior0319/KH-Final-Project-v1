@@ -298,7 +298,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			@RequestParam String[] gender, @RequestParam String[] interest) {
 
 		String interestStr = "";
-		
+
 		MemberVO mv = new MemberVO();
 		mv.setMbId(mbId);
 		mv.setMbPwd(mbPwd);
@@ -425,6 +425,8 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 
 		request.setAttribute("myBookMark", myBookMark);
+		System.out.println(" 북마크현재페이지 : " + currentPage);
+
 		return "myInfo/myBookMark";
 
 	}
@@ -432,16 +434,22 @@ public class MyInfoControllerImpl implements MyInfoController {
 	/* 마이페이지 - 일대일 문의 */
 	@Override
 	@RequestMapping(value = "/allMyOneToOneQuestion.diet")
-	public Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request) {
-		MemberVO mv = (MemberVO) session.getAttribute("member");
+	public Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
+		String type = request.getParameter("type");
 		int currentPage; // 현재 페이지 값을 저장하는 변수
+		MemberVO m = (MemberVO) session.getAttribute("member");
+		ma.setMbIndex(m.getMbIndex());
+		
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		MyQuestionPageDataVO myQuestion = myInfoService.allMyOneToOneQuestion(currentPage, mv);
+		MyQuestionPageDataVO myQuestion = myInfoService.allMyOneToOneQuestion(currentPage, ma);
+
 		request.setAttribute("myQuestion", myQuestion);
+		System.out.println("현재페이지 : " + currentPage);
+		
 		return "myInfo/myOneToOneQuestion";
 
 	}
