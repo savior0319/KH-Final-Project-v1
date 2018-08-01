@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="trainer">
+	<resultMap type="trainerReg" id="trainerRegDB">
+		<result property="trIndex" column="TR_INDEX" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="trName" column="TR_NAME" />
+		<result property="trBirth" column="TR_BIRTH" />
+		<result property="trAddress" column="TR_ADDRESS" />
+		<result property="trGender" column="TR_GENDER" />
+		<result property="trPhone" column="TR_PHONE" />
+		<result property="trHeight" column="TR_HEIGHT" />
+		<result property="trWeight" column="TR_WEIGHT" />
+		<result property="trCity" column="TR_CITY" />
+		<result property="trArea" column="TR_AREA" />
+		<result property="trImagePath" column="TR_IMAGE_PATH" />
+		<result property="trContent" column="TR_CONTENT" />
+		<result property="trRegDate" column="TR_REGDATE" />
+	</resultMap>
+	
+	<select id="getTrIndex" parameterType="member" resultType="trainerReg" resultMap="trainerRegDB">
+		SELECT *
+		FROM TRAINER_REG_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</select>
+	
+	<insert id="registTrainerProgram" parameterType="trainerProgram">
+		INSERT INTO TRAINER_PROGRAM_TBL VALUES(TRAINER_PROGRAM_TBL_SEQ.NEXTVAL,#{trIndex},#{mbIndex},#{tpTrainType},#{tpTitle},#{tpMainImage},#{tpActiveStart},#{tpActiveEnd},#{tpActiveDay},#{tpLocation},#{tpCost},#{tpPersonnel},#{tpContent},sysdate)
+	</insert>
+</mapper>

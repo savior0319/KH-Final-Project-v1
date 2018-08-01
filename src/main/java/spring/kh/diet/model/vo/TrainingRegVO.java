@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TrainingRegVo {
-	private String trName, trAddress, trPhone, trDay, trGender, trCity, trArea, trTrainType, trImagePath, trComment;
+public class TrainingRegVO {
+	private String trName, trAddress, trPhone, trDay, trGender, trCity, trArea, trTrainType, trImagePath, trContent;
 	private int trIndex, mbIndex, trHeight, trWeight;
 	private Timestamp trRegDate;
 	private Date trBirth;
