@@ -8,6 +8,8 @@ import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.UpMbSeeVO;
 
 public interface HomeTrainingDAO {
 
@@ -38,6 +40,12 @@ public interface HomeTrainingDAO {
 	HomeTrainingVO loadUpdateHomeTraining(SqlSessionTemplate session, int indexNo);
 	
 	int updateHomeTraining(SqlSessionTemplate session, HomeTrainingVO ht);
+
+	MemberVO getHtSeeList(SqlSessionTemplate session, int mbIndex);
+
+	ArrayList<HomeTrainingVO> getMatchedHtList(SqlSessionTemplate session, String type1);
+
+	void upMbHtSee(SqlSessionTemplate session, UpMbSeeVO ums);
 
 
 }

@@ -7,6 +7,8 @@ import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.UpMbSeeVO;
 
 public interface HomeTrainingService {
 
@@ -35,6 +37,12 @@ public interface HomeTrainingService {
     HomeTrainingVO loadUpdateHomeTraining(int indexNo);
     
     int updateHomeTraining(HomeTrainingVO ht);
+
+	ArrayList<HomeTrainingVO> getMatchedHtList(String type1);
+
+	MemberVO getHtSeeList(int mbIndex);
+
+	void upMbHtSee(UpMbSeeVO ums);
     
     
 }
