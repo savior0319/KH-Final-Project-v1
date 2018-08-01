@@ -43,7 +43,6 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.allCommunityList", cpdv);
 
-		
 		return (ArrayList<BoardPostVO>) list;
 
 	}
@@ -56,8 +55,8 @@ public class CommunityDAOImpl implements CommunityDAO {
 		cpdv.setType(type);
 		cpdv.setCategory(category);
 		cpdv.setSearchText(searchText);
-		
-		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi",cpdv);
+
+		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi", cpdv);
 
 		int pageTotalCount = 0;
 		if (recordTotalCount % recordCountPerPage != 0) {
@@ -121,7 +120,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Override
 	public ArrayList<BoardPostVO> recipeBoardList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, int naviCountPerPage, String type) {
-		
+
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 
 		cpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
@@ -135,15 +134,15 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	// 페이징 처리 네비
 	@Override
-	public String getRecipeListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, int naviCountPerPage, String type) {
+	public String getRecipeListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, String type) {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
 		cpdv.setType(type);
-		if(cpdv.getCategory()==null) {
+		if (cpdv.getCategory() == null) {
 			cpdv.setCategory("");
 		}
-		
-		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi",cpdv);
+
+		int recordTotalCount = sqlSessionTemplate.selectOne("community.getNavi", cpdv);
 
 		int pageTotalCount = 0;
 		if (recordTotalCount % recordCountPerPage != 0) {
@@ -190,8 +189,8 @@ public class CommunityDAOImpl implements CommunityDAO {
 						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/recipeBoard.diet?type="
 								+ type + "&currentPage=" + i + "'><strong>" + i + "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/recipeBoard.diet?type=" + type + "&currentPage=" + i + "'> "
-						+ i + " </a>");
+				sb.append("<a class='item' href='/recipeBoard.diet?type=" + type + "&currentPage=" + i + "'> " + i
+						+ " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
@@ -203,21 +202,21 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return sb.toString();
 	}
 
-	//등록된 글 들어가는 곳
+	// 등록된 글 들어가는 곳
 	@Override
 	public BoardPostVO postedCommunity(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
-		BoardPostVO bpv = sqlSessionTemplate.selectOne("community.postedOne",postIndex);
-		
+		BoardPostVO bpv = sqlSessionTemplate.selectOne("community.postedOne", postIndex);
+
 		return bpv;
 	}
 
 	// 글삭제
 	@Override
 	public int deletePost(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
-		return sqlSessionTemplate.delete("community.deletePost",postIndex);
+		return sqlSessionTemplate.delete("community.deletePost", postIndex);
 	}
 
-	//최신순 & 조회순
+	// 최신순 & 조회순
 	@Override
 	public ArrayList<BoardPostVO> viewAllList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, String type, String postSort, String category, String searchText) {
@@ -230,13 +229,12 @@ public class CommunityDAOImpl implements CommunityDAO {
 		cpdv.setCategory(category);
 		cpdv.setSearchText(searchText);
 
-				
 		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.viewList", cpdv);
-		
+
 		return (ArrayList<BoardPostVO>) list;
 	}
 
-	//레시피 식단 최신순 & 조회순
+	// 레시피 식단 최신순 & 조회순
 	@Override
 	public ArrayList<BoardPostVO> recipeViewList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, int naviCountPerPage, String type, String postSort) {
@@ -252,35 +250,33 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return (ArrayList<BoardPostVO>) list;
 	}
 
-	
-	//검색
+	// 검색
 	@Override
 	public ArrayList<BoardPostVO> searchList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, String searchText, String category) {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
-		
+
 		cpdv.setSearchText(searchText);
 		cpdv.setCategory(category);
 		cpdv.setSearchText(searchText);
 		cpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
 		cpdv.setEnd(currentPage * recordCountPerPage);
-		
 
 		List<BoardPostVO> list = sqlSessionTemplate.selectList("community.searchList", cpdv);
-		
+
 		return (ArrayList<BoardPostVO>) list;
 	}
 
-	//검색 페이징 
+	// 검색 페이징
 	@Override
 	public String getSearchListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, String searchText, String category) {
 		CommunityPageDataVO cpdv = new CommunityPageDataVO();
-		
+
 		cpdv.setSearchText(searchText);
 		cpdv.setCategory(category);
-		
-		int recordTotalCount = sqlSessionTemplate.selectOne("community.getSearchNavi",cpdv);
+
+		int recordTotalCount = sqlSessionTemplate.selectOne("community.getSearchNavi", cpdv);
 
 		int pageTotalCount = 0;
 		if (recordTotalCount % recordCountPerPage != 0) {
@@ -317,31 +313,31 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/communitySearch.diet?category="+category+"&searchText=" + searchText + "&currentPage=" + (startNavi - 1)
-					+ "'> &lt; </a>");
+			sb.append("<a class='item' href='/communitySearch.diet?category=" + category + "&searchText=" + searchText
+					+ "&currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/communitySearch.diet?category="+category+"&searchText="
-								+ searchText + "&currentPage=" + i + "'><strong>" + i + "</strong></a>");
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/communitySearch.diet?category="
+								+ category + "&searchText=" + searchText + "&currentPage=" + i + "'><strong>" + i
+								+ "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/communitySearch.diet?category="+category+"&searchText=" + searchText + "&currentPage=" + i + "'> "
-						+ i + " </a>");
+				sb.append("<a class='item' href='/communitySearch.diet?category=" + category + "&searchText="
+						+ searchText + "&currentPage=" + i + "'> " + i + " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/communitySearch.diet?category="+category+"&searchText=" + searchText + "&currentPage=" + (endNavi + 1)
-					+ "'> &gt; </a>");
+			sb.append("<a class='item' href='/communitySearch.diet?category=" + category + "&searchText=" + searchText
+					+ "&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
 
 		return sb.toString();
 	}
 
-	
-	//조회수 증가
+	// 조회수 증가
 	public int postHit(SqlSessionTemplate sqlSessionTemplate, int postIndex) {
 		int result = sqlSessionTemplate.update("community.postHit", postIndex);
 		return result;
@@ -349,32 +345,30 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public BoardLikeVO checkBoardLike(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO) {
-		System.out.println("DAOcheckVO : " + checkVO);
 		BoardLikeVO blv = sqlSessionTemplate.selectOne("community.checkLike", checkVO);
-
 		return blv;
 	}
 
 	@Override
 	public int boardLikeDown(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv) {
-		int result = sqlSessionTemplate.delete("community.likeDown",blv);
+		int result = sqlSessionTemplate.delete("community.likeDown", blv);
 		return result;
 	}
 
 	@Override
 	public int boardLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO) {
-		int result = sqlSessionTemplate.insert("community.likeUp",checkVO);
+		int result = sqlSessionTemplate.insert("community.likeUp", checkVO);
 		return result;
 	}
 
 	@Override
 	public int postLikeDown(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv) {
-		return sqlSessionTemplate.update("community.postDown",blv);
+		return sqlSessionTemplate.update("community.postDown", blv);
 	}
 
 	@Override
 	public int postLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO checkVO) {
-		return sqlSessionTemplate.update("community.postUp",checkVO);
+		return sqlSessionTemplate.update("community.postUp", checkVO);
 	}
 
 	@Override
@@ -385,42 +379,42 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public int bookMarkOff(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO bbmv) {
-		return sqlSessionTemplate.delete("community.bookMarkOff",bbmv);
+		return sqlSessionTemplate.delete("community.bookMarkOff", bbmv);
 	}
 
 	@Override
 	public int bookMarkOn(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO checkVO) {
-		return sqlSessionTemplate.insert("community.bookMarkOn",checkVO);
+		return sqlSessionTemplate.insert("community.bookMarkOn", checkVO);
 	}
 
 	@Override
 	public BoardBlameVO checkPostBlame(SqlSessionTemplate sqlSessionTemplate, BoardBlameVO checkBlame) {
-		return sqlSessionTemplate.selectOne("community.checkPostBlame",checkBlame);
+		return sqlSessionTemplate.selectOne("community.checkPostBlame", checkBlame);
 	}
 
 	@Override
 	public int postReport(SqlSessionTemplate sqlSessionTemplate, BoardBlameVO report) {
-		return sqlSessionTemplate.insert("community.postReport",report);
+		return sqlSessionTemplate.insert("community.postReport", report);
 	}
 
 	@Override
 	public int modifyResgistCommunity(SqlSessionTemplate sqlSessionTemplate, BoardPostVO bpv) {
-		return sqlSessionTemplate.update("community.modifyRegist",bpv);
-		
+		return sqlSessionTemplate.update("community.modifyRegist", bpv);
+
 	}
 
 	@Override
 	public BoardLikeVO checkCommentLike(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO likeCheckVO) {
-		return sqlSessionTemplate.selectOne("community.checkCmtLike",likeCheckVO);
+		return sqlSessionTemplate.selectOne("community.checkCmtLike", likeCheckVO);
 	}
 
 	@Override
 	public int commentLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv) {
-		return sqlSessionTemplate.insert("community.cmtLikeUp",blv);
+		return sqlSessionTemplate.insert("community.cmtLikeUp", blv);
 	}
 
 	@Override
 	public int commentTBLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv) {
-		return sqlSessionTemplate.update("community.cmtTBLikeUp",blv);
-	}	
+		return sqlSessionTemplate.update("community.cmtTBLikeUp", blv);
+	}
 }

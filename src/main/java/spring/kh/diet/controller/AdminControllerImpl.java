@@ -42,7 +42,7 @@ import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 @Controller
 public class AdminControllerImpl implements AdminController {
 
-	@Resource(name="adminService")
+	@Resource(name = "adminService")
 	private AdminService as;
 
 	@SuppressWarnings("unused")
@@ -155,7 +155,7 @@ public class AdminControllerImpl implements AdminController {
 
 		CurrentDate CD = new CurrentDate(PC, MOBILE, AtoBOn, BtoCOn, CtoDOn, DtoEOn, EtoFOn, AtoBOff, BtoCOff, CtoDOff,
 				DtoEOff, EtoFOff);
-//		System.out.println(list.toString());
+		// System.out.println(list.toString());
 		ASLPDVO.setType(request.getParameter("type"));
 		request.setAttribute("currentSession", ASLPDVO);
 		request.setAttribute("size", ASLPDVO.getSsList().size());
@@ -300,12 +300,10 @@ public class AdminControllerImpl implements AdminController {
 	/* 블랙리스트 신고당한 회원 조회 */
 	@Override
 	@RequestMapping(value = "/blackListContent.diet")
-	public String blackListContent(@RequestParam int index) {
-
+	public String blackListContent(@RequestParam int index, HttpServletResponse response, HttpServletRequest request) {
 		ArrayList<BlackListContentVO> bcv = as.blackListContent(index);
-
-		System.out.println(bcv.toString());
-		return null;
+		request.setAttribute("content", bcv);
+		return "admin/blackListContent";
 	}
 
 	////////////////////////////
@@ -329,8 +327,8 @@ public class AdminControllerImpl implements AdminController {
 		yesterdayAnalytic yAPDVO = yesterdayAnalytics();
 		yAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Before", yAPDVO);
-//		System.out.println(yAPDVO.toString());
-		
+		// System.out.println(yAPDVO.toString());
+
 		// 오늘 가입한 맴버 가져오기
 		ArrayList<MemberVO> MVO = as.searchMember();
 		ArrayList<MemberVO> MVO2 = as.memberList();

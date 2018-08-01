@@ -231,6 +231,8 @@
 			</div>
 			<hr>
 		</div>
+		<label class="ui large header">ㅇㅇㅇㅇㅇㅇ</label>
+		<hr>
 		<div class="ui three column grid">
 			<div class="column">
 				<table id="boardTbl1" class="ui table">
