@@ -75,6 +75,12 @@ public interface AdminService {
 
 	ArrayList<BlackListContentVO> blackListContent(int index);
 
+	void yesterdayUpdate(yesterdayAnalyticsPDVO yAPDVO);
+
+	int searchBeforeDayList();
+
+	ArrayList<TodayAnalyticsDetail> TodayAnalyticsDetailList();
+
 	
 
 }

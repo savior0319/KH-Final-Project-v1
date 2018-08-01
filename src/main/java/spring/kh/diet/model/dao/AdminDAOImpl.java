@@ -550,6 +550,27 @@ public class AdminDAOImpl implements AdminDAO {
 		return (ArrayList<BlackListContentVO>) list;
 	}
 
+	@Override
+	public int yesterdayUpdate(SqlSessionTemplate session, yesterdayAnalyticsPDVO yAPDVO) {
+		int result =  session.update("admin.yesterdayUpdate",yAPDVO);
+		return result;
+	}
+
+	@Override
+	public int searchBeforeDayList(SqlSessionTemplate session) {
+		int result = 0;
+		if (session.selectOne("admin.searchBeforeDayList") != null) {
+			result = 1;
+		}
+		return result;
+	}
+
+	@Override
+	public ArrayList<TodayAnalyticsDetail> TodayAnalyticsDetailList(SqlSessionTemplate session) {
+		List<?> list = session.selectList("admin.TodayAnalyticsDetailList");
+		return (ArrayList<TodayAnalyticsDetail>)list;
+	}
+
 
 	
 

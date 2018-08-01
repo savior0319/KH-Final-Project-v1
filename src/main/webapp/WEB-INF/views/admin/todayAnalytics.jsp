@@ -31,30 +31,27 @@ body {
 
 	function drawVisualization() {
 		var data = google.visualization.arrayToDataTable([
-				[ 'Month', 'Bolivia', 'Ecuador', 'Madagascar',
-						'Papua New Guinea', 'Rwanda', 'Average' ],
-				[ '2004/05', 165, 938, 522, 998, 450, 614.6 ],
-				[ '2005/06', 135, 1120, 599, 1268, 288, 682 ],
-				[ '2006/07', 157, 1167, 587, 807, 397, 623 ],
-				[ '2007/08', 139, 1110, 615, 968, 215, 609.4 ],
-				[ '2008/09', 136, 691, 629, 1026, 366, 569.6 ] ]);
+				[ '종류','조회수', '댓글수', '게시물수', '좋아요수','총계','평균' ],
+				[ '다이어트팁', 165, 938, 522, 998, 450, 614.6 ],
+				[ '홈트레이닝', 135, 1120, 599, 1268, 288, 682 ],
+				[ '커뮤니티', 157, 1167, 587, 807, 397, 623 ] ]);
 		var options = {
-			title : 'Monthly Coffee Production by Country',
-			vAxis : {
-				title : 'Cups'
-			},
-			hAxis : {
-				title : 'Month'
-			},
+			selectionMode: 'multiple',
+			tooltip: {trigger: 'selection'},
+			aggregationTarget: 'category',
+			title : '게시판별 분석 차트',
+			vAxis : {title : '시간'},
+			hAxis : {title : '게시판'},
 			seriesType : 'bars',
 			series : {
-				5 : {
+				3 : {
 					type : 'line'
 				}
 			}
 		};
 
-		var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+		var chart = new google.visualization.ComboChart(document
+				.getElementById('chart_div'));
 		chart.draw(data, options);
 	}
 </script>
@@ -128,15 +125,15 @@ body {
 		<div class="ui horizontal segments">
 			<div class="ui center aligned segment" style="width: 20%">
 				<h3>
-					<i class="eye icon"></i>   조회수 증가량   
+					<i class="eye icon"></i> 조회수 증가량
 				</h3>
 				<div class="ui segment">
-					<h4 style="color: green">${todayhits} (▲)</h4>
+					<h4 style="color: green">${todayhits}(▲)</h4>
 				</div>
 			</div>
 			<div class="ui center aligned segment" style="width: 20%">
 				<h3>
-					<i class="comment alternate outline icon"></i>   댓글 증가량    
+					<i class="comment alternate outline icon"></i> 댓글 증가량
 				</h3>
 				<div class="ui segment">
 					<c:choose>
@@ -166,7 +163,7 @@ body {
 			</div>
 			<div class="ui center aligned segment" style="width: 20%">
 				<h3>
-					<i class="edit icon"></i>  게시물 증가량
+					<i class="edit icon"></i> 게시물 증가량
 				</h3>
 				<div class="ui segment">
 					<c:choose>
@@ -225,15 +222,14 @@ body {
 
 
 			</div>
-			
+
 			<div class="ui center aligned segment" style="width: 20%">
 				<h3>
-					<i class="chart line icon"></i> 방문자수 
+					<i class="chart line icon"></i> 방문자수
 				</h3>
 				<div class="ui segment">
 					<h4 style="color: green">
-						${requestScope.OnSessionSize+requestScope.AllSessionSize} (▲)
-					</h4>
+						${requestScope.OnSessionSize+requestScope.AllSessionSize} (▲)</h4>
 				</div>
 
 
@@ -251,7 +247,8 @@ body {
 					</c:when>
 					<c:otherwise>
 						<h3>
-							<i class="user plus icon"></i>   오늘 가입한 멤버 : <span style="color: green">
+							<i class="user plus icon"></i> 오늘 가입한 멤버 : <span
+								style="color: green">
 								${requestScope.todayInsertMemberSize} 명(▲)</span>
 						</h3>
 					</c:otherwise>
@@ -261,7 +258,7 @@ body {
 
 
 				<div class="ui center aligned segment"
-				style="overflow: auto; height: 300px">
+					style="overflow: auto; height: 300px">
 					<table class="ui celled table">
 						<thead>
 							<tr align="center">
@@ -273,23 +270,43 @@ body {
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${requestScope.todayInsertMember}" var="is" varStatus="status">
-								<tr align="center">
-									<td style="width:10%"> <c:out value="${status.index+1}" /></td>
-									<td style="width: 30%">${is.mbId}</td>
-									<td style="width: 30%">${is.mbNickName}</td>
-									<c:choose>
-										<c:when test="${is.mbGender eq 'm'}">
-											<td style="width: 30%">남 성</td>
-										</c:when>
-										<c:otherwise>
-											<td style="width: 30%">여 성</td>
-										</c:otherwise>
-									</c:choose>
+							<c:choose>
+								<c:when test="${requestScope.todayInsertMemberSize==0}">
+									<tr>
+										<td style="height: 100px"></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td style="height: 100px"></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${requestScope.todayInsertMember}" var="is"
+										varStatus="status">
+										<tr align="center">
+											<td style="width: 10%"><c:out value="${status.index+1}" /></td>
+											<td style="width: 30%">${is.mbId}</td>
+											<td style="width: 30%">${is.mbNickName}</td>
+											<c:choose>
+												<c:when test="${is.mbGender eq 'm'}">
+													<td style="width: 30%">남 성</td>
+												</c:when>
+												<c:otherwise>
+													<td style="width: 30%">여 성</td>
+												</c:otherwise>
+											</c:choose>
 
 
-								</tr>
-							</c:forEach>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+
 						</tbody>
 					</table>
 				</div>
@@ -299,53 +316,107 @@ body {
 				<c:choose>
 					<c:when test="${requestScope.todayDelMemberSize  == 0}">
 						<h3>
-							<i class="user times icon"></i>  오늘 탈퇴한 멤버 : <span>
+							<i class="user times icon"></i> 오늘 탈퇴한 멤버 : <span>
 								${requestScope.todayDelMemberSize } 명 (-)</span>
 						</h3>
 					</c:when>
 					<c:otherwise>
 						<h3>
-							<i class="user times icon"></i>	 오늘 탈퇴한 멤버 : <span style="color: red">
-								${requestScope.todayDelMemberSize } 명 (▼)</span>
+							<i class="user times icon"></i> 오늘 탈퇴한 멤버 : <span
+								style="color: red"> ${requestScope.todayDelMemberSize } 명
+								(▼)</span>
 						</h3>
 					</c:otherwise>
 				</c:choose>
 
-				<div>
+				<div class="ui center aligned segment"
+					style="overflow: auto; height: 300px">
 					<table class="ui celled table">
 						<thead>
-							<tr align="center">	
-								<th style="width:10%">비고</th>
-								<th style="width:40%">아이디</th>
-								<th style="width:15%">닉네임</th>
-								<th style="width:15%">성 별</th>
-								<th style="width:20%">가입일</th>
+							<tr align="center">
+								<th style="width: 10%">비고</th>
+								<th style="width: 40%">아이디</th>
+								<th style="width: 15%">닉네임</th>
+								<th style="width: 15%">성 별</th>
+								<th style="width: 20%">가입일</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${requestScope.todayDelMember}" var="ds" varStatus="status">
-								<tr align="center">
-								<td style="width:10%"> <c:out value="${status.index+1}" /></td>
-									<td style="width: 40%">${ds.mbId}</td>
-									<td style="width: 15%">${ds.mbNickName}</td>
-									<c:choose>
-										<c:when test="${ds.mbGender eq 'm'}">
-											<td style="width: 15%">남 성</td>
-										</c:when>
-										<c:otherwise>
-											<td style="width: 15%">여 성</td>
-										</c:otherwise>
-									</c:choose>
-									<td style="width: 20%">${ds.mbDeleteDate}</td>
-								</tr>
-							</c:forEach>
+							<c:choose>
+								<c:when test="${requestScope.todayDelMemberSize==0}">
+									<tr>
+										<td style="height: 100px"></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td style="height: 100px"></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${requestScope.todayDelMember}" var="ds"
+										varStatus="status">
+										<tr align="center">
+											<td style="width: 10%"><c:out value="${status.index+1}" /></td>
+											<td style="width: 40%">${ds.mbId}</td>
+											<td style="width: 15%">${ds.mbNickName}</td>
+											<c:choose>
+												<c:when test="${ds.mbGender eq 'm'}">
+													<td style="width: 15%">남 성</td>
+												</c:when>
+												<c:otherwise>
+													<td style="width: 15%">여 성</td>
+												</c:otherwise>
+											</c:choose>
+											<td style="width: 20%">${ds.mbDeleteDate}</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+
 						</tbody>
 					</table>
 				</div>
 			</div>
+		</div>
+		<br>
+		<div class="ui horizontal segments">
+			<div class="ui center aligned segment" style="width: 50%">
+				<h3>테스트</h3>
+				<div class="ui center aligned segment"
+					style="overflow: auto; height: 300px"></div>
+			</div>
+			<div class="ui center aligned segment" style="width: 50%">
+				<h3>테스트</h3>
+				<div class="ui center aligned segment"
+					style="overflow: auto; height: 300px"></div>
+			</div>
 
 		</div>
+		<br>
+		<div class="ui horizontal segments">
+			<div class="ui center aligned segment" style="width: 50%">
+				<h3>테스트</h3>
 
+				<div id="chart_div" class="ui segment"
+					style="width: 900px; height: 500px;"></div>
+			</div>
+
+		</div>
+		<div class="ui center aligned segment" style="width: 50%">
+			<h3>테스트</h3>
+			<div class="ui center aligned segment"
+				style="overflow: auto; height: 300px"></div>
+		</div>
+
+	</div>
+	<%-- 
  <!-- 삭제 -->
 		<div class="ui  segments">
 
@@ -457,7 +528,7 @@ body {
 	</div>
 	<br>
 	<br>
-	<br>
+	<br> --%>
 	<!-- <div id="chart_div" class="ui segment"
 					style="width: 900px; height: 500px;"></div>
 			</div> -->
