@@ -58,7 +58,7 @@ SELECT
 	
 	
 	<!-- 트레이너회원 - 트레이닝 신청 리스트 -->
-	<select id="myRequestList" resultType="trainerProgramVO" parameterType="myRequestTrainerPDVO">
+	<select id="myRequestList" resultType="trainerProgram" parameterType="myRequestTrainerPDVO">
 		SELECT
 		TP_INDEX AS tpIndex,
 		TR_INDEX AS trIndex,

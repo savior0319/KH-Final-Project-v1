@@ -1,5 +1,7 @@
 package spring.kh.diet.controller;
 
+import javax.servlet.http.HttpSession;
+import spring.kh.diet.model.vo.TrainerProgramVO;
 import java.io.IOException;
 import java.sql.Date;
 
