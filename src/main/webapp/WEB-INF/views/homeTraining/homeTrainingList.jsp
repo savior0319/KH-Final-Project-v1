@@ -6,11 +6,44 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<script src="/resources/slider/responsiveslides.min.js"></script>
 <title>다이어트</title>
 </head>
 
 <!-- CSS -->
 <style>
+
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
 </style>
 
 
@@ -24,7 +57,13 @@
 	<div class="ui center aligned basic segment">
 
 		<div class="ui center aligned container">
-			<div class="ui panorama test ad" data-text="Panorama"></div>
+			<!-- 슬라이드-->
+		<ul class="rslides">
+			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
+		</ul>
 
 			<h1 class="ui left aligned header">
 				홈트레이닝 >
@@ -130,7 +169,7 @@
 
 <script type="text/javascript">
 	function InfoPage(me){
-		location.href="/homeTrainingInfo.diet?indexNo="+me;
+		location.href="/homeTrainingInfo.diet?indexNo="+me+"&type=${requestScope.type }";
 	}
 </script>
 
@@ -216,6 +255,14 @@ function updateHomeTraining(me){
 	location.href = "loadUpdateHomeTraining.diet?indexNo=" + me;
 }
 
+
+//슬라이드
+$(function() {
+	$(".rslides").responsiveSlides({
+		auto : true,
+		timeout : 1500,
+	});
+});
 
 </script>
 </html>

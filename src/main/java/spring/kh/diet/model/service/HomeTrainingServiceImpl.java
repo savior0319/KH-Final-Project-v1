@@ -14,6 +14,8 @@ import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingLikeVO;
 import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.HomeTrainingVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.UpMbSeeVO;
 
 @Service("homeTrainingService")
 public class HomeTrainingServiceImpl implements HomeTrainingService{
@@ -125,6 +127,21 @@ public class HomeTrainingServiceImpl implements HomeTrainingService{
 	@Override
 	public int updateHomeTraining(HomeTrainingVO ht) {
 		return homeTrainingDAO.updateHomeTraining(session, ht);
+	}
+
+	@Override
+	public MemberVO getHtSeeList(int mbIndex) {
+		return homeTrainingDAO.getHtSeeList(session, mbIndex);
+	}
+
+	@Override
+	public ArrayList<HomeTrainingVO> getMatchedHtList(String type1) {
+		return homeTrainingDAO.getMatchedHtList(session, type1);
+	}
+
+	@Override
+	public void upMbHtSee(UpMbSeeVO ums) {
+		homeTrainingDAO.upMbHtSee(session, ums);
 	}
 
 

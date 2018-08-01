@@ -10,4 +10,6 @@ public interface AdminAnalyticsDAO {
 
 	int selectAnalytics(SqlSessionTemplate session, int timeType);
 
+	int updateAnalytics(SqlSessionTemplate session, TodayAnalyticsDetail tAD);
+
 }

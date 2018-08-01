@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.TrainerDAO;
+import spring.kh.diet.model.vo.TrainingRegVO;
 
 
 @Service("trainerService")
@@ -17,6 +18,12 @@ public class TrainerServiceImpl  implements TrainerService {
 
 	@Autowired
 	private SqlSessionTemplate session;
+
+	@Override
+	public int trainerReg(TrainingRegVO register) {
+		
+		return trDao.trainerReg(session, register);
+	}
 	
 	
 	

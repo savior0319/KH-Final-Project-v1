@@ -263,5 +263,88 @@
 		]]>
 		
 	</select>
+	
+	<!-- 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기 -->
+	<update id="upMbHtSee" parameterType="upMbSee">
+		UPDATE MEMBER_TBL SET
+		<choose>
+			<when test="type.equals('wholeBody')">
+				MB_HT_WB_SEE = MB_HT_WB_SEE + 1
+			</when>
+			<when test="type.equals('abdomen')">
+				MB_HT_ABM_SEE = MB_HT_ABM_SEE + 1
+			</when>
+			<when test="type.equals('upperBody')">
+				MB_HT_UB_SEE = MB_HT_UB_SEE + 1
+			</when>
+			<when test="type.equals('lowerBody')">
+				MB_HT_LB_SEE = MB_HT_LB_SEE + 1
+			</when>
+			<when test="type.equals('stretching')">
+				MB_HT_ST_SEE = MB_HT_ST_SEE + 1
+			</when>
+			<when test="type.equals('dance')">
+				MB_HT_DC_SEE = MB_HT_DC_SEE + 1
+			</when>
+			<when test="type.equals('yoga')">
+				MB_HT_YOGA_SEE = MB_HT_YOGA_SEE + 1
+			</when>
+			<when test="type.equals('fourChallenge')">
+				MB_HT_FC_SEE = MB_HT_FC_SEE + 1
+			</when>
+		</choose>
+		WHERE MB_INDEX = #{mbIndex}
+	</update>
+	
+	
+	<!-- 종류별로 해당 회원이 게시물을 봤던 횟수 불러오기 -->
+	<select id="getHtSeeList" resultType="member">
+		SELECT
+		MB_HT_WB_SEE AS mbHtWbSee,
+		MB_HT_ABM_SEE AS mbHtAbmSee,
+		MB_HT_UB_SEE AS mbHtUbSee,
+		MB_HT_LB_SEE AS mbHtLbSee,
+		MB_HT_ST_SEE AS mbHtStSee,
+		MB_HT_DC_SEE AS mbHtDcSee,
+		MB_HT_YOGA_SEE AS mbHtYogaSee,
+		MB_HT_FC_SEE AS mbHtFcSee
+		FROM MEMBER_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</select>
+	
+	
+	<select id="getMatchedHtList" parameterType="java.lang.String" resultMap="homeTrainingDB" resultType="homeTraining">
+		SELECT * 
+		FROM (SELECT HOMETRAINING_TB.*, ROW_NUMBER()
+		OVER(ORDER BY HT_ENROLLDATE DESC) AS NUM
+		FROM HOMETRAINING_TB
+		<choose>
+			<when test="type.equals('wholeBody')">
+				WHERE HOMETRAINING_TB.HT_TYPE = 1
+			</when>
+			<when test="type.equals('abdomen')">
+				WHERE HOMETRAINING_TB.HT_TYPE = 2
+			</when>
+			<when test="type.equals('upperBody')">
+				WHERE HOMETRAINING_TB.HT_TYPE = 3
+			</when>
+			<when test="type.equals('lowerBody')">
+				WHERE HOMETRAINING_TB.HT_TYPE = 4
+			</when>
+			<when test="type.equals('stretching')">
+				WHERE HOMETRAINING_TB.HT_TYPE = 5
+			</when>
+			<when test="type.equals('dance')">
+				WHERE HOMETRAINING_TB.HT_TYPE = 6
+			</when>
+			<when test="type.equals('yoga')">
+				WHERE HOMETRAINING_TB.HT_TYPE = 7
+			</when>
+			<when test="type.equals('fourChallenge')">
+				WHERE HOMETRAINING_TB.HT_TYPE = 8
+			</when>
+		</choose>
+		) WHERE NUM BETWEEN 1 AND 3
+	</select>
 
 </mapper>

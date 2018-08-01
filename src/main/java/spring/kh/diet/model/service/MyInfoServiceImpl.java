@@ -18,7 +18,10 @@ import spring.kh.diet.model.vo.MyBookMarkPageDataVO;
 import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
+import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.TrainerProgramVO;
+import spring.kh.diet.model.vo.TrainingRegVo;
 
 @Service("myInfoService")
 public class MyInfoServiceImpl implements MyInfoService {
@@ -216,6 +219,25 @@ public class MyInfoServiceImpl implements MyInfoService {
 		myQuestion.setPageNavi(pageNavi);
 
 		return myQuestion;
+	}
+
+	@Override
+	public MyRequestTrainerPDVO requestTrainer(int currentPage, TrainerProgramVO tv) {
+		int recordCountPerPage = 5;
+		int naviCountPerPage = 5;
+
+		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
+
+		ArrayList<TrainerProgramVO> list = (ArrayList<TrainerProgramVO>) myInfoDAO.requestTrainerList(SqlSessionTemplate, currentPage,
+				recordCountPerPage, tv);
+		String pageNavi = myInfoDAO.requestTrainerListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
+				naviCountPerPage, tv);
+		
+		System.out.println("list:"+list);
+		myRequest.setComList(list);
+		myRequest.setPageNavi(pageNavi);
+
+		return myRequest;
 	}
 
 }

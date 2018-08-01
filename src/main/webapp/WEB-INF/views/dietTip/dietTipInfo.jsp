@@ -91,7 +91,7 @@ p>span {
 		<div class="ui black segment">
 			<div class="ui grid">
 				<div class="four column row">
-					<span class="left floated column" style=""> <span class="ui left aligned"> <a> <img class="ui avatar image" src="/resources/image/mainPic.jpg">
+					<span class="left floated column" style=""> <span class="ui left aligned"> <a> <img class="ui avatar image" src="${requestScope.dt.dtWriterPhoto }">
 								${requestScope.dt.dtNickname }
 						</a>
 					</span>
@@ -382,6 +382,8 @@ p>span {
 										<button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
 											<i class="ban icon"></i>신고<label id="cmtBlame_${bc.cmtIndex}">${bc.cmtBlame}</label>
 										</button>
+										<!-- 신고 수정 ☆-->
+											<input type="hidden" value="${bc.mbIndex}" id="cmdWriter_${bc.cmtIndex}" />
 									</div>
 								</div>
 								<div class="text" id="cmd_${bc.cmtIndex}">
@@ -833,6 +835,14 @@ p>span {
 
 					var blameI = $("<i>").attr("class", "ban icon");
 
+					
+					//<!-- 신고 수정 ☆-->
+					//<input type="hidden" value="${bc.mbIndex}" id="cmdWriter_${bc.cmtIndex}" />
+					var blameIndex = $("<input>").attr("type","hidden");
+					blameIndex.attr("value",data.bcList[i].mbIndex);	
+					blameIndex.attr("id","cmdWriter_"+data.bcList[i].cmtIndex);
+					
+					
 					var textDiv = $("<div>").attr("class", "text");
 
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
@@ -842,7 +852,10 @@ p>span {
 
 					blameBtn.append(blameI);
 					blameBtn.append("신고" + data.bcList[i].cmtBlame);
-
+					//<!-- 신고 수정 ☆ : index 추가-->
+					blameBtn.append(blameIndex);
+					
+					
 					containerDiv.append(likeBtn);
 					containerDiv.append(blameBtn);
 
@@ -944,7 +957,8 @@ p>span {
 	function sendCmdBlame(){
 		//해당 댓글 번호 가져오기!☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ 
 		var blameReport = $(':input:radio[name=blameText]:checked').val();
-		var targetMbIndex = '${requestScope.dt.dtWriterNo}';
+		/* 신고 수정☆ */
+		var targetMbIndex = $('#cmdWriter_'+blameCmd).val();
 		alert(blameReport);
 		alert(targetMbIndex);
  		$.ajax({

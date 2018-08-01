@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TodayAnalyticsDetail {
 
-	private int hits,like,comments,post,timeType,listType;
+	private int hits,likes,comments,post,timeType,listType;
 	private String updateTime;
 	
 }

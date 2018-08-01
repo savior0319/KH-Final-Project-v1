@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="trainer">
+
+<!-- 일반회원에서 트레이너로 회원 전환 -->
+	<resultMap type="trainerReg" id="trainerReg">
+		<result property="trName" column="TR_NAME" />
+		<result property="trAddress" column="TR_ADDRESS" />
+		<result property="trPhone" column="TR_PHONE" />
+		<result property="trGender" column="TR_GENDER" />
+		<result property="trCity" column="TR_CITY" />
+		<result property="trArea" column="TR_AREA" />
+		<result property="trImagePath" column="TR_IMAGE_PATH" />
+		<result property="trContent" column="TR_CONTENT" />
+		<result property="trIndex" column="TR_INDEX" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="trHeight" column="TR_HEIGHT" />
+		<result property="trWeight" column="TR_WEIGHT" />
+		<result property="trRegDate" column="TR_REGDATE" />
+		<result property="trBirth" column="TR_BIRTH" />
+	</resultMap>
+
+	<!-- 트레이너로 회원 전환 신청서 -->
+	<insert id="trainerReg" parameterType="trainerReg">
+		INSERT INTO
+		TRAINER_REG_TBL
+		VALUES(TRAINER_INDEX_SEQ.NEXTVAL,#{mbIndex},#{trName},#{trBirth},#{trAddress},#{trGender},#{trPhone},#{trHeight},#{trWeight},#{trCity},#{trArea},#{trImagePath},#{trContent},SYSDATE)
+	</insert>
+
+
+</mapper>

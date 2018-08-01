@@ -8,11 +8,45 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<script src="/resources/slider/responsiveslides.min.js"></script>
 <title>다이어트</title>
 </head>
 
 <!-- CSS -->
 <style>
+
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
+
 </style>
 
 
@@ -25,10 +59,15 @@
 	<input id="htType" type="hidden" value="${requestScope.ht.htType }">
 	
 	<!-- CONTENTS -->
-	
-
-		<div class="ui  container">
-			<div class="ui panorama test ad" data-text="Panorama"></div>
+    <div class="ui  container">
+		<!-- 슬라이드-->
+		<ul class="rslides">
+			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
+		</ul>
+			
 			<h1 class="ui left aligned header">홈트레이닝 >
 				${requestScope.ht.htPart }</h1>
 			<hr>
@@ -56,7 +95,7 @@
 			</div>
 			<br> <br>
 
-			<h2 style="text-align:center">프로그램 소개</h2>
+			<h2 style="text-align:center" >프로그램 소개</h2>
 			<br> <br>
 
 			<div class="programIntroduction" style="text-align:center">
@@ -65,10 +104,10 @@
 				<i class="big male icon"></i>&ensp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;&emsp;&emsp;
 				<i class="big tint icon"></i>&ensp;${requestScope.ht.htStepKal }
 			</div>
-			<hr>
-
+			<hr style="border: 1px solid #D5D5D5;">
+			<br>
 			<!-- 프로그램 설명 부분 -->
-			<div class="programExplain" style=text-align:center;>
+			<div class="programExplain" style="text-align:center; font-family: 나눔고딕, NanumGothic, sans-serif; font-size: 12pt;">
 				<pre>${requestScope.ht.htExplain }</pre>
 			</div>
 			<br> <br> <br>
@@ -125,7 +164,7 @@
 			<br>
 
 		<div class="ui right aligned container">
-				<button onclick="back()" class="ui secondary button">
+				<button onclick="back(${requestScope.ht.htType })" class="ui secondary button">
 					<i class="list icon"></i>목록
 				</button>
 			</div>
@@ -207,6 +246,8 @@
 				        			  	<button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
 												<i class="ban icon"></i> 신고 <label id="cmtBlame_${bc.cmtIndex}">${bc.cmtBlame}</label>
 										</button>
+										<!-- 신고 수정 ☆-->
+											<input type="hidden" value="${bc.mbIndex}" id="cmdWriter_${bc.cmtIndex}" />
 									</div>
 									</c:if>
 								</div>
@@ -449,6 +490,14 @@
 
 					var blameI = $("<i>").attr("class", "ban icon");
 
+					//<!-- 신고 수정 ☆-->
+					//<input type="hidden" value="${bc.mbIndex}" id="cmdWriter_${bc.cmtIndex}" />
+					var blameIndex = $("<input>").attr("type","hidden");
+					blameIndex.attr("value",data.bcList[i].mbIndex);	
+					blameIndex.attr("id","cmdWriter_"+data.bcList[i].cmtIndex);
+					
+					
+					
 					var textDiv = $("<div>").attr("class", "text");
 					textDiv.attr("align", "left");
 					textDiv.attr("style", "margin-left:3%;");
@@ -460,7 +509,9 @@
 
 					blameBtn.append(blameI);
 					blameBtn.append("신고" + data.bcList[i].cmtBlame);
-
+					//<!-- 신고 수정 ☆ : index 추가-->
+					blameBtn.append(blameIndex);
+					
 					containerDiv.append(likeBtn);
 					containerDiv.append(blameBtn);
 
@@ -662,8 +713,27 @@
 	}
 	
 	// 목록 버튼
-	function back(){
-		location.href="/homeTrainingList.diet?type=all";
+	function back(me2){
+		var type;
+		if(me2==1){
+			type = "wholeBody";
+		}else if(me2==2){
+			type = "abdomen";
+		}else if(me2==3){
+			type = "upperBody";
+		}else if(me2==4){
+			type = "lowerBody";
+		}else if(me2==5){
+			type = "stretching";
+		}else if(me2==6){
+			type = "dance";
+		}else if(me2==7){
+			type = "yoga";
+		}else if(me2==8){
+			type = "fourChallenge";
+		}
+	
+		location.href="/homeTrainingList.diet?type="+type;
 	}
 	
 	
@@ -700,7 +770,8 @@
 		//해당 댓글 번호 가져오기!☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ 
 		//alert(blameCmd);
 		var blameReport = $(':input:radio[name=blameText]:checked').val();
-		var targetMbIndex = '${requestScope.ht.htWriterNo}';
+		/* 신고 수정☆ */
+		var targetMbIndex = $('#cmdWriter_'+blameCmd).val();
 		
  		$.ajax({
 			url : '/blameCmd.diet',
@@ -753,6 +824,14 @@
 	function goInfo(me){
 		location.href="/homeTrainingInfo.diet?indexNo="+me;
 	}
+	
+	//슬라이드
+	$(function() {
+		$(".rslides").responsiveSlides({
+			auto : true,
+			timeout : 1500,
+		});
+	});
 	
 </script>
 
