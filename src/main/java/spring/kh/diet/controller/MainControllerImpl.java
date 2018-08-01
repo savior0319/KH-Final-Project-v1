@@ -331,8 +331,6 @@ public class MainControllerImpl implements MainController {
 		HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingAll(currentPage, pdvo);
 		htpd.setCategory(pdvo.getCategory());
 		htpd.setSearchText(pdvo.getSearchText());
-		
-		System.out.println(htpd.toString());
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
