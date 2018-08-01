@@ -78,11 +78,11 @@ p>span {
 			<div class="ui three column grid">
 				<div class="column">
 					<div class="ui card">
-						<div class="image">
+						<div class="image" style="cursor:pointer;" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">
 							<img src="${requestScope.matchedList[0].dtMainPhoto} " style="width: 100%; height: 200px;">
 						</div>
 						<div class="content">
-							<a class="header">${requestScope.matchedList[0].dtTitle }</a>
+							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[0].dtTitle }</a>
 							<div class="meta">
 								<span class="date"> <c:choose>
 										<c:when test="${requestScope.matchedList[0].dtType==1 }">
@@ -106,11 +106,11 @@ p>span {
 				</div>
 				<div class="column">
 					<div class="ui card">
-						<div class="image">
+						<div class="image" style="cursor:pointer;" onclick="goInfo(${requestScope.matchedList[1].dtIndex}, ${requestScope.matchedList[1].dtType});">
 							<img src="${requestScope.matchedList[1].dtMainPhoto} " style="width: 100%; height: 200px;">
 						</div>
 						<div class="content">
-							<a class="header">${requestScope.matchedList[1].dtTitle }</a>
+							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[1].dtTitle }</a>
 							<div class="meta">
 								<span class="date"> <c:choose>
 										<c:when test="${requestScope.matchedList[1].dtType==1 }">
@@ -134,11 +134,11 @@ p>span {
 				</div>
 				<div class="column">
 					<div class="ui card">
-						<div class="image">
+						<div class="image" style="cursor:pointer;" onclick="goInfo(${requestScope.matchedList[2].dtIndex}, ${requestScope.matchedList[2].dtType});">
 							<img src="${requestScope.matchedList[2].dtMainPhoto} " style="width: 100%; height: 200px;">
 						</div>
 						<div class="content">
-							<a class="header">${requestScope.matchedList[2].dtTitle }</a>
+							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[2].dtTitle }</a>
 							<div class="meta">
 								<span class="date"> <c:choose>
 										<c:when test="${requestScope.matchedList[2].dtType==1 }">
@@ -188,11 +188,11 @@ p>span {
 
 				<div class="row" style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;">
 					<div class="four wide column">
-						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex});">
+						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">
 					</div>
 					<div class="twelve wide column">
-						<strong style="cursor: pointer;" onclick="goInfo(${dt.dtIndex});">${dt.dtTitle }</strong>
-						<div style="cursor: pointer; width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;" onclick="goInfo(${dt.dtIndex});">${dt.dtSammary }</div>
+						<strong style="cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtTitle }</strong>
+						<div style="cursor: pointer; width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtSammary }</div>
 						<br>
 						<div class="ui grid">
 							<div class="four wide column">
@@ -277,8 +277,19 @@ p>span {
 		});
 	});
 
-	function goInfo(me){
-		location.href="/dietTipInfo.diet?indexNo="+me+"&type=${requestScope.type}";
+	function goInfo(me, me2){
+		var type;
+		if(me2 == 1){
+			type = "column";
+		}else if(me2 == 2){
+			type = "sport";
+		}else if(me2 == 3){
+			type = "dietFood";
+		}else if(me2 == 4){
+			type = "successLatter";
+		}
+		
+		location.href="/dietTipInfo.diet?indexNo="+me+"&type="+type;
 	}
 	
 	// 게시물 등록
@@ -350,7 +361,6 @@ p>span {
 				alert('에러 발생');
 			}
 		});
-		
 		location.href = 'dietTipList.diet?type='+type;
 	}
 	
