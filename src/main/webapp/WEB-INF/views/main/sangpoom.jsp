@@ -60,7 +60,40 @@
 					<div style="width: 100%; height: 20%; margin-top: 20px;" align="center">
 						<button type="button" class="ui button" onclick="uploadPictureBtn();" style="background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
 					</div>
+
+					<!-- 메인사진 등록 MODAL -->
+
+					<div class="ui modal" id="updateProfile">
+						<i class="close icon"></i>
+						<div class="header">메인 사진 등록</div>
+						<div class="image content">
+							<form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data">
+								<div class="description">
+									<div class="ui header">
+										<div class="fileBox">
+											<input type="text" class="fileName" id="fileName" readonly="readonly" />
+											<label for="uploadBtn" class="btn_file">찾아보기</label>
+											<input type="file" id="uploadBtn" class="uploadBtn" name="uploadFile" />
+										</div>
+									</div>
+								</div>
+							</form>
+							<br>
+
+							<div class="actions">
+								<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
+									사진 등록
+									<i class="checkmark icon"></i>
+								</button>
+								<button type="button" class="ui black button" id="modalOff">취소</button>
+							</div>
+							<input type="hidden" value="${sessionScope.member.mbId}" id="memberId" />
+							<input type="hidden" id="mainPhotoPath" />
+						</div>
+					</div>
 				</div>
+
+
 				<div class="ten wide column" style="padding-top: 0;">
 					<div class="ui grid red segment">
 						<div class="column">
@@ -68,14 +101,34 @@
 							&nbsp;&nbsp;&nbsp;
 							<div class="ui left icon input">
 								<i class="calendar icon"></i>
-								<input type="text" placeholder="날짜" id="birth" name="birth" required readonly>
+								<input type="text" placeholder="날짜" id="startDay" required readonly>
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<label>트레이닝 종료 </label>
 							&nbsp;&nbsp;&nbsp;
 							<div class="ui left icon input">
 								<i class="calendar icon"></i>
-								<input type="text" placeholder="날짜" id="birth2" name="birth" required readonly>
+								<input type="text" placeholder="날짜" id="endDay" required readonly>
+							</div>
+						</div>
+					</div>
+
+					<div class="ui grid red segment">
+						<div class="column">
+							<label>트레이닝 요일</label>
+							&nbsp;&nbsp;&nbsp;
+							<div class="ui left input" style="width: 500px;">
+								<select multiple="" name="time" class="ui  search fluid normal dropdown" id="dropdown4" required>
+									<option value="">요일 선택</option>
+									<option value="전체">전체</option>
+									<option value="월요일">월요일</option>
+									<option value="화요일">화요일</option>
+									<option value="수요일">수요일</option>
+									<option value="목요일">목요일</option>
+									<option value="금요일">금요일</option>
+									<option value="토요일">토요일</option>
+									<option value="일요일">일요일</option>
+								</select>
 							</div>
 						</div>
 					</div>
@@ -86,26 +139,28 @@
 							<div class="ui left icon input">
 								<i class="home icon"></i>
 								<input type="text" placeholder="주소" id="address" name="address" required readonly style="width: 400px;">
-								<button type="button" class="ui blue button" style="margin-left: 15px;" id="findAddress">주소검색</button>
+								<button type="button" class="ui button" style="background: rgb(250, 40, 40); color: white; margin-left: 15px;" id="findAddress">주소검색</button>
 							</div>
 						</div>
 					</div>
+
 					<div class="ui grid red segment">
 						<div class="column">
 							<label>트레이닝 비용</label>
 							&nbsp;&nbsp;&nbsp;
 							<span class="ui form">
-								<input type="text" name="height" placeholder="비용" style="width: 400px;" id="numberCheck1" onkeyup="inputNumberFormat(this)" maxlength="9" required>
+								<input type="text" name="height" placeholder="비용" style="width: 400px;" id="tpCost" onkeyup="inputNumberFormat(this)" maxlength="9" required>
 							</span>
 							&nbsp;&nbsp;&nbsp;
 							<span class="ui medium header" style="line-height: 40px;"> 원 </span>
 						</div>
 					</div>
+
 					<div class="ui grid red segment">
 						<div class="column">
 							<label>모집&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인원</label>
 							&nbsp;&nbsp;&nbsp;
-							<select name="length" class="ui dropdown" required>
+							<select id="personnel" name="personnel" class="ui dropdown" required>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -148,7 +203,7 @@
 			<div align="center">
 				<button class="ui red basic button" onclick="register();">등록</button>
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -190,8 +245,8 @@
 	});
 
 	$(function() {
-		$("#birth").datepicker();
-		$("#birth2").datepicker();
+		$("#startDay").datepicker();
+		$("#endDay").datepicker();
 	});
 
 	/* 주소 검색 API */
@@ -247,7 +302,7 @@
 		str = String(str);
 		return str.replace(/[^\d]+/g, '');
 	}
-	
+
 	$(document).ready(function() {
 		$('#summernote').summernote({
 			lang : 'ko-KR',
@@ -285,6 +340,153 @@
 			}
 		});
 	}
+	/* 모달 창 오픈 */
+	function uploadPictureBtn() {
+		$("#updateProfile").modal('show');
+	}
+
+	/* 모달 창 종료 */
+	$("#modalOff").click(function() {
+		$("#updateProfile").modal('hide');
+	});
+
+	/* 모달 파일 input 부분 스크립트 */
+	var uploadFile = $('.fileBox .uploadBtn');
+	uploadFile.on('change', function() {
+		if (window.FileReader) {
+			var filename = $(this)[0].files[0].name;
+		} else {
+			var filename = $(this).val().split('/').pop().split('\\').pop();
+		}
+		$(this).siblings('.fileName').val(filename);
+	});
+
+	/* 올린 이미지 미리보기 */
+	var sel_file;
+	var reader;
+	var ff;
+
+	$(document).ready(function() {
+		$("#uploadBtn").on("change", handleImgFileSelect);
+	});
+
+	function photoPreview() {
+		handle();
+
+	}
+
+	function handleImgFileSelect(e) {
+
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+
+		filesArr.forEach(function(f) {
+			if (!f.type.match("image.*")) {
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
+
+			sel_file = f;
+
+			reader = new FileReader();
+
+			reader.onload = function(e) {
+				$("#img").attr("src", e.target.result);
+			}
+			ff = f;
+		});
+	}
+
+	function handle() {
+		reader.readAsDataURL(ff);
+		$("#updateProfile").modal('hide');
+	}
+
+	/* 등록 완료 컨트롤러 호출 */
+	function register() {
+
+		// 사진 저장
+		var form = new FormData(document.getElementById('photoForm'));
+		$.ajax({
+			url : 'saveDietTipMainPhotoPath.diet',
+			type : 'post',
+			data : form,
+			processData : false,
+			contentType : false,
+			success : function(data) {
+				$('#mainPhotoPath').val(data);
+				alert('돼써요');
+
+				// 사진 저장 성공하면 전체 등록 진행
+				var tpTitle = $('#title').val();
+				var tpActiveStart = $('#startDay').val();
+				var tpActiveEnd = $('#endDay').val();
+				var tpContent = $('#summernote').summernote('code');
+				var tpLocation = $('#address').val();
+				var tpCost = $('#tpCost').val();
+				var tpPersonnel = $('#personnel option:selected').val();
+				var $mainPhotoPath = $('#mainPhotoPath').val();
+				var tpActiveDays = $('#dropdown4').val();			
+				
+				if (tpTrainType != null && tpTitle != '' && tpContent != '') {
+					$.ajax({
+						url : '/registTrain.diet',
+						type : 'post',
+						data : {
+							'tpTitle' : tpTitle,
+							'tpActiveStart' : tpActiveStart,
+							'tpActiveEnd' : tpActiveEnd,
+							'tpContent' : tpContent,
+							'tpLocation' : tpLocation,
+							'tpCost' : tpCost,
+							'tpPersonnel' : tpPersonnel,
+							'tpMainImage' : $mainPhotoPath,
+							'tpActiveDays' : tpActiveDays			
+						},
+						success : function(result) {
+							if (result == 1) {
+								alert('게시글 등록 완료');
+								location.href = "/dietTipList.diet?type=all";
+							} else {
+								alert('게시글 등록 실패');
+								location.href = "/dietTipList.diet?type=all";
+							}
+						},
+						error : function() {
+							alert('게시글 등록 실패(과정 오류)');
+							location.href = "/dietTipList.diet?type=all";
+						}
+					});
+				} else {
+					if (tpTrainType == null) {
+						alert('PT유형을 선택하여주세요.');
+					} else {
+						alert('내용을 반드시 기입하여주세요.');
+					}
+				}
+
+			},
+			error : function(data) {
+				alert('실패ㅋㅋㅋ');
+			}
+		});
+	}
+	
+	// 카테고리 선택
+	var tpTrainType;
+	$('.select > .item').click(function() {
+		switch ($(this).text()) {
+		case '개인':
+			tpTrainType = '개인';
+			console.log(tpTrainType);
+			break;
+		case '그룹':
+			tpTrainType = '그룹';
+			console.log(tpTrainType);
+			break;
+		}
+	});
+	
 </script>
 
 
