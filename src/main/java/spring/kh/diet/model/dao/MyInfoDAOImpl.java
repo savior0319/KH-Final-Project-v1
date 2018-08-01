@@ -388,7 +388,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public ArrayList<QuestionVO> myQuestionList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
-			int recordCountPerPage, MemberVO mv) {
+			int recordCountPerPage, MyActivityVO mv) {
 		MyQuestionPageDataVO myQuestion = new MyQuestionPageDataVO();
 
 		myQuestion.setStart((currentPage - 1) * recordCountPerPage + 1);
@@ -402,7 +402,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public String myQuestionListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
-			int naviCountPerPage, MemberVO mv) {
+			int naviCountPerPage, MyActivityVO mv) {
 		MyQuestionPageDataVO myQuestion = new MyQuestionPageDataVO();
 		myQuestion.setMbIndex(mv.getMbIndex());
 
@@ -443,21 +443,21 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/myOneToOneQuestion.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+			sb.append("<a class='item' href='/allMyOneToOneQuestion.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/myOneToOneQuestion.diet?currentPage="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/allMyOneToOneQuestion.diet?currentPage="
 								+ i + "'><strong>" + i + "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/myOneToOneQuestion.diet?currentPage=" + i + "'>" + i + " </a>");
+				sb.append("<a class='item' href='/allMyOneToOneQuestion.diet?currentPage=" + i + "'>" + i + " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/myOneToOneQuestion.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			sb.append("<a class='item' href='/allMyOneToOneQuestion.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
 		return sb.toString();
 	}

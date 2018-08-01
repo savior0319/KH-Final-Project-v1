@@ -27,7 +27,7 @@ public interface MyInfoService {
 
 	int deleteMyPicture(MemberVO mv);
 
-	MyQuestionPageDataVO allMyOneToOneQuestion(int currentPage, MemberVO mv);
+	MyQuestionPageDataVO allMyOneToOneQuestion(int currentPage, MyActivityVO ma);
 
 	int signupsave(MemberVO mv);
 

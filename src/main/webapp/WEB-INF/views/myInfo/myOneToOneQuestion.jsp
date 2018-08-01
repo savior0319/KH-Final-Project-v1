@@ -70,6 +70,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					</c:if>
 					<button class="ui red button" style="float: right;" onclick="deleteMyQuestion();">삭제하기</button>
 					<br>
 					<br>
@@ -78,7 +79,7 @@
 							<div class="column"></div>
 							<div class="column">
 								<div class="ui center aligned basic segment">
-									<div class="ui pagination menu">${myQuestion.pageNavi}</div>
+									<div class="ui pagination menu">${requestScope.myQuestion.pageNavi}</div>
 								</div>
 							</div>
 							<div class="column">
@@ -87,6 +88,8 @@
 						</div>
 						<br>
 					</div>
+
+
 					<!-- 1:1 문의하기 -->
 					<div class="ui modal" id="questionModal1">
 						<i class="close icon"></i>
@@ -112,18 +115,16 @@
 						</div>
 						<input type="hidden" value="" id="qsIndex" />
 					</div>
-				</c:if>
-				<c:if test="${myQuestion.comList.isEmpty()}">
-					<div class="ui small red message">
-						<div class="ui small header">※ 현재 등록된 문의가 없습니다 ~ ^^</div>
-					</div>
-				</c:if>
 			</div>
 		</div>
-
-		<br>
-		<br>
 	</c:if>
+	<c:if test="${myQuestion.comList.isEmpty()}">
+		<div class="ui small red message">
+			<div class="ui small header">※ 현재 등록된 문의가 없습니다 ~ ^^</div>
+		</div>
+	</c:if>
+	<br>
+	<br>
 	<c:if test="${sessionScope.member==null}">
 		<script>
 			location.href = "/index.jsp";

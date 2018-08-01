@@ -201,16 +201,17 @@ public class MyInfoServiceImpl implements MyInfoService {
 	}
 
 	@Override
-	public MyQuestionPageDataVO allMyOneToOneQuestion(int currentPage, MemberVO mv) {
+	public MyQuestionPageDataVO allMyOneToOneQuestion(int currentPage, MyActivityVO ma) {
 		int recordCountPerPage = 5;
 		int naviCountPerPage = 5;
 
 		MyQuestionPageDataVO myQuestion = new MyQuestionPageDataVO();
 
 		ArrayList<QuestionVO> list = (ArrayList<QuestionVO>) myInfoDAO.myQuestionList(SqlSessionTemplate, currentPage,
-				recordCountPerPage, mv);
+				recordCountPerPage, ma);
 		String pageNavi = myInfoDAO.myQuestionListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
-				naviCountPerPage, mv);
+				naviCountPerPage, ma);
+		
 		myQuestion.setComList(list);
 		myQuestion.setPageNavi(pageNavi);
 

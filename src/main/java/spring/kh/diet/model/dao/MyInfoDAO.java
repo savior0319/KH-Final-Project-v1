@@ -60,10 +60,10 @@ public interface MyInfoDAO {
 			int naviCountPerPage, String type, MyActivityVO ma);
 
 	ArrayList<QuestionVO> myQuestionList(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
-			MemberVO mv);
+			MyActivityVO ma);
 
 	String myQuestionListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
-			int naviCountPerPage, MemberVO mv);
+			int naviCountPerPage, MyActivityVO ma);
 
 	int myLoginCount(SqlSessionTemplate sqlSessionTemplate, MemberVO m);
 
@@ -74,5 +74,7 @@ public interface MyInfoDAO {
 	int deleteMyComment(SqlSessionTemplate sqlSessionTemplate, BoardCommentVO pv);
 
 	int deleteMyBookMark(SqlSessionTemplate sqlSessionTemplate, BoardBookMarkVO pv);
+
+
 
 }
