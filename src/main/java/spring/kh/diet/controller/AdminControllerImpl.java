@@ -233,7 +233,10 @@ public class AdminControllerImpl implements AdminController {
 	/* 트레이너 회원 관리 */
 	@Override
 	@RequestMapping(value = "/trainer.diet")
-	public String trainer() {
+	public String trainer(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
 		return "admin/trainer";
 	}
 
