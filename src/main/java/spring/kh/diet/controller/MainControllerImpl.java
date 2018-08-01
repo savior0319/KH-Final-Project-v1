@@ -26,6 +26,7 @@ import com.google.gson.JsonIOException;
 import spring.kh.diet.model.service.CommunityService;
 import spring.kh.diet.model.service.CustomerService;
 import spring.kh.diet.model.service.DietTipService;
+import spring.kh.diet.model.service.HomeTrainingServiceImpl;
 import spring.kh.diet.model.service.MainService;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.BMIVO;
@@ -33,6 +34,7 @@ import spring.kh.diet.model.vo.BMRVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.DietTipPDVO;
 import spring.kh.diet.model.vo.HealthCenterPDVO;
+import spring.kh.diet.model.vo.HomeTrainingPageDataVO;
 import spring.kh.diet.model.vo.NoticePDVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.UpdateSSVO;
@@ -54,6 +56,9 @@ public class MainControllerImpl implements MainController {
 	@Resource(name = "dietTipService")
 	private DietTipService dietTipService;
 	
+	@Resource(name = "homeTrainingService")
+	private HomeTrainingServiceImpl homeTrainingService;
+
 	public MainControllerImpl() {
 	}
 
@@ -252,7 +257,7 @@ public class MainControllerImpl implements MainController {
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(cpdv, response.getWriter());
 	}
-	
+
 	// 메인페이지에서 다이어트꿀팁 목록 출력
 	@Override
 	@RequestMapping(value = "/mainDietTip.diet")
@@ -266,12 +271,11 @@ public class MainControllerImpl implements MainController {
 			pdvo.setSearchText(request.getParameter("searchText"));
 		}
 
-		int currentPage; // 현재 페이지 값을 저장하는 변수
+		int currentPage;
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 
 		DietTipPDVO dtpd = dietTipService.getDietTipList(currentPage, pdvo);
@@ -303,7 +307,38 @@ public class MainControllerImpl implements MainController {
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(nData, response.getWriter());
 	}
-	
+
+	// 메인페이지에서 홈트레이닝 목록 출력
+	@Override
+	@RequestMapping(value = "/mainHomeTraining.diet")
+	public void getMainHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		HomeTrainingPageDataVO pdvo = new HomeTrainingPageDataVO();
+
+		pdvo.setType("");
+
+		int currentPage;
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		if (request.getParameter("category") != null && request.getParameter("searchText") != null) {
+			pdvo.setCategory(request.getParameter("category"));
+			pdvo.setSearchText(request.getParameter("searchText"));
+		}
+
+		HomeTrainingPageDataVO htpd = homeTrainingService.homeTrainingAll(currentPage, pdvo);
+		htpd.setCategory(pdvo.getCategory());
+		htpd.setSearchText(pdvo.getSearchText());
+		
+		System.out.println(htpd.toString());
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(htpd, response.getWriter());
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -365,11 +400,10 @@ public class MainControllerImpl implements MainController {
 		mService.updateOnsession(USSVO);
 	}
 
-	
 	// 세션 자동 파기(1분단위로 실행 -> 실제로는 15분단위로변경하는게 맞을듯.)
 	@Override
-	@Scheduled(cron="0 0/1 * * * ?") 
-//	@Scheduled(cron="0/1 * * * * ?") // 1초단위로 실행(테스트용)
+	@Scheduled(cron = "0 0/1 * * * ?")
+	// @Scheduled(cron="0/1 * * * * ?") // 1초단위로 실행(테스트용)
 	public void autoDeleteSession() {
 		ArrayList<AllSessionVO> list = mService.selectAllSessionList2();
 		for (int i = 0; i < list.size(); i++) {
