@@ -90,8 +90,5 @@ public interface AdminDAO {
 
 	ArrayList<BlackListContentVO> blackListContent(SqlSessionTemplate session, int index);
 
-	int insertAnalytics(SqlSessionTemplate session, TodayAnalyticsDetail tAD);
-
-	int selectAnalytics(SqlSessionTemplate session, int timeType);
 
 }
