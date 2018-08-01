@@ -192,7 +192,7 @@
 		ss_login as nickName,
 		ss_device as device,
 		ss_LastIn as lastIn
-		from off_session_tbl where ss_lastIn between trunc(sysdate) and trunc(sysdate+1)
+		from off_session_tbl where ss_firstOn between trunc(sysdate) and trunc(sysdate+1)
 		order by ss_index desc 
 	</select>
 
@@ -283,7 +283,7 @@
 		ss_device as device,
 		ss_LastIn as lastIn
 		FROM off_session_tbl
-		where ss_lastIn between trunc(sysdate) and trunc(sysdate+1)
+		where ss_firstOn between trunc(sysdate) and trunc(sysdate+1)
 		order by ss_index desc 
 	</select>
 
@@ -417,21 +417,65 @@
 	
 	<!-- 세션통계 추가하기, 디테일 anlaytics -->
 	<insert id="insertAnalytics" parameterType="todayAnalyticsDetail">
-	INSERT INTO today_Analytics VALUES(#{hits}, #{like}, #{comments}, #{post}, sysdate, #{timeType},#{listType})
+	INSERT INTO today_Analytics VALUES(#{hits}, #{likes}, #{comments}, #{post}, sysdate, #{timeType},#{listType})
 	</insert>
 	
-	<select id="selectAnalytics" resultType="todayAnalyticsDetail">
+	<!-- 오늘 사이트값 가져오사ㅓ 분석하는데 시간대별로 맞춰서가져오기 있냐 없냐를확인 -->
+	<select id="selectAnalytics" parameterType="java.lang.Integer" resultType="todayAnalyticsDetail">
 	select 
-	T_hits as hits,
-	T_Like as Like,
-	T_Comments as Comments,
-	T_Post as post,
-	T_UPdate_Time as updateTime,
-	T_Time_Type as timeType,
-	T_List_type as listType
-	from today_Analytics 
-	where T_Time_Type = #{TimeType}
-		
+	T_HITS as hits,
+	T_LIKE as likes,
+	T_COMMENTS as comments,
+	T_POST as post,
+	T_UPDATE_TIME as updateTime,
+	T_TIME_TYPE as timeType,
+	T_LIST_TYPE as listType
+	from TODAY_ANALYTICS 
+	where T_TIME_TYPE = #{type}
 	</select>
+	
+	<!-- 오늘 사이트 값 가져와서 분석하기   -->
+	<update id="updateAnalytics" parameterType="todayAnalyticsDetail">
+	UPDATE
+	today_Analytics 
+	SET T_HITS = #{hits},T_LIKE = #{likes}, T_COMMENTS = #{comments}, T_POST =#{post},
+	T_Time_Type = #{timeType}, T_UPDATE_TIME = SYSDATE  WHERE T_LIST_TYPE = #{listType} and t_time_type= #{timeType}
+	</update>
+	
+	<!-- 통계 - 사이트통계 -  어제것 업데이트하기  -->
+	<update id="yesterdayUpdate" parameterType="yesterdayAnalytic">
+		UPDATE BEFORE_DAY_TBL set
+		DT_HITS = #{tHVO.dtHits},
+		HT_HITS = #{tHVO.htHits},
+		BR_HITS = #{tHVO.brHits},
+		DT_COMMENTS = #{tCVO.dtComments},
+		HT_COMMENTS = #{tCVO.htComments},
+		BR_COMMENTS = #{tCVO.brComments},
+		DT_BOARD = #{tPVO.dtBoard},
+		HT_BOARD = #{tPVO.htBoard},
+		BR_BOARD = #{tPVO.brBoard},
+		DT_LIKE = #{tLVO.dtLike},
+		HT_LIKE = #{tLVO.htLike},
+		BR_LIKE = #{tLVO.brLike}
+		where to_date(bd_today,'yyyy/MM/dd') like sysdate-1
+	</update>
 
+	<!-- 통계 - 사이트통계 이전날 데이터 있는지 확인하는것   반환 -> 숫자, or null-->
+	<select id="searchBeforeDayList" resultType="java.lang.Integer">
+		select BD_INDEX from BEFORE_DAY_TBL where bd_today like to_Char(sysdate-1,'yyyy/MM/dd')
+	</select>
+	
+	<!-- 통계 - 사이트통계 그래프 전체 값가져오기 -->
+	<select id="TodayAnalyticsDetailList" resultType="todayAnalyticsDetail">
+	select 
+	T_HITS as hits,
+	T_LIKE as likes, 
+	T_COMMENTS as comments,
+	T_POST as post,
+	T_Time_Type as timeType,
+	T_LIST_TYPE as listType,
+	T_UPDATE_TIME as updateTime
+	from today_Analytics 
+	where (t_update_time between trunc(sysdate) and trunc(sysdate+1))	 
+	</select>
 </mapper>

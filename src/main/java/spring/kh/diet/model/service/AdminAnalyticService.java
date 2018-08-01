@@ -8,4 +8,6 @@ public interface AdminAnalyticService {
 
 	int selectAnalytics(int timeType);
 
+	int updateAnalytics(TodayAnalyticsDetail tAD);
+
 }
