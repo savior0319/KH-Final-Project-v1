@@ -10,7 +10,7 @@ import spring.kh.diet.model.service.TrainerService;
 
 @Controller
 public class TrainerControllerImpl implements TrainerController {
-	
+
 	@Resource(name = "trainerService")
 	private TrainerService trService;
 
@@ -29,7 +29,6 @@ public class TrainerControllerImpl implements TrainerController {
 		for (int i = 0; i < area.length; i++) {
 			System.out.println(area[i]);
 		}
-
 		return null;
 	}
 

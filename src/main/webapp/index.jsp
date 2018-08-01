@@ -46,6 +46,7 @@
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
+
 	<!-- CONTENTS -->
 	<div class="ui container">
 		<div class="ui center aligned basic segments">
@@ -53,285 +54,131 @@
 				<div class="ui basic segment" style="padding: 0;">
 					<div class="ui left aligned basic segment" style="margin: 0; padding-bottom: 0;">
 						<div class="ui message">
-							<span class="ui small header"> <i class="book icon" style="display: inline-block;"></i><span id="fs"></span>
-						</span>
+							<span class="ui small header">
+								<i class="book icon" style="display: inline-block;"></i>
+								<span id="fs"></span>
+							</span>
+						</div>
+
+						<!-- 반응형 메뉴 768px 이하 -->
+						<table class="ui table" style="width: 100%; height: 100%;" id="mainBoardResize">
+							<tr align="center">
+								<td style="padding: 0px; width: 70px;">
+									<button onclick="bmiCal();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+										<i class="large calculator icon" id="icon1"></i>
+										내 BMI 지수는? (비만도 계산)
+									</button>
+								</td>
+								<td style="padding: 0px; width: 70px;">
+									<button onclick="bmrCal();" type="button" style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+										<i class="large sticky note outline icon" id="icon2"></i>
+										칼로리처방 받기
+									</button>
+								</td>
+								<td style="padding: 0px; width: 70px;">
+									<button type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+										<i class="large child icon" id="icon3"></i>
+										트레이너 매칭
+									</button>
+								</td>
+								<td style="padding: 0px; width: 70px;">
+									<button onclick="healthCenter();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+										<i class="large sistrix icon" id="icon4"></i>
+										인바디 측정 보건소 찾기
+									</button>
+								</td>
+							</tr>
+						</table>
 					</div>
 
+					<!-- 슬라이드-->
+					<ul class="rslides" style="padding-bottom: 15px;">
+						<li>
+							<a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
+								<img src="/resources/image/mainPic.jpg">
+							</a>
+						</li>
+						<li>
+							<a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
+								<img src="/resources/image/mainPic1.jpg">
+							</a>
+						</li>
+						<li>
+							<a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
+								<img src="/resources/image/mainPic2.jpg">
+							</a>
+						</li>
+						<li>
+							<a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
+								<img src="/resources/image/mainPic3.jpg">
+							</a>
+						</li>
+						<li>
+							<a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
+								<img src="/resources/image/advertise.png">
+							</a>
+						</li>
+					</ul>
+				</div>
 
-					<!-- 반응형 메뉴 768px 이하 -->
-					<table class="ui table" style="width: 100%; height: 100%;" id="mainBoardResize">
+				<!-- 반응형 메뉴 768px 이상 -->
+				<div class="ui basic segment" align="center" id="mainBoard">
+					<table class="ui table" style="width: 100%; height: 100%;">
 						<tr align="center">
 							<td style="padding: 0px; width: 70px;">
-								<button onclick="bmiCal();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
-									<i class="large calculator icon" id="icon1"></i> 내 BMI 지수는? (비만도 계산)
+								<button onclick="bmiCal();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+									<i class="large calculator icon" id="icon1"></i>
+									<div class="disappear">
+										<br>
+										내 BMI 지수는?
+										<br>
+										(비만도 계산)
+									</div>
 								</button>
 							</td>
 							<td style="padding: 0px; width: 70px;">
-								<button onclick="bmrCal();" type="button" style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
-									<i class="large sticky note outline icon" id="icon2"></i> 칼로리처방 받기
+								<button onclick="bmrCal();" type="button" style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px;">
+									<i class="large sticky note outline icon" id="icon2"></i>
+									<div class="disappear">
+										<br>
+										칼로리처방
+										<br>
+										받기
+									</div>
+								</button>
+							</td>
+						</tr>
+						<tr align="center">
+							<td style="padding: 0px; width: 70px;">
+								<button type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px;">
+									<i class="large child icon" id="icon3"></i>
+									<div class="disappear">
+										<br>
+										트레이너 매칭
+										<br>
+									</div>
 								</button>
 							</td>
 							<td style="padding: 0px; width: 70px;">
-								<button type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
-									<i class="large child icon" id="icon3"></i> 트레이너 매칭
-								</button>
-							</td>
-							<td style="padding: 0px; width: 70px;">
-								<button onclick="healthCenter();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
-									<i class="large sistrix icon" id="icon4"></i> 인바디 측정 보건소 찾기
+								<button type="button" onclick="healthCenter();" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+									<i class="large sistrix icon" id="icon4"></i>
+									<div class="disappear">
+										<br>
+										인바디 측정
+										<br>
+										보건소 찾기
+									</div>
 								</button>
 							</td>
 						</tr>
 					</table>
 				</div>
-				<!-- 슬라이드-->
-				<ul class="rslides" style="padding-bottom: 15px;">
-					<li><a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-						<img src="/resources/image/mainPic.jpg">
-					</a></li>
-					<li><a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-						<img src="/resources/image/mainPic1.jpg">
-					</a></li>
-					<li><a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-						<img src="/resources/image/mainPic2.jpg">
-					</a></li>
-					<li><a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-						<img src="/resources/image/mainPic3.jpg">
-					</a></li>
-					<li><a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-						<img src="/resources/image/advertise.png">
-					</a></li>
-				</ul>
-			</div>
-
-			<!-- 반응형 메뉴 768px 이상 -->
-			<div class="ui basic segment" align="center" id="mainBoard">
-				<table class="ui table" style="width: 100%; height: 100%;">
-					<tr align="center">
-						<td style="padding: 0px; width: 70px;">
-							<button onclick="bmiCal();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
-								<i class="large calculator icon" id="icon1"></i>
-								<div class="disappear">
-									<br>
-									내 BMI 지수는?
-									<br>
-									(비만도 계산)
-								</div>
-							</button>
-						</td>
-						<td style="padding: 0px; width: 70px;">
-							<button onclick="bmrCal();" type="button" style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px;">
-								<i class="large sticky note outline icon" id="icon2"></i>
-								<div class="disappear">
-									<br>
-									칼로리처방
-									<br>
-									받기
-								</div>
-							</button>
-						</td>
-					</tr>
-					<tr align="center">
-						<td style="padding: 0px; width: 70px;">
-							<button type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px;">
-								<i class="large child icon" id="icon3"></i>
-								<div class="disappear">
-									<br>
-									트레이너 매칭
-									<br>
-								</div>
-							</button>
-						</td>
-						<td style="padding: 0px; width: 70px;">
-							<button type="button" onclick="healthCenter();" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
-								<i class="large sistrix icon" id="icon4"></i>
-								<div class="disappear">
-									<br>
-									인바디 측정
-									<br>
-									보건소 찾기
-								</div>
-							</button>
-						</td>
-					</tr>
-				</table>
 			</div>
 		</div>
-	</div>
-	<br>
-	<div class="ui three column grid">
-		<div class="column">
-			<table id="boardTbl1" class="ui table">
-				<thead>
-					<tr align="center">
-						<th>
-							커뮤니티 <span style="margin-left: 20px;"> <a href="/communityWholeBoard.diet?type=comAll" style="color: rgb(250, 40, 40);">
-								<i class="plus square outline icon"></i>
-							</a>
-						</span>
-					</th>
-				</tr>
-			</thead>
-		</table>
-	</div>
-	<div class="column">
-		<table id="boardTbl2" class="ui table">
-			<thead>
-				<tr align="center">
-					<th>
-						다이어트꿀팁 <span style="margin-left: 20px;"> <a href="/dietTipList.diet?type=all" style="color: rgb(250, 40, 40);">
-							<i class="plus square outline icon"></i>
-						</a>
-					</span>
-				</th>
-			</tr>
-		</thead>
-	</table>
-</div>
-<div class="column">
-	<table id="boardTbl3" class="ui table">
-		<thead>
-			<tr align="center">
-				<th>
-					공지사항 <span style="margin-left: 20px;"> <a href="/notice.diet" style="color: rgb(250, 40, 40);">
-						<i class="plus square outline icon"></i>
-					</a>
-				</span>
-			</th>
-		</tr>
-	</thead>
-</table>
-</div>
-</div>
-<!-- 메뉴 출력 주석 -->
-		<!-- <div class="ui three column grid">
-			<div class="column">
-				<table id="boardTbl4" class="ui table">
-					<thead>
-						<tr align="center">
-							<th>햄버거버거</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>ㆍ 킹갓엠페러제너럴 버거킹</td>
-						</tr>
-						<tr>
-							<td>ㆍ 킹갓엠페러제너럴 버거킹</td>
-						</tr>
-						<tr>
-							<td>ㆍ 킹갓엠페러제너럴 버거킹</td>
-						</tr>
-						<tr>
-							<td>ㆍ 킹갓엠페러제너럴 버거킹</td>
-						</tr>
-						<tr>
-							<td>ㆍ 킹갓엠페러제너럴 버거킹</td>
-						</tr>
-						<tr>
-							<td>ㆍ 킹갓엠페러제너럴 버거킹</td>
-						</tr>
-						<tr>
-							<td>ㆍ 킹갓엠페러제너럴 버거킹</td>
-						</tr>
-						<tr>
-							<td>ㆍ 킹갓엠페러제너럴 버거킹</td>
-						</tr>
-						<tr>
-							<td>ㆍ 킹갓엠페러제너럴 버거킹</td>
-						</tr>
-						<tr>
-							<td>ㆍ 킹갓엠페러제너럴 버거킹</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="column">
-				<table id="boardTbl5" class="ui table">
-					<thead>
-						<tr align="center">
-							<th>피자피이자</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>ㆍ 충무공마제스티쇼군 도미노피자</td>
-						</tr>
-						<tr>
-							<td>ㆍ 충무공마제스티쇼군 도미노피자</td>
-						</tr>
-						<tr>
-							<td>ㆍ 충무공마제스티쇼군 도미노피자</td>
-						</tr>
-						<tr>
-							<td>ㆍ 충무공마제스티쇼군 도미노피자</td>
-						</tr>
-						<tr>
-							<td>ㆍ 충무공마제스티쇼군 도미노피자</td>
-						</tr>
-						<tr>
-							<td>ㆍ 충무공마제스티쇼군 도미노피자</td>
-						</tr>
-						<tr>
-							<td>ㆍ 충무공마제스티쇼군 도미노피자</td>
-						</tr>
-						<tr>
-							<td>ㆍ 충무공마제스티쇼군 도미노피자</td>
-						</tr>
-						<tr>
-							<td>ㆍ 충무공마제스티쇼군 도미노피자</td>
-						</tr>
-						<tr>
-							<td>ㆍ 충무공마제스티쇼군 도미노피자</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="column">
-				<table id="boardTbl6" class="ui table">
-					<thead>
-						<tr align="center">
-							<th>치킨치이킨</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>ㆍ 교촌레드콤보허니콤보</td>
-						</tr>
-						<tr>
-							<td>ㆍ 교촌레드콤보허니콤보</td>
-						</tr>
-						<tr>
-							<td>ㆍ 교촌레드콤보허니콤보</td>
-						</tr>
-						<tr>
-							<td>ㆍ 교촌레드콤보허니콤보</td>
-						</tr>
-						<tr>
-							<td>ㆍ 교촌레드콤보허니콤보</td>
-						</tr>
-						<tr>
-							<td>ㆍ 교촌레드콤보허니콤보</td>
-						</tr>
-						<tr>
-							<td>ㆍ 교촌레드콤보허니콤보</td>
-						</tr>
-						<tr>
-							<td>ㆍ 교촌레드콤보허니콤보</td>
-						</tr>
-						<tr>
-							<td>ㆍ 교촌레드콤보허니콤보</td>
-						</tr>
-						<tr>
-							<td>ㆍ 교촌레드콤보허니콤보</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div> -->
 		<br>
+		<label class="ui large header">홈트레이닝</label>
 		<hr>
-		<br>
+
 		<!-- 반응형 메뉴 출력 -->
 		<div class="ui relaxed divided items">
 			<div class="item">
@@ -345,11 +192,11 @@
 					</div>
 					<div class="description">까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍</div>
 					<div class="extra">
-						<img src="/resources/image/avatar.png" class="ui circular avatar image"> 관리자
+						<img src="/resources/image/avatar.png" class="ui circular avatar image">
+						관리자
 					</div>
 				</div>
 			</div>
-
 			<div class="item">
 				<div class="ui small image">
 					<img src="/resources/image/kk.jpg" style="height: 100%;">
@@ -361,11 +208,11 @@
 					</div>
 					<div class="description">까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍</div>
 					<div class="extra">
-						<img src="/resources/image/avatar.png" class="ui circular avatar image"> 관리자
+						<img src="/resources/image/avatar.png" class="ui circular avatar image">
+						관리자
 					</div>
 				</div>
 			</div>
-
 			<div class="item">
 				<div class="ui small image">
 					<img src="/resources/image/kk.jpg" style="height: 100%;">
@@ -377,12 +224,66 @@
 					</div>
 					<div class="description">까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍까꿍</div>
 					<div class="extra">
-						<img src="/resources/image/avatar.png" class="ui circular avatar image"> 관리자
+						<img src="/resources/image/avatar.png" class="ui circular avatar image">
+						관리자
 					</div>
 				</div>
 			</div>
 			<hr>
 		</div>
+		<div class="ui three column grid">
+			<div class="column">
+				<table id="boardTbl1" class="ui table">
+					<thead>
+						<tr align="center">
+							<th>
+								커뮤니티
+								<span style="margin-left: 20px;">
+									<a href="/communityWholeBoard.diet?type=comAll" style="color: rgb(250, 40, 40);">
+										<i class="plus square outline icon"></i>
+									</a>
+								</span>
+							</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div class="column">
+				<table id="boardTbl2" class="ui table">
+					<thead>
+						<tr align="center">
+							<th>
+								다이어트꿀팁
+								<span style="margin-left: 20px;">
+									<a href="/dietTipList.diet?type=all" style="color: rgb(250, 40, 40);">
+										<i class="plus square outline icon"></i>
+									</a>
+								</span>
+							</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div class="column">
+				<table id="boardTbl3" class="ui table">
+					<thead>
+						<tr align="center">
+							<th>
+								공지사항
+								<span style="margin-left: 20px;">
+									<a href="/notice.diet" style="color: rgb(250, 40, 40);">
+										<i class="plus square outline icon"></i>
+									</a>
+								</span>
+							</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<br>
+		<hr>
+		<br>
 	</div>
 </div>
 <!-- FOOTER -->
@@ -439,6 +340,21 @@
 			timeout : 1500,
 			random : true,
 		});
+	});
+
+	/* 메인 페이지 - 홈트레이닝 출력 */
+	$.ajax({
+		url : '/mainHomeTraining.diet',
+		type : 'post',
+		success : function(data){
+			for (var i = 0; i < 3; i++) {
+				console.log(data.htList[i]);
+				/*console.log(data.htList[i].htMainPhoto);*/
+			}
+		},
+		error : function(){
+			console.log('[Error] 메인 - 자유게시판 출력 실패');
+		}
 	});
 
 	/* 메인 페이지 - 자유게시판 출력 */
@@ -499,7 +415,7 @@
 			}
 		},
 		error : function() {
-			console.log('[Error] 메인 - 다이어트꿀팁  출력 실패');
+			console.log('[Error] 메인 - 다이어트꿀팁 출력 실패');
 		}
 	});
 
