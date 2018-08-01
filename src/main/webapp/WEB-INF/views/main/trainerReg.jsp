@@ -459,8 +459,11 @@
 		var trImage = new FormData(document.getElementById('photoForm'));
 		
 		
-		if (phonePass == false || weightPass == false || heightPass == false || namePass == false || 
-				postCode != null || roadAddress != null || trBirth != null || trArea !=null) {
+		if (phonePass == false || weightPass == false || heightPass == false || namePass == false) {
+			 /* phonePass == false || weightPass == false || heightPass == false || namePass == false
+			 || postCode != null || roadAddress != null || trBirth != null || trArea !=null
+			 
+			 */
 			alert('트레이너 전환 양식을 모두 작성해주세요.');
 			return false;
 		} else {

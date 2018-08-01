@@ -16,6 +16,7 @@ import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
+import spring.kh.diet.model.vo.TrainingRegVO;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
 import spring.kh.diet.model.vo.todayLikeVO;
@@ -95,6 +96,11 @@ public interface AdminDAO {
 	int searchBeforeDayList(SqlSessionTemplate session);
 
 	ArrayList<TodayAnalyticsDetail> TodayAnalyticsDetailList(SqlSessionTemplate session);
+
+	ArrayList<TrainingRegVO> trainerRegList(SqlSessionTemplate session, int currentPage, int recordCountPerPage);
+
+	String getTrainerRegListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage);
 
 
 }

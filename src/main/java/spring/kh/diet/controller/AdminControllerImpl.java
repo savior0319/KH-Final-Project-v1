@@ -25,6 +25,7 @@ import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -35,6 +36,7 @@ import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
+import spring.kh.diet.model.vo.TrainingRegPageDataVO;
 import spring.kh.diet.model.vo.todayAnalyticPDVO;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
@@ -234,12 +236,26 @@ public class AdminControllerImpl implements AdminController {
 		return "admin/blackList";
 	}
 
-	/* 트레이너 회원 관리 */
+	/* 트레이너 등급 신청 회원 관리 */
 	@Override
 	@RequestMapping(value = "/trainer.diet")
 	public String trainer(HttpServletRequest request, HttpServletResponse response) {
 		
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+
+		TrainingRegPageDataVO trpdv = as.trainerRegList(currentPage);
+
+		System.out.println(trpdv.getTrList().get(0).getTrName());
+		System.out.println(trpdv.getTrList().get(0).getTrImagePath());
+		System.out.println(trpdv.getTrList().get(0).getMbId());
 		
+		request.setAttribute("trpdv", trpdv);
 		
 		return "admin/trainer";
 	}
