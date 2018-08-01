@@ -38,12 +38,18 @@ public class TrainerControllerImpl implements TrainerController {
 	@RequestMapping(value = "/trainerSearchResult.diet")
 	public Object trainerSearchResult(@RequestParam String city, @RequestParam String[] area) {
 
+		String areaList = "";
+		
 		TrainerSearchVO tsv = new TrainerSearchVO();
 		tsv.setCity(city);
 		
 		for (int i = 0; i < area.length; i++) {
-			tsv.getArea().add(area[i]);
+		areaList += area[i] + " ";
 		}
+		
+//		String[] areaListSplit
+		
+		System.out.println(areaList);
 		
 		ModelAndView view = new ModelAndView();
 		view.addObject("tsv", tsv);
