@@ -208,7 +208,6 @@ public class DietTipControllerImpl implements DietTipController {
 	public void registDietTip(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 		MemberVO m = (MemberVO) session.getAttribute("member");
-		System.out.println(request.getParameter("sammary"));
 		DietTipVO dt = new DietTipVO();
 
 		dt.setDtWriterNo(m.getMbIndex());

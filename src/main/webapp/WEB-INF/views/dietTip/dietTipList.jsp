@@ -353,15 +353,18 @@ p>span {
 			success : function(data){
 				if(data>0){
 					alert('삭제 완료');
+					location.href = 'dietTipList.diet?type='+type;
 				}else{
 					alert('삭제 실패');
+					location.href = 'dietTipList.diet?type='+type;
 				}
 			},
 			error : function(data){
 				alert('에러 발생');
+				location.href = 'dietTipList.diet?type='+type;
 			}
 		});
-		location.href = 'dietTipList.diet?type='+type;
+		
 	}
 	
 	// 게시물 수정
