@@ -111,8 +111,6 @@ html, body {
 
 								</tr>
 							</c:forEach>
-
-
 						</tbody>
 					</table>
 					<button class="ui red button" style="float: right;" onclick="deleteMyPost();">삭제하기</button>
