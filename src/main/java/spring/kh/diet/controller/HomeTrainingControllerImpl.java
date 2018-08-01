@@ -93,6 +93,16 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		htpd.setSearchText(pdvo.getSearchText());
 
 		request.setAttribute("htpd", htpd);
+		
+		
+		// 종류별로 해당 회원이 게시물을 봤던 횟수 불러오기
+//		HttpSession session = request.getSession();
+//		MemberVO user = (MemberVO)session.getAttribute("member");
+//		MemberVO seeList = homeTrainingService.getHtSeeList(user.getMbIndex());
+//		
+//		ArrayList<Integer> list = new ArrayList<Integer>();
+//		list.add(seeList.)
+		
 
 		return "homeTraining/homeTrainingList";
 	}

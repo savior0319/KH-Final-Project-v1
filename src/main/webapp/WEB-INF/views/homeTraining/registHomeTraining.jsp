@@ -102,13 +102,17 @@
 					<h3>영상 시간 : <input type="text" id="time" placeholder="시간을 입력"></h3>
 					<h3>운동 난이도 : <input type="text" id="hard" placeholder="운동 난이도를 입력"></h3>
 					<h3>칼로리 소모량 : <input type="text" id="kal" placeholder="소모 칼로리를 입력"></h3>
-					<h3>유튜브 주소 : <input type="text" id="video" placeholder="유튜브 주소 입력" onchange="change();"></h3>
+					<h3>유튜브 주소 : <input type="text" id="video" placeholder="유튜브 주소 입력" onchange="videoChange();"></h3>
 					</div>
 				</div>
 				
 			    <div class="six wide column">
 			    <div style="width:100%;">
-					<img id="img1" style="width:230px; height:180px;">
+					
+					<iframe id="lookAhead" width="230px;" height="180px;" 
+					src="" frameborder="1"
+					allow="autoplay; encrypted-media" allowfullscreen></iframe>
+								
 				</div>
 				<div style="width:100%; height:30px; margin-top:20px;"><h4>유튜브 영상 미리보기</h4></div>
 				</div>	
@@ -343,8 +347,12 @@
     
     
     // 유튜브 영상 미리보기 
-    function change(){
-    	
+    function videoChange(){
+    	var videoIframe = $('#lookAhead');
+    	var video = $('#video').val();
+    	    	
+    	videoIframe.attr("src",video);
+       	
     }
 </script>
 
