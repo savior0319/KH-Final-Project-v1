@@ -17,6 +17,7 @@ import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
+import spring.kh.diet.model.vo.OneSessionVO;
 import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
@@ -780,6 +781,23 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return sb.toString();
 	}
 
+	@Override
+	public OneSessionVO selectOneSession(SqlSessionTemplate sqlSessionTemplate, String id) {
 
+		OneSessionVO OSV = sqlSessionTemplate.selectOne("login.selectOneSession", id);
+		return OSV;
+	}
+
+	@Override
+	public void tranSession(SqlSessionTemplate sqlSessionTemplate, String id) {
+		sqlSessionTemplate.delete("login.transSession", id);
+		
+	}
+
+	@Override
+	public int insertSession(SqlSessionTemplate sqlSessionTemplate, OneSessionVO oSV) {
+		int result = sqlSessionTemplate.insert("login.insertSession", oSV);
+		return result;
+	}
 
 }

@@ -33,6 +33,7 @@ import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
+import spring.kh.diet.model.vo.OneSessionVO;
 import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
@@ -195,6 +196,19 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/secessionMember.diet")
 	public void secessionMember(HttpSession session, HttpServletResponse response) throws IOException {
 		if (session.getAttribute("member") != null) {
+			// 인보부분(세션 파기전 세션의 정보를 넘겨야합니다)
+			// Onsession 값을 가져와서 OffSession TB에 값을 넣어주주고
+			OneSessionVO OSV = myInfoService.selectOneSession(session.getId());
+						
+			int result2 = myInfoService.insertSession(OSV);
+			// Onsession TB에서의 데이터삭제
+
+			if(result2>0)
+			{
+				myInfoService.transSession(session.getId());				
+			}
+			
+			
 			MemberVO mv = (MemberVO) session.getAttribute("member");
 			int result = myInfoService.secessionMember(mv);
 			if (result > 0) {
