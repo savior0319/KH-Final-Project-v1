@@ -70,4 +70,8 @@ public interface MyInfoService {
 
 	ApplyTrainerPDVO applyTrainer(int currentPage, TrainingRegVO tv);
 
+	ApplyTrainerPDVO applyTrainer2(int currentPage, TrainingRegVO tr);
+
+	MyRequestTrainerPDVO requestTrainer2(int currentPage, TrainerProgramVO tv);
+
 }
