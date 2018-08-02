@@ -45,7 +45,6 @@ public class DietTipServiceImpl implements DietTipService {
 
 	@Override
 	public DietTipVO getDietTip(int indexNo) {
-
 		DietTipVO dt = dietTipDAO.getDietTip(session, indexNo);
 
 		return dt;

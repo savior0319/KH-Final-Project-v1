@@ -12,6 +12,16 @@
 
 <!-- CSS -->
 <style>
+td {
+	padding: 10px;
+	text-align: left;
+}
+
+tr>th {
+	background: #faede6;
+	text-align: left;
+	padding: 10px;
+}
 </style>
 
 
@@ -38,28 +48,20 @@
 						<div class="text">검색</div>
 					</div>
 				</div>
-				<div style="text-align: center; margin-top: 3%; height: 40px;">
+				<div id="size1" style="text-align: center; margin-top: 3%; height: 40px;">
 					<i class="chevron circle right icon"></i> 다신 칼로리 사전은 <span
 						style="color: skyblue;">음식의 칼로리 뿐만 아니라 영양소 구성도 함께</span> 나와 다이어트뿐
 					아니라 건강한 식습관 형성에도 도움이 됩니다.
+				</div>
+				<div id="size2" style="text-align: center; margin-top: 3%; height: 20px;">
+					<i class="chevron circle right icon"></i> 알고 싶은 운동을 검색해 주세요
 				</div>
 			</div>
 			<br>
 			<hr>
 			<br>
 
-			<style>
-td {
-	padding: 10px;
-	text-align: left;
-}
-
-tr>th {
-	background: #faede6;
-	text-align: left;
-	padding: 10px;
-}
-</style>
+			
 
 			<!-- 운동 강도와 시간 선택에 따른 칼로리 -->
 
@@ -77,12 +79,6 @@ tr>th {
 					<tr>
 						<th>강도/세트</th>
 						<td>
-							<!-- <select class="ui dropdown">
-								<option value="">가볍게</option>
-								<option value="1">느리게</option>
-								<option value="0">빠르게</option>
-								<option value="2">아주빠르게</option>
-							</select> -->
 							${requestScope.hc.hcHard }
 						</td>
 					</tr>
@@ -99,15 +95,15 @@ tr>th {
 								</c:when>
 							</c:choose></th>
 						<td>
-							<div class="ui input" style="width: 120px; height: 30px;">
+							<div class="ui input" style="width: 150px; height: 30px;">
 								<input id="set" type="text" value="${requestScope.hc.hcSet }"
-									readonly="readonly">
-								<div class="mini ui basic buttons">
-									<div class="ui button" onclick="setDown();">
-										<i class="angle left icon"></i>
+									readonly="readonly" style="width:40%;">
+								<div class="mini ui basic buttons" style="width:60%;">
+									<div class="ui button" onclick="setDown();" style="width:50%; float:left;">
+										<i class="angle left icon" style="width:100%;"></i>
 									</div>
-									<div class="ui button" onclick="setUp();">
-										<i class="angle right icon"></i>
+									<div class="ui button" onclick="setUp();" style="width:50%; float:left;">
+										<i class="angle right icon" style="width:100%;"></i>
 									</div>
 								</div>
 							</div>
@@ -128,7 +124,8 @@ tr>th {
 
 			<!-- 효과 및 참고사항 들어가는 부분 -->
 			<div class="notedItems" style="text-align: left;">
-				<pre>${hc.hcExplain }</pre>
+				<pre id="size1">${hc.hcExplain }</pre>
+				<p id="size2">${hc.hcExplain }</p>
 			</div>
 			<hr>
 
@@ -136,7 +133,7 @@ tr>th {
 			<c:if test="${hc.hcVideo!=null }">
 
 				<h3 class="ui left aligned header">동영상 강좌</h3>
-				<div class="videoLecture"
+				<div id="size1" class="videoLecture"
 					style="width: 700px; height: 200px; border: 2px solid grey;">
 					<div class="youtube" style="width: 40%; height: 100%; float: left;">
 						<iframe width="100%;" height="100%;" src="${hc.hcVideo }"
@@ -147,6 +144,14 @@ tr>th {
 							style="width: 100%; height: 40%; padding: 3%; padding-top: 5%; border-bottom: 1px solid grey;">
 							<h3>${hc.hcName }</h3>
 						</div>
+					</div>
+				</div>
+				
+				<div id="size2" class="videoLecture"
+					style="width: 300px; height: 200px; border: 2px solid grey;">
+					<div class="youtube" style="width: 100%; height: 100%; float: left;">
+						<iframe width="100%;" height="100%;" src="${hc.hcVideo }"
+							frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 					</div>
 				</div>
 
@@ -192,5 +197,24 @@ tr>th {
 		location.href = "/healthCalorieList.diet?searchText=" + searchText;
 	}
 </script>
-
+<style type="text/css" media="screen">
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 550px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
+}
+/* 모바일용 사이즈 */
+@media ( max-width : 549px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
+}
+</style>
 </html>
