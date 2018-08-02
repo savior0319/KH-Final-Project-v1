@@ -99,7 +99,8 @@
 
 
 		<!-- 닉네임, 날짜, 뷰수, 댓글 수 -->
-		<div class="ui black segment">
+		<!-- 모바일용 아닌 사이즈 -->
+		<div id="size1" class="ui black segment">
 			<div class="ui grid">
 				<div class="three column row">
 					<span class="left floated column"> <span class="ui left aligned"> <a> <!-- 프로필이미지 --> <img class="ui avatar image" src="${requestScope.bpv.mbImage}"
@@ -110,11 +111,34 @@
 					</span> <span id="resizeBlock" class="right floated column" style="padding-left: 7%;"> <!-- 날짜 --> <span class="ui right aligned"> <i class="calendar icon"></i> <fmt:formatDate
 								value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm"
 							/> <%-- <fmt:formatDate value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
-					</span> <!-- 뷰수 --> <span id="resize" class="ui right aligned"> &nbsp;&nbsp;|&nbsp;&nbsp; <i class="eye icon"></i> ${requestScope.bpv.postHit} &nbsp;&nbsp;|&nbsp;&nbsp;
+					</span> <!-- 뷰수 --> <span class="ui right aligned"> &nbsp;&nbsp;|&nbsp;&nbsp; <i class="eye icon"></i> ${requestScope.bpv.postHit} &nbsp;&nbsp;|&nbsp;&nbsp;
 					</span> <!-- 댓글수 --> <span id="resize" class="ui right aligned"> <i class="pen square icon"></i> ${requestScope.bpv.postComCount}
 					</span>
 					</span>
 				</div>
+			</div>
+		</div>
+		
+		<!-- 모바일용 사이즈 -->
+		<div id="size2" class="ui black segment">
+			<div class="ui grid">
+					<div class="ui left aligned" style="margin:5px;"> 
+					<!-- 프로필이미지 --> 
+					<img class="ui avatar image" src="${requestScope.bpv.mbImage}"
+								onerror='this.src="/resources/image/avatar.png"'
+							> <!-- 닉네임 --> ${requestScope.bpv.postNickname}
+					</div>
+					 <!-- 날짜 --> 
+					 <div>
+					 <span class="ui right aligned"> 
+					 <i class="calendar icon"></i> 
+					 <fmt:formatDate value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm"/> 
+					 <%-- <fmt:formatDate value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
+					</span> &nbsp;&nbsp;|&nbsp;&nbsp;<!-- 뷰수 --> 
+					<span id="resize" class="ui right aligned"> <i class="eye icon"></i> ${requestScope.bpv.postHit} &nbsp;&nbsp;|&nbsp;&nbsp;
+					</span>&nbsp;&nbsp;|&nbsp;&nbsp;  <!-- 댓글수 --> <span id="resize" class="ui right aligned"> <i class="pen square icon"></i> ${requestScope.bpv.postComCount}
+					</span>
+					</div>
 			</div>
 		</div>
 
@@ -365,9 +389,9 @@
 							<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
 							</a>
 							<div class="content" style="width: 93%;">
-								<span class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</span>
+								<span class="author" style="position: absolute; width: 90px;">${bc.mbNickname }</span>
 								<div class="metadata" style="width: 100%;">
-									<span class="date" style="width: 30%; display: inline; margin-left: 10%;">
+									<span class="date" style="width: 30%; display: inline; margin-left: 100px;">
 										<fmt:formatDate value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" />
 									</span>
 									<div id="modiDelete_${bc.cmtIndex}">
@@ -382,7 +406,7 @@
                   
 									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
 								<c:if test="${sessionScope.member!=null}">
-									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+									<div class="ui right aligned container" align="right" style="width: 70%; float: right; margin-top:10px;">
 										<button class="ui red basic tiny button" onclick="cmtLike(${bc.cmtIndex},${bc.mbIndex})" style="margin-right: 10px;">
 											<i class="thumbs up outline icon"></i>
 											좋아요 <label id="cmtLikeCount_${bc.cmtIndex}">${bc.cmtLike}</label>
@@ -1082,7 +1106,7 @@
 
 <!-- 미디어 태그 1200px 보다 작아질 때-->
 <style type="text/css" media="screen">
-@media ( max-width : 1200px) {
+/* @media ( max-width : 1200px) {
 	#resize {
 		display: none;
 	}
@@ -1095,20 +1119,58 @@
 	#removePadding {
 		margin-left: 500px;
 	}
-}
+}  
 @media ( max-width : 455px) {
 	#bookMark {
-		display: block;
+		display: none;
 	}
 	#heartBtn {
 		display: block;
 	}
 	#reportBtn {
-		display: block;
+		display: none;
 	}
 	#removePadding {
 		padding: 0;
 		margin: 0;
+	}
+	button[id^="cmdReportBtn_"]{
+		display:none !important;
+	}
+} */
+
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 550px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
+}
+/* 모바일용 사이즈 */
+@media ( max-width : 549px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
+	#bookMark {
+		display: none;
+	}
+	#heartBtn {
+		display: block;
+	}
+	#reportBtn {
+		display: none;
+	}
+	#removePadding {
+		padding: 0;
+		margin: 0;
+	}
+	button[id^="cmdReportBtn_"]{
+		display:none !important;
 	}
 }
 </style>

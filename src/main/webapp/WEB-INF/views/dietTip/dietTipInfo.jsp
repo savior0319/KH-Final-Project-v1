@@ -86,22 +86,53 @@ p>span {
 			<i class="quote left icon"></i>${requestScope.dt.dtTitle }<i class="quote right icon"></i>
 		</h2>
 
-
 		<!-- 닉네임, 날짜, 뷰수, 댓글 수 -->
-		<div class="ui black segment">
+		<!-- 모바일용이 아닌 사이즈 -->
+		<div id="size1" class="ui black segment">
 			<div class="ui grid">
-				<div class="four column row">
-					<span class="left floated column" style=""> <span class="ui left aligned"> <a> <img class="ui avatar image" src="${requestScope.dt.dtWriterPhoto }">
-								${requestScope.dt.dtNickname }
-						</a>
-					</span>
-					</span> <span class="right floated column"> <!-- 날짜 --> <span class="ui right aligned"> <i class="calendar icon"></i> <fmt:formatDate value="${requestScope.dt.dtDate }"
-								pattern="yyyy-MM-dd HH:mm" />
-					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 뷰수 --> <span class="ui right aligned"> <i class="eye icon"></i> ${requestScope.dt.dtSee }
-					</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 댓글수 --> <span class="ui right aligned"> <i class="pen square icon"></i> ${requestScope.bcpd.totalCommentNo }
-					</span>
-					</span>
+				<div class="three column row">
+					<span class="left floated column"> 
+						<span class="ui left aligned"> 
+							<img class="ui avatar image" src="${requestScope.dt.dtWriterPhoto }">
+							${requestScope.dt.dtNickname }
+						</span>
+					</span> 
+					<div class="right floated column"> <!-- 날짜 --> 
+						<span class="ui right aligned"> 
+							<i class="calendar icon"></i> 
+							<fmt:formatDate value="${requestScope.dt.dtDate }" pattern="yyyy-MM-dd HH:mm" />
+						</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 뷰수 --> 
+						<span class="ui right aligned"> 
+							<i class="eye icon"></i> ${requestScope.dt.dtSee }
+						</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 댓글수 --> 
+						<span class="ui right aligned"> 
+							<i class="pen square icon"></i> ${requestScope.bcpd.totalCommentNo }
+						</span>
+					</div>
 				</div>
+			</div>
+		</div>
+		
+		<!-- 모바일용 사이즈 -->
+		<div id="size2" class="ui black segment">
+			<div class="ui grid">
+					<div class="ui left aligned"> 
+						<img class="ui avatar image" src="${requestScope.dt.dtWriterPhoto }">
+							${requestScope.dt.dtNickname }
+					</div>
+					 <!-- 날짜 --> 
+					 <div>
+						<span class="ui right aligned"> 
+							<i class="calendar icon"></i> 
+							<fmt:formatDate value="${requestScope.dt.dtDate }" pattern="yyyy-MM-dd HH:mm" />
+						</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 뷰수 --> 
+						<span class="ui right aligned"> 
+							<i class="eye icon"></i> ${requestScope.dt.dtSee }
+						</span> &nbsp;&nbsp;|&nbsp;&nbsp; <!-- 댓글수 --> 
+						<span class="ui right aligned"> 
+							<i class="pen square icon"></i> ${requestScope.bcpd.totalCommentNo }
+						</span>
+					</div>
 			</div>
 		</div>
 
@@ -182,101 +213,9 @@ p>span {
 					<a class="ui basic red left pointing label" id="postLike"> ${requestScope.dt.dtLike } </a>
 				</div>
 
-
-				<!-- 신고 버튼 -->
-				<!-- <button class="ui black button" style="height: 40px;" id="reportBtn">
-					<i class="bullhorn icon"></i> 신고
-				</button> -->
 			</div>
 			<br> <br> <br>
 
-			<!-- 신고 모달 -->
-			<!-- <div class="ui basic modal" id="reportModal">
-				<div class="ui icon header">
-					<i class="exclamation triangle icon"></i> 신고하기
-				</div>
-				<h5 class="ui center aligned container">(신고 사유를 선택해 주세요.)</h5>
-				<br>
-
-
-				<div class="ui container" align="center">
-					<div class="content">
-						<div class="ui form">
-							<div class="grouped fields">
-
-								<div class="ui clearing segment"
-									style="width: 350px; padding-left: 60px;">
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2" checked="checked">
-											<label>&emsp;&emsp;광고/상업성 게시글</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;비방/욕설
-												게시글</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;개인정보
-												유출 게시물</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;청소년
-												유해(음란) 게시물</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;명예훼손/저작권
-												침해 게시물</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;도배성
-												게시물</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" name="example2"> <label>&emsp;&emsp;불명확/추측성
-												게시물</label>
-										</div>
-									</div>
-									<br> <br>
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-				<br> <br>
-				<div class="ui center aligned container">
-					<div class="actions">
-						<div class="ui red basic cancel inverted button">
-							<i class="remove icon"></i> 취소
-						</div>
-						<div class="ui red ok inverted button">
-							<i class="checkmark icon"></i> 신고
-						</div>
-					</div>
-				</div>
-
-			</div> -->
 		</div>
 
 
@@ -322,9 +261,6 @@ p>span {
 					</c:when>
 				</c:choose>
 
-
-
-
 				<tr>
 					<td></td>
 					<td></td>
@@ -365,17 +301,20 @@ p>span {
 							<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
 							</a>
 							<div class="content" style="width: 93%;">
-								<div class="author" style="position: absolute; width: 10%;">${bc.mbNickname }</div>
+								<div class="author" style="position: absolute; width: 90px;">${bc.mbNickname }</div>
 								<div class="metadata" style="width: 100%;">
-									<span class="date" style="width: 30%; display: inline; margin-left: 10%;"><fmt:formatDate value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" /></span>
+									<span class="date" style="width: 30%; display: inline; margin-left: 100px;"><fmt:formatDate value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" /></span>
 
 									<div id="modiDelete_${bc.cmtIndex}">
+									
+									<c:if test="${bc.mbNickname eq sessionScope.member.mbNickName}">
 										<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex" id="cmdIndex_${bc.cmtIndex}" /> <a class="modifyComment" style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
 										&nbsp;&nbsp;|&nbsp;&nbsp; <a class="deleteComment" onclick="deleteComment(${bc.cmtIndex});" style="cursor: pointer;">삭제</a>
+										</c:if>
 									</div>
 									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
 
-									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+									<div class="ui right aligned container" align="right" style="width: 70%; float: right; margin-top:10px;">
 										<button class="ui red basic tiny button" style="margin-right: 10px;" onclick="cmtLike(${bc.cmtIndex},${bc.mbIndex})">
 											<i class="thumbs up outline icon"></i>좋아요 <label id="cmtLikeCount_${bc.cmtIndex}">${bc.cmtLike}</label>
 										</button>
@@ -498,22 +437,12 @@ p>span {
 
 		</div>
 
-
-
-
-
 	</div>
 
 
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
-
-<!-- 성공시 모달 -->
-<div class="ui modal" id="modal1">
-	<div class="ui small header">댓글을 작성했습니다</div>
-</div>
-
 
 <!-- SCRIPT -->
 <script type="text/javascript">
@@ -647,15 +576,12 @@ p>span {
 
 			success : function(data) {
 				if (data > 0) {
-					// 모달 띄우기
-					//$('.ui.basic.modal').modal('show');
-
 					alert('댓글을 작성하였습니다.');
 				} else {
 					alert('댓글을 등록하지 못했습니다.');
 				}
 
-				location.href = "/dietTipInfo.diet?indexNo=" + indexNo;
+				location.href = "/dietTipInfo.diet?indexNo=" + indexNo + "&type=${requestScope.type}";
 			},
 			error : function() {
 				alert('댓글을 등록하지 못했습니다.');
@@ -763,7 +689,7 @@ p>span {
 					contentDiv.attr("class", "content");
 
 					var aAuthor = $("<div>").attr("class", "author");
-					aAuthor.attr("style", "position: absolute; width: 10%;");
+					aAuthor.attr("style", "position: absolute; width: 90px;");
 					aAuthor.html(data.bcList[i].mbNickname);
 
 					var metadataDiv = $("<div>").attr("class", "metadata");
@@ -771,7 +697,7 @@ p>span {
 
 					var span = $("<span>").attr("class", "date");
 					span.attr("style",
-							"width: 30%; display: inline; margin-left: 10%;");
+							"width: 30%; display: inline; margin-left: 100px;");
 					span.html(data.bcList[i].cmtDateTime);
 					
 					
@@ -821,7 +747,7 @@ p>span {
 					var containerDiv = $("<div>").attr("class",
 							"ui right aligned container");
 					containerDiv.attr("align", "right");
-					containerDiv.attr("style", "width: 70%; float: right;");
+					containerDiv.attr("style", "width: 70%; float: right; margin-top:10px;");
 
 					var likeBtn = $("<button>").attr("class",
 							"ui red basic tiny button");
@@ -832,6 +758,7 @@ p>span {
 
 					var blameBtn = $("<button>").attr("class",
 							"ui black basic tiny button");
+					blameBtn.attr("id","cmdReportBtn_" + data.bcList[i].cmtIndex);
 
 					var blameI = $("<i>").attr("class", "ban icon");
 
@@ -862,12 +789,15 @@ p>span {
 					metadataDiv.append(span);
 					
 					/* ☆지현 추가 - 수정 삭제 버튼 */
-					metadataDiv.append(modiDelete);
-					modiDelete.append(hiddenInput);
-					modiDelete.append(modifyA);
-					modiDelete.append('&nbsp;&nbsp;|&nbsp;&nbsp;');
-					modiDelete.append(deleteA);
 					
+					metadataDiv.append(modiDelete);
+					var getNickName = '${sessionScope.member.mbNickName}';
+					if(getNickName == data.bcList[i].mbNickname){
+						modiDelete.append(hiddenInput);
+						modiDelete.append(modifyA);
+						modiDelete.append('&nbsp;&nbsp;|&nbsp;&nbsp;');
+						modiDelete.append(deleteA);
+					}
 					metadataDiv.append(cancleA);
 					/* 잘해썽 */
 					
@@ -1053,19 +983,39 @@ p>span {
 
 @media ( max-width : 455px) {
 	#bookMark {
-		display: block;
+		display: none;
 	}
 	#heartBtn {
-		display: block;
-	}
-	#reportBtn {
 		display: block;
 	}
 	#removePadding {
 		padding: 0;
 		margin: 0;
 	}
+	button[id^="cmdReportBtn_"]{
+		display:none !important;
+	}
+	
 }
 </style>
-
+<style type="text/css" media="screen">
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 550px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
+}
+/* 모바일용 사이즈 */
+@media ( max-width : 549px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
+}
+</style>
 </html>
