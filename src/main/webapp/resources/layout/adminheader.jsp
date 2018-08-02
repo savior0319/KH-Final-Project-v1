@@ -29,7 +29,8 @@
 				<a class="ui simple item" href="/memberList.diet">회원조회</a>
 				<a class="ui simple item" href="/deleteMemberList.diet">탈퇴 내역 조회</a>
 				<a class="ui simple item" href="/blackList.diet">블랙리스트 회원 관리</a>
-				<a class="ui simple item" href="/trainer.diet">트레이너 회원 관리</a>
+				<a class="ui simple item" href="/trainer.diet">트레이너 신청 관리</a>
+				<a class="ui simple item" href="/trainerChange.diet">트레이너 회원 관리</a>
 			</h4>
 		</div>
 	</div>

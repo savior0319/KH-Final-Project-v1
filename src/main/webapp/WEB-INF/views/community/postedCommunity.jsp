@@ -143,7 +143,7 @@
 		</div>
 
 		<!-- 내용 들어가는 부분! -->
-		<div class="ui clearing segment">
+		<div class="ui clearing segment" style="word-break:break-all;">
 			${requestScope.bpv.postContent}
 			
 			 <br> <br> <br> <br>
