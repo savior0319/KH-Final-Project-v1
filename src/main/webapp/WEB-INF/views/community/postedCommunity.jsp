@@ -865,6 +865,12 @@
 				if(data=='n'){
 					var indexNo = $('#postIndex').val();
 					var commentContent = $('#commentContent').val();
+					
+					if(commentContent==''){
+						alert('댓글을 입력해 주세요');
+						return;
+					}
+					
 					$.ajax({
 						url : '/addComment.diet',
 						type : 'post',
@@ -892,12 +898,7 @@
 			}
 		});
 	}
-	function naviMo(currentPage, indexNo, servletName) {
-		location.href = "/" + servletName + "?indexNo=" + indexNo
-				+ "&currentPage=" + currentPage;
-	}
-	
-	
+		
 	/* 댓글 내비게이션 버튼 ajax 처리를 위한 코드 그대로 가져다 쓰시면 돼요 */
 	function naviMove(currentPage, indexNo, servletName) {
 		$.ajax({
