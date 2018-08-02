@@ -5,14 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<!-- 주소 api -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<!-- 달력 추가 -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+	<!-- 주소 api -->
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<!-- 달력 추가 -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
-<title>트레이너 신청</title>
+	<title>트레이너 신청</title>
 </head>
 
 <!-- CSS -->
@@ -30,48 +30,48 @@
 
 
 
-			<div class="ui center aligned basic segment">
-				<br>
-				<div class="ui large message">
-					<div class="ui large header">트레이너 신청</div>
-				</div>
-				<div class="ui small red message">
-					<div class="ui small header">※ 트레이너 회원은 아래 항목 입력 후 관리자의 승인이 필요합니다</div>
-				</div>
-				<br>
+		<div class="ui center aligned basic segment">
+			<br>
+			<div class="ui large message">
+				<div class="ui large header">트레이너 신청</div>
+			</div>
+			<div class="ui small red message">
+				<div class="ui small header">※ 트레이너 회원은 아래 항목 입력 후 관리자의 승인이 필요합니다</div>
+			</div>
+			<br>
 
-				<h3 class="ui block header">기본 정보</h3>
-				<table class="ui celled table">
-					<thead>
-						<tr>
-							<td style="width: 30%;">
+			<h3 class="ui block header">기본 정보</h3>
+			<table class="ui celled table">
+				<thead>
+					<tr>
+						<td style="width: 30%;">
 
 
-								<table class="ui collapsing table" style="width: 100%;">
-									<thead align="center">
-										<tr>
-											<th>
-												<strong>사진 등록</strong>
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
-												<!-- 사진 첨부 -->
-												<div class="six wide column">
-													<div style="width: 100%;">
-														<img id="img" style="width: 300px; height: 300px;">
-													</div>
-													<div style="width: 100%; height: 20%; margin-top: 20px;" align="center">
-														<button type="button" class="ui button" onclick="uploadPictureBtn();" style="background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
-													</div>
+							<table class="ui collapsing table" style="width: 100%;">
+								<thead align="center">
+									<tr>
+										<th>
+											<strong>사진 등록</strong>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<!-- 사진 첨부 -->
+											<div class="six wide column">
+												<div style="width: 100%;">
+													<img id="img" style="width: 300px; height: 300px;">
 												</div>
-												<!-- 사진 첨부 끝 -->
-											</td>
-										</tr>
-									</tbody>
-								</table>
+												<div style="width: 100%; height: 20%; margin-top: 20px;" align="center">
+													<button type="button" class="ui button" onclick="uploadPictureBtn();" style="background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
+												</div>
+											</div>
+											<!-- 사진 첨부 끝 -->
+										</td>
+									</tr>
+								</tbody>
+							</table>
 							<td>
 								<table class="ui very basic table">
 									<thead align="center">
@@ -266,152 +266,152 @@
 
 
 			</div>
-		
-	</div>
-	<!-- FOOTER -->
-	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
-</body>
-<!-- 이미지 선택 모달 -->
 
-<div class="ui modal" id="updateProfile">
-	<i class="close icon"></i>
-	<div class="header">메인 사진 등록</div>
-	<div class="image content">
-		<form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data">
-			<div class="description">
-				<div class="ui header">
-					<div class="fileBox">
-						<input type="text" class="fileName" id="fileName" readonly="readonly" />
-						<label for="uploadBtn" class="btn_file">찾아보기</label>
-						<input type="file" id="uploadBtn" class="uploadBtn" name="uploadFile" />
+		</div>
+		<!-- FOOTER -->
+		<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
+	</body>
+	<!-- 이미지 선택 모달 -->
+
+	<div class="ui modal" id="updateProfile">
+		<i class="close icon"></i>
+		<div class="header">메인 사진 등록</div>
+		<div class="image content">
+			<form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data">
+				<div class="description">
+					<div class="ui header">
+						<div class="fileBox">
+							<input type="text" class="fileName" id="fileName" readonly="readonly" />
+							<label for="uploadBtn" class="btn_file">찾아보기</label>
+							<input type="file" id="uploadBtn" class="uploadBtn" name="uploadFile" />
+						</div>
 					</div>
 				</div>
+
+
+			</form>
+			<br>
+			<div class="actions">
+				<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
+					사진 등록
+					<i class="checkmark icon"></i>
+				</button>
+				<button type="button" class="ui black button" id="modalOff">취소</button>
 			</div>
-
-
-		</form>
-		<br>
-		<div class="actions">
-			<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
-				사진 등록
-				<i class="checkmark icon"></i>
-			</button>
-			<button type="button" class="ui black button" id="modalOff">취소</button>
+			<%-- <input type="hidden" value="${sessionScope.member.mbId}" id="memberId" /> --%>
 		</div>
-		<%-- <input type="hidden" value="${sessionScope.member.mbId}" id="memberId" /> --%>
 	</div>
-</div>
-<!-- SCRIPT -->
+	<!-- SCRIPT -->
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 
 
-	/* 사진등록,변경버튼 클릭시 모달 보여주기 */
-	function uploadPictureBtn() {
-		$("#updateProfile").modal('show');
-	}
-
-
-	
-	/* 모달 창 종료 */
-	$("#modalOff").click(function() {
-		$("#updateProfile").modal('hide');
-	});
-
-	/* 모달 파일 input 부분 스크립트 */
-	var uploadFile = $('.fileBox .uploadBtn');
-	uploadFile.on('change', function() {
-		if (window.FileReader) {
-			var filename = $(this)[0].files[0].name;
-		} else {
-			var filename = $(this).val().split('/').pop().split('\\').pop();
+		/* 사진등록,변경버튼 클릭시 모달 보여주기 */
+		function uploadPictureBtn() {
+			$("#updateProfile").modal('show');
 		}
-		$(this).siblings('.fileName').val(filename);
-	});
 
-	/* 올린 이미지 미리보기 */
-	var sel_file;
-	var reader;
-	var ff;
 
-	$(document).ready(function() {
-		$("#uploadBtn").on("change", handleImgFileSelect);
-	});
 
-	function photoPreview() {
-		handle();
-
-	}
-
-	function handleImgFileSelect(e) {
-
-		var files = e.target.files;
-		var filesArr = Array.prototype.slice.call(files);
-
-		filesArr.forEach(function(f) {
-			if (!f.type.match("image.*")) {
-				alert("확장자는 이미지 확장자만 가능합니다.");
-				return;
-			}
-
-			sel_file = f;
-
-			reader = new FileReader();
-
-			reader.onload = function(e) {
-				$("#img").attr("src", e.target.result);
-			}
-			ff = f;
+		/* 모달 창 종료 */
+		$("#modalOff").click(function() {
+			$("#updateProfile").modal('hide');
 		});
-	}
 
-	function handle() {
-		reader.readAsDataURL(ff);
-		$("#updateProfile").modal('hide');
-	}
-
-	
-	
-	
-	
-	
-	/* 사진등록,변경버튼 클릭시 모달 보여주기 */
-	function uploadPictureBtn() {
-		$("#updateProfile").modal('show');
-	}
-
-	function photoPreview() {
-		handle();
-
-	}
-
-	/* 그림추가부분-step*/
-	function readURL(input, stepImgNum) {
-
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-
-			reader.onload = function(e) {
-				$('#imgFile_Step_' + stepImgNum).attr('src', e.target.result);
-
-				var imgAddr = $('#imgFile_Step_' + stepImgNum).attr('src');
-				$('#stepRPic' + stepImgNum).attr('value', imgAddr);
-
+		/* 모달 파일 input 부분 스크립트 */
+		var uploadFile = $('.fileBox .uploadBtn');
+		uploadFile.on('change', function() {
+			if (window.FileReader) {
+				var filename = $(this)[0].files[0].name;
+			} else {
+				var filename = $(this).val().split('/').pop().split('\\').pop();
 			}
+			$(this).siblings('.fileName').val(filename);
+		});
 
-			reader.readAsDataURL(input.files[0]);
+		/* 올린 이미지 미리보기 */
+		var sel_file;
+		var reader;
+		var ff;
+
+		$(document).ready(function() {
+			$("#uploadBtn").on("change", handleImgFileSelect);
+		});
+
+		function photoPreview() {
+			handle();
+
 		}
 
-	};
-	
-	
-	
-	
-	
-	
-	
+		function handleImgFileSelect(e) {
+
+			var files = e.target.files;
+			var filesArr = Array.prototype.slice.call(files);
+
+			filesArr.forEach(function(f) {
+				if (!f.type.match("image.*")) {
+					alert("확장자는 이미지 확장자만 가능합니다.");
+					return;
+				}
+
+				sel_file = f;
+
+				reader = new FileReader();
+
+				reader.onload = function(e) {
+					$("#img").attr("src", e.target.result);
+				}
+				ff = f;
+			});
+		}
+
+		function handle() {
+			reader.readAsDataURL(ff);
+			$("#updateProfile").modal('hide');
+		}
+
+
+
+
+
+
+		/* 사진등록,변경버튼 클릭시 모달 보여주기 */
+		function uploadPictureBtn() {
+			$("#updateProfile").modal('show');
+		}
+
+		function photoPreview() {
+			handle();
+
+		}
+
+		/* 그림추가부분-step*/
+		function readURL(input, stepImgNum) {
+
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#imgFile_Step_' + stepImgNum).attr('src', e.target.result);
+
+					var imgAddr = $('#imgFile_Step_' + stepImgNum).attr('src');
+					$('#stepRPic' + stepImgNum).attr('value', imgAddr);
+
+				}
+
+				reader.readAsDataURL(input.files[0]);
+			}
+
+		};
+
+
+
+
+
+
+
 	/* function submitBtn() {
 
 		var city = $('#dropdown1').val();
@@ -465,25 +465,25 @@
 			 || postCode != null || roadAddress != null || trBirth != null || trArea !=null
 			 
 			 */
-			alert('트레이너 전환 양식을 모두 작성해주세요.');
-			return false;
-		} else {
-			
-			console.log("이름 : " + trName);
-			console.log("핸드폰 : " + trPhone);
-			console.log("우편번호 : " + postcode);
-			console.log("성별 : " + trGender);			
-			console.log("주소 : " + roadAddress);
-			console.log("상세주소 : " + addAddress);
-			console.log("총 주소 : " + trAddress);
-			console.log("생년월일 : " + trBirth);
-			console.log(" 키 : " + trHeight);
-			console.log("몸무게 : " + trWeight);
-			console.log("지역 : " + trCity);
-			console.log("상세 지역 : " + trArea);
-			console.log("경력 : " + trContent);
-			
-			$.ajax({
+			 alert('트레이너 전환 양식을 모두 작성해주세요.');
+			 return false;
+			} else {
+
+				console.log("이름 : " + trName);
+				console.log("핸드폰 : " + trPhone);
+				console.log("우편번호 : " + postcode);
+				console.log("성별 : " + trGender);			
+				console.log("주소 : " + roadAddress);
+				console.log("상세주소 : " + addAddress);
+				console.log("총 주소 : " + trAddress);
+				console.log("생년월일 : " + trBirth);
+				console.log(" 키 : " + trHeight);
+				console.log("몸무게 : " + trWeight);
+				console.log("지역 : " + trCity);
+				console.log("상세 지역 : " + trArea);
+				console.log("경력 : " + trContent);
+
+				$.ajax({
 	    		url : '/saveDietTipMainPhotoPath.diet',		// 이거는 그냥 dietTip꺼 쓰면 될듯
 	    		type : 'post',
 	    		data : trImage,
@@ -510,31 +510,24 @@
     				 		'trImagePath' : trImagePath
     					},
     					success : function(result) {
-    						
     						if (result == '1') {
     							alert('신청 완료');
     							location.href="/trainerMatch.diet";
     						} else {
     							alert('신청 실패');
+
     							//location.href="/trainerMatch.diet";
     						}
     					},
     					error : function(result) {
-    						
-    						alert('실패 : ' + result );
-    						alert('게시글 등록 실패(과정 오류)');
+    						alert('실패');
     						//location.href="/trainerMatch.diet";
     					}
     				});		  
-  			
-	    			
 	    		}
 	    	});
-
-
+			}
 		}
-
-	}
 
 	//정규표현식하기!
 	var phoneRegExp = /^01([0|1|6|7|8|9]{1})([0-9]{3,4})([0-9]{4})$/;
@@ -547,93 +540,93 @@
 	var heightPass = false;
 	var namePass = false;
 
-	$(document).ready(function() {
+	$(document).ready(
+		function() {
 
-				$('#numberCheck').keyup(
-						function() {
-							var phone = $('#numberCheck').val();
+			$('#numberCheck').keyup(
+				function() {
+					var phone = $('#numberCheck').val();
 
-							var phoneCheck = phoneRegExp.test(phone);
+					var phoneCheck = phoneRegExp.test(phone);
 
-							if (phoneCheck == false) {
-								$('#phoneMessage').html("* '-'을 제외한 11자리 숫자를 입력해주세요 ").attr(
-										"style", "display:block; color:red;");
-								phonePass = false;
-							} else if (phoneCheck == true) {
-								$('#phoneMessage').attr("style",
-										"display:none;");
-								phonePass = true;
-							}
+					if (phoneCheck == false) {
+						$('#phoneMessage').html("* '-'을 제외한 11자리 숫자를 입력해주세요 ").attr(
+							"style", "display:block; color:red;");
+						phonePass = false;
+					} else if (phoneCheck == true) {
+						$('#phoneMessage').attr("style",
+							"display:none;");
+						phonePass = true;
+					}
+				});
 
-						});
+			$('#heightCheck').keyup(
+				function() {
+					var height = $('#heightCheck').val();
 
-				$('#heightCheck').keyup(
-						function() {
-							var height = $('#heightCheck').val();
+					var numCheck = numRegExp.test(height);
 
-							var numCheck = numRegExp.test(height);
+					if (numCheck == false) {
+						$('#heightMessage').html('* 키는 숫자만 입력이 가능합니다.').attr(
+							"style", "display:block; color:red;");
+						heightPass = false;
+					} else if (numCheck == true) {
+						$('#heightMessage').attr("style",
+							"display:none;");
+						heightPass = true;
+					}
 
-							if (numCheck == false) {
-								$('#heightMessage').html('* 키는 숫자만 입력이 가능합니다.').attr(
-										"style", "display:block; color:red;");
-								heightPass = false;
-							} else if (numCheck == true) {
-								$('#heightMessage').attr("style",
-										"display:none;");
-								heightPass = true;
-							}
+				});
 
-						});
+			$('#weightCheck').keyup(
+				function() {
+					var weight = $('#weightCheck').val();
 
-				$('#weightCheck').keyup(
-						function() {
-							var weight = $('#weightCheck').val();
+					var numCheck = numRegExp.test(weight);
 
-							var numCheck = numRegExp.test(weight);
+					if (numCheck == false) {
+						$('#weightMessage').html('* 몸무게는 숫자만 입력이 가능합니다.').attr(
+							"style", "display:block; color:red;");
+						weightPass = false;
+					} else if (numCheck == true) {
+						$('#weightMessage').attr("style",
+							"display:none;");
+						weightPass = true;
+					}
 
-							if (numCheck == false) {
-								$('#weightMessage').html('* 몸무게는 숫자만 입력이 가능합니다.').attr(
-										"style", "display:block; color:red;");
-								weightPass = false;
-							} else if (numCheck == true) {
-								$('#weightMessage').attr("style",
-										"display:none;");
-								weightPass = true;
-							}
+				});
 
-						});
-				
-				
-				$('#nameCheck').keyup(
-						function() {
-							var name = $('#nameCheck').val();
 
-							var nameCheck = nameRegExp.test(name);
+			$('#nameCheck').keyup(
+				function() {
+					var name = $('#nameCheck').val();
 
-							if (nameCheck == false) {
-								$('#nameMessage').html('* 이름은 한글 2~5 글자만 가능합니다.').attr(
-										"style", "display:block; color:red;");
-								namePass = false;
-							} else if (nameCheck == true) {
-								$('#nameMessage').attr("style",
-										"display:none;");
-								namePass = true;
-							}
+					var nameCheck = nameRegExp.test(name);
 
-						});
-				
+					if (nameCheck == false) {
+						$('#nameMessage').html('* 이름은 한글 2~5 글자만 가능합니다.').attr(
+							"style", "display:block; color:red;");
+						namePass = false;
+					} else if (nameCheck == true) {
+						$('#nameMessage').attr("style",
+							"display:none;");
+						namePass = true;
+					}
 
-			});
+				});
+
+
+		});
 	//정규표현식 끝!!!!!!
-		
+
 
 	
 	/* 지역 드롭다운 */
 	$('#dropdown1').dropdown();
 
 	$('#dropdown2').dropdown({
-		 maxSelections : 3 
-		});
+		maxSelections : 3 
+	});
 	
 	$('#dropdown3').dropdown({
 		maxSelections : 3
@@ -650,7 +643,7 @@
 			$(this).maxSelections = false;
 		}
 		
-		}); */
+	}); */
 	
 
 	$('#dropdown1').change(function() {
@@ -673,9 +666,9 @@
 		prevText : '이전 달',
 		nextText : '다음 달',
 		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
-				'10월', '11월', '12월' ],
+		'10월', '11월', '12월' ],
 		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
-				'9월', '10월', '11월', '12월' ],
+		'9월', '10월', '11월', '12월' ],
 		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
 		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
 		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
@@ -704,8 +697,8 @@
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 	function execDaumPostcode() {
 		new daum.Postcode(
-				{
-					oncomplete : function(data) {
+		{
+			oncomplete : function(data) {
 						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 						// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
 						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
@@ -719,7 +712,7 @@
 						// 건물명이 있고, 공동주택일 경우 추가한다.
 						if (data.buildingName !== '' && data.apartment === 'Y') {
 							extraRoadAddr += (extraRoadAddr !== '' ? ', '
-									+ data.buildingName : data.buildingName);
+								+ data.buildingName : data.buildingName);
 						}
 						// 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
 						if (extraRoadAddr !== '') {
@@ -736,13 +729,13 @@
 						if (data.autoRoadAddress) {
 							//예상되는 도로명 주소에 조합형 주소를 추가한다.
 							var expRoadAddr = data.autoRoadAddress
-									+ extraRoadAddr;
+							+ extraRoadAddr;
 							document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
-									+ expRoadAddr + ')';
+							+ expRoadAddr + ')';
 						} else if (data.autoJibunAddress) {
 							var expJibunAddr = data.autoJibunAddress;
 							document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
-									+ expJibunAddr + ')';
+							+ expJibunAddr + ')';
 						} else {
 							document.getElementById('guide').innerHTML = '';
 						}

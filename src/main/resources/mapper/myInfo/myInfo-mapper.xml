@@ -21,52 +21,58 @@
 		<result property="mbReport" column="MB_REPORT" />
 		<result property="mbEnrollDate" column="MB_ENROLLDATE" />
 	</resultMap>
-	
+
+	<resultMap type="trainerReg" id="trainerRegDB">
+		<result property="trName" column="TR_NAME" />
+		<result property="trAddress" column="TR_ADDRESS" />
+		<result property="trPhone" column="TR_PHONE" />
+		<result property="trGender" column="TR_GENDER" />
+		<result property="trCity" column="TR_CITY" />
+		<result property="trArea" column="TR_AREA" />
+		<result property="trImagePath" column="TR_IMAGE_PATH" />
+		<result property="trContent" column="TR_CONTENT" />
+		<result property="trIndex" column="TR_INDEX" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="trHeight" column="TR_HEIGHT" />
+		<result property="trWeight" column="TR_WEIGHT" />
+		<result property="trRegDate" column="TR_REGDATE" />
+		<result property="trBirth" column="TR_BIRTH" />
+		<result property="mbId" column="MB_ID" />
+		<result property="mbName" column="MB_NAME" />
+		<result property="mbNickName" column="MB_NICKNAME" />
+		<result property="mbGrade" column="MB_GRADE" />
+		<result property="trStatus" column="TR_STATUS" /> <!-- 혜윤 추가 / 충돌시 삭제 -->
+	</resultMap>
+
 	<!-- 트레이너 자격 신청 리스트 -->
-	<select id="applyTrainerList" resultType="trainerReg"
-		parameterType="applyTrainerPDVO">
-		SELECT
-		TR_INDEX AS trIndex,
-		MB_INDEX AS mbIndex,
-		TR_NAME AS trName ,
-		TR_BIRTH AS trBirth,
-		TR_ADDRESS AS trAddress,
-		TR_PHONE AS trPhone,
-		TR_HEIGHT AS trHeight,
-		TR_WEIGHT AS trWeight,
-		TR_CITY AS trCity,
-		TR_AREA AS trArea,
-		TR_IMAGE_PATH AS trImagePath,
-		TR_COMMENT AS trComment,
-		TR_REGDATE AS trRegDate
-		FROM (SELECT
-		TRAINER_REG_TBL.*, ROW_NUMBER() OVER(ORDER BY
+	<select id="applyTrainerList" resultType="trainerReg" parameterType="applyTrainerPDVO" resultMap="trainerRegDB">
+		SELECT * FROM
+		(SELECT
+		TRAINER_REG_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY
 		TR_REGDATE
-		DESC) AS NUM
-		FROM
-		TRAINER_REG_TBL WHERE MB_INDEX =
-		#{mbIndex}) WHERE NUM
-		BETWEEN #{start} AND #{end}
+		DESC) AS
+		NUM FROM
+		TRAINER_REG_TBL
+		WHERE MB_INDEX = #{mbIndex}
+		)WHERE NUM BETWEEN
+		#{start} AND #{end}
 	</select>
 
 	<!-- 트레이너 자격 신청 페이징 -->
-	<select id="applyTrainerGetNavi" resultType="java.lang.Integer"
-		parameterType="applyTrainerPDVO">
+	<select id="applyTrainerGetNavi" resultType="java.lang.Integer" parameterType="applyTrainerPDVO">
 		SELECT COUNT(*) AS totalCount
 		FROM TRAINER_REG_TBL
-		WHERE
-		MB_INDEX = #{mbIndex}
+		WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 
 	<!-- 트레이너회원 - 트레이닝 신청 리스트 -->
-	<select id="myRequestList" resultType="trainerProgram"
-		parameterType="myRequestTrainerPDVO">
+	<select id="myRequestList" resultType="trainerProgram" parameterType="myRequestTrainerPDVO">
 		SELECT
 		TP_INDEX AS tpIndex,
 		TR_INDEX AS trIndex,
-		MB_INDEX
-		AS mbIndex,
+		MB_INDEX AS mbIndex,
 		TP_TRAIN_TYPE AS tpTrainType,
 		TP_TITLE AS tpTitle,
 		TP_MAIN_IMAGE AS tpMainImage,
@@ -75,8 +81,7 @@
 		TP_ACTIVE_DAY AS tpActiveDays,
 		TP_LOCATION AS tpLocation,
 		TP_COST AS tpCost,
-		TP_PERSONNEL AS
-		tpPersonnel,
+		TP_PERSONNEL AS tpPersonnel,
 		TP_CONTENT AS tpContent,
 		TP_REGDATE AS tpRegDate
 		FROM
@@ -87,15 +92,14 @@
 		DESC) AS
 		NUM FROM TRAINER_PROGRAM_TBL
 		WHERE MB_INDEX = #{mbIndex}
-		)WHERE
-		NUM BETWEEN #{start} AND #{end}
+		)WHERE NUM BETWEEN
+		#{start} AND #{end}
 	</select>
 
 	<!-- 트레이너회원 - 트레이닝 신청 리스트 페이징 처리 -->
-	<select id="myRequestGetNavi" resultType="java.lang.Integer"
-		parameterType="myRequestTrainerPDVO">
+	<select id="myRequestGetNavi" resultType="java.lang.Integer" parameterType="myRequestTrainerPDVO">
 		SELECT COUNT(*) AS totalCount
-		FROM TRAINER_PROGRAM
+		FROM TRAINER_PROGRAM_TBL
 		WHERE
 		MB_INDEX = #{mbIndex}
 	</select>
@@ -156,8 +160,7 @@
 
 	<!-- 한명의 회원정보 -->
 
-	<select id="selectOneMember" parameterType="member"
-		resultType="member">
+	<select id="selectOneMember" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
@@ -191,8 +194,7 @@
 	</delete>
 
 	<!-- 마이페이지 - 일대일 문의 관리자 답변 -->
-	<select id="questionAnswer" resultType="question"
-		parameterType="Integer">
+	<select id="questionAnswer" resultType="question" parameterType="Integer">
 		SELECT
 		QS_INDEX AS qsIndex,
 		QS_TITLE AS qsTitle,
@@ -209,8 +211,7 @@
 
 
 	<!-- 마이페이지 - 장바구니 -->
-	<select id="myWishList" parameterType="member"
-		resultType="product">
+	<select id="myWishList" parameterType="member" resultType="product">
 		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS
 		pdImage,
 		PD_PRICE AS pdPrice FROM PRODUCT_TBL
@@ -237,13 +238,13 @@
 
 	<!-- 나의 활동 정보 (댓글,게시물,가입날짜) -->
 
-	<select id="myActivity" parameterType="member"
-		resultType="myActivity">
+	<select id="myActivity" parameterType="member" resultType="myActivity">
 		SELECT MB_INDEX AS mbIndex,
 		(SELECT COUNT(*) FROM
 		BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) AS myCommentCount,
 		(SELECT COUNT(*)
-		FROM BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}) AS
+		FROM
+		BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}) AS
 		myBoardCount,
 		Mb_ENROLLDATE as mbEnrollDate,
 		MB_GRADE AS mbGrade
@@ -275,8 +276,7 @@
 	</resultMap>
 
 	<!-- 마이페이지 나의게시물 내비게이션 생성 -->
-	<select id="myPostGetNavi" resultType="java.lang.Integer"
-		parameterType="myActivity">
+	<select id="myPostGetNavi" resultType="java.lang.Integer" parameterType="myActivity">
 		SELECT COUNT(*) AS totalCount
 		FROM BOARD_POST_TBL WHERE
 		MB_INDEX = #{mbIndex}
@@ -284,8 +284,7 @@
 
 
 	<!-- 나의 일대일 문의 - 페이징 처리 -->
-	<select id="myQuestionGetNavi" resultType="java.lang.Integer"
-		parameterType="myActivity">
+	<select id="myQuestionGetNavi" resultType="java.lang.Integer" parameterType="myActivity">
 		SELECT COUNT(*) AS totalCount
 		FROM QUESTION_TBL
 		WHERE
@@ -293,8 +292,7 @@
 	</select>
 
 	<!-- 마이페이지 - 일대일 문의 -->
-	<select id="myQuestionList" parameterType="myQuestionPDVO"
-		resultType="question">
+	<select id="myQuestionList" parameterType="myQuestionPDVO" resultType="question">
 		SELECT MB_INDEX AS mbIndex,
 		QS_INDEX AS qsIndex,
 		QS_TITLE AS
@@ -315,9 +313,8 @@
 		#{start} AND #{end}
 	</select>
 
-
-	<select id="myPostList" parameterType="myPostPDVO"
-		resultType="community" resultMap="communityDB">
+	<!-- 나의 게시물 리스트 -->
+	<select id="myPostList" parameterType="myPostPDVO" resultType="community" resultMap="communityDB">
 
 		SELECT *
 		FROM (SELECT
@@ -334,8 +331,7 @@
 	</select>
 
 
-	<select id="nickNameCheck" parameterType="member"
-		resultType="member">
+	<select id="nickNameCheck" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
@@ -372,8 +368,7 @@
 	</update>
 
 	<!-- 마이페이지 - 나의 게시물 -->
-	<select id="myPost" resultType="community"
-		resultMap="communityDB" parameterType="member">
+	<select id="myPost" resultType="community" resultMap="communityDB" parameterType="member">
 		SELECT
 		POST_TITLE AS postTitle,
 		POST_CONTENT AS postContent,
@@ -385,8 +380,7 @@
 	</select>
 
 	<!-- 마이페이지 - 나의 댓글 -->
-	<select id="myCommentList" resultType="comment"
-		parameterType="myCommentPDVO">
+	<select id="myCommentList" resultType="comment" parameterType="myCommentPDVO">
 
 		SELECT
 		BPT.POST_INDEX AS postIndex,
@@ -425,8 +419,7 @@
 
 	<!-- 나의 댓글 페이징 처리 - 내비게이션 생성 -->
 
-	<select id="myCommentGetNavi" resultType="java.lang.Integer"
-		parameterType="myCommentPDVO">
+	<select id="myCommentGetNavi" resultType="java.lang.Integer" parameterType="myCommentPDVO">
 		SELECT COUNT(*) AS totalCount
 		FROM BOARD_COMMENT_TBL
 		WHERE MB_INDEX = #{mbIndex}
@@ -434,8 +427,7 @@
 	</select>
 
 	<!-- 마이페이지 - 나의 북마크 -->
-	<select id="myBookMarkList" resultType="bookMark"
-		parameterType="myBookMarkPDVO">
+	<select id="myBookMarkList" resultType="bookMark" parameterType="myBookMarkPDVO">
 		SELECT
 		BPT.POST_INDEX AS postIndex,
 		BCA_INDEX AS bcaIndex,
@@ -470,8 +462,7 @@
 	</select>
 
 	<!-- 나의 북마크 - 페이징 처리 -->
-	<select id="myBookMarkGetNavi" resultType="java.lang.Integer"
-		parameterType="myBookMarkPDVO">
+	<select id="myBookMarkGetNavi" resultType="java.lang.Integer" parameterType="myBookMarkPDVO">
 
 		SELECT COUNT(*) AS totalCount
 		FROM (SELECT

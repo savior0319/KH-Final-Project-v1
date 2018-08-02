@@ -532,6 +532,11 @@
 	<!-- 오늘 사이트값 가져오사ㅓ 분석하는데 시간대별로 맞춰서가져오기 있냐 없냐를확인 -->
 	<select id="selectAnalytics" parameterType="java.lang.Integer"
 		resultType="todayAnalyticsDetail">
+		INSERT INTO today_Analytics VALUES(#{hits}, #{likes}, #{comments}, #{post}, sysdate, #{timeType},#{listType})
+	</insert>
+
+	<!-- 오늘 사이트값 가져오사ㅓ 분석하는데 시간대별로 맞춰서가져오기 있냐 없냐를확인 -->
+	<select id="selectAnalytics" parameterType="java.lang.Integer" resultType="todayAnalyticsDetail">
 		select
 		T_HITS as hits,
 		T_LIKE as likes,
@@ -599,8 +604,7 @@
 
 
 	<!-- 트레이너 전환 신청 리스트 -->
-	<select id="trainerRegList" parameterType="trainingRegPDVO"
-		resultType="trainerReg" resultMap="trainerRegDB">
+	<select id="trainerRegList" parameterType="trainingRegPDVO" resultType="trainerReg" resultMap="trainerRegDB">
 		SELECT * FROM
 		(SELECT
 		TRAINER_REG_TBL.*,
