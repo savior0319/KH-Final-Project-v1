@@ -57,7 +57,7 @@
 
 
 	<!-- 최상위 로거  -->
-	<!-- 콘솔 출력 - warn 이상 -->
+	<!-- 콘솔 출력 - debug 이상 -->
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />

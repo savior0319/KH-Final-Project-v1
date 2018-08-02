@@ -665,5 +665,29 @@ public class AdminControllerImpl implements AdminController {
 		// System.out.println(yAPDVO.toString());
 		return yAPDVO;
 	}
+	
+	/* 관리자 - 에러로그관리 페이지  호출 매핑 */
+	@Override
+	@RequestMapping(value = "/errorLogManage.diet")
+	public Object errorLogManage(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		
+//		view.addObject("currentTime",timeType);
+		view.setViewName("admin/errorLogManage");
+		return view;
+	}
+	
+	/* 관리자 - 에러로그관리 페이지 > 디테일 페이진  호출 매핑 */
+	@Override
+	@RequestMapping(value = "/errorLogManageDetail.diet")
+	public Object errorLogManageDetail(HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		
+		
+//		view.addObject("currentTime",timeType);
+		view.setViewName("admin/errorLogManageDetail");
+		return view;
+		
+	}
 
 }

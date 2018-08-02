@@ -49,4 +49,8 @@ public interface AdminController {
 
 	String trainerChange(HttpServletRequest request, HttpServletResponse response);
 
+	Object errorLogManageDetail(HttpServletRequest request);
+
+	Object errorLogManage(HttpServletRequest request);
+
 }

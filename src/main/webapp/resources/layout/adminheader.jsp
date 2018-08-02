@@ -3,7 +3,8 @@
 
 
 <div class="ui visible inverted left vertical thin sidebar menu" style="width: 240px;">
-	<a class="item" href="/admin.diet">
+	<!-- <a class="item" href="/admin.diet"> -->
+	<a class="item" href="/todayAnalytics.diet">
 		<h2>
 			<i class="cog icon"></i> 관리자 페이지
 		</h2>

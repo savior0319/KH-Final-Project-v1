@@ -86,7 +86,7 @@
 
 		<c:if test="${sessionScope.member.mbId == 'admin'}">
 			<span id="admin-page" class="menu">
-				<a href="/admin.diet">관리자 페이지</a>
+				<a href="/todayAnalytics.diet">관리자 페이지</a>
 			</span>
 		</c:if>
 
