@@ -89,6 +89,18 @@ public interface MyInfoDAO {
 	String applyTrainerListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, TrainingRegVO tv);
 
+	ArrayList<TrainingRegVO> applyTrainerList2(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainingRegVO tr);
+
+	String applyTrainerListPageNavi2(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, TrainingRegVO tr);
+
+	ArrayList<TrainerProgramVO> requestTrainerList2(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainerProgramVO tv);
+
+	String requestTrainerListPageNavi2(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, TrainerProgramVO tv);
+
 
 
 }

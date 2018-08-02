@@ -58,7 +58,7 @@ public interface MyInfoController {
 
 	Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request, MyActivityVO ma);
 
-	String requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException;
+	Object requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException;
 
 	Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws JsonIOException, IOException;
