@@ -44,6 +44,69 @@
 		<result property="trStatus" column="TR_STATUS" /> <!-- 혜윤 추가 / 충돌시 삭제 -->
 	</resultMap>
 
+	<!-- 일반회원 자격 신청 리스트 -->
+	<select id="applyTrainerList2" resultType="trainerReg" parameterType="applyTrainerPDVO" resultMap="trainerRegDB">
+		SELECT * FROM
+		(SELECT
+		TRAINER_REG_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY
+		TR_REGDATE
+		DESC) AS
+		NUM FROM
+		TRAINER_REG_TBL
+		WHERE MB_INDEX = #{mbIndex}
+		)WHERE NUM BETWEEN
+		#{start} AND #{end}
+	</select>
+
+	<!-- 일반회원 자격 신청 페이징 -->
+	<select id="applyTrainerGetNavi2" resultType="java.lang.Integer" parameterType="applyTrainerPDVO">
+		SELECT COUNT(*) AS totalCount
+		FROM TRAINER_REG_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</select>
+
+	<!-- 일반 회원 - 트레이닝 신청 리스트 -->
+	<select id="myRequestList2" resultType="trainerProgram" parameterType="myRequestTrainerPDVO">
+	<!-- 	SELECT
+		TP_INDEX AS ,
+		TR_INDEX AS ,
+		TP_TRAIN_TYPE AS ,
+		TP_TITLE AS ,
+		TP_MAIN_IMAGE AS ,
+		TP_ACTIVE_START AS ,
+		TP_ACTIVE_END AS ,
+		TP_ACTIVE_DAY AS ,
+		TP_LOCATION AS ,
+		TP_COST AS ,
+		TP_PERSONNEL AS ,
+		TP_CONTENT AS ,
+		TP_REGDATE AS
+		FROM TRAINER_PROGRAM_TBL TPT
+		RIGHT JOIN TRAINER_REG_TBL TRT ON( TRT.MB_INDEX = TPT.MB_INDEX )
+		RIGHT JOIN MEMBER_TBL MT ON(TPT.MB_INDEX = MT.MB_INDEX) WHERE MT.MB_INDEX = 2 AND TRT.TR_STATUS = '승인';
+ -->
+
+	<!-- 	MB_INDEX NOT NULL NUMBER
+		MB_ID NOT NULL VARCHAR2(100)
+		MB_PWD CHAR(64)
+		MB_NAME VARCHAR2(50)
+		MB_NICKNAME
+		VARCHAR2(50)
+		MB_GENDER CHAR(1)
+		MB_IMAGE VARCHAR2(300)
+		MB_PROMISE VARCHAR2(150)
+		MB_AGE NUMBER
+		MB_PHONE CHAR(13)
+		MB_ADDRESS VARCHAR2(100) -->
+
+	</select>
+
+	<!-- 일반 회원 - 트레이닝 신청 리스트 페이징 처리 -->
+	<select id="myRequestGetNavi2">
+
+	</select>
+
 	<!-- 트레이너 자격 신청 리스트 -->
 	<select id="applyTrainerList" resultType="trainerReg" parameterType="applyTrainerPDVO" resultMap="trainerRegDB">
 		SELECT * FROM

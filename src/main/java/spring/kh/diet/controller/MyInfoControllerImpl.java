@@ -505,7 +505,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer2(currentPage, tv);
 		view.addObject("applyTrainer", applyTrainer);
 		view.addObject("myRequest", myRequest);
-		view.setViewName("myInfo/imTrainer");
+		view.setViewName("myInfo/myTrainer");
 		return view;
 
 	}
