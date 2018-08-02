@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%-- 
+<jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include> 
+--%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,10 +139,10 @@ body {
 									<td>${ss.firstOn }</td>
 									<c:choose>
 										<c:when test="${ss.device eq 'pc'}">
-											<td>PC</td>
+											<td> <i class="desktop icon"></i> PC</td>
 										</c:when>
 										<c:otherwise>
-											<td>MOBILE</td>
+											<td> <i class="mobile alternate icon"></i>MOBILE</td>
 										</c:otherwise>
 									</c:choose>
 								</tr>
@@ -216,10 +219,10 @@ body {
 
 								<c:choose>
 									<c:when test="${aa.device eq 'pc'}">
-										<td>PC</td>
+										<td> <i class="desktop icon"></i> PC</td>
 									</c:when>
 									<c:otherwise>
-										<td>MOBILE</td>
+										<td> <i class="mobile alternate icon"></i> MOBILE</td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -247,8 +250,8 @@ body {
 				<table class="ui celled table">
 					<thead>
 						<tr align="center">
-							<th style="width: 50%">PC</th>
-							<th style="width: 50%">MOBILE</th>
+							<th style="width: 50%"> <i class="desktop icon"></i> PC</th>
+							<th style="width: 50%"> <i class="mobile alternate icon"></i> MOBILE</th>
 						</tr>
 					</thead>
 					<tbody>
