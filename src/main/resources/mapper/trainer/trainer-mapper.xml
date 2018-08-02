@@ -20,7 +20,8 @@
 		<result property="trBirth" column="TR_BIRTH" />
 		<result property="trStatus" column="TR_STATUS" />
 	</resultMap>
-	
+
+	<!-- 주석 어디감 ㅡㅡ -->
 	<resultMap type="trainerProgram" id="trainerProgramDB">
 		<result property="tpIndex" column="TP_INDEX" />
 		<result property="trIndex" column="TR_INDEX" />
@@ -60,10 +61,11 @@
 
 	<!-- 프로그램 리스트 출력 -->
 	<select id="getProgramList" parameterType="programPageData" resultType="trainerProgram" resultMap="trainerProgramDB">
-		SELECT * 
-		FROM (SELECT TRAINER_PROGRAM_TBL.*,ROW_NUMBER() OVER(ORDER BY TP_REGDATE DESC) AS NUM FROM TRAINER_PROGRAM_TBL WHERE TR_INDEX LIKE #{trIndex}) 
+		SELECT *
+		FROM (SELECT TRAINER_PROGRAM_TBL.*,ROW_NUMBER() OVER(ORDER BY TP_REGDATE DESC) AS NUM
+		FROM TRAINER_PROGRAM_TBL WHERE TR_INDEX LIKE #{trIndex})
 	</select>
-	
+
 	<!-- 프로그램 리스트 페이징 처리 -->
 	<select id="getProgramNavi" parameterType="trainerProgram" resultType="java.lang.Integer">
 		SELECT COUNT(*) AS TOTALCOUNT
@@ -75,8 +77,9 @@
 	<select id="trainerSearch" parameterType="trainerAreaList" resultType="trainerReg" resultMap="trainerRegDB">
 		SELECT *
 		FROM TRAINER_REG_TBL
-		WHERE ((TR_AREA LIKE '%'||#{area1}||'%') OR (TR_AREA LIKE '%'||#{area2}||'%') OR (TR_AREA LIKE '%'||#{area3}||'%')) 
-		AND TR_STATUS LIKE '승인' 
+		WHERE ((TR_AREA LIKE '%'||#{area1}||'%') OR (TR_AREA LIKE
+		'%'||#{area2}||'%') OR (TR_AREA LIKE '%'||#{area3}||'%'))
+		AND TR_STATUS LIKE '승인'
 		AND TR_CITY LIKE '%'||#{city}||'%'
 	</select>
 </mapper>

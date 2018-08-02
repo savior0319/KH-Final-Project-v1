@@ -31,17 +31,20 @@ public class TrainerServiceImpl implements TrainerService {
 		return trv;
 	}
 
+	/* 주석 어디감ㅡㅡ */
 	@Override
 	public int registTrainerProgram(TrainerProgramVO tpv) {
 		int result = trDao.registTrainerProgram(session, tpv);
 		return result;
 	}
 
+	/* 주석 어디감ㅡㅡ */
 	@Override
 	public int trainerReg(TrainingRegVO register) {
 		return trDao.trainerReg(session, register);
 	}
 
+	/* 주석 어디감ㅡㅡ */
 	@Override
 	public ProgramPageDataVO getProgramList(int currentPage, int trIndex) {
 		int recordCountPerPage = 10;
@@ -51,7 +54,8 @@ public class TrainerServiceImpl implements TrainerService {
 
 		ArrayList<TrainerProgramVO> list = (ArrayList<TrainerProgramVO>) trDao.getProgramList(session, currentPage,
 				recordCountPerPage, trIndex);
-		String pageNavi = trDao.getProgramListPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage, trIndex);
+		String pageNavi = trDao.getProgramListPageNavi(session, currentPage, recordCountPerPage, naviCountPerPage,
+				trIndex);
 
 		ppdv.setProList(list);
 		ppdv.setPageNavi(pageNavi);
@@ -59,12 +63,11 @@ public class TrainerServiceImpl implements TrainerService {
 
 		return ppdv;
 	}
-  
-  	/* 트레이너 찾기 */
+
+	/* 트레이너 찾기 */
 	@Override
 	public ArrayList<TrainingRegVO> trainerSearch(TrainerSearchVO tsv) {
 		return trDao.trainerSearch(session, tsv);
 	}
 
 }
-
