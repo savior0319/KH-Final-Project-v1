@@ -523,21 +523,21 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/imTrainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+			sb.append("<a class='item' href='/requestTrainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/imTrainer.diet?currentPage="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/requestTrainer.diet?currentPage="
 								+ i + "'><strong>" + i + "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/imTrainer.diet?currentPage=" + i + "'>" + i + " </a>");
+				sb.append("<a class='item' href='/requestTrainer.diet?currentPage=" + i + "'>" + i + " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/imTrainer.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			sb.append("<a class='item' href='/requestTrainer.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
 		return sb.toString();
 	}
@@ -599,21 +599,21 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/imTrainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+			sb.append("<a class='item' href='/applyTrainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/imTrainer.diet?currentPage="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/applyTrainer.diet?currentPage="
 								+ i + "'><strong>" + i + "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/imTrainer.diet?currentPage=" + i + "'>" + i + " </a>");
+				sb.append("<a class='item' href='/applyTrainer.diet?currentPage=" + i + "'>" + i + " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/imTrainer.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			sb.append("<a class='item' href='/applyTrainer.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
 		return sb.toString();
 	}

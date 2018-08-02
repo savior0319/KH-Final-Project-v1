@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>트레이너수락</title>
+<title>트레이너</title>
 </head>
 
 <!-- CSS -->
@@ -23,71 +24,58 @@
 				<br>
 
 				<div class="ui two item menu">
-					<a class="item" href="javascript:void(0);" onclick="apply();" id="apply1">
-						<span id="text1">트레이너 자격</span>
-					</a>
-					<a class="item" href="javascript:void(0);" onclick="applyList();" id="apply2">
-						<span id="text2">트레이너 요청 리스트</span>
+					<a class="item" href="javascript:void(0);" onclick="apply();"
+						id="apply1"> <span id="text1">트레이너 자격</span>
+					</a> <a class="item" href="javascript:void(0);" onclick="applyList();"
+						id="apply2"> <span id="text2">트레이너 요청 리스트</span>
 					</a>
 				</div>
 				<br>
-				<div id="trainerApply">
-					<div class="ui brown message" align="center">
-						<div class="ui small header">※ 트레이너 자격 신청</div>
-					</div>
-					<table class="ui gray table">
-						<thead>
-							<tr id="title" align="center">
-								<th>
-									<i class="h square icon"></i>
-									번 호
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									제 목
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									요 청 일
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									트레이너 자격 승인
-								</th>
+				<c:if test="${!applyTrainer.comList.isEmpty()}">
+					<div id="trainerApply">
+						<div class="ui brown message" align="center">
+							<div class="ui small header">※ 트레이너 자격 신청</div>
+						</div>
+						<table class="ui gray table">
+							<thead>
+								<tr id="title" align="center">
+									<th><i class="h square icon"></i> 번 호</th>
+									<th><i class="h square icon"></i> 제 목</th>
+									<th><i class="h square icon"></i> 요 청 일</th>
+									<th><i class="h square icon"></i> 트레이너 자격 승인</th>
 
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="" var="m">
-								<tr align="center">
-									<td style="width: 13%;"></td>
-									<td style="width: 44%;">
-										<a href="javascript:void(0);" onclick="showMyTrainer();"></a>
-									</td>
-									<td style="width: 20%;"></td>
-									<td style="width: 23%;">
-										<button class="ui red button">자격승인</button>
-										<button class="ui grey button">자격거절</button>
-									</td>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-					<div class="ui grid">
-						<div class="three column row">
-							<div class="column"></div>
-							<div class="column">
-								<div class="ui center aligned basic segment">
-									<div class="ui pagination menu">"${myRequest.pageNavi}"</div>
+							</thead>
+							<tbody>
+								<c:forEach items="${applyTrainer.comList}" var="m">
+									<tr align="center">
+										<td style="width: 13%;">${m.trName}</td>
+										<td style="width: 44%;"><a href="javascript:void(0);"
+											onclick="showMyTrainer();"></a></td>
+										<td style="width: 20%;"></td>
+										<td style="width: 23%;">
+											<button class="ui red button">자격승인</button>
+											<button class="ui grey button">자격거절</button>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div class="ui grid">
+							<div class="three column row">
+								<div class="column"></div>
+								<div class="column">
+									<div class="ui center aligned basic segment">
+										<div class="ui pagination menu">"${myRequest.pageNavi}"</div>
+									</div>
 								</div>
+								<div class="column"></div>
 							</div>
-							<div class="column"></div>
+							<br>
 						</div>
 						<br>
 					</div>
-					<br>
-
-				</div>
+				</c:if>
 				<c:if test="${!myRequest.comList.isEmpty()}">
 					<div id="memberApply">
 						<div class="ui brown message" align="center">
@@ -96,26 +84,11 @@
 						<table class="ui gray table">
 							<thead>
 								<tr id="title" align="center">
-									<th>
-										<i class="h square icon"></i>
-										번 호
-									</th>
-									<th>
-										<i class="h square icon"></i>
-										제 목
-									</th>
-									<th>
-										<i class="h square icon"></i>
-										요 청 자
-									</th>
-									<th>
-										<i class="h square icon"></i>
-										요 청 일
-									</th>
-									<th>
-										<i class="h square icon"></i>
-										수 락 여 부
-									</th>
+									<th><i class="h square icon"></i> 번 호</th>
+									<th><i class="h square icon"></i> 제 목</th>
+									<th><i class="h square icon"></i> 요 청 자</th>
+									<th><i class="h square icon"></i> 요 청 일</th>
+									<th><i class="h square icon"></i> 수 락 여 부</th>
 
 								</tr>
 							</thead>
@@ -123,9 +96,8 @@
 								<c:forEach items="${myRequest.comList}" var="m">
 									<tr align="center">
 										<td style="width: 10%;">${m.tpLocation}</td>
-										<td style="width: 30%;">
-											<a href="javascript:void(0);" onclick="showMyTrainer1();">${m.tpName}</a>
-										</td>
+										<td style="width: 30%;"><a href="javascript:void(0);"
+											onclick="showMyTrainer1();">${m.tpName}</a></td>
 										<td style="width: 15%;">${m.tpLocation}</td>
 										<td style="width: 15%;">${m.tpName}</td>
 										<td style="width: 23%;">
@@ -154,33 +126,19 @@
 					<table class="ui gray table">
 						<thead>
 							<tr id="title" align="center">
-								<th>
-									<i class="h square icon"></i>
-									번 호
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									제 목
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									요 청 자
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									요 청 일
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									수 락 여 부
-								</th>
+								<th><i class="h square icon"></i> 번 호</th>
+								<th><i class="h square icon"></i> 제 목</th>
+								<th><i class="h square icon"></i> 요 청 자</th>
+								<th><i class="h square icon"></i> 요 청 일</th>
+								<th><i class="h square icon"></i> 수 락 여 부</th>
 
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>
-									<div class="ui red message" align="center">※ 트레이너 요청 내역이 없습니다.</div>
+									<div class="ui red message" align="center">※ 트레이너 요청 내역이
+										없습니다.</div>
 								</td>
 							</tr>
 						</tbody>
@@ -195,12 +153,14 @@
 				<div class="ui left aligned basic segment">
 					<br>
 					<div class="ui form" style="font-weight: 600;">
-						<div class="ui red message" align="center">※ 트레이너 자격 심사 진행 중입니다.</div>
-						<div class="ui red message" align="center">※ 트레이너 자격 승인 되었습니다.</div>
-						<div class="ui red message" align="center">※ 트레이너 자격 거절 되었습니다.</div>
+						<div class="ui red message" align="center">※ 트레이너 자격 심사 진행
+							중입니다.</div>
+						<div class="ui red message" align="center">※ 트레이너 자격 승인
+							되었습니다.</div>
+						<div class="ui red message" align="center">※ 트레이너 자격 거절
+							되었습니다.</div>
 					</div>
-					<br>
-					<br>
+					<br> <br>
 				</div>
 				<input type="hidden" value="" id="qsIndex" />
 			</div>
@@ -208,69 +168,70 @@
 			<div class="ui modal" id="questionModal3">
 				<i class="close icon"></i>
 				<div class="ui large header">
-					<img src="" />
-					트레이너 요청 내용
+					<img src="" /> 트레이너 요청 내용
 				</div>
 				<div class="ui left aligned basic segment">
 					<br>
 					<div class="ui form" style="font-weight: 600;">
 						<div class="ui floating message" style="margin: 0 auto;">
 							<p>
-								제 목 :&nbsp;&nbsp;&nbsp;
-								<span></span>
+								제 목 :&nbsp;&nbsp;&nbsp; <span></span>
 							</p>
 						</div>
 						<div class="ui floating message" style="width: 25%; float: left;">
 							<p align="center">
-								지 역 :&nbsp;&nbsp;&nbsp;
-								<span></span>
+								지 역 :&nbsp;&nbsp;&nbsp; <span></span>
 							</p>
 						</div>
-						<div class="ui floating message" style="width: 25%; float: left; margin-left: 20px;">
+						<div class="ui floating message"
+							style="width: 25%; float: left; margin-left: 20px;">
 							<p align="center">
-								신 청 시 간 :&nbsp;&nbsp;&nbsp;
-								<span></span>
+								신 청 시 간 :&nbsp;&nbsp;&nbsp; <span></span>
 							</p>
 						</div>
-						<div class="ui floating message" style="width: 20%; float: left; margin-left: 20px;">
+						<div class="ui floating message"
+							style="width: 20%; float: left; margin-left: 20px;">
 							<p align="center">
-								아 이 디 :&nbsp;&nbsp;&nbsp;
-								<span></span>
+								아 이 디 :&nbsp;&nbsp;&nbsp; <span></span>
 							</p>
 						</div>
-						<div class="ui floating message" style="width: 23%; float: left; margin-left: 20px;">
+						<div class="ui floating message"
+							style="width: 23%; float: left; margin-left: 20px;">
 							<p align="center">
-								PT 종 류 :&nbsp;&nbsp;&nbsp;
-								<span></span>
+								PT 종 류 :&nbsp;&nbsp;&nbsp; <span></span>
 							</p>
 						</div>
-						<br>
-						<br>
+						<br> <br>
 						<div class="field">
-							<br>
-							<label style="font-size: 18px; font-weight: 900;">내 용</label>
-							<br>
-							<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none;" id="contentQuestion"></textarea>
+							<br> <label style="font-size: 18px; font-weight: 900;">내
+								용</label> <br>
+							<textarea placeholder="내용 입력"
+								style="height: 2px; overflow: hidden; resize: none;"
+								id="contentQuestion"></textarea>
 						</div>
 						<br>
 						<div class="field">
 							<label style="font-size: 18px; font-weight: 900;">거 절 사 유</label>
 							<br>
-							<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none;" id="contentQuestion"></textarea>
+							<textarea placeholder="내용 입력"
+								style="height: 2px; overflow: hidden; resize: none;"
+								id="contentQuestion"></textarea>
 						</div>
-						<div class="ui floating message" align="center" style="margin: 0 auto;">
+						<div class="ui floating message" align="center"
+							style="margin: 0 auto;">
 							<p>
-								※ 수락 시
-								<span style="color: red; font-weight: 900; font-size: 15px;">'수락'</span>
+								※ 수락 시 <span
+									style="color: red; font-weight: 900; font-size: 15px;">'수락'</span>
 								버튼을 눌러주세요 ~
 							</p>
 						</div>
 
-						<button style="float: right; margin-top: 13px;" class="ui red button">수락</button>
-						<button style="float: right; margin-top: 13px;" class="ui grey button">거절</button>
+						<button style="float: right; margin-top: 13px;"
+							class="ui red button">수락</button>
+						<button style="float: right; margin-top: 13px;"
+							class="ui grey button">거절</button>
 					</div>
-					<br>
-					<br>
+					<br> <br>
 				</div>
 				<input type="hidden" value="" id="qsIndex" />
 			</div>

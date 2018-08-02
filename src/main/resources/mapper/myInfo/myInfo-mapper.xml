@@ -21,94 +21,110 @@
 		<result property="mbReport" column="MB_REPORT" />
 		<result property="mbEnrollDate" column="MB_ENROLLDATE" />
 	</resultMap>
+	
 	<!-- 트레이너 자격 신청 리스트 -->
-	<!-- <select id="applyTrainerList" resultType="trainerReg" parameterType="applyTrainerPDVO">
-SELECT
-		TP_INDEX AS tpIndex,
+	<select id="applyTrainerList" resultType="trainerReg"
+		parameterType="applyTrainerPDVO">
+		SELECT
 		TR_INDEX AS trIndex,
 		MB_INDEX AS mbIndex,
-		TP_NAME AS tpName,
-		TP_AGE AS tpAge,
-		TP_PHONE AS tpPhone,
-		TP_GENDER AS tpGender,
-		TP_TRAIN_TYPE AS tpTrain,
-		TP_ACTIVE_TIME AS tpActiveTime,
-		TP_LOCATION AS tpLocation,
-		TP_COST AS tpCost,
-		TP_CONTENT AS tpContent,
-		TP_REGDATE AS tpRegDate
+		TR_NAME AS trName ,
+		TR_BIRTH AS trBirth,
+		TR_ADDRESS AS trAddress,
+		TR_PHONE AS trPhone,
+		TR_HEIGHT AS trHeight,
+		TR_WEIGHT AS trWeight,
+		TR_CITY AS trCity,
+		TR_AREA AS trArea,
+		TR_IMAGE_PATH AS trImagePath,
+		TR_COMMENT AS trComment,
+		TR_REGDATE AS trRegDate
+		FROM (SELECT
+		TRAINER_REG_TBL.*, ROW_NUMBER() OVER(ORDER BY
+		TR_REGDATE
+		DESC) AS NUM
 		FROM
-		(SELECT
-		TRAINER_PROGRAM.*,
-		ROW_NUMBER() OVER(ORDER BY
-		TP_REGDATE
-		DESC) AS NUM FROM TRAINER_PROGRAM
-		WHERE MB_INDEX = #{mbIndex}
-		)WHERE NUM BETWEEN
-		#{start} AND #{end}
+		TRAINER_REG_TBL WHERE MB_INDEX =
+		#{mbIndex}) WHERE NUM
+		BETWEEN #{start} AND #{end}
 	</select>
-	 -->
-	
+
 	<!-- 트레이너 자격 신청 페이징 -->
-	<select id="applyTrainerGetNavi" resultType="java.lang.Integer" parameterType="applyTrainerPDVO">
+	<select id="applyTrainerGetNavi" resultType="java.lang.Integer"
+		parameterType="applyTrainerPDVO">
 		SELECT COUNT(*) AS totalCount
 		FROM TRAINER_REG_TBL
-		WHERE MB_INDEX = #{mbIndex}
+		WHERE
+		MB_INDEX = #{mbIndex}
 	</select>
-	
-	
+
+
 	<!-- 트레이너회원 - 트레이닝 신청 리스트 -->
-	<select id="myRequestList" resultType="trainerProgram" parameterType="myRequestTrainerPDVO">
+	<select id="myRequestList" resultType="trainerProgram"
+		parameterType="myRequestTrainerPDVO">
 		SELECT
 		TP_INDEX AS tpIndex,
 		TR_INDEX AS trIndex,
-		MB_INDEX AS mbIndex,
-		TP_NAME AS tpName,
-		TP_AGE AS tpAge,
-		TP_PHONE AS tpPhone,
-		TP_GENDER AS tpGender,
-		TP_TRAIN_TYPE AS tpTrain,
-		TP_ACTIVE_TIME AS tpActiveTime,
+		MB_INDEX
+		AS mbIndex,
+		TP_TRAIN_TYPE AS tpTrainType,
+		TP_TITLE AS tpTitle,
+		TP_MAIN_IMAGE AS tpMainImage,
+		TP_ACTIVE_START AS tpActiveStart,
+		TP_ACTIVE_END AS tpActiveEnd,
+		TP_ACTIVE_DAY AS tpActiveDays,
 		TP_LOCATION AS tpLocation,
 		TP_COST AS tpCost,
+		TP_PERSONNEL AS
+		tpPersonnel,
 		TP_CONTENT AS tpContent,
 		TP_REGDATE AS tpRegDate
 		FROM
 		(SELECT
-		TRAINER_PROGRAM.*,
+		TRAINER_PROGRAM_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY
 		TP_REGDATE
-		DESC) AS NUM FROM TRAINER_PROGRAM
+		DESC) AS
+		NUM FROM TRAINER_PROGRAM_TBL
 		WHERE MB_INDEX = #{mbIndex}
-		)WHERE NUM BETWEEN
-		#{start} AND #{end}
+		)WHERE
+		NUM BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 트레이너회원 - 트레이닝 신청 리스트 페이징 처리 -->
-	<select id="myRequestGetNavi" resultType="java.lang.Integer" parameterType="myRequestTrainerPDVO">
+	<select id="myRequestGetNavi" resultType="java.lang.Integer"
+		parameterType="myRequestTrainerPDVO">
 		SELECT COUNT(*) AS totalCount
 		FROM TRAINER_PROGRAM
-		WHERE MB_INDEX = #{mbIndex}
+		WHERE
+		MB_INDEX = #{mbIndex}
 	</select>
 
 
 	<!-- 나의 북마크 삭제 -->
 	<delete id="deleteMyBookMark" parameterType="bookMark">
-		DELETE FROM BOARD_BOOKMARK_TBL WHERE BMK_INDEX = #{bmkIndex} AND MB_INDEX = #{mbIndex}
+		DELETE FROM
+		BOARD_BOOKMARK_TBL WHERE BMK_INDEX = #{bmkIndex} AND MB_INDEX =
+		#{mbIndex}
 	</delete>
 
 	<!-- 나의 게시물 삭제 -->
 	<delete id="deleteMyPost" parameterType="community">
-		DELETE FROM BOARD_POST_TBL WHERE POST_INDEX = #{postIndex} AND MB_INDEX = #{mbIndex}
+		DELETE FROM
+		BOARD_POST_TBL WHERE POST_INDEX = #{postIndex} AND MB_INDEX =
+		#{mbIndex}
 	</delete>
 
 	<delete id="deleteMyComment" parameterType="comment">
-		DELETE FROM BOARD_COMMENT_TBL WHERE CMT_INDEX = #{cmtIndex} AND MB_INDEX = #{mbIndex}
+		DELETE FROM
+		BOARD_COMMENT_TBL WHERE CMT_INDEX = #{cmtIndex} AND MB_INDEX =
+		#{mbIndex}
 	</delete>
 
 	<!-- 1대1 문의 삭제 -->
 	<delete id="deleteMyQuestion" parameterType="question">
-		DELETE FROM QUESTION_TBL WHERE QS_INDEX = #{qsIndex} AND MB_INDEX = #{mbIndex}
+		DELETE FROM
+		QUESTION_TBL WHERE QS_INDEX = #{qsIndex} AND MB_INDEX = #{mbIndex}
 	</delete>
 
 	<!-- 1대1 문의 -->
@@ -140,7 +156,8 @@ SELECT
 
 	<!-- 한명의 회원정보 -->
 
-	<select id="selectOneMember" parameterType="member" resultType="member">
+	<select id="selectOneMember" parameterType="member"
+		resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
@@ -174,7 +191,8 @@ SELECT
 	</delete>
 
 	<!-- 마이페이지 - 일대일 문의 관리자 답변 -->
-	<select id="questionAnswer" resultType="question" parameterType="Integer">
+	<select id="questionAnswer" resultType="question"
+		parameterType="Integer">
 		SELECT
 		QS_INDEX AS qsIndex,
 		QS_TITLE AS qsTitle,
@@ -191,7 +209,8 @@ SELECT
 
 
 	<!-- 마이페이지 - 장바구니 -->
-	<select id="myWishList" parameterType="member" resultType="product">
+	<select id="myWishList" parameterType="member"
+		resultType="product">
 		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS
 		pdImage,
 		PD_PRICE AS pdPrice FROM PRODUCT_TBL
@@ -218,21 +237,27 @@ SELECT
 
 	<!-- 나의 활동 정보 (댓글,게시물,가입날짜) -->
 
-	<select id="myActivity" parameterType="member" resultType="myActivity">
+	<select id="myActivity" parameterType="member"
+		resultType="myActivity">
 		SELECT MB_INDEX AS mbIndex,
-		(SELECT COUNT(*) FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) AS myCommentCount,
+		(SELECT COUNT(*) FROM
+		BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) AS myCommentCount,
 		(SELECT COUNT(*)
-		FROM BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}) AS myBoardCount,
+		FROM BOARD_POST_TBL WHERE MB_INDEX = #{mbIndex}) AS
+		myBoardCount,
 		Mb_ENROLLDATE as mbEnrollDate,
 		MB_GRADE AS mbGrade
-		FROM MEMBER_TBL
+		FROM
+		MEMBER_TBL
 		WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 	<!-- 나의 활동 정보 (출석) -->
 
 	<select id="myCount" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM (SELECT DISTINCT(TRUNC(SS_LASTIN)) FROM OFF_SESSION_TBL WHERE SS_LOGIN =#{mbNickName} GROUP BY SS_LASTIN)
+		SELECT COUNT(*) FROM (SELECT
+		DISTINCT(TRUNC(SS_LASTIN)) FROM OFF_SESSION_TBL WHERE SS_LOGIN
+		=#{mbNickName} GROUP BY SS_LASTIN)
 	</select>
 
 	<resultMap type="community" id="communityDB">
@@ -250,7 +275,8 @@ SELECT
 	</resultMap>
 
 	<!-- 마이페이지 나의게시물 내비게이션 생성 -->
-	<select id="myPostGetNavi" resultType="java.lang.Integer" parameterType="myActivity">
+	<select id="myPostGetNavi" resultType="java.lang.Integer"
+		parameterType="myActivity">
 		SELECT COUNT(*) AS totalCount
 		FROM BOARD_POST_TBL WHERE
 		MB_INDEX = #{mbIndex}
@@ -258,33 +284,40 @@ SELECT
 
 
 	<!-- 나의 일대일 문의 - 페이징 처리 -->
-	<select id="myQuestionGetNavi" resultType="java.lang.Integer" parameterType="myActivity">
+	<select id="myQuestionGetNavi" resultType="java.lang.Integer"
+		parameterType="myActivity">
 		SELECT COUNT(*) AS totalCount
 		FROM QUESTION_TBL
-		WHERE MB_INDEX = #{mbIndex}
+		WHERE
+		MB_INDEX = #{mbIndex}
 	</select>
 
 	<!-- 마이페이지 - 일대일 문의 -->
-	<select id="myQuestionList" parameterType="myQuestionPDVO" resultType="question">
+	<select id="myQuestionList" parameterType="myQuestionPDVO"
+		resultType="question">
 		SELECT MB_INDEX AS mbIndex,
 		QS_INDEX AS qsIndex,
-		QS_TITLE AS qsTitle,
+		QS_TITLE AS
+		qsTitle,
 		QS_CONTENT AS qsContent,
 		QS_WRITETIME AS qsWriteTime,
 		QS_ANSWERCHECK AS qsAnswerCheck
 		FROM
 		(SELECT
 		QUESTION_TBL.*,
-		ROW_NUMBER() OVER(ORDER BY
+		ROW_NUMBER()
+		OVER(ORDER BY
 		QS_WRITETIME
 		DESC) AS NUM FROM QUESTION_TBL
-		WHERE MB_INDEX = #{mbIndex}
+		WHERE MB_INDEX
+		= #{mbIndex}
 		)WHERE NUM BETWEEN
 		#{start} AND #{end}
 	</select>
 
 
-	<select id="myPostList" parameterType="myPostPDVO" resultType="community" resultMap="communityDB">
+	<select id="myPostList" parameterType="myPostPDVO"
+		resultType="community" resultMap="communityDB">
 
 		SELECT *
 		FROM (SELECT
@@ -292,7 +325,8 @@ SELECT
 		ROW_NUMBER() OVER(ORDER BY
 		POST_DATETIME
 		DESC)
-		AS NUM FROM BOARD_POST_TBL
+		AS NUM
+		FROM BOARD_POST_TBL
 		WHERE MB_INDEX = #{mbIndex}
 		) WHERE NUM BETWEEN
 		#{start} AND #{end}
@@ -300,7 +334,8 @@ SELECT
 	</select>
 
 
-	<select id="nickNameCheck" parameterType="member" resultType="member">
+	<select id="nickNameCheck" parameterType="member"
+		resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
 		MB_ID AS mbId,
@@ -337,7 +372,8 @@ SELECT
 	</update>
 
 	<!-- 마이페이지 - 나의 게시물 -->
-	<select id="myPost" resultType="community" resultMap="communityDB" parameterType="member">
+	<select id="myPost" resultType="community"
+		resultMap="communityDB" parameterType="member">
 		SELECT
 		POST_TITLE AS postTitle,
 		POST_CONTENT AS postContent,
@@ -349,7 +385,8 @@ SELECT
 	</select>
 
 	<!-- 마이페이지 - 나의 댓글 -->
-	<select id="myCommentList" resultType="comment" parameterType="myCommentPDVO">
+	<select id="myCommentList" resultType="comment"
+		parameterType="myCommentPDVO">
 
 		SELECT
 		BPT.POST_INDEX AS postIndex,
@@ -361,30 +398,35 @@ SELECT
 		dtTitle,
 		DT_DATE AS dtDate,
 		DT_LIKE AS dtLike,
-		DT_SEE AS dtSee,
+		DT_SEE AS
+		dtSee,
 		POST_DATETIME AS postDateTime,
 		POST_LIKE AS postLike,
 		CMT_DATETIME AS cmtDateTime,
 		CMT_CONTENT AS cmtContent,
-		CMT_LIKE AS cmtLike,
+		CMT_LIKE AS
+		cmtLike,
 		CMT_INDEX AS
 		cmtIndex
 		FROM (SELECT
 		BOARD_COMMENT_TBL.*,ROW_NUMBER() OVER(ORDER BY CMT_DATETIME DESC)
-		AS NUM FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) BCT,
+		AS
+		NUM FROM BOARD_COMMENT_TBL WHERE MB_INDEX = #{mbIndex}) BCT,
 		BOARD_POST_TBL BPT, DIETTIP_TB DT
 		WHERE
 		(BCT.POST_INDEX =
 		BPT.POST_INDEX(+))
 		AND (BCT.POST_INDEX = DT.DT_INDEX(+))
-		AND BCT.MB_INDEX = #{mbIndex}
+		AND
+		BCT.MB_INDEX = #{mbIndex}
 		AND NUM BETWEEN #{start} AND #{end}
 
 	</select>
 
 	<!-- 나의 댓글 페이징 처리 - 내비게이션 생성 -->
 
-	<select id="myCommentGetNavi" resultType="java.lang.Integer" parameterType="myCommentPDVO">
+	<select id="myCommentGetNavi" resultType="java.lang.Integer"
+		parameterType="myCommentPDVO">
 		SELECT COUNT(*) AS totalCount
 		FROM BOARD_COMMENT_TBL
 		WHERE MB_INDEX = #{mbIndex}
@@ -392,7 +434,8 @@ SELECT
 	</select>
 
 	<!-- 마이페이지 - 나의 북마크 -->
-	<select id="myBookMarkList" resultType="bookMark" parameterType="myBookMarkPDVO">
+	<select id="myBookMarkList" resultType="bookMark"
+		parameterType="myBookMarkPDVO">
 		SELECT
 		BPT.POST_INDEX AS postIndex,
 		BCA_INDEX AS bcaIndex,
@@ -403,7 +446,8 @@ SELECT
 		postTitle,
 		DT_TITLE AS dtTitle,
 		DT_SAMMARY AS dtSammary,
-		DT_DATE AS dtDate,
+		DT_DATE AS
+		dtDate,
 		DT_LIKE AS
 		dtLike,
 		DT_SEE AS dtSee,
@@ -412,29 +456,38 @@ SELECT
 		BMK_INDEX AS bmkIndex
 		FROM (SELECT
 		BOARD_BOOKMARK_TBL.*,ROW_NUMBER() OVER(ORDER BY BMK_INDEX DESC)
-		AS NUM FROM
-		BOARD_BOOKMARK_TBL WHERE MB_INDEX = #{mbIndex}) BMK, MEMBER_TBL MBT,DIETTIP_TB DT ,BOARD_POST_TBL BPT
+		AS NUM
+		FROM
+		BOARD_BOOKMARK_TBL WHERE MB_INDEX = #{mbIndex}) BMK, MEMBER_TBL
+		MBT,DIETTIP_TB DT ,BOARD_POST_TBL BPT
 		WHERE BMK.MB_INDEX =
-		MBT.MB_INDEX(+) AND BMK.POST_INDEX = DT.DT_INDEX(+) AND BPT.POST_INDEX(+) =
+		MBT.MB_INDEX(+) AND BMK.POST_INDEX = DT.DT_INDEX(+) AND
+		BPT.POST_INDEX(+) =
 		BMK.POST_INDEX AND BMK.MB_INDEX= #{mbIndex}
-		AND NUM BETWEEN #{start} AND #{end}
+		AND NUM
+		BETWEEN #{start} AND #{end}
 
 	</select>
 
 	<!-- 나의 북마크 - 페이징 처리 -->
-	<select id="myBookMarkGetNavi" resultType="java.lang.Integer" parameterType="myBookMarkPDVO">
+	<select id="myBookMarkGetNavi" resultType="java.lang.Integer"
+		parameterType="myBookMarkPDVO">
 
 		SELECT COUNT(*) AS totalCount
 		FROM (SELECT
 		BOARD_BOOKMARK_TBL.*,ROW_NUMBER() OVER(ORDER BY BMK_INDEX DESC)
-		AS NUM FROM
-		BOARD_BOOKMARK_TBL WHERE MB_INDEX =#{mbIndex}) BMK, MEMBER_TBL MBT,DIETTIP_TB DT
+		AS NUM
+		FROM
+		BOARD_BOOKMARK_TBL WHERE MB_INDEX =#{mbIndex}) BMK, MEMBER_TBL
+		MBT,DIETTIP_TB DT
 		,BOARD_POST_TBL
 		BPT
 		WHERE BMK.MB_INDEX =
-		MBT.MB_INDEX(+) AND BMK.POST_INDEX = DT.DT_INDEX(+) AND BPT.POST_INDEX(+) =
+		MBT.MB_INDEX(+) AND BMK.POST_INDEX = DT.DT_INDEX(+) AND
+		BPT.POST_INDEX(+) =
 		BMK.POST_INDEX AND BMK.MB_INDEX= #{mbIndex}
-		and (BPT.POST_INDEX IS NOT NULL OR
+		and
+		(BPT.POST_INDEX IS NOT NULL OR
 		DT.DT_INDEX IS NOT NULL)
 
 	</select>
