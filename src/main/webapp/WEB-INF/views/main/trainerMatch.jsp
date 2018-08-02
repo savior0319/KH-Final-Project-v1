@@ -35,7 +35,7 @@
 		<div class="ui center aligned basic segment" style="border: 0;">
 			<br>
 			<div class="ui large message">
-				<div class="ui large header">트레이너 매칭</div>
+				<div class="ui large header">트뤠이너 매칭</div>
 			</div>
 			<br>
 			<div class="ui horizontal basic segments" align="center" style="border: 0;">
@@ -49,13 +49,17 @@
 						</span>
 						<br>
 						<br>
-						<div class="ui large header" style="color:white;">트레이너 찾기</div>
+						<div class="ui large header" style="color:white;">트뤠이너 찾기</div>
 						<br>
 					</h2>
-					<div class="ui message"><div class="ui small header">트레이너를 찾고 싶다면 찾기go</div></div>
+					<div class="ui message"><div class="ui small header">트뤠이너를 찾고 싶다면 찾기go</div></div>
 					<br>
 				</div>
-				<div class="ui segment" id="div2" onclick="trainerReg();" style="border: 0;">
+
+
+				<c:choose>
+					<c:when test="${sessionScope.member.mbGrade ne '트레이너'}">
+					<div class="ui segment" id="div2" onclick="trainerReg();" style="border: 0;">
 					<br>
 					<h2 class="ui header" style="color:white;" style="border: 0;"> 
 						<br>
@@ -65,12 +69,32 @@
 						</span>
 						<br>
 						<br>
-						<div class="ui large header" style="color:white;">트레이너 등록</div>
+						<div class="ui large header" style="color:white;">트뤠이너 등록</div>
 						<br>
 					</h2>
-					<div class="ui red message"><div class="ui small header">트레이너가 되고 싶다면 신청go</div></div>
+					<div class="ui red message"><div class="ui small header">트뤠이너가 되고 싶다면 신청go</div></div>
 					<br>
-				</div>
+					</div>
+					</c:when>
+					<c:otherwise>
+					<div class="ui segment" id="div2" onclick="programReg();" style="border: 0;">
+					<br>
+					<h2 class="ui header" style="color:white;" style="border: 0;"> 
+						<br>
+						<br>
+						<span align="center">
+							<i class="huge edit icon" id="icon2"></i>
+						</span>
+						<br>
+						<br>
+						<div class="ui large header" style="color:white;">트뤠이너 등록</div>
+						<br>
+					</h2>
+					<div class="ui red message"><div class="ui small header">프로그램 신청go</div></div>
+					<br>
+					</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<br>
 			<br>
@@ -78,7 +102,6 @@
 			<br>
 		</div>
 	</div> 
-	<button onclick="programReg();">상품등록</button>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>

@@ -378,9 +378,6 @@
 				$('#matchedTitle'+i).attr("onclick", "goInfo(" + data[i].indexNo + "," + data[i].htType + ");");
 				$('#matchedExplain'+i).attr("onclick", "goInfo(" + data[i].indexNo + "," + data[i].htType + ");");
 			}
-			
-			
-			
 		},
 		error : function(){
 			console.log('[Error] 메인 - 자유게시판 출력 실패');
@@ -481,7 +478,26 @@
 	});
 	
 	function goInfo(me, me2){
-		location.href="/homeTrainingInfo.diet?indexNo="+me+"&type="+me2;
+		var type;
+		if(me2==1){
+			type = "wholeBody";
+		}else if(me2==2){
+			type = "abdomen";
+		}else if(me2==3){
+			type = "upperBody";
+		}else if(me2==4){
+			type = "lowerBody";
+		}else if(me2==5){
+			type = "stretching";
+		}else if(me2==6){
+			type = "dance";
+		}else if(me2==7){
+			type = "yoga";
+		}else if(me2==8){
+			type = "fourChallenge";
+		}
+		
+		location.href="/homeTrainingInfo.diet?indexNo="+me+"&type="+type;
 	}
 </script>
 <style type="text/css" media="screen">

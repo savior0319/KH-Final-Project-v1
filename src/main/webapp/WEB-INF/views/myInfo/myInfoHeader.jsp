@@ -28,7 +28,7 @@
 					</c:if>
 					<c:if test="${member.mbGrade == '관리자'}">
 					<a class="item" href="/applyTrainer.diet"><i class="h square icon"></i>트레이너 매칭</a>
-					<a class="item" href="/myTrainer.diet"><i class="h square icon"></i>트레이너-일반</a>
+					<a class="item" href="/requestTrainer.diet"><i class="h square icon"></i>트레이너-일반</a>
 					</c:if>
 					<a class="item" href="/secession.diet"><i class="hand paper icon"></i>회원탈퇴</a>
 			</div>

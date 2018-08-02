@@ -44,6 +44,75 @@
 		<result property="trStatus" column="TR_STATUS" /> <!-- 혜윤 추가 / 충돌시 삭제 -->
 	</resultMap>
 
+	<!-- 일반회원 자격 신청 리스트 -->
+	<select id="applyTrainerList2" resultType="trainerReg" parameterType="applyTrainerPDVO" resultMap="trainerRegDB">
+		SELECT * FROM
+		(SELECT
+		TRAINER_REG_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY
+		TR_REGDATE
+		DESC) AS
+		NUM FROM
+		TRAINER_REG_TBL
+		WHERE MB_INDEX = #{mbIndex}
+		)WHERE NUM BETWEEN
+		#{start} AND #{end}
+	</select>
+
+	<!-- 일반회원 자격 신청 페이징 -->
+	<select id="applyTrainerGetNavi2" resultType="java.lang.Integer" parameterType="applyTrainerPDVO">
+		SELECT COUNT(*) AS totalCount
+		FROM TRAINER_REG_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</select>
+
+	<!-- 일반 회원 - 트레이닝 구매 리스트 -->
+	<select id="myRequestList2" resultType="trainerProgramMember" parameterType="myRequestTrainerPDVO">
+		SELECT
+		TPT.TP_INDEX AS tpIndex,
+		TPT.TR_INDEX AS trIndex,
+		TPT.TP_TRAIN_TYPE AS tpTrain,
+		TPT.TP_TITLE AS tpTitle,
+		TPT.TP_MAIN_IMAGE AS tpMainImage,
+		TPT.TP_ACTIVE_START AS tpActiveStart,
+		TPT.TP_ACTIVE_END AS
+		tpActiveEnd,
+		TPT.TP_ACTIVE_DAY AS tpActiveDay,
+		TPT.TP_LOCATION AS tpLocation,
+		TPT.TP_COST AS tpCost,
+		TPT.TP_PERSONNEL AS tpPersonnel,
+		TPT.TP_CONTENT AS tpContent,
+		TPT.TP_REGDATE AS tpRegDate
+		FROM (SELECT
+		PAYMENT_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY
+		PAY_TIME
+		DESC) AS
+		NUM FROM PAYMENT_TBL
+		WHERE MB_INDEX = #{mbIndex} ) PT
+		RIGHT JOIN TRAINER_REG_TBL TRT ON(TRT.TR_INDEX = PT.TR_INDEX)
+		RIGHT JOIN TRAINER_PROGRAM_TBL TPT ON(TPT.TP_INDEX = PT.TP_INDEX)
+		WHERE PT.MB_INDEX = #{mbIndex} AND TRT.TR_STATUS = '승인' AND NUM BETWEEN
+		#{start} AND #{end}
+
+	</select>
+	<select id="checkSale" resultType="payment" parameterType="payment">
+		
+        SELECT 
+		PAY_INDEX AS payIndex,
+        TP_INDEX AS tpIndex
+		FROM PAYMENT_TBL WHERE MB_INDEX = #{mbIndex}
+		
+	</select>
+	<!-- 일반 회원 - 트레이닝 구매 리스트 페이징 처리 -->
+	<select id="myRequestGetNavi2" resultType="java.lang.Integer" parameterType="myRequestTrainerPDVO">
+
+		SELECT COUNT(*) AS totalCount
+		FROM PAYMENT_TBL
+		WHERE
+		MB_INDEX = #{mbIndex}
+	</select>
+
 	<!-- 트레이너 자격 신청 리스트 -->
 	<select id="applyTrainerList" resultType="trainerReg" parameterType="applyTrainerPDVO" resultMap="trainerRegDB">
 		SELECT * FROM
@@ -67,7 +136,7 @@
 	</select>
 
 
-	<!-- 트레이너회원 - 트레이닝 신청 리스트 -->
+	<!-- 트레이너회원 - 트레이닝 등록 리스트 -->
 	<select id="myRequestList" resultType="trainerProgram" parameterType="myRequestTrainerPDVO">
 		SELECT
 		TP_INDEX AS tpIndex,
@@ -207,19 +276,6 @@
 		FROM MEMBER_TBL JOIN QUESTION_TBL USING (MB_INDEX)
 		LEFT OUTER JOIN
 		ANSWER_TBL USING(QS_INDEX) WHERE QS_INDEX = #{qsIndex}
-	</select>
-
-
-	<!-- 마이페이지 - 장바구니 -->
-	<select id="myWishList" parameterType="member" resultType="product">
-		SELECT PD_INDEX AS pdIndex,PD_NAME AS pdName ,PD_IMAGE AS
-		pdImage,
-		PD_PRICE AS pdPrice FROM PRODUCT_TBL
-		JOIN MY_WISHLIST_TBL
-		USING(PRODUCT_INDEX)
-		JOIN MEMBER_TBL USING(MB_INDEX)
-		WHERE MB_ID =
-		#{mbId}
 	</select>
 
 

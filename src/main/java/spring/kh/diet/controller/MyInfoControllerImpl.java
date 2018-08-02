@@ -2,6 +2,7 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -32,6 +33,7 @@ import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -449,50 +451,73 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	}
 
-	/* 트레이너 요청 (일반) */
-
-	@Override
-	@RequestMapping(value = "/requestTrainer.diet")
-	public String requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
-			throws JsonIOException, IOException {
-		int currentPage; // 현재 페이지 값을 저장하는 변수
-		MemberVO mv = (MemberVO) session.getAttribute("member");
-		TrainerProgramVO tv = new TrainerProgramVO();
-		tv.setMbIndex(mv.getMbIndex());
-
-		if (request.getParameter("currentPage") == null) {
-			currentPage = 1;
-		} else {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		
-		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage, tv);
-		System.out.println(myRequest);
-		request.setAttribute("myRequest", myRequest);
-		return "myInfo/imTrainer";
-
-	}
-
-	/* 트레이너 자격 신청 (트레이너) */
+	/* 트레이너 자격 신청 & 요청 (트레이너) */
 
 	@Override
 	@RequestMapping(value = "/applyTrainer.diet")
-	public Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+	public Object requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws JsonIOException, IOException {
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		MemberVO mv = (MemberVO) session.getAttribute("member");
-		TrainingRegVO tv = new TrainingRegVO();
+
+		TrainerProgramVO tv = new TrainerProgramVO(); // 프로그램 리스트
 		tv.setMbIndex(mv.getMbIndex());
+
+		TrainingRegVO tr = new TrainingRegVO(); // 자격신청
+		tr.setMbIndex(mv.getMbIndex());
+
+		PaymentVO pv = new PaymentVO(); // 판매여부
+		pv.setMbIndex(mv.getMbIndex());
+		
+		ArrayList<PaymentVO> checkSale = new ArrayList<PaymentVO>();
+		
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		ModelAndView view = new ModelAndView();
+		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tr);
+		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage, tv);
+		
+		checkSale = myInfoService.checkSale(pv);
+		
+		view.addObject("applyTrainer", applyTrainer);
+		view.addObject("myRequest", myRequest);
+		view.addObject("checkSale", checkSale);
+		view.setViewName("myInfo/imTrainer");
+		return view;
+
+	}
+
+	/* 트레이너 자격 신청 && 요청 (일반회원) */
+
+	@Override
+	@RequestMapping(value = "/requestTrainer.diet")
+	public Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws JsonIOException, IOException {
+
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+
+		TrainerProgramVO tv = new TrainerProgramVO(); // 프로그램 리스트
+		tv.setMbIndex(mv.getMbIndex());
+
+		TrainingRegVO tr = new TrainingRegVO(); // 자격신청
+		tr.setMbIndex(mv.getMbIndex());
 
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tv);
-		System.out.println(applyTrainer.getComList());
-		request.setAttribute("applyTrainer", applyTrainer);
-		return "myInfo/imTrainer";
+		ModelAndView view = new ModelAndView();
+		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer2(currentPage, tr);
+		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer2(currentPage, tv);
+		view.addObject("applyTrainer", applyTrainer);
+		view.addObject("myRequest", myRequest);
+		view.setViewName("myInfo/myTrainer");
+		return view;
 
 	}
 

@@ -20,12 +20,14 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 	}
 
+	/* 주석 어디감ㅡㅡ */
 	@Override
 	public TrainingRegVO getTrIndex(SqlSessionTemplate session, MemberVO mv) {
 		TrainingRegVO trv = session.selectOne("trainer.getTrIndex", mv);
 		return trv;
 	}
 
+	/* 주석 어디감ㅡㅡ */
 	@Override
 	public int registTrainerProgram(SqlSessionTemplate session, TrainerProgramVO tpv) {
 		return session.insert("trainer.registTrainerProgram", tpv);
@@ -36,6 +38,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 		return result;
 	}
 
+	/* 주석 어디감ㅡㅡ */
 	@Override
 	public String getProgramListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, int trIndex) {
@@ -78,8 +81,8 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/getProgramList.diet?trIndex=" + trIndex + "&currentPage=" + (startNavi - 1)
-					+ "'> &lt; </a>");
+			sb.append("<a class='item' href='/getProgramList.diet?trIndex=" + trIndex + "&currentPage="
+					+ (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
@@ -101,6 +104,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 		return sb.toString();
 	}
 
+	/* 주석 어디감ㅡㅡ */
 	@Override
 	public ArrayList<TrainerProgramVO> getProgramList(SqlSessionTemplate session, int currentPage,
 			int recordCountPerPage, int trIndex) {

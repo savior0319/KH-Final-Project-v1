@@ -9,6 +9,7 @@ import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -88,6 +89,20 @@ public interface MyInfoDAO {
 
 	String applyTrainerListPageNavi(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, TrainingRegVO tv);
+
+	ArrayList<TrainingRegVO> applyTrainerList2(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainingRegVO tr);
+
+	String applyTrainerListPageNavi2(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, TrainingRegVO tr);
+
+	ArrayList<TrainerProgramVO> requestTrainerList2(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainerProgramVO tv);
+
+	String requestTrainerListPageNavi2(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, TrainerProgramVO tv);
+
+	ArrayList<PaymentVO> checkSale(SqlSessionTemplate sqlSessionTemplate, PaymentVO tv);
 
 
 

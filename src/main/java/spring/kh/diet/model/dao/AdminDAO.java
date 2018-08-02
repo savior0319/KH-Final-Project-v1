@@ -102,5 +102,13 @@ public interface AdminDAO {
 	String getTrainerRegListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage);
 
+	TrainingRegVO trainerRegContents(SqlSessionTemplate session, int trIndex);
+
+	int denyTrainerReg(SqlSessionTemplate session, int trIndex);
+
+	int acceptTrainerReg(SqlSessionTemplate session, int trIndex);
+
+	int changeTrainerGrade(SqlSessionTemplate session, int trIndex);
+
 
 }

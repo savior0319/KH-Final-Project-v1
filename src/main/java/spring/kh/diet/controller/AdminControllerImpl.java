@@ -10,12 +10,14 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +27,11 @@ import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
+import spring.kh.diet.model.vo.BoardBlameVO;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentPDVO;
+import spring.kh.diet.model.vo.BoardLikeVO;
+import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.DelMemberVO;
@@ -37,6 +44,7 @@ import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.TrainingRegPageDataVO;
+import spring.kh.diet.model.vo.TrainingRegVO;
 import spring.kh.diet.model.vo.todayAnalyticPDVO;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
@@ -256,6 +264,88 @@ public class AdminControllerImpl implements AdminController {
 		return "admin/trainer";
 	}
 
+	
+	// 트레이너 등급 신청 회원 등록된 글 들어가는 곳
+	@Override
+	@RequestMapping(value = "/trainerRegContents.diet")
+	public Object trainerRegContents(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		int trIndex = Integer.parseInt(request.getParameter("trIndex"));
+
+		TrainingRegVO trv = as.trainerRegContents(trIndex);
+
+		request.setAttribute("trv", trv);
+
+		return "admin/trainerRegContents";
+	}
+	
+
+	// 트레이너 등급 신청 거절
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/denyTrainerReg.diet")
+	public String denyTrainerReg(HttpServletRequest request, HttpSession session) {
+		
+		int trIndex = Integer.parseInt(request.getParameter("trIndex"));
+		
+		
+		int result = as.denyTrainerReg(trIndex);
+
+		if (result > 0) {
+			return "success";
+		} else {
+			return "failed";
+		}
+	}
+	
+	
+	// 트레이너 등급 신청 승인
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/acceptTrainerReg.diet")
+	public String acceptTrainerReg(HttpServletRequest request, HttpSession session) {
+		
+		int trIndex = Integer.parseInt(request.getParameter("trIndex"));
+		
+		int result = as.acceptTrainerReg(trIndex);
+
+		if(result > 0) {
+			int result2 = as.changeTrainerGrade(trIndex);
+			
+			if (result2 > 0) {
+				return "success";
+			} else {
+				return "failed";
+			}
+		}else {
+			return "denied";
+		}
+
+	}
+	
+	
+	/* 트레이너  회원 관리 */
+	@Override
+	@RequestMapping(value = "/trainerChange.diet")
+	public String trainerChange(HttpServletRequest request, HttpServletResponse response) {
+		
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+
+		TrainingRegPageDataVO trpdv = as.trainerRegList(currentPage);
+		
+		request.setAttribute("trpdv", trpdv);
+		
+		return "admin/trainerChange";
+	}
+
+	
+	
+	
 	/* 1:1문의 답변하기 */
 	@Override
 	@RequestMapping(value = "/answer.diet")
@@ -387,11 +477,11 @@ public class AdminControllerImpl implements AdminController {
 		int todayMinute = Integer.parseInt(tD3.nextToken());
 		int todaySecond = Integer.parseInt(tD3.nextToken());
 		int timeType = 0; 
-		if (todayHour <= 12) {timeType = 1;}
-		if (12 < todayHour && todayHour <= 15) {timeType = 2;}
-		if (15 < todayHour && todayHour <= 18) {timeType = 3;}
-		if (18 < todayHour && todayHour <= 21) {timeType = 4;}
-		if (21 < todayHour && todayHour <= 24) {timeType = 5;}
+		if (todayHour < 12) {timeType = 1;}
+		if (12 <= todayHour && todayHour < 15) {timeType = 2;}
+		if (15 <= todayHour && todayHour < 18) {timeType = 3;}
+		if (18 <= todayHour && todayHour < 21) {timeType = 4;}
+		if (21 <= todayHour && todayHour < 24) {timeType = 5;}
 		
 		/// 그래프 분석할 자료들고오기. 
 		ArrayList<TodayAnalyticsDetail> TotalList = as.TodayAnalyticsDetailList();

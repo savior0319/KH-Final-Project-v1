@@ -37,6 +37,8 @@
 		<url-pattern>*.diet</url-pattern>
 	</servlet-mapping>
 
+
+
 	<!-- <error-page>
 		<error-code>400</error-code>
 		<location>/resources/error/errorpage.jsp</location>

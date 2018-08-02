@@ -25,7 +25,6 @@ import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainerSearchVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
 
-
 @Controller
 public class TrainerControllerImpl implements TrainerController {
 
@@ -53,11 +52,11 @@ public class TrainerControllerImpl implements TrainerController {
 		tsv.setArea(areaList);
 
 		ArrayList<TrainingRegVO> aList = trService.trainerSearch(tsv);
-		
-		System.out.println(aList.toString());
-		
+
 		ModelAndView view = new ModelAndView();
 		view.addObject("tList", aList);
+		view.addObject("areaList", areaList);
+		view.addObject("city", city);
 		view.setViewName("main/trainerFindResult");
 		return view;
 	}
@@ -135,12 +134,13 @@ public class TrainerControllerImpl implements TrainerController {
 			response.getWriter().close();
 		}
 	}
-	
+
 	/* 프로그램 리스트 */
 	@Override
 	@RequestMapping(value = "/getProgramList.diet")
-	public void getProgramList(@RequestParam int trIndex,HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
-		
+	public void getProgramList(@RequestParam int trIndex, HttpServletRequest request, HttpServletResponse response)
+			throws JsonIOException, IOException {
+
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
@@ -148,7 +148,7 @@ public class TrainerControllerImpl implements TrainerController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
-		ProgramPageDataVO ppdv = trService.getProgramList(currentPage,trIndex);
+		ProgramPageDataVO ppdv = trService.getProgramList(currentPage, trIndex);
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
@@ -159,10 +159,8 @@ public class TrainerControllerImpl implements TrainerController {
 	@Override
 	@RequestMapping(value = "/programDetail.diet")
 	public String programDetail(@RequestParam int tpIndex, HttpServletRequest request) {
-
 		TrainerProgramVO tpv = trService.programDetail(tpIndex);
 		request.setAttribute("tpv", tpv);
-
 		return "main/programDetail";
 	}
 }

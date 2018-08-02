@@ -3,39 +3,64 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
+	<!-- 최상위 로거용 - 콘솔 -->
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
+		<param name="encoding" value="UTF-8" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss} : %5p] %n[%m] %n%n" />
 		</layout>
 	</appender>
-	
-	<!-- Application Loggers -->
-	<logger name="spring.kh.diet">
-		<level value="info" />
-	</logger>
-	
-	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
-		<level value="info" />
-	</logger>
-	
-	<logger name="org.springframework.beans">
-		<level value="info" />
-	</logger>
-	
-	<logger name="org.springframework.context">
-		<level value="info" />
-	</logger>
 
-	<logger name="org.springframework.web">
-		<level value="info" />
-	</logger>
 
-	<!-- Root Logger -->
+	<!-- 아웃풋(데일리) // WARN 이상 -->
+	<appender name="dailyout" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="file" value="${catalina.home}/logs/XMLLog/Error/Warn.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss} : %5p] %n[%m] %n%n" />
+		</layout>
+	</appender>
+
+	<!-- 아웃풋(데일리) // debug 이상 -->
+	<!-- 
+	<appender name="dailyout2" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="file" value="${catalina.home}/logs/XMLLog/Not_Error/Debug.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss} : %5p] %n[%m] %n%n" />
+		</layout>
+	</appender>
+	 -->
+	<!-- 파일출력 -debug이상 -->
+	<!-- 
+		다중  DailyRollingFileAppender은 동시에 스레드가 작동할수가 없으므로, 에러가된다
+	 	한번에 두개가 돌아가니, 한쪽만 돌아가는 문제가 발생함.
+	-->
+	<!--  
+	<logger name="org.springframework.web" additivity="true">
+		<level value="trace" />
+		<appender-ref ref="dailyout2" />
+	</logger>
+	-->
+	
+	<!-- 파일출력 - WARN이상 (WARN-ERROR-FATAl)-->
+	<logger name="org.springframework.web" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="dailyout" />
+	</logger> 
+
+
+
+	<!-- 최상위 로거  -->
+	<!-- 콘솔 출력 - warn 이상 -->
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
-	
+
 </log4j:configuration>

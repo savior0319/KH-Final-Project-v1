@@ -27,9 +27,6 @@
 	<!-- CONTENTS -->
 	<input id="mainPhotoPath" type="hidden">
 	<div class="ui container">
-
-
-
 		<div class="ui center aligned basic segment">
 			<br>
 			<div class="ui large message">
@@ -39,14 +36,11 @@
 				<div class="ui small header">※ 트레이너 회원은 아래 항목 입력 후 관리자의 승인이 필요합니다</div>
 			</div>
 			<br>
-
 			<h3 class="ui block header">기본 정보</h3>
 			<table class="ui celled table">
 				<thead>
 					<tr>
 						<td style="width: 30%;">
-
-
 							<table class="ui collapsing table" style="width: 100%;">
 								<thead align="center">
 									<tr>
@@ -84,17 +78,13 @@
 												<div id="nameMessage" style="display: none;"></div>
 											</td>
 										</tr>
-
 										<tr>
-
 											<td style="width: 13%;">연락처</td>
 											<td style="border-top: 1px solid #EAEAEA; padding-top: 30px; padding-bottom: 30px;">
 												<span class="ui form">
 													<input type="text" name="phone" placeholder="01*********" id="numberCheck" maxlength="11" required autocomplete="off" />
-
 												</span>
 												<div id="phoneMessage" style="display: none;"></div>
-
 											</td>
 										</tr>
 										<tr>
@@ -110,17 +100,12 @@
 												</span>
 											</td>
 										</tr>
-
 									</thead>
 								</table>
-
-
 							</td>
 						</tr>
 					</thead>
 				</table>
-
-
 				<br>
 				<h3 class="ui block header">상세 정보</h3>
 
@@ -196,7 +181,6 @@
 											<div id="ifSeoul">
 												<select multiple="" name="area1" class="ui search fluid normal dropdown" id="dropdown2">
 													<option value="">선택</option>
-													<!-- <option value="전체">전체</option> -->
 													<option value="강남구">강남구</option>
 													<option value="강동구">강동구</option>
 													<option value="강북구">강북구</option>
@@ -227,7 +211,6 @@
 											<div id="ifIncheon" style="display: none;">
 												<select multiple="" name="area2" class="ui search fluid normal dropdown" id="dropdown3">
 													<option value="">선택</option>
-													<!-- <option value="전체">전체</option> -->
 													<option value="강화군">강화군</option>
 													<option value="계양구">계양구</option>
 													<option value="남동구">남동구</option>
@@ -246,7 +229,7 @@
 							</td>
 						</tr>
 						<tr style="text-align: center;">
-							<th>경력</th>
+							<th>소개/경력</th>
 							<td>
 								<div class="ui form">
 									<div class="field">
@@ -255,16 +238,9 @@
 								</div>
 							</td>
 						</tr>
-
 					</thead>
 				</table>
 				<button class="ui inverted red button" onclick=" return submitBtn();">제출하기</button>
-
-
-
-
-
-
 			</div>
 
 		</div>
@@ -287,8 +263,6 @@
 						</div>
 					</div>
 				</div>
-
-
 			</form>
 			<br>
 			<div class="actions">
@@ -298,22 +272,16 @@
 				</button>
 				<button type="button" class="ui black button" id="modalOff">취소</button>
 			</div>
-			<%-- <input type="hidden" value="${sessionScope.member.mbId}" id="memberId" /> --%>
 		</div>
 	</div>
+
 	<!-- SCRIPT -->
-
-
 	<script type="text/javascript">
-
-
 
 		/* 사진등록,변경버튼 클릭시 모달 보여주기 */
 		function uploadPictureBtn() {
 			$("#updateProfile").modal('show');
 		}
-
-
 
 		/* 모달 창 종료 */
 		$("#modalOff").click(function() {
@@ -372,11 +340,6 @@
 			$("#updateProfile").modal('hide');
 		}
 
-
-
-
-
-
 		/* 사진등록,변경버튼 클릭시 모달 보여주기 */
 		function uploadPictureBtn() {
 			$("#updateProfile").modal('show');
@@ -405,28 +368,6 @@
 			}
 
 		};
-
-
-
-
-
-
-
-	/* function submitBtn() {
-
-		var city = $('#dropdown1').val();
-		var area1 = $('#dropdown2').val();
-		var area2 = $('#dropdown3').val();
-		if (city == '서울특별시') {
-			//location.href = "/trainerSearchResult.diet?city=" + city + "&area=" + area1;
-			alert(city);
-			alert(area1);
-		} else if (city == '인천광역시') {
-			//location.href = "/trainerSearchResult.diet?city=" + city + "&area=" + area2;
-			alert(city);
-			alert(area2);
-		}
-	}; */
 
 	//양식 체크 확인
 	function submitBtn() {
@@ -460,74 +401,52 @@
 		var trImage = new FormData(document.getElementById('photoForm'));
 		
 		
-		if (phonePass == false || weightPass == false || heightPass == false || namePass == false) {
-			 /* phonePass == false || weightPass == false || heightPass == false || namePass == false
-			 || postCode != null || roadAddress != null || trBirth != null || trArea !=null
-			 
-			 */
-			 alert('트레이너 전환 양식을 모두 작성해주세요.');
-			 return false;
-			} else {
+		if (phonePass == false || weightPass == false || heightPass == false || namePass == false || $('#birth').val() == '' || $('#postcode').val() == '' || $('#roadAddress').val() == '' || $('#trComment').val() == '' || ($("select[name=area1]").val() == '' && $("select[name=area2]").val() == '')) {
+			alert('트레이너 전환 양식을 모두 작성해주세요.');
+			return false;
+		} else {
+			$.ajax({
+				url : '/saveDietTipMainPhotoPath.diet',	
+				type : 'post',
+				data : trImage,
+				processData: false,
+				contentType: false,
+				success : function (data){
+					$('#mainPhotoPath').val(data);
+					var trImagePath = $('#mainPhotoPath').val();
 
-				console.log("이름 : " + trName);
-				console.log("핸드폰 : " + trPhone);
-				console.log("우편번호 : " + postcode);
-				console.log("성별 : " + trGender);			
-				console.log("주소 : " + roadAddress);
-				console.log("상세주소 : " + addAddress);
-				console.log("총 주소 : " + trAddress);
-				console.log("생년월일 : " + trBirth);
-				console.log(" 키 : " + trHeight);
-				console.log("몸무게 : " + trWeight);
-				console.log("지역 : " + trCity);
-				console.log("상세 지역 : " + trArea);
-				console.log("경력 : " + trContent);
-
-				$.ajax({
-	    		url : '/saveDietTipMainPhotoPath.diet',		// 이거는 그냥 dietTip꺼 쓰면 될듯
-	    		type : 'post',
-	    		data : trImage,
-	    		processData: false,
-	    		contentType: false,
-	    		success : function (data){
-	    			$('#mainPhotoPath').val(data);
-	    			var trImagePath = $('#mainPhotoPath').val();
-	    			
-	    			$.ajax({
-    					url : '/trainerRegister.diet',
-    					type : 'post',
-    					data : {
-    						'trName' : trName,
-    						'trPhone' : trPhone,
-    						'trAddress' : trAddress,
-    						'trBirth' : trBirth,
-    						'trHeight' : trHeight,
-    						'trWeight' : trWeight,
-    						'trCity' : trCity,
-    						'trAreas' : trArea,
-    						'trGender' : trGender,
-    						'trContent' : trContent,
-    				 		'trImagePath' : trImagePath
-    					},
-    					success : function(result) {
-    						if (result == '1') {
-    							alert('신청 완료');
-    							location.href="/trainerMatch.diet";
-    						} else {
-    							alert('신청 실패');
-
-    							//location.href="/trainerMatch.diet";
-    						}
-    					},
-    					error : function(result) {
-    						alert('실패');
-    						//location.href="/trainerMatch.diet";
-    					}
-    				});		  
-	    		}
-	    	});
-			}
+					$.ajax({
+						url : '/trainerRegister.diet',
+						type : 'post',
+						data : {
+							'trName' : trName,
+							'trPhone' : trPhone,
+							'trAddress' : trAddress,
+							'trBirth' : trBirth,
+							'trHeight' : trHeight,
+							'trWeight' : trWeight,
+							'trCity' : trCity,
+							'trAreas' : trArea,
+							'trGender' : trGender,
+							'trContent' : trContent,
+							'trImagePath' : trImagePath
+						},
+						success : function(result) {
+							if (result == '1') {
+								alert('신청 완료');
+								location.href="/trainerMatch.diet";
+							} else {
+								alert('신청 실패');
+							}
+						},
+						error : function(result) {
+							alert('서버 오류 잠시후 다시 시도해주세요');
+						}
+					});		  
+				}
+			});
 		}
+	}
 
 	//정규표현식하기!
 	var phoneRegExp = /^01([0|1|6|7|8|9]{1})([0-9]{3,4})([0-9]{4})$/;
@@ -618,8 +537,6 @@
 
 		});
 	//정규표현식 끝!!!!!!
-
-
 	
 	/* 지역 드롭다운 */
 	$('#dropdown1').dropdown();
@@ -632,20 +549,6 @@
 		maxSelections : 3
 	});
 	
-	
-/* 	$("select[name=area1]").on('change').change(function() {
-		var seoulArea = $("select[name=area1]").val();
-		
-		console.log(seoulArea);
-		
-		if(seoulArea[0] == "전체"){
-			   $(this).siblings().off();
-			$(this).maxSelections = false;
-		}
-		
-	}); */
-	
-
 	$('#dropdown1').change(function() {
 		var loc = $('#dropdown1').val();
 		if (loc == '서울특별시') {
@@ -656,9 +559,6 @@
 			$('#ifIncheon').show();
 		}
 	});
-
-	
-	
 	
 	/* 생년월일 달력 : Datepicker */
 	$.datepicker.setDefaults({
@@ -686,15 +586,9 @@
 
 	/* 시멘틱 셀렉트 드롭박스 */
 	$('select.dropdown').dropdown();
-
-	
-
-	
-	
 	
 
 	//주소찾기
-	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 	function execDaumPostcode() {
 		new daum.Postcode(
 		{

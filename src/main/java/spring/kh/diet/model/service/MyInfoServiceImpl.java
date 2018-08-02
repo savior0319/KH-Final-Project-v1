@@ -20,6 +20,7 @@ import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -257,6 +258,48 @@ public class MyInfoServiceImpl implements MyInfoService {
 		applyTrainer.setPageNavi(pageNavi);
 
 		return applyTrainer;
+	}
+
+	@Override
+	public ApplyTrainerPDVO applyTrainer2(int currentPage, TrainingRegVO tr) {
+		int recordCountPerPage = 5;
+		int naviCountPerPage = 5;
+
+		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
+
+		ArrayList<TrainingRegVO> list = (ArrayList<TrainingRegVO>) myInfoDAO.applyTrainerList2(SqlSessionTemplate, currentPage,
+				recordCountPerPage, tr);
+		String pageNavi = myInfoDAO.applyTrainerListPageNavi2(SqlSessionTemplate, currentPage, recordCountPerPage,
+				naviCountPerPage, tr);
+		
+		applyTrainer.setComList(list);
+		applyTrainer.setPageNavi(pageNavi);
+
+		return applyTrainer;
+	}
+
+	@Override
+	public MyRequestTrainerPDVO requestTrainer2(int currentPage, TrainerProgramVO tv) {
+		int recordCountPerPage = 5;
+		int naviCountPerPage = 5;
+
+		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
+
+		ArrayList<TrainerProgramVO> list = (ArrayList<TrainerProgramVO>) myInfoDAO.requestTrainerList2(SqlSessionTemplate, currentPage,
+				recordCountPerPage, tv);
+		String pageNavi = myInfoDAO.requestTrainerListPageNavi2(SqlSessionTemplate, currentPage, recordCountPerPage,
+				naviCountPerPage, tv);
+
+		myRequest.setComList(list);
+		myRequest.setPageNavi(pageNavi);
+
+		return myRequest;
+	}
+
+	@Override
+	public ArrayList<PaymentVO> checkSale(PaymentVO tv) {
+		ArrayList<PaymentVO> list = myInfoDAO.checkSale(SqlSessionTemplate,tv);
+		return list;
 	}
 
 }
