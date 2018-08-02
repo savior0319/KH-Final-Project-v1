@@ -70,9 +70,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					</c:if>
 					<button class="ui red button" style="float: right;" onclick="deleteMyQuestion();">삭제하기</button>
-					<br>
 					<br>
 					<div class="ui grid">
 						<div class="three column row">
@@ -88,43 +86,43 @@
 						</div>
 						<br>
 					</div>
+				</c:if>
 
-
-					<!-- 1:1 문의하기 -->
-					<div class="ui modal" id="questionModal1">
-						<i class="close icon"></i>
-						<div class="ui large header">일대일 문의</div>
-						<div class="ui left aligned basic segment">
-							<br>
-							<div class="ui form" style="font-weight: 600;">
-								<label style="margin-right: 3%;">제목</label>
-								<lavel id="qsTitle12"></lavel>
-								<br>
-								<br>
-								<div class="field">
-									<label>문의내용</label>
-									<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none;" id="contentQuestion"></textarea>
-								</div>
-								<div class="field">
-									<label>관리자 답변 입니다.</label>
-									<textarea placeholder="관리자 답변" style="height: 150px; overflow: hidden; resize: none;" id="contentAnswer"></textarea>
-								</div>
-							</div>
-							<br>
-							<br>
-						</div>
-						<input type="hidden" value="" id="qsIndex" />
+				<c:if test="${myQuestion.comList.isEmpty()}">
+					<div class="ui small red message">
+						<div class="ui small header">※ 현재 등록된 문의가 없습니다 ~ ^^</div>
 					</div>
+				</c:if>
+
+
+				<!-- 1:1 문의하기 -->
+				<div class="ui modal" id="questionModal1">
+					<i class="close icon"></i>
+					<div class="ui large header">일대일 문의</div>
+					<div class="ui left aligned basic segment">
+						<br>
+						<div class="ui form" style="font-weight: 600;">
+							<label style="margin-right: 3%;">제목</label>
+							<lavel id="qsTitle12"></lavel>
+							<br>
+							<br>
+							<div class="field">
+								<label>문의내용</label>
+								<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none;" id="contentQuestion"></textarea>
+							</div>
+							<div class="field">
+								<label>관리자 답변 입니다.</label>
+								<textarea placeholder="관리자 답변" style="height: 150px; overflow: hidden; resize: none;" id="contentAnswer"></textarea>
+							</div>
+						</div>
+						<br>
+						<br>
+					</div>
+					<input type="hidden" value="" id="qsIndex" />
+				</div>
 			</div>
 		</div>
 	</c:if>
-	<c:if test="${myQuestion.comList.isEmpty()}">
-		<div class="ui small red message">
-			<div class="ui small header">※ 현재 등록된 문의가 없습니다 ~ ^^</div>
-		</div>
-	</c:if>
-	<br>
-	<br>
 	<c:if test="${sessionScope.member==null}">
 		<script>
 			location.href = "/index.jsp";

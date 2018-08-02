@@ -2,9 +2,7 @@ package spring.kh.diet.model.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="trainer">
 
-<!-- 일반회원에서 트레이너로 회원 전환 -->
+	<!-- 일반회원에서 트레이너로 회원 전환 -->
 	<resultMap type="trainerReg" id="trainerRegDB">
 		<result property="trName" column="TR_NAME" />
 		<result property="trAddress" column="TR_ADDRESS" />
@@ -18,24 +18,66 @@
 		<result property="trWeight" column="TR_WEIGHT" />
 		<result property="trRegDate" column="TR_REGDATE" />
 		<result property="trBirth" column="TR_BIRTH" />
+		<result property="trStatus" column="TR_STATUS" />
+	</resultMap>
+	
+	<resultMap type="trainerProgram" id="trainerProgramDB">
+		<result property="tpIndex" column="TP_INDEX" />
+		<result property="trIndex" column="TR_INDEX" />
+		<result property="mbIndex" column="MB_INDEX" />
+		<result property="tpTrainType" column="TP_TRAIN_TYPE" />
+		<result property="tpTitle" column="TP_TITLE" />
+		<result property="tpMainImage" column="TP_MAIN_IMAGE" />
+		<result property="tpActiveStart" column="TP_ACTIVE_START" />
+		<result property="tpActiveEnd" column="TP_ACTIVE_END" />
+		<result property="tpActiveDay" column="TP_ACTIVE_DAY" />
+		<result property="tpLocation" column="TP_LOCATION" />
+		<result property="tpCost" column="TP_COST" />
+		<result property="tpPersonnel" column="TP_PERSONNEL" />
+		<result property="tpContent" column="TP_CONTENT" />
+		<result property="tpRegDate" column="TP_REGDATE" />
 	</resultMap>
 
 	<!-- 트레이너로 회원 전환 신청서 -->
 	<insert id="trainerReg" parameterType="trainerReg">
 		INSERT INTO
 		TRAINER_REG_TBL
-		VALUES(TRAINER_INDEX_SEQ.NEXTVAL,#{mbIndex},#{trName},#{trBirth},#{trAddress},#{trGender},#{trPhone},#{trHeight},#{trWeight},#{trCity},#{trArea},#{trImagePath},#{trContent},SYSDATE)
+		VALUES(TRAINER_INDEX_SEQ.NEXTVAL,#{mbIndex},#{trName},#{trBirth},#{trAddress},#{trGender},#{trPhone},#{trHeight},#{trWeight},#{trCity},#{trArea},#{trImagePath},#{trContent},SYSDATE,'심사중')
 	</insert>
-  
-  	<select id="getTrIndex" parameterType="member" resultType="trainerReg" resultMap="trainerRegDB">
+
+	<!-- 트레이너 인덱스 추출 -->
+	<select id="getTrIndex" parameterType="member" resultType="trainerReg" resultMap="trainerRegDB">
 		SELECT *
 		FROM TRAINER_REG_TBL
 		WHERE MB_INDEX = #{mbIndex}
 	</select>
-	
+
+	<!-- 프로그램 등록 -->
 	<insert id="registTrainerProgram" parameterType="trainerProgram">
-		INSERT INTO TRAINER_PROGRAM_TBL VALUES(TRAINER_PROGRAM_TBL_SEQ.NEXTVAL,#{trIndex},#{mbIndex},#{tpTrainType},#{tpTitle},#{tpMainImage},#{tpActiveStart},#{tpActiveEnd},#{tpActiveDay},#{tpLocation},#{tpCost},#{tpPersonnel},#{tpContent},sysdate)
+		INSERT INTO TRAINER_PROGRAM_TBL
+		VALUES(TRAINER_PROGRAM_TBL_SEQ.NEXTVAL,#{trIndex},#{mbIndex},#{tpTrainType},#{tpTitle},#{tpMainImage},#{tpActiveStart},#{tpActiveEnd},#{tpActiveDay},#{tpLocation},#{tpCost},#{tpPersonnel},#{tpContent},sysdate)
 	</insert>
 
+	<!-- 프로그램 리스트 출력 -->
+	<select id="getProgramList" parameterType="programPageData" resultType="trainerProgram" resultMap="trainerProgramDB">
+		SELECT * 
+		FROM (SELECT TRAINER_PROGRAM_TBL.*,ROW_NUMBER() OVER(ORDER BY TP_REGDATE DESC) AS NUM FROM TRAINER_PROGRAM_TBL WHERE TR_INDEX LIKE #{trIndex}) 
+	</select>
+	
+	<!-- 프로그램 리스트 페이징 처리 -->
+	<select id="getProgramNavi" parameterType="trainerProgram" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS TOTALCOUNT
+		FROM TRAINER_PROGRAM_TBL
+		WHERE TR_INDEX = #{trIndex}
+	</select>
+
+	<!-- 트레이너 찾기(지역) -->
+	<select id="trainerSearch" parameterType="trainerAreaList" resultType="trainerReg" resultMap="trainerRegDB">
+		SELECT *
+		FROM TRAINER_REG_TBL
+		WHERE ((TR_AREA LIKE '%'||#{area1}||'%') OR (TR_AREA LIKE '%'||#{area2}||'%') OR (TR_AREA LIKE '%'||#{area3}||'%')) 
+		AND TR_STATUS LIKE '승인' 
+		AND TR_CITY LIKE '%'||#{city}||'%'
+	</select>
 </mapper>
 

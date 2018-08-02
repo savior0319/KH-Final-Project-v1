@@ -250,10 +250,6 @@ public class AdminControllerImpl implements AdminController {
 		}
 
 		TrainingRegPageDataVO trpdv = as.trainerRegList(currentPage);
-
-		System.out.println(trpdv.getTrList().get(0).getTrName());
-		System.out.println(trpdv.getTrList().get(0).getTrImagePath());
-		System.out.println(trpdv.getTrList().get(0).getMbId());
 		
 		request.setAttribute("trpdv", trpdv);
 		
