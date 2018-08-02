@@ -26,7 +26,7 @@
 						<span id="text1">트레이너 자격</span>
 					</a>
 					<a class="item" href="javascript:void(0);" onclick="applyList();" id="apply2">
-						<span id="text2">트레이너 요청 리스트</span>
+						<span id="text2">프로그램 등록 내역</span>
 					</a>
 				</div>
 				<br>
@@ -106,7 +106,7 @@
 					<c:when test="${!myRequest.comList.isEmpty()}">
 						<div id="memberApply">
 							<div class="ui brown message" align="center">
-								<div class="ui small header">※ 헬스 트레이너 요청 리스트</div>
+								<div class="ui small header">※프로그램 등록 List</div>
 							</div>
 							<table class="ui gray table">
 								<thead>
@@ -144,8 +144,8 @@
 											<td style="width: 15%;">${m.tpRegDate}</td>
 											<td style="width: 15%;">${m.tpIndex}</td>
 											<td style="width: 23%;">
-												<button class="ui red button">수락</button>
-												<button class="ui grey button">거절</button>
+												<button class="ui red button">판매완료</button>
+												<button class="ui grey button">판매대기</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -169,7 +169,7 @@
 
 					<c:otherwise >
 						<div id="memberApply">
-							<div class="ui red message" align="center">※ 트레이너 요청 내역이 없습니다.</div>
+							<div class="ui red message" align="center">※ 프로그램 등록 내역이 없습니다.</div>
 				
 						</div>
 					</c:otherwise>

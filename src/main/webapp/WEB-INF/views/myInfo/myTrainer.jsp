@@ -26,7 +26,7 @@
 						<span id="text1">트레이너 자격</span>
 					</a>
 					<a class="item" href="javascript:void(0);" onclick="applyList();" id="apply2">
-						<span id="text2">트레이너 요청 리스트</span>
+						<span id="text2">프로그램 구매  리스트</span>
 					</a>
 				</div>
 				<br>
@@ -36,7 +36,7 @@
 							<div class="ui brown message" align="center">
 								<div class="ui small header">※ 트레이너 자격 신청</div>
 							</div>
-							
+
 							<table class="ui gray table">
 								<thead>
 									<tr id="title" align="center">
@@ -101,12 +101,12 @@
 							<div class="ui red message" align="center">※ 트레이너 자격 신청하신 내역이 없습니다.</div>
 						</div>
 					</c:when>
-					</c:choose>
-					<c:choose>
+				</c:choose>
+				<c:choose>
 					<c:when test="${!myRequest.comList.isEmpty()}">
 						<div id="memberApply">
 							<div class="ui brown message" align="center">
-								<div class="ui small header">※ 헬스 트레이너 요청 리스트</div>
+								<div class="ui small header">※ 프로그램 구매 List</div>
 							</div>
 							<table class="ui gray table">
 								<thead>
@@ -117,20 +117,17 @@
 										</th>
 										<th>
 											<i class="h square icon"></i>
-											제 목
+											프 로 그 램 명
 										</th>
 										<th>
 											<i class="h square icon"></i>
-											요 청 자
+											구 매 금 액
 										</th>
 										<th>
 											<i class="h square icon"></i>
-											요 청 일
+											구 매 일
 										</th>
-										<th>
-											<i class="h square icon"></i>
-											수 락 여 부
-										</th>
+
 
 									</tr>
 								</thead>
@@ -143,10 +140,6 @@
 											</td>
 											<td style="width: 15%;">${m.tpRegDate}</td>
 											<td style="width: 15%;">${m.tpIndex}</td>
-											<td style="width: 23%;">
-												<button class="ui red button">수락</button>
-												<button class="ui grey button">거절</button>
-											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -167,10 +160,9 @@
 						</div>
 					</c:when>
 
-					<c:otherwise >
+					<c:otherwise>
 						<div id="memberApply">
-							<div class="ui red message" align="center">※ 트레이너 요청 내역이 없습니다.</div>
-				
+							<div class="ui red message" align="center">※ 프로그램 등록 내역이 없습니다.</div>
 						</div>
 					</c:otherwise>
 				</c:choose>

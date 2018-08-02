@@ -629,7 +629,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		applyTrainer.setEnd(currentPage * recordCountPerPage);
 		applyTrainer.setMbIndex(tr.getMbIndex());
 
-		List<TrainingRegVO> list = sqlSessionTemplate.selectList("myInfo.applyTrainerList", applyTrainer);
+		List<TrainingRegVO> list = sqlSessionTemplate.selectList("myInfo.applyTrainerList2", applyTrainer);
 
 		return (ArrayList<TrainingRegVO>) list;
 	}
@@ -637,10 +637,10 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	@Override
 	public String applyTrainerListPageNavi2(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, int naviCountPerPage, TrainingRegVO tr) {
-		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
-		myRequest.setMbIndex(tr.getMbIndex());
+		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
+		applyTrainer.setMbIndex(tr.getMbIndex());
 
-		int recordTotalCount = sqlSessionTemplate.selectOne("myInfo.myRequestGetNavi", myRequest);
+		int recordTotalCount = sqlSessionTemplate.selectOne("myInfo.applyTrainerGetNavi2", applyTrainer);
 		int pageTotalCount = 0;
 
 		if (recordTotalCount % recordCountPerPage != 0) {
@@ -677,21 +677,21 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/requestTrainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+			sb.append("<a class='item' href='/applyTrainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/requestTrainer.diet?currentPage="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/applyTrainer.diet?currentPage="
 								+ i + "'><strong>" + i + "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/requestTrainer.diet?currentPage=" + i + "'>" + i + " </a>");
+				sb.append("<a class='item' href='/applyTrainer.diet?currentPage=" + i + "'>" + i + " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/requestTrainer.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			sb.append("<a class='item' href='/applyTrainer.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
 		return sb.toString();
 	}
@@ -705,7 +705,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		myRequest.setEnd(currentPage * recordCountPerPage);
 		myRequest.setMbIndex(tv.getMbIndex());
 
-		List<TrainerProgramVO> list = sqlSessionTemplate.selectList("myInfo.myRequestList", myRequest);
+		List<TrainerProgramVO> list = sqlSessionTemplate.selectList("myInfo.myRequestList2", myRequest);
 
 		return (ArrayList<TrainerProgramVO>) list;
 	}
@@ -716,7 +716,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
 		myRequest.setMbIndex(tv.getMbIndex());
 
-		int recordTotalCount = sqlSessionTemplate.selectOne("myInfo.myRequestGetNavi", myRequest);
+		int recordTotalCount = sqlSessionTemplate.selectOne("myInfo.myRequestGetNavi2", myRequest);
 		int pageTotalCount = 0;
 
 		if (recordTotalCount % recordCountPerPage != 0) {
