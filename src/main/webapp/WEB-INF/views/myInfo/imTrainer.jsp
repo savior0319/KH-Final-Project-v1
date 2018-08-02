@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -22,11 +23,11 @@
 				<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 				<br>
 				<div class="ui two item menu">
-					<a class="item" href="javascript:void(0);" onclick="apply();" id="apply1">
-						<span id="text1">트레이너 자격</span>
-					</a>
-					<a class="item" href="javascript:void(0);" onclick="applyList();" id="apply2">
-						<span id="text2">프로그램 등록 내역</span>
+					<a class="item" href="javascript:void(0);" onclick="apply();"
+						id="apply1"> <span id="text1">트레이너 자격 신청</span>
+					</a> <a class="item" href="javascript:void(0);"
+						onclick="enrollProgram();" id="apply2"> <span id="text2">프로그램
+							등록 내역</span>
 					</a>
 				</div>
 				<br>
@@ -40,47 +41,33 @@
 							<table class="ui gray table">
 								<thead>
 									<tr id="title" align="center">
-										<th>
-											<i class="h square icon"></i>
-											번 호
-										</th>
-										<th>
-											<i class="h square icon"></i>
-											제 목
-										</th>
-										<th>
-											<i class="h square icon"></i>
-											요 청 일
-										</th>
-										<th>
-											<i class="h square icon"></i>
-											트레이너 자격 승인
-										</th>
+										<th><i class="h square icon"></i> 번 호</th>
+										<th><i class="h square icon"></i> 제 목</th>
+										<th><i class="h square icon"></i> 요 청 일</th>
+										<th><i class="h square icon"></i> 트레이너 자격 승인</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${applyTrainer.comList}" var="m">
 										<tr align="center">
 											<td style="width: 13%;">${m.trIndex}</td>
-											<td style="width: 44%;">
-												<a href="javascript:void(0);">${m.trContent}</a>
+											<td style="width: 44%;"><a href="javascript:void(0);">${m.trContent}</a>
 											</td>
 											<td style="width: 20%;">${m.trRegDate }</td>
-											<td style="width: 23%;">
-												<c:if test="${m.trStatus == '승인'}">
+											<td style="width: 23%;"><c:if
+													test="${m.trStatus == '승인'}">
 													<button class="ui blue button">자격승인</button>
-												</c:if>
-												<c:if test="${m.trStatus == '심사중'}">
+												</c:if> <c:if test="${m.trStatus == '심사중'}">
 													<button class="ui red button">심사중</button>
-												</c:if>
-												<c:if test="${m.trStatus == '거절'}">
+												</c:if> <c:if test="${m.trStatus == '거절'}">
 													<button class="ui red button">자격거절</button>
-												</c:if>
-											</td>
+												</c:if></td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
+							<input type="hidden" value="${applyTrainer.comList}"
+								id="listSize" />
 							<div class="ui grid">
 								<div class="three column row">
 									<div class="column"></div>
@@ -98,7 +85,8 @@
 					</c:when>
 					<c:when test="${applyTrainer.comList.isEmpty()}">
 						<div id="trainerApply">
-							<div class="ui red message" align="center">※ 트레이너 자격 신청하신 내역이 없습니다.</div>
+							<div class="ui red message" align="center">※ 트레이너 자격 신청하신
+								내역이 없습니다.</div>
 						</div>
 					</c:when>
 				</c:choose>
@@ -111,48 +99,30 @@
 							<table class="ui gray table">
 								<thead>
 									<tr id="title" align="center">
-										<th>
-											<i class="h square icon"></i>
-											번 호
-										</th>
-										<th>
-											<i class="h square icon"></i>
-											프 로 그 램 명
-										</th>
-										<th>
-											<i class="h square icon"></i>
-											판 매 금 액
-										</th>
-										<th>
-											<i class="h square icon"></i>
-											등 록 날 짜
-										</th>
-										<th>
-											<i class="h square icon"></i>
-											판 매 여 부
-
-										</th>
+										<th><i class="h square icon"></i> 번 호</th>
+										<th><i class="h square icon"></i> 프 로 그 램 명</th>
+										<th><i class="h square icon"></i> 판 매 금 액</th>
+										<th><i class="h square icon"></i> 등 록 날 짜</th>
+										<th><i class="h square icon"></i> 판 매 여 부</th>
 
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${myRequest.comList}" var="m">
 										<tr align="center">
-											<td style="width: 10%;">${m.tpIndex}</td>
-											<td style="width: 30%;">
-												<a href="javascript:void(0);" onclick="showMyTrainer1();">${m.tpTitle}</a>
-
-											</td>
+											<td style="width: 10%;" id="tpIndex">${m.tpIndex}</td>
+											<td style="width: 30%;"><a href="javascript:void(0);"
+												onclick="showMyTrainer1();">${m.tpTitle}</a></td>
 											<td style="width: 15%;">${m.tpCost}</td>
 											<td style="width: 15%;">${m.tpRegDate}</td>
 											<td style="width: 23%;">
-												<c:if test="${!checkSale.isEmpty()}">
-													<button class="ui red button">판매완료</button>
-												</c:if>
+											<c:forEach items="${!checkSale.size()}" var="i">
+												<c:if test="${!checkSale.isEmpty() && checkSale[i].tpIndex == ${m.tpIndex}}">
+													<button class="ui red button">판매완료</button>												</c:if>
+											</c:forEach> 
 												<c:if test="${checkSale.isEmpty()}">
 													<button class="ui grey button">판매대기</button>
-												</c:if>
-											</td>
+												</c:if></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -175,7 +145,8 @@
 
 					<c:otherwise>
 						<div id="memberApply">
-							<div class="ui red message" align="center">※ 프로그램 등록 내역이 없습니다.</div>
+							<div class="ui red message" align="center">※ 프로그램 등록 내역이
+								없습니다.</div>
 
 						</div>
 					</c:otherwise>
@@ -187,11 +158,11 @@
 				<div class="ui left aligned basic segment">
 					<br>
 					<div class="ui form" style="font-weight: 600;">
-						
-						<button style="float: right; margin-top: 13px;" class="ui grey button">닫기</button>
+
+						<button style="float: right; margin-top: 13px;"
+							class="ui grey button">닫기</button>
 					</div>
-					<br>
-					<br>
+					<br> <br>
 				</div>
 				<input type="hidden" value="" id="qsIndex" />
 			</div>
@@ -230,7 +201,7 @@
 		$("#text2").css('font-weight', 900);
 	}
 
-	function applyList() {
+	function enrollProgram() {
 		console.log("here");
 		$("#trainerApply").hide();
 		$("#memberApply").show();

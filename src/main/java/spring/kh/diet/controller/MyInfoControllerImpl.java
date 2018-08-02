@@ -479,12 +479,12 @@ public class MyInfoControllerImpl implements MyInfoController {
 		ModelAndView view = new ModelAndView();
 		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tr);
 		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage, tv);
-		
 		checkSale = myInfoService.checkSale(pv);
 		
 		view.addObject("applyTrainer", applyTrainer);
 		view.addObject("myRequest", myRequest);
 		view.addObject("checkSale", checkSale);
+		
 		view.setViewName("myInfo/imTrainer");
 		return view;
 
