@@ -295,11 +295,10 @@ public class AdminServiceImpl implements AdminService {
 				currentPage, recordCountPerPage);
 		String pageNavi = aDao.getTrainerRegListPageNavi(session, currentPage, recordCountPerPage,
 				naviCountPerPage);
-
+		
 		trpdv.setTrList(list);
 		trpdv.setPageNavi(pageNavi);
 
-		
 		return trpdv;
 	}
 

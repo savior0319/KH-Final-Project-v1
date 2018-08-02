@@ -28,7 +28,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 	public int trainerReg(SqlSessionTemplate session, TrainingRegVO register) {
 		int result = session.insert("trainer.trainerReg",register);
-		System.out.println("결과아아아!"+result);
+
 		return result;
 	}
 	

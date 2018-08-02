@@ -547,7 +547,8 @@
 	var heightPass = false;
 	var namePass = false;
 
-	$(document).ready(function() {
+	$(document).ready(
+			function() {
 
 				$('#numberCheck').keyup(
 						function() {

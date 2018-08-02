@@ -18,13 +18,14 @@
 		<result property="trWeight" column="TR_WEIGHT" />
 		<result property="trRegDate" column="TR_REGDATE" />
 		<result property="trBirth" column="TR_BIRTH" />
+		<result property="trStatus" column="TR_STATUS" />
 	</resultMap>
 
 	<!-- 트레이너로 회원 전환 신청서 -->
 	<insert id="trainerReg" parameterType="trainerReg">
 		INSERT INTO
 		TRAINER_REG_TBL
-		VALUES(TRAINER_INDEX_SEQ.NEXTVAL,#{mbIndex},#{trName},#{trBirth},#{trAddress},#{trGender},#{trPhone},#{trHeight},#{trWeight},#{trCity},#{trArea},#{trImagePath},#{trContent},SYSDATE)
+		VALUES(TRAINER_INDEX_SEQ.NEXTVAL,#{mbIndex},#{trName},#{trBirth},#{trAddress},#{trGender},#{trPhone},#{trHeight},#{trWeight},#{trCity},#{trArea},#{trImagePath},#{trContent},SYSDATE,'심사중')
 	</insert>
   
   	<select id="getTrIndex" parameterType="member" resultType="trainerReg" resultMap="trainerRegDB">
