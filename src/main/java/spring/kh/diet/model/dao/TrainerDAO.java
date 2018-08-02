@@ -25,5 +25,7 @@ public interface TrainerDAO {
 
 	ArrayList<TrainingRegVO> trainerSearch(SqlSessionTemplate session, TrainerSearchVO tsv);
 
+	TrainerProgramVO programDetail(SqlSessionTemplate session, int tpIndex);
+
 
 }

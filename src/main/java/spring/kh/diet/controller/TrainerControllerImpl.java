@@ -70,7 +70,7 @@ public class TrainerControllerImpl implements TrainerController {
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 
 		TrainingRegVO trv = trService.getTrIndex(mv);
-
+		tpv.setTpMainImage("/imageUpload" + "/" + tpv.getTpMainImage());
 		tpv.setMbIndex(mv.getMbIndex());
 		tpv.setTrIndex(trv.getTrIndex());
 
@@ -153,6 +153,14 @@ public class TrainerControllerImpl implements TrainerController {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(ppdv, response.getWriter());
-
+	}
+	
+	/* 프로그램 상세페이지 */
+	@Override
+	@RequestMapping(value = "/programDetail.diet")
+	public String programDetail(@RequestParam int tpIndex, HttpServletRequest request) {
+		TrainerProgramVO tpv = trService.programDetail(tpIndex);
+		request.setAttribute("tpv", tpv);
+		return "main/programDetail";
 	}
 }

@@ -82,5 +82,12 @@
 		AND TR_STATUS LIKE '승인'
 		AND TR_CITY LIKE '%'||#{city}||'%'
 	</select>
+	
+	<!-- 프로그램 상세페이지 -->
+	<select id="programDetail" resultType="trainerProgram" resultMap="trainerProgramDB" >
+		SELECT *
+		FROM TRAINER_PROGRAM_TBL
+		WHERE TP_INDEX = #{tpIndex}
+	</select>
 </mapper>
 

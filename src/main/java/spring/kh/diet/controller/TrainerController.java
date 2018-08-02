@@ -25,4 +25,6 @@ public interface TrainerController {
 
 	void getProgramList(int trIndex, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException;
 
+	String programDetail(int tpIndex, HttpServletRequest request);
+
 }
