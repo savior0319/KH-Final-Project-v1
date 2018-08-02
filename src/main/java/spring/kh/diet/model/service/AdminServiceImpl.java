@@ -302,6 +302,13 @@ public class AdminServiceImpl implements AdminService {
 		return trpdv;
 	}
 
+	// 트레이너 등급 신청 회원 등록된 글 들어가는 곳
+	@Override
+	public TrainingRegVO trainerRegContents(int trIndex) {
+		TrainingRegVO trv = aDao.trainerRegContents(session, trIndex);
+		return trv;
+	}
+
 
 
 }

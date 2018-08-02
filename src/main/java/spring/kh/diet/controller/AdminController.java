@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import spring.kh.diet.model.vo.todayAnalyticPDVO;
 import spring.kh.diet.model.vo.yesterdayAnalytic;
@@ -39,5 +40,7 @@ public interface AdminController {
 	String blackListContent(int index, HttpServletResponse response, HttpServletRequest request);
 
 	String trainer(HttpServletRequest request, HttpServletResponse response);
+
+	Object trainerRegContents(HttpServletRequest request, HttpServletResponse response, HttpSession session);
 
 }

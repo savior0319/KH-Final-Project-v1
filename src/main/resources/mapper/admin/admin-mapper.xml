@@ -619,4 +619,12 @@
 		FROM TRAINER_REG_TBL
 	</select>
 
+	<!-- 트레이너 신청 내용  -->
+		<select id="trRegContent" resultType="trainerReg" resultMap="trainerRegDB">
+		SELECT *
+		FROM TRAINER_REG_TBL
+		WHERE TR_INDEX = #{trIndex}
+	</select>
+
+
 </mapper>

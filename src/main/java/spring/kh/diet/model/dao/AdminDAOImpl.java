@@ -650,6 +650,13 @@ public class AdminDAOImpl implements AdminDAO {
 		return sb.toString();
 	}
 
+	// 트레이너 등급 신청 회원 등록된 글 들어가는 곳
+	@Override
+	public TrainingRegVO trainerRegContents(SqlSessionTemplate session, int trIndex) {
+		TrainingRegVO trv = session.selectOne("admin.trRegContent",trIndex);
+		return trv;
+	}
+
 
 	
 
