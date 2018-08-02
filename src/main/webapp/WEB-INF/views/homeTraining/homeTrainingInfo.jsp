@@ -487,6 +487,7 @@
 
 					var blameBtn = $("<button>").attr("class",
 							"ui black basic tiny button");
+					blameBtn.attr("id","cmdReportBtn_" + data.bcList[i].cmtIndex);
 
 					var blameI = $("<i>").attr("class", "ban icon");
 
@@ -834,5 +835,36 @@
 	});
 	
 </script>
+
+<style type="text/css" media="screen">
+@media ( max-width : 1200px) {
+	#resize {
+		display: none;
+	}
+	#resizeBlock {
+		margin-right: 50px;
+		padding-left: 0px;
+		padding-right: 0px;
+		width: 200px;
+	}
+	#removePadding {
+		margin-left: 500px;
+	}
+}
+
+@media ( max-width : 455px) {
+	#heartBtn {
+		display: block;
+	}
+	#removePadding {
+		padding: 0;
+		margin: 0;
+	}
+	button[id^="cmdReportBtn_"]{
+		display:none !important;
+	}
+	
+}
+</style>
 
 </html>

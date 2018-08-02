@@ -30,9 +30,9 @@
 			<!-- 운동 검색 -->
 
 			<div class="ui secondary segment">
-				<div class="ui right action left icon input">
+				<div class="ui right action left icon input" style="width:80%;">
 					<i class="search icon"></i> <input id="searchText" type="text"
-						placeholder="검색어 입력" style="width: 600px;">
+						placeholder="검색어 입력" style="width:80%;">
 					<div class="ui basic floating dropdown button"
 						onclick="healthCalSearch();">
 						<div class="text">검색</div>
