@@ -20,6 +20,7 @@ import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -293,6 +294,12 @@ public class MyInfoServiceImpl implements MyInfoService {
 		myRequest.setPageNavi(pageNavi);
 
 		return myRequest;
+	}
+
+	@Override
+	public ArrayList<PaymentVO> checkSale(PaymentVO tv) {
+		ArrayList<PaymentVO> list = myInfoDAO.checkSale(SqlSessionTemplate,tv);
+		return list;
 	}
 
 }

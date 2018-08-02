@@ -127,19 +127,17 @@
 											<i class="h square icon"></i>
 											구 매 일
 										</th>
-
-
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${myRequest.comList}" var="m">
 										<tr align="center">
-											<td style="width: 10%;">${m.tpLocation}</td>
+											<td style="width: 10%;">${m.tpIndex}</td>
 											<td style="width: 30%;">
-												<a href="javascript:void(0);" onclick="showMyTrainer1();">${m.tpIndex}</a>
+												<a href="javascript:void(0);" onclick="showMyTrainer1();">${m.tpTitle}</a>
 											</td>
+											<td style="width: 15%;">${m.tpCost}</td>
 											<td style="width: 15%;">${m.tpRegDate}</td>
-											<td style="width: 15%;">${m.tpIndex}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -162,7 +160,7 @@
 
 					<c:otherwise>
 						<div id="memberApply">
-							<div class="ui red message" align="center">※ 프로그램 등록 내역이 없습니다.</div>
+							<div class="ui red message" align="center">※ 프로그램 구매 내역이 없습니다.</div>
 						</div>
 					</c:otherwise>
 				</c:choose>
