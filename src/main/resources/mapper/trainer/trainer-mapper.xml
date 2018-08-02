@@ -69,6 +69,7 @@
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM TRAINER_PROGRAM_TBL
 		WHERE TR_INDEX = #{trIndex}
+	</select>
 
 	<!-- 트레이너 찾기(지역) -->
 	<select id="trainerSearch" parameterType="trainerAreaList" resultType="trainerReg" resultMap="trainerRegDB">

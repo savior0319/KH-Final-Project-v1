@@ -36,7 +36,6 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 	public int trainerReg(SqlSessionTemplate session, TrainingRegVO register) {
 		int result = session.insert("trainer.trainerReg", register);
-		System.out.println("륜ㅅㅏㅇ이형!" + result);
 		return result;
 	}
 
@@ -116,8 +115,6 @@ public class TrainerDAOImpl implements TrainerDAO {
 		List<TrainerProgramVO> list = session.selectList("trainer.getProgramList", ppdv);
 
 		return (ArrayList<TrainerProgramVO>) list;
-		int result = session.insert("trainer.trainerReg",register);
-		return result;
 	}
 
 	/* 트레이너 찾기 */

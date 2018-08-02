@@ -9,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.TrainerDAO;
-import spring.kh.diet.model.vo.BoardPostVO;
-import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.ProgramPageDataVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
+import spring.kh.diet.model.vo.TrainerSearchVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
 
 @Service("trainerService")
@@ -65,6 +64,7 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public ArrayList<TrainingRegVO> trainerSearch(TrainerSearchVO tsv) {
 		return trDao.trainerReg(session, tsv);
+	}
 
 }
 
