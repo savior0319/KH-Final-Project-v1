@@ -5,7 +5,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>트레이너수락</title>
+<title>트레이너</title>
 </head>
 
 <!-- CSS -->
@@ -21,7 +21,6 @@
 			<div class="ui center aligned basic segment">
 				<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 				<br>
-
 				<div class="ui two item menu">
 					<a class="item" href="javascript:void(0);" onclick="apply();" id="apply1">
 						<span id="text1">트레이너 자격</span>
@@ -31,67 +30,81 @@
 					</a>
 				</div>
 				<br>
-				<div id="trainerApply">
-					<div class="ui brown message" align="center">
-						<div class="ui small header">※ 트레이너 자격 신청</div>
-					</div>
-					<table class="ui gray table">
-						<thead>
-							<tr id="title" align="center">
-								<th>
-									<i class="h square icon"></i>
-									번 호
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									제 목
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									요 청 일
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									트레이너 자격 승인
-								</th>
-
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="" var="m">
-								<tr align="center">
-									<td style="width: 13%;"></td>
-									<td style="width: 44%;">
-										<a href="javascript:void(0);" onclick="showMyTrainer();"></a>
-									</td>
-									<td style="width: 20%;"></td>
-									<td style="width: 23%;">
-										<button class="ui red button">자격승인</button>
-										<button class="ui grey button">자격거절</button>
-									</td>
+				<c:if test="${!applyTrainer.comList.isEmpty()}">
+					<div id="trainerApply">
+						<div class="ui brown message" align="center">
+							<div class="ui small header">※ 트레이너 자격 신청</div>
+						</div>
+						<table class="ui gray table">
+							<thead>
+								<tr id="title" align="center">
+									<th>
+										<i class="h square icon"></i>
+										번 호
+									</th>
+									<th>
+										<i class="h square icon"></i>
+										제 목
+									</th>
+									<th>
+										<i class="h square icon"></i>
+										요 청 일
+									</th>
+									<th>
+										<i class="h square icon"></i>
+										트레이너 자격 승인
+									</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-					<div class="ui grid">
-						<div class="three column row">
-							<div class="column"></div>
-							<div class="column">
-								<div class="ui center aligned basic segment">
-									<div class="ui pagination menu">"${myRequest.pageNavi}"</div>
+							</thead>
+							<tbody>
+								<c:forEach items="${applyTrainer.comList}" var="m">
+									<tr align="center">
+										<td style="width: 13%;">${m.trIndex}</td>
+										<td style="width: 44%;">
+											<a href="javascript:void(0);">${m.trContent}</a>
+										</td>
+										<td style="width: 20%;">${m.trRegDate }</td>
+										<td style="width: 23%;">
+											<c:if test="${m.trStatus == '승인'}">
+												<button class="ui blue button">자격승인</button>
+											</c:if>
+											<c:if test="${m.trStatus == '심사중'}">
+												<button class="ui red button">심사중</button>
+											</c:if>
+											<c:if test="${m.trStatus == '거절'}">
+												<button class="ui red button">자격거절</button>
+											</c:if>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div class="ui grid">
+							<div class="three column row">
+								<div class="column"></div>
+								<div class="column">
+									<div class="ui center aligned basic segment">
+										<div class="ui pagination menu">${applyTrainer.pageNavi}</div>
+									</div>
 								</div>
+								<div class="column"></div>
 							</div>
-							<div class="column"></div>
+							<br>
 						</div>
 						<br>
 					</div>
-					<br>
+				</c:if>
+				<c:if test="${applyTrainer.comList.isEmpty()}">
+					<div id="trainerApply">
+						<div class="ui red message" align="center">※ 트레이너 자격 신청하신 내역이 없습니다.</div>
+					</div>
+				</c:if>
 
-				</div>
+
 				<c:if test="${!myRequest.comList.isEmpty()}">
 					<div id="memberApply">
 						<div class="ui brown message" align="center">
-							<div class="ui small header">※ 트레이너 요청 리스트</div>
+							<div class="ui small header">※ 헬스 트레이너 요청 리스트</div>
 						</div>
 						<table class="ui gray table">
 							<thead>
@@ -124,10 +137,10 @@
 									<tr align="center">
 										<td style="width: 10%;">${m.tpLocation}</td>
 										<td style="width: 30%;">
-											<a href="javascript:void(0);" onclick="showMyTrainer1();">${m.tpName}</a>
+											<a href="javascript:void(0);" onclick="showMyTrainer1();">${m.tpIndex}</a>
 										</td>
 										<td style="width: 15%;">${m.tpLocation}</td>
-										<td style="width: 15%;">${m.tpName}</td>
+										<td style="width: 15%;">${m.tpIndex}</td>
 										<td style="width: 23%;">
 											<button class="ui red button">수락</button>
 											<button class="ui grey button">거절</button>
@@ -141,7 +154,7 @@
 								<div class="column"></div>
 								<div class="column">
 									<div class="ui center aligned basic segment">
-										<div class="ui pagination menu">"${myRequest.pageNavi}"</div>
+										<div class="ui pagination menu">${myRequest.pageNavi}</div>
 									</div>
 								</div>
 								<div class="column"></div>
@@ -151,58 +164,8 @@
 					</div>
 				</c:if>
 				<c:if test="${myRequest.comList.isEmpty()}">
-					<table class="ui gray table">
-						<thead>
-							<tr id="title" align="center">
-								<th>
-									<i class="h square icon"></i>
-									번 호
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									제 목
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									요 청 자
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									요 청 일
-								</th>
-								<th>
-									<i class="h square icon"></i>
-									수 락 여 부
-								</th>
-
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<div class="ui red message" align="center">※ 트레이너 요청 내역이 없습니다.</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="ui red message" align="center">※ 트레이너 요청 내역이 없습니다.</div>
 				</c:if>
-			</div>
-
-
-			<div class="ui modal" id="questionModal2">
-				<i class="close icon"></i>
-				<div class="ui large header">트레이너 요청</div>
-				<div class="ui left aligned basic segment">
-					<br>
-					<div class="ui form" style="font-weight: 600;">
-						<div class="ui red message" align="center">※ 트레이너 자격 심사 진행 중입니다.</div>
-						<div class="ui red message" align="center">※ 트레이너 자격 승인 되었습니다.</div>
-						<div class="ui red message" align="center">※ 트레이너 자격 거절 되었습니다.</div>
-					</div>
-					<br>
-					<br>
-				</div>
-				<input type="hidden" value="" id="qsIndex" />
 			</div>
 
 			<div class="ui modal" id="questionModal3">
@@ -217,31 +180,32 @@
 						<div class="ui floating message" style="margin: 0 auto;">
 							<p>
 								제 목 :&nbsp;&nbsp;&nbsp;
-								<span></span>
+								<span id="tpTitle"></span>
 							</p>
 						</div>
 						<div class="ui floating message" style="width: 25%; float: left;">
 							<p align="center">
 								지 역 :&nbsp;&nbsp;&nbsp;
-								<span></span>
+								<span id="tpArea[]"></span>
 							</p>
 						</div>
 						<div class="ui floating message" style="width: 25%; float: left; margin-left: 20px;">
 							<p align="center">
 								신 청 시 간 :&nbsp;&nbsp;&nbsp;
-								<span></span>
+								<span id="tpActiveStart[]"></span>
+								<span id="tpActiveEnd[]"></span>
 							</p>
 						</div>
 						<div class="ui floating message" style="width: 20%; float: left; margin-left: 20px;">
 							<p align="center">
-								아 이 디 :&nbsp;&nbsp;&nbsp;
-								<span></span>
+								요 청 자 아 이 디 :&nbsp;&nbsp;&nbsp;
+								<span id="requestMember[]">요청한 일반회원 아이디</span>
 							</p>
 						</div>
 						<div class="ui floating message" style="width: 23%; float: left; margin-left: 20px;">
 							<p align="center">
 								PT 종 류 :&nbsp;&nbsp;&nbsp;
-								<span></span>
+								<span id="tpTrainType"></span>
 							</p>
 						</div>
 						<br>
@@ -327,19 +291,28 @@
 		$("#text1").css('font-weight', 900);
 		$("#text2").css('color', 'white');
 		$("#text2").css('font-weight', 900);
+
+		var tpTitle = new Array();
+		tpTitle = $("#tpTitle");
+		$.ajax({
+			url : "/requestTrainer.diet",
+			type : 'POST',
+			success : function(data) {
+				for(i = 0 ; i<data.length;i++){
+					
+					tpTitle.text(data[i]);
+				}
+			},
+			error : function() {
+				alert("게시물 삭제 실패하였습니다. 관리자에게 문의해주세요 ~");
+			}
+		});
+
 	}
 
 	function showMyTrainer1() {
 
 		$('#questionModal3').modal({
-			centered : false
-		}).modal('show');
-
-	}
-
-	function showMyTrainer() {
-
-		$('#questionModal2').modal({
 			centered : false
 		}).modal('show');
 

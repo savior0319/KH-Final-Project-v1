@@ -35,6 +35,7 @@ import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
+import sun.java2d.pipe.AlphaPaintPipe;
 
 @SuppressWarnings("all")
 @Controller
@@ -315,9 +316,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		StringBuilder sb = new StringBuilder(interestStr);
 		interestStr = sb.substring(0, sb.length() - 1);
-
 		mv.setMbInterest(interestStr);
-
 		int result = myInfoService.signupsave(mv);
 
 		return "redirect:/";
@@ -380,7 +379,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		MyPostPageDataVO myPost = myInfoService.myPostList(currentPage, type, ma);
 		request.setAttribute("myPost", myPost);
-
 		return "myInfo/myPost";
 
 	}
@@ -445,7 +443,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		MyQuestionPageDataVO myQuestion = myInfoService.allMyOneToOneQuestion(currentPage, ma);
-
+		System.out.println(myQuestion);
 		request.setAttribute("myQuestion", myQuestion);
 		return "myInfo/myOneToOneQuestion";
 
@@ -455,7 +453,8 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	@Override
 	@RequestMapping(value = "/requestTrainer.diet")
-	public String requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+	public String requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws JsonIOException, IOException {
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		TrainerProgramVO tv = new TrainerProgramVO();
@@ -466,10 +465,11 @@ public class MyInfoControllerImpl implements MyInfoController {
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage,tv);
+		
+		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage, tv);
+		System.out.println(myRequest);
 		request.setAttribute("myRequest", myRequest);
 		return "myInfo/imTrainer";
-
 
 	}
 
@@ -477,7 +477,8 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	@Override
 	@RequestMapping(value = "/applyTrainer.diet")
-	public String applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+	public Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws JsonIOException, IOException {
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		TrainingRegVO tv = new TrainingRegVO();
@@ -488,7 +489,8 @@ public class MyInfoControllerImpl implements MyInfoController {
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage,tv);
+		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tv);
+		System.out.println(applyTrainer.getComList());
 		request.setAttribute("applyTrainer", applyTrainer);
 		return "myInfo/imTrainer";
 

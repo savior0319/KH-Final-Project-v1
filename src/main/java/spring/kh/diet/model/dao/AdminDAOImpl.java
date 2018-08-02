@@ -12,6 +12,8 @@ import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
+import spring.kh.diet.model.vo.BoardPostVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -21,6 +23,8 @@ import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
+import spring.kh.diet.model.vo.TrainingRegPageDataVO;
+import spring.kh.diet.model.vo.TrainingRegVO;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
 import spring.kh.diet.model.vo.todayLikeVO;
@@ -569,6 +573,81 @@ public class AdminDAOImpl implements AdminDAO {
 	public ArrayList<TodayAnalyticsDetail> TodayAnalyticsDetailList(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.TodayAnalyticsDetailList");
 		return (ArrayList<TodayAnalyticsDetail>)list;
+	}
+
+	//트레이너 회원 신청
+	@Override
+	public ArrayList<TrainingRegVO> trainerRegList(SqlSessionTemplate session, int currentPage,
+			int recordCountPerPage) {
+		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
+
+		trpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
+		trpdv.setEnd(currentPage * recordCountPerPage);
+
+		List<TrainingRegVO> list = session.selectList("admin.trainerRegList", trpdv);
+
+		return (ArrayList<TrainingRegVO>) list;
+	}
+
+	//트레이너 회원 신청 네비
+	@Override
+	public String getTrainerRegListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage) {
+		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
+
+		int recordTotalCount = session.selectOne("admin.getTrainerRegNavi", trpdv);
+
+		int pageTotalCount = 0;
+		if (recordTotalCount % recordCountPerPage != 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
+
+		int endNavi = startNavi + naviCountPerPage - 1;
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) {
+			sb.append("<a class='item' href='/trainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (i == currentPage) {
+				sb.append(
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/trainer.diet?currentPage="
+								+ i + "'>  " + i + " </a>");
+			} else {
+				sb.append("<a class='item' href='/trainer.diet?currentPage=" + i + "'> " + i + " </a>");
+			}
+		}
+		if (needNext) {
+			sb.append("<a class='item' href='/trainer.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+		}
+
+		return sb.toString();
 	}
 
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="trainer">
 
-<!-- 일반회원에서 트레이너로 회원 전환 -->
+	<!-- 일반회원에서 트레이너로 회원 전환 -->
 	<resultMap type="trainerReg" id="trainerRegDB">
 		<result property="trName" column="TR_NAME" />
 		<result property="trAddress" column="TR_ADDRESS" />
@@ -18,6 +18,7 @@
 		<result property="trWeight" column="TR_WEIGHT" />
 		<result property="trRegDate" column="TR_REGDATE" />
 		<result property="trBirth" column="TR_BIRTH" />
+		<result property="trStatus" column="TR_STATUS" />
 	</resultMap>
 	
 	<resultMap type="trainerProgram" id="trainerProgramDB">
@@ -41,18 +42,22 @@
 	<insert id="trainerReg" parameterType="trainerReg">
 		INSERT INTO
 		TRAINER_REG_TBL
-		VALUES(TRAINER_INDEX_SEQ.NEXTVAL,#{mbIndex},#{trName},#{trBirth},#{trAddress},#{trGender},#{trPhone},#{trHeight},#{trWeight},#{trCity},#{trArea},#{trImagePath},#{trContent},SYSDATE)
+		VALUES(TRAINER_INDEX_SEQ.NEXTVAL,#{mbIndex},#{trName},#{trBirth},#{trAddress},#{trGender},#{trPhone},#{trHeight},#{trWeight},#{trCity},#{trArea},#{trImagePath},#{trContent},SYSDATE,'심사중')
 	</insert>
-  
-  	<select id="getTrIndex" parameterType="member" resultType="trainerReg" resultMap="trainerRegDB">
+
+	<!-- 주석을 달자1 -->
+	<select id="getTrIndex" parameterType="member" resultType="trainerReg" resultMap="trainerRegDB">
 		SELECT *
 		FROM TRAINER_REG_TBL
 		WHERE MB_INDEX = #{mbIndex}
 	</select>
-	
+
+	<!-- 주석을 달자2 -->
 	<insert id="registTrainerProgram" parameterType="trainerProgram">
-		INSERT INTO TRAINER_PROGRAM_TBL VALUES(TRAINER_PROGRAM_TBL_SEQ.NEXTVAL,#{trIndex},#{mbIndex},#{tpTrainType},#{tpTitle},#{tpMainImage},#{tpActiveStart},#{tpActiveEnd},#{tpActiveDay},#{tpLocation},#{tpCost},#{tpPersonnel},#{tpContent},sysdate)
+		INSERT INTO TRAINER_PROGRAM_TBL
+		VALUES(TRAINER_PROGRAM_TBL_SEQ.NEXTVAL,#{trIndex},#{mbIndex},#{tpTrainType},#{tpTitle},#{tpMainImage},#{tpActiveStart},#{tpActiveEnd},#{tpActiveDay},#{tpLocation},#{tpCost},#{tpPersonnel},#{tpContent},sysdate)
 	</insert>
+
 
 	<select id="getProgramList" parameterType="programPageData" resultType="trainerProgram" >
 		SELECT * 
@@ -64,6 +69,14 @@
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM TRAINER_PROGRAM_TBL
 		WHERE TR_INDEX = #{trIndex}
+
+	<!-- 트레이너 찾기(지역) -->
+	<select id="trainerSearch" parameterType="trainerAreaList" resultType="trainerReg" resultMap="trainerRegDB">
+		SELECT *
+		FROM TRAINER_REG_TBL
+		WHERE ((TR_AREA LIKE '%'||#{area1}||'%') OR (TR_AREA LIKE '%'||#{area2}||'%') OR (TR_AREA LIKE '%'||#{area3}||'%')) 
+		AND TR_STATUS LIKE '승인' 
+		AND TR_CITY LIKE '%'||#{city}||'%'
 	</select>
 </mapper>
 

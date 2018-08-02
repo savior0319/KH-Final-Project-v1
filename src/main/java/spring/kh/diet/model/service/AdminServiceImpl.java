@@ -14,6 +14,8 @@ import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
+import spring.kh.diet.model.vo.BoardPostVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
@@ -23,6 +25,8 @@ import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
+import spring.kh.diet.model.vo.TrainingRegPageDataVO;
+import spring.kh.diet.model.vo.TrainingRegVO;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
 import spring.kh.diet.model.vo.todayLikeVO;
@@ -277,6 +281,25 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<TodayAnalyticsDetail> TodayAnalyticsDetailList() {
 		ArrayList<TodayAnalyticsDetail> list = aDao.TodayAnalyticsDetailList(session);
 		return list;
+	}
+
+	//트레이너 등급으로 전환 신청
+	@Override
+	public TrainingRegPageDataVO trainerRegList(int currentPage) {
+		int recordCountPerPage = 10;
+		int naviCountPerPage = 5;
+
+		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
+
+		ArrayList<TrainingRegVO> list = (ArrayList<TrainingRegVO>) aDao.trainerRegList(session,
+				currentPage, recordCountPerPage);
+		String pageNavi = aDao.getTrainerRegListPageNavi(session, currentPage, recordCountPerPage,
+				naviCountPerPage);
+		
+		trpdv.setTrList(list);
+		trpdv.setPageNavi(pageNavi);
+
+		return trpdv;
 	}
 
 

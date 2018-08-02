@@ -234,8 +234,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 				recordCountPerPage, tv);
 		String pageNavi = myInfoDAO.requestTrainerListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, tv);
-		
-		System.out.println("list:"+list);
+
 		myRequest.setComList(list);
 		myRequest.setPageNavi(pageNavi);
 

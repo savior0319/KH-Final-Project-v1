@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 
@@ -40,21 +41,53 @@ body {
 					<th>성별</th>
 					<th>회원등급</th>
 					<th>신청일</th>
+					<th>심사여부</th>
 					<th>자세히보기</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr align="center">
-					<td>666</td>
-					<td>555</td>
-					<td>444</td>
-					<td>333</td>
-					<td>222</td>
-					<td>111</td>
-					<th><button id="trInfo_" class="ui red button" style="margin-right: 0px;padding-top: 8px;padding-bottom: 8px;padding-left: 18px;padding-right: 18px;"><i class="large zoom-in icon" style="margin-left: 0px; margin-right: 0px;"></i></button></th>
-				</tr>
+				<c:forEach items="${requestScope.trpdv.trList}" var="tr">
+					<tr align="center">
+						<td>${tr.trIndex}</td>
+						<td>${tr.mbId}</td>
+						<td>${tr.trPhone}</td>
+						<c:choose>
+							<c:when test="${tr.trGender eq 'f'}">
+								<td>여자</td>
+							</c:when>
+							<c:otherwise>
+								<td>남자</td>
+							</c:otherwise>
+						</c:choose>
+						<td>${tr.mbGrade}</td>
+						<td><fmt:formatDate value="${tr.trRegDate}" pattern="yyyy-MM-dd HH:mm" /></td>
+						<td>${tr.trStatus}</td>
+						<td>
+						<c:choose>
+							<c:when test="${tr.trStatus eq '심사중'}">
+							<button id="trInfo_${tr.trIndex}" class="ui red button" style="margin-right: 0px; padding-top: 8px; padding-bottom: 8px; padding-left: 18px; padding-right: 18px;">
+								<i class="large zoom-in icon" style="margin-left: 0px; margin-right: 0px;"></i>
+							</button>
+							</c:when>
+							<c:otherwise>
+							<button disabled="disabled" id="trInfo_${tr.trIndex}" class="big ui red button" style="margin-right: 0px; padding-top: 7px; padding-bottom: 7px; padding-left: 6px; padding-right: 6px;">
+								<span style="font-size: 70%;">심사완료</span>
+							</button>
+							</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
+
+
+
+				<c:if test="${requestScope.trpdv.trList[0] !=null}">
+					<div class="ui center aligned basic segment">
+						<div class="ui pagination menu">${requestScope.trpdv.pageNavi }</div>
+					</div>
+					</c:if>
 
 
 	</div>
@@ -68,6 +101,13 @@ body {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+		//trInfo_${tr.trIndex}
+		$(document).ready(function() {
+			var table = $('table > tbody > tr > td').first().val();
+			alert(table);
+	
+	
+		});
 	
 </script>
 

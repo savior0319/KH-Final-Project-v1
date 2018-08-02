@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
-
+import spring.kh.diet.model.vo.TrainerSearchVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
 
 public interface TrainerDAO {
@@ -23,5 +23,8 @@ public interface TrainerDAO {
 
 	ArrayList<TrainerProgramVO> getProgramList(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int trIndex);
+
+	ArrayList<TrainingRegVO> trainerReg(SqlSessionTemplate session, TrainerSearchVO tsv);
+
 
 }

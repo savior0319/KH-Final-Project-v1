@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainerProgramVO {
-	private int tpIndex,trIndex,mbIndex,tpCost,tpPersonnel;
-	private String tpTrainType,tpTitle,tpMainImage,tpActiveDay,tpLocation,tpContent;
-	private String [] tpActiveDays;
-	private Date tpActiveStart,tpActiveEnd;
+	private int tpIndex, trIndex, mbIndex, tpCost, tpPersonnel;
+	private String tpTrainType, tpTitle, tpMainImage, tpActiveDay, tpLocation, tpContent;
+	private String[] tpActiveDays;
+	private Date tpActiveStart, tpActiveEnd;
 	private Timestamp tpRegDate;
 }

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -29,13 +30,12 @@ html, body {
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
-	<!-- CONTENTS -->
-
-	<div class="ui container">
-		<div class="ui center aligned basic segment">
-			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
-			<br>
-			<c:if test="${sessionScope.member!=null}">
+	<c:if test="${sessionScope.member!=null}">
+		<!-- CONTENTS -->
+		<div class="ui container">
+			<div class="ui center aligned basic segment">
+				<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
+				<br>
 				<c:if test="${!myPost.comList.isEmpty()}">
 					<table class="ui gray table">
 						<thead>
@@ -46,22 +46,10 @@ html, body {
 										<label></label>
 									</div>
 								</th>
-								<th>
-									<i class="question circle icon"></i>
-									게 시 물 번 호
-								</th>
-								<th>
-									<i class="question circle icon"></i>
-									게 시 판
-								</th>
-								<th>
-									<i class="question circle icon"></i>
-									제 목
-								</th>
-								<th>
-									<i class="question circle icon"></i>
-									작 성 일
-								</th>
+								<th><i class="question circle icon"></i> 게 시 물 번 호</th>
+								<th><i class="question circle icon"></i> 게 시 판</th>
+								<th><i class="question circle icon"></i> 제 목</th>
+								<th><i class="question circle icon"></i> 작 성 일</th>
 
 							</tr>
 						</thead>
@@ -70,42 +58,35 @@ html, body {
 								<tr align="center">
 									<td style="width: 7%;">
 										<div class="ui checkbox">
-											<input type="checkbox" name="chk[]" value="${m.postIndex}" class="checkSelect">
-											<label></label>
+											<input type="checkbox" name="chk[]" value="${m.postIndex}"
+												class="checkSelect"> <label></label>
 										</div>
 									</td>
 									<td style="width: 13%;">${m.postIndex }</td>
-									<td style="width: 18%;">
-										<c:choose>
+									<td style="width: 18%;"><c:choose>
 											<c:when test="${m.bcaIndex=='15'}">
-												<label>
-													<a href="recipeBoard.diet?type=15">자유게시판</a>
+												<label> <a href="recipeBoard.diet?type=15">자유게시판</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='16' }">
-												<label>
-													<a href="recipeBoard.diet?type=16">레시피&#38;식단</a>
+												<label> <a href="recipeBoard.diet?type=16">레시피&#38;식단</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='17' }">
-												<label>
-													<a href="recipeBoard.diet?type=16">팁&#38;노하우</a>
+												<label> <a href="recipeBoard.diet?type=16">팁&#38;노하우</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='18' }">
-												<label>
-													<a href="recipeBoard.diet?type=16">고민&#38;질문</a>
+												<label> <a href="recipeBoard.diet?type=16">고민&#38;질문</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='19' }">
-												<label>
-													<a href="recipeBoard.diet?type=16">비포&#38;애프터</a>
+												<label> <a href="recipeBoard.diet?type=16">비포&#38;애프터</a>
 												</label>
 											</c:when>
-										</c:choose>
-									</td>
-									<td style="width: 40%;">
-										<a href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle }</a>
+										</c:choose></td>
+									<td style="width: 40%;"><a
+										href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle }</a>
 									</td>
 									<td style="width: 20%;">${m.postDateTime }</td>
 
@@ -113,7 +94,8 @@ html, body {
 							</c:forEach>
 						</tbody>
 					</table>
-					<button class="ui red button" style="float: right;" onclick="deleteMyPost();">삭제하기</button>
+					<button class="ui red button" style="float: right;"
+						onclick="deleteMyPost();">삭제하기</button>
 					<br>
 					<br>
 					<div class="ui grid">
@@ -134,10 +116,12 @@ html, body {
 						<div class="ui small header">※ 현재 등록된 게시물이 없습니다 ~ ^^</div>
 					</div>
 				</c:if>
-			</c:if>
+
+			</div>
 		</div>
-		<!--  ui container 닫기  -->
-	</div>
+	</c:if>
+	<!--  ui container 닫기  -->
+
 	<br>
 	<c:if test="${sessionScope.member==null}">
 		<script>
@@ -173,7 +157,7 @@ html, body {
 			},
 			success : function(data) {
 				if (data != 0) {
-	
+
 					for (i = 0; i < data.length; i++) {
 						$(data[i]).parent().parent().parent().remove();
 						location.reload();
@@ -188,7 +172,7 @@ html, body {
 		});
 
 	}
-	
+
 	$(document).ready(function() {
 		$("#allCheck1").click(function() {
 			if ($("#allCheck1").prop("checked")) {

@@ -60,5 +60,11 @@ public class TrainerServiceImpl implements TrainerService {
 
 		return ppdv;
 	}
+  
+  	/* 트레이너 찾기 */
+	@Override
+	public ArrayList<TrainingRegVO> trainerSearch(TrainerSearchVO tsv) {
+		return trDao.trainerReg(session, tsv);
 
 }
+

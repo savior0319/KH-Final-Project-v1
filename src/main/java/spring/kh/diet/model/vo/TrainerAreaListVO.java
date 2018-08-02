@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TrainerSearchVO {
-
-	private String city, area;
-
+public class TrainerAreaListVO {
+	private String area1, area2, area3, city;
 }

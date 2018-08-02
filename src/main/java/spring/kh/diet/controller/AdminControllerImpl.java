@@ -1,7 +1,10 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.ApplicationScope;
+import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.AdminService;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
@@ -21,6 +25,7 @@ import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -31,6 +36,7 @@ import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
+import spring.kh.diet.model.vo.TrainingRegPageDataVO;
 import spring.kh.diet.model.vo.todayAnalyticPDVO;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
@@ -230,12 +236,22 @@ public class AdminControllerImpl implements AdminController {
 		return "admin/blackList";
 	}
 
-	/* 트레이너 회원 관리 */
+	/* 트레이너 등급 신청 회원 관리 */
 	@Override
 	@RequestMapping(value = "/trainer.diet")
 	public String trainer(HttpServletRequest request, HttpServletResponse response) {
 		
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+
+		TrainingRegPageDataVO trpdv = as.trainerRegList(currentPage);
 		
+		request.setAttribute("trpdv", trpdv);
 		
 		return "admin/trainer";
 	}
@@ -321,7 +337,7 @@ public class AdminControllerImpl implements AdminController {
 	/* 사이트 통계 */
 	@Override
 	@RequestMapping(value = "/todayAnalytics.diet")
-	public String todayAnalytics(HttpServletRequest request) {
+	public Object todayAnalytics(HttpServletRequest request) {
 
 		todayAnalyticPDVO tAPDVO = todayAutoAnalytics();
 		tAPDVO.setType(request.getParameter("type"));
@@ -358,59 +374,115 @@ public class AdminControllerImpl implements AdminController {
 		request.setAttribute("AllSession", ASVO);
 		request.setAttribute("AllSessionSize", ASVO.size());
 		
+		// 시간값가져오기
+		
+		long time = System.currentTimeMillis();
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String totalDay = dayTime.format(new Date(time));
+		StringTokenizer tD1 = new StringTokenizer(totalDay, " ");
+		String yymmdd = tD1.nextToken();
+		String hhmmss = tD1.nextToken();
+		StringTokenizer tD3 = new StringTokenizer(hhmmss, ":");
+		int todayHour = Integer.parseInt(tD3.nextToken());
+		int todayMinute = Integer.parseInt(tD3.nextToken());
+		int todaySecond = Integer.parseInt(tD3.nextToken());
+		int timeType = 0; 
+		if (todayHour <= 12) {timeType = 1;}
+		if (12 < todayHour && todayHour <= 15) {timeType = 2;}
+		if (15 < todayHour && todayHour <= 18) {timeType = 3;}
+		if (18 < todayHour && todayHour <= 21) {timeType = 4;}
+		if (21 < todayHour && todayHour <= 24) {timeType = 5;}
+		
 		/// 그래프 분석할 자료들고오기. 
 		ArrayList<TodayAnalyticsDetail> TotalList = as.TodayAnalyticsDetailList();
-		
+		ModelAndView view = new ModelAndView();
+		int thits = 0; int tlike =0; int tcomments=0; int tpost =0;
+		int hhits = 0; int hlike =0; int hcomments=0; int hpost =0;
+		int chits = 0; int clike =0; int ccomments=0; int cpost =0;
 		for (int i = 0; i < TotalList.size(); i++) {
 			int ListType = TotalList.get(i).getListType();
 			int TimeType = TotalList.get(i).getTimeType();
 			switch (ListType) {
 			case 1:
+			//  다이어트 팁에 대한 전체 정보
+//				System.out.println(TotalList.get(i).toString());
+				thits += TotalList.get(i).getHits();
+				tlike += TotalList.get(i).getLikes();
+				tcomments += TotalList.get(i).getComments();
+				tpost += TotalList.get(i).getPost();
+				view.addObject("AT1", TotalList.get(i));
 				switch (TimeType) {
-				case 1:
+				case 1: view.addObject("T1", TotalList.get(i));
 					break;
-				case 2:
+				case 2: view.addObject("T2", TotalList.get(i));
 					break;
-				case 3:
+				case 3: view.addObject("T3", TotalList.get(i));
 					break;
-				case 4:
+				case 4: view.addObject("T4", TotalList.get(i));
 					break;
-				case 5:
+				case 5: view.addObject("T5", TotalList.get(i));
 					break;
 				}
 				break;
 			case 2:
+				hhits += TotalList.get(i).getHits();
+				hlike += TotalList.get(i).getLikes();
+				hcomments += TotalList.get(i).getComments();
+				hpost += TotalList.get(i).getPost();
+				view.addObject("AH1", TotalList.get(i));
 				switch (TimeType) {
-				case 1:
+				case 1: view.addObject("H1", TotalList.get(i));
 					break;
-				case 2:
+				case 2: view.addObject("H2", TotalList.get(i));
 					break;
-				case 3:
+				case 3: view.addObject("H3", TotalList.get(i));
 					break;
-				case 4:
+				case 4: view.addObject("H4", TotalList.get(i));
 					break;
-				case 5:
+				case 5: view.addObject("H5", TotalList.get(i));
 					break;
 				}
 				break;
 			case 3:
+				chits += TotalList.get(i).getHits();
+				clike += TotalList.get(i).getLikes();
+				ccomments += TotalList.get(i).getComments();
+				cpost += TotalList.get(i).getPost();
+				view.addObject("AC1", TotalList.get(i));
 				switch (TimeType) {
-				case 1:
+				case 1: view.addObject("C1", TotalList.get(i));
 					break;
-				case 2:
+				case 2: view.addObject("C2", TotalList.get(i));
 					break;
-				case 3:
+				case 3: view.addObject("C3", TotalList.get(i));
 					break;
-				case 4:
+				case 4: view.addObject("C4", TotalList.get(i));
 					break;
-				case 5:
+				case 5: view.addObject("C5", TotalList.get(i));
 					break;
 				}
 				break;
 
 			}
+			
 
 		}
+		view.addObject("thits",thits); 
+		view.addObject("tlike",tlike);
+		view.addObject("tcomments",tcomments);
+		view.addObject("tpost",tpost);
+		//
+		view.addObject("hhits",hhits); 
+		view.addObject("hlike",hlike);
+		view.addObject("hcomments",hcomments);
+		view.addObject("hpost",hpost);
+		//
+		view.addObject("chits",chits); 
+		view.addObject("clike",clike);
+		view.addObject("ccomments",ccomments);
+		view.addObject("cpost",cpost);
+		view.addObject("currentTime",timeType);
+		view.setViewName("admin/todayAnalytics");
 		
 //		request.setAttribute("TAD", TotalList);
 		
@@ -418,7 +490,7 @@ public class AdminControllerImpl implements AdminController {
 		
 		
 		
-		return "admin/todayAnalytics";
+		return view;
 	}
 
 	// 현재값 갱신용도
