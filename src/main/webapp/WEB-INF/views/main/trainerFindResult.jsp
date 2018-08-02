@@ -52,6 +52,9 @@
 		</c:forEach>
 	</div>
 </div>
+
+<a href="/programDetail.diet">확인</a>
+
 <!-- FOOTER -->
 <jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
@@ -71,7 +74,6 @@
 	/* 트레이너 선택 */
 	$('.test').click(function(){
 		var trIndex = $(this).children('input').val();
-		alert('인덱스 : ' + trIndex);
 		findPrograms(trIndex);
 	});
   
@@ -92,7 +94,7 @@
 							for (var i = 0; i < data.proList.length; i++) {
 								table += '<tr align="center">';
 								table += '<td>'+data.proList[i].tpTrainType+'</td>';
-								table += '<td style="padding-top: 15px; padding-bottom: 15px;"><a class="item" href="#">';
+								table += '<td style="padding-top: 15px; padding-bottom: 15px;"><a class="item" href="/programDetail.diet?tpIndex='+data.proList[i].tpIndex+'">';
 								table += data.proList[i].tpTitle;
 								table += '</a></td>';
 								table += '<td>' + data.proList[i].tpActiveStart+ '</td>';

@@ -146,4 +146,9 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 	}
 
+	@Override
+	public TrainerProgramVO programDetail(SqlSessionTemplate session, int tpIndex) {
+		return session.selectOne("trainer.programDetail",tpIndex);
+	}
+
 }
