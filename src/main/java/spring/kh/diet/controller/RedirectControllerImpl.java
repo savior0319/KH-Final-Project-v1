@@ -153,9 +153,9 @@ public class RedirectControllerImpl implements RedirectController {
 
 	/* 트레이너 상품 등록 */
 	@Override
-	@RequestMapping(value = "/sangpoom.diet")
+	@RequestMapping(value = "/programReg.diet")
 	public String redirectSangpoom() {
-		return "main/sangpoom";
+		return "main/programReg";
 	}
 	
 }
