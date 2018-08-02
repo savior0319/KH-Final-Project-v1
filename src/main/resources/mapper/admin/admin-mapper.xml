@@ -256,8 +256,8 @@
 		ss_device as device,
 		ss_LastIn as
 		lastIn
-		from off_session_tbl where ss_firstOn between trunc(sysdate) and
-		trunc(sysdate+1)
+		from off_session_tbl where (ss_firstOn between trunc(sysdate) and
+		trunc(sysdate+1)) and (ss_Lastin between trunc(sysdate) and trunc(sysdate+1))
 		order by ss_index desc
 	</select>
 

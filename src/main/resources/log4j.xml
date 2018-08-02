@@ -6,8 +6,9 @@
 	<!-- 최상위 로거용 - 콘솔 -->
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
+		<param name="encoding" value="UTF-8" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss} :  %-5p] %n [%m] %n%n" />
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss} : %5p] %n[%m] %n%n" />
 		</layout>
 	</appender>
 
@@ -15,58 +16,44 @@
 	<!-- 아웃풋(데일리) // WARN 이상 -->
 	<appender name="dailyout" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="Append" value="true" />
+		<param name="encoding" value="UTF-8" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<param name="file" value="${catalina.home}/logs/XMLLog/Error/Warn.log" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss} :  %-5p] %n[%m] %n%n" />
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss} : %5p] %n[%m] %n%n" />
 		</layout>
 	</appender>
 
 	<!-- 아웃풋(데일리) // debug 이상 -->
+	<!-- 
 	<appender name="dailyout2" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="Append" value="true" />
+		<param name="encoding" value="UTF-8" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
-		<param name="file" value="${catalina.home}/logs/XMLLog/Not_Error/Trace.log" />
+		<param name="file" value="${catalina.home}/logs/XMLLog/Not_Error/Debug.log" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss} :  %-5p] %n[%m] %n%n" />
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss} : %5p] %n[%m] %n%n" />
 		</layout>
 	</appender>
-
-
-	<!-- 테스트용 콘솔출력  -->
-	<!--  
-	<appender name="console2" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss} :  %-5p] %n [%m] %n%n" />
-		</layout>
-	</appender>
-	-->
-	
-	
-	<!-- 공부용
-	 addivity = true 를 하면 최상위인 root 속성에 대한 value 레벨을 상속받지 않는다. 예를들면 하위인 
-		로거의 레벨이 debug일경우 기본적으로 나타내는값이 debug ~ fatal 이겠지만 부모인 root을 상속하게된다면 (addtivity 
-		=false //default) trace도 나오게된다. 즉 이부분을 꺼주면 하위의 로거는 trace를 거치지않는다/ 이를 중복으로 
-		처리할경우?
-		
-	<logger name="spring.kh.diet.controller" additivity="true"> <level 
-		value="warn"/> <appender-ref ref="console2"/> </logger>  
-		<logger name="org.springframework.web" additivity="false"> <level value="info"/> 
-		<appender-ref ref="console"/> </logger>
-	-->
-	
+	 -->
 	<!-- 파일출력 -debug이상 -->
-	<logger name="org.springframework.web" additivity="false">
-		<level value="debug" />
+	<!-- 
+		다중  DailyRollingFileAppender은 동시에 스레드가 작동할수가 없으므로, 에러가된다
+	 	한번에 두개가 돌아가니, 한쪽만 돌아가는 문제가 발생함.
+	-->
+	<!--  
+	<logger name="org.springframework.web" additivity="true">
+		<level value="trace" />
 		<appender-ref ref="dailyout2" />
 	</logger>
-
-	<!-- 파일출력 - WARN이상 -->
+	-->
+	
+	<!-- 파일출력 - WARN이상 (WARN-ERROR-FATAl)-->
 	<logger name="org.springframework.web" additivity="false">
 		<level value="warn" />
 		<appender-ref ref="dailyout" />
-	</logger>
+	</logger> 
+
 
 
 	<!-- 최상위 로거  -->

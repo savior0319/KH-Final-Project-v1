@@ -409,11 +409,11 @@ public class AdminControllerImpl implements AdminController {
 		int todayMinute = Integer.parseInt(tD3.nextToken());
 		int todaySecond = Integer.parseInt(tD3.nextToken());
 		int timeType = 0; 
-		if (todayHour <= 12) {timeType = 1;}
-		if (12 < todayHour && todayHour <= 15) {timeType = 2;}
-		if (15 < todayHour && todayHour <= 18) {timeType = 3;}
-		if (18 < todayHour && todayHour <= 21) {timeType = 4;}
-		if (21 < todayHour && todayHour <= 24) {timeType = 5;}
+		if (todayHour < 12) {timeType = 1;}
+		if (12 <= todayHour && todayHour < 15) {timeType = 2;}
+		if (15 <= todayHour && todayHour < 18) {timeType = 3;}
+		if (18 <= todayHour && todayHour < 21) {timeType = 4;}
+		if (21 <= todayHour && todayHour < 24) {timeType = 5;}
 		
 		/// 그래프 분석할 자료들고오기. 
 		ArrayList<TodayAnalyticsDetail> TotalList = as.TodayAnalyticsDetailList();
