@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+
 import spring.kh.diet.model.service.TrainerService;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.ProgramPageDataVO;
@@ -139,7 +142,7 @@ public class TrainerControllerImpl implements TrainerController {
 	/* 프로그램 리스트 */
 	@Override
 	@RequestMapping(value = "/getProgramList.diet")
-	public Object getProgramList(@RequestParam int trIndex,HttpServletRequest request) {
+	public void getProgramList(@RequestParam int trIndex,HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
 		
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
@@ -150,10 +153,10 @@ public class TrainerControllerImpl implements TrainerController {
 		}
 		ProgramPageDataVO ppdv = trService.getProgramList(currentPage,trIndex);
 
-		ModelAndView view = new ModelAndView();
-		view.addObject("ppdv", ppdv);
-		view.setViewName("main/trainerFindResult");
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(ppdv, response.getWriter());
+
 		
-		return view;
 	}
 }

@@ -81,23 +81,23 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/communityWholeBoard.diet?type=" + trIndex + "&currentPage=" + (startNavi - 1)
+			sb.append("<a class='item' href='/getProgramList.diet?trIndex=" + trIndex + "&currentPage=" + (startNavi - 1)
 					+ "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/communityWholeBoard.diet?type="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/getProgramList.diet?trIndex="
 								+ trIndex + "&currentPage=" + i + "'><strong>" + i + "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/communityWholeBoard.diet?type=" + trIndex + "&currentPage=" + i + "'> "
+				sb.append("<a class='item' href='/getProgramList.diet?trIndex=" + trIndex + "&currentPage=" + i + "'> "
 						+ i + " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/communityWholeBoard.diet?type=" + trIndex + "&currentPage=" + (endNavi + 1)
+			sb.append("<a class='item' href='/getProgramList.diet?trIndex=" + trIndex + "&currentPage=" + (endNavi + 1)
 					+ "'> &gt; </a>");
 		}
 

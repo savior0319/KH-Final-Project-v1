@@ -1,6 +1,9 @@
 package spring.kh.diet.controller;
 
 import javax.servlet.http.HttpSession;
+
+import com.google.gson.JsonIOException;
+
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
 import java.io.IOException;
@@ -18,8 +21,8 @@ public interface TrainerController {
 
 	int registTrainerProgram(TrainerProgramVO tpv, HttpSession session);
 
-	Object getProgramList(int trIndex, HttpServletRequest request);
-
 	Object trainerSearchResult(String city, String[] area);
+
+	void getProgramList(int trIndex, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException;
 
 }
