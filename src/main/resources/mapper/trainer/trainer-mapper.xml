@@ -25,7 +25,7 @@
 	<insert id="trainerReg" parameterType="trainerReg">
 		INSERT INTO
 		TRAINER_REG_TBL
-		VALUES(TRAINER_INDEX_SEQ.NEXTVAL,#{mbIndex},#{trName},#{trBirth},#{trAddress},#{trGender},#{trPhone},#{trHeight},#{trWeight},#{trCity},#{trArea},#{trImagePath},#{trContent},SYSDATE)
+		VALUES(TRAINER_INDEX_SEQ.NEXTVAL,#{mbIndex},#{trName},#{trBirth},#{trAddress},#{trGender},#{trPhone},#{trHeight},#{trWeight},#{trCity},#{trArea},#{trImagePath},#{trContent},SYSDATE,'심사중')
 	</insert>
 
 	<!-- 주석을 달자1 -->

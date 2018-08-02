@@ -631,20 +631,20 @@ public class AdminDAOImpl implements AdminDAO {
 		StringBuilder sb = new StringBuilder();
 
 		if (needPrev) {
-			sb.append("<a class='item' href='/trainerReg.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+			sb.append("<a class='item' href='/trainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/trainerReg.diet?currentPage="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/trainer.diet?currentPage="
 								+ i + "'>  " + i + " </a>");
 			} else {
-				sb.append("<a class='item' href='/trainerReg.diet?currentPage=" + i + "'> " + i + " </a>");
+				sb.append("<a class='item' href='/trainer.diet?currentPage=" + i + "'> " + i + " </a>");
 			}
 		}
 		if (needNext) {
-			sb.append("<a class='item' href='/trainerReg.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			sb.append("<a class='item' href='/trainer.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
 
 		return sb.toString();

@@ -60,174 +60,214 @@
 		<result property="trWeight" column="TR_WEIGHT" />
 		<result property="trRegDate" column="TR_REGDATE" />
 		<result property="trBirth" column="TR_BIRTH" />
+		<result property="trStatus" column="TR_STATUS" />
 		<result property="mbId" column="MB_ID" />
 		<result property="mbName" column="MB_NAME" />
 		<result property="mbNickName" column="MB_NICKNAME" />
 		<result property="mbGrade" column="MB_GRADE" />
-
 	</resultMap>
 
 
 
 	<!-- 관리자 - 공지사항 등록 -->
 	<insert id="noticeRegisterData" parameterType="notice">
-		INSERT INTO NOTICE_TBL
-		VALUES(NOTICE_SEQ.NEXTVAL, DEFAULT, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT)
+		INSERT INTO
+		NOTICE_TBL
+		VALUES(NOTICE_SEQ.NEXTVAL, DEFAULT, #{noticeTitle},
+		#{noticeContent}, DEFAULT, DEFAULT)
 	</insert>
 
 	<!-- 관리자 전체 회원 조회 리스트 -->
-	<select id="getMemberList" parameterType="memberListPageData" resultType="member">
+	<select id="getMemberList" parameterType="memberListPageData"
+		resultType="member">
 		SELECT
 		MB_AGE as mbAge,
 		MB_Index as mbIndex,
-		MB_HEIGHT as mbHeight,
+		MB_HEIGHT as
+		mbHeight,
 		MB_WEIGHT as mbWeight,
 		MB_ID as mbId,
 		MB_PWD as mbPwd,
-		MB_NAME as mbName,
+		MB_NAME
+		as mbName,
 		MB_NICKNAME as mbNickName,
 		MB_GENDER as mbGender,
-		MB_IMAGE as mbImage,
+		MB_IMAGE as
+		mbImage,
 		MB_Promise as mbPromise,
 		MB_PHONE as mbPhone,
-		MB_REPORT as mbReport,
+		MB_REPORT as
+		mbReport,
 		MB_ADDRESS as mbAddress,
 		MB_INTEREST as
 		mbInterest,
-		MB_GRADE as mbGrade,
+		MB_GRADE as
+		mbGrade,
 		MB_ENROLLDATE as mbEnrollDate
-		FROM (SELECT MEMBER_TBL.*, ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
-		WHERE NUM BETWEEN #{start} and #{end}
+		FROM (SELECT MEMBER_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
+		WHERE
+		NUM BETWEEN #{start} and #{end}
 	</select>
 
 	<!-- 관리자 전체 회원 리스트 네비게이션 -->
-	<select id="getMemberNavi" resultType="java.lang.Integer" parameterType="memberListPageData">
+	<select id="getMemberNavi" resultType="java.lang.Integer"
+		parameterType="memberListPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM MEMBER_TBL
 	</select>
 
 	<!-- 관리자 탈퇴 회원 조회 리스트 -->
-	<select id="getDeleteMemberList" parameterType="memberListPageData" resultType="member">
+	<select id="getDeleteMemberList" parameterType="memberListPageData"
+		resultType="member">
 		SELECT
 		MB_AGE as mbAge,
 		MB_Index as mbIndex,
-		MB_HEIGHT as mbHeight,
+		MB_HEIGHT as
+		mbHeight,
 		MB_WEIGHT as mbWeight,
 		MB_ID as mbId,
 		MB_PWD as
 		mbPwd,
-		MB_NAME as mbName,
+		MB_NAME as
+		mbName,
 		MB_NICKNAME as mbNickName,
 		MB_GENDER as mbGender,
-		MB_IMAGE as mbImage,
+		MB_IMAGE as
+		mbImage,
 		MB_Promise as mbPromise,
 		MB_PHONE as mbPhone,
-		MB_REPORT as mbReport,
+		MB_REPORT as
+		mbReport,
 		MB_ADDRESS as mbAddress,
 		MB_INTEREST as
 		mbInterest,
-		MB_GRADE AS MBGRADE,
+		MB_GRADE AS
+		MBGRADE,
 		DELETE_DATE as mbEnrollDate
-		FROM (SELECT DEL_MEMBER_TBL.*, ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM DEL_MEMBER_TBL)
+		FROM (SELECT DEL_MEMBER_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM DEL_MEMBER_TBL)
 		WHERE NUM BETWEEN #{start} and #{end}
 	</select>
 
 	<!-- 관리자 탈퇴 회원 리스트 네비게이션 -->
-	<select id="getDeleteMemberNavi" resultType="java.lang.Integer" parameterType="memberListPageData">
+	<select id="getDeleteMemberNavi" resultType="java.lang.Integer"
+		parameterType="memberListPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM DEL_MEMBER_TBL
 	</select>
 
 	<!-- 1:1문의 리스트 -->
-	<select id="getAnswerList" parameterType="answerListPageData" resultType="question">
+	<select id="getAnswerList" parameterType="answerListPageData"
+		resultType="question">
 		SELECT * from
 		(SELECT
 		QS_INDEX AS qsIndex,
-		QS_TITLE AS qsTitle,
+		QS_TITLE AS
+		qsTitle,
 		QS_CONTENT AS qsContent,
 		MB_NICKNAME AS mbNickName,
 		QS_WRITETIME AS qsWriteTime,
 		QS_ANSWERCHECK AS qsAnswerCheck,
 		ROW_NUMBER() OVER(ORDER BY
 		QS_INDEX DESC) AS NUM
-		FROM MEMBER_TBL JOIN QUESTION_TBL USING (MB_INDEX)
+		FROM MEMBER_TBL JOIN
+		QUESTION_TBL USING (MB_INDEX)
 		LEFT OUTER JOIN ANSWER_TBL
 		USING(QS_INDEX) ORDER BY qsIndex DESC)
-		WHERE NUM BETWEEN #{start} AND #{end}
+		WHERE NUM BETWEEN #{start} AND
+		#{end}
 	</select>
 
 	<!-- 관리자 탈퇴 회원 리스트 네비게이션 -->
-	<select id="getAnserListNavi" resultType="java.lang.Integer" parameterType="answerListPageData">
+	<select id="getAnserListNavi" resultType="java.lang.Integer"
+		parameterType="answerListPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM QUESTION_TBL
 	</select>
 
 	<!-- 관리자 1:1문의 질문 내용 -->
-	<select id="getQuestionContent" resultType="question" parameterType="question">
+	<select id="getQuestionContent" resultType="question"
+		parameterType="question">
 		SELECT
 		QS_INDEX AS qsIndex,
 		QS_TITLE AS qsTitle,
 		QS_CONTENT AS qsContent,
 		MB_NICKNAME AS mbNickName,
-		QS_WRITETIME AS qsWriteTime,
+		QS_WRITETIME AS
+		qsWriteTime,
 		QS_ANSWERCHECK AS qsAnswerCheck,
 		ANS_CONTENT AS ansContent
-		FROM MEMBER_TBL JOIN QUESTION_TBL USING (MB_INDEX) LEFT OUTER JOIN ANSWER_TBL USING(QS_INDEX)
+		FROM MEMBER_TBL JOIN QUESTION_TBL USING (MB_INDEX) LEFT OUTER JOIN
+		ANSWER_TBL USING(QS_INDEX)
 		WHERE QS_INDEX = #{qsIndex}
 	</select>
 
 	<!-- 관리자 접속자 통계 : 현제접속자 list 가져오가 -->
-	<select id="getSessionList" parameterType="allSessionListPDVO" resultType="allSession">
+	<select id="getSessionList" parameterType="allSessionListPDVO"
+		resultType="allSession">
 		SELECT
 		SS_Index as indexNo,
 		SS_ID as sessionId,
-		SS_IP as sessionIp,
+		SS_IP as
+		sessionIp,
 		SS_FIRSTON as firstOn,
 		SS_invalidate as invalidate,
-		SS_state as state,
+		SS_state
+		as state,
 		SS_Login as logInNickName,
 		SS_device as device
-		FROM (SELECT On_SESSION_TBL.*, ROW_NUMBER() OVER(ORDER BY SS_INDEX ASC) AS NUM FROM ON_SESSION_TBL)
+		FROM (SELECT
+		On_SESSION_TBL.*, ROW_NUMBER() OVER(ORDER BY SS_INDEX ASC) AS NUM FROM
+		ON_SESSION_TBL)
 		WHERE NUM BETWEEN #{start} and
 		#{end}
 	</select>
 
 	<!-- 관리자 접속자 통계 : 현제접속자 리스트 네비게이션 -->
-	<select id="getSessionListPageNavi" resultType="java.lang.Integer" parameterType="allSessionListPDVO">
+	<select id="getSessionListPageNavi" resultType="java.lang.Integer"
+		parameterType="allSessionListPDVO">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM ON_SESSION_TBL
 	</select>
 
 	<!-- 관리자 1:1문의 답변 -->
 	<insert id="answerReg" parameterType="answer">
-		INSERT INTO ANSWER_TBL VALUES(ANSWER_SEQ.NEXTVAL, #{ansIndex}, #{ansContent})
+		INSERT INTO ANSWER_TBL
+		VALUES(ANSWER_SEQ.NEXTVAL, #{ansIndex}, #{ansContent})
 	</insert>
 
 	<!-- 관리자 1:1문의 답변 여부 변경 -->
 	<update id="anserRegCheck" parameterType="answer">
-		UPDATE QUESTION_TBL SET QS_ANSWERCHECK = 'y' WHERE QS_INDEX = #{ansIndex}
+		UPDATE QUESTION_TBL SET
+		QS_ANSWERCHECK = 'y' WHERE QS_INDEX = #{ansIndex}
 	</update>
 
 	<!-- 추가!! -->
 	<select id="selectOffSessionList" resultType="offSessionList">
 		select
-		SS_INDEX as indexNo,
+		SS_INDEX as
+		indexNo,
 		SS_ID as sessionId,
 		SS_IP as sessionIp,
 		SS_firstOn as firstOn,
 		ss_stay as stay,
 		ss_login as nickName,
 		ss_device as device,
-		ss_LastIn as lastIn
-		from off_session_tbl where ss_firstOn between trunc(sysdate) and trunc(sysdate+1)
+		ss_LastIn as
+		lastIn
+		from off_session_tbl where ss_firstOn between trunc(sysdate) and
+		trunc(sysdate+1)
 		order by ss_index desc
 	</select>
 
 	<!-- 관리자 - 페이지관리 - 조회수가져오기 -->
 	<select id="searchHits" resultType="todayHits">
 		select
-		(select SUM(DT_SEE)from DIETTIP_TB ) as dtHits,
-		(select sum(HT_HITS) from HOMEtrainING_tb) as htHits,
+		(select SUM(DT_SEE)from
+		DIETTIP_TB ) as dtHits,
+		(select sum(HT_HITS) from HOMEtrainING_tb) as
+		htHits,
 		(select sum(POST_HIT) from BOARD_POST_TBL) as
 		brHits
 		from dual
@@ -235,21 +275,28 @@
 
 	<select id="searchComments" resultType="todayComments">
 		select
-		(SELECT COUNT(*) FROM DIETTIP_TB,BOARD_COMMENT_TBL WHERE DT_INDEX =
-		POST_INDEX) AS dtComments,
+		(SELECT COUNT(*)
+		FROM DIETTIP_TB,BOARD_COMMENT_TBL WHERE DT_INDEX =
+		POST_INDEX) AS
+		dtComments,
 		(SELECT COUNT(*) FROM
-		HOMEtrainING_tb,BOARD_COMMENT_TBL WHERE INDEX_NO =
+		HOMEtrainING_tb,BOARD_COMMENT_TBL
+		WHERE INDEX_NO =
 		POST_INDEX) AS htComments,
-		(SELECT COUNT(*) FROM BOARD_POST_TBL,BOARD_COMMENT_TBL WHERE
-		BOARD_POST_TBL.POST_INDEX = BOARD_COMMENT_TBL.POST_INDEX) as
+		(SELECT COUNT(*) FROM
+		BOARD_POST_TBL,BOARD_COMMENT_TBL WHERE
+		BOARD_POST_TBL.POST_INDEX =
+		BOARD_COMMENT_TBL.POST_INDEX) as
 		brComments
 		from dual
 	</select>
 
 	<select id="searchPost" resultType="todayPost">
 		select
-		(select COUNT(*) from DIETTIP_TB ) as dtBoard,
-		(select COUNT(*) from HOMEtrainING_tb) as htBoard,
+		(select COUNT(*) from
+		DIETTIP_TB ) as dtBoard,
+		(select COUNT(*) from HOMEtrainING_tb) as
+		htBoard,
 		(select COUNT(*) from BOARD_POST_TBL) as brBoard
 		from
 		dual
@@ -257,15 +304,19 @@
 
 	<select id="searchLike" resultType="todayLike">
 		select
-		(select SUM(DT_LIKE)from DIETTIP_TB ) as dtLike,
-		(select sum(HT_LIKE) from HOMEtrainING_tb) as htLike,
-		(select sum(POST_LIKE) from BOARD_POST_TBL) as
+		(select
+		SUM(DT_LIKE)from DIETTIP_TB ) as dtLike,
+		(select sum(HT_LIKE) from
+		HOMEtrainING_tb) as htLike,
+		(select sum(POST_LIKE) from BOARD_POST_TBL)
+		as
 		brLike
 		from dual
 	</select>
 
 	<select id="searchMember" resultType="member" resultMap="memberDB">
-		select * from member_tbl where MB_ENROLLDATE like sysdate
+		select *
+		from member_tbl where MB_ENROLLDATE like sysdate
 	</select>
 
 	<select id="searchDelMember" resultType="delMember" resultMap="delmemberDB">
@@ -287,7 +338,8 @@
 
 	<select id="searchOnSession" resultType="onSession">
 		SELECT
-		SS_INDEX AS indexNo,
+		SS_INDEX AS
+		indexNo,
 		SS_ID AS sessionId,
 		SS_IP AS sessionIp,
 		SS_STATE AS state,
@@ -300,7 +352,8 @@
 
 	<select id="searchOffSession" resultType="offSessionList">
 		SELECT
-		SS_INDEX as indexNo,
+		SS_INDEX as
+		indexNo,
 		SS_ID as sessionId,
 		SS_IP as sessionIp,
 		SS_firstOn as
@@ -308,15 +361,18 @@
 		ss_stay as stay,
 		ss_login as nickName,
 		ss_device as device,
-		ss_LastIn as lastIn
+		ss_LastIn as
+		lastIn
 		FROM off_session_tbl
-		where ss_firstOn between trunc(sysdate) and trunc(sysdate+1)
+		where ss_firstOn between trunc(sysdate) and
+		trunc(sysdate+1)
 		order by ss_index desc
 	</select>
 
 	<select id="getOnSessionList" resultType="onSession">
 		SELECT
-		SS_INDEX AS indexNo,
+		SS_INDEX AS
+		indexNo,
 		SS_ID AS sessionId,
 		SS_IP AS sessionIp,
 		SS_STATE AS state,
@@ -326,7 +382,8 @@
 	</select>
 
 	<select id="memberList" resultType="member" resultMap="memberDB">
-		select * from member_tbl where mb_enrolldate like sysdate
+		select *
+		from member_tbl where mb_enrolldate like sysdate
 	</select>
 
 	<select id="delmemberList" resultType="delMember" resultMap="delmemberDB">
@@ -335,7 +392,8 @@
 
 	<select id="searchAllBefore" resultType="yesterday">
 		select
-		BD_INDEX as bdIndex,
+		BD_INDEX as
+		bdIndex,
 		DT_HITS as dtHits,
 		HT_HITS as htHits,
 		BR_HITS as brHits,
@@ -345,7 +403,8 @@
 		brComments,
 		DT_BOARD as dtBoard,
 		HT_BOARD As htBoard,
-		BR_BOARD as brBoard,
+		BR_BOARD as
+		brBoard,
 		DT_LIKE as dtLike,
 		HT_LIKE as htLike,
 		BR_LIKE as brLike,
@@ -355,7 +414,9 @@
 	</select>
 
 	<select id="yesterdayAutoInsertBefore" resultType="java.lang.Integer">
-		select BD_INDEX from BEFORE_DAY_TBL where bd_today like to_Char(sysdate,'yyyy/MM/dd')
+		select
+		BD_INDEX from BEFORE_DAY_TBL where bd_today like
+		to_Char(sysdate,'yyyy/MM/dd')
 	</select>
 
 	<!-- 신고 5개 이상받은 블랙리스트 등록 회원 리스트 -->
@@ -380,67 +441,82 @@
 		MB_GRADE as mbGrade,
 		MB_ENROLLDATE as mbEnrollDate
 		FROM (SELECT MEMBER_TBL.*,
-		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
-		WHERE NUM BETWEEN #{start} AND #{end} AND MB_INDEX IN
+		ROW_NUMBER()
+		OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
+		WHERE NUM BETWEEN
+		#{start} AND #{end} AND MB_INDEX IN
 		(SELECT TARGET_MB_INDEX
-		FROM BOARD_BLAME_TBL
+		FROM
+		BOARD_BLAME_TBL
 		GROUP BY TARGET_MB_INDEX
 		HAVING COUNT(*) >= 5)
 	</select>
 
 	<!-- 블랙리스트 전체 갯수 -->
-	<select id="getBlackListNavi" resultType="Integer" parameterType="Integer">
+	<select id="getBlackListNavi" resultType="Integer"
+		parameterType="Integer">
 		SELECT COUNT(*) FROM
 		(SELECT
 		MB_AGE as mbAge,
-		MB_Index as mbIndex,
+		MB_Index as
+		mbIndex,
 		MB_HEIGHT as mbHeight,
 		MB_WEIGHT as mbWeight,
 		MB_ID as mbId,
 		MB_PWD as mbPwd,
 		MB_NAME as mbName,
 		MB_NICKNAME as mbNickName,
-		MB_GENDER as mbGender,
+		MB_GENDER
+		as mbGender,
 		MB_IMAGE as mbImage,
 		MB_Promise as mbPromise,
-		MB_PHONE as mbPhone,
+		MB_PHONE as
+		mbPhone,
 		MB_REPORT as mbReport,
 		MB_ADDRESS as mbAddress,
-		MB_INTEREST as mbInterest,
+		MB_INTEREST as
+		mbInterest,
 		MB_GRADE as mbGrade,
 		MB_ENROLLDATE as mbEnrollDate
-		FROM (SELECT MEMBER_TBL.*,
-		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
+		FROM
+		(SELECT MEMBER_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM
+		FROM MEMBER_TBL)
 		WHERE NUM BETWEEN 1 AND 10 AND
-		MB_INDEX IN (SELECT TARGET_MB_INDEX
+		MB_INDEX IN (SELECT
+		TARGET_MB_INDEX
 		FROM BOARD_BLAME_TBL
 		GROUP BY TARGET_MB_INDEX
-		HAVING COUNT(*) >= 5))
+		HAVING
+		COUNT(*) >= 5))
 	</select>
 
 	<!-- 블랙리스트 등록 -->
 	<update id="blackListReg" parameterType="black">
-		UPDATE MEMBER_TBL SET MB_REPORT = 'y' WHERE MB_INDEX = #{index}
+		UPDATE MEMBER_TBL SET
+		MB_REPORT = 'y' WHERE MB_INDEX = #{index}
 	</update>
 
 	<!-- 블랙리스트 취소 -->
 	<update id="blackListDel" parameterType="black">
-		UPDATE MEMBER_TBL SET MB_REPORT = 'n' WHERE MB_INDEX = #{index}
+		UPDATE MEMBER_TBL SET
+		MB_REPORT = 'n' WHERE MB_INDEX = #{index}
 	</update>
 
 	<!-- 블랙리스트 신고 내역 조회 -->
-	<select id="blackListContent" resultType="blackContent" parameterType="Integer">
+	<select id="blackListContent" resultType="blackContent"
+		parameterType="Integer">
 		SELECT DISTINCT
 		BPT.POST_INDEX AS postIndex,
 		POST_TITLE AS postTitle,
 		CMT_CONTENT as targetContent,
-		BBL.TARGET_CONTENTS AS
-		cmtContent,
+		BBL.TARGET_CONTENTS AS cmtContent,
 		MT.MB_NICKNAME AS mbNickName,
 		MT2.MB_NICKNAME AS targetMbNickName
-		FROM BOARD_BLAME_TBL BBL, BOARD_POST_TBL BPT, BOARD_COMMENT_TBL BCT, MEMBER_TBL MT, MEMBER_TBL MT2
-		WHERE BBL.TARGET_INDEX =
-		BPT.POST_INDEX(+) AND
+		FROM BOARD_BLAME_TBL
+		BBL, BOARD_POST_TBL BPT, BOARD_COMMENT_TBL BCT, MEMBER_TBL MT,
+		MEMBER_TBL MT2
+		WHERE BBL.TARGET_INDEX = BPT.POST_INDEX(+) AND
 		BBL.TARGET_INDEX = BCT.CMT_INDEX(+)
 		AND BBL.MB_INDEX = MT.MB_INDEX(+)
 		AND BBL.TARGET_MB_INDEX = MT2.MB_INDEX(+)
@@ -449,6 +525,13 @@
 
 	<!-- 세션통계 추가하기, 디테일 anlaytics -->
 	<insert id="insertAnalytics" parameterType="todayAnalyticsDetail">
+		INSERT INTO today_Analytics VALUES(#{hits}, #{likes}, #{comments}, #{post},
+		sysdate, #{timeType},#{listType})
+	</insert>
+
+	<!-- 오늘 사이트값 가져오사ㅓ 분석하는데 시간대별로 맞춰서가져오기 있냐 없냐를확인 -->
+	<select id="selectAnalytics" parameterType="java.lang.Integer"
+		resultType="todayAnalyticsDetail">
 		INSERT INTO today_Analytics VALUES(#{hits}, #{likes}, #{comments}, #{post}, sysdate, #{timeType},#{listType})
 	</insert>
 
@@ -460,8 +543,7 @@
 		T_COMMENTS as comments,
 		T_POST as post,
 		T_UPDATE_TIME as updateTime,
-		T_TIME_TYPE as
-		timeType,
+		T_TIME_TYPE as timeType,
 		T_LIST_TYPE as listType
 		from TODAY_ANALYTICS
 		where T_TIME_TYPE = #{type}
@@ -471,22 +553,26 @@
 	<update id="updateAnalytics" parameterType="todayAnalyticsDetail">
 		UPDATE
 		today_Analytics
-		SET T_HITS = #{hits},T_LIKE = #{likes}, T_COMMENTS = #{comments}, T_POST =#{post},
-		T_Time_Type = #{timeType}, T_UPDATE_TIME =
-		SYSDATE WHERE T_LIST_TYPE = #{listType} and t_time_type= #{timeType}
+		SET T_HITS = #{hits},T_LIKE = #{likes}, T_COMMENTS = #{comments}, T_POST
+		=#{post},
+		T_Time_Type = #{timeType}, T_UPDATE_TIME = SYSDATE WHERE T_LIST_TYPE =
+		#{listType} and t_time_type= #{timeType}
 	</update>
 
 	<!-- 통계 - 사이트통계 - 어제것 업데이트하기 -->
 	<update id="yesterdayUpdate" parameterType="yesterdayAnalytic">
-		UPDATE BEFORE_DAY_TBL set
+		UPDATE BEFORE_DAY_TBL
+		set
 		DT_HITS = #{tHVO.dtHits},
 		HT_HITS = #{tHVO.htHits},
-		BR_HITS = #{tHVO.brHits},
+		BR_HITS =
+		#{tHVO.brHits},
 		DT_COMMENTS = #{tCVO.dtComments},
 		HT_COMMENTS =
 		#{tCVO.htComments},
 		BR_COMMENTS = #{tCVO.brComments},
-		DT_BOARD = #{tPVO.dtBoard},
+		DT_BOARD =
+		#{tPVO.dtBoard},
 		HT_BOARD = #{tPVO.htBoard},
 		BR_BOARD = #{tPVO.brBoard},
 		DT_LIKE = #{tLVO.dtLike},
@@ -498,7 +584,8 @@
 
 	<!-- 통계 - 사이트통계 이전날 데이터 있는지 확인하는것 반환 -> 숫자, or null -->
 	<select id="searchBeforeDayList" resultType="java.lang.Integer">
-		select BD_INDEX from BEFORE_DAY_TBL where bd_today like to_Char(sysdate-1,'yyyy/MM/dd')
+		select BD_INDEX from
+		BEFORE_DAY_TBL where bd_today like to_Char(sysdate-1,'yyyy/MM/dd')
 	</select>
 
 	<!-- 통계 - 사이트통계 그래프 전체 값가져오기 -->
@@ -510,8 +597,7 @@
 		T_POST as post,
 		T_Time_Type as timeType,
 		T_LIST_TYPE as listType,
-		T_UPDATE_TIME as
-		updateTime
+		T_UPDATE_TIME as updateTime
 		from today_Analytics
 		where (t_update_time between trunc(sysdate) and trunc(sysdate+1))
 	</select>
@@ -520,13 +606,15 @@
 	<!-- 트레이너 전환 신청 리스트 -->
 	<select id="trainerRegList" parameterType="trainingRegPDVO" resultType="trainerReg" resultMap="trainerRegDB">
 		SELECT * FROM
-		(SELECT TRAINER_REG_TBL.*,
+		(SELECT
+		TRAINER_REG_TBL.*,
 		ROW_NUMBER() OVER
 		(ORDER BY
 		TR_INDEX DESC)
 		AS NUM FROM
 		TRAINER_REG_TBL
-		)TRT LEFT JOIN MEMBER_TBL MT ON(TRT.MB_INDEX=MT.MB_INDEX)
+		)TRT LEFT JOIN MEMBER_TBL MT
+		ON(TRT.MB_INDEX=MT.MB_INDEX)
 		WHERE NUM BETWEEN
 		#{start} AND #{end}
 	</select>

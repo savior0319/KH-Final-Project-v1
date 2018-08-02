@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TrainingRegPageDataVO {
 	private ArrayList<TrainingRegVO> trList;
-	private String pageNavi, type, postSort, searchText, category;
+	private String pageNavi;
 	private int start, end;
 }

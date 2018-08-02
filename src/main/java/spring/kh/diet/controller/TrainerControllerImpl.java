@@ -118,6 +118,7 @@ public class TrainerControllerImpl implements TrainerController {
 		trv.setTrContent(trContent);
 		trv.setTrImagePath("/imageUpload/" + trImagePath);
 		trv.setMbIndex(sessionIndex);
+		trv.setTrStatus("심사중");
 
 		int result = trService.trainerReg(trv);
 
