@@ -52,9 +52,6 @@
 		</c:forEach>
 	</div>
 </div>
-<div align="center">
-	<button type="button" class="ui button" onclick="findPrograms(1);" style="background: rgb(250, 40, 40); color: white;">프로그램 리스트</button>
-</div>
 <!-- FOOTER -->
 <jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
@@ -75,6 +72,7 @@
 	$('.test').click(function(){
 		var trIndex = $(this).children('input').val();
 		alert('인덱스 : ' + trIndex);
+		findPrograms(trIndex);
 	});
   
   	/* 모달 창 오픈 */
