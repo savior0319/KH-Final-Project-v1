@@ -112,7 +112,7 @@ public interface AdminDAO {
 
 	ArrayList<TrainingRegVO> trainerChange(SqlSessionTemplate session, int currentPage, int recordCountPerPage);
 
-	String getTrainerListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+	String getTrainerChangeListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage);
 
 

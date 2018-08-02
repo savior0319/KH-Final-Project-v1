@@ -338,7 +338,7 @@ public class AdminServiceImpl implements AdminService {
 
 		ArrayList<TrainingRegVO> list = (ArrayList<TrainingRegVO>) aDao.trainerChange(session,
 				currentPage, recordCountPerPage);
-		String pageNavi = aDao.getTrainerListPageNavi(session, currentPage, recordCountPerPage,
+		String pageNavi = aDao.getTrainerChangeListPageNavi(session, currentPage, recordCountPerPage,
 				naviCountPerPage);
 		
 		trpdv.setTrList(list);

@@ -686,19 +686,9 @@ public class AdminDAOImpl implements AdminDAO {
 		return (ArrayList<TrainingRegVO>) list;
 	}
 
-/*	@Override
-	public String getTrainerListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
-			int naviCountPerPage) {
-		trpdv.setEnd(currentPage * recordCountPerPage);
-
-		List<TrainingRegVO> list = session.selectList("admin.trainerRegList", trpdv);
-
-		return (ArrayList<TrainingRegVO>) list;
-	}*/
-
-	//트레이너 회원 신청 네비
-/*	@Override
-	public String getTrainerListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+	//트레이너 회원 관리 네비
+	@Override
+	public String getTrainerChangeListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage) {
 		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
 
@@ -738,25 +728,24 @@ public class AdminDAOImpl implements AdminDAO {
 		StringBuilder sb = new StringBuilder();
 
 		if (needPrev) {
-			sb.append("<a class='item' href='/trainerChange.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+			sb.append("<a class='item' href='/trainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/trainerChange.diet?currentPage="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/trainer.diet?currentPage="
 								+ i + "'>  " + i + " </a>");
 			} else {
-				sb.append("<a class='item' href='/trainerChange.diet?currentPage=" + i + "'> " + i + " </a>");
+				sb.append("<a class='item' href='/trainer.diet?currentPage=" + i + "'> " + i + " </a>");
 			}
 		}
 		if (needNext) {
-			sb.append("<a class='item' href='/trainerChange.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			sb.append("<a class='item' href='/trainer.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
 
 		return sb.toString();
 	}
-*/
 
 	
 
