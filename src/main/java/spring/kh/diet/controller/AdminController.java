@@ -43,4 +43,10 @@ public interface AdminController {
 
 	Object trainerRegContents(HttpServletRequest request, HttpServletResponse response, HttpSession session);
 
+	String denyTrainerReg(HttpServletRequest request, HttpSession session);
+
+	String acceptTrainerReg(HttpServletRequest request, HttpSession session);
+
+	String trainerChange(HttpServletRequest request, HttpServletResponse response);
+
 }

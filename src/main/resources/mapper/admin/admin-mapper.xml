@@ -508,48 +508,62 @@
 		parameterType="Integer">
 		SELECT DISTINCT
 		BPT.POST_INDEX AS postIndex,
-		POST_TITLE AS postTitle,
+		POST_TITLE AS
+		postTitle,
 		CMT_CONTENT as targetContent,
-		BBL.TARGET_CONTENTS AS cmtContent,
+		BBL.TARGET_CONTENTS AS
+		cmtContent,
 		MT.MB_NICKNAME AS mbNickName,
-		MT2.MB_NICKNAME AS targetMbNickName
+		MT2.MB_NICKNAME AS
+		targetMbNickName
 		FROM BOARD_BLAME_TBL
-		BBL, BOARD_POST_TBL BPT, BOARD_COMMENT_TBL BCT, MEMBER_TBL MT,
+		BBL, BOARD_POST_TBL BPT,
+		BOARD_COMMENT_TBL BCT, MEMBER_TBL MT,
 		MEMBER_TBL MT2
-		WHERE BBL.TARGET_INDEX = BPT.POST_INDEX(+) AND
-		BBL.TARGET_INDEX = BCT.CMT_INDEX(+)
+		WHERE
+		BBL.TARGET_INDEX = BPT.POST_INDEX(+) AND
+		BBL.TARGET_INDEX =
+		BCT.CMT_INDEX(+)
 		AND BBL.MB_INDEX = MT.MB_INDEX(+)
-		AND BBL.TARGET_MB_INDEX = MT2.MB_INDEX(+)
+		AND
+		BBL.TARGET_MB_INDEX = MT2.MB_INDEX(+)
 		AND TARGET_MB_INDEX = #{index}
 	</select>
 
 	<!-- 세션통계 추가하기, 디테일 anlaytics -->
 	<insert id="insertAnalytics" parameterType="todayAnalyticsDetail">
-		INSERT INTO today_Analytics VALUES(#{hits}, #{likes}, #{comments}, #{post},
+		INSERT INTO
+		today_Analytics VALUES(#{hits}, #{likes}, #{comments}, #{post},
 		sysdate, #{timeType},#{listType})
 	</insert>
 
 	<!-- 오늘 사이트값 가져오사ㅓ 분석하는데 시간대별로 맞춰서가져오기 있냐 없냐를확인 -->
-	<select id="selectAnalytics" parameterType="java.lang.Integer" resultType="todayAnalyticsDetail">
+	<select id="selectAnalytics" parameterType="java.lang.Integer"
+		resultType="todayAnalyticsDetail">
 		select
 		T_HITS as hits,
 		T_LIKE as likes,
-		T_COMMENTS as comments,
+		T_COMMENTS as
+		comments,
 		T_POST as post,
 		T_UPDATE_TIME as updateTime,
-		T_TIME_TYPE as timeType,
+		T_TIME_TYPE as
+		timeType,
 		T_LIST_TYPE as listType
 		from TODAY_ANALYTICS
-		where T_TIME_TYPE = #{type}
+		where T_TIME_TYPE
+		= #{type}
 	</select>
 
 	<!-- 오늘 사이트 값 가져와서 분석하기 -->
 	<update id="updateAnalytics" parameterType="todayAnalyticsDetail">
 		UPDATE
 		today_Analytics
-		SET T_HITS = #{hits},T_LIKE = #{likes}, T_COMMENTS = #{comments}, T_POST
+		SET T_HITS = #{hits},T_LIKE = #{likes}, T_COMMENTS =
+		#{comments}, T_POST
 		=#{post},
-		T_Time_Type = #{timeType}, T_UPDATE_TIME = SYSDATE WHERE T_LIST_TYPE =
+		T_Time_Type = #{timeType}, T_UPDATE_TIME =
+		SYSDATE WHERE T_LIST_TYPE =
 		#{listType} and t_time_type= #{timeType}
 	</update>
 
@@ -585,20 +599,24 @@
 	<!-- 통계 - 사이트통계 그래프 전체 값가져오기 -->
 	<select id="TodayAnalyticsDetailList" resultType="todayAnalyticsDetail">
 		select
-		T_HITS as hits,
+		T_HITS as
+		hits,
 		T_LIKE as likes,
 		T_COMMENTS as comments,
 		T_POST as post,
 		T_Time_Type as timeType,
 		T_LIST_TYPE as listType,
-		T_UPDATE_TIME as updateTime
+		T_UPDATE_TIME as
+		updateTime
 		from today_Analytics
-		where (t_update_time between trunc(sysdate) and trunc(sysdate+1))
+		where (t_update_time between
+		trunc(sysdate) and trunc(sysdate+1))
 	</select>
 
 
 	<!-- 트레이너 전환 신청 리스트 -->
-	<select id="trainerRegList" parameterType="trainingRegPDVO" resultType="trainerReg" resultMap="trainerRegDB">
+	<select id="trainerRegList" parameterType="trainingRegPDVO"
+		resultType="trainerReg" resultMap="trainerRegDB">
 		SELECT * FROM
 		(SELECT
 		TRAINER_REG_TBL.*,
@@ -615,16 +633,42 @@
 
 	<!-- 트레이너 전환 신청 네비 -->
 	<select id="getTrainerRegNavi" resultType="java.lang.Integer">
-		SELECT COUNT(*) AS TOTALCOUNT
+		SELECT COUNT(*) AS
+		TOTALCOUNT
 		FROM TRAINER_REG_TBL
 	</select>
 
-	<!-- 트레이너 신청 내용  -->
-		<select id="trRegContent" resultType="trainerReg" resultMap="trainerRegDB">
+	<!-- 트레이너 신청 내용 -->
+	<select id="trRegContent" resultType="trainerReg" resultMap="trainerRegDB">
 		SELECT *
 		FROM TRAINER_REG_TBL
 		WHERE TR_INDEX = #{trIndex}
 	</select>
 
+	<!-- 트레이너 신청 거절 -->
+	<update id="denyTrainerReg" parameterType="trainerReg">
+		UPDATE TRAINER_REG_TBL
+		SET
+		TR_STATUS = '거절'
+		WHERE TR_INDEX = #{trIndex}
+	</update>
+
+	<!-- 트레이너 신청 승인 -->
+	<update id="acceptTrainerReg" parameterType="trainerReg">
+		UPDATE
+		TRAINER_REG_TBL SET
+		TR_STATUS = '승인'
+		WHERE TR_INDEX = #{trIndex}
+	</update>
+
+	<!-- 트레이너 신청 승인 후 멤버 등급 변화 -->
+	<update id="changeTrainerGrade" parameterType="member">
+		UPDATE
+		(SELECT * FROM MEMBER_TBL MB
+		LEFT JOIN TRAINER_REG_TBL TRT ON
+		(MB.MB_INDEX=TRT.MB_INDEX)
+		WHERE TRT.TR_INDEX = #{trIndex}
+		) SET MB_GRADE = '트레이너'
+	</update>
 
 </mapper>

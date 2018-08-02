@@ -657,6 +657,21 @@ public class AdminDAOImpl implements AdminDAO {
 		return trv;
 	}
 
+	@Override
+	public int denyTrainerReg(SqlSessionTemplate session, int trIndex) {
+		return session.update("admin.denyTrainerReg",trIndex);
+	}
+
+	@Override
+	public int acceptTrainerReg(SqlSessionTemplate session, int trIndex) {
+		return session.update("admin.acceptTrainerReg",trIndex);
+	}
+
+	@Override
+	public int changeTrainerGrade(SqlSessionTemplate session, int trIndex) {
+		return session.update("admin.changeTrainerGrade",trIndex);
+	}
+
 
 	
 

@@ -246,7 +246,7 @@
 							</td>
 						</tr>
 						<tr style="text-align: center;">
-							<th>경력</th>
+							<th>소개/경력</th>
 							<td>
 								<div class="ui form">
 									<div class="field">
