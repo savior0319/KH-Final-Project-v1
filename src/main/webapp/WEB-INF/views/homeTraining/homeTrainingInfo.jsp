@@ -376,6 +376,11 @@
 	function addComment() {
 		var indexNo = $('#indexNo').val();
 		var commentContent = $('#commentContent').val();
+		
+		if(commentContent==''){
+			alert('댓글을 입력해 주세요');
+			return;
+		}
 
 		$.ajax({
 			url : '/addComment.diet',
