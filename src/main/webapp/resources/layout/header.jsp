@@ -85,7 +85,7 @@
 	<div class="ui right aligned basic segment" style="margin-bottom: 0; padding-top: 8px; padding-bottom: 8px;">
 
 		<c:if test="${sessionScope.member.mbId == 'admin'}">
-			<span class="menu">
+			<span id="admin-page" class="menu">
 				<a href="/admin.diet">관리자 페이지</a>
 			</span>
 		</c:if>
@@ -198,7 +198,7 @@
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;" onclick="trainerMatch();">
+		<div id="trainer-match" class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;" onclick="trainerMatch();">
 			<div style="font-weight: 600; padding: 0;">트레이너 매칭</div>
 		</div>
 	</div>
@@ -214,6 +214,12 @@
 	}
 	#resize2 {
 		display: none;
+	}
+	#admin-page{
+		display:none;
+	}
+	#trainer-match{
+		display:none;
 	}
 }
 </style>
