@@ -45,27 +45,27 @@
 		VALUES(TRAINER_INDEX_SEQ.NEXTVAL,#{mbIndex},#{trName},#{trBirth},#{trAddress},#{trGender},#{trPhone},#{trHeight},#{trWeight},#{trCity},#{trArea},#{trImagePath},#{trContent},SYSDATE,'심사중')
 	</insert>
 
-	<!-- 주석을 달자1 -->
+	<!-- 트레이너 인덱스 추출 -->
 	<select id="getTrIndex" parameterType="member" resultType="trainerReg" resultMap="trainerRegDB">
 		SELECT *
 		FROM TRAINER_REG_TBL
 		WHERE MB_INDEX = #{mbIndex}
 	</select>
 
-	<!-- 주석을 달자2 -->
+	<!-- 프로그램 등록 -->
 	<insert id="registTrainerProgram" parameterType="trainerProgram">
 		INSERT INTO TRAINER_PROGRAM_TBL
 		VALUES(TRAINER_PROGRAM_TBL_SEQ.NEXTVAL,#{trIndex},#{mbIndex},#{tpTrainType},#{tpTitle},#{tpMainImage},#{tpActiveStart},#{tpActiveEnd},#{tpActiveDay},#{tpLocation},#{tpCost},#{tpPersonnel},#{tpContent},sysdate)
 	</insert>
 
-
-	<select id="getProgramList" parameterType="programPageData" resultType="trainerProgram" >
+	<!-- 프로그램 리스트 출력 -->
+	<select id="getProgramList" parameterType="programPageData" resultType="trainerProgram" resultMap="trainerProgramDB">
 		SELECT * 
 		FROM (SELECT TRAINER_PROGRAM_TBL.*,ROW_NUMBER() OVER(ORDER BY TP_REGDATE DESC) AS NUM FROM TRAINER_PROGRAM_TBL WHERE TR_INDEX LIKE #{trIndex}) 
-		WHERE NUM BETWEEN #{start} AND #{end}
 	</select>
 	
-	<select id="getNavi" parameterType="trainerProgram" resultType="java.lang.Integer">
+	<!-- 프로그램 리스트 페이징 처리 -->
+	<select id="getProgramNavi" parameterType="trainerProgram" resultType="java.lang.Integer">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM TRAINER_PROGRAM_TBL
 		WHERE TR_INDEX = #{trIndex}

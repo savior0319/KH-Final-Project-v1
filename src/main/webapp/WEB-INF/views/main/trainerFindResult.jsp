@@ -59,48 +59,61 @@
 <jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
-
-<div class="ui modal" id="programViews">
-	<i class="close icon"></i>
-	<div class="header">프로그램 리스트</div>
-	<div class="scrolling content">
-		<c:if test="">
-		<c:forEach items="" var="tp"></c:forEach>
-	</c:if>
-</div>
-</div>
-
+		<div class="ui longer modal" id="programViews">
+			<i class="close icon"></i>
+			<div class="header">프로그램 리스트</div>
+			<div class="scrolling longer content">
+				<div id="programList"></div>
+			</div>
+		</div>
 
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-
-
-	/* 모달 창 오픈 */
-	// function findPrograms(trIndex) {
-	// 	$("#programViews").modal('show');
-	// 	$.ajax({
-	// 		url : '/getProgramList.diet',
-	// 		type : 'post',
-	// 		data : {
-	// 			'trIndex' : trIndex
-	// 		},
-	// 		success : function(data) {
-
-	// 		}
-	// 	});
-	// }
-
-	/* 모달 창 종료 */
-	// $("#modalOff").click(function() {
-	// 	$("#programViews").modal('hide');
-	// });
 
 	/* 트레이너 선택 */
 	$('.test').click(function(){
 		var trIndex = $(this).children('input').val();
 		alert('인덱스 : ' + trIndex);
 	});
-</script>
+  
+  	/* 모달 창 오픈 */
+	function findPrograms(trIndex) {
+		$("#programViews").modal('show');
+		$.ajax({
+			url : '/getProgramList.diet',
+			type : 'post',
+			data : {
+				 'trIndex' : trIndex
+			},success : function(data){
+				console.log(data.proList);
 
+				$('#programList').html('');
+							var table = '<table class="ui very compact table">'+'<thead>'+'<tr align="center">'+'<th style="width: 10%;">PT 유형</th>'+'<th style="width: 40%;">프로그램 명</th>'
+							+'<th style="width: 10%;">시작일</th>'+'<th style="width: 15%;">종료일</th>'+'<th style="width: 25%;">장소</th>'+'</tr>'+'</thead>'+'<tbody>';
+							for (var i = 0; i < data.proList.length; i++) {
+								table += '<tr align="center">';
+								table += '<td>'+data.proList[i].tpTrainType+'</td>';
+								table += '<td style="padding-top: 15px; padding-bottom: 15px;"><a class="item" href="#">';
+								table += data.proList[i].tpTitle;
+								table += '</a></td>';
+								table += '<td>' + data.proList[i].tpActiveStart+ '</td>';
+								table += '<td>' + data.proList[i].tpActiveEnd + '</td>';
+								table += '<td>' + data.proList[i].tpLocation + '</td>';
+								table += '</tr>';
+							}
+							table += '</tbody>';
+							table += '</table>';
+							$('#programList').html(table);
+			}
+		});
+	}
+
+	/* 모달 창 종료 */
+	$("#modalOff").click(function() {
+		$("#programViews").modal('hide');
+	});
+  
+
+</script>
 </html>
