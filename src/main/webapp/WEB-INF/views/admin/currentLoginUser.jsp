@@ -90,7 +90,7 @@ body {
 		<div class="ui horizontal segments">
 			<div class="ui center aligned segment" style="width: 50%">
 				<div class="ui center aligned segment">
-					<h3><i class="address book icon"></i>&nbsp현재 접속자 : ${requestScope.size} 명</h3>
+					<h3><i class="address book icon"></i>&nbsp;현재 접속자 : ${requestScope.size} 명</h3>
 				</div>
 
 				<div class="ui center aligned segment">
@@ -100,9 +100,8 @@ body {
 								<th>IP</th>
 								<th>로그인</th>
 								<th>닉네임</th>
-								<th> 접속 시간</th>
+								<th>접속 시간</th>
 								<th>기기</th>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -160,11 +159,12 @@ body {
 				</div>
 			</div>
 			<div class="ui center aligned segment"
-				style="overflow: auto; height: 300px; width: 50%">
+				style="width: 50%">
 				<div class="ui center aligned segment">
-					<h3><i class="address book outline icon">&nbsp</i>오늘접속자 : ${requestScope.totalSize} 명</h3>
+					<h3><i class="address book outline icon">&nbsp;</i>오늘 접속자 : ${requestScope.totalSize} 명</h3>
 				</div>
-			
+				
+				<div class="ui center aligned segment" style="overflow: auto; height: 300px;">
 				<table class="ui celled table">
 					<thead>
 						<tr align="center">
@@ -173,7 +173,6 @@ body {
 							<th > 접속 시간</th>
 							<th > 유지시간</th>
 							<th >기기</th>
-
 						</tr>
 					</thead>
 					<tbody>
@@ -212,11 +211,9 @@ body {
 										<td><fmt:formatNumber value="${aa.stay/60.1}" pattern="#" />분</td>
 									</c:when>
 									<c:otherwise>
-										<td ><fmt:formatNumber
-												value="${aa.stay}" pattern="#" />초</td>
+										<td ><fmt:formatNumber value="${aa.stay}" pattern="#" />초</td>
 									</c:otherwise>
 								</c:choose>
-
 								<c:choose>
 									<c:when test="${aa.device eq 'pc'}">
 										<td>  PC</td>
@@ -229,13 +226,10 @@ body {
 						</c:forEach>
 						</c:otherwise>
 						</c:choose>
-						
 					</tbody>
 				</table>
-
+				</div>
 			</div>
-
-			<br>
 		</div>
 
 
@@ -243,7 +237,7 @@ body {
 		<div class="ui horizontal segments">
 			<div class="ui segment" style="width: 100%; display: on">
 				<div class="ui center aligned segment">
-					<h3> <i class="chart pie icon"></i> &nbsp사용자 접속 기기 분류</h3>
+					<h3> <i class="chart pie icon"></i> &nbsp;사용자 접속 기기 분류</h3>
 				</div>
 				<!-- 원형차트  -->
 				<div id="chart_div"></div>
@@ -266,7 +260,7 @@ body {
 
 			<div class="ui segment" style="width: 100%; display: on">
 				<div class="ui center aligned segment">
-					<h3><i class="chart line icon"></i> &nbsp 접속시간대 분석 &nbsp</h3>
+					<h3><i class="chart line icon"></i> &nbsp; 접속시간대 분석 &nbsp; </h3>
 				</div>
 				<!-- 그래프  -->
 				<div id="linechart_material"></div>
@@ -309,6 +303,9 @@ body {
 			</div>
 			<br> <br>
 		</div>
+		</div>
+		<br>
+		<br>
 		<!-- 		
 		<div class="ui horizontal segments">
 
