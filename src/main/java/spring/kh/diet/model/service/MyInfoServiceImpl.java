@@ -20,6 +20,7 @@ import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
+import spring.kh.diet.model.vo.OneSessionVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -293,6 +294,24 @@ public class MyInfoServiceImpl implements MyInfoService {
 		myRequest.setPageNavi(pageNavi);
 
 		return myRequest;
+	}
+
+	@Override
+	public OneSessionVO selectOneSession(String id) {
+		OneSessionVO OSV = myInfoDAO.selectOneSession(SqlSessionTemplate,id);
+		return OSV;
+	}
+
+	@Override
+	public int insertSession(OneSessionVO oSV) {
+		int result = myInfoDAO.insertSession(SqlSessionTemplate, oSV);
+		return result;
+	}
+
+	@Override
+	public void transSession(String id) {
+		myInfoDAO.tranSession(SqlSessionTemplate,id);	
+		
 	}
 
 }
