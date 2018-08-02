@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -25,6 +26,11 @@ import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
+import spring.kh.diet.model.vo.BoardBlameVO;
+import spring.kh.diet.model.vo.BoardBookMarkVO;
+import spring.kh.diet.model.vo.BoardCommentPDVO;
+import spring.kh.diet.model.vo.BoardLikeVO;
+import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.DelMemberVO;
@@ -37,6 +43,7 @@ import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.TrainingRegPageDataVO;
+import spring.kh.diet.model.vo.TrainingRegVO;
 import spring.kh.diet.model.vo.todayAnalyticPDVO;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
@@ -256,6 +263,21 @@ public class AdminControllerImpl implements AdminController {
 		return "admin/trainer";
 	}
 
+	
+	// 트레이너 등급 신청 회원 등록된 글 들어가는 곳
+	@Override
+	@RequestMapping(value = "/trainerRegContents.diet")
+	public Object trainerRegContents(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		int trIndex = Integer.parseInt(request.getParameter("trIndex"));
+
+		TrainingRegVO trv = as.trainerRegContents(trIndex);
+
+		request.setAttribute("trv", trv);
+
+		return "admin/trainerRegContents";
+
+	}
+	
 	/* 1:1문의 답변하기 */
 	@Override
 	@RequestMapping(value = "/answer.diet")

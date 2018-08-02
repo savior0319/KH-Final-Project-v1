@@ -47,6 +47,7 @@ body {
 			</thead>
 			<tbody>
 				<c:forEach items="${requestScope.trpdv.trList}" var="tr">
+				<input type="hidden" id="" />
 					<tr align="center">
 						<td>${tr.trIndex}</td>
 						<td>${tr.mbId}</td>
@@ -65,7 +66,7 @@ body {
 						<td>
 						<c:choose>
 							<c:when test="${tr.trStatus eq '심사중'}">
-							<button id="trInfo_${tr.trIndex}" class="ui red button" style="margin-right: 0px; padding-top: 8px; padding-bottom: 8px; padding-left: 18px; padding-right: 18px;">
+							<button id="trInfo_${tr.trIndex}" onclick="trainerInfo(${tr.trIndex});" class="ui red button" style="margin-right: 0px; padding-top: 8px; padding-bottom: 8px; padding-left: 18px; padding-right: 18px;">
 								<i class="large zoom-in icon" style="margin-left: 0px; margin-right: 0px;"></i>
 							</button>
 							</c:when>
@@ -101,13 +102,11 @@ body {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-		//trInfo_${tr.trIndex}
-		$(document).ready(function() {
-			var table = $('table > tbody > tr > td').first().val();
-			alert(table);
-	
-	
-		});
+
+/* 각 신청 페이지 이동 */
+		 function trainerInfo(ti){
+			 location.href = "/trainerRegContents.diet?trIndex="+ti;
+		 }
 	
 </script>
 
