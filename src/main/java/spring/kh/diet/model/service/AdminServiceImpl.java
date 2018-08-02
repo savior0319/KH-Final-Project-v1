@@ -322,9 +322,29 @@ public class AdminServiceImpl implements AdminService {
 		return aDao.acceptTrainerReg(session, trIndex);
 	}
 
+	//트레이너로 등급 변경
 	@Override
 	public int changeTrainerGrade(int trIndex) {
 		return aDao.changeTrainerGrade(session, trIndex);
+	}
+
+	//트레이너 회원 관리
+	@Override
+	public TrainingRegPageDataVO trainerChange(int currentPage) {
+		int recordCountPerPage = 15;
+		int naviCountPerPage = 5;
+
+		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
+
+		ArrayList<TrainingRegVO> list = (ArrayList<TrainingRegVO>) aDao.trainerChange(session,
+				currentPage, recordCountPerPage);
+		String pageNavi = aDao.getTrainerChangeListPageNavi(session, currentPage, recordCountPerPage,
+				naviCountPerPage);
+		
+		trpdv.setTrList(list);
+		trpdv.setPageNavi(pageNavi);
+
+		return trpdv;
 	}
 
 

@@ -108,9 +108,11 @@ body {
 				</c:forEach> 
 			</tbody>
 		</table>
+		<c:if test="${requestScope.mbpd.mbList[0] !=null}">
 		<div class="ui center aligned basic segment">
 			<div class="ui pagination menu">${requestScope.mbpd.pageNavi}</div>
 		</div>
+		</c:if>
 </div>
 </div>
 <!-- FOOTER -->
