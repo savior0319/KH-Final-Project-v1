@@ -35,6 +35,7 @@ import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
+import sun.java2d.pipe.AlphaPaintPipe;
 
 @SuppressWarnings("all")
 @Controller
@@ -464,8 +465,9 @@ public class MyInfoControllerImpl implements MyInfoController {
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+		
 		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage, tv);
-		System.out.println(myRequest.getType());
+		System.out.println(myRequest);
 		request.setAttribute("myRequest", myRequest);
 		return "myInfo/imTrainer";
 
@@ -488,6 +490,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tv);
+		System.out.println(applyTrainer.getComList());
 		request.setAttribute("applyTrainer", applyTrainer);
 		return "myInfo/imTrainer";
 
