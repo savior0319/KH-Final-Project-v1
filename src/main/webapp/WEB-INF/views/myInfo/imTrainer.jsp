@@ -36,7 +36,7 @@
 							<div class="ui brown message" align="center">
 								<div class="ui small header">※ 트레이너 자격 신청</div>
 							</div>
-							
+
 							<table class="ui gray table">
 								<thead>
 									<tr id="title" align="center">
@@ -101,8 +101,8 @@
 							<div class="ui red message" align="center">※ 트레이너 자격 신청하신 내역이 없습니다.</div>
 						</div>
 					</c:when>
-					</c:choose>
-					<c:choose>
+				</c:choose>
+				<c:choose>
 					<c:when test="${!myRequest.comList.isEmpty()}">
 						<div id="memberApply">
 							<div class="ui brown message" align="center">
@@ -117,19 +117,20 @@
 										</th>
 										<th>
 											<i class="h square icon"></i>
-											제 목
+											프 로 그 램 명
 										</th>
 										<th>
 											<i class="h square icon"></i>
-											요 청 자
+											판 매 금 액
 										</th>
 										<th>
 											<i class="h square icon"></i>
-											요 청 일
+											등 록 날 짜
 										</th>
 										<th>
 											<i class="h square icon"></i>
-											수 락 여 부
+											판 매 여 부
+
 										</th>
 
 									</tr>
@@ -137,15 +138,20 @@
 								<tbody>
 									<c:forEach items="${myRequest.comList}" var="m">
 										<tr align="center">
-											<td style="width: 10%;">${m.tpLocation}</td>
+											<td style="width: 10%;">${m.tpIndex}</td>
 											<td style="width: 30%;">
-												<a href="javascript:void(0);" onclick="showMyTrainer1();">${m.tpIndex}</a>
+												<a href="javascript:void(0);" onclick="showMyTrainer1();">${m.tpTitle}</a>
+
 											</td>
+											<td style="width: 15%;">${m.tpCost}</td>
 											<td style="width: 15%;">${m.tpRegDate}</td>
-											<td style="width: 15%;">${m.tpIndex}</td>
 											<td style="width: 23%;">
-												<button class="ui red button">판매완료</button>
-												<button class="ui grey button">판매대기</button>
+												<c:if test="${!checkSale.isEmpty()}">
+													<button class="ui red button">판매완료</button>
+												</c:if>
+												<c:if test="${checkSale.isEmpty()}">
+													<button class="ui grey button">판매대기</button>
+												</c:if>
 											</td>
 										</tr>
 									</c:forEach>
@@ -167,78 +173,22 @@
 						</div>
 					</c:when>
 
-					<c:otherwise >
+					<c:otherwise>
 						<div id="memberApply">
 							<div class="ui red message" align="center">※ 프로그램 등록 내역이 없습니다.</div>
-				
+
 						</div>
 					</c:otherwise>
 				</c:choose>
 			</div>
 			<div class="ui modal" id="questionModal3">
 				<i class="close icon"></i>
-				<div class="ui large header">
-					<img src="" />
-					트레이너 요청 내용
-				</div>
+				<div class="ui large header">프로그램 내용</div>
 				<div class="ui left aligned basic segment">
 					<br>
 					<div class="ui form" style="font-weight: 600;">
-						<div class="ui floating message" style="margin: 0 auto;">
-							<p>
-								제 목 :&nbsp;&nbsp;&nbsp;
-								<span id="tpTitle"></span>
-							</p>
-						</div>
-						<div class="ui floating message" style="width: 25%; float: left;">
-							<p align="center">
-								지 역 :&nbsp;&nbsp;&nbsp;
-								<span id="tpArea"></span>
-							</p>
-						</div>
-						<div class="ui floating message" style="width: 25%; float: left; margin-left: 20px;">
-							<p align="center">
-								신 청 시 간 :&nbsp;&nbsp;&nbsp;
-								<span id="tpActiveStart"></span>
-								<span id="tpActiveEnd"></span>
-							</p>
-						</div>
-						<div class="ui floating message" style="width: 20%; float: left; margin-left: 20px;">
-							<p align="center">
-								요 청 자 아 이 디 :&nbsp;&nbsp;&nbsp;
-								<span id="requestMember">요청한 일반회원 아이디</span>
-							</p>
-						</div>
-						<div class="ui floating message" style="width: 23%; float: left; margin-left: 20px;">
-							<p align="center">
-								PT 종 류 :&nbsp;&nbsp;&nbsp;
-								<span id="tpTrainType"></span>
-							</p>
-						</div>
-						<br>
-						<br>
-						<div class="field">
-							<br>
-							<label style="font-size: 18px; font-weight: 900;">내 용</label>
-							<br>
-							<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none;" id="contentQuestion"></textarea>
-						</div>
-						<br>
-						<div class="field">
-							<label style="font-size: 18px; font-weight: 900;">거 절 사 유</label>
-							<br>
-							<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none;" id="contentQuestion"></textarea>
-						</div>
-						<div class="ui floating message" align="center" style="margin: 0 auto;">
-							<p>
-								※ 수락 시
-								<span style="color: red; font-weight: 900; font-size: 15px;">'수락'</span>
-								버튼을 눌러주세요 ~
-							</p>
-						</div>
-
-						<button style="float: right; margin-top: 13px;" class="ui red button">수락</button>
-						<button style="float: right; margin-top: 13px;" class="ui grey button">거절</button>
+						
+						<button style="float: right; margin-top: 13px;" class="ui grey button">닫기</button>
 					</div>
 					<br>
 					<br>
