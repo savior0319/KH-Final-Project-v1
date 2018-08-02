@@ -61,6 +61,7 @@
 		<typeAlias type="spring.kh.diet.model.vo.TrainerProgramVO" alias="trainerProgram"/>
 		<typeAlias type="spring.kh.diet.model.vo.TodayAnalyticsDetail" alias="todayAnalyticsDetail" />
 		<typeAlias type="spring.kh.diet.model.vo.MyRequestTrainerPDVO" alias="myRequestTrainerPDVO" />
+		<typeAlias type="spring.kh.diet.model.vo.TrainerAreaListVO" alias="trainerAreaList" />
 	</typeAliases>
 
 </configuration>

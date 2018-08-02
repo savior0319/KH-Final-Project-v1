@@ -39,7 +39,7 @@
 				<div class="ui small header" >구선택(최대 3개까지 선택가능)</div>
 				<select multiple="" name="skills" class="ui fluid normal dropdown" id="dropdown2">
 					<option value="">선택</option>
-					<option value="전체">전체</option>
+					<!-- <option value="전체">전체</option> -->
 					<option value="강남구">강남구</option>
 					<option value="강동구">강동구</option>
 					<option value="강북구">강북구</option>
@@ -71,7 +71,7 @@
 				<div class="ui small header" >구선택(최대 3개까지 선택가능)</div>
 				<select multiple="" name="skills" class="ui fluid normal dropdown" id="dropdown3">
 					<option value="">선택</option>	
-					<option value="전체">전체</option>
+					<!-- <option value="전체">전체</option> -->
 					<option value="강화군">강화군</option>
 					<option value="계양구">계양구</option>
 					<option value="남동구">남동구</option>
@@ -111,13 +111,13 @@
 	});
 
 	/* 전체를 선택했을 때 */
-	$('#dropdown2').change(function(event) {
+	/*$('#dropdown2').change(function(event) {
 		var loc = $('#dropdown2').val();
 
 		if(loc[0] == '전체'){
 			$(this).siblings().off();
 		} 
-	});
+	});*/
 
 	$('.delete .icon').click(function(){
 		alert(1);
