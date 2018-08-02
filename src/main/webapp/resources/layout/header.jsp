@@ -1,28 +1,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122472043-1"></script>
-<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag() {
-		dataLayer.push(arguments);
-	}
-	gtag('js', new Date());
-
-	gtag('config', 'UA-122472043-1');
-</script>
-<!-- 구글 애널리틱스 추적코드 종료  -->
-
-<!-- 네이버 애널리틱스 추적코드 시작  -->
-<script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
-<script type="text/javascript">
-	if (!wcs_add)
-		var wcs_add = {};
-	wcs_add["wa"] = "9c36e791bed018";
-	wcs_do();
-</script>
-<!-- 네이버 애널리틱스 추적코드 종료  -->
 
 <!-- 인보 - 세션생성  및 브라우저 확인  -->
 

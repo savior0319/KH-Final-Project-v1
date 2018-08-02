@@ -2,11 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%-- 
+<jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include> 
+--%>
 
 <!DOCTYPE html>
 <html>
 <head>
+
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
 <title>다이어트</title>
 </head>
@@ -223,7 +226,7 @@ var data = new google.visualization.DataTable();
 		   ]);
  }
  else if(${currentTime==1})
- {
+ {	
 	 data.addRows([
 		   ['00 - 12', ${C1.hits}, ${C1.comments}, ${C1.post}, ${C1.likes}]
 		   ]);
@@ -473,10 +476,13 @@ var data = new google.visualization.DataTable();
 											<td style="width: 30%">${is.mbNickName}</td>
 											<c:choose>
 												<c:when test="${is.mbGender eq 'm'}">
-													<td style="width: 30%">남 성</td>
+													<td style="width: 30%">  남 성 ( <i class="male icon"></i>)</td>
+												</c:when>
+												<c:when test="${is.mbGender eq 'f'}">
+													<td style="width: 30%">  여 성 ( <i class="female icon"></i>)</td>
 												</c:when>
 												<c:otherwise>
-													<td style="width: 30%">여 성</td>
+													<td style="width: 20%">  카카오회원 (  <i class="github alternate icon"></i>)</td>
 												</c:otherwise>
 											</c:choose>
 
@@ -513,11 +519,11 @@ var data = new google.visualization.DataTable();
 					<table class="ui celled table">
 						<thead>
 							<tr align="center">
-								<th style="width: 10%">비고</th>
-								<th style="width: 40%">아이디</th>
+								<th style="width: 15%">비고</th>
+								<th style="width: 25%">아이디</th>
 								<th style="width: 15%">닉네임</th>
-								<th style="width: 15%">성 별</th>
-								<th style="width: 20%">가입일</th>
+								<th style="width: 20%">성 별</th>
+								<th style="width: 25%">가입일</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -542,18 +548,21 @@ var data = new google.visualization.DataTable();
 									<c:forEach items="${requestScope.todayDelMember}" var="ds"
 										varStatus="status">
 										<tr align="center">
-											<td style="width: 10%"><c:out value="${status.index+1}" /></td>
-											<td style="width: 40%">${ds.mbId}</td>
+											<td style="width: 15%"><c:out value="${status.index+1}" /></td>
+											<td style="width: 25%">${ds.mbId}</td>
 											<td style="width: 15%">${ds.mbNickName}</td>
 											<c:choose>
 												<c:when test="${ds.mbGender eq 'm'}">
-													<td style="width: 15%">남 성</td>
+													<td style="width: 20%">  남 성 ( <i class="male icon"></i>)</td>
+												</c:when>
+												<c:when test="${ds.mbGender eq 'f'}">
+													<td style="width: 20%">  여 성 ( <i class="female icon"></i>)</td>
 												</c:when>
 												<c:otherwise>
-													<td style="width: 15%">여 성</td>
+													<td style="width: 20%">  카카오회원 (  <i class="github alternate icon"></i>)</td>
 												</c:otherwise>
 											</c:choose>
-											<td style="width: 20%">${ds.mbDeleteDate}</td>
+											<td style="width: 25%">${ds.mbDeleteDate}</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
@@ -581,7 +590,7 @@ var data = new google.visualization.DataTable();
 									<th style="width: 15%">비고 / 분류</th>
 									<th style="width: 15%"><i class="eye icon"></i>  조회수</th>
 									<th style="width: 15%"><i class="comment icon"></i>  댓글수</th>
-									<th style="width: 15%"><i class="edit outline icon"></i>  게시물수</th>
+									<th style="width: 15%"><i class="edit outline icon"></i>  게시물	</th>
 									<th style="width: 15%"><i class="heart icon"></i> 좋아요수</th>
 									<th style="width: 15%"><i class="sitemap icon"></i> 합 계</th>
 									<th style="width: 15%"><i class="chart bar icon"></i> 평 균</th>
@@ -635,10 +644,10 @@ var data = new google.visualization.DataTable();
 							<thead>
 								<tr align="center">
 									<th style="width: 20%">시간대</th>
-									<th style="width: 20%">조회수</th>
-									<th style="width: 20%">댓글수</th>
-									<th style="width: 20%">게시물수</th>
-									<th style="width: 20%">좋아요수</th>
+									<th style="width: 20%"><i class="eye icon"></i> 조회수</th>
+									<th style="width: 20%"><i class="comment icon"></i>댓글수</th>
+									<th style="width: 20%"><i class="edit outline icon"></i>  게시물수</th>
+									<th style="width: 20%"><i class="heart icon"></i> 좋아요수</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -677,11 +686,7 @@ var data = new google.visualization.DataTable();
 								<td style="width: 20%">${T5.comments}</td>
 								<td style="width: 20%">${T5.post}</td>
 								<td style="width: 20%">${T5.likes}</td>
-								</tr>
-							
-							
-							
-									
+								</tr>									
 							</c:when>
 							<c:when test="${currentTime==4}">
 							<tr align="center">
@@ -791,10 +796,10 @@ var data = new google.visualization.DataTable();
 							<thead>
 								<tr align="center">
 									<th style="width: 20%">시간대</th>
-									<th style="width: 20%">조회수</th>
-									<th style="width: 20%">댓글수</th>
-									<th style="width: 20%">게시물수</th>
-									<th style="width: 20%">좋아요수</th>
+									<th style="width: 20%"><i class="eye icon"></i> 조회수</th>
+									<th style="width: 20%"><i class="comment icon"></i> 댓글수</th>
+									<th style="width: 20%"><i class="edit outline icon"></i>  게시물수</th>
+									<th style="width: 20%"><i class="heart icon"></i> 좋아요수</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -868,10 +873,7 @@ var data = new google.visualization.DataTable();
 								<td style="width: 20%">${H4.comments}</td>
 								<td style="width: 20%">${H4.post}</td>
 								<td style="width: 20%">${H4.likes}</td>
-								</tr>
-							
-							
-								
+								</tr>		
 							</c:when>
 							<c:when test="${currentTime==3}">
 							<tr align="center">
@@ -894,9 +896,7 @@ var data = new google.visualization.DataTable();
 								<td style="width: 20%">${H3.comments}</td>
 								<td style="width: 20%">${H3.post}</td>
 								<td style="width: 20%">${H3.likes}</td>
-								</tr>
-							
-								
+								</tr>			
 							</c:when>
 							<c:when test="${currentTime==2}">
 							<tr align="center">
@@ -913,7 +913,6 @@ var data = new google.visualization.DataTable();
 								<td style="width: 20%">${H2.post}</td>
 								<td style="width: 20%">${H2.likes}</td>
 								</tr>
-								
 							</c:when>
 							<c:when test="${currentTime==1}">
 								<tr align="center">
@@ -947,10 +946,10 @@ var data = new google.visualization.DataTable();
 							<thead>
 								<tr align="center">
 									<th style="width: 20%">시간대</th>
-									<th style="width: 20%">조회수</th>
-									<th style="width: 20%">댓글수</th>
-									<th style="width: 20%">게시물수</th>
-									<th style="width: 20%">좋아요수</th>
+									<th style="width: 20%"><i class="eye icon"></i>조회수</th>
+									<th style="width: 20%"><i class="comment icon"></i> 댓글수</th>
+									<th style="width: 20%"><i class="edit outline icon"></i>  게시물수</th>
+									<th style="width: 20%"><i class="heart icon"></i> 좋아요수</th>
 								</tr>
 							</thead>
 							<tbody>

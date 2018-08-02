@@ -75,10 +75,9 @@
 		UPDATE MEMBER_TBL SET MB_PWD = #{mbPwd} WHERE MB_ID = #{mbId}
 	</update>
 
-	<insert id="joinKaKao" parameterType="member">
-		INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{mbId},'','',#{mbNickName},'','','',0,'','','','카카오회원','','','','n',sysdate)
-	</insert>
-
+<insert id="joinKaKao" parameterType="member">
+      INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{mbId},'','',#{mbNickName},'','','',0,'','','','카카오회원','','','','n',sysdate,null,null,null,null,null,null,null,null,null,null,null,null)
+   </insert>
 	<select id="existUserFindingId" parameterType="member" resultType="member">
 		SELECT
 		MB_INDEX AS mbIndex,
@@ -168,6 +167,6 @@
     SS_DEVICE as device    
 	 from ON_session_TBL where SS_Id = #{id}
 	</select>
-	
+	   
 	
 </mapper>
