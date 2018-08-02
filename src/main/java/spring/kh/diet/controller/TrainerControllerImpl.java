@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -16,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.TrainerService;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.ProgramPageDataVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainerSearchVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
+
 
 @Controller
 public class TrainerControllerImpl implements TrainerController {
@@ -59,6 +62,7 @@ public class TrainerControllerImpl implements TrainerController {
 	}
 
 	/* 트레이너 프로그램 등록 */
+	@Override
 	@ResponseBody
 	@RequestMapping(value = "/registTrainerProgram.diet")
 	public int registTrainerProgram(TrainerProgramVO tpv, HttpSession session) {
@@ -130,5 +134,26 @@ public class TrainerControllerImpl implements TrainerController {
 			response.getWriter().print("0");
 			response.getWriter().close();
 		}
+	}
+	
+	/* 프로그램 리스트 */
+	@Override
+	@RequestMapping(value = "/getProgramList.diet")
+	public Object getProgramList(@RequestParam int trIndex,HttpServletRequest request) {
+		
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+		ProgramPageDataVO ppdv = trService.getProgramList(currentPage,trIndex);
+
+		ModelAndView view = new ModelAndView();
+		view.addObject("ppdv", ppdv);
+		view.setViewName("main/trainerFindResult");
+		
+		return view;
 	}
 }

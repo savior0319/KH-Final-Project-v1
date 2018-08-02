@@ -6,6 +6,10 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.BoardPostVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
+import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.ProgramPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.TrainerAreaListVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
@@ -31,6 +35,87 @@ public class TrainerDAOImpl implements TrainerDAO {
 	}
 
 	public int trainerReg(SqlSessionTemplate session, TrainingRegVO register) {
+		int result = session.insert("trainer.trainerReg", register);
+		System.out.println("륜ㅅㅏㅇ이형!" + result);
+		return result;
+	}
+
+	@Override
+	public String getProgramListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, int trIndex) {
+		ProgramPageDataVO ppdv = new ProgramPageDataVO();
+		ppdv.setTrIndex(trIndex);
+		int recordTotalCount = session.selectOne("trainer.getProgramNavi", ppdv);
+
+		int pageTotalCount = 0;
+		if (recordTotalCount % recordCountPerPage != 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
+
+		int endNavi = startNavi + naviCountPerPage - 1;
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) // 시작이 1페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/communityWholeBoard.diet?type=" + trIndex + "&currentPage=" + (startNavi - 1)
+					+ "'> &lt; </a>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (i == currentPage) {
+				sb.append(
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/communityWholeBoard.diet?type="
+								+ trIndex + "&currentPage=" + i + "'><strong>" + i + "</strong></a>");
+			} else {
+				sb.append("<a class='item' href='/communityWholeBoard.diet?type=" + trIndex + "&currentPage=" + i + "'> "
+						+ i + " </a>");
+			}
+		}
+		if (needNext) // 끝 페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/communityWholeBoard.diet?type=" + trIndex + "&currentPage=" + (endNavi + 1)
+					+ "'> &gt; </a>");
+		}
+
+		return sb.toString();
+	}
+
+	@Override
+	public ArrayList<TrainerProgramVO> getProgramList(SqlSessionTemplate session, int currentPage,
+			int recordCountPerPage, int trIndex) {
+		ProgramPageDataVO ppdv = new ProgramPageDataVO();
+		ppdv.setStart((currentPage - 1) * recordCountPerPage + 1);
+		ppdv.setEnd(currentPage * recordCountPerPage);
+		ppdv.setTrIndex(trIndex);
+
+		List<TrainerProgramVO> list = session.selectList("trainer.getProgramList", ppdv);
+
+		return (ArrayList<TrainerProgramVO>) list;
 		int result = session.insert("trainer.trainerReg",register);
 		return result;
 	}
@@ -65,6 +150,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 		System.out.println(list);
 		return (ArrayList<TrainingRegVO>) list;
+
 	}
 
 }
