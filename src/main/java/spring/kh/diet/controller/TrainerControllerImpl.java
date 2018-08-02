@@ -54,10 +54,8 @@ public class TrainerControllerImpl implements TrainerController {
 		System.out.println(aList.toString());
 		
 		ModelAndView view = new ModelAndView();
-		view.addObject("tsv", tsv);
-		// 트레이너 인덱스
+		view.addObject("tList", aList);
 		view.setViewName("main/trainerFindResult");
-
 		return view;
 	}
 
@@ -81,7 +79,6 @@ public class TrainerControllerImpl implements TrainerController {
 				tpActiveDay += ("," + tpv.getTpActiveDays()[i]);
 			}
 		}
-		System.out.println(tpActiveDay);
 		tpv.setTpActiveDay(tpActiveDay);
 
 		int result = trService.registTrainerProgram(tpv);

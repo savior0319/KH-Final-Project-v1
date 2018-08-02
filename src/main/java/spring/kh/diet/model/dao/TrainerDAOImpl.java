@@ -6,11 +6,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import spring.kh.diet.model.vo.BoardPostVO;
-import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.ProgramPageDataVO;
-import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.TrainerAreaListVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainerSearchVO;
@@ -119,7 +116,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 	/* 트레이너 찾기 */
 	@Override
-	public ArrayList<TrainingRegVO> trainerReg(SqlSessionTemplate session, TrainerSearchVO tsv) {
+	public ArrayList<TrainingRegVO> trainerSearch(SqlSessionTemplate session, TrainerSearchVO tsv) {
 
 		String areaList = tsv.getArea();
 		String[] areaSplit = areaList.split("/");
@@ -145,7 +142,6 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 		List<TrainingRegVO> list = session.selectList("trainer.trainerSearch", tavo);
 
-		System.out.println(list);
 		return (ArrayList<TrainingRegVO>) list;
 
 	}
