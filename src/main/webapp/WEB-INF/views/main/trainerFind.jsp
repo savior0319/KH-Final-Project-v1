@@ -32,9 +32,7 @@
 				<option value="서울특별시">서울특별시</option>
 				<option value="인천광역시">인천광역시</option>
 			</select>
-
 			<br>  
-
 			<div id="ifSeoul">
 				<div class="ui small header" >구선택(최대 3개까지 선택가능)</div>
 				<select multiple="" name="skills" class="ui fluid normal dropdown" id="dropdown2">
@@ -65,7 +63,6 @@
 					<option value="중구">중구</option>
 				</select>
 			</div>
-
 			<div id="ifIncheon" style="display: none;">
 				<div class="ui small header" >구선택(최대 3개까지 선택가능)</div>
 				<select multiple="" name="skills" class="ui fluid normal dropdown" id="dropdown3">
@@ -82,7 +79,6 @@
 					<option value="중구">중구</option>
 				</select>
 			</div>
-
 			<br>
 			<br>
 			<button type="button" class="ui button" style="background: rgb(250,40,40); color: white;" onclick="trainerSearch();">트레이너 검색</button>
