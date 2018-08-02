@@ -47,6 +47,8 @@ public interface AdminController {
 
 	String acceptTrainerReg(HttpServletRequest request, HttpSession session);
 
-	String trainerChange(HttpServletRequest request, HttpServletResponse response);
+	String trainerChange(HttpServletRequest request, HttpServletResponse response, HttpSession session);
+
+
 
 }

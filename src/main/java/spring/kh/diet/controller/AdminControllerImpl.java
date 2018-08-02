@@ -326,7 +326,7 @@ public class AdminControllerImpl implements AdminController {
 	/* 트레이너  회원 관리 */
 	@Override
 	@RequestMapping(value = "/trainerChange.diet")
-	public String trainerChange(HttpServletRequest request, HttpServletResponse response) {
+	public String trainerChange(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
@@ -336,7 +336,7 @@ public class AdminControllerImpl implements AdminController {
 			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
 		}
 
-		TrainingRegPageDataVO trpdv = as.trainerRegList(currentPage);
+		TrainingRegPageDataVO trpdv = as.trainerChange(currentPage);
 		
 		request.setAttribute("trpdv", trpdv);
 		

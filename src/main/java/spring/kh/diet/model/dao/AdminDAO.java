@@ -110,5 +110,10 @@ public interface AdminDAO {
 
 	int changeTrainerGrade(SqlSessionTemplate session, int trIndex);
 
+	ArrayList<TrainingRegVO> trainerChange(SqlSessionTemplate session, int currentPage, int recordCountPerPage);
+
+	String getTrainerListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage);
+
 
 }

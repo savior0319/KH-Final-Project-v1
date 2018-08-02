@@ -672,6 +672,91 @@ public class AdminDAOImpl implements AdminDAO {
 		return session.update("admin.changeTrainerGrade",trIndex);
 	}
 
+	
+	//트레이너 회원 관리
+	@Override
+	public ArrayList<TrainingRegVO> trainerChange(SqlSessionTemplate session, int currentPage, int recordCountPerPage) {
+		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
+
+		trpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
+		trpdv.setEnd(currentPage * recordCountPerPage);
+
+		List<TrainingRegVO> list = session.selectList("admin.trainerRegList", trpdv);
+
+		return (ArrayList<TrainingRegVO>) list;
+	}
+
+/*	@Override
+	public String getTrainerListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage) {
+		trpdv.setEnd(currentPage * recordCountPerPage);
+
+		List<TrainingRegVO> list = session.selectList("admin.trainerRegList", trpdv);
+
+		return (ArrayList<TrainingRegVO>) list;
+	}*/
+
+	//트레이너 회원 신청 네비
+/*	@Override
+	public String getTrainerListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
+			int naviCountPerPage) {
+		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
+
+		int recordTotalCount = session.selectOne("admin.getTrainerRegNavi", trpdv);
+
+		int pageTotalCount = 0;
+		if (recordTotalCount % recordCountPerPage != 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
+
+		int endNavi = startNavi + naviCountPerPage - 1;
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) {
+			sb.append("<a class='item' href='/trainerChange.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (i == currentPage) {
+				sb.append(
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/trainerChange.diet?currentPage="
+								+ i + "'>  " + i + " </a>");
+			} else {
+				sb.append("<a class='item' href='/trainerChange.diet?currentPage=" + i + "'> " + i + " </a>");
+			}
+		}
+		if (needNext) {
+			sb.append("<a class='item' href='/trainerChange.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+		}
+
+		return sb.toString();
+	}
+*/
 
 	
 
