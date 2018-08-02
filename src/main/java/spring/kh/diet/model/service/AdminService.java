@@ -16,6 +16,7 @@ import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
+import spring.kh.diet.model.vo.TrainingRegPageDataVO;
 import spring.kh.diet.model.vo.todayCommentsVO;
 import spring.kh.diet.model.vo.todayHitsVO;
 import spring.kh.diet.model.vo.todayLikeVO;
@@ -80,6 +81,8 @@ public interface AdminService {
 	int searchBeforeDayList();
 
 	ArrayList<TodayAnalyticsDetail> TodayAnalyticsDetailList();
+
+	TrainingRegPageDataVO trainerRegList(int currentPage);
 
 	
 
