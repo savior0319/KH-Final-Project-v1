@@ -378,9 +378,6 @@
 				$('#matchedTitle'+i).attr("onclick", "goInfo(" + data[i].indexNo + "," + data[i].htType + ");");
 				$('#matchedExplain'+i).attr("onclick", "goInfo(" + data[i].indexNo + "," + data[i].htType + ");");
 			}
-			
-			
-			
 		},
 		error : function(){
 			console.log('[Error] 메인 - 자유게시판 출력 실패');
