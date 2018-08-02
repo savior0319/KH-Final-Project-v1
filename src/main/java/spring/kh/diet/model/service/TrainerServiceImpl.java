@@ -70,4 +70,9 @@ public class TrainerServiceImpl implements TrainerService {
 		return trDao.trainerSearch(session, tsv);
 	}
 
+	@Override
+	public TrainerProgramVO programDetail(int tpIndex) {
+		return trDao.programDetail(session, tpIndex);
+	}
+
 }

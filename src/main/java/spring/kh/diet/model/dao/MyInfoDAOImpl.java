@@ -18,6 +18,7 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.OneSessionVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -147,6 +148,13 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	public int myLoginCount(SqlSessionTemplate sqlSessionTemplate, MemberVO m) {
 		int mv = sqlSessionTemplate.selectOne("myInfo.myCount", m);
 		return mv;
+	}
+	
+	/* 마이페이지 - 트레이너, 구매여부 체크 */
+	@Override
+	public ArrayList<PaymentVO> checkSale(SqlSessionTemplate sqlSessionTemplate, PaymentVO tv) {
+		List<PaymentVO> list = sqlSessionTemplate.selectList("myInfo.checkSale", tv);
+		return (ArrayList<PaymentVO>) list;
 	}
 
 	/* 마이페이지 - 내 게시물 페이징 처리 출력 */
@@ -678,21 +686,21 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 		if (needPrev) // 시작이 1페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/applyTrainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+			sb.append("<a class='item' href='/requestTrainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/applyTrainer.diet?currentPage="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/requestTrainer.diet?currentPage="
 								+ i + "'><strong>" + i + "</strong></a>");
 			} else {
-				sb.append("<a class='item' href='/applyTrainer.diet?currentPage=" + i + "'>" + i + " </a>");
+				sb.append("<a class='item' href='/requestTrainer.diet?currentPage=" + i + "'>" + i + " </a>");
 			}
 		}
 		if (needNext) // 끝 페이지가 아니라면!
 		{
-			sb.append("<a class='item' href='/applyTrainer.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			sb.append("<a class='item' href='/requestTrainer.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
 		return sb.toString();
 	}

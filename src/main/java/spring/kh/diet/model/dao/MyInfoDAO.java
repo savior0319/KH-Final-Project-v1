@@ -10,6 +10,7 @@ import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.MyActivityVO;
 import spring.kh.diet.model.vo.OneSessionVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -107,7 +108,6 @@ public interface MyInfoDAO {
 	void tranSession(SqlSessionTemplate sqlSessionTemplate, String id);
 
 	int insertSession(SqlSessionTemplate sqlSessionTemplate, OneSessionVO oSV);
-
-
-
+  
+	ArrayList<PaymentVO> checkSale(SqlSessionTemplate sqlSessionTemplate, PaymentVO tv);
 }

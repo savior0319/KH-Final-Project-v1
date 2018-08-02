@@ -22,5 +22,7 @@ public interface TrainerService {
 
 	ArrayList<TrainingRegVO> trainerSearch(TrainerSearchVO tsv);
 
+	TrainerProgramVO programDetail(int tpIndex);
+
 
 }

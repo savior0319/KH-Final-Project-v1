@@ -143,7 +143,7 @@
 		</div>
 
 		<!-- 내용 들어가는 부분! -->
-		<div class="ui clearing segment">
+		<div class="ui clearing segment" style="word-break:break-all;">
 			${requestScope.bpv.postContent}
 			
 			 <br> <br> <br> <br>
@@ -923,13 +923,13 @@
 					var contentDiv = $("<div>").attr("style", "width:93%;");
 					contentDiv.attr("class", "content");
 					var aAuthor = $("<span>").attr("class", "author");
-					aAuthor.attr("style", "position: absolute; width: 10%;");
+					aAuthor.attr("style", "position: absolute; width: 90px;");
 					aAuthor.html(data.bcList[i].mbNickname);
 					var metadataDiv = $("<div>").attr("class", "metadata");
 					metadataDiv.attr("style", "width:100%;");
 					var span = $("<span>").attr("class", "date");
 					span.attr("style",
-							"width: 30%; display: inline; margin-left: 10%;");
+							"width: 30%; display: inline; margin-left: 100px;");
 					span.html(data.bcList[i].cmtDateTime);
 					
 					/* 날짜 형식 추가! */
@@ -976,7 +976,7 @@
 					var containerDiv = $("<div>").attr("class",
 							"ui right aligned container");
 					containerDiv.attr("align", "right");
-					containerDiv.attr("style", "width: 70%; float: right;");
+					containerDiv.attr("style", "width: 70%; float: right; margin-top:10px;");
 					var likeBtn = $("<button>").attr("class",
 							"ui red basic tiny button");
 					likeBtn.attr("style", "margin-right: 10px;");

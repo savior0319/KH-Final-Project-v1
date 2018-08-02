@@ -14,6 +14,7 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.OneSessionVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -80,5 +81,7 @@ public interface MyInfoService {
 	int insertSession(OneSessionVO oSV);
 
 	void transSession(String id);
+
+  ArrayList<PaymentVO> checkSale(PaymentVO tv);
 
 }

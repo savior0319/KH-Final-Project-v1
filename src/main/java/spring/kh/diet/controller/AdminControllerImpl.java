@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -275,8 +276,75 @@ public class AdminControllerImpl implements AdminController {
 		request.setAttribute("trv", trv);
 
 		return "admin/trainerRegContents";
+	}
+	
+
+	// 트레이너 등급 신청 거절
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/denyTrainerReg.diet")
+	public String denyTrainerReg(HttpServletRequest request, HttpSession session) {
+		
+		int trIndex = Integer.parseInt(request.getParameter("trIndex"));
+		
+		
+		int result = as.denyTrainerReg(trIndex);
+
+		if (result > 0) {
+			return "success";
+		} else {
+			return "failed";
+		}
+	}
+	
+	
+	// 트레이너 등급 신청 승인
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/acceptTrainerReg.diet")
+	public String acceptTrainerReg(HttpServletRequest request, HttpSession session) {
+		
+		int trIndex = Integer.parseInt(request.getParameter("trIndex"));
+		
+		int result = as.acceptTrainerReg(trIndex);
+
+		if(result > 0) {
+			int result2 = as.changeTrainerGrade(trIndex);
+			
+			if (result2 > 0) {
+				return "success";
+			} else {
+				return "failed";
+			}
+		}else {
+			return "denied";
+		}
 
 	}
+	
+	
+	/* 트레이너  회원 관리 */
+	@Override
+	@RequestMapping(value = "/trainerChange.diet")
+	public String trainerChange(HttpServletRequest request, HttpServletResponse response) {
+		
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
+
+		TrainingRegPageDataVO trpdv = as.trainerRegList(currentPage);
+		
+		request.setAttribute("trpdv", trpdv);
+		
+		return "admin/trainerChange";
+	}
+
+	
+	
 	
 	/* 1:1문의 답변하기 */
 	@Override

@@ -34,10 +34,13 @@
 						<div class="text">검색</div>
 					</div>
 				</div>
-				<div style="text-align: center; margin-top: 3%; height: 40px;">
+				<div id="size1" style="text-align: center; margin-top: 3%; height: 40px;">
 					<i class="chevron circle right icon"></i> 다신 칼로리 사전은 <span
 						style="color: skyblue;">음식의 칼로리 뿐만 아니라 영양소 구성도 함께</span> 나와 다이어트뿐
 					아니라 건강한 식습관 형성에도 도움이 됩니다.
+				</div>
+				<div id="size2" style="text-align: center; margin-top: 3%; height: 20px;">
+					<i class="chevron circle right icon"></i> 알고 싶은 운동을 검색해 주세요
 				</div>
 			</div>
 			<br>
@@ -77,7 +80,7 @@
 			</table>
 
 		</div>
-		<div class="ui grid">
+		<div id="size1" class="ui grid">
 			<div class="three column row">
 				<div class="four wide column"></div>
 				<div class="eight wide column">
@@ -88,6 +91,15 @@
 				<div class="four wide column"></div>
 			</div>
 			<br>
+		</div>
+		
+		<div id="size2" class="ui center aligned grid">
+
+			<c:if test="${requestScope.hcpd.hcList[0]!=null }">
+				<div class="ui center aligned basic segment" style="margin: 0; padding: 0;">
+					<div class="ui pagination menu" align="center">${requestScope.hcpd.pageNavi }</div>
+				</div>
+			</c:if>
 		</div>
 
 	</div>
@@ -105,5 +117,25 @@
 		location.href="/healthCalorieList.diet?searchText=" + searchText;
 	}
 </script>
+<style type="text/css" media="screen">
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 550px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
+}
+/* 모바일용 사이즈 */
+@media ( max-width : 549px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
+}
+</style>
 
 </html>

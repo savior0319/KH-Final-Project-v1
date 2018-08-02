@@ -156,7 +156,7 @@
 
 
 
-		<div class="ui grid">
+		<div id="size1" class="ui grid">
 			<div class="three column row">
 				<div class="column"></div>
 				<div class="column">
@@ -178,6 +178,19 @@
 			</div>
 			<br>
 		</div>
+		
+		<div id="size2" class="ui center aligned grid">
+
+			<c:if test="${requestScope.cpdv.comList[0]!=null }">
+				<div class="ui center aligned basic segment" style="margin: 0; padding: 0;">
+					<div class="ui pagination menu" align="center">${requestScope.cpdv.pageNavi }</div>
+				</div>
+			</c:if>
+
+			<br>
+		</div>
+		
+		
 		<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 		<br>
 		<div class="ui secondary segment">
@@ -299,5 +312,24 @@
 		});
 	});
 </script>
-
+<style type="text/css" media="screen">
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 550px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
+}
+/* 모바일용 사이즈 */
+@media ( max-width : 549px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
+}
+</style>
 </html>

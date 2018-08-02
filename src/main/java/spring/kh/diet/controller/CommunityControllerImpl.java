@@ -78,7 +78,6 @@ public class CommunityControllerImpl implements CommunityController {
 		return "community/modifyCommunity";
 	}
 	
-	// 게시글 수정 메소드
 	@Override
 	@RequestMapping(value = "/communityPostModify.diet")
 	public void modifyRegistCommunity(BoardPostVO bpv, HttpSession session, HttpServletResponse response) throws IOException {

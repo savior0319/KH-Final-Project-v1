@@ -2,6 +2,7 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -33,6 +34,7 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.OneSessionVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -478,6 +480,11 @@ public class MyInfoControllerImpl implements MyInfoController {
 		TrainingRegVO tr = new TrainingRegVO(); // 자격신청
 		tr.setMbIndex(mv.getMbIndex());
 
+		PaymentVO pv = new PaymentVO(); // 판매여부
+		pv.setMbIndex(mv.getMbIndex());
+		
+		ArrayList<PaymentVO> checkSale = new ArrayList<PaymentVO>();
+		
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
@@ -486,8 +493,12 @@ public class MyInfoControllerImpl implements MyInfoController {
 		ModelAndView view = new ModelAndView();
 		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tr);
 		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage, tv);
+		
+		checkSale = myInfoService.checkSale(pv);
+		
 		view.addObject("applyTrainer", applyTrainer);
 		view.addObject("myRequest", myRequest);
+		view.addObject("checkSale", checkSale);
 		view.setViewName("myInfo/imTrainer");
 		return view;
 

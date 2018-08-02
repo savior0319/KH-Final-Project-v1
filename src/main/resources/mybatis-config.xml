@@ -12,7 +12,6 @@
 		<typeAlias type="spring.kh.diet.model.vo.CommunityPageDataVO" alias="communityPage" />
 		<typeAlias type="spring.kh.diet.model.vo.HealthCenterVO" alias="healthCenter" />
 		<typeAlias type="spring.kh.diet.model.vo.HealthCenterPDVO" alias="healthCenterPage" />
-		<typeAlias type="spring.kh.diet.model.vo.ProductVO" alias="product" />
 		<typeAlias type="spring.kh.diet.model.vo.BoardCommentVO" alias="comment" />
 		<typeAlias type="spring.kh.diet.model.vo.BoardCommentPDVO" alias="commentPageData" />
 		<typeAlias type="spring.kh.diet.model.vo.HomeTrainingVO" alias="homeTraining" />
@@ -63,6 +62,10 @@
 		<typeAlias type="spring.kh.diet.model.vo.MyRequestTrainerPDVO" alias="myRequestTrainerPDVO" />
 		<typeAlias type="spring.kh.diet.model.vo.ProgramPageDataVO" alias="programPageData" />
 		<typeAlias type="spring.kh.diet.model.vo.TrainerAreaListVO" alias="trainerAreaList" />
+		<typeAlias type="spring.kh.diet.model.vo.TrainerProgramMemberVO" alias="trainerProgramMember" />
+		<typeAlias type="spring.kh.diet.model.vo.PaymentVO" alias="payment" />
+		
+		
 	</typeAliases>
 
 </configuration>

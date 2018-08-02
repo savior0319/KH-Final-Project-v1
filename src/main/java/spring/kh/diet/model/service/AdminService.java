@@ -87,6 +87,11 @@ public interface AdminService {
 
 	TrainingRegVO trainerRegContents(int trIndex);
 
-	
+	int denyTrainerReg(int trIndex);
+
+	int acceptTrainerReg(int trIndex);
+
+	int changeTrainerGrade(int trIndex);
+
 
 }

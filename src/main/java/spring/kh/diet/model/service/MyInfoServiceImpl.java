@@ -21,6 +21,7 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.OneSessionVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -311,7 +312,12 @@ public class MyInfoServiceImpl implements MyInfoService {
 	@Override
 	public void transSession(String id) {
 		myInfoDAO.tranSession(SqlSessionTemplate,id);	
-		
+  }
+
+  // 오버라이드를 
+	public ArrayList<PaymentVO> checkSale(PaymentVO tv) {
+		ArrayList<PaymentVO> list = myInfoDAO.checkSale(SqlSessionTemplate,tv);
+		return list;
 	}
 
 }

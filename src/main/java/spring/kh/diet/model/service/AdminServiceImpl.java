@@ -309,6 +309,24 @@ public class AdminServiceImpl implements AdminService {
 		return trv;
 	}
 
+	// 트레이너 등급 신청 회원 거절
+	@Override
+	public int denyTrainerReg(int trIndex) {
+		
+		return aDao.denyTrainerReg(session, trIndex);
+	}
+
+	// 트레이너 등급 신청 승인
+	@Override
+	public int acceptTrainerReg(int trIndex) {
+		return aDao.acceptTrainerReg(session, trIndex);
+	}
+
+	@Override
+	public int changeTrainerGrade(int trIndex) {
+		return aDao.changeTrainerGrade(session, trIndex);
+	}
+
 
 
 }
