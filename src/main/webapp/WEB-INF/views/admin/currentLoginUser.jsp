@@ -100,8 +100,8 @@ body {
 								<th>IP</th>
 								<th>로그인</th>
 								<th>닉네임</th>
-								<th>최초 방문 시간</th>
-								<th>접속기기</th>
+								<th> 접속 시간</th>
+								<th>기기</th>
 
 							</tr>
 						</thead>
@@ -139,10 +139,10 @@ body {
 									<td>${ss.firstOn }</td>
 									<c:choose>
 										<c:when test="${ss.device eq 'pc'}">
-											<td> <i class="desktop icon"></i> PC</td>
+											<td>  PC</td>
 										</c:when>
 										<c:otherwise>
-											<td> <i class="mobile alternate icon"></i>MOBILE</td>
+											<td> MOBILE</td>
 										</c:otherwise>
 									</c:choose>
 								</tr>
@@ -168,11 +168,11 @@ body {
 				<table class="ui celled table">
 					<thead>
 						<tr align="center">
-							<th>IP</th>
-							<th>닉네임</th>
-							<th>최초 방문 시간</th>
-							<th>유지시간</th>
-							<th>접속기기</th>
+							<th >IP</th>
+							<th >닉네임</th>
+							<th > 접속 시간</th>
+							<th > 유지시간</th>
+							<th >기기</th>
 
 						</tr>
 					</thead>
@@ -212,17 +212,17 @@ body {
 										<td><fmt:formatNumber value="${aa.stay/60.1}" pattern="#" />분</td>
 									</c:when>
 									<c:otherwise>
-										<td style="width: 15%"><fmt:formatNumber
+										<td ><fmt:formatNumber
 												value="${aa.stay}" pattern="#" />초</td>
 									</c:otherwise>
 								</c:choose>
 
 								<c:choose>
 									<c:when test="${aa.device eq 'pc'}">
-										<td> <i class="desktop icon"></i> PC</td>
+										<td>  PC</td>
 									</c:when>
 									<c:otherwise>
-										<td> <i class="mobile alternate icon"></i> MOBILE</td>
+										<td>  MOBILE</td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -273,9 +273,9 @@ body {
 				<table class="ui celled table">
 					<thead>
 						<tr align="center">
-							<th style="width: 33%">시간</th>
-							<th style="width: 33%">회원</th>
-							<th style="width: 33%">비회원</th>
+							<th style="width: 33%"><i class="clock outline icon"></i> 시간</th>
+							<th style="width: 33%"><i class="user plus icon"></i> &nbsp;&nbsp;회원</th>
+							<th style="width: 33%"><i class="user times icon"></i> &nbsp;&nbsp;비회원</th>
 						</tr>
 					</thead>
 					<tbody>

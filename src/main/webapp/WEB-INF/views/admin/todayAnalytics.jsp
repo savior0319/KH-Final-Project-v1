@@ -310,8 +310,28 @@ var data = new google.visualization.DataTable();
 					<i class="eye icon"></i> 조회수 증가량
 				</h3>
 				<div class="ui segment">
-					<h4 style="color: green">${todayhits}(▲)</h4>
+					<c:choose>
+						<c:when test="${thits+chits+hhits>0}">
+							<h4 style="color: green">
+								<c:out value="${thits+chits+hhits}" />
+								(▲)
+							</h4>
+						</c:when>
+						<c:when test="${thits+chits+hhits==0}">
+							<h4 style="color: black">
+								<c:out value="${thits+chits+hhits}" />
+								(-)
+							</h4>
+						</c:when>
+						<c:otherwise>
+							<h4 style="color: red">
+								<c:out value="${thits+chits+hhits}" />
+								(▼)
+							</h4>
+						</c:otherwise>
+					</c:choose>				
 				</div>
+				
 			</div>
 			<div class="ui center aligned segment" style="width: 20%">
 				<h3>
@@ -445,9 +465,9 @@ var data = new google.visualization.DataTable();
 						<thead>
 							<tr align="center">
 								<th style="width: 10%">비고</th>
-								<th style="width: 30%">아이디</th>
-								<th style="width: 30%">닉네임</th>
-								<th style="width: 30%">성 별</th>
+								<th style="width: 30%"><i class="address card outline icon"></i> 아이디</th>
+								<th style="width: 30%"><i class="address card icon"></i> 닉네임</th>
+								<th style="width: 30%"><i class="venus mars icon"></i> 성 별</th>
 
 							</tr>
 						</thead>
@@ -520,10 +540,9 @@ var data = new google.visualization.DataTable();
 						<thead>
 							<tr align="center">
 								<th style="width: 15%">비고</th>
-								<th style="width: 25%">아이디</th>
-								<th style="width: 15%">닉네임</th>
-								<th style="width: 20%">성 별</th>
-								<th style="width: 25%">가입일</th>
+								<th style="width: 25%"><i class="address card outline icon"></i> 아이디</th>
+								<th style="width: 20%"><i class="venus mars icon"></i> 성 별</th>
+								<th style="width: 25%"><i class="calendar plus icon"></i>가입일</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -534,11 +553,9 @@ var data = new google.visualization.DataTable();
 										<td></td>
 										<td></td>
 										<td></td>
-										<td></td>
 									</tr>
 									<tr>
 										<td style="height: 100px"></td>
-										<td></td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -550,7 +567,6 @@ var data = new google.visualization.DataTable();
 										<tr align="center">
 											<td style="width: 15%"><c:out value="${status.index+1}" /></td>
 											<td style="width: 25%">${ds.mbId}</td>
-											<td style="width: 15%">${ds.mbNickName}</td>
 											<c:choose>
 												<c:when test="${ds.mbGender eq 'm'}">
 													<td style="width: 20%">  남 성 ( <i class="male icon"></i>)</td>
@@ -643,7 +659,7 @@ var data = new google.visualization.DataTable();
 					<table class="ui celled table">
 							<thead>
 								<tr align="center">
-									<th style="width: 20%">시간대</th>
+									<th style="width: 20%"><i class="clock outline icon"></i> 시간대</th>
 									<th style="width: 20%"><i class="eye icon"></i> 조회수</th>
 									<th style="width: 20%"><i class="comment icon"></i>댓글수</th>
 									<th style="width: 20%"><i class="edit outline icon"></i>  게시물수</th>
@@ -795,7 +811,7 @@ var data = new google.visualization.DataTable();
 					<table class="ui celled table">
 							<thead>
 								<tr align="center">
-									<th style="width: 20%">시간대</th>
+									<th style="width: 20%"><i class="clock outline icon"></i> 시간대</th>
 									<th style="width: 20%"><i class="eye icon"></i> 조회수</th>
 									<th style="width: 20%"><i class="comment icon"></i> 댓글수</th>
 									<th style="width: 20%"><i class="edit outline icon"></i>  게시물수</th>
@@ -945,7 +961,7 @@ var data = new google.visualization.DataTable();
 					<table class="ui celled table">
 							<thead>
 								<tr align="center">
-									<th style="width: 20%">시간대</th>
+									<th style="width: 20%"><i class="clock outline icon"></i> 시간대</th>
 									<th style="width: 20%"><i class="eye icon"></i>조회수</th>
 									<th style="width: 20%"><i class="comment icon"></i> 댓글수</th>
 									<th style="width: 20%"><i class="edit outline icon"></i>  게시물수</th>

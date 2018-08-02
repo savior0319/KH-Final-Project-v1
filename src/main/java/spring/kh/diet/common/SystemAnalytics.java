@@ -84,7 +84,7 @@ public class SystemAnalytics {
 		boolean timeSet = false;
 		
 		boolean oneTime = false;
-
+		
 		// 시간대별로 시간을 우선적으로 확인해주고, 시간의 타입에맞춰 해당값들을 계속해서 증가시킨다.
 		// 디비에 갔다오면 카운트들은 초기화를 한번 해야한다.
 		// 분이 딱 15분 59초 이하일경우 인설트를 시키고, 리스트에 해당 값이 있을경우는 update를해준다.
@@ -110,7 +110,7 @@ public class SystemAnalytics {
 			timeType = 5;
 			timeSet = true;
 		}
-
+		
 		if (timeSet) {
 			switch (serviceName) {
 			case "DietTipServiceImpl":
