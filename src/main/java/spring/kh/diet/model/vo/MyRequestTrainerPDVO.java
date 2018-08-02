@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MyRequestTrainerPDVO {
 	private ArrayList<TrainerProgramVO> comList;
-	private String pageNavi, type;
+	private String pageNavi, type,trStatus;
 	private int start, end, mbIndex, bcaIndex;
 
 }

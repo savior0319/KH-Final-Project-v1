@@ -42,9 +42,9 @@
 		<result property="mbReport" column="MB_REPORT" />
 		<result property="mbDeleteDate" column="DELETE_DATE" />
 	</resultMap>
-	
-	
-<!-- 일반회원에서 트레이너로 회원 전환 -->
+
+
+	<!-- 일반회원에서 트레이너로 회원 전환 -->
 	<resultMap type="trainerReg" id="trainerRegDB">
 		<result property="trName" column="TR_NAME" />
 		<result property="trAddress" column="TR_ADDRESS" />
@@ -60,10 +60,15 @@
 		<result property="trWeight" column="TR_WEIGHT" />
 		<result property="trRegDate" column="TR_REGDATE" />
 		<result property="trBirth" column="TR_BIRTH" />
+		<result property="mbId" column="MB_ID" />
+		<result property="mbName" column="MB_NAME" />
+		<result property="mbNickName" column="MB_NICKNAME" />
+		<result property="mbGrade" column="MB_GRADE" />
+
 	</resultMap>
-	
-	
-	
+
+
+
 	<!-- 관리자 - 공지사항 등록 -->
 	<insert id="noticeRegisterData" parameterType="notice">
 		INSERT INTO NOTICE_TBL
@@ -215,7 +220,7 @@
 		ss_device as device,
 		ss_LastIn as lastIn
 		from off_session_tbl where ss_firstOn between trunc(sysdate) and trunc(sysdate+1)
-		order by ss_index desc 
+		order by ss_index desc
 	</select>
 
 	<!-- 관리자 - 페이지관리 - 조회수가져오기 -->
@@ -306,7 +311,7 @@
 		ss_LastIn as lastIn
 		FROM off_session_tbl
 		where ss_firstOn between trunc(sysdate) and trunc(sysdate+1)
-		order by ss_index desc 
+		order by ss_index desc
 	</select>
 
 	<select id="getOnSessionList" resultType="onSession">
@@ -345,7 +350,8 @@
 		HT_LIKE as htLike,
 		BR_LIKE as brLike,
 		BD_TODAY as bdToday
-		from BEFORE_DAY_TBL where to_date(bd_today,'yyyy/MM/dd') like sysdate
+		from BEFORE_DAY_TBL where
+		to_date(bd_today,'yyyy/MM/dd') like sysdate
 	</select>
 
 	<select id="yesterdayAutoInsertBefore" resultType="java.lang.Integer">
@@ -421,106 +427,114 @@
 	<update id="blackListDel" parameterType="black">
 		UPDATE MEMBER_TBL SET MB_REPORT = 'n' WHERE MB_INDEX = #{index}
 	</update>
-	
+
 	<!-- 블랙리스트 신고 내역 조회 -->
 	<select id="blackListContent" resultType="blackContent" parameterType="Integer">
-		SELECT DISTINCT  
+		SELECT DISTINCT
 		BPT.POST_INDEX AS postIndex,
-	    POST_TITLE AS postTitle,
-	    CMT_CONTENT as targetContent,
-	    BBL.TARGET_CONTENTS AS cmtContent,
-	    MT.MB_NICKNAME AS mbNickName,
+		POST_TITLE AS postTitle,
+		CMT_CONTENT as targetContent,
+		BBL.TARGET_CONTENTS AS
+		cmtContent,
+		MT.MB_NICKNAME AS mbNickName,
 		MT2.MB_NICKNAME AS targetMbNickName
 		FROM BOARD_BLAME_TBL BBL, BOARD_POST_TBL BPT, BOARD_COMMENT_TBL BCT, MEMBER_TBL MT, MEMBER_TBL MT2
-		WHERE BBL.TARGET_INDEX = BPT.POST_INDEX(+) AND BBL.TARGET_INDEX = BCT.CMT_INDEX(+) 
-		AND BBL.MB_INDEX = MT.MB_INDEX(+) 
+		WHERE BBL.TARGET_INDEX =
+		BPT.POST_INDEX(+) AND
+		BBL.TARGET_INDEX = BCT.CMT_INDEX(+)
+		AND BBL.MB_INDEX = MT.MB_INDEX(+)
 		AND BBL.TARGET_MB_INDEX = MT2.MB_INDEX(+)
 		AND TARGET_MB_INDEX = #{index}
 	</select>
-	
+
 	<!-- 세션통계 추가하기, 디테일 anlaytics -->
 	<insert id="insertAnalytics" parameterType="todayAnalyticsDetail">
-	INSERT INTO today_Analytics VALUES(#{hits}, #{likes}, #{comments}, #{post}, sysdate, #{timeType},#{listType})
+		INSERT INTO today_Analytics VALUES(#{hits}, #{likes}, #{comments}, #{post}, sysdate, #{timeType},#{listType})
 	</insert>
-	
+
 	<!-- 오늘 사이트값 가져오사ㅓ 분석하는데 시간대별로 맞춰서가져오기 있냐 없냐를확인 -->
 	<select id="selectAnalytics" parameterType="java.lang.Integer" resultType="todayAnalyticsDetail">
-	select 
-	T_HITS as hits,
-	T_LIKE as likes,
-	T_COMMENTS as comments,
-	T_POST as post,
-	T_UPDATE_TIME as updateTime,
-	T_TIME_TYPE as timeType,
-	T_LIST_TYPE as listType
-	from TODAY_ANALYTICS 
-	where T_TIME_TYPE = #{type}
+		select
+		T_HITS as hits,
+		T_LIKE as likes,
+		T_COMMENTS as comments,
+		T_POST as post,
+		T_UPDATE_TIME as updateTime,
+		T_TIME_TYPE as
+		timeType,
+		T_LIST_TYPE as listType
+		from TODAY_ANALYTICS
+		where T_TIME_TYPE = #{type}
 	</select>
-	
-	<!-- 오늘 사이트 값 가져와서 분석하기   -->
+
+	<!-- 오늘 사이트 값 가져와서 분석하기 -->
 	<update id="updateAnalytics" parameterType="todayAnalyticsDetail">
-	UPDATE
-	today_Analytics 
-	SET T_HITS = #{hits},T_LIKE = #{likes}, T_COMMENTS = #{comments}, T_POST =#{post},
-	T_Time_Type = #{timeType}, T_UPDATE_TIME = SYSDATE  WHERE T_LIST_TYPE = #{listType} and t_time_type= #{timeType}
+		UPDATE
+		today_Analytics
+		SET T_HITS = #{hits},T_LIKE = #{likes}, T_COMMENTS = #{comments}, T_POST =#{post},
+		T_Time_Type = #{timeType}, T_UPDATE_TIME =
+		SYSDATE WHERE T_LIST_TYPE = #{listType} and t_time_type= #{timeType}
 	</update>
-	
-	<!-- 통계 - 사이트통계 -  어제것 업데이트하기  -->
+
+	<!-- 통계 - 사이트통계 - 어제것 업데이트하기 -->
 	<update id="yesterdayUpdate" parameterType="yesterdayAnalytic">
 		UPDATE BEFORE_DAY_TBL set
 		DT_HITS = #{tHVO.dtHits},
 		HT_HITS = #{tHVO.htHits},
 		BR_HITS = #{tHVO.brHits},
 		DT_COMMENTS = #{tCVO.dtComments},
-		HT_COMMENTS = #{tCVO.htComments},
+		HT_COMMENTS =
+		#{tCVO.htComments},
 		BR_COMMENTS = #{tCVO.brComments},
 		DT_BOARD = #{tPVO.dtBoard},
 		HT_BOARD = #{tPVO.htBoard},
 		BR_BOARD = #{tPVO.brBoard},
 		DT_LIKE = #{tLVO.dtLike},
 		HT_LIKE = #{tLVO.htLike},
-		BR_LIKE = #{tLVO.brLike}
+		BR_LIKE =
+		#{tLVO.brLike}
 		where to_date(bd_today,'yyyy/MM/dd') like sysdate-1
 	</update>
 
-	<!-- 통계 - 사이트통계 이전날 데이터 있는지 확인하는것   반환 -> 숫자, or null-->
+	<!-- 통계 - 사이트통계 이전날 데이터 있는지 확인하는것 반환 -> 숫자, or null -->
 	<select id="searchBeforeDayList" resultType="java.lang.Integer">
 		select BD_INDEX from BEFORE_DAY_TBL where bd_today like to_Char(sysdate-1,'yyyy/MM/dd')
 	</select>
-	
+
 	<!-- 통계 - 사이트통계 그래프 전체 값가져오기 -->
 	<select id="TodayAnalyticsDetailList" resultType="todayAnalyticsDetail">
-	select 
-	T_HITS as hits,
-	T_LIKE as likes, 
-	T_COMMENTS as comments,
-	T_POST as post,
-	T_Time_Type as timeType,
-	T_LIST_TYPE as listType,
-	T_UPDATE_TIME as updateTime
-	from today_Analytics 
-	where (t_update_time between trunc(sysdate) and trunc(sysdate+1))	 
+		select
+		T_HITS as hits,
+		T_LIKE as likes,
+		T_COMMENTS as comments,
+		T_POST as post,
+		T_Time_Type as timeType,
+		T_LIST_TYPE as listType,
+		T_UPDATE_TIME as
+		updateTime
+		from today_Analytics
+		where (t_update_time between trunc(sysdate) and trunc(sysdate+1))
 	</select>
-	
-	
+
+
 	<!-- 트레이너 전환 신청 리스트 -->
-	<select id="trainerRegList" parameterType="trainingRegPDVO"
-		resultType="trainerReg" resultMap="trainerRegDB">
+	<select id="trainerRegList" parameterType="trainingRegPDVO" resultType="trainerReg" resultMap="trainerRegDB">
 		SELECT * FROM
 		(SELECT TRAINER_REG_TBL.*,
 		ROW_NUMBER() OVER
 		(ORDER BY
 		TR_INDEX DESC)
-		AS NUM FROM TRAINER_REG_TBL
-		)TRT LEFT JOIN MEMBER_TBL MT ON(BP.MB_INDEX=MT.MB_INDEX)
+		AS NUM FROM
+		TRAINER_REG_TBL
+		)TRT LEFT JOIN MEMBER_TBL MT ON(TRT.MB_INDEX=MT.MB_INDEX)
 		WHERE NUM BETWEEN
 		#{start} AND #{end}
 	</select>
-	
+
 	<!-- 트레이너 전환 신청 네비 -->
-	<select id="getTrainerRegNavi" resultType="java.lang.Integer" >
+	<select id="getTrainerRegNavi" resultType="java.lang.Integer">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM TRAINER_REG_TBL
 	</select>
-	
+
 </mapper>

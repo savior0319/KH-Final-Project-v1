@@ -95,6 +95,7 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 			}
 		} else { // id가 없을 경우
 			String setNick = kakaoNickNum();
+			System.out.println("닉네임:"+setNick);
 			mv.setMbNickName(setNick);
 			int result = loginService.joinKaKao(mv);// 카카오톡 처음 로그인시 자동으로 가입처리됨.
 			if (result > 0) {// 가입성공하면

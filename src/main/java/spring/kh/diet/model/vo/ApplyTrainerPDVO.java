@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ApplyTrainerPDVO {
 	private ArrayList<TrainingRegVO> comList;
-	private String pageNavi, type;
+	private String pageNavi, type,trStatus;
 	private int start, end, mbIndex, bcaIndex;
 
 }
