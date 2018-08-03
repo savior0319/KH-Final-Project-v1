@@ -139,93 +139,106 @@
 
 						<tbody>
 
-							<!-- 공지사항 넣기! -->
+<!-- 공지사항 넣기! -->
 
-							<c:if test="${requestScope.cpdv.type.equals('15') }">
-								<c:forEach items="${requestScope.nvList}" var="nv">
-									<c:choose>
-										<c:when test="${nv.noticeType eq'15'}">
 
-											<tr align="center" style="background: rgba(171, 171, 171, 0.1);">
-												<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
-												<td>${nv.noticeTitle}</td>
-												<td>${nv.noticeWriter}</td>
-												<td>${nv.noticeView}</td>
-												<td>
-													<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
-												</td>
-											</tr>
+					<c:if test="${requestScope.cpdv.type.equals('15') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'자유게시판'}">
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);" class="aa">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td><a href="/noticeContent.diet?index=${nv.noticeIndex}">${nv.noticeTitle}</a></td>
+										<td><img class="ui avatar image" src="/resources/image/admin.png" />${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
 
-										</c:when>
-									</c:choose>
-								</c:forEach>
-							</c:if>
-							<c:if test="${requestScope.cpdv.type.equals('17') }">
-								<c:choose>
-									<c:when test="${nv.noticeType eq'17'}">
-										<tr align="center" style="background: rgba(171, 171, 171, 0.1);">
-											<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
-											<td>${nv.noticeTitle}</td>
-											<td>${nv.noticeWriter}</td>
-											<td>${nv.noticeView}</td>
-											<td>
-												<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
-											</td>
-										</tr>
-									</c:when>
-								</c:choose>
-							</c:if>
 
-							<c:if test="${requestScope.cpdv.type.equals('18') }">
-								<c:choose>
-									<c:when test="${nv.noticeType eq'18'}">
-										<tr align="center" style="background: rgba(171, 171, 171, 0.1);">
-											<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
-											<td>${nv.noticeTitle}</td>
-											<td>${nv.noticeWriter}</td>
-											<td>${nv.noticeView}</td>
-											<td>
-												<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
-											</td>
-										</tr>
-									</c:when>
-								</c:choose>
-							</c:if>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:if>
 
-							<c:if test="${requestScope.cpdv.type.equals('19') }">
-								<c:choose>
-									<c:when test="${nv.noticeType eq'19'}">
-										<tr align="center" style="background: rgba(171, 171, 171, 0.1);">
-											<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
-											<td>${nv.noticeTitle}</td>
-											<td>${nv.noticeWriter}</td>
-											<td>${nv.noticeView}</td>
-											<td>
-												<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
-											</td>
-										</tr>
-									</c:when>
-								</c:choose>
-							</c:if>
 
-							<c:if test="${requestScope.cpdv.type.equals('comAll') }">
-								<c:choose>
-									<c:when test="${nv.noticeType eq'comAll'}">
-										<tr align="center" style="background: rgba(171, 171, 171, 0.1);">
-											<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
-											<td>${nv.noticeTitle}</td>
-											<td>${nv.noticeWriter}</td>
-											<td>${nv.noticeView}</td>
-											<td>
-												<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
-											</td>
-										</tr>
-									</c:when>
-								</c:choose>
-							</c:if>
 
-							<!-- 공지사항 넣기 -->
-							<%-- 게시판 공지 끝 --%>
+
+					<c:if test="${requestScope.cpdv.type.equals('17') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'팁&노하우'}">
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);" class="aa">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td><a href="/noticeContent.diet?index=${nv.noticeIndex}">${nv.noticeTitle}</a></td>
+										<td><img class="ui avatar image" src="/resources/image/admin.png" />${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+
+					<c:if test="${requestScope.cpdv.type.equals('18') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'고민&질문'}">
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);" class="aa">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td><a href="/noticeContent.diet?index=${nv.noticeIndex}">${nv.noticeTitle}</a></td>
+										<td><img class="ui avatar image" src="/resources/image/admin.png" />${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+
+					<c:if test="${requestScope.cpdv.type.equals('19') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'비포&애프터'}">
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);" class="aa">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td><a href="/noticeContent.diet?index=${nv.noticeIndex}">${nv.noticeTitle}</a></td>
+										<td><img class="ui avatar image" src="/resources/image/admin.png" />${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+
+					<c:if test="${requestScope.cpdv.type.equals('comAll') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'전체'}">
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);" class="aa">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td><a href="/noticeContent.diet?index=${nv.noticeIndex}">${nv.noticeTitle}</a></td>
+										<td><img class="ui avatar image" src="/resources/image/admin.png" />${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+
+					<!-- 공지사항 넣기 -->
+					<%-- 게시판 공지 끝 --%>
 							<c:forEach items="${requestScope.cpdv.comList}" var="c">
 								<tr align="center">
 									<td>${c.bcaName}</td>
@@ -351,6 +364,12 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+	$(document).ready(function() {
+		$('.aa').hide();
+		$('.aa').eq(0).show();
+		$('.aa').eq(1).show();
+	});
+
 	var st = $('#searchT').val();
 	var cate = $('#category').val();
 
