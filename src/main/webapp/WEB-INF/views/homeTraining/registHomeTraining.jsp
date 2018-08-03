@@ -273,7 +273,7 @@
 				var $video = $('#video').val();
 				var $mainPhotoPath = $('#mainPhotoPath').val();
 
-				if (category != null && $title != '' && $content != '') {
+				if (category != null && $title != '' && $content != '<p><br></p>') {
 					$.ajax({
 						url : '/registHomeTraining.diet',
 						type : 'post',
@@ -304,7 +304,10 @@
 				} else {
 					if (category == null) {
 						alert('카테고리를 선택하여주세요.');
-					} else {
+					} else if($title == ''){
+						alert('제목을 반드시 기입하여주세요.');
+					} 
+					else{
 						alert('내용을 반드시 기입하여주세요.');
 					}
 				}

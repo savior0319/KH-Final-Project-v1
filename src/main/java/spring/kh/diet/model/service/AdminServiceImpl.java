@@ -55,7 +55,7 @@ public class AdminServiceImpl implements AdminService {
 	/* 전체 회원 조회 */
 	@Override
 	public MemberListPDVO getMemberList(int currentPage) {
-		int recordCountPerPage = 20;
+		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 
 		MemberListPDVO mbPd = new MemberListPDVO();

@@ -114,7 +114,6 @@
 		}else{
 			alert('로그인 후 이용이 가능합니다.');
 		}
-		
 	}
 
 	function trainerFind(){

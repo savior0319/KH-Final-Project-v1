@@ -44,5 +44,14 @@ public interface CommunityController {
 
 	String commentLike(BoardLikeVO checkVO, HttpSession session);
 
+	int configCookie(HttpSession session, HttpServletRequest request, HttpServletResponse response, int postIndex);
+
+	BoardLikeVO checkLike(int postIndex, int sessionIndex);
+
+	BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex);
+
+	BoardBlameVO checkPostBlame(int postIndex, int sessionIndex);
+
+	BoardLikeVO checkCommentLike(int postIndex, int sessionIndex);
 
 }

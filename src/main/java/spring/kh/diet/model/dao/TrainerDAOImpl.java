@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.ProgramPageDataVO;
 import spring.kh.diet.model.vo.TrainerAreaListVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
@@ -20,14 +21,14 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 	}
 
-	/* 주석 어디감ㅡㅡ */
+	/* 트레이너 인덱스 추출 */
 	@Override
 	public TrainingRegVO getTrIndex(SqlSessionTemplate session, MemberVO mv) {
 		TrainingRegVO trv = session.selectOne("trainer.getTrIndex", mv);
 		return trv;
 	}
 
-	/* 주석 어디감ㅡㅡ */
+	/* 트레이너 프로그램 등록 */
 	@Override
 	public int registTrainerProgram(SqlSessionTemplate session, TrainerProgramVO tpv) {
 		return session.insert("trainer.registTrainerProgram", tpv);
@@ -38,7 +39,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 		return result;
 	}
 
-	/* 주석 어디감ㅡㅡ */
+	/* 프로그램 리스트 네비 */
 	@Override
 	public String getProgramListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage, int trIndex) {
@@ -104,7 +105,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 		return sb.toString();
 	}
 
-	/* 주석 어디감ㅡㅡ */
+	/* 프로그램 리스트  */
 	@Override
 	public ArrayList<TrainerProgramVO> getProgramList(SqlSessionTemplate session, int currentPage,
 			int recordCountPerPage, int trIndex) {
@@ -149,10 +150,22 @@ public class TrainerDAOImpl implements TrainerDAO {
 		return (ArrayList<TrainingRegVO>) list;
 
 	}
-
+	/* 프로그램 상세페이지 */
 	@Override
 	public TrainerProgramVO programDetail(SqlSessionTemplate session, int tpIndex) {
 		return session.selectOne("trainer.programDetail",tpIndex);
+	}
+	
+	/* 결제완료 */
+	@Override
+	public int paymentSuccess(SqlSessionTemplate session, PaymentVO pv) {
+		return session.insert("trainer.paymentSuccess",pv);
+	}
+	
+	/* 프로그램 남은인원 -1 */
+	@Override
+	public int programPersonnel(SqlSessionTemplate session, PaymentVO pv) {
+		return session.insert("trainer.programPersonnel",pv);
 	}
 
 }

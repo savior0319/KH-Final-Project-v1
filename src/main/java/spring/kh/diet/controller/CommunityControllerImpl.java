@@ -213,6 +213,7 @@ public class CommunityControllerImpl implements CommunityController {
 	}
 
 	// 쿠키저장 메소드
+	@Override
 	public int configCookie(HttpSession session, HttpServletRequest request, HttpServletResponse response,
 			int postIndex) {
 		String mbIndex = "";
@@ -249,6 +250,7 @@ public class CommunityControllerImpl implements CommunityController {
 	}
 
 	// 좋아요 확인 메소드
+	@Override
 	public BoardLikeVO checkLike(int postIndex, int sessionIndex) {
 		BoardLikeVO likeCheckVO = new BoardLikeVO();
 		likeCheckVO.setTargetIndex(postIndex);
@@ -258,6 +260,7 @@ public class CommunityControllerImpl implements CommunityController {
 	}
 
 	// 북마크 확인 메소드
+	@Override
 	public BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex) {
 		BoardBookMarkVO bookMarkCheckVO = new BoardBookMarkVO();
 		bookMarkCheckVO.setPostIndex(postIndex);
@@ -429,6 +432,7 @@ public class CommunityControllerImpl implements CommunityController {
 	}
 
 	// 게시글 신고 체크
+	@Override
 	public BoardBlameVO checkPostBlame(int postIndex, int sessionIndex) {
 		BoardBlameVO checkBlame = new BoardBlameVO();
 		checkBlame.setTargetIndex(postIndex);
@@ -463,6 +467,7 @@ public class CommunityControllerImpl implements CommunityController {
 	}
 	
 	// 좋아요 확인 메소드
+	@Override
 	public BoardLikeVO checkCommentLike(int postIndex, int sessionIndex) {
 		BoardLikeVO likeCheckVO = new BoardLikeVO();
 		likeCheckVO.setTargetIndex(postIndex);

@@ -33,12 +33,11 @@ import spring.kh.diet.model.vo.MyCommentPageDataVO;
 import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
-import spring.kh.diet.model.vo.OneSessionVO;
+import spring.kh.diet.model.vo.PaymentPDVO;
 import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
-import sun.java2d.pipe.AlphaPaintPipe;
 
 @SuppressWarnings("all")
 @Controller
@@ -196,19 +195,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/secessionMember.diet")
 	public void secessionMember(HttpSession session, HttpServletResponse response) throws IOException {
 		if (session.getAttribute("member") != null) {
-			// 인보부분(세션 파기전 세션의 정보를 넘겨야합니다)
-			// Onsession 값을 가져와서 OffSession TB에 값을 넣어주주고
-			OneSessionVO OSV = myInfoService.selectOneSession(session.getId());
-						
-			int result2 = myInfoService.insertSession(OSV);
-			// Onsession TB에서의 데이터삭제
-
-			if(result2>0)
-			{
-				myInfoService.transSession(session.getId());				
-			}
-			
-			
 			MemberVO mv = (MemberVO) session.getAttribute("member");
 			int result = myInfoService.secessionMember(mv);
 			if (result > 0) {
@@ -459,7 +445,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		MyQuestionPageDataVO myQuestion = myInfoService.allMyOneToOneQuestion(currentPage, ma);
-		System.out.println(myQuestion);
+
 		request.setAttribute("myQuestion", myQuestion);
 		return "myInfo/myOneToOneQuestion";
 
@@ -482,23 +468,23 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		PaymentVO pv = new PaymentVO(); // 판매여부
 		pv.setMbIndex(mv.getMbIndex());
-		
-		ArrayList<PaymentVO> checkSale = new ArrayList<PaymentVO>();
-		
+
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		ModelAndView view = new ModelAndView();
+
 		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tr);
 		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage, tv);
-		checkSale = myInfoService.checkSale(pv);
-		
+		ArrayList<PaymentVO> checkSale = myInfoService.checkSale(pv);
+				
 		view.addObject("applyTrainer", applyTrainer);
 		view.addObject("myRequest", myRequest);
 		view.addObject("checkSale", checkSale);
-		
+
+		System.out.println("ChecK"+checkSale);
 		view.setViewName("myInfo/imTrainer");
 		return view;
 

@@ -220,8 +220,6 @@
 		FROM (SELECT
 		On_SESSION_TBL.*, ROW_NUMBER() OVER(ORDER BY SS_INDEX ASC) AS NUM FROM
 		ON_SESSION_TBL)
-		WHERE NUM BETWEEN #{start} and
-		#{end}
 	</select>
 
 	<!-- 관리자 접속자 통계 : 현제접속자 리스트 네비게이션 -->

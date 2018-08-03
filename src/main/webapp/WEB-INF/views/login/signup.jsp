@@ -496,12 +496,25 @@
 				var radio = $('input:radio[class=rbtn]').is(':checked');
 
 				if(idPass == false || nickNamePass == false || pwdCheck == false || pwdRePass == false || radio == false){
-					alert('가입 형식을 확인해주세요');
+					if(typeof Android !== "undefined" && Android !==null){
+						Android.checkEnrollForm();
+					}else{
+						alert('가입 형식을 확인해주세요');
+					}
 					return false;
 				} else if($('#termCheck').is(":checked") == false){
-					alert('약관동의를 해주세요')
+					if(typeof Android !== "undefined" && Android !==null){
+						Android.checkAgree();
+					}else{
+						alert('약관동의를 해주세요')
+					}
+					return false;
 				} else {
-					alert('가입이 완료 되었습니다');
+					if(typeof Android !== "undefined" && Android !==null){
+						Android.enrollOK();
+					}else{
+						alert('가입이 완료 되었습니다');
+					}
 					return true;
 				}
 			})

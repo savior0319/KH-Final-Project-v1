@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.kh.diet.model.dao.TrainerDAO;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.ProgramPageDataVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainerSearchVO;
@@ -31,20 +33,20 @@ public class TrainerServiceImpl implements TrainerService {
 		return trv;
 	}
 
-	/* 주석 어디감ㅡㅡ */
+	/* 프로그램 등록 */
 	@Override
 	public int registTrainerProgram(TrainerProgramVO tpv) {
 		int result = trDao.registTrainerProgram(session, tpv);
 		return result;
 	}
 
-	/* 주석 어디감ㅡㅡ */
+	/* 트레이너 등록 */
 	@Override
 	public int trainerReg(TrainingRegVO register) {
 		return trDao.trainerReg(session, register);
 	}
 
-	/* 주석 어디감ㅡㅡ */
+	/* 프로그램리스트 추출 */
 	@Override
 	public ProgramPageDataVO getProgramList(int currentPage, int trIndex) {
 		int recordCountPerPage = 10;
@@ -69,10 +71,24 @@ public class TrainerServiceImpl implements TrainerService {
 	public ArrayList<TrainingRegVO> trainerSearch(TrainerSearchVO tsv) {
 		return trDao.trainerSearch(session, tsv);
 	}
-
+	
+	/* 프로그램 상세페이지  */
 	@Override
 	public TrainerProgramVO programDetail(int tpIndex) {
 		return trDao.programDetail(session, tpIndex);
 	}
+
+	/* 결제완료 메소드 */
+	@Override
+	public int paymentSuccess(PaymentVO pv) {
+		return trDao.paymentSuccess(session, pv);
+	}
+	
+	/* 프로그램 남은인원 -1 */
+	@Override
+	public int programPersonnel(PaymentVO pv) {
+		return trDao.programPersonnel(session, pv);
+	}
+	
 
 }

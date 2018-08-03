@@ -660,7 +660,12 @@
 				} else if(data=='failed') {
 					alert('페이지에 오류가 발생하였습니다.');
 				} else if(data=='used') {
-					alert('이미 추천한 게시물 입니다.');
+					if(typeof Android !== "undefined" && Android !==null){
+						Android.alreadyLike();
+					}else{
+						alert('이미 추천한 댓글 입니다.');
+					}
+					
 				}
 			}
 		})
@@ -867,7 +872,11 @@
 					var commentContent = $('#commentContent').val();
 					
 					if(commentContent==''){
-						alert('댓글을 입력해 주세요');
+						if(typeof Android !== "undefined" && Android !==null){
+							Android.noComment();
+						}else{
+							alert('댓글을 입력해 주세요');
+						}
 						return;
 					}
 					

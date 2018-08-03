@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainerSearchVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -26,6 +27,10 @@ public interface TrainerDAO {
 	ArrayList<TrainingRegVO> trainerSearch(SqlSessionTemplate session, TrainerSearchVO tsv);
 
 	TrainerProgramVO programDetail(SqlSessionTemplate session, int tpIndex);
+
+	int paymentSuccess(SqlSessionTemplate session, PaymentVO pv);
+
+	int programPersonnel(SqlSessionTemplate session, PaymentVO pv);
 
 
 }

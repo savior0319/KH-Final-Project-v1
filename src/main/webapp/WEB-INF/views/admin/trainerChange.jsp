@@ -8,7 +8,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>트레이너 회원 관리</title>
+<title>관리자 - 트레이너 회원 관리</title>
 </head>
 
 <!-- CSS -->

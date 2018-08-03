@@ -78,9 +78,9 @@
 						AND HT_TITLE LIKE '%'||#{searchText}||'%'
 					</when>
 					<when test="category.equals('titleContents')">
-						AND HT_TITLE LIKE '%'||#{searchText}||'%'
+						AND (HT_TITLE LIKE '%'||#{searchText}||'%'
 						OR
-						HT_EXPLAIN LIKE '%'||#{searchText}||'%'
+						HT_EXPLAIN LIKE '%'||#{searchText}||'%')
 					</when>
 					<when test="category.equals('writer')">
 						AND MB.MB_NICKNAME LIKE '%'||#{searchText}||'%'
@@ -134,9 +134,9 @@
 						AND HT_TITLE LIKE '%'||#{searchText}||'%'
 					</when>
 					<when test="category.equals('titleContents')">
-						AND HT_TITLE LIKE '%'||#{searchText}||'%'
+						AND (HT_TITLE LIKE '%'||#{searchText}||'%'
 						OR
-						HT_EXPLAIN LIKE '%'||#{searchText}||'%'
+						HT_EXPLAIN LIKE '%'||#{searchText}||'%')
 					</when>
 					<when test="category.equals('writer')">
 						AND MB.MB_NICKNAME LIKE '%'||#{searchText}||'%'
