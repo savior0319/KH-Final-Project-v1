@@ -96,6 +96,8 @@
 		#{start} AND #{end}
 
 	</select>
+	
+	<!-- 트레이너 - 등록프로그램 판매여부 체크 -->
 	<select id="checkSale" resultType="payment" parameterType="payment">
 		
         SELECT 
