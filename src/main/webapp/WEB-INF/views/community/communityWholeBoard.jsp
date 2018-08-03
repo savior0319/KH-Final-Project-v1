@@ -67,10 +67,18 @@
 	<div class="ui center aligned container">
 		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
+			<li>
+				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
+			</li>
 		</ul>
 		<br>
 		<div class="ui left aligned container">
@@ -116,43 +124,88 @@
 		<%-- </c:if> --%>
 		<br>
 		<!-- 글목록 -->
+
 		<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
 
-			<table class="ui very compact table">
-				<thead>
-					<tr align="center">
-						<th style="width: 15%;">게시판</th>
-						<th style="width: 50%;">제목</th>
-						<th style="width: 15%;">작성자</th>
-						<th style="width: 10%;">조회수</th>
-						<th style="width: 10%;">작성일</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<c:forEach items="${requestScope.cpdv.comList}" var="c">
-						<tr align="center">
-							<td>${c.bcaName}</td>
-							<td style="padding-top: 15px; padding-bottom: 15px;"><a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}"> <c:choose>
-										<c:when test="${fn:length(c.postTitle)>30}">
-											<c:out value="${fn:substring(c.postTitle,0,29)}" />...
+			<c:choose>
+				<c:when test="${requestScope.cpdv.comList[0].postIndex!=null}">
+					<table class="ui very compact table">
+						<thead>
+							<tr align="center">
+								<th style="width: 15%;">게시판</th>
+								<th style="width: 50%;">제목</th>
+								<th style="width: 15%;">작성자</th>
+								<th style="width: 10%;">조회수</th>
+								<th style="width: 10%;">작성일</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<c:forEach items="${requestScope.cpdv.comList}" var="c">
+								<tr align="center">
+									<td>${c.bcaName}</td>
+									<td style="padding-top: 15px; padding-bottom: 15px;">
+										<a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}">
+											<c:choose>
+												<c:when test="${fn:length(c.postTitle)>30}">
+													<c:out value="${fn:substring(c.postTitle,0,29)}" />...
 								</c:when>
-										<c:otherwise>
+												<c:otherwise>
 									${c.postTitle}
 								</c:otherwise>
-									</c:choose>
-							</a></td>
-							<td><img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'> ${c.postNickname}</td>
-							<td>${c.postHit}</td>
-							<td><fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" /></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-				
-			</table>
+											</c:choose>
+										</a>
+									</td>
+									<td>
+										<img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
+										${c.postNickname}
+									</td>
+									<td>${c.postHit}</td>
+									<td>
+										<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
+									</td>
+								</tr>
+							</c:forEach>
+
+						</tbody>
+
+					</table>
+
+					<br>
+				</c:when>
+				<c:otherwise>
+					<table class="ui very compact table">
+						<thead>
+							<tr align="center">
+								<th style="width: 15%;">게시판</th>
+								<th style="width: 50%;">제목</th>
+								<th style="width: 15%;">작성자</th>
+								<th style="width: 10%;">조회수</th>
+								<th style="width: 10%;">작성일</th>
+							</tr>
+						</thead>
+					</table>
+
+					<div class="ui red medium message">
+						<br>
+						<i class="exclamation huge icon"></i>
+						<div class="ui medium header">
+							<br>
+							※게시물이 존재하지 않습니다.
+							<br>
+							다른 키워드로 검색을 해주세요.
+							<br>
+							<br>
+							<br>
+						</div>
+					</div>
+
+
+				</c:otherwise>
+			</c:choose>
 		</div>
 
-		<br>
 
 
 
@@ -160,17 +213,18 @@
 			<div class="three column row">
 				<div class="column"></div>
 				<div class="column">
-				<c:if test="${requestScope.cpdv.comList[0] !=null}">
-					<div class="ui center aligned basic segment">
-						<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
-					</div>
+					<c:if test="${requestScope.cpdv.comList[0] !=null}">
+						<div class="ui center aligned basic segment">
+							<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
+						</div>
 					</c:if>
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
 						<c:if test="${sessionScope.member!=null}">
 							<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="return loginCheck();">
-								<i class="edit icon"></i> 등록
+								<i class="edit icon"></i>
+								등록
 							</button>
 						</c:if>
 					</div>
@@ -178,7 +232,7 @@
 			</div>
 			<br>
 		</div>
-		
+
 		<div id="size2" class="ui center aligned grid">
 
 			<c:if test="${requestScope.cpdv.comList[0]!=null }">
@@ -189,8 +243,8 @@
 
 			<br>
 		</div>
-		
-		
+
+
 		<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 		<br>
 		<div class="ui secondary segment">
@@ -204,7 +258,8 @@
 						<div class="item">작성자</div>
 					</div>
 				</div>
-				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)" /> <i class="circular search link icon" onclick="searchBtn()"></i>
+				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)" />
+				<i class="circular search link icon" onclick="searchBtn()"></i>
 			</div>
 		</div>
 
@@ -231,15 +286,15 @@
 			data : {
 				'mbId' : mbId
 			},
-			success : function(data){
-				if(data=='n'){
-					location.href = "/registCommunity.diet";			
+			success : function(data) {
+				if (data == 'n') {
+					location.href = "/registCommunity.diet";
 				} else {
 					alert('\n글쓰기 정지당한 회원입니다. \n\n관리자에게 문의하세요.')
 				}
 			}
 		});
-		
+
 	});
 
 	/* 클릭시 각 페이지로 이동 ????????????????????????????????????????? */
@@ -281,14 +336,16 @@
 	}
 	function searchBtn() {
 		$searchText = $('#searchText').val();
-		
+
 		if (category == "") {
 			alert('카테고리를 선택하여주세요.');
-		}else{
+		} else if ($searchText == "") {
+			alert('검색어를 입력하여 주세요.');
+		} else {
 			location.href = "/communitySearch.diet?category=" + category
-			+ "&searchText=" + $searchText;
+					+ "&searchText=" + $searchText;
 		}
-		
+
 		/* + "&type=" + type */
 
 	}

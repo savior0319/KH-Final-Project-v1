@@ -109,7 +109,12 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 	function trainerReg(){
+		var member = '${sessionScope.member}';
+		if(member!=''){
 		location.href="/trainerReg.diet";
+		}else{
+			alert('로그인 후 신청이 가능합니다.');
+		}
 	}
 
 	function trainerFind(){
