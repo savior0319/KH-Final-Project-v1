@@ -141,25 +141,22 @@
 			</div>
 
 			<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
-			<div class="ui basic floating dropdown button">
-				<div class="text">선택</div>
-				<i class="dropdown icon"></i>
-				<div class="menu">
-					<div class="item">제목</div>
-					<div class="item">작성자</div>
+			<div class="ui center aligned basic segment">
+			<div class="ui secondary segment">
+				<div class="ui left action right icon input">
+					<div class="ui basic floating dropdown button">
+						<div class="text">선택</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<div class="item">제목</div>
+							<div class="item">작성자</div>
+						</div>
+					</div>
+					<input type="text" placeholder="Search..." id="searchText" style="width: 70%;"  onkeypress="runScript(event)" > <i class="circular search link icon" onclick="searchBtn()"></i>
 				</div>
-
 			</div>
 
-			<div class="ui right action left icon input">
-				<i class="search icon"></i> <input type="text" placeholder="Search"
-					id="searchText" onkeypress="runScript(event)" >
-
-				<button class="ui right red basic button"
-					style="margin-left: 4px; margin-right: 40px;"
-					onclick="searchBtn();">검색</button>
-
-			</div>
+		</div>
 		</div>
 		
 		

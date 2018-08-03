@@ -1,7 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<jsp:include page="/resources/layout/scrollUp.jsp"></jsp:include>
 <!-- 인보 - 세션생성  및 브라우저 확인  -->
 
 <c:if test="${sessionScope.member.mbId == null}">
@@ -106,7 +106,7 @@
 			<span class="menu">
 				<a href="/logout.diet">로그아웃</a>
 			</span>
-			<span class="menu">
+			<span id="size1" class="menu">
 				<a href="/myInfo.diet">마이페이지</a>
 			</span>
 		</c:if>

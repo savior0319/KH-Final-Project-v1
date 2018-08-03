@@ -137,7 +137,7 @@ p>span {
 		</div>
 
 		<!-- 내용 들어가는 부분! -->
-		<div class="ui clearing segment">
+		<div class="ui clearing segment" style="word-break:break-all;">
 			${requestScope.dt.dtExplain } <br> <br> <br> <br>
 			<hr style="border: 1px dashed #D5D5D5;">
 			<br> <br>
@@ -279,16 +279,36 @@ p>span {
 			</h3>
 
 
-			<form class="ui reply form">
-				<div class="field">
-					<textarea id="commentContent" style="resize: none;" name="content"></textarea>
-				</div>
-				<div class="ui right aligned container">
-					<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="addComment();">
-						<i class="icon edit"></i>등록
+			<c:choose>
+				<c:when test="${sessionScope.member!=null}">
+				<!-- 로그인 한경우 -->
+				<form class="ui reply form">
+					<div class="field">
+						<textarea style="resize: none;" id="commentContent"></textarea>
 					</div>
-				</div>
-			</form>
+					<div class="ui right aligned container">
+						<div class="ui labeled submit icon button"
+							style="background-color: #fa2828; color: white;"
+							onclick="addComment();">
+							<i class="icon edit"></i> 등록
+						</div>
+					</div>
+				</form>
+				</c:when>
+				<c:otherwise>
+					<!-- 로그인 하지 않았을 경우 -->
+					<form class="ui reply form">
+						<div class="field">
+							<textarea id="commentContent" style="resize: none;" name="content" placeholder="로그인 후 이용이 가능합니다." readonly></textarea>
+						</div>
+
+					</form>
+				</c:otherwise>
+				</c:choose>
+			
+			
+			
+			
 			<br> <br>
 
 			<div id="comment">
@@ -487,7 +507,7 @@ p>span {
 						}
 					},
 					error : function() {
-						alert('실패');
+						alert('로그인 후 이용가능합니다.');
 					}
 				});
 			});
