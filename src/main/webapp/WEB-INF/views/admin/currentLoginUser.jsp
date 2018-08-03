@@ -65,7 +65,7 @@ var data = new google.visualization.DataTable();
 
 
 
-<title>관리자</title>
+<title>관리자 - 현재 접속자</title>
 </head>
 
 <!-- CSS -->

@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>다이어트</title>
+<title>관리자 - 에러 로그 관리 리스트</title>
 </head>
 
 <!-- CSS -->

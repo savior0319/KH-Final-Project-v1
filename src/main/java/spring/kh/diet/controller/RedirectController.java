@@ -23,11 +23,11 @@ public interface RedirectController {
 	String redirectCalCal();
 
 	String redirectMyOneToOneQuestion();
-	
+
 	String redirectMyDiary();
 
 	String redirectRegistCommunity();
-  
+
 	String redirectSignup();
 
 	String redirectLogin();
@@ -44,5 +44,8 @@ public interface RedirectController {
 
 	String redirectSangpoom();
 
+	String redirectPageManagement();
+
+	String redirectFaq();
 
 }

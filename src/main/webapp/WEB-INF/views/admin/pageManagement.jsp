@@ -7,7 +7,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>관리자 - 이름이름</title>
+<title>관리자 - 페이지 관리</title>
 </head>
 
 <!-- CSS -->
@@ -27,7 +27,10 @@ body {
 	<br>
 	<br>
 	<div class="ui container">
-		<div class="ui center aligned segment"></div>
+		<div class="ui center aligned segment">
+			<h1>페이지 관리</h1>  
+		</div>
+		광고 변경 할꺼야!
 	</div>
 
 
