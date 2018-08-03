@@ -1,10 +1,15 @@
 package spring.kh.diet.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -16,9 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.ApplicationScope;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.AdminService;
@@ -27,12 +35,6 @@ import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
-import spring.kh.diet.model.vo.BoardBlameVO;
-import spring.kh.diet.model.vo.BoardBookMarkVO;
-import spring.kh.diet.model.vo.BoardCommentPDVO;
-import spring.kh.diet.model.vo.BoardLikeVO;
-import spring.kh.diet.model.vo.BoardPostVO;
-import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -249,7 +251,7 @@ public class AdminControllerImpl implements AdminController {
 	@Override
 	@RequestMapping(value = "/trainer.diet")
 	public String trainer(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
@@ -259,13 +261,12 @@ public class AdminControllerImpl implements AdminController {
 		}
 
 		TrainingRegPageDataVO trpdv = as.trainerRegList(currentPage);
-		
+
 		request.setAttribute("trpdv", trpdv);
-		
+
 		return "admin/trainer";
 	}
 
-	
 	// 트레이너 등급 신청 회원 등록된 글 들어가는 곳
 	@Override
 	@RequestMapping(value = "/trainerRegContents.diet")
@@ -278,17 +279,15 @@ public class AdminControllerImpl implements AdminController {
 
 		return "admin/trainerRegContents";
 	}
-	
 
 	// 트레이너 등급 신청 거절
 	@Override
 	@ResponseBody
 	@RequestMapping(value = "/denyTrainerReg.diet")
 	public String denyTrainerReg(HttpServletRequest request, HttpSession session) {
-		
+
 		int trIndex = Integer.parseInt(request.getParameter("trIndex"));
-		
-		
+
 		int result = as.denyTrainerReg(trIndex);
 
 		if (result > 0) {
@@ -297,38 +296,36 @@ public class AdminControllerImpl implements AdminController {
 			return "failed";
 		}
 	}
-	
-	
+
 	// 트레이너 등급 신청 승인
 	@Override
 	@ResponseBody
 	@RequestMapping(value = "/acceptTrainerReg.diet")
 	public String acceptTrainerReg(HttpServletRequest request, HttpSession session) {
-		
+
 		int trIndex = Integer.parseInt(request.getParameter("trIndex"));
-		
+
 		int result = as.acceptTrainerReg(trIndex);
 
-		if(result > 0) {
+		if (result > 0) {
 			int result2 = as.changeTrainerGrade(trIndex);
-			
+
 			if (result2 > 0) {
 				return "success";
 			} else {
 				return "failed";
 			}
-		}else {
+		} else {
 			return "denied";
 		}
 
 	}
-	
-	
-	/* 트레이너  회원 관리 */
+
+	/* 트레이너 회원 관리 */
 	@Override
 	@RequestMapping(value = "/trainerChange.diet")
 	public String trainerChange(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		
+
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
@@ -338,15 +335,12 @@ public class AdminControllerImpl implements AdminController {
 		}
 
 		TrainingRegPageDataVO trpdv = as.trainerChange(currentPage);
-		
+
 		request.setAttribute("trpdv", trpdv);
-		
+
 		return "admin/trainerChange";
 	}
 
-	
-	
-	
 	/* 1:1문의 답변하기 */
 	@Override
 	@RequestMapping(value = "/answer.diet")
@@ -417,6 +411,85 @@ public class AdminControllerImpl implements AdminController {
 		return "admin/blackListContent";
 	}
 
+	/* 배너 이미지 업로드 */
+	@Override
+	@RequestMapping(value = "/logoImageUpload.diet", method = RequestMethod.POST, produces = "text/plain")
+	public void logoImageUpload(HttpServletRequest request, HttpServletResponse response,
+			MultipartHttpServletRequest req) throws IOException {
+		req.setCharacterEncoding("utf-8");
+
+		// 파일 경로
+		String path = request.getSession().getServletContext().getRealPath("imageUpload");
+
+		Map<String, MultipartFile> file = req.getFileMap();
+
+		String reName1 = "";
+		String reName2 = "";
+		String reName3 = "";
+		String reName4 = "";
+
+		System.out.println(file.get("uploadfile2").getOriginalFilename());
+		System.out.println(file.get("uploadfile3").getOriginalFilename());
+		System.out.println(file.get("uploadfile4").getOriginalFilename());
+
+		// 첫번째 파일
+		UUID randomString1 = UUID.randomUUID();
+		String getFile1 = file.get("uploadfile1").getOriginalFilename();
+		int index1 = getFile1.lastIndexOf(".");
+		String name1 = getFile1.substring(0, index1);
+		String ext1 = getFile1.substring(index1, getFile1.length());
+		reName1 = name1 + "_" + randomString1 + ext1;
+
+		// 파일 저장
+		File reFile1 = new File(path, reName1);
+		file.get("uploadfile1").transferTo(reFile1);
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().print("/imageUpload" + "/" + reName1);
+
+		// 두번째 파일
+		UUID randomString2 = UUID.randomUUID();
+		String getFile2 = file.get("uploadfile2").getOriginalFilename();
+		int index2 = getFile2.lastIndexOf(".");
+		String name2 = getFile2.substring(0, index2);
+		String ext2 = getFile2.substring(index2, getFile2.length());
+		reName2 = name2 + "_" + randomString2 + ext2;
+
+		// 파일 저장
+		File reFile2 = new File(path, reName2);
+		file.get("uploadfile2").transferTo(reFile2);
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().print("/imageUpload" + "/" + reName2);
+
+		// 세번째 파일
+		UUID randomString3 = UUID.randomUUID();
+		String getFile3 = file.get("uploadfile3").getOriginalFilename();
+		int index3 = getFile3.lastIndexOf(".");
+		String name3 = getFile3.substring(0, index3);
+		String ext3 = getFile3.substring(index3, getFile3.length());
+		reName3 = name3 + "_" + randomString3 + ext3;
+
+		// 파일 저장
+		File reFile3 = new File(path, reName3);
+		file.get("uploadfile3").transferTo(reFile3);
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().print("/imageUpload" + "/" + reName3);
+
+		// 네번째 파일
+		UUID randomString4 = UUID.randomUUID();
+		String getFile4 = file.get("uploadfile4").getOriginalFilename();
+		int index4 = getFile4.lastIndexOf(".");
+		String name4 = getFile4.substring(0, index4);
+		String ext4 = getFile4.substring(index4, getFile4.length());
+		reName4 = name4 + "_" + randomString4 + ext4;
+
+		// 파일 저장
+		File reFile4 = new File(path, reName4);
+		file.get("uploadfile4").transferTo(reFile4);
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().print("/imageUpload" + "/" + reName4);
+
+	}
+
 	////////////////////////////
 	////////////////////////////
 	////////////////////////////
@@ -433,7 +506,7 @@ public class AdminControllerImpl implements AdminController {
 		todayAnalyticPDVO tAPDVO = todayAutoAnalytics();
 		tAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Current", tAPDVO);
-		
+
 		// BEFORE_DAY_TBL 를 불러와서 데이터를 가져오는것.
 		yesterdayAnalytic yAPDVO = yesterdayAnalytics();
 		yAPDVO.setType(request.getParameter("type"));
@@ -464,9 +537,9 @@ public class AdminControllerImpl implements AdminController {
 		request.setAttribute("OnSessionSize", OSVO.size());
 		request.setAttribute("AllSession", ASVO);
 		request.setAttribute("AllSessionSize", ASVO.size());
-		
+
 		// 시간값가져오기
-		
+
 		long time = System.currentTimeMillis();
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String totalDay = dayTime.format(new Date(time));
@@ -477,6 +550,7 @@ public class AdminControllerImpl implements AdminController {
 		int todayHour = Integer.parseInt(tD3.nextToken());
 		int todayMinute = Integer.parseInt(tD3.nextToken());
 		int todaySecond = Integer.parseInt(tD3.nextToken());
+		/// 그래프 분석할 자료들고오기.
 		int timeType = 0; 
 		if (todayHour < 12) {timeType = 1;}
 		if (12 <= todayHour && todayHour < 15) {timeType = 2;}
@@ -486,31 +560,45 @@ public class AdminControllerImpl implements AdminController {
 		/// 그래프 분석할 자료들고오기. 
 		ArrayList<TodayAnalyticsDetail> TotalList = as.TodayAnalyticsDetailList();
 		ModelAndView view = new ModelAndView();
-		int thits = 0; int tlike =0; int tcomments=0; int tpost =0;
-		int hhits = 0; int hlike =0; int hcomments=0; int hpost =0;
-		int chits = 0; int clike =0; int ccomments=0; int cpost =0;
+		int thits = 0;
+		int tlike = 0;
+		int tcomments = 0;
+		int tpost = 0;
+		int hhits = 0;
+		int hlike = 0;
+		int hcomments = 0;
+		int hpost = 0;
+		int chits = 0;
+		int clike = 0;
+		int ccomments = 0;
+		int cpost = 0;
 		for (int i = 0; i < TotalList.size(); i++) {
 			int ListType = TotalList.get(i).getListType();
 			int TimeType = TotalList.get(i).getTimeType();
 			switch (ListType) {
 			case 1:
-			//  다이어트 팁에 대한 전체 정보
-//				System.out.println(TotalList.get(i).toString());
+				// 다이어트 팁에 대한 전체 정보
+				// System.out.println(TotalList.get(i).toString());
 				thits += TotalList.get(i).getHits();
 				tlike += TotalList.get(i).getLikes();
 				tcomments += TotalList.get(i).getComments();
 				tpost += TotalList.get(i).getPost();
 				view.addObject("AT1", TotalList.get(i));
 				switch (TimeType) {
-				case 1: view.addObject("T1", TotalList.get(i));
+				case 1:
+					view.addObject("T1", TotalList.get(i));
 					break;
-				case 2: view.addObject("T2", TotalList.get(i));
+				case 2:
+					view.addObject("T2", TotalList.get(i));
 					break;
-				case 3: view.addObject("T3", TotalList.get(i));
+				case 3:
+					view.addObject("T3", TotalList.get(i));
 					break;
-				case 4: view.addObject("T4", TotalList.get(i));
+				case 4:
+					view.addObject("T4", TotalList.get(i));
 					break;
-				case 5: view.addObject("T5", TotalList.get(i));
+				case 5:
+					view.addObject("T5", TotalList.get(i));
 					break;
 				}
 				break;
@@ -521,15 +609,20 @@ public class AdminControllerImpl implements AdminController {
 				hpost += TotalList.get(i).getPost();
 				view.addObject("AH1", TotalList.get(i));
 				switch (TimeType) {
-				case 1: view.addObject("H1", TotalList.get(i));
+				case 1:
+					view.addObject("H1", TotalList.get(i));
 					break;
-				case 2: view.addObject("H2", TotalList.get(i));
+				case 2:
+					view.addObject("H2", TotalList.get(i));
 					break;
-				case 3: view.addObject("H3", TotalList.get(i));
+				case 3:
+					view.addObject("H3", TotalList.get(i));
 					break;
-				case 4: view.addObject("H4", TotalList.get(i));
+				case 4:
+					view.addObject("H4", TotalList.get(i));
 					break;
-				case 5: view.addObject("H5", TotalList.get(i));
+				case 5:
+					view.addObject("H5", TotalList.get(i));
 					break;
 				}
 				break;
@@ -540,46 +633,46 @@ public class AdminControllerImpl implements AdminController {
 				cpost += TotalList.get(i).getPost();
 				view.addObject("AC1", TotalList.get(i));
 				switch (TimeType) {
-				case 1: view.addObject("C1", TotalList.get(i));
+				case 1:
+					view.addObject("C1", TotalList.get(i));
 					break;
-				case 2: view.addObject("C2", TotalList.get(i));
+				case 2:
+					view.addObject("C2", TotalList.get(i));
 					break;
-				case 3: view.addObject("C3", TotalList.get(i));
+				case 3:
+					view.addObject("C3", TotalList.get(i));
 					break;
-				case 4: view.addObject("C4", TotalList.get(i));
+				case 4:
+					view.addObject("C4", TotalList.get(i));
 					break;
-				case 5: view.addObject("C5", TotalList.get(i));
+				case 5:
+					view.addObject("C5", TotalList.get(i));
 					break;
 				}
 				break;
 
 			}
-			
 
 		}
-		view.addObject("thits",thits); 
-		view.addObject("tlike",tlike);
-		view.addObject("tcomments",tcomments);
-		view.addObject("tpost",tpost);
+		view.addObject("thits", thits);
+		view.addObject("tlike", tlike);
+		view.addObject("tcomments", tcomments);
+		view.addObject("tpost", tpost);
 		//
-		view.addObject("hhits",hhits); 
-		view.addObject("hlike",hlike);
-		view.addObject("hcomments",hcomments);
-		view.addObject("hpost",hpost);
+		view.addObject("hhits", hhits);
+		view.addObject("hlike", hlike);
+		view.addObject("hcomments", hcomments);
+		view.addObject("hpost", hpost);
 		//
-		view.addObject("chits",chits); 
-		view.addObject("clike",clike);
-		view.addObject("ccomments",ccomments);
-		view.addObject("cpost",cpost);
-		view.addObject("currentTime",timeType);
+		view.addObject("chits", chits);
+		view.addObject("clike", clike);
+		view.addObject("ccomments", ccomments);
+		view.addObject("cpost", cpost);
+		view.addObject("currentTime", timeType);
 		view.setViewName("admin/todayAnalytics");
-		
-//		request.setAttribute("TAD", TotalList);
-		
-		
-		
-		
-		
+
+		// request.setAttribute("TAD", TotalList);
+
 		return view;
 	}
 
@@ -634,24 +727,22 @@ public class AdminControllerImpl implements AdminController {
 			yesterdayAnalyticsPDVO yAPDVO = new yesterdayAnalyticsPDVO("type", tHVO, tCVO, tPVO, tLVO);
 
 			as.yesterdayInsert(yAPDVO);
-		}
-		else {
-			
-			int result2 = as.searchBeforeDayList();
-			
-			if(result2>0)
-			{
-			// 현재 조회수 들고오기.
-			todayHitsVO tHVO = as.searchHits();
-			// 현재 댓글수 들고오기
-			todayCommentsVO tCVO = as.searchComments();
-			// 현재 게시물 수 들고오기
-			todayPostVO tPVO = as.searchPost();
-			// 현재 좋아요 가져오기
-			todayLikeVO tLVO = as.searchLike();
+		} else {
 
-			yesterdayAnalyticsPDVO yAPDVO = new yesterdayAnalyticsPDVO("type", tHVO, tCVO, tPVO, tLVO);
-			as.yesterdayUpdate(yAPDVO);
+			int result2 = as.searchBeforeDayList();
+
+			if (result2 > 0) {
+				// 현재 조회수 들고오기.
+				todayHitsVO tHVO = as.searchHits();
+				// 현재 댓글수 들고오기
+				todayCommentsVO tCVO = as.searchComments();
+				// 현재 게시물 수 들고오기
+				todayPostVO tPVO = as.searchPost();
+				// 현재 좋아요 가져오기
+				todayLikeVO tLVO = as.searchLike();
+
+				yesterdayAnalyticsPDVO yAPDVO = new yesterdayAnalyticsPDVO("type", tHVO, tCVO, tPVO, tLVO);
+				as.yesterdayUpdate(yAPDVO);
 			}
 		}
 
@@ -665,29 +756,28 @@ public class AdminControllerImpl implements AdminController {
 		// System.out.println(yAPDVO.toString());
 		return yAPDVO;
 	}
-	
-	/* 관리자 - 에러로그관리 페이지  호출 매핑 */
+
+	/* 관리자 - 에러로그관리 페이지 호출 매핑 */
 	@Override
 	@RequestMapping(value = "/errorLogManage.diet")
 	public Object errorLogManage(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
-		
-//		view.addObject("currentTime",timeType);
+
+		// view.addObject("currentTime",timeType);
 		view.setViewName("admin/errorLogManage");
 		return view;
 	}
-	
-	/* 관리자 - 에러로그관리 페이지 > 디테일 페이진  호출 매핑 */
+
+	/* 관리자 - 에러로그관리 페이지 > 디테일 페이진 호출 매핑 */
 	@Override
 	@RequestMapping(value = "/errorLogManageDetail.diet")
 	public Object errorLogManageDetail(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
-		
-		
-//		view.addObject("currentTime",timeType);
+
+		// view.addObject("currentTime",timeType);
 		view.setViewName("admin/errorLogManageDetail");
 		return view;
-		
+
 	}
 
 }
