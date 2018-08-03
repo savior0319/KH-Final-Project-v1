@@ -69,7 +69,7 @@
 	<!-- 일반 회원 - 트레이닝 구매 리스트 -->
 	<select id="myRequestList2" resultType="trainerProgramMember" parameterType="myRequestTrainerPDVO">
 		SELECT
-		
+
 		TPT.TP_INDEX AS tpIndex,
 		TPT.TR_INDEX AS trIndex,
 		TPT.TP_TRAIN_TYPE AS tpTrain,
@@ -93,7 +93,8 @@
 		WHERE MB_INDEX =
 		#{mbIndex} ) PT
 		RIGHT JOIN TRAINER_REG_TBL TRT ON(TRT.TR_INDEX = PT.TR_INDEX)
-		RIGHT JOIN TRAINER_PROGRAM_TBL TPT ON(TPT.TP_INDEX = PT.TP_INDEX)
+		RIGHT JOIN TRAINER_PROGRAM_TBL
+		TPT ON(TPT.TP_INDEX = PT.TP_INDEX)
 		WHERE PT.MB_INDEX = #{mbIndex} AND TRT.TR_STATUS = '승인'
 		AND NUM BETWEEN
 		#{start} AND #{end}
@@ -110,13 +111,10 @@
 	</select>
 
 	<!-- 트레이너 - 등록프로그램 판매 여부 체크 -->
-	<select id="checkSale" resultType="payment" parameterType="paymentPDVO">
-		   SELECT DISTINCT PAYMENT_TBL.TP_INDEX as tpIndex
-        FROM PAYMENT_TBL
-		LEFT JOIN TRAINER_PROGRAM_TBL
-		ON(PAYMENT_TBL.TR_INDEX = TRAINER_PROGRAM_TBL.TR_INDEX)
-		WHERE PAYMENT_TBL.TR_INDEX = ( SELECT DISTINCT(TR_INDEX) FROM TRAINER_PROGRAM_TBL LEFT JOIN MEMBER_TBL ON(TRAINER_PROGRAM_TBL.MB_INDEX = MEMBER_TBL.MB_INDEX)
-		WHERE MEMBER_TBL.MB_INDEX = #{mbIndex})
+	<select id="checkSale" resultType="trainerProgramVO" parameterType="trainerProgramVO">
+		SELECT tp_remaining_personnel AS tpRemainingPersonnel,
+		tp_index as tpIndex
+		FROM trainer_program_tbl WHERE MB_INDEX = #{mbIndex}
 	</select>
 
 

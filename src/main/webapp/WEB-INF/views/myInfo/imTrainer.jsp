@@ -137,7 +137,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${myRequest.comList}" var="m" varStatus="i">
+									<c:forEach items="${myRequest.comList}" var="m">
 										<tr align="center">
 											<td style="width: 10%;">${m.tpIndex}</td>
 											<td style="width: 30%;">
@@ -145,21 +145,20 @@
 											</td>
 											<td style="width: 15%;">${m.tpCost}</td>
 											<td style="width: 15%;">${m.tpRegDate}</td>
-
 											<td style="width: 23%;">
 
 												<c:set var="check" value="false" />
-
-												<c:forEach items="${checkSale}" var="Sale" begin="0" step="1" varStatus="j">
-													<c:choose>
-														<c:when test="${Sale.tpIndex == m.tpIndex}">
-															<c:set var="check" value="true" />
-															<button class="complete ui red button">판매완료</button>
-														</c:when>
+												<c:forEach items="${checkSale}" var="sale">
+														<c:choose>
+															<c:when test="${sale.tpRemainingPersonnel== 0}">
+																버튼 
+																<c:set var="check" value="true" />
+															</c:when>
 													</c:choose>
 												</c:forEach>
 												<c:if test="${not check}">
-													<button class="show1 ui gray button ">판매대기</button>
+													<c:set var="check" value="false" />
+														버튼 2
 												</c:if>
 											</td>
 										</tr>

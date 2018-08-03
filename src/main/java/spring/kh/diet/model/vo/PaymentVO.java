@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class PaymentVO {
-
-	private int payIndex, tpIndex, trIndex, mbIndex, price;
+	
+	private int payIndex, tpIndex, trIndex, mbIndex, price, tpRemainingPersonnel;
 	private Timestamp payTime;
 }

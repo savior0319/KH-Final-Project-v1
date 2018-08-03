@@ -110,5 +110,5 @@ public interface MyInfoDAO {
 
 	int insertSession(SqlSessionTemplate sqlSessionTemplate, OneSessionVO oSV);
   
-	ArrayList<PaymentVO> checkSale(SqlSessionTemplate sqlSessionTemplate, PaymentVO tv);
+	ArrayList<TrainerProgramVO> checkSale(SqlSessionTemplate sqlSessionTemplate, TrainerProgramVO tv);
 }

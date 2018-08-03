@@ -315,8 +315,8 @@ public class MyInfoServiceImpl implements MyInfoService {
 	}
 
 	@Override
-	public ArrayList<PaymentVO> checkSale(PaymentVO tv) {
-		ArrayList<PaymentVO> list = myInfoDAO.checkSale(SqlSessionTemplate, tv);
+	public ArrayList<TrainerProgramVO> checkSale(TrainerProgramVO tv) {
+		ArrayList<TrainerProgramVO> list = myInfoDAO.checkSale(SqlSessionTemplate, tv);
 		return list;
 	}
 

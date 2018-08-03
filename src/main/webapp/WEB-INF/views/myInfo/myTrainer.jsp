@@ -137,7 +137,7 @@
 											<td style="width: 30%;">
 												<a href="/requestTrainer.diet?tpIndex=${m.tpIndex}">${m.tpTitle}</a>
 											</td>
-											<td style="width: 15%;">${m.tpCost}</td>
+											<td style="width: 15%;">${m.tpCost}원</td>
 											<td style="width: 15%;">${m.tpRegDate}</td>
 										</tr>
 									</c:forEach>
