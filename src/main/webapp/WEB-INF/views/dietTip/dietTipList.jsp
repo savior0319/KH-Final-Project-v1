@@ -447,7 +447,7 @@ p>span {
 							<div class="item">작성자</div>
 						</div>
 					</div>
-					<input type="text" placeholder="Search..." id="searchText" style="width: 70%;"> <i class="circular search link icon" onclick="searchBtn()"></i>
+					<input type="text" placeholder="Search..." id="searchText2" style="width: 70%;"> <i class="circular search link icon" onclick="searchBtn()"></i>
 				</div>
 			</div>
 
@@ -528,12 +528,32 @@ p>span {
 	
 	/* 검색 */
 	function searchBtn(){
+		
 		if(category==''){
-			alert('분류를 선택해 주세요');
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.noCategory();
+			}else{
+				alert('분류를 선택해 주세요');
+			}
 			return;
 		}
+		
 		$searchText = $('#searchText').val();
+		$searchText2 = $('#searchText2').val();
 		$type = $('#type').val();
+		
+		if($searchText==""){
+			$searchText = $searchText2;
+		}
+		if($searchText==""){
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.noSearchText();
+			}else{
+				alert('검색어를 입력해 주세요');
+			}
+			return;
+		}		
+		
 		location.href = "/dietTipList.diet?category="+ category +"&searchText=" + $searchText + "&type=" + $type;
 	}
 	

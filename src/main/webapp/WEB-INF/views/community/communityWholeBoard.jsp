@@ -283,7 +283,17 @@
 		$searchText = $('#searchText').val();
 		
 		if (category == "") {
-			alert('카테고리를 선택하여주세요.');
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.noCategory();
+			}else{
+				alert('분류를 선택해 주세요');
+			}
+		}else if($searchText==""){
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.noSearchText();
+			}else{
+				alert('검색어를 입력해 주세요');
+			}
 		}else{
 			location.href = "/communitySearch.diet?category=" + category
 			+ "&searchText=" + $searchText;
