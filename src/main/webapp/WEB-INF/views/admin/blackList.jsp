@@ -7,7 +7,7 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+	<title>관리자 - 블랙리스트 회원관리</title>
 </head>
 
 <!-- CSS -->
@@ -28,10 +28,10 @@ body {
 	<br>
 	<div class="ui container">
 		<div class="ui center aligned segment">
-			<h1>블랙리스트 회원</h1>
+			<h1>블랙리스트 회원관리</h1>
 		</div>
 		<div class="ui red message">
-			<div class="ui small header">※ 신고 5회 누적회원으로 블랙리스트 버튼 누르면 블랙리스트 회원으로 변경됨</div>
+			<div class="ui small header">※ 신고 5회 누적회원으로 블랙리스트 버튼 누르면 블랙리스트 회원으로 변경됨<br>회원 아이디를 클릭하면 신고 내역을 확인 할 수 있습니다</div>
 		</div>
 			<table class="ui very compact table">
 				<thead>

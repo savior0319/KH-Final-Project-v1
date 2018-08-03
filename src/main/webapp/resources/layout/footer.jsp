@@ -92,22 +92,26 @@
 		var title1 = $('#title1').val();
 		var content = $('#content').val();
 
-		$.ajax({
-			url : '/question.diet',
-			type : 'post',
-			data : {'title' : title1, 'content' : content, 'mbIndex' : mbIndex},
+		if(title1 == '' || content == ''){
+			alert('제목 및 내용을 입력해주세요');
+		} else {
+			$.ajax({
+				url : '/question.diet',
+				type : 'post',
+				data : {'title' : title1, 'content' : content, 'mbIndex' : mbIndex},
 
-			success : function(data){
-				if(data == '1'){
-					alert('문의등록 완료');
-					location.href="/"
-				} else {
+				success : function(data){
+					if(data == '1'){
+						alert('문의등록 완료');
+						location.href="/"
+					} else {
+						alert('문의등록 실패');
+					}
+				}, 
+				error : function(){
 					alert('문의등록 실패');
 				}
-			}, 
-			error : function(){
-				alert('문의등록 실패');
-			}
-		});
+			});
+		}
 	}
 </script>

@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
-<title>트레이너 신청 정보</title>
+<title>관리자 - 트레이너 신청 정보</title>
 </head>
 
 <!-- CSS -->

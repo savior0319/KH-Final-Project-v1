@@ -18,6 +18,20 @@ public class RedirectControllerImpl implements RedirectController {
 		return "login/login";
 	}
 
+	/* 메인 페이지 - 자주 묻는 질문 */
+	@Override
+	@RequestMapping(value = "/faq.diet")
+	public String redirectFaq() {
+		return "customer/faq";
+	}
+
+	/* 관리자 페이지 - 페이지 관리 */
+	@Override
+	@RequestMapping(value = "/pageManagement.diet")
+	public String redirectPageManagement() {
+		return "admin/pageManagement";
+	}
+
 	/* 메인 페이지 - 트레이너 찾기 */
 	@Override
 	@RequestMapping(value = "/trainerFind.diet")
@@ -157,5 +171,5 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectSangpoom() {
 		return "main/programReg";
 	}
-	
+
 }

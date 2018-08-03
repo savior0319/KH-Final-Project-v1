@@ -8,7 +8,7 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+	<title>관리자 - 1:1문의 답변하기</title>
 </head>
 
 <!-- CSS -->
@@ -43,7 +43,9 @@ body {
 			<hr>
 			<h3>문의 내용</h3> 
 			<br>
-			${requestScope.qData.qsContent}
+<pre>
+${requestScope.qData.qsContent}
+</pre>
 		</div>
 		<br>
 		<div class="ui clearing segment">
@@ -54,13 +56,17 @@ body {
 			답변 대기 중
 		</c:when>
 		<c:otherwise>
-		${requestScope.qData.ansContent}
+<pre>
+${requestScope.qData.ansContent}
+</pre>
 	</c:otherwise>
 </c:choose>
 </div>
+<c:if test="${requestScope.qData.ansContent eq null}">
 <div class="ui center aligned basic segment">
 	<button id="btnCheck" class="ui button" type="button" style="background: rgb(250,40,40); color: white;" onclick="doAnswer();">답변하기</button>
 </div>
+</c:if>
 </div>
 </body>
 
