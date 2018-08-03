@@ -198,9 +198,10 @@ body {
 				</thead>
 			</table>
 
-			<button class="ui inverted red button" onclick="acceptBtn(${requestScope.trv.trIndex});">승인</button>
-			<button class="ui inverted secondary button" onclick="denyBtn(${requestScope.trv.trIndex});">거부</button>
-
+			<c:if test="${requestScope.trv.trStatus eq '심사중'}">
+				<button class="ui inverted red button" onclick="acceptBtn(${requestScope.trv.trIndex});">승인</button>
+				<button class="ui inverted secondary button" onclick="denyBtn(${requestScope.trv.trIndex});">거부</button>
+			</c:if>
 
 		</div>
 

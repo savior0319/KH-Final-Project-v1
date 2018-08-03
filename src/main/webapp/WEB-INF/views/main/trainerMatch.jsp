@@ -109,11 +109,10 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 	function trainerReg(){
-		var member = '${sessionScope.member}';
-		if(member!=''){
+		if(${sessionScope.member != null}){
 		location.href="/trainerReg.diet";
 		}else{
-			alert('로그인 후 신청이 가능합니다.');
+			alert('로그인 후 이용이 가능합니다.');
 		}
 	}
 

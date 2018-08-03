@@ -74,7 +74,7 @@
 		INSERT INTO
 		NOTICE_TBL
 		VALUES(NOTICE_SEQ.NEXTVAL, DEFAULT, #{noticeTitle},
-		#{noticeContent}, DEFAULT, DEFAULT)
+		#{noticeContent}, DEFAULT, DEFAULT,#{noticeType})
 	</insert>
 
 	<!-- 관리자 전체 회원 조회 리스트 -->
@@ -667,6 +667,43 @@
 		(MB.MB_INDEX=TRT.MB_INDEX)
 		WHERE TRT.TR_INDEX = #{trIndex}
 		) SET MB_GRADE = '트레이너'
+	</update>
+	
+	
+	<!-- 트레이너 회원 리스트 -->
+	<select id="trainerList" parameterType="trainingRegPDVO"
+		resultType="trainerReg" resultMap="trainerRegDB">
+		 SELECT * FROM
+		(SELECT TRT.*,
+        MT.MB_NICKNAME,
+        MT.MB_NAME,
+        MT.MB_GRADE,
+        MT.MB_ID,
+		ROW_NUMBER() OVER
+		(ORDER BY TR_INDEX DESC)
+		AS NUM FROM TRAINER_REG_TBL TRT
+        LEFT JOIN MEMBER_TBL MT
+		ON(TRT.MB_INDEX=MT.MB_INDEX)
+		WHERE MT.MB_GRADE = '트레이너')
+		WHERE NUM BETWEEN #{start} AND #{end}
+		
+	</select>
+
+	<!-- 트레이너 회원 네비 -->
+	<select id="getTrainerListNavi" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS
+		TOTALCOUNT
+		FROM TRAINER_REG_TBL
+        LEFT JOIN MEMBER_TBL USING(MB_INDEX)
+        WHERE MB_GRADE = '트레이너'
+	</select>
+	
+		<!-- 트레이너 회원에서 일반회원으로 전환 -->
+	<update id="changeGrade" parameterType="member">
+		UPDATE
+		MEMBER_TBL SET
+		MB_GRADE = '일반회원'
+		WHERE MB_INDEX = #{mbIndex}
 	</update>
 
 </mapper>

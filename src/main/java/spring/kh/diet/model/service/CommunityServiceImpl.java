@@ -14,6 +14,7 @@ import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
+import spring.kh.diet.model.vo.NoticeVO;
 
 @Service("communityService")
 public class CommunityServiceImpl implements CommunityService {
@@ -240,4 +241,12 @@ public class CommunityServiceImpl implements CommunityService {
 		int result = communityDAO.commentTBLikeUp(SqlSessionTemplate, blv);
 		return result;
 	}
+
+	@Override
+	public ArrayList<NoticeVO> noticeList(String type) {
+		ArrayList<NoticeVO> nvList = communityDAO.noticeList(SqlSessionTemplate,type);
+		return nvList;
+	}
+
+
 }
