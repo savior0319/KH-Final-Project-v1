@@ -83,6 +83,6 @@ public interface MyInfoService {
 
 	void transSession(String id);
 
-	ArrayList<PaymentVO> checkSale(PaymentVO tv);
+	ArrayList<TrainerProgramVO> checkSale(TrainerProgramVO tv);
 
 }

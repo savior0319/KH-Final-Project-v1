@@ -2,6 +2,7 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -478,13 +479,14 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tr);
 		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage, tv);
-		ArrayList<PaymentVO> checkSale = myInfoService.checkSale(pv);
-				
+		ArrayList<TrainerProgramVO> checkSale = myInfoService.checkSale(tv);
+
 		view.addObject("applyTrainer", applyTrainer);
 		view.addObject("myRequest", myRequest);
 		view.addObject("checkSale", checkSale);
-
-		System.out.println("ChecK"+checkSale);
+		
+		System.out.println(checkSale);
+		
 		view.setViewName("myInfo/imTrainer");
 		return view;
 
@@ -514,6 +516,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		ModelAndView view = new ModelAndView();
 		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer2(currentPage, tr);
 		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer2(currentPage, tv);
+
 		view.addObject("applyTrainer", applyTrainer);
 		view.addObject("myRequest", myRequest);
 		view.setViewName("myInfo/myTrainer");

@@ -172,9 +172,9 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	/* 마이페이지 - 트레이너, 구매여부 체크 */
 	@Override
-	public ArrayList<PaymentVO> checkSale(SqlSessionTemplate sqlSessionTemplate, PaymentVO tv) {
+	public ArrayList<TrainerProgramVO> checkSale(SqlSessionTemplate sqlSessionTemplate, TrainerProgramVO tv) {
 
-		List<PaymentVO> list = sqlSessionTemplate.selectList("myInfo.checkSale", tv);
+		List<TrainerProgramVO> list = sqlSessionTemplate.selectList("myInfo.checkSale", tv);
 
 		return (ArrayList) list;
 	}
