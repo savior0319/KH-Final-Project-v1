@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
 <title>프로그램 소개</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 
 <!-- CSS -->
@@ -47,7 +51,7 @@
 								</div>
 								<br>
 								<div class="column">
-									<span style="color: gray">시작일</span>&nbsp;&nbsp;&nbsp;&nbsp;
+									<span style="color: gray">시작일 </span>&nbsp;&nbsp;&nbsp;&nbsp;
 									:&nbsp;
 									<span>${requestScope.tpv.tpActiveStart}</span>
 								</div>
@@ -80,21 +84,28 @@
 								<div class="column">
 									<span style="color: gray">남은인원</span>
 									:&nbsp;
-									<span style="color: red; font-size: 30px;">1</span>
+									<span style="color: red; font-size: 30px;">${requestScope.tpv.tpRemainingPersonnel }</span>
 									명
 								</div>
 								<br>
 								<div class="column">
 									<span style="color: gray">가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;격</span>
 									:&nbsp;
-									<span>${requestScope.tpv.tpCost}</span>
+									<span><fmt:formatNumber value="${requestScope.tpv.tpCost}" pattern="#,##0"/></span>
 									원
 								</div>
 								<br>
 								<br>
 								<br>
 								<div class="column">
-									<button class="ui button" style="background: rgb(250, 40, 40); color: white;">결제하기</button>
+								<c:choose>
+								<c:when test="${requestScope.tpv.tpRemainingPersonnel==0}">
+									<button class="ui button" style="background: rgb(250, 40, 40); color: white;" onclick="pricePayment();" disabled>마감</button>
+									</c:when>
+									<c:otherwise>
+									<button class="ui button" style="background: rgb(250, 40, 40); color: white;" onclick="pricePayment();">결제하기</button>
+									</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>
@@ -120,7 +131,52 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	
+function pricePayment() {
+    var IMP = window.IMP; // 생략가능
+    IMP.init('imp27415949'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+    
+    IMP.request_pay({
+        pg: 'inicis', // version 1.1.0부터 지원.
+        pay_method: 'card',
+        merchant_uid: 'merchant_' + new Date().getTime(),
+        name: '주문명:'+'${requestScope.tpv.tpTitle}',
+        amount: '${requestScope.tpv.tpCost}',
+        buyer_email: '${sessionScope.member.mbId}',
+        buyer_name: '${sessionScope.member.mbName}',
+        buyer_tel: '${sessionScope.member.mbPhone}',
+        buyer_addr: '${sessionScope.member.mbAddress}',
+        buyer_postcode: '123-456',
+        custom_data: '${sessionScope.member.mbIndex}'+','+'${requestScope.tpv.tpIndex}'+','+'${requestScope.tpv.trIndex}',
+        m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+    }, function(rsp) {
+        if (rsp.success) {
+            var msg = '결제가 완료되었습니다.';
+            msg += '고유ID : ' + rsp.imp_uid;
+            msg += '상점 거래ID : ' + rsp.merchant_uid;
+            msg += '결제 금액 : ' + rsp.paid_amount;
+            msg += '카드 승인번호 : ' + rsp.apply_num;
+            msg += '혹시 : ' + rsp.custom_data;
+            $.ajax({
+            	url : '/paymentSuccess.diet',
+            	data : {
+            		'mbtptr' : rsp.custom_data,
+            		'price' : rsp.paid_amount
+            	},
+            	type : 'post',
+            	success : function(data){
+            		if(data=='success'){
+            		alert('결제가 완료되었습니다.');
+            		}
+            	}
+            });
+        } else {
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+        }
+        
+        alert(msg);
+    });
+}
 </script>
 
 </html>

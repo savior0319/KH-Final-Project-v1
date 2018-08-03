@@ -35,6 +35,7 @@
 		<result property="tpLocation" column="TP_LOCATION" />
 		<result property="tpCost" column="TP_COST" />
 		<result property="tpPersonnel" column="TP_PERSONNEL" />
+		<result property="tpRemainingPersonnel" column="TP_REMAINING_PERSONNEL"/>
 		<result property="tpContent" column="TP_CONTENT" />
 		<result property="tpRegDate" column="TP_REGDATE" />
 	</resultMap>
@@ -56,7 +57,7 @@
 	<!-- 프로그램 등록 -->
 	<insert id="registTrainerProgram" parameterType="trainerProgram">
 		INSERT INTO TRAINER_PROGRAM_TBL
-		VALUES(TRAINER_PROGRAM_TBL_SEQ.NEXTVAL,#{trIndex},#{mbIndex},#{tpTrainType},#{tpTitle},#{tpMainImage},#{tpActiveStart},#{tpActiveEnd},#{tpActiveDay},#{tpLocation},#{tpCost},#{tpPersonnel},#{tpContent},sysdate)
+		VALUES(TRAINER_PROGRAM_TBL_SEQ.NEXTVAL,#{trIndex},#{mbIndex},#{tpTrainType},#{tpTitle},#{tpMainImage},#{tpActiveStart},#{tpActiveEnd},#{tpActiveDay},#{tpLocation},#{tpCost},#{tpPersonnel},#{tpPersonnel},#{tpContent},SYSDATE)
 	</insert>
 
 	<!-- 프로그램 리스트 출력 -->
@@ -89,5 +90,17 @@
 		FROM TRAINER_PROGRAM_TBL
 		WHERE TP_INDEX = #{tpIndex}
 	</select>
+	
+	<!-- 프로그램 결제완료 -->
+	<insert id="paymentSuccess" parameterType="payment">
+		INSERT INTO PAYMENT_TBL VALUES(PAYMENT_TBL_SEQ.NEXTVAL,#{tpIndex},#{trIndex},#{mbIndex},#{price},SYSDATE)
+	</insert>
+	
+	<!-- 프로그램 남은 인원 -1 -->
+	<update id="programPersonnel" parameterType="payment">
+		UPDATE TRAINER_PROGRAM_TBL
+		SET TP_REMAINING_PERSONNEL = TP_REMAINING_PERSONNEL -1
+		WHERE TP_INDEX = #{tpIndex}
+	</update>
 </mapper>
 

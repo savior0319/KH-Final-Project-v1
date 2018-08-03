@@ -3,6 +3,7 @@ package spring.kh.diet.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.google.gson.JsonIOException;
 
 import spring.kh.diet.model.service.TrainerService;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.ProgramPageDataVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainerSearchVO;
@@ -84,7 +86,7 @@ public class TrainerControllerImpl implements TrainerController {
 		tpv.setTpActiveDay(tpActiveDay);
 
 		int result = trService.registTrainerProgram(tpv);
-
+		
 		return result;
 	}
 
@@ -162,5 +164,45 @@ public class TrainerControllerImpl implements TrainerController {
 		TrainerProgramVO tpv = trService.programDetail(tpIndex);
 		request.setAttribute("tpv", tpv);
 		return "main/programDetail";
+	}
+	
+	/* 프로그램 구매 완료 */
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/paymentSuccess.diet")
+	public String paymentSuccess(@RequestParam String mbtptr, @RequestParam int price) {
+		StringTokenizer st = new StringTokenizer(mbtptr, ",");
+		int mbIndex = 0;
+		int tpIndex = 0;
+		int trIndex = 0;
+		
+		while(st.hasMoreTokens()) {
+			mbIndex = Integer.parseInt(st.nextToken());
+			tpIndex = Integer.parseInt(st.nextToken());
+			trIndex = Integer.parseInt(st.nextToken());
+		}
+		PaymentVO pv = new PaymentVO();
+		
+		pv.setMbIndex(mbIndex);
+		pv.setTpIndex(tpIndex);
+		pv.setTrIndex(trIndex);
+		pv.setPrice(price);
+		
+		int result = trService.paymentSuccess(pv);
+		
+		if(result>0) {
+			int result2 = trService.programPersonnel(pv);
+			if(result2>0)
+			{
+				return "success";
+			}else {
+				return "failed";
+			}
+		}else {
+			return "failed";
+		}
+		
+	
+		
 	}
 }

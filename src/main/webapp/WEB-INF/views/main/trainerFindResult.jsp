@@ -108,14 +108,16 @@
 				'trIndex' : trIndex
 			},success : function(data){
 				console.log(data.proList);
-
+				var dataLength = data.proList.length;
+				console.log(dataLength);
 				$('#programList').html('');
+				if(dataLength!=0){
 				var table = '<table class="ui very compact table">'+'<thead>'+'<tr align="center">'+'<th style="width: 10%;">PT 유형</th>'+'<th style="width: 40%;">프로그램 명</th>'
 				+'<th style="width: 10%;">시작일</th>'+'<th style="width: 15%;">종료일</th>'+'<th style="width: 25%;">장소</th>'+'</tr>'+'</thead>'+'<tbody>';
 				for (var i = 0; i < data.proList.length; i++) {
 					table += '<tr align="center">';
 					table += '<td>'+data.proList[i].tpTrainType+'</td>';
-					table += '<td style="padding-top: 15px; padding-bottom: 15px;"><a class="item" href="#">';
+					table += '<td style="padding-top: 15px; padding-bottom: 15px;"><a class="item" href="/programDetail.diet?tpIndex='+data.proList[i].tpIndex+'">';
 					table += data.proList[i].tpTitle;
 					table += '</a></td>';
 					table += '<td>' + data.proList[i].tpActiveStart+ '</td>';
@@ -126,6 +128,10 @@
 				table += '</tbody>';
 				table += '</table>';
 				$('#programList').html(table);
+				}else{
+					var result = '<div class="ui center red medium message"><br><i class="exclamation huge icon"></i><div class="ui medium header"><br>※ 진행중인 프로그램이 없습니다.<br>다른 트레이너를 선택해주세요<br><br><br></div></div>';
+					$('#programList').html(result);
+				}
 			}
 		});
 	}
