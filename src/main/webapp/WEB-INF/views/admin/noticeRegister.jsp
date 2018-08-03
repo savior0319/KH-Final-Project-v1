@@ -42,7 +42,7 @@ body {
 						<i class="dropdown icon"></i>
 						<div class="menu select">
 							<div class="item">전체</div>
-							<div class="item">레시피&#38;식단</div>
+							<div class="item">자유게시판</div>
 							<div class="item">팁&#38;노하우</div>
 							<div class="item">고민&#38;질문</div>
 							<div class="item">비포&#38;애프터</div>
@@ -125,19 +125,19 @@ body {
 	$('.select > .item').click(function() {
 		switch ($(this).text()) {
 		case '전체':
-			noticeType = 'comAll';
+			noticeType = '전체';
 			break;
 		case '자유게시판':
-			noticeType = '15';
+			noticeType = '자유게시판';
 			break;
 		case '팁&노하우':
-			noticeType = '17';
+			noticeType = '팁&노하우';
 			break;
 		case '고민&질문':
-			noticeType = '18';
+			noticeType = '고민&질문';
 			break;
 		case '비포&애프터':
-			noticeType = '19';
+			noticeType = '비포&애프터';
 			break;
 		}
 	});

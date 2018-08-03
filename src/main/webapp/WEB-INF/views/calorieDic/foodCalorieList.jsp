@@ -28,7 +28,7 @@
 			<div class="ui secondary segment">
 				<div class="ui right action left icon input" style="width:80%;">
 					<i class="search icon"></i> <input id="searchText" type="text" placeholder="검색어 입력"
-						style="width:80%;">
+						style="width:80%;"  onkeypress="runScript(event)" >
 					<div class="ui basic floating dropdown button" onclick="foodCalSearch();">
 						<div class="text">검색</div>
 					</div>
@@ -103,6 +103,14 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+
+/* 검색  - 엔터*/
+function runScript(e) {
+	if (e.keyCode == 13) {
+		foodCalSearch();
+	}
+}
+
 function foodCalSearch(){
 	var searchText = $('#searchText').val();
 	
