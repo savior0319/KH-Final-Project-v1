@@ -168,7 +168,7 @@ public class AdminControllerImpl implements AdminController {
 				}
 			}
 		}
-
+		
 		CurrentDate CD = new CurrentDate(PC, MOBILE, AtoBOn, BtoCOn, CtoDOn, DtoEOn, EtoFOn, AtoBOff, BtoCOff, CtoDOff,
 				DtoEOff, EtoFOff);
 		// System.out.println(list.toString());

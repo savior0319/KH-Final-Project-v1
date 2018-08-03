@@ -129,11 +129,11 @@ google.charts.load('current', {'packages':['line']});
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 var data = new google.visualization.DataTable();
- data.addColumn('string', '시간대');
- data.addColumn('number', '조회수');
- data.addColumn('number', '댓글');
- data.addColumn('number', '게시물');
- data.addColumn('number', '좋아요');
+data.addColumn('string', '시간대');
+data.addColumn('number', '조회수');
+data.addColumn('number', '댓글');
+data.addColumn('number', '게시물');
+data.addColumn('number', '좋아요');
  if(${currentTime==5})
 {
  data.addRows([
@@ -158,8 +158,7 @@ var data = new google.visualization.DataTable();
 	 data.addRows([
 		   ['00 - 12', ${H1.hits}, ${H1.comments}, ${H1.post}, ${H1.likes}],
 		   ['12 - 15', ${H2.hits}, ${H2.comments}, ${H2.post}, ${H2.likes}],
-		   ['15 - 18', ${H3.hits}, ${H3.comments}, ${H3.post}, ${H3.likes}]
-		   ]);
+		   ['15 - 18', ${H3.hits}, ${H3.comments}, ${H3.post}, ${H3.likes}]]);
  }
  else if(${currentTime==2})
  {
@@ -188,11 +187,11 @@ google.charts.load('current', {'packages':['line']});
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 var data = new google.visualization.DataTable();
- data.addColumn('string', '시간대');
- data.addColumn('number', '조회수');
- data.addColumn('number', '댓글');
- data.addColumn('number', '게시물');
- data.addColumn('number', '좋아요');
+data.addColumn('string', '시간대');
+data.addColumn('number', '조회수');
+data.addColumn('number', '댓글');
+data.addColumn('number', '게시물');
+data.addColumn('number', '좋아요');
  if(${currentTime==5})
 {
  data.addRows([
@@ -310,7 +309,7 @@ var data = new google.visualization.DataTable();
 	<br>
 	<div class="ui container">
 		<div class="ui center aligned segment">
-		<h1> 관리자 통계 (사이트)</h1>
+			<h1>관리자 통계 (사이트)</h1>
 		</div>
 		<div class="ui horizontal segments">
 			<div class="ui center aligned segment" style="width: 20%">
@@ -667,7 +666,7 @@ var data = new google.visualization.DataTable();
 
 		</div>
 		<br>
-		
+
 		<div class="ui center aligned segment" style="width: 100%;">
 			<div class="ui grid">
 				<div class="four wide column"></div>
@@ -675,6 +674,7 @@ var data = new google.visualization.DataTable();
 				<div class="four wide column" style="border-left: none;">
 					<!--  -->
 					<select class="ui dropdown" id="select" onchange="onchangeSelect()">
+						<option value="all">전 체</option>
 						<option value="tip">다이어트 팁</option>
 						<option value="home">홈 트레이닝</option>
 						<option value="commu">커뮤니티</option>
@@ -682,17 +682,17 @@ var data = new google.visualization.DataTable();
 					<!--  -->
 				</div>
 			</div>
-			
+
 			<!-- 다이어트 팁 차트  -->
 			<div id="chart1" class="ui center aligned segment"
 				style="width: 100%;">
 
 				<div class="ui horizontal segments">
-					<div class="ui right aligned segment" style="width: 55%">
+					<div class="ui right aligned segment" style="width: 60%">
 						<h3>다이어트 팁 게시판 분석</h3>
 					</div>
 					<div class="ui right aligned segment"
-						style="width: 45%; border-left: none;"></div>
+						style="width: 40%; border-left: none;"></div>
 				</div>
 
 
@@ -777,23 +777,20 @@ var data = new google.visualization.DataTable();
 											<td style="width: 20%">${T3.likes}</td>
 										</tr>
 										<tr align="center">
-
 											<td style="width: 20%">18 - 21</td>
 											<td style="width: 20%">${T4.hits}</td>
 											<td style="width: 20%">${T4.comments}</td>
 											<td style="width: 20%">${T4.post}</td>
 											<td style="width: 20%">${T4.likes}</td>
 										</tr>
-
-
-
 									</c:when>
 									<c:when test="${currentTime==3}">
-										<td style="width: 20%">00 - 12</td>
-										<td style="width: 20%">${T1.hits}</td>
-										<td style="width: 20%">${T1.comments}</td>
-										<td style="width: 20%">${T1.post}</td>
-										<td style="width: 20%">${T1.likes}</td>
+										<tr align="center">
+											<td style="width: 20%">00 - 12</td>
+											<td style="width: 20%">${T1.hits}</td>
+											<td style="width: 20%">${T1.comments}</td>
+											<td style="width: 20%">${T1.post}</td>
+											<td style="width: 20%">${T1.likes}</td>
 										</tr>
 										<tr align="center">
 											<td style="width: 20%">12 - 15</td>
@@ -846,20 +843,20 @@ var data = new google.visualization.DataTable();
 				</div>
 
 			</div>
-			
-			
+
+
 			<!-- 홈트레이닝 차트 -->
+
 			<div class="ui center aligned segment"
-				style="width: 100%; display: none" id="chart2">
+				style="width: 100%; display: block" id="chart2">
 				<div class="ui horizontal segments">
-					<div class="ui right aligned segment" style="width: 55%">
+					<div class="ui right aligned segment" style="width: 60%">
 						<h3>홈 트레이닝 게시판 분석</h3>
 					</div>
 					<div class="ui right aligned segment"
-						style="width: 45%; border-left: none;">
-						
-					</div>
+						style="width: 40%; border-left: none;"></div>
 				</div>
+
 				<div class="ui horizontal segments">
 					<div class="ui center aligned segment" style="width: 50%"
 						id="linechart_material2"></div>
@@ -1007,20 +1004,20 @@ var data = new google.visualization.DataTable();
 				</div>
 
 			</div>
-			
+
 			<!--커뮤니티 차트 -->
 			<div class="ui center aligned segment"
-				style="width: 100%; display: none " id="chart3">
+				style="width: 100%; display: block" id="chart3">
 				<div class="ui horizontal segments">
-					<div class="ui right aligned segment" style="width: 55%">
+					<div class="ui right aligned segment" style="width: 60%">
 						<h3>커뮤니티 게시판 분석</h3>
 					</div>
 					<div class="ui right aligned segment"
-						style="width: 45%; border-left: none;">
-						
-
-					</div>
+						style="width: 40%; border-left: none;"></div>
 				</div>
+				
+				
+				
 				<div class="ui horizontal segments">
 					<div class="ui center aligned segment" style="width: 50%"
 						id="linechart_material3"></div>
@@ -1078,9 +1075,6 @@ var data = new google.visualization.DataTable();
 											<td style="width: 20%">${C5.post}</td>
 											<td style="width: 20%">${C5.likes}</td>
 										</tr>
-
-
-
 									</c:when>
 									<c:when test="${currentTime==4}">
 										<tr align="center">
@@ -1111,9 +1105,6 @@ var data = new google.visualization.DataTable();
 											<td style="width: 20%">${C4.post}</td>
 											<td style="width: 20%">${C4.likes}</td>
 										</tr>
-
-
-
 									</c:when>
 									<c:when test="${currentTime==3}">
 										<tr align="center">
@@ -1137,8 +1128,6 @@ var data = new google.visualization.DataTable();
 											<td style="width: 20%">${C3.post}</td>
 											<td style="width: 20%">${C3.likes}</td>
 										</tr>
-
-
 									</c:when>
 									<c:when test="${currentTime==2}">
 										<tr align="center">
@@ -1155,7 +1144,6 @@ var data = new google.visualization.DataTable();
 											<td style="width: 20%">${C2.post}</td>
 											<td style="width: 20%">${C2.likes}</td>
 										</tr>
-
 									</c:when>
 									<c:when test="${currentTime==1}">
 										<tr align="center">
@@ -1173,6 +1161,7 @@ var data = new google.visualization.DataTable();
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 <br>
 <br>
@@ -1183,20 +1172,25 @@ var data = new google.visualization.DataTable();
 function onchangeSelect(){
 	var clicked = $('#select').val();
 	switch(clicked){
+	case "all":
+		$('#chart1').attr("style","display:block");
+		$('#chart2').attr("style","display:block");
+		$('#chart3').attr("style","display:block");
+		break;
 	case "tip": 
-		$('#chart1').css("display","block");
-		$('#chart2').css("display","none");
-		$('#chart3').css("display","none");
+		$('#chart1').attr("style","display:block");
+		$('#chart2').attr("style","display:none");
+		$('#chart3').attr("style","display:none");
 	break;
 	case "home":
-		$('#chart1').css("display","none");
-		$('#chart2').css("display","block");
-		$('#chart3').css("display","none");
+		$('#chart1').attr("style","display:none");
+		$('#chart2').attr("style","display:block");
+		$('#chart3').attr("style","display:none");
 	break;
 	case "commu": 
-		$('#chart1').css("display","none");
-		$('#chart2').css("display","none");
-		$('#chart3').css("display","block");
+		$('#chart1').attr("style","display:none");
+		$('#chart2').attr("style","display:none");
+		$('#chart3').attr("style","display:block");
 	break;
 	}
 }
