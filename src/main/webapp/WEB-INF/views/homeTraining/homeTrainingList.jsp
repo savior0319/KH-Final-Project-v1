@@ -153,7 +153,7 @@
 
 			<div class="ui right action left icon input">
 				<i class="search icon"></i> <input type="text" placeholder="Search"
-					id="searchText">
+					id="searchText" onkeypress="runScript(event)" >
 
 				<button class="ui right red basic button"
 					style="margin-left: 4px; margin-right: 40px;"
@@ -243,7 +243,7 @@
 							<div class="item">작성자</div>
 						</div>
 					</div>
-					<input type="text" placeholder="Search..." id="searchText2" style="width: 70%;"> <i class="circular search link icon" onclick="searchBtn()"></i>
+					<input type="text" placeholder="Search..." id="searchText2" style="width: 70%;"  onkeypress="runScript(event)" > <i class="circular search link icon" onclick="searchBtn()"></i>
 				</div>
 			</div>
 
@@ -285,6 +285,12 @@ $('.menu > .item').click(function() {
 		break;
 	}
 });
+/* 검색  - 엔터*/
+function runScript(e) {
+	if (e.keyCode == 13) {
+		searchBtn();
+	}
+}
 
 /* 검색 */
 function searchBtn(){

@@ -257,7 +257,7 @@ p>span {
 							<div class="item">작성자</div>
 						</div>
 					</div>
-					<input type="text" placeholder="Search..." id="searchText"> <i class="circular search link icon" onclick="searchBtn()"></i>
+					<input type="text" placeholder="Search..." id="searchText"  onkeypress="runScript(event)" > <i class="circular search link icon" onclick="searchBtn()"></i>
 				</div>
 			</div>
 
@@ -447,7 +447,7 @@ p>span {
 							<div class="item">작성자</div>
 						</div>
 					</div>
-					<input type="text" placeholder="Search..." id="searchText2" style="width: 70%;"> <i class="circular search link icon" onclick="searchBtn()"></i>
+					<input type="text" placeholder="Search..." id="searchText2" style="width: 70%;"  onkeypress="runScript(event)" > <i class="circular search link icon" onclick="searchBtn()"></i>
 				</div>
 			</div>
 
@@ -525,6 +525,13 @@ p>span {
 			break;
 		}
 	});
+	
+	/* 검색  - 엔터*/
+	function runScript(e) {
+		if (e.keyCode == 13) {
+			searchBtn();
+		}
+	}
 	
 	/* 검색 */
 	function searchBtn(){
