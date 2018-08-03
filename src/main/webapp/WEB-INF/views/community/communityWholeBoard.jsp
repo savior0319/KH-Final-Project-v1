@@ -67,10 +67,18 @@
 	<div class="ui center aligned container">
 		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
+			<li>
+				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
+			</li>
 		</ul>
 		<br>
 		<div class="ui left aligned container">
@@ -106,14 +114,13 @@
 		<!-- 최신순, 조회순 -->
 		<br>
 
-		<%-- <c:if test="${requestScope.cpdv.category == null}"> --%>
 		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
 			<div class="small ui basic buttons">
 				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
 				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
 			</div>
 		</div>
-		<%-- </c:if> --%>
+
 		<br>
 		<!-- 글목록 -->
 		<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
@@ -128,12 +135,102 @@
 						<th style="width: 10%;">작성일</th>
 					</tr>
 				</thead>
-				
+
 				<tbody>
+
+					<!-- 공지사항 넣기! -->
+
+					<c:if test="${requestScope.cpdv.type.equals('15') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'15'}">
+								
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td>${nv.noticeTitle}</td>
+										<td>${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
+
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+					<c:if test="${requestScope.cpdv.type.equals('17') }">
+						<c:choose>
+							<c:when test="${nv.noticeType eq'17'}">
+								<tr align="center" style="background: rgba(171, 171, 171, 0.1);">
+									<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+									<td>${nv.noticeTitle}</td>
+									<td>${nv.noticeWriter}</td>
+									<td>${nv.noticeView}</td>
+									<td>
+										<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+									</td>
+								</tr>
+							</c:when>
+						</c:choose>
+					</c:if>
+
+					<c:if test="${requestScope.cpdv.type.equals('18') }">
+						<c:choose>
+							<c:when test="${nv.noticeType eq'18'}">
+								<tr align="center" style="background: rgba(171, 171, 171, 0.1);">
+									<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+									<td>${nv.noticeTitle}</td>
+									<td>${nv.noticeWriter}</td>
+									<td>${nv.noticeView}</td>
+									<td>
+										<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+									</td>
+								</tr>
+							</c:when>
+						</c:choose>
+					</c:if>
+
+					<c:if test="${requestScope.cpdv.type.equals('19') }">
+						<c:choose>
+							<c:when test="${nv.noticeType eq'19'}">
+								<tr align="center" style="background: rgba(171, 171, 171, 0.1);">
+									<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+									<td>${nv.noticeTitle}</td>
+									<td>${nv.noticeWriter}</td>
+									<td>${nv.noticeView}</td>
+									<td>
+										<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+									</td>
+								</tr>
+							</c:when>
+						</c:choose>
+					</c:if>
+
+					<c:if test="${requestScope.cpdv.type.equals('comAll') }">
+						<c:choose>
+							<c:when test="${nv.noticeType eq'comAll'}">
+								<tr align="center" style="background: rgba(171, 171, 171, 0.1);">
+									<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+									<td>${nv.noticeTitle}</td>
+									<td>${nv.noticeWriter}</td>
+									<td>${nv.noticeView}</td>
+									<td>
+										<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+									</td>
+								</tr>
+							</c:when>
+						</c:choose>
+					</c:if>
+
+					<!-- 공지사항 넣기 -->
+					<%-- 게시판 공지 끝 --%>
 					<c:forEach items="${requestScope.cpdv.comList}" var="c">
 						<tr align="center">
 							<td>${c.bcaName}</td>
-							<td style="padding-top: 15px; padding-bottom: 15px;"><a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}"> <c:choose>
+							<td style="padding-top: 15px; padding-bottom: 15px;">
+								<a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}">
+									<c:choose>
 										<c:when test="${fn:length(c.postTitle)>30}">
 											<c:out value="${fn:substring(c.postTitle,0,29)}" />...
 								</c:when>
@@ -141,14 +238,20 @@
 									${c.postTitle}
 								</c:otherwise>
 									</c:choose>
-							</a></td>
-							<td><img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'> ${c.postNickname}</td>
+								</a>
+							</td>
+							<td>
+								<img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
+								${c.postNickname}
+							</td>
 							<td>${c.postHit}</td>
-							<td><fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" /></td>
+							<td>
+								<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
-				
+
 			</table>
 		</div>
 
@@ -160,17 +263,18 @@
 			<div class="three column row">
 				<div class="column"></div>
 				<div class="column">
-				<c:if test="${requestScope.cpdv.comList[0] !=null}">
-					<div class="ui center aligned basic segment">
-						<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
-					</div>
+					<c:if test="${requestScope.cpdv.comList[0] !=null}">
+						<div class="ui center aligned basic segment">
+							<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
+						</div>
 					</c:if>
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
 						<c:if test="${sessionScope.member!=null}">
 							<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="return loginCheck();">
-								<i class="edit icon"></i> 등록
+								<i class="edit icon"></i>
+								등록
 							</button>
 						</c:if>
 					</div>
@@ -178,7 +282,7 @@
 			</div>
 			<br>
 		</div>
-		
+
 		<div id="size2" class="ui center aligned grid">
 
 			<c:if test="${requestScope.cpdv.comList[0]!=null }">
@@ -189,8 +293,8 @@
 
 			<br>
 		</div>
-		
-		
+
+
 		<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 		<br>
 		<div class="ui secondary segment">
@@ -204,7 +308,8 @@
 						<div class="item">작성자</div>
 					</div>
 				</div>
-				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)" /> <i class="circular search link icon" onclick="searchBtn()"></i>
+				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)" />
+				<i class="circular search link icon" onclick="searchBtn()"></i>
 			</div>
 		</div>
 
@@ -231,15 +336,15 @@
 			data : {
 				'mbId' : mbId
 			},
-			success : function(data){
-				if(data=='n'){
-					location.href = "/registCommunity.diet";			
+			success : function(data) {
+				if (data == 'n') {
+					location.href = "/registCommunity.diet";
 				} else {
 					alert('\n글쓰기 정지당한 회원입니다. \n\n관리자에게 문의하세요.')
 				}
 			}
 		});
-		
+
 	});
 
 	/* 클릭시 각 페이지로 이동 ????????????????????????????????????????? */
@@ -281,14 +386,14 @@
 	}
 	function searchBtn() {
 		$searchText = $('#searchText').val();
-		
+
 		if (category == "") {
 			alert('카테고리를 선택하여주세요.');
-		}else{
+		} else {
 			location.href = "/communitySearch.diet?category=" + category
-			+ "&searchText=" + $searchText;
+					+ "&searchText=" + $searchText;
 		}
-		
+
 		/* + "&type=" + type */
 
 	}

@@ -95,5 +95,7 @@ public interface AdminService {
 
 	TrainingRegPageDataVO trainerChange(int currentPage);
 
+	int changeGrade(int mbIndex);
+
 
 }

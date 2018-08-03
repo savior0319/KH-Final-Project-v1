@@ -11,6 +11,7 @@ import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
+import spring.kh.diet.model.vo.NoticeVO;
 
 @Repository(value = "communityDAO")
 public class CommunityDAOImpl implements CommunityDAO {
@@ -417,4 +418,12 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public int commentTBLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv) {
 		return sqlSessionTemplate.update("community.cmtTBLikeUp", blv);
 	}
+
+	@Override
+	public ArrayList<NoticeVO> noticeList(SqlSessionTemplate sqlSessionTemplate, String type) {
+		List<NoticeVO> list = sqlSessionTemplate.selectList("community.noticeList", type);
+		return (ArrayList<NoticeVO>)list;
+	}
+
+
 }

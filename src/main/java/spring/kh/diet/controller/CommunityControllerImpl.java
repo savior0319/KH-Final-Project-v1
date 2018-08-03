@@ -1,6 +1,7 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -22,6 +23,7 @@ import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.MemberVO;
+import spring.kh.diet.model.vo.NoticeVO;
 
 @Controller
 public class CommunityControllerImpl implements CommunityController {
@@ -115,6 +117,14 @@ public class CommunityControllerImpl implements CommunityController {
 		CommunityPageDataVO cpdv = communityService.allCommunityList(currentPage, type);
 
 		request.setAttribute("cpdv", cpdv);
+		
+		
+		ArrayList<NoticeVO> nvList = communityService.noticeList(type);
+		
+		request.setAttribute("nvList", nvList);
+		
+		
+		
 		return "community/communityWholeBoard";
 	}
 
@@ -460,4 +470,20 @@ public class CommunityControllerImpl implements CommunityController {
 		BoardLikeVO blv = communityService.checkCommnetLike(likeCheckVO);
 		return blv;
 	}
+	
+	
+	// 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 공지 출력
+/*	@Override
+	@RequestMapping(value = "/communityWholeBoard.diet")
+	public String noticeList(HttpSession session, HttpServletRequest request) {
+		
+		NoticeVO nv = communityService.noticeList();
+
+		request.setAttribute("nv", nv);
+		
+		return "community/communityWholeBoard";
+	}*/
+	
+	
+	
 }

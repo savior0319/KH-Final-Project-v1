@@ -69,12 +69,13 @@ public class AdminControllerImpl implements AdminController {
 	/* 공지사항 등록 */
 	@Override
 	@RequestMapping(value = "/noticeRegisterData.diet")
-	public void noticeRegisterData(@RequestParam String title, @RequestParam String content,
+	public void noticeRegisterData(@RequestParam String title, @RequestParam String content, @RequestParam String noticeType,
 			HttpServletResponse response) throws IOException {
 
 		NoticeVO nv = new NoticeVO();
 		nv.setNoticeTitle(title);
 		nv.setNoticeContent(content);
+		nv.setNoticeType(noticeType);
 
 		int result = as.noticeRegisterData(nv);
 
@@ -344,6 +345,23 @@ public class AdminControllerImpl implements AdminController {
 	}
 
 	
+	// 트레이너 회원에서 일반 회원으로 전환
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/changeGrade.diet")
+	public String changeGrade(HttpServletRequest request, HttpSession session) {
+		
+		int mbIndex = Integer.parseInt(request.getParameter("mbIndex"));
+		
+		
+		int result = as.changeGrade(mbIndex);
+
+		if (result > 0) {
+			return "success";
+		} else {
+			return "failed";
+		}
+	}
 	
 	
 	/* 1:1문의 답변하기 */

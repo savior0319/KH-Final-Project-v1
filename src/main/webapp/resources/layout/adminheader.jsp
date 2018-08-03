@@ -6,12 +6,14 @@
 	<!-- <a class="item" href="/admin.diet"> -->
 	<a class="item" href="/todayAnalytics.diet">
 		<h2>
-			<i class="cog icon"></i> 관리자 페이지
+			<i class="cog icon"></i>
+			관리자 페이지
 		</h2>
 	</a>
 	<div class="item">
 		<h3>
-			<i class="clipboard iternate icon"></i> 페이지 설정
+			<i class="clipboard iternate icon"></i>
+			페이지 설정
 		</h3>
 		<div class="menu dropdown">
 			<h4>
@@ -23,13 +25,25 @@
 
 	<div class="item">
 		<h3>
-			<i class="clipboard iternate icon"></i> 회원 관리
+			<i class="clipboard iternate icon"></i>
+			일반 회원 관리
 		</h3>
 		<div class="menu dropdown">
 			<h4>
 				<a class="ui simple item" href="/memberList.diet">회원조회</a>
 				<a class="ui simple item" href="/deleteMemberList.diet">탈퇴 내역 조회</a>
 				<a class="ui simple item" href="/blackList.diet">블랙리스트 회원 관리</a>
+			</h4>
+		</div>
+	</div>
+
+	<div class="item">
+		<h3>
+			<i class="clipboard iternate icon"></i>
+			트레이너 회원 관리
+		</h3>
+		<div class="menu dropdown">
+			<h4>
 				<a class="ui simple item" href="/trainer.diet">트레이너 신청 관리</a>
 				<a class="ui simple item" href="/trainerChange.diet">트레이너 회원 관리</a>
 			</h4>
@@ -38,7 +52,8 @@
 
 	<div class="item">
 		<h3>
-			<i class="clipboard iternate icon"></i>게시판 관리
+			<i class="clipboard iternate icon"></i>
+			게시판 관리
 		</h3>
 		<div class="menu dropdown">
 			<h4>
@@ -51,7 +66,8 @@
 
 	<div class="item">
 		<h3>
-			<i class="clipboard iternate icon"></i>통계 관리
+			<i class="clipboard iternate icon"></i>
+			통계 관리
 		</h3>
 		<div class="menu dropdown">
 			<a class="ui simple item" href="/currentLoginUser.diet">접속자 통계</a>
@@ -59,23 +75,10 @@
 			<a class="ui simple item" href="/errorLogManage.diet">에러 로그 관리</a>
 		</div>
 	</div>
-
-
 	<div class="item">
 		<h3>
-			<i class="clipboard iternate icon"></i>쇼핑몰 관리
-		</h3>
-		<div class="menu dropdown">
-			<a class="ui simple item" href="#">상품등록</a>
-			<a class="ui simple item" href="#">구매관리</a>
-			<a class="ui simple item" href="#">배송관리</a>
-			<a class="ui simple item" href="#">매출관리</a>
-		</div>
-	</div>
-
-	<div class="item">
-		<h3>
-			<i class="clipboard iternate icon"></i>기타 관리
+			<i class="clipboard iternate icon"></i>
+			기타 관리
 		</h3>
 		<div class="menu dropdown">
 			<a class="ui simple item" href="#">추가예정</a>
@@ -84,7 +87,8 @@
 
 
 	<a class="item" href="/">
-		메인으로 <i class="sign out iternate icon"></i>
+		메인으로
+		<i class="sign out iternate icon"></i>
 	</a>
 
 </div>

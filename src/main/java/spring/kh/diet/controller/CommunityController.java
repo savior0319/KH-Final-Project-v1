@@ -44,4 +44,5 @@ public interface CommunityController {
 
 	String commentLike(BoardLikeVO checkVO, HttpSession session);
 
+
 }

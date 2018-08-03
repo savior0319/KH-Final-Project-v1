@@ -680,9 +680,9 @@ public class AdminDAOImpl implements AdminDAO {
 
 		trpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
 		trpdv.setEnd(currentPage * recordCountPerPage);
-
-		List<TrainingRegVO> list = session.selectList("admin.trainerRegList", trpdv);
-
+		
+		List<TrainingRegVO> list = session.selectList("admin.trainerList", trpdv);
+		
 		return (ArrayList<TrainingRegVO>) list;
 	}
 
@@ -692,8 +692,9 @@ public class AdminDAOImpl implements AdminDAO {
 			int naviCountPerPage) {
 		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
 
-		int recordTotalCount = session.selectOne("admin.getTrainerRegNavi", trpdv);
+		int recordTotalCount = session.selectOne("admin.getTrainerListNavi", trpdv);
 
+		
 		int pageTotalCount = 0;
 		if (recordTotalCount % recordCountPerPage != 0) {
 			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
@@ -728,23 +729,29 @@ public class AdminDAOImpl implements AdminDAO {
 		StringBuilder sb = new StringBuilder();
 
 		if (needPrev) {
-			sb.append("<a class='item' href='/trainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+			sb.append("<a class='item' href='/trainerChange.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (i == currentPage) {
 				sb.append(
-						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/trainer.diet?currentPage="
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/trainerChange.diet?currentPage="
 								+ i + "'>  " + i + " </a>");
 			} else {
-				sb.append("<a class='item' href='/trainer.diet?currentPage=" + i + "'> " + i + " </a>");
+				sb.append("<a class='item' href='/trainerChange.diet?currentPage=" + i + "'> " + i + " </a>");
 			}
 		}
 		if (needNext) {
-			sb.append("<a class='item' href='/trainer.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+			sb.append("<a class='item' href='/trainerChange.diet?currentPage=" + (endNavi + 1) + "'> &gt; </a>");
 		}
 
 		return sb.toString();
+	}
+
+	//트레이너 회원에서 일반 회원으로 전환
+	@Override
+	public int changeGrade(SqlSessionTemplate session, int mbIndex) {
+		return session.update("admin.changeGrade",mbIndex);
 	}
 
 	
