@@ -25,9 +25,7 @@ public class Log4jCommon {
 		
 	} */
 	// 컨트롤러용 Before
-	@Pointcut("execution(* spring.kh.diet.controller.DietTipControllerImpl.*(*)) || execution(* spring.kh.diet.controller.HomeTrainingControllerImpl.*(*))|| execution(* spring.kh.diet.controller.CommunityControllerImpl.*(*))"
-			+ "|| execution(* spring.kh.diet.model.service.DietTipServiceImpl.*(*)) || execution(* spring.kh.diet.model.service.HomeTrainingServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommunityServiceImpl.*(*))"
-			+ "|| execution(* spring.kh.diet.model.dao.DietTipDAOImpl.*(*)) || execution(* spring.kh.diet.model.dao.HomeTrainingDAOImpl.*(*))|| execution(* spring.kh.diet.model.dao.CommunityDAOImpl.*(*))")
+	@Pointcut("execution(* spring.kh.diet.controller.DietTipControllerImpl.*(*)) || execution(* spring.kh.diet.controller.HomeTrainingControllerImpl.*(*))|| execution(* spring.kh.diet.controller.CommunityControllerImpl.*(*))")
 	public void beforePointCut() {
 		
 	} 

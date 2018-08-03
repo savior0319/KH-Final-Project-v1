@@ -99,6 +99,7 @@ public class AdminControllerImpl implements AdminController {
 	public String currentLoginUser(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage;
 		// 현재 접속중인인원
+//		 페이징 처리 < 바꿧음 18년 8월 3일 -> 그냥 스크롤로 보여주는걸로
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
@@ -169,7 +170,7 @@ public class AdminControllerImpl implements AdminController {
 				}
 			}
 		}
-
+		
 		CurrentDate CD = new CurrentDate(PC, MOBILE, AtoBOn, BtoCOn, CtoDOn, DtoEOn, EtoFOn, AtoBOff, BtoCOff, CtoDOff,
 				DtoEOff, EtoFOff);
 		// System.out.println(list.toString());
@@ -549,24 +550,14 @@ public class AdminControllerImpl implements AdminController {
 		int todayHour = Integer.parseInt(tD3.nextToken());
 		int todayMinute = Integer.parseInt(tD3.nextToken());
 		int todaySecond = Integer.parseInt(tD3.nextToken());
-		int timeType = 0;
-		if (todayHour < 12) {
-			timeType = 1;
-		}
-		if (12 <= todayHour && todayHour < 15) {
-			timeType = 2;
-		}
-		if (15 <= todayHour && todayHour < 18) {
-			timeType = 3;
-		}
-		if (18 <= todayHour && todayHour < 21) {
-			timeType = 4;
-		}
-		if (21 <= todayHour && todayHour < 24) {
-			timeType = 5;
-		}
-
 		/// 그래프 분석할 자료들고오기.
+		int timeType = 0; 
+		if (todayHour < 12) {timeType = 1;}
+		if (12 <= todayHour && todayHour < 15) {timeType = 2;}
+		if (15 <= todayHour && todayHour < 18) {timeType = 3;}
+		if (18 <= todayHour && todayHour < 21) {timeType = 4;}
+		if (21 <= todayHour && todayHour < 24) {timeType = 5;}
+		/// 그래프 분석할 자료들고오기. 
 		ArrayList<TodayAnalyticsDetail> TotalList = as.TodayAnalyticsDetailList();
 		ModelAndView view = new ModelAndView();
 		int thits = 0;
