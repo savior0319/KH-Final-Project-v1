@@ -11,7 +11,7 @@
 <head>
 
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>다이어트</title>
+<title>관리자 - 접속자 통계</title>
 </head>
 
 <!-- CSS -->

@@ -7,7 +7,7 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+	<title>관리자 - 블랙리스트 신고 내역</title>
 </head>
 
 <!-- CSS -->
@@ -59,7 +59,6 @@ body {
 					<td>${c.targetContent}</td>
 						</c:otherwise>
 					</c:choose>
-
 					<td>${c.cmtContent}</td>
 					<td>${c.mbNickName}</td>
 					<td>${c.targetMbNickName}</td>
@@ -67,6 +66,7 @@ body {
 			   </c:forEach>
 		</table>
 	</div>
+		<button type="button" onclick="back();" style="ui button">뒤로가기</button>
 </div>
 
 
@@ -75,7 +75,9 @@ body {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	
+	function back(){
+		history.back(-1);
+	}
 </script>
 
 </html>
