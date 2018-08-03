@@ -56,7 +56,7 @@
 	<!-- CONTENTS -->
 	<div class="ui center aligned basic segment">
 
-		<div class="ui center aligned container">
+		<div id="size1" class="ui center aligned container">
 			<!-- 슬라이드-->
 		<ul class="rslides">
 			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
@@ -161,6 +161,94 @@
 
 			</div>
 		</div>
+		
+		
+		<div id="size2" class="ui center aligned container">
+			<!-- 슬라이드-->
+		<ul class="rslides">
+			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
+			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
+		</ul>
+
+			<h1 class="ui left aligned header">
+				홈트레이닝 >
+
+				<c:choose>
+					<c:when test="${requestScope.htpd.type.equals('wholeBody') }">전신</c:when>
+					<c:when test="${requestScope.htpd.type.equals('abdomen') }">복부</c:when>
+					<c:when test="${requestScope.htpd.type.equals('upperBody') }">상체</c:when>
+					<c:when test="${requestScope.htpd.type.equals('lowerBody') }">하체</c:when>
+					<c:when test="${requestScope.htpd.type.equals('stretching') }">스트레칭</c:when>
+					<c:when test="${requestScope.htpd.type.equals('dance') }">댄스</c:when>
+					<c:when test="${requestScope.htpd.type.equals('yoga') }">요가</c:when>
+					<c:when test="${requestScope.htpd.type.equals('fourChallenge') }">4주챌린지</c:when>
+				</c:choose>
+
+			</h1>
+			<hr>
+			<br>
+
+			<!-- 운동부위별 값 넣을곳 -->		
+			<div align="center">
+				<c:forEach items="${requestScope.htpd.htList }" var="ht">
+						<div class="ui card" >
+							<div class="image">
+								<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo})"
+									style="width: 290px; height: 200px; cursor: pointer;">
+							</div>
+							<div class="content">
+								<a class="header" onclick="InfoPage(${ht.indexNo})" style="height: 50px;">${ht.htTitle }</a>
+								<div class="meta">
+									<span class="date">${ht.htPart } |</span> <i
+										class="heart outline icon"></i> 좋아요 <span class="like"
+										style="color: red">${ht.htLike }</span>
+								</div>
+								<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
+							<div class="four wide column">
+								<a style="cursor:pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a>
+								&nbsp;|&nbsp;&nbsp;
+								<a style="cursor:pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
+							</div>
+							</c:if>
+							</div>
+						</div>
+				</c:forEach>
+			</div>
+			<br> <br>
+
+
+			<div class="ui center aligned grid">
+
+				<c:if test="${requestScope.htpd.htList[0]!=null }">
+					<div class="ui center aligned basic segment" style="margin: 0; padding: 0;">
+						<div class="ui pagination menu" align="center">${requestScope.htpd.pageNavi }</div>
+					</div>
+				</c:if>
+
+
+				<br>
+			</div>
+
+			<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
+			<div class="ui center aligned basic segment">
+			<div class="ui secondary segment">
+				<div class="ui left action right icon input">
+					<div class="ui basic floating dropdown button">
+						<div class="text">선택</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<div class="item">제목</div>
+							<div class="item">작성자</div>
+						</div>
+					</div>
+					<input type="text" placeholder="Search..." id="searchText2" style="width: 70%;"> <i class="circular search link icon" onclick="searchBtn()"></i>
+				</div>
+			</div>
+
+		</div>
+		</div>
 	</div>
 
 	<!-- FOOTER -->
@@ -201,11 +289,29 @@ $('.menu > .item').click(function() {
 /* 검색 */
 function searchBtn(){
 	if(category==''){
-		alert('분류를 선택해 주세요');
+		if(typeof Android !== "undefined" && Android !==null){
+			Android.noCategory();
+		}else{
+			alert('분류를 선택해 주세요');
+		}
 		return;
 	}
 	$searchText = $('#searchText').val();
+	$searchText2 = $('#searchText2').val();
 	$type = $('#type').val();
+	
+	if($searchText==""){
+		$searchText = $searchText2;
+	}
+	if($searchText==""){
+		if(typeof Android !== "undefined" && Android !==null){
+			Android.noSearchText();
+		}else{
+			alert('검색어를 입력해 주세요');
+		}
+		return;
+	}
+	
 	location.href = "/homeTrainingList.diet?category="+ category +"&searchText=" + $searchText + "&type=" + $type;
 }
 
@@ -265,6 +371,24 @@ $(function() {
 });
 
 </script>
+<style type="text/css" media="screen">
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 550px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
+}
+/* 모바일용 사이즈 */
+@media ( max-width : 549px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
+}
+</style>
 </html>
-
-

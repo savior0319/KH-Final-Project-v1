@@ -5,7 +5,7 @@
 <div class="ui vertical footer segment">
 	<div class="ui center aligned container">
 		<div class="ui stackable divided grid">
-			<div class="five wide column">
+			<div id="size1" class="five wide column">
 				<h3 class="ui header" style="text-decoration:underline;">고객센터</h3>
 				<i class="envelope icon"></i>
 				<span class="ui small header">savior0319@gmail.com</span><br><br>
@@ -28,7 +28,7 @@
 					건강기능식품판매업 제2018-0000000 (영등포)<br>
 				</div>
 			</div>
-			<div class="five wide column">
+			<div  id="size1" class="five wide column">
 				<h3 class="ui header" style="text-decoration:underline;">공지사항</h3>
 				<div style="color: gray;">
 					공지 <br>
@@ -115,3 +115,23 @@
 		}
 	}
 </script>
+<style type="text/css" media="screen">
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 550px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
+}
+/* 모바일용 사이즈 */
+@media ( max-width : 549px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
+}
+</style>

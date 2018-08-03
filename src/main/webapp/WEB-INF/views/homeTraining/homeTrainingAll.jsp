@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -53,27 +52,255 @@
 
 	<!-- CONTENTS -->
 	<div class="ui container">
-	<!-- 슬라이드-->
+		<!-- 슬라이드-->
 		<ul class="rslides">
 			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
 			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
 			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
 			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
 		</ul>
-		<div class="ui center aligned basic segment">
+		<div id="size1" class="ui center aligned basic segment">
 
 			<h1 class="ui left aligned header">홈트레이닝</h1>
 			<hr>
-			
+
 			<c:if test="${sessionScope.member!=null  }">
-			<h3 class="ui left aligned header">맞춤 홈트레이닝 동영상</h3>
-			
-			<!-- 제목 이미지 출력  -->
+				<h3 class="ui left aligned header">맞춤 홈트레이닝 동영상</h3>
+
+				<!-- 제목 이미지 출력  -->
+				<div class="ui three column grid">
+					<div class="column">
+						<div class="ui card">
+							<div class="image">
+								<img src="${requestScope.matchedList[0].htMainPhoto}" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })"
+									style="width: 100%; height: 200px; cursor: pointer;">
+							</div>
+							<div class="content">
+								<a class="header" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })" style="height: 50px;">${requestScope.matchedList[0].htTitle }</a>
+								<div class="meta">
+									<span class="date"> <c:choose>
+											<c:when test="${requestScope.matchedList[0].htType==1 }">
+										전신
+										</c:when>
+											<c:when test="${requestScope.matchedList[0].htType==2 }">
+										복부
+										</c:when>
+											<c:when test="${requestScope.matchedList[0].htType==3 }">
+										상체
+										</c:when>
+											<c:when test="${requestScope.matchedList[0].htType==4 }">
+										하체
+										</c:when>
+											<c:when test="${requestScope.matchedList[0].htType==5 }">
+										스트레칭
+										</c:when>
+											<c:when test="${requestScope.matchedList[0].htType==6 }">
+										댄스
+										</c:when>
+											<c:when test="${requestScope.matchedList[0].htType==7 }">
+										요가
+										</c:when>
+											<c:when test="${requestScope.matchedList[0].htType==8 }">
+										4주챌린지
+										</c:when>
+										</c:choose>
+
+									</span> <span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[0].htLike }</span>
+									<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
+										<div class="four wide column">
+											<a style="cursor: pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a> &nbsp;|&nbsp;&nbsp; <a style="cursor: pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
+										</div>
+									</c:if>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="ui card">
+							<div class="image">
+								<img src="${requestScope.matchedList[1].htMainPhoto} " onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType } )"
+									style="width: 100%; height: 200px; cursor: pointer;">
+							</div>
+							<div class="content">
+								<a class="header" onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType })" style="height: 50px;">${requestScope.matchedList[1].htTitle }</a>
+								<div class="meta">
+									<span class="date"> <c:choose>
+											<c:when test="${requestScope.matchedList[1].htType==1 }">
+										전신
+										</c:when>
+											<c:when test="${requestScope.matchedList[1].htType==2 }">
+										복부
+										</c:when>
+											<c:when test="${requestScope.matchedList[1].htType==3 }">
+										상체
+										</c:when>
+											<c:when test="${requestScope.matchedList[1].htType==4 }">
+										하체
+										</c:when>
+											<c:when test="${requestScope.matchedList[1].htType==5 }">
+										스트레칭
+										</c:when>
+											<c:when test="${requestScope.matchedList[1].htType==6 }">
+										댄스
+										</c:when>
+											<c:when test="${requestScope.matchedList[1].htType==7 }">
+										요가
+										</c:when>
+											<c:when test="${requestScope.matchedList[1].htType==8 }">
+										4주챌린지
+										</c:when>
+										</c:choose>
+
+									</span> <span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[1].htLike }</span>
+									<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
+										<div class="four wide column">
+											<a style="cursor: pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a> &nbsp;|&nbsp;&nbsp; <a style="cursor: pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
+										</div>
+									</c:if>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="ui card">
+							<div class="image">
+								<img src="${requestScope.matchedList[2].htMainPhoto} " onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType } )"
+									style="width: 100%; height: 200px; cursor: pointer;">
+							</div>
+							<div class="content">
+								<a class="header" onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType })" style="height: 50px;">${requestScope.matchedList[2].htTitle }</a>
+								<div class="meta">
+									<span class="date"> <c:choose>
+											<c:when test="${requestScope.matchedList[2].htType==1 }">
+										전신
+										</c:when>
+											<c:when test="${requestScope.matchedList[2].htType==2 }">
+										복부
+										</c:when>
+											<c:when test="${requestScope.matchedList[2].htType==3 }">
+										상체
+										</c:when>
+											<c:when test="${requestScope.matchedList[2].htType==4 }">
+										하체
+										</c:when>
+											<c:when test="${requestScope.matchedList[2].htType==5 }">
+										스트레칭
+										</c:when>
+											<c:when test="${requestScope.matchedList[2].htType==6 }">
+										댄스
+										</c:when>
+											<c:when test="${requestScope.matchedList[2].htType==7 }">
+										요가
+										</c:when>
+											<c:when test="${requestScope.matchedList[2].htType==8 }">
+										4주챌린지
+										</c:when>
+										</c:choose>
+
+									</span> <span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[2].htLike }</span>
+									<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
+										<div class="four wide column">
+											<a style="cursor: pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a> &nbsp;|&nbsp;&nbsp; <a style="cursor: pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
+										</div>
+									</c:if>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</c:if>
+
+			<h3 class="ui left aligned header">최신 홈트레이닝 동영상</h3>
+			<hr>
+			<br>
+
 			<div class="ui three column grid">
-				<div class="column">
+				<c:forEach items="${requestScope.htpd.htList }" var="ht">
+
+
+					<div class="column">
+						<div class="ui card">
+							<div class="image">
+								<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="width: 290px; height: 200px; cursor: pointer;">
+							</div>
+							<div class="content">
+								<a class="header" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="height: 50px;">${ht.htTitle }</a>
+								<div class="meta">
+									<span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${ht.htLike }</span>
+								</div>
+								<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
+									<div class="four wide column">
+										<a style="cursor: pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a> &nbsp;|&nbsp;&nbsp; <a style="cursor: pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
+									</div>
+								</c:if>
+							</div>
+						</div>
+					</div>
+
+
+				</c:forEach>
+			</div>
+
+			<br> <br>
+
+			<div class="ui grid">
+				<div class="three column row">
+					<div class="four wide column"></div>
+					<div class="eight wide column">
+						<c:if test="${requestScope.htpd.htList[0]!=null }">
+							<div class="ui center aligned basic segment">
+								<div class="ui pagination menu">${requestScope.htpd.pageNavi }</div>
+							</div>
+						</c:if>
+					</div>
+					<div class="four wide column">
+						<div class="ui right aligned container">
+							<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="homeTrainingWrite();">
+								<i class="edit icon"></i> 등록
+							</button>
+						</div>
+					</div>
+				</div>
+				<br> <br>
+			</div>
+
+			<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
+			<div class="ui center aligned basic segment">
+				<div class="ui secondary segment">
+					<div class="ui left action right icon input">
+						<div class="ui basic floating dropdown button">
+							<div class="text">선택</div>
+							<i class="dropdown icon"></i>
+							<div class="menu">
+								<div class="item">제목</div>
+								<div class="item">작성자</div>
+							</div>
+						</div>
+						<input type="text" placeholder="Search..." id="searchText" style="width: 70%;"> <i class="circular search link icon" onclick="searchBtn()"></i>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div id="size2" class="ui center aligned basic segment">
+
+			<h1 class="ui left aligned header">홈트레이닝</h1>
+			<hr>
+
+			<c:if test="${sessionScope.member!=null  }">
+				<h3 class="ui left aligned header">맞춤 홈트레이닝 동영상</h3>
+
+				<!-- 제목 이미지 출력  -->
+				<div align="center">
 					<div class="ui card">
 						<div class="image">
-							<img src="${requestScope.matchedList[0].htMainPhoto}" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })" style="width: 100%; height: 200px; cursor: pointer;">
+							<img src="${requestScope.matchedList[0].htMainPhoto}" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })"
+								style="width: 100%; height: 200px; cursor: pointer;">
 						</div>
 						<div class="content">
 							<a class="header" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })" style="height: 50px;">${requestScope.matchedList[0].htTitle }</a>
@@ -105,27 +332,20 @@
 										</c:when>
 									</c:choose>
 
-								</span> 
-															
-								<span class="date">${ht.htPart } |</span>
-								 <i	class="heart outline icon"></i> 좋아요
-								  <span class="like" style="color: red">${requestScope.matchedList[0].htLike }</span>
-								  <c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
-								<div class="four wide column">
-								<a style="cursor:pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a>
-								&nbsp;|&nbsp;&nbsp;
-								<a style="cursor:pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
-								</div>
+								</span> <span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[0].htLike }</span>
+								<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
+									<div class="four wide column">
+										<a style="cursor: pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a> &nbsp;|&nbsp;&nbsp; <a style="cursor: pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
+									</div>
 								</c:if>
-								
+
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="column">
 					<div class="ui card">
 						<div class="image">
-							<img src="${requestScope.matchedList[1].htMainPhoto} " onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType } )" style="width: 100%; height: 200px; cursor: pointer;">
+							<img src="${requestScope.matchedList[1].htMainPhoto} " onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType } )"
+								style="width: 100%; height: 200px; cursor: pointer;">
 						</div>
 						<div class="content">
 							<a class="header" onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType })" style="height: 50px;">${requestScope.matchedList[1].htTitle }</a>
@@ -157,27 +377,20 @@
 										</c:when>
 									</c:choose>
 
-								</span> 
-								
-								<span class="date">${ht.htPart } |</span>
-								 <i	class="heart outline icon"></i> 좋아요
-								  <span class="like" style="color: red">${requestScope.matchedList[1].htLike }</span>
-								  <c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
-								<div class="four wide column">
-								<a style="cursor:pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a>
-								&nbsp;|&nbsp;&nbsp;
-								<a style="cursor:pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
-								</div>
+								</span> <span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[1].htLike }</span>
+								<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
+									<div class="four wide column">
+										<a style="cursor: pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a> &nbsp;|&nbsp;&nbsp; <a style="cursor: pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
+									</div>
 								</c:if>
-								
+
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="column">
 					<div class="ui card">
 						<div class="image">
-							<img src="${requestScope.matchedList[2].htMainPhoto} "onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType } )" style="width: 100%; height: 200px; cursor: pointer;">
+							<img src="${requestScope.matchedList[2].htMainPhoto} " onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType } )"
+								style="width: 100%; height: 200px; cursor: pointer;">
 						</div>
 						<div class="content">
 							<a class="header" onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType })" style="height: 50px;">${requestScope.matchedList[2].htTitle }</a>
@@ -209,104 +422,72 @@
 										</c:when>
 									</c:choose>
 
-								</span> 
-								
-								<span class="date">${ht.htPart } |</span>
-								 <i	class="heart outline icon"></i> 좋아요
-								  <span class="like" style="color: red">${requestScope.matchedList[2].htLike }</span>
-								  <c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
-								<div class="four wide column">
-								<a style="cursor:pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a>
-								&nbsp;|&nbsp;&nbsp;
-								<a style="cursor:pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
-								</div>
+								</span> <span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[2].htLike }</span>
+								<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
+									<div class="four wide column">
+										<a style="cursor: pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a> &nbsp;|&nbsp;&nbsp; <a style="cursor: pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
+									</div>
 								</c:if>
-								
+
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</c:if>					
+			</c:if>
 
 			<h3 class="ui left aligned header">최신 홈트레이닝 동영상</h3>
 			<hr>
 			<br>
 
-			<div class="ui three column grid">
+			<div align="center">
 				<c:forEach items="${requestScope.htpd.htList }" var="ht">
 
 
-					<div class="column">
-						<div class="ui card" >
-							<div class="image">
-								<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo}, ${ht.htType })"
-									style="width: 290px; height: 200px; cursor: pointer;">
+					<div class="ui card">
+						<div class="image">
+							<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="width: 290px; height: 200px; cursor: pointer;">
+						</div>
+						<div class="content">
+							<a class="header" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="height: 50px;">${ht.htTitle }</a>
+							<div class="meta">
+								<span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${ht.htLike }</span>
 							</div>
-							<div class="content">
-								<a class="header" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="height: 50px;">${ht.htTitle }</a>
-								<div class="meta">
-									<span class="date">${ht.htPart } |</span>
-									 <i	class="heart outline icon"></i> 좋아요
-									  <span class="like" style="color: red">${ht.htLike }</span>
+							<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
+								<div class="four wide column">
+									<a style="cursor: pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a> &nbsp;|&nbsp;&nbsp; <a style="cursor: pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
 								</div>
-								<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
-							<div class="four wide column">
-								<a style="cursor:pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a>
-								&nbsp;|&nbsp;&nbsp;
-								<a style="cursor:pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
-							</div>
 							</c:if>
-							</div>
 						</div>
 					</div>
-
-
 				</c:forEach>
 			</div>
 
 			<br> <br>
 
-			<div class="ui grid">
-				<div class="three column row">
-					<div class="four wide column"></div>
-					<div class="eight wide column">
-					<c:if test="${requestScope.htpd.htList[0]!=null }">
-						<div class="ui center aligned basic segment">
-							<div class="ui pagination menu">${requestScope.htpd.pageNavi }</div>
-						</div>
-					</c:if>
+			<div class="ui center aligned grid">
+
+				<c:if test="${requestScope.htpd.htList[0]!=null }">
+					<div class="ui center aligned basic segment" style="margin: 0; padding: 0;">
+						<div class="ui pagination menu" align="center">${requestScope.htpd.pageNavi }</div>
 					</div>
-					<div class="four wide column">
-						<div class="ui right aligned container">
-							<button class="ui right red basic button"
-								style="margin-top: 19px;" id="writeBtn"
-								onclick="homeTrainingWrite();">
-								<i class="edit icon"></i> 등록
-							</button>
-						</div>
-					</div>
-				</div>
-				<br> <br>
+				</c:if>
+				<br>
 			</div>
 
-			<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
-			<div class="ui basic floating dropdown button">
-				<div class="text">선택</div>
-				<i class="dropdown icon"></i>
-				<div class="menu">
-					<div class="item">제목</div>
-					<div class="item">작성자</div>
+			<div class="ui center aligned basic segment">
+				<div class="ui secondary segment">
+					<div class="ui left action right icon input">
+						<div class="ui basic floating dropdown button">
+							<div class="text">선택</div>
+							<i class="dropdown icon"></i>
+							<div class="menu">
+								<div class="item">제목</div>
+								<div class="item">작성자</div>
+							</div>
+						</div>
+						<input type="text" placeholder="Search..." id="searchText2" style="width: 70%;"> <i class="circular search link icon" onclick="searchBtn()"></i>
+					</div>
 				</div>
-			</div>
-
-			<div class="ui right action left icon input">
-				<i class="search icon"></i> <input id="searchText" type="text"
-					placeholder="Search">
-
-				<button class="ui right red basic button"
-					style="margin-left: 4px; margin-right: 40px;"
-					onclick="searchBtn();">검색</button>
 
 			</div>
 		</div>
@@ -347,10 +528,26 @@ $('.menu > .item').click(function() {
 /* 검색 */
 function searchBtn(){
 	if(category==''){
-		alert('분류를 선택해 주세요');
+		if(typeof Android !== "undefined" && Android !==null){
+			Android.noCategory();
+		}else{
+			alert('분류를 선택해 주세요');
+		}
 		return;
 	}
 	$searchText = $('#searchText').val();
+	$searchText2 = $('#searchText2').val();
+	if($searchText==""){
+		$searchText = $searchText2;
+	}
+	if($searchText==""){
+		if(typeof Android !== "undefined" && Android !==null){
+			Android.noSearchText();
+		}else{
+			alert('검색어를 입력해 주세요');
+		}
+		return;
+	}
 	location.href = "/homeTrainingAll.diet?category="+ category +"&searchText=" + $searchText;
 }
 
@@ -434,5 +631,24 @@ $(function() {
 });
 
 </script>
-
+<style type="text/css" media="screen">
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 550px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
+}
+/* 모바일용 사이즈 */
+@media ( max-width : 549px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
+}
+</style>
 </html>

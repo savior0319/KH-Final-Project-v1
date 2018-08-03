@@ -194,7 +194,7 @@
 			<div class="menu">
 				<a class="item" href="/notice.diet">공지사항</a>
 				<a class="item" href="/faq.diet">자주하는 질문</a>
-				<a class="item" href='javascript:void(0);' onClick='question(); return false'>Q&#38;A</a>
+				<a id="size1" class="item" href='javascript:void(0);' onClick='question(); return false'>Q&#38;A</a>
 			</div>
 		</div>
 
@@ -236,7 +236,6 @@
 	window.onload = function() {
 		$('#load').hide();
 	}
-
 	function trainerMatch(){
 		location.href = "/trainerMatch.diet";
 	}

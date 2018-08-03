@@ -100,7 +100,7 @@ else self.name = '';
 		<!-- 글목록 -->
 
 
-		<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
+		<div id="size1" class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
 
 			<div class="ui three column grid" align="center">
 				<c:forEach items="${requestScope.cpdv.comList}" var="c">
@@ -146,18 +146,61 @@ else self.name = '';
 					</div>
 				</c:forEach>
 			</div>
+			
+			
+			
 			<br>
 			<br>
 			<br>
 		</div>
+		
+		<div id="size2" class="ui center aligned basic segment">
 
-
-		<br>
-		<br>
-
+				<c:forEach items="${requestScope.cpdv.comList}" var="c">
+						<div class="ui card" onclick="recipeLink(${c.postIndex});" style="cursor: pointer;">
+							<div class="image">
+								<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/logo.png"'>
+							</div>
+							<div class="content">
+								<a class="header">
+									<c:choose>
+										<c:when test="${fn:length(c.postTitle)>20}">
+											<c:out value="${fn:substring(c.postTitle,0,19)}" />...
+								</c:when>
+										<c:otherwise>
+									${c.postTitle}
+								</c:otherwise>
+									</c:choose>
+								</a>
+								<div class="meta">
+									<span class="date">
+										<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
+									</span>
+								</div>
+								<div class="description">
+									<i class="eye icon"></i>
+									조회&nbsp;&nbsp;
+									<b>${c.postHit}</b>
+									&emsp;|| &emsp;
+									<i class="heart outline icon" id="emptyHeart"></i>
+									좋아요&nbsp;&nbsp;
+									<b>${c.postLike}</b>
+								</div>
+							</div>
+							<div class="extra content">
+								<a>
+									<!-- 프로필 & 이미지 -->
+									<img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
+									${c.postNickname}
+								</a>
+							</div>
+						</div>
+				</c:forEach>
+			
+		</div>
 
 		<!-- 네비게이션 + 등록 -->
-		<div class="ui grid">
+		<div id="size1" class="ui grid">
 			<div class="three column row">
 				<div class="column"></div>
 				<div class="column">
@@ -180,6 +223,17 @@ else self.name = '';
 			</div>
 			<br>
 		</div>
+		
+		<div id="size2" class="ui center aligned grid">
+
+			<c:if test="${requestScope.cpdv.comList[0]!=null }">
+				<div class="ui center aligned basic segment" style="margin: 0; padding: 0;">
+					<div class="ui pagination menu" align="center">${requestScope.cpdv.pageNavi }</div>
+				</div>
+			</c:if>
+			<br>
+		</div>
+		
 		<br>
 		<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 		<div class="ui secondary segment">
@@ -264,9 +318,19 @@ else self.name = '';
 		$searchText = $('#searchText').val();
 		
 		if (category == "") {
-			alert('카테고리를 선택하여주세요.');
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.noCategory();
+			}else{
+				alert('분류를 선택해 주세요');
+			}
+		}else if($searchText==""){
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.noSearchText();
+			}else{
+				alert('검색어를 입력해 주세요');
+			}
 		}else{
-		location.href = "/communitySearch.diet?category="+ category +"&searchText=" + $searchText; 
+			location.href = "/communitySearch.diet?category="+ category +"&searchText=" + $searchText; 
 		}
 		
 		
@@ -281,5 +345,24 @@ else self.name = '';
 	});
 
 </script>
-
+<style type="text/css" media="screen">
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 550px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
+}
+/* 모바일용 사이즈 */
+@media ( max-width : 549px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
+}
+</style>
 </html>

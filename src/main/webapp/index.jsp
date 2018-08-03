@@ -76,7 +76,7 @@
 									</button>
 								</td>
 								<td style="padding: 0px; width: 70px;">
-									<button type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+									<button id="trainer-match" type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
 										<i class="large child icon" id="icon3"></i>
 										트레이너 매칭
 									</button>
@@ -514,6 +514,9 @@
 	.rslides {
 		margin-top: 15px;
 	}
+	/* #trainer-match{
+		display:none;
+	} */
 }
 
 @media ( min-width : 768px) {
