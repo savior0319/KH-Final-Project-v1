@@ -429,7 +429,7 @@ public class AdminControllerImpl implements AdminController {
 		return "admin/blackListContent";
 	}
 
-	/* 배너 이미지 업로드 */
+	/* 광고 이미지 업로드 */
 	@Override
 	@RequestMapping(value = "/logoImageUpload.diet", method = RequestMethod.POST, produces = "text/plain")
 	public void logoImageUpload(HttpServletRequest request, HttpServletResponse response,
@@ -445,10 +445,6 @@ public class AdminControllerImpl implements AdminController {
 		String reName2 = "";
 		String reName3 = "";
 		String reName4 = "";
-
-		System.out.println(file.get("uploadfile2").getOriginalFilename());
-		System.out.println(file.get("uploadfile3").getOriginalFilename());
-		System.out.println(file.get("uploadfile4").getOriginalFilename());
 
 		// 첫번째 파일
 		UUID randomString1 = UUID.randomUUID();
