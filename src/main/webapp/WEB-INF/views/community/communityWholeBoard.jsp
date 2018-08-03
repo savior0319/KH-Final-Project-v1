@@ -113,32 +113,33 @@
 
 		<!-- 최신순, 조회순 -->
 		<br>
+		<c:choose>
+			<c:when test="${requestScope.cpdv.comList[0].postIndex!=null}">
+				<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
+					<div class="small ui basic buttons">
+						<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
+						<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
+					</div>
+				</div>
 
-		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
-			<div class="small ui basic buttons">
-				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
-				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
-			</div>
-		</div>
+				<br>
+				<!-- 글목록 -->
+				<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
 
-		<br>
-		<!-- 글목록 -->
-		<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
+					<table class="ui very compact table">
+						<thead>
+							<tr align="center">
+								<th style="width: 15%;">게시판</th>
+								<th style="width: 50%;">제목</th>
+								<th style="width: 15%;">작성자</th>
+								<th style="width: 10%;">조회수</th>
+								<th style="width: 10%;">작성일</th>
+							</tr>
+						</thead>
 
-			<table class="ui very compact table">
-				<thead>
-					<tr align="center">
-						<th style="width: 15%;">게시판</th>
-						<th style="width: 50%;">제목</th>
-						<th style="width: 15%;">작성자</th>
-						<th style="width: 10%;">조회수</th>
-						<th style="width: 10%;">작성일</th>
-					</tr>
-				</thead>
+						<tbody>
 
-				<tbody>
-
-					<!-- 공지사항 넣기! -->
+<!-- 공지사항 넣기! -->
 
 
 					<c:if test="${requestScope.cpdv.type.equals('15') }">
@@ -238,38 +239,68 @@
 
 					<!-- 공지사항 넣기 -->
 					<%-- 게시판 공지 끝 --%>
-					<c:forEach items="${requestScope.cpdv.comList}" var="c">
+							<c:forEach items="${requestScope.cpdv.comList}" var="c">
+								<tr align="center">
+									<td>${c.bcaName}</td>
+									<td style="padding-top: 15px; padding-bottom: 15px;">
+										<a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}">
+											<c:choose>
+												<c:when test="${fn:length(c.postTitle)>30}">
+													<c:out value="${fn:substring(c.postTitle,0,29)}" />...
+                        </c:when>
+												<c:otherwise>
+                           ${c.postTitle}
+                        </c:otherwise>
+											</c:choose>
+										</a>
+									</td>
+									<td>
+										<img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
+										${c.postNickname}
+									</td>
+									<td>${c.postHit}</td>
+									<td>
+										<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+
+					</table>
+				</div>
+
+				<br>
+			</c:when>
+			<c:otherwise>
+				<table class="ui very compact table">
+					<thead>
 						<tr align="center">
-							<td>${c.bcaName}</td>
-							<td style="padding-top: 15px; padding-bottom: 15px;">
-								<a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}">
-									<c:choose>
-										<c:when test="${fn:length(c.postTitle)>30}">
-											<c:out value="${fn:substring(c.postTitle,0,29)}" />...
-      </c:when>
-										<c:otherwise>
-      ${c.postTitle}
-   </c:otherwise>
-									</c:choose>
-								</a>
-							</td>
-							<td>
-								<img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
-								${c.postNickname}
-							</td>
-							<td>${c.postHit}</td>
-							<td>
-								<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
-							</td>
+							<th style="width: 15%;">게시판</th>
+							<th style="width: 50%;">제목</th>
+							<th style="width: 15%;">작성자</th>
+							<th style="width: 10%;">조회수</th>
+							<th style="width: 10%;">작성일</th>
 						</tr>
-					</c:forEach>
-				</tbody>
+					</thead>
+				</table>
 
-			</table>
-		</div>
+				<div class="ui red medium message">
+					<br>
+					<i class="exclamation huge icon"></i>
+					<div class="ui medium header">
+						<br>
+						※게시물이 존재하지 않습니다.
+						<br>
+						다른 키워드로 검색을 해주세요.
+						<br>
+						<br>
+						<br>
+					</div>
+				</div>
 
-		<br>
 
+			</c:otherwise>
+		</c:choose>
 
 
 		<div id="size1" class="ui grid">
