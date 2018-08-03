@@ -161,8 +161,7 @@
 	<insert id="autoTransSession" parameterType="allSession">
 	INSERT INTO
 	OFF_Session_TBL
-	VALUES(#{indexNo},#{sessionId},#{sessionIp},#{firstOn},trunc((sysdate-to_date(#{firstOn},'yy/MM/dd hh24:mi:ss'))*24*60*60),#{logInNickName},#{device},sysdate)
-	</insert>
+	VALUES(#{indexNo},#{sessionId},#{sessionIp},#{firstOn},CEIL(((sysdate-to_date(#{firstOn},'yy/MM/dd hh24:mi:ss'))*24*60*60)),#{logInNickName},#{device},sysdate)	</insert>
 	</mapper>
 	
 	

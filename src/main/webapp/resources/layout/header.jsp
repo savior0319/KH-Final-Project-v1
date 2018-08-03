@@ -193,8 +193,8 @@
 			</div>
 			<div class="menu">
 				<a class="item" href="/notice.diet">공지사항</a>
-				<a class="item" href="#">자주 묻는 질문</a>
-				<a id="size1" class="item" href="#">Q&#38;A</a>
+				<a class="item" href="/faq.diet">자주하는 질문</a>
+				<a id="size1" class="item" href='javascript:void(0);' onClick='question(); return false'>Q&#38;A</a>
 			</div>
 		</div>
 

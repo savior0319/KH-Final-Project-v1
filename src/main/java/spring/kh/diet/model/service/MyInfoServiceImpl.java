@@ -21,11 +21,11 @@ import spring.kh.diet.model.vo.MyPostPageDataVO;
 import spring.kh.diet.model.vo.MyQuestionPageDataVO;
 import spring.kh.diet.model.vo.MyRequestTrainerPDVO;
 import spring.kh.diet.model.vo.OneSessionVO;
+import spring.kh.diet.model.vo.PaymentPDVO;
 import spring.kh.diet.model.vo.PaymentVO;
 import spring.kh.diet.model.vo.QuestionVO;
 import spring.kh.diet.model.vo.TrainerProgramVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
-
 
 @Service("myInfoService")
 public class MyInfoServiceImpl implements MyInfoService {
@@ -218,7 +218,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 				recordCountPerPage, ma);
 		String pageNavi = myInfoDAO.myQuestionListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, ma);
-		
+
 		myQuestion.setComList(list);
 		myQuestion.setPageNavi(pageNavi);
 
@@ -232,8 +232,8 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
 
-		ArrayList<TrainerProgramVO> list = (ArrayList<TrainerProgramVO>) myInfoDAO.requestTrainerList(SqlSessionTemplate, currentPage,
-				recordCountPerPage, tv);
+		ArrayList<TrainerProgramVO> list = (ArrayList<TrainerProgramVO>) myInfoDAO
+				.requestTrainerList(SqlSessionTemplate, currentPage, recordCountPerPage, tv);
 		String pageNavi = myInfoDAO.requestTrainerListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, tv);
 
@@ -250,11 +250,11 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
 
-		ArrayList<TrainingRegVO> list = (ArrayList<TrainingRegVO>) myInfoDAO.applyTrainerList(SqlSessionTemplate, currentPage,
-				recordCountPerPage, tv);
+		ArrayList<TrainingRegVO> list = (ArrayList<TrainingRegVO>) myInfoDAO.applyTrainerList(SqlSessionTemplate,
+				currentPage, recordCountPerPage, tv);
 		String pageNavi = myInfoDAO.applyTrainerListPageNavi(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, tv);
-		
+
 		applyTrainer.setComList(list);
 		applyTrainer.setPageNavi(pageNavi);
 
@@ -268,11 +268,11 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
 
-		ArrayList<TrainingRegVO> list = (ArrayList<TrainingRegVO>) myInfoDAO.applyTrainerList2(SqlSessionTemplate, currentPage,
-				recordCountPerPage, tr);
+		ArrayList<TrainingRegVO> list = (ArrayList<TrainingRegVO>) myInfoDAO.applyTrainerList2(SqlSessionTemplate,
+				currentPage, recordCountPerPage, tr);
 		String pageNavi = myInfoDAO.applyTrainerListPageNavi2(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, tr);
-		
+
 		applyTrainer.setComList(list);
 		applyTrainer.setPageNavi(pageNavi);
 
@@ -286,8 +286,8 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
 
-		ArrayList<TrainerProgramVO> list = (ArrayList<TrainerProgramVO>) myInfoDAO.requestTrainerList2(SqlSessionTemplate, currentPage,
-				recordCountPerPage, tv);
+		ArrayList<TrainerProgramVO> list = (ArrayList<TrainerProgramVO>) myInfoDAO
+				.requestTrainerList2(SqlSessionTemplate, currentPage, recordCountPerPage, tv);
 		String pageNavi = myInfoDAO.requestTrainerListPageNavi2(SqlSessionTemplate, currentPage, recordCountPerPage,
 				naviCountPerPage, tv);
 
@@ -299,7 +299,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public OneSessionVO selectOneSession(String id) {
-		OneSessionVO OSV = myInfoDAO.selectOneSession(SqlSessionTemplate,id);
+		OneSessionVO OSV = myInfoDAO.selectOneSession(SqlSessionTemplate, id);
 		return OSV;
 	}
 
@@ -311,12 +311,12 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public void transSession(String id) {
-		myInfoDAO.tranSession(SqlSessionTemplate,id);	
-  }
+		myInfoDAO.tranSession(SqlSessionTemplate, id);
+	}
 
-  // 오버라이드를 
+	@Override
 	public ArrayList<PaymentVO> checkSale(PaymentVO tv) {
-		ArrayList<PaymentVO> list = myInfoDAO.checkSale(SqlSessionTemplate,tv);
+		ArrayList<PaymentVO> list = myInfoDAO.checkSale(SqlSessionTemplate, tv);
 		return list;
 	}
 

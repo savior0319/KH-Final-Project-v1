@@ -7,7 +7,7 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+	<title>관리자 - 공지사항 등록</title>
 	<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
 	<script src="/resources/summernote/dist/summernote-lite.js"></script>
 	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>

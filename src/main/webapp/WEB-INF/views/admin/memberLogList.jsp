@@ -7,7 +7,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>다이어트</title>
+<title>관리자 - 회원 접속 기록 조회</title>
 </head>
 
 <!-- CSS -->

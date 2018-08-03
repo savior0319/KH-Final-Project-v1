@@ -15,7 +15,7 @@
 		</h3>
 		<div class="menu dropdown">
 			<h4>
-				<a class="ui simple item" href="#">페이지 관리</a>
+				<a class="ui simple item" href="/pageManagement.diet">페이지 관리</a>
 			</h4>
 		</div>
 	</div>
@@ -27,8 +27,8 @@
 		</h3>
 		<div class="menu dropdown">
 			<h4>
-				<a class="ui simple item" href="/memberList.diet">회원조회</a>
-				<a class="ui simple item" href="/deleteMemberList.diet">탈퇴 내역 조회</a>
+				<a class="ui simple item" href="/memberList.diet">전체 회원조회</a>
+				<a class="ui simple item" href="/deleteMemberList.diet">탈퇴 회원 조회</a>
 				<a class="ui simple item" href="/blackList.diet">블랙리스트 회원 관리</a>
 				<a class="ui simple item" href="/trainer.diet">트레이너 신청 관리</a>
 				<a class="ui simple item" href="/trainerChange.diet">트레이너 회원 관리</a>

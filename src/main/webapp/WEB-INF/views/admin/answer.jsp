@@ -8,7 +8,7 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+	<title>관리자 - 1:1문의 답변</title>
 </head>
 
 <!-- CSS -->

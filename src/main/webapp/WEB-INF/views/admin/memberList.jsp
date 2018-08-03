@@ -7,7 +7,7 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>다이어트</title>
+	<title>관리자 - 전체 회원 조회</title>
 </head>
 
 <!-- CSS -->
@@ -48,7 +48,7 @@ body {
 				<tbody>
 					<c:forEach items="${requestScope.mbpd.mbList}" var="mb">
 					<tr align="center">
-						<td>${mb.mbId}</td>
+						<td style="padding-bottom: 12px; padding-top: 12px;">${mb.mbId}</td>
 						<c:choose>
 							<c:when test="${mb.mbName eq null}">
 						<td>(미기입)</td>
