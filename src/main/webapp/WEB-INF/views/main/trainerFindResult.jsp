@@ -129,7 +129,7 @@
 				table += '</table>';
 				$('#programList').html(table);
 				}else{
-					var result = '<div class="ui center red medium message"><br><i class="exclamation huge icon"></i><div class="ui medium header"><br>※ 진행중인 프로그램이 없습니다.<br>다른 트레이너를 선택해주세요<br><br><br></div></div>';
+					var result = '<div class="ui center red medium message" align="center"><br><i class="exclamation huge icon"></i><div class="ui medium header"><br>※ 진행중인 프로그램이 없습니다.<br>다른 트레이너를 선택해주세요<br><br><br></div></div>';
 					$('#programList').html(result);
 				}
 			}

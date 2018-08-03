@@ -5,6 +5,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 <title>트레이너 프로그램 등록</title>
 <!-- 달력 추가 -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
