@@ -97,6 +97,7 @@ public class AdminControllerImpl implements AdminController {
 	public String currentLoginUser(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage;
 		// 현재 접속중인인원
+//		 페이징 처리 < 바꿧음 18년 8월 3일 -> 그냥 스크롤로 보여주는걸로
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
@@ -482,7 +483,6 @@ public class AdminControllerImpl implements AdminController {
 		if (15 <= todayHour && todayHour < 18) {timeType = 3;}
 		if (18 <= todayHour && todayHour < 21) {timeType = 4;}
 		if (21 <= todayHour && todayHour < 24) {timeType = 5;}
-		
 		/// 그래프 분석할 자료들고오기. 
 		ArrayList<TodayAnalyticsDetail> TotalList = as.TodayAnalyticsDetailList();
 		ModelAndView view = new ModelAndView();
