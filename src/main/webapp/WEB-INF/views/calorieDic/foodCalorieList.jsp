@@ -44,6 +44,11 @@
 			</div>
 			<br>
 
+			<h3 class="ui left aligned header">
+				음식칼로리 <span style="color: red;"></span>
+			</h3>
+			<hr>
+
 			<table class="ui very compact table">
 				<thead>
 					<tr align="center">
