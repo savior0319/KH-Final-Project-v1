@@ -79,7 +79,7 @@ p>span {
 				<div class="column">
 					<div class="ui card">
 						<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">
-							<img src="${requestScope.matchedList[0].dtMainPhoto} " style="width: 100%; height: 200px;">
+							<img src="${requestScope.matchedList[0].dtMainPhoto} " style="width: 100%; height: 200px;"   onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
 							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[0].dtTitle }</a>
@@ -107,7 +107,7 @@ p>span {
 				<div class="column">
 					<div class="ui card">
 						<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[1].dtIndex}, ${requestScope.matchedList[1].dtType});">
-							<img src="${requestScope.matchedList[1].dtMainPhoto} " style="width: 100%; height: 200px;">
+							<img src="${requestScope.matchedList[1].dtMainPhoto} " style="width: 100%; height: 200px;"   onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
 							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[1].dtTitle }</a>
@@ -135,7 +135,7 @@ p>span {
 				<div class="column">
 					<div class="ui card">
 						<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[2].dtIndex}, ${requestScope.matchedList[2].dtType});">
-							<img src="${requestScope.matchedList[2].dtMainPhoto} " style="width: 100%; height: 200px;">
+							<img src="${requestScope.matchedList[2].dtMainPhoto} " style="width: 100%; height: 200px;"  onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
 							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[2].dtTitle }</a>
@@ -187,7 +187,7 @@ p>span {
 
 				<div class="row" style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;">
 					<div class="four wide column">
-						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">
+						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });"  onerror='this.src="/resources/image/300x600.png"'>
 					</div>
 					<div class="twelve wide column">
 						<strong style="cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtTitle }</strong>
@@ -285,7 +285,7 @@ p>span {
 			<div align="center">
 				<div class="ui card">
 					<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">
-						<img src="${requestScope.matchedList[0].dtMainPhoto} " style="width: 100%; height: 200px;">
+						<img src="${requestScope.matchedList[0].dtMainPhoto} " style="width: 100%; height: 200px;"  onerror='this.src="/resources/image/300x400.png"'>
 					</div>
 					<div class="content">
 						<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[0].dtTitle }</a>
@@ -311,7 +311,7 @@ p>span {
 				</div>
 				<div class="ui card">
 					<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[1].dtIndex}, ${requestScope.matchedList[1].dtType});">
-						<img src="${requestScope.matchedList[1].dtMainPhoto} " style="width: 100%; height: 200px;">
+						<img src="${requestScope.matchedList[1].dtMainPhoto} " style="width: 100%; height: 200px;"   onerror='this.src="/resources/image/300x400.png"'>
 					</div>
 					<div class="content">
 						<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[1].dtTitle }</a>
@@ -337,7 +337,7 @@ p>span {
 				</div>
 				<div class="ui card">
 					<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[2].dtIndex}, ${requestScope.matchedList[2].dtType});">
-						<img src="${requestScope.matchedList[2].dtMainPhoto} " style="width: 100%; height: 200px;">
+						<img src="${requestScope.matchedList[2].dtMainPhoto} " style="width: 100%; height: 200px;"  onerror='this.src="/resources/image/300x400.png"'>
 					</div>
 					<div class="content">
 						<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[2].dtTitle }</a>
@@ -385,7 +385,7 @@ p>span {
 
 				<div class="ui card">
 					<div class="image">
-						<img src="${dt.dtMainPhoto }" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });" style="cursor: pointer;">
+						<img src="${dt.dtMainPhoto }" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });" style="cursor: pointer;"  onerror='this.src="/resources/image/300x600.png"'>
 					</div>
 					<div class="content">
 						<a class="header" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtTitle }</a>
