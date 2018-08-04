@@ -191,7 +191,7 @@
 		<div class="ui relaxed divided items">
 			<div class="item">
 				<div class="ui small image">
-					<img id="matchedImg0" src="" style="height: 100%; cursor:pointer;">
+					<img id="matchedImg0" src="" style="height: 100%; cursor:pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 				</div>
 				<div class="content">
 					<div class="header" id="matchedTitle0" style="cursor:pointer;"></div>
@@ -204,7 +204,7 @@
 			</div>
 			<div class="item">
 				<div class="ui small image">
-					<img id="matchedImg1"  src="" style="height: 100%; cursor:pointer;">
+					<img id="matchedImg1"  src="" style="height: 100%; cursor:pointer;" onerror='this.src="/resources/image/300x400.png"'>
 				</div>
 				<div class="content">
 					<div class="header" id="matchedTitle1" style="cursor:pointer;"></div>
@@ -217,7 +217,7 @@
 			</div>
 			<div class="item">
 				<div class="ui small image">
-					<img id="matchedImg2" src="" style="height: 100%; cursor:pointer;">
+					<img id="matchedImg2" src="" style="height: 100%; cursor:pointer;" onerror='this.src="/resources/image/300x400.png"'>
 				</div>
 				<div class="content">
 					<div class="header" id="matchedTitle2" style="cursor:pointer;"></div>
