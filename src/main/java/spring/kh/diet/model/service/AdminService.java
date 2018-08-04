@@ -8,6 +8,7 @@ import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
+import spring.kh.diet.model.vo.ErrorLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -94,6 +95,8 @@ public interface AdminService {
 	int changeTrainerGrade(int trIndex);
 
 	TrainingRegPageDataVO trainerChange(int currentPage);
+
+	ArrayList<ErrorLogVO> todayErrorLogSearch(ErrorLogVO eLVO);
 
 
 }
