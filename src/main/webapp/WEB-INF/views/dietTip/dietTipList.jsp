@@ -383,7 +383,7 @@ p>span {
 
 			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
 
-				<div class="ui card">
+				<div class="ui card" style="margin:10px;">
 					<div class="image">
 						<img src="${dt.dtMainPhoto }" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });" style="cursor: pointer;">
 					</div>
@@ -396,11 +396,7 @@ p>span {
 					</div>
 					<div class="extra content">
 						<i class="eye icon"></i> ${dt.dtSee } &nbsp;&nbsp;|&nbsp;&nbsp; <i class="comment icon"></i> ${dt.dtCmtNo }
-						<c:if test="${dt.dtWriterNo == sessionScope.member.mbIndex }">
-							<div style="float: right;">
-								<a style="cursor: pointer; margin-right: 10px" onclick="updateDietTip(${dt.dtIndex})">수정</a> <a style="cursor: pointer;" onclick="deleteDietTip(${dt.dtIndex});">삭제</a>
-							</div>
-						</c:if>
+						
 					</div>
 				</div>
 
@@ -594,7 +590,7 @@ p>span {
 </script>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */
-@media ( min-width : 550px) {
+@media ( min-width : 650px) {
 	#size1 {
 		display: block;
 	}
@@ -603,7 +599,7 @@ p>span {
 	}
 }
 /* 모바일용 사이즈 */
-@media ( max-width : 549px) {
+@media ( max-width : 649px) {
 	#size1 {
 		display: none;
 	}

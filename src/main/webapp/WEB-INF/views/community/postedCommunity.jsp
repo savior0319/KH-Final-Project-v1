@@ -121,14 +121,14 @@
 		
 		<!-- 모바일용 사이즈 -->
 		<div id="size2" class="ui black segment">
-			<div class="ui grid">
-					<div class="ui left aligned" style="margin:5px;"> 
+			<div class="ui grid" style="padding-top:7px;">
+					<div class="ui left aligned" style="margin-right:15%;"> 
 					<!-- 프로필이미지 --> 
 					<img class="ui avatar image" src="${requestScope.bpv.mbImage}"
 								onerror='this.src="/resources/image/avatar.png"'
 							> <!-- 닉네임 --> ${requestScope.bpv.postNickname}
 					</div>
-					 <!-- 날짜 --> 
+					 <!-- 날짜, 조회수, 댓글 수 --> 
 					 <div>
 					 <span class="ui right aligned"> 
 					 <i class="calendar icon"></i> 
@@ -334,7 +334,7 @@
 		<!-- 글쓰기, 목록으로 돌아가기 버튼 -->
 		<div class="ui right aligned container">
 		<c:if test="${sessionScope.member!=null}">
-			<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
+			<button id="size1" class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
 				<i class="edit icon"></i> 글쓰기
 			</button>
 			</c:if>
@@ -1116,41 +1116,9 @@
 
 <!-- 미디어 태그 1200px 보다 작아질 때-->
 <style type="text/css" media="screen">
-/* @media ( max-width : 1200px) {
-	#resize {
-		display: none;
-	}
-	#resizeBlock {
-		margin-right: 50px;
-		padding-left: 0px;
-		padding-right: 0px;
-		width: 200px;
-	}
-	#removePadding {
-		margin-left: 500px;
-	}
-}  
-@media ( max-width : 455px) {
-	#bookMark {
-		display: none;
-	}
-	#heartBtn {
-		display: block;
-	}
-	#reportBtn {
-		display: none;
-	}
-	#removePadding {
-		padding: 0;
-		margin: 0;
-	}
-	button[id^="cmdReportBtn_"]{
-		display:none !important;
-	}
-} */
 
 /* 모바일용 아닌 사이즈 */
-@media ( min-width : 550px) {
+@media ( min-width : 650px) {
 	#size1 {
 		display: block;
 	}
@@ -1159,7 +1127,7 @@
 	}
 }
 /* 모바일용 사이즈 */
-@media ( max-width : 549px) {
+@media ( max-width : 649px) {
 	#size1 {
 		display: none;
 	}
@@ -1176,8 +1144,7 @@
 		display: none;
 	}
 	#removePadding {
-		padding: 0;
-		margin: 0;
+		display:none;
 	}
 	button[id^="cmdReportBtn_"]{
 		display:none !important;
