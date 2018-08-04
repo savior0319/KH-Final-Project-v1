@@ -438,7 +438,7 @@
 		$searchText = $('#searchText').val();
 
 		if (category == "") {
-			alert('카테고리를 선택하여주세요.');
+			alert('분류를 선택하여주세요.');
 		} else {
 			location.href = "/communitySearch.diet?category=" + category
 					+ "&searchText=" + $searchText;
