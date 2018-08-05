@@ -405,7 +405,7 @@
 	/* 최신순 & 조회순 클릭 */
 	var type = $('#boardTime').val();
 	function recentlyViewBtn(rtb) {
-		var postSort = rtb.innerHTML;
+		var postSort = rtb.innerHTML();
 
 		location.href = "/communityViewBoard.diet?type=" + type + "&postSort="
 				+ postSort + "&searchText=" + st + "&category=" + cate;

@@ -100,5 +100,7 @@ public interface AdminService {
 
 	int changeGrade(int mbIndex);
 
+	ArrayList<ErrorLogVO> todayErrorLogSearchDetail(ErrorLogVO eLVO);
+
 
 }

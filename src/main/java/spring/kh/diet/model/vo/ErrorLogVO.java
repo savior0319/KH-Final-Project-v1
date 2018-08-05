@@ -16,7 +16,7 @@ public class ErrorLogVO {
 	private String erType,erInfoOne,erInfoTwo,erInfoThr,erInfoFor,type;
 	private Date erDate;
 	private Timestamp erStamp;
-	private int low,mid,high;
+	private int low,mid,high,ch;
 	
 	
 }
