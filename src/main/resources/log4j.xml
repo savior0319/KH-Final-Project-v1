@@ -11,7 +11,7 @@
 		<param name="encoding" value="UTF-8" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
-				value="[%d{yyyy-MM-dd HH:mm:ss} : %5p] %n[%m] %n[%c%C] %n%F %n%L %n%M %n@@%n" />
+				value="[%d{yyyy-MM-dd HH:mm:ss} : %5p] %n[%m] %n[%c%C] %n%F %n%L %n%M %n@@%nend%n" />
 		</layout>
 	</appender>
 
@@ -26,7 +26,7 @@
 			value="${catalina.home}/logs/XMLLog/Error/Warn.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
-				value="@@%n%d{yyyy-MM-dd HH:mm:ss} : %5p %n[%m]"/>
+				value="@@%n%d{yyyy-MM-dd HH:mm:ss} : %5p %n[%m]%nend%n"/>
 		</layout>
 	</appender>
 

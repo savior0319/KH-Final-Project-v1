@@ -25,6 +25,7 @@ import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.SevenDaysUserVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.TrainingRegPageDataVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -366,6 +367,13 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public ArrayList<ErrorLogVO> todayErrorLogSearchDetail(ErrorLogVO eLVO) {
 		ArrayList<ErrorLogVO> list = aDao.todayErrorLogSearchDetail(session,eLVO);
+		return list;
+	}
+	
+	// 접속자 페이지 - 7일간접속한유저들고오기.
+	@Override
+	public ArrayList<SevenDaysUserVO> select7Days() {
+		ArrayList<SevenDaysUserVO> list = aDao.select7Days(session);
 		return list;
 	}
 
