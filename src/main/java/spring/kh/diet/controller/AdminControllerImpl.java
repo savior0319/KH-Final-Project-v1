@@ -700,16 +700,6 @@ public class AdminControllerImpl implements AdminController {
 			list = as.todayErrorLogSearch(ELVO);
 			if(!list.isEmpty())
 			{
-				view.addObject("d1",list.get(0));
-				view.addObject("d2",list.get(1));
-				view.addObject("d3",list.get(2));
-				view.addObject("d4",list.get(3));
-				view.addObject("d5",list.get(4));
-				view.addObject("d6",list.get(5));
-				view.addObject("d7",list.get(6));
-				view.addObject("d8",list.get(7));
-				view.addObject("d9",list.get(8));
-				view.addObject("d10",list.get(9));
 				view.addObject("dAll",list);
 			}
 			
@@ -729,14 +719,12 @@ public class AdminControllerImpl implements AdminController {
 	
 	/* 관리자 - 에러로그관리 페이지 > 디테일 페이진  호출 매핑 */
 	@Override
-	@RequestMapping(value = "/errorLogManageDetail.diet")
+	@RequestMapping(value = "/errorLogManageDetail.diet") 
 	public Object errorLogManageDetail(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
-		
-		String findDate = request.getParameter("date");
-		String findDate2 = (String) request.getAttribute("date");
+		System.out.println("111");
+		String findDate = request.getParameter("Search");
 		System.out.println("1"+findDate);
-		System.out.println("32"+findDate2);
 		System.out.println("2");
 		
 //		view.addObject("currentTime",timeType);

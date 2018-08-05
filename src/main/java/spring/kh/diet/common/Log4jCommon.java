@@ -81,11 +81,11 @@ public class Log4jCommon {
 		// 2. info단계로 찍고나니
 		
 		
-	      File file  = new File("C:\\log4j\\Sample.txt");
-
-	      PrintStream printStream = new PrintStream(new FileOutputStream(file));
-
-	      System.setOut(printStream);  
+//	      File file  = new File("C:\\log4j\\Sample.txt");
+//
+//	      PrintStream printStream = new PrintStream(new FileOutputStream(file));
+//
+//	      System.setOut(printStream);  
 
 
 
