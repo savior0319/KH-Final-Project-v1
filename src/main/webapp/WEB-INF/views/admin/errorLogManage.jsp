@@ -78,11 +78,11 @@ body {
 							<tbody>
 								<c:forEach items="${dAll}" var="dall">
 									<tr align="center">
-										<td>${dall.erDate}</td>
+										<td id="searchDate">${dall.erDate}</td>
 										<td>${dall.low}개</td>
 										<td>${dall.mid}개</td>
 										<td>${dall.high}개</td>
-										<td><a href="/errorLogManageDetail.diet?date="+${dall.erDate}><button class="ui secondary button">자세히</button></a></td>
+										<td><button class="ui secondary button" onclick="move();">자세히</button></td>
 												
 												
 									</tr>
@@ -106,7 +106,11 @@ body {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	
+	function move(){
+		var findDate =  $("#searchDate");
+		alert(findDate);
+		
+	}
 	//날자선택
 	$.datepicker.setDefaults({
 		dateFormat : 'yy-mm-dd',
@@ -123,11 +127,16 @@ body {
 		yearSuffix : '년'
 	});
 
+/* 	$(function() {
+		$("#datepicker1").datepicker();
+		alret()
+	}); */	
+
 	$("#datepicker1").datepicker({ onSelect: function(dateText) {  
 
 		alert("선택하신 날자 : " + dateText + " 해당날자 로그로 이동합니다"); 
 		var findDate = this.value;
-		location.href = "/errorLogManageDetail.diet?date="+findDate;
+		location.href = "/errorLogManageDetail.diet?findDate="+findDate;
 		  }
 		}); 
 
