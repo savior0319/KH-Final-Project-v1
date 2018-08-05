@@ -87,7 +87,7 @@
 						</span>
 						<br>
 						<br>
-						<div class="ui large header" style="color:white;">트레이너 등록</div>
+						<div class="ui large header" style="color:white;">프로그램 등록</div>
 						<br>
 					</h2>
 					<div class="ui red message"><div class="ui small header">프로그램 신청go</div></div>

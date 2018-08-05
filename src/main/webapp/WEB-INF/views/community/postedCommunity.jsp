@@ -15,6 +15,7 @@
 .singo {
 	text-align: left;
 }
+
 .rslides {
 	position: relative;
 	list-style: none;
@@ -23,6 +24,7 @@
 	padding: 0;
 	margin: 0;
 }
+
 .rslides li {
 	-webkit-backface-visibility: hidden;
 	position: absolute;
@@ -31,11 +33,13 @@
 	left: 0;
 	top: 0;
 }
+
 .rslides li:first-child {
 	position: relative;
 	display: block;
 	float: left;
 }
+
 .rslides img {
 	display: block;
 	height: auto;
@@ -60,12 +64,23 @@
 	<div class="ui container">
 		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
+			<li>
+				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
+			</li>
 		</ul>
-		<br> <span class="ui grid"> <span class="four column row" style="padding-left: 20px;"> <!-- 상단 게시판 종류 -->
+		<br>
+		<span class="ui grid">
+			<span class="four column row" style="padding-left: 20px;">
+				<!-- 상단 게시판 종류 -->
 
 				<h2 class="ui header">
 					<i class="comment icon"></i>
@@ -73,7 +88,8 @@
 						${requestScope.bpv.bcaName }
 						<div class="sub header">Community</div>
 					</div>
-				</h2> <!-- 멤버 세션이 있거나, 글 작성자인 경우!  --> 
+				</h2>
+				<!-- 멤버 세션이 있거나, 글 작성자인 경우!  -->
 				<c:if test="${sessionScope.member!=null && sessionScope.member.mbIndex==requestScope.bpv.mbIndex}">
 					<!-- 수정&삭제 버튼 -->
 					<span id="removePadding" class="right floated column" style="padding-top: 15px; padding-left: 140px;">
@@ -83,18 +99,21 @@
 						</div>
 					</span>
 				</c:if>
-		</span>
+			</span>
 		</span>
 
 
 		<hr style="border: 2px solid #D5D5D5;">
-		<br> <br>
+		<br>
+		<br>
 
 
 		<!-- 제목 -->
 
 		<h2 class="ui center aligned container">
-			<i class="quote left icon"></i> ${requestScope.bpv.postTitle} <i class="quote right icon"></i>
+			<i class="quote left icon"></i>
+			${requestScope.bpv.postTitle}
+			<i class="quote right icon"></i>
 		</h2>
 
 
@@ -103,52 +122,82 @@
 		<div id="size1" class="ui black segment">
 			<div class="ui grid">
 				<div class="three column row">
-					<span class="left floated column"> <span class="ui left aligned"> <a> <!-- 프로필이미지 --> <img class="ui avatar image" src="${requestScope.bpv.mbImage}"
-								onerror='this.src="/resources/image/avatar.png"'
-							> <!-- 닉네임 --> ${requestScope.bpv.postNickname}
-						</a>
+					<span class="left floated column">
+						<span class="ui left aligned">
+							<a>
+								<!-- 프로필이미지 -->
+								<img class="ui avatar image" src="${requestScope.bpv.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
+								<!-- 닉네임 -->
+								${requestScope.bpv.postNickname}
+							</a>
+						</span>
 					</span>
-					</span> <span id="resizeBlock" class="right floated column" style="padding-left: 7%;"> <!-- 날짜 --> <span class="ui right aligned"> <i class="calendar icon"></i> <fmt:formatDate
-								value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm"
-							/> <%-- <fmt:formatDate value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
-					</span> <!-- 뷰수 --> <span class="ui right aligned"> &nbsp;&nbsp;|&nbsp;&nbsp; <i class="eye icon"></i> ${requestScope.bpv.postHit} &nbsp;&nbsp;|&nbsp;&nbsp;
-					</span> <!-- 댓글수 --> <span id="resize" class="ui right aligned"> <i class="pen square icon"></i> ${requestScope.bpv.postComCount}
-					</span>
+					<span id="resizeBlock" class="right floated column" style="padding-left: 5%;">
+						<!-- 날짜 -->
+						<span class="ui right aligned">
+							<i class="calendar icon"></i>
+							<fmt:formatDate value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
+							<%-- <fmt:formatDate value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
+						</span>
+						<!-- 뷰수 -->
+						<span class="ui right aligned">
+							&nbsp;&nbsp;|&nbsp;&nbsp;
+							<i class="eye icon"></i>
+							${requestScope.bpv.postHit} &nbsp;&nbsp;|&nbsp;&nbsp;
+						</span>
+						<!-- 댓글수 -->
+						<span id="resize" class="ui right aligned">
+							<i class="pen square icon"></i>
+							${requestScope.bpv.postComCount}
+						</span>
 					</span>
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- 모바일용 사이즈 -->
 		<div id="size2" class="ui black segment">
-			<div class="ui grid" style="padding-top:7px;">
-					<div class="ui left aligned" style="margin-right:15%;"> 
-					<!-- 프로필이미지 --> 
-					<img class="ui avatar image" src="${requestScope.bpv.mbImage}"
-								onerror='this.src="/resources/image/avatar.png"'
-							> <!-- 닉네임 --> ${requestScope.bpv.postNickname}
-					</div>
-					 <!-- 날짜, 조회수, 댓글 수 --> 
-					 <div>
-					 <span class="ui right aligned"> 
-					 <i class="calendar icon"></i> 
-					 <fmt:formatDate value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm"/> 
-					 <%-- <fmt:formatDate value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
-					</span> &nbsp;&nbsp;|&nbsp;&nbsp;<!-- 뷰수 --> 
-					<span id="resize" class="ui right aligned"> <i class="eye icon"></i> ${requestScope.bpv.postHit} &nbsp;&nbsp;|&nbsp;&nbsp;
-					</span>&nbsp;&nbsp;|&nbsp;&nbsp;  <!-- 댓글수 --> <span id="resize" class="ui right aligned"> <i class="pen square icon"></i> ${requestScope.bpv.postComCount}
+			<div class="ui grid" style="padding-top: 7px;">
+				<div class="ui left aligned" style="margin-right: 15%;">
+					<!-- 프로필이미지 -->
+					<img class="ui avatar image" src="${requestScope.bpv.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
+					<!-- 닉네임 -->
+					${requestScope.bpv.postNickname}
+				</div>
+				<!-- 날짜, 조회수, 댓글 수 -->
+				<div>
+					<span class="ui right aligned">
+						<i class="calendar icon"></i>
+						<fmt:formatDate value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
+						<%-- <fmt:formatDate value="${requestScope.bpv.postDateTime}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
 					</span>
-					</div>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<!-- 뷰수 -->
+					<span id="resize" class="ui right aligned">
+						<i class="eye icon"></i>
+						${requestScope.bpv.postHit} &nbsp;&nbsp;|&nbsp;&nbsp;
+					</span>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<!-- 댓글수 -->
+					<span id="resize" class="ui right aligned">
+						<i class="pen square icon"></i>
+						${requestScope.bpv.postComCount}
+					</span>
+				</div>
 			</div>
 		</div>
 
 		<!-- 내용 들어가는 부분! -->
-		<div class="ui clearing segment" style="word-break:break-all;">
+		<div class="ui clearing segment" style="word-break: break-all;">
 			${requestScope.bpv.postContent}
-			
-			 <br> <br> <br> <br>
+
+			<br>
+			<br>
+			<br>
+			<br>
 			<hr style="border: 1px dashed #D5D5D5;">
-			<br> <br>
+			<br>
+			<br>
 
 			<!-- 사이즈 455px 보다 클 때 -->
 			<div id="rediv1" class="ui center aligned basic segment" style="margin: 0; padding: 0;">
@@ -184,7 +233,8 @@
 
 				<!-- 신고 버튼 -->
 				<button class="ui black button" style="height: 40px;" id="reportBtn">
-					<i class="bullhorn icon"></i> 신고
+					<i class="bullhorn icon"></i>
+					신고
 				</button>
 			</div>
 
@@ -223,15 +273,19 @@
 
 				<!-- 신고 버튼 -->
 				<button class="ui black button" style="height: 40px;" id="reportBtn">
-					<i class="bullhorn icon"></i> 신고
+					<i class="bullhorn icon"></i>
+					신고
 				</button>
 			</div>
-			<br> <br> <br>
+			<br>
+			<br>
+			<br>
 
 			<!-- 신고 모달 -->
 			<div class="ui basic modal" id="reportModal">
 				<div class="ui icon header">
-					<i class="exclamation triangle icon"></i> 신고하기
+					<i class="exclamation triangle icon"></i>
+					신고하기
 				</div>
 				<h5 class="ui center aligned container">(신고 사유를 선택해 주세요.)</h5>
 				<br>
@@ -246,60 +300,71 @@
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="example2" checked="checked" value="광고/상업성 게시글" /> <label>&emsp;&emsp;광고/상업성 게시글</label>
+											<input type="radio" id="blame" name="example2" checked="checked" value="광고/상업성 게시글" />
+											<label>&emsp;&emsp;광고/상업성 게시글</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="example2" value="비방/욕설 게시글" /> <label>&emsp;&emsp;비방/욕설 게시글</label>
+											<input type="radio" id="blame" name="example2" value="비방/욕설 게시글" />
+											<label>&emsp;&emsp;비방/욕설 게시글</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="example2" value="개인정보 유출 게시물" /> <label>&emsp;&emsp;개인정보 유출 게시물</label>
+											<input type="radio" id="blame" name="example2" value="개인정보 유출 게시물" />
+											<label>&emsp;&emsp;개인정보 유출 게시물</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="example2" value="청소년 유해(음란) 게시물"> <label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
+											<input type="radio" id="blame" name="example2" value="청소년 유해(음란) 게시물">
+											<label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="example2" value="명예훼손/저작권 침해 게시물"> <label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
+											<input type="radio" id="blame" name="example2" value="명예훼손/저작권 침해 게시물">
+											<label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="example2" value="도배성 게시물"> <label>&emsp;&emsp;도배성 게시물</label>
+											<input type="radio" id="blame" name="example2" value="도배성 게시물">
+											<label>&emsp;&emsp;도배성 게시물</label>
 										</div>
 									</div>
 									<br>
 									<div class="field singo">
 										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="example2" value="불명확/추측성 게시물"> <label>&emsp;&emsp;불명확/추측성 게시물</label>
+											<input type="radio" id="blame" name="example2" value="불명확/추측성 게시물">
+											<label>&emsp;&emsp;불명확/추측성 게시물</label>
 										</div>
 									</div>
-									<br> <br>
+									<br>
+									<br>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<br> <br>
+				<br>
+				<br>
 				<div class="ui center aligned container">
 					<div class="actions">
 						<div class="ui red basic cancel inverted button">
-							<i class="remove icon"></i> 취소
+							<i class="remove icon"></i>
+							취소
 						</div>
 						<div class="ui red ok inverted button" onclick="sendBlame();">
-							<i class="checkmark icon"></i> 신고
+							<i class="checkmark icon"></i>
+							신고
 						</div>
 					</div>
 				</div>
@@ -333,24 +398,28 @@
 
 		<!-- 글쓰기, 목록으로 돌아가기 버튼 -->
 		<div class="ui right aligned container">
-		<c:if test="${sessionScope.member!=null}">
-			<button id="size1" class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
-				<i class="edit icon"></i> 글쓰기
-			</button>
+			<c:if test="${sessionScope.member!=null}">
+				<button id="size1" class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
+					<i class="edit icon"></i>
+					글쓰기
+				</button>
 			</c:if>
 			<button class="ui black basic button" id="listBtn">
-				<i class="list ul icon"></i> 목록
+				<i class="list ul icon"></i>
+				목록
 			</button>
 		</div>
 
-		<br> <br>
+		<br>
+		<br>
 
 
 
 		<!-- 댓글 -->
 		<div class="ui comments" style="max-width: 1220px;">
 			<h3 class="ui dividing header" style="margin-top: 8px">
-				<i class="chevron red circle right icon"> </i> 댓글 쓰기
+				<i class="chevron red circle right icon"> </i>
+				댓글 쓰기
 			</h3>
 			<c:choose>
 				<c:when test="${sessionScope.member!=null}">
@@ -361,7 +430,8 @@
 						</div>
 						<div class="ui right aligned container">
 							<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="addComment();">
-								<i class="icon edit"></i> 등록
+								<i class="icon edit"></i>
+								등록
 							</div>
 						</div>
 					</form>
@@ -376,7 +446,8 @@
 					</form>
 				</c:otherwise>
 			</c:choose>
-			<br> <br>
+			<br>
+			<br>
 
 
 
@@ -384,9 +455,10 @@
 				<c:if test="${requestScope.bcpd.bcList[0] !=null}">
 					<!-- 작성된 댓글 리스트 -->
 					<c:forEach items="${requestScope.bcpd.bcList }" var="bc">
-						<input type="hidden" value="${bc.cmtLike}" id="cmtLike_${bc.cmtIndex}"/>
+						<input type="hidden" value="${bc.cmtLike}" id="cmtLike_${bc.cmtIndex}" />
 						<div class="comment">
-							<a class="avatar"> <img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
+							<a class="avatar">
+								<img src="${bc.mbImage }" style="width: 40px; height: 40px; border-radius: 25px;">
 							</a>
 							<div class="content" style="width: 93%;">
 								<span class="author" style="position: absolute; width: 90px;">${bc.mbNickname }</span>
@@ -395,30 +467,33 @@
 										<fmt:formatDate value="${bc.cmtDateTime }" pattern="yyyy-MM-dd HH:mm:ss" />
 									</span>
 									<div id="modiDelete_${bc.cmtIndex}">
-                    <c:if test="${bc.mbNickname eq sessionScope.member.mbNickName}">
-										<!-- 로그인시 이용 & 작성자와 같은 경우 수정, 삭제, 수정시 취소  가능 -->
-										<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex" id="cmdIndex_${bc.cmtIndex}" />
-										<a class="modifyComment" style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
+										<c:if test="${bc.mbNickname eq sessionScope.member.mbNickName}">
+											<!-- 로그인시 이용 & 작성자와 같은 경우 수정, 삭제, 수정시 취소  가능 -->
+											<input type="hidden" value="${bc.cmtIndex}" name="cmdIndex" id="cmdIndex_${bc.cmtIndex}" />
+											<a class="modifyComment" style="cursor: pointer;" id="changeCmd_${bc.cmtIndex}">수정</a>
 										&nbsp;&nbsp;|&nbsp;&nbsp;
 										<a class="deleteComment" onclick="deleteComment(${bc.cmtIndex});" style="cursor: pointer;">삭제</a>
-                    </c:if>
+										</c:if>
 									</div>
-                  
+
 									<a class="cancleComment" id="cancleComment_${bc.cmtIndex}" onclick="cancleComment(${bc.cmtIndex});" style="cursor: pointer; display: none;" href="javascript:void(0)">취소</a>
-								<c:if test="${sessionScope.member!=null}">
-									<div class="ui right aligned container" align="right" style="width: 70%; float: right; margin-top:10px;">
-										<button class="ui red basic tiny button" onclick="cmtLike(${bc.cmtIndex},${bc.mbIndex})" style="margin-right: 10px;">
-											<i class="thumbs up outline icon"></i>
-											좋아요 <label id="cmtLikeCount_${bc.cmtIndex}">${bc.cmtLike}</label>
-										</button>
-				          	<button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
-												<i class="ban icon"></i> 신고 <label id="cmtBlame_${bc.cmtIndex}">${bc.cmtBlame}</label>
+									
+										<div class="ui right aligned container" align="right" style="width: 70%; float: right; margin-top: 10px;">
+											<button class="ui red basic tiny button" onclick="cmtLike(${bc.cmtIndex},${bc.mbIndex})" style="margin-right: 10px;">
+												<i class="thumbs up outline icon"></i>
+												좋아요
+												<label id="cmtLikeCount_${bc.cmtIndex}">${bc.cmtLike}</label>
+											</button>
+											<button class="ui black basic tiny button" id="cmdReportBtn_${bc.cmtIndex}" onclick="cmdBlame(${bc.cmtIndex});">
+												<i class="ban icon"></i>
+												신고
+												<label id="cmtBlame_${bc.cmtIndex}">${bc.cmtBlame}</label>
 											</button>
 											<!-- 신고 수정 ☆-->
 											<input type="hidden" value="${bc.mbIndex}" id="cmdWriter_${bc.cmtIndex}" />
-									</div>
-									</c:if>
+										</div>
 									
+
 								</div>
 								<div class="text" id="cmd_${bc.cmtIndex}">
 									<pre>${bc.cmtContent}</pre>
@@ -433,7 +508,8 @@
 							</div>
 							<div class="ui right aligned container" id="rightContainer">
 								<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="modifyComment(${bc.cmtIndex});">
-									<i class="icon edit"></i> 수정
+									<i class="icon edit"></i>
+									수정
 								</div>
 							</div>
 						</form>
@@ -450,89 +526,101 @@
 			</div>
 
 		</div>
-		
-		
-		
+
+
+
 		<!-- 댓글 신고 모달 -->
-			<div class="ui basic modal" id="reportCmdModal">
-				<div class="ui icon header">
-					<i class="exclamation triangle icon"></i> 신고하기
-				</div>
-				<h5 class="ui center aligned container">(신고 사유를 선택해 주세요.)</h5>
-				<br>
+		<div class="ui basic modal" id="reportCmdModal">
+			<div class="ui icon header">
+				<i class="exclamation triangle icon"></i>
+				신고하기
+			</div>
+			<h5 class="ui center aligned container">(신고 사유를 선택해 주세요.)</h5>
+			<br>
 
-				<div class="ui container" align="center">
-					<div class="content">
-						<div class="ui form">
+			<div class="ui container" align="center">
+				<div class="content">
+					<div class="ui form">
 
-							<div class="grouped fields">
+						<div class="grouped fields">
 
-								<div class="ui clearing segment" style="width: 350px; padding-left: 60px;">
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="blameText" checked="checked" value="광고/상업성 게시글" /> <label>&emsp;&emsp;광고/상업성 게시글</label>
-										</div>
+							<div class="ui clearing segment" style="width: 350px; padding-left: 60px;">
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" checked="checked" value="광고/상업성 게시글" />
+										<label>&emsp;&emsp;광고/상업성 게시글</label>
 									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="blameText" value="비방/욕설 게시글" /> <label>&emsp;&emsp;비방/욕설 게시글</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="blameText" value="개인정보 유출 게시물" /> <label>&emsp;&emsp;개인정보 유출 게시물</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="blameText" value="청소년 유해(음란) 게시물"> <label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="blameText" value="명예훼손/저작권 침해 게시물"> <label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="blameText" value="도배성 게시물"> <label>&emsp;&emsp;도배성 게시물</label>
-										</div>
-									</div>
-									<br>
-									<div class="field singo">
-										<div class="ui radio checkbox">
-											<input type="radio" id="blame" name="blameText" value="불명확/추측성 게시물"> <label>&emsp;&emsp;불명확/추측성 게시물</label>
-										</div>
-									</div>
-									<br> <br>
 								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="비방/욕설 게시글" />
+										<label>&emsp;&emsp;비방/욕설 게시글</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="개인정보 유출 게시물" />
+										<label>&emsp;&emsp;개인정보 유출 게시물</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="청소년 유해(음란) 게시물">
+										<label>&emsp;&emsp;청소년 유해(음란) 게시물</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="명예훼손/저작권 침해 게시물">
+										<label>&emsp;&emsp;명예훼손/저작권 침해 게시물</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="도배성 게시물">
+										<label>&emsp;&emsp;도배성 게시물</label>
+									</div>
+								</div>
+								<br>
+								<div class="field singo">
+									<div class="ui radio checkbox">
+										<input type="radio" id="blame" name="blameText" value="불명확/추측성 게시물">
+										<label>&emsp;&emsp;불명확/추측성 게시물</label>
+									</div>
+								</div>
+								<br>
+								<br>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<br> <br>
-				<div class="ui center aligned container">
-					<div class="actions">
-						<div class="ui red basic cancel inverted button">
-							<i class="remove icon"></i> 취소
-						</div>
-						<div class="ui red ok inverted button" onclick="sendCmdBlame();">
-							<i class="checkmark icon"></i> 신고
-						</div>
+			<br>
+			<br>
+			<div class="ui center aligned container">
+				<div class="actions">
+					<div class="ui red basic cancel inverted button">
+						<i class="remove icon"></i>
+						취소
+					</div>
+					<div class="ui red ok inverted button" onclick="sendCmdBlame();">
+						<i class="checkmark icon"></i>
+						신고
 					</div>
 				</div>
-
 			</div>
-		
-		
-		
+
+		</div>
+
+
+
 	</div>
 
 
@@ -564,9 +652,8 @@
 	$('#bookMark').click(
 			function() {
 				var postIndex = '${requestScope.bpv.postIndex}';
-				if (check == 0) {
-				} else if (check == 1) {
-				}
+				var mbId = '${sessionScope.member.mbNickName}';
+				if(mbId!=''){
 				$.ajax({
 					url : '/postBookMark.diet',
 					type : 'post',
@@ -591,6 +678,9 @@
 						alert('실패');
 					}
 				});
+				}else{
+					alert('로그인 후 이용해주세요.');
+				}
 			});
 	var likeCheck;
 	var likeYN = '${requestScope.bpv.likeYN}';
@@ -610,6 +700,8 @@
 				var targetIndex = '${requestScope.bpv.postIndex}';
 				var targetType = 1;
 				var targetMbIndex = '${requestScope.bpv.mbIndex}';
+				var mbId = '${sessionScope.member.mbNickName}';
+				if(mbId!=''){
 				$.ajax({
 					url : '/postLike.diet',
 					type : 'post',
@@ -637,6 +729,9 @@
 						alert('실패');
 					}
 				});
+				}else{
+					alert('로그인 후 이용해주세요.');
+				}
 			});
 
 	/* 댓글 좋아요 버튼 */
@@ -645,7 +740,8 @@
 		var targetType = 2;
 		var targetMbIndex = mbIndex;
 		var cmtLike = $("#cmtLike_"+index).val();
-		console.log(cmtLike);
+		var mbId = '${sessionScope.member.mbNickName}';
+		if(mbId!=''){
 		$.ajax({
 			url : '/cmtLike.diet',
 			type : 'post',
@@ -668,13 +764,16 @@
 					
 				}
 			}
-		})
+		});
+		} else{
+			alert('로그인 후 이용해주세요.')
+		}
 	}
 	
 	/* 게시글 신고버튼 */
 	$('#reportBtn').click(function() {
 		var blameCheck = '${requestScope.bpv.blameYN}';
-		console.log(blameCheck);
+		
 		var mbId = '${sessionScope.member.mbNickName}';
 		if(mbId!=''){
 			if(blameCheck == 0){
@@ -735,6 +834,8 @@
 		var mbIndex = '${sessionScope.member.mbIndex}';
 		//alert(ci);
 		blameCmd = ci;
+		var mbId = '${sessionScope.member.mbNickName}';
+		if(mbId!=''){
 		$.ajax({
 			url : '/checkBlameCmd.diet',
 			type : 'post',
@@ -754,7 +855,9 @@
 					alert('실패');
 				}
 			});
-		
+		}else{
+			alert('로그인 후 이용해주세요.');
+		}
 		
 		
 		
@@ -1144,10 +1247,10 @@
 		display: none;
 	}
 	#removePadding {
-		display:none;
+		display: none;
 	}
-	button[id^="cmdReportBtn_"]{
-		display:none !important;
+	button[id^="cmdReportBtn_"] {
+		display: none !important;
 	}
 }
 </style>
