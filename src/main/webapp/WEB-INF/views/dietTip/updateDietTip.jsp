@@ -102,7 +102,7 @@
 			<div class="ui grid">
 				<div class="six wide column">
 					<div style="width: 100%;">
-						<img id="img" style="width: 230px; height: 180px;" src="${requestScope.dt.dtMainPhoto }">
+						<img id="img" style="width: 230px; height: 180px;" src="${requestScope.dt.dtMainPhoto }" onerror='this.src="/resources/image/300x400.png"'>
 					</div>
 					<div style="width: 100%; height: 30px; margin-top: 20px;">
 						<button type="button" class="ui button" onclick="uploadPictureBtn();" style="width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
