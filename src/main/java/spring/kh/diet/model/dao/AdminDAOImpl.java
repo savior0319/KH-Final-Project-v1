@@ -749,7 +749,7 @@ public class AdminDAOImpl implements AdminDAO {
 		return sb.toString();
 	}
 
-
+	// 에러로그 페이지 일반
 	@Override
 	public ArrayList<ErrorLogVO> todayErrorLogSearch(SqlSessionTemplate session, ErrorLogVO ELVO) {
 		List<?> list = session.selectList("admin.todayErrorLogSearch",ELVO);
@@ -763,6 +763,23 @@ public class AdminDAOImpl implements AdminDAO {
 		return session.update("admin.changeGrade",mbIndex);
 	}
 
-	
+	// 에러로그 페이지 상세
+	@Override
+	public ArrayList<ErrorLogVO> todayErrorLogSearchDetail(SqlSessionTemplate session, ErrorLogVO eLVO) {
+		List<?> list = session.selectList("admin.todayErrorLogSearchDetail",eLVO);
+//		if(list.isEmpty())
+//		{
+//			System.out.println("실패");
+//		}
+//		else {
+//			for(int i=0; i<list.size();i++)
+//			{
+//				System.out.println(list.get(i).toString());
+//			}
+//		}
+//		
+		return (ArrayList<ErrorLogVO>) list;
+
+	}
 
 }

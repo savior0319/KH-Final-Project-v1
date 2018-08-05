@@ -76,15 +76,13 @@ body {
 							</thead>
 							<!--  -->
 							<tbody>
-								<c:forEach items="${dAll}" var="dall">
+								<c:forEach items="${dAll}" var="dall" varStatus="status">
 									<tr align="center">
-										<td id="searchDate">${dall.erDate}</td>
+										<td id="searchDate${status.index}">${dall.erDate}</td>
 										<td>${dall.low}개</td>
 										<td>${dall.mid}개</td>
 										<td>${dall.high}개</td>
-										<td><button class="ui secondary button" onclick="move();">자세히</button></td>
-												
-												
+										<td><button class="ui secondary button" onclick="move(${status.index});">자세히</button></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -100,17 +98,18 @@ body {
 		</div>
 		<!--  -->
 		<br> <br>
-	</div>
+	</div>	
 	<!-- FOOTER -->
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	function move(){
-		var findDate =  $("#searchDate");
-		alert(findDate);
-		
+	function move(test){
+		var findDate = $("#searchDate"+test).html();
+		location.href = "/errorLogManageDetail.diet?findDate="+findDate+"&type=low";
 	}
+	
+	
 	//날자선택
 	$.datepicker.setDefaults({
 		dateFormat : 'yy-mm-dd',
@@ -136,7 +135,7 @@ body {
 
 		alert("선택하신 날자 : " + dateText + " 해당날자 로그로 이동합니다"); 
 		var findDate = this.value;
-		location.href = "/errorLogManageDetail.diet?findDate="+findDate;
+		location.href = "/errorLogManageDetail.diet?findDate="+findDate+"&type=low";
 		  }
 		}); 
 

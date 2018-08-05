@@ -349,7 +349,7 @@ public class AdminServiceImpl implements AdminService {
 		return trpdv;
 	}
 
-
+	// 에러로그 페이지 - 일반
 	@Override
 	public ArrayList<ErrorLogVO> todayErrorLogSearch(ErrorLogVO eLVO) {
 		ArrayList<ErrorLogVO> list = aDao.todayErrorLogSearch(session,eLVO);
@@ -361,6 +361,12 @@ public class AdminServiceImpl implements AdminService {
 	public int changeGrade(int mbIndex) {
 		return aDao.changeGrade(session, mbIndex);
 
+	}
+	//에러로그 페이지 - 상세
+	@Override
+	public ArrayList<ErrorLogVO> todayErrorLogSearchDetail(ErrorLogVO eLVO) {
+		ArrayList<ErrorLogVO> list = aDao.todayErrorLogSearchDetail(session,eLVO);
+		return list;
 	}
 
 }
