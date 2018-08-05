@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import spring.kh.diet.model.vo.todayAnalyticPDVO;
 import spring.kh.diet.model.vo.yesterdayAnalytic;
 
 public interface AdminController {
-
-	void noticeRegisterData(String title, String content, HttpServletResponse response) throws IOException;
 
 	String currentLoginUser(HttpServletRequest request, HttpServletResponse response);
 
@@ -47,12 +47,18 @@ public interface AdminController {
 
 	String acceptTrainerReg(HttpServletRequest request, HttpSession session);
 
-	String trainerChange(HttpServletRequest request, HttpServletResponse response, HttpSession session);
-
-
-
 	Object errorLogManageDetail(HttpServletRequest request);
 
 	Object errorLogManage(HttpServletRequest request);
+
+	String trainerChange(HttpServletRequest request, HttpServletResponse response, HttpSession session);
+
+	String changeGrade(HttpServletRequest request, HttpSession session);
+
+	void noticeRegisterData(String title, String content, String noticeType, HttpServletResponse response)
+			throws IOException;
+
+	void logoImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest req)
+			throws IOException;
 
 }

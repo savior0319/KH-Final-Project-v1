@@ -9,6 +9,7 @@ import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
+import spring.kh.diet.model.vo.NoticeVO;
 
 public interface CommunityDAO {
 
@@ -73,5 +74,8 @@ public interface CommunityDAO {
 	int commentLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv);
 
 	int commentTBLikeUp(SqlSessionTemplate sqlSessionTemplate, BoardLikeVO blv);
+
+	ArrayList<NoticeVO> noticeList(SqlSessionTemplate sqlSessionTemplate, String type);
+
 
 }

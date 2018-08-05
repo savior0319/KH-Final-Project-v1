@@ -29,7 +29,7 @@
 			<div class="ui secondary segment">
 				<div class="ui right action left icon input" style="width:80%;">
 					<i class="search icon"></i> <input id="searchText" type="text" placeholder="검색어 입력"
-						style="width:80%;">
+						style="width:80%;"  onkeypress="runScript(event)" >
 					<div class="ui basic floating dropdown button" onclick="healthCalSearch();">
 						<div class="text">검색</div>
 					</div>
@@ -44,7 +44,6 @@
 				</div>
 			</div>
 			<br>
-			<hr>
 
 			<h3 class="ui left aligned header">
 				운동칼로리 <span style="color: red;"></span>
@@ -111,6 +110,13 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+/* 검색  - 엔터*/
+function runScript(e) {
+	if (e.keyCode == 13) {
+		healthCalSearch();
+	}
+}
+
 	function healthCalSearch(){
 		var searchText = $('#searchText').val();
 		
@@ -119,7 +125,7 @@
 </script>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */
-@media ( min-width : 550px) {
+@media ( min-width : 650px) {
 	#size1 {
 		display: block;
 	}
@@ -128,7 +134,7 @@
 	}
 }
 /* 모바일용 사이즈 */
-@media ( max-width : 549px) {
+@media ( max-width : 649px) {
 	#size1 {
 		display: none;
 	}

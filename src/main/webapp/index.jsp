@@ -64,25 +64,25 @@
 						<table class="ui table" style="width: 100%; height: 100%;" id="mainBoardResize">
 							<tr align="center">
 								<td style="padding: 0px; width: 70px;">
-									<button onclick="bmiCal();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+									<button onclick="bmiCal();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px; cursor:pointer;">
 										<i class="large calculator icon" id="icon1"></i>
 										내 BMI 지수는? (비만도 계산)
 									</button>
 								</td>
 								<td style="padding: 0px; width: 70px;">
-									<button onclick="bmrCal();" type="button" style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+									<button onclick="bmrCal();" type="button" style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px; cursor:pointer;">
 										<i class="large sticky note outline icon" id="icon2"></i>
 										칼로리처방 받기
 									</button>
 								</td>
 								<td style="padding: 0px; width: 70px;">
-									<button type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+									<button id="trainer-match" type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px; cursor:pointer;">
 										<i class="large child icon" id="icon3"></i>
 										트레이너 매칭
 									</button>
 								</td>
 								<td style="padding: 0px; width: 70px;">
-									<button onclick="healthCenter();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px;">
+									<button onclick="healthCenter();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px; cursor:pointer;">
 										<i class="large sistrix icon" id="icon4"></i>
 										인바디 측정 보건소 찾기
 									</button>
@@ -191,7 +191,7 @@
 		<div class="ui relaxed divided items">
 			<div class="item">
 				<div class="ui small image">
-					<img id="matchedImg0" src="" style="height: 100%; cursor:pointer;">
+					<img id="matchedImg0" src="" style="height: 100%; cursor:pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 				</div>
 				<div class="content">
 					<div class="header" id="matchedTitle0" style="cursor:pointer;"></div>
@@ -204,7 +204,7 @@
 			</div>
 			<div class="item">
 				<div class="ui small image">
-					<img id="matchedImg1"  src="" style="height: 100%; cursor:pointer;">
+					<img id="matchedImg1"  src="" style="height: 100%; cursor:pointer;" onerror='this.src="/resources/image/300x400.png"'>
 				</div>
 				<div class="content">
 					<div class="header" id="matchedTitle1" style="cursor:pointer;"></div>
@@ -217,7 +217,7 @@
 			</div>
 			<div class="item">
 				<div class="ui small image">
-					<img id="matchedImg2" src="" style="height: 100%; cursor:pointer;">
+					<img id="matchedImg2" src="" style="height: 100%; cursor:pointer;" onerror='this.src="/resources/image/300x400.png"'>
 				</div>
 				<div class="content">
 					<div class="header" id="matchedTitle2" style="cursor:pointer;"></div>
@@ -227,11 +227,12 @@
 						<img id="matchedWriterImg2" src="" class="ui circular avatar image">
 					</div>
 				</div>
+				<br>
 			</div>
 			<hr>
 		</div>
-		<label class="ui large header"> 이름을 머라 할까요??? </label>
-		<hr>
+		
+		
 		<div class="ui three column grid">
 			<div class="column">
 				<table id="boardTbl1" class="ui table">
@@ -282,11 +283,14 @@
 				</table>
 			</div>
 		</div>
+		
+		
+		
+		
 		<br>
 		<hr>
 		<br>
 	</div>
-</div>
 <!-- FOOTER -->
 <jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
@@ -391,6 +395,7 @@
 		success : function(data) {
 			for (var i = 0; i < 10; i++) {
 				var tr = $('<tr>');
+				
 
 				var tempChar = '';
 				var charSize = (data.comList[i].postTitle).length;
@@ -514,6 +519,9 @@
 	.rslides {
 		margin-top: 15px;
 	}
+	/* #trainer-match{
+		display:none;
+	} */
 }
 
 @media ( min-width : 768px) {
@@ -521,5 +529,7 @@
 		display: none;
 	}
 }
+
+
 </style>
 </html>

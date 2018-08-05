@@ -115,8 +115,9 @@ public interface AdminDAO {
 
 	String getTrainerChangeListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage);
-
 	ArrayList<ErrorLogVO> todayErrorLogSearch(SqlSessionTemplate session, ErrorLogVO eLVO);
+  
+	int changeGrade(SqlSessionTemplate session, int mbIndex);
 
 
 }

@@ -27,4 +27,6 @@ public interface TrainerController {
 
 	String programDetail(int tpIndex, HttpServletRequest request);
 
+	String paymentSuccess(String mbtptr, int price);
+
 }

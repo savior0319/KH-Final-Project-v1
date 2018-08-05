@@ -77,7 +77,7 @@ a {
 	<!-- CONTENTS -->
 	<div class="ui center aligned basic segment">
 		<div class="ui container">
-			<div class="contents login">
+			<div id="size1" class="contents login">
 				<c:if test="${sessionScope.member==null}">
 					<div class="login title">
 						<h1>LOGIN</h1>
@@ -118,6 +118,44 @@ a {
 					</script>
 				</c:if>
 			</div>
+			
+			<div id="size2" class="contents login" style="width:350px;">
+				<c:if test="${sessionScope.member==null}">
+					<div class="login title">
+						<h1>LOGIN</h1>
+					</div>
+					<div class="login box" style="height:400px;">
+						<p style="padding-top: 20px; font-size: 13px; font-weight: 800;">
+							다이어트신의 다양한 서비스를 <br>이용하시려면 로그인을 해주세요. <br> 회원가입을 하시면 다양한 서비스를
+							받으실 수 있습니다.
+						</p>
+						<br>
+						<form action="/loginRequest.diet" method="post">
+							<div class="ui input" style="width:90%;">
+								<input type="text" placeholder="아이디.." name="memberId" />
+							</div>
+							<br>
+							<div class="ui input" style="width:90%;">
+								<input type="password" placeholder="비밀번호.." name="memberPwd" />
+							</div>
+							<br> <input type="submit" class="ui button loginBtn"
+								id="loginBtn" value="로그인" style="color:white; width:90%;"/>
+						</form>
+						<br>
+						<button type="button" class="ui negative basic button"
+							id="joinBtn" onclick="joinBtn1();" style="width:90%;">회원가입</button>
+					</div>
+				</c:if>
+
+				<c:if test="${sessionScope.member!=null }">
+					<script>
+						location.href = "/index.jsp";
+						alert("로그인상태입니다.");
+					</script>
+				</c:if>
+			</div>
+			
+			
 		</div>
 	</div>
 
@@ -187,5 +225,24 @@ a {
 			}
 
 </script>
-
+<style type="text/css" media="screen">
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 650px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
+}
+/* 모바일용 사이즈 */
+@media ( max-width : 649px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
+}
+</style>
 </html>

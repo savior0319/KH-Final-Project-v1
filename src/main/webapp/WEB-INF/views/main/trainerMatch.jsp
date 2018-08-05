@@ -35,7 +35,7 @@
 		<div class="ui center aligned basic segment" style="border: 0;">
 			<br>
 			<div class="ui large message">
-				<div class="ui large header">트뤠이너 매칭</div>
+				<div class="ui large header">트레이너 매칭</div>
 			</div>
 			<br>
 			<div class="ui horizontal basic segments" align="center" style="border: 0;">
@@ -49,10 +49,10 @@
 						</span>
 						<br>
 						<br>
-						<div class="ui large header" style="color:white;">트뤠이너 찾기</div>
+						<div class="ui large header" style="color:white;">트레이너 찾기</div>
 						<br>
 					</h2>
-					<div class="ui message"><div class="ui small header">트뤠이너를 찾고 싶다면 찾기go</div></div>
+					<div class="ui message"><div class="ui small header">트레이너를 찾고 싶다면 찾기go</div></div>
 					<br>
 				</div>
 
@@ -69,10 +69,10 @@
 						</span>
 						<br>
 						<br>
-						<div class="ui large header" style="color:white;">트뤠이너 등록</div>
+						<div class="ui large header" style="color:white;">트레이너 등록</div>
 						<br>
 					</h2>
-					<div class="ui red message"><div class="ui small header">트뤠이너가 되고 싶다면 신청go</div></div>
+					<div class="ui red message"><div class="ui small header">트레이너가 되고 싶다면 신청go</div></div>
 					<br>
 					</div>
 					</c:when>
@@ -87,7 +87,7 @@
 						</span>
 						<br>
 						<br>
-						<div class="ui large header" style="color:white;">트뤠이너 등록</div>
+						<div class="ui large header" style="color:white;">트레이너 등록</div>
 						<br>
 					</h2>
 					<div class="ui red message"><div class="ui small header">프로그램 신청go</div></div>
@@ -109,7 +109,11 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 	function trainerReg(){
+		if(${sessionScope.member != null}){
 		location.href="/trainerReg.diet";
+		}else{
+			alert('로그인 후 이용이 가능합니다.');
+		}
 	}
 
 	function trainerFind(){

@@ -1,10 +1,13 @@
 package spring.kh.diet.model.service;
 
+import java.util.ArrayList;
+
 import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardBookMarkVO;
 import spring.kh.diet.model.vo.BoardLikeVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
+import spring.kh.diet.model.vo.NoticeVO;
 
 public interface CommunityService {
 
@@ -54,4 +57,8 @@ public interface CommunityService {
 	int commentLikeUp(BoardLikeVO blv);
 
 	int commentTBLikeUp(BoardLikeVO blv);
+
+	ArrayList<NoticeVO> noticeList(String type);
+
+
 }
