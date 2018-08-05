@@ -63,6 +63,9 @@ public interface MyInfoController {
 	Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws JsonIOException, IOException;
 
+	void canclePro(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws JsonIOException, IOException;
+
 
 
 }

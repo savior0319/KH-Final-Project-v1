@@ -111,4 +111,16 @@ public interface MyInfoDAO {
 	int insertSession(SqlSessionTemplate sqlSessionTemplate, OneSessionVO oSV);
   
 	ArrayList<TrainerProgramVO> checkSale(SqlSessionTemplate sqlSessionTemplate, TrainerProgramVO tv);
+
+	TrainingRegVO myTrainingReg(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+
+	ArrayList<TrainerProgramVO> requestTrainerList3(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainerProgramVO tv);
+
+	String requestTrainerListPageNavi3(SqlSessionTemplate sqlSessionTemplate, int currentPage, int recordCountPerPage,
+			int naviCountPerPage, TrainerProgramVO tv);
+
+	int canclePro(SqlSessionTemplate sqlSessionTemplate, PaymentVO pv);
+
+	ArrayList<PaymentVO> checkPur(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 }
