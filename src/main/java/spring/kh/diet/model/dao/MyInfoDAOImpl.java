@@ -803,4 +803,98 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return sb.toString();
 	}
 
+	@Override
+	public TrainingRegVO myTrainingReg(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		TrainingRegVO trv = sqlSessionTemplate.selectOne("myInfo.myTrainingReg",mv);
+		return trv;
+	}
+
+	@Override
+	public ArrayList<TrainerProgramVO> requestTrainerList3(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, TrainerProgramVO tv) {
+		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
+
+		myRequest.setStart((currentPage - 1) * recordCountPerPage + 1);
+		myRequest.setEnd(currentPage * recordCountPerPage);
+		myRequest.setMbIndex(tv.getMbIndex());
+
+		List<TrainerProgramVO> list = sqlSessionTemplate.selectList("myInfo.myRequestList2", myRequest);
+
+		return (ArrayList<TrainerProgramVO>) list;
+	}
+
+	@Override
+	public String requestTrainerListPageNavi3(SqlSessionTemplate sqlSessionTemplate, int currentPage,
+			int recordCountPerPage, int naviCountPerPage, TrainerProgramVO tv) {
+		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
+		myRequest.setMbIndex(tv.getMbIndex());
+
+		int recordTotalCount = sqlSessionTemplate.selectOne("myInfo.myRequestGetNavi2", myRequest);
+		int pageTotalCount = 0;
+
+		if (recordTotalCount % recordCountPerPage != 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (((currentPage - 1) / naviCountPerPage) * naviCountPerPage + 1);
+
+		int endNavi = startNavi + naviCountPerPage - 1;
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) // 시작이 1페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/applyTrainer.diet?currentPage=" + (startNavi - 1) + "'> &lt; </a>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (i == currentPage) {
+				sb.append(
+						"<a class='active item' style='background: rgba(250, 40, 40); color:white;' href='/applyTrainer.diet?currentPage="
+								+ i + "'><strong>" + i + "</strong></a>");
+			} else {
+				sb.append("<a class='item' href='/applyTrainer.diet?currentPage=" + i + "'>" + i + " </a>");
+			}
+		}
+		if (needNext) // 끝 페이지가 아니라면!
+		{
+			sb.append("<a class='item' href='/applyTrainer.diet?&currentPage=" + (endNavi + 1) + "'> &gt; </a>");
+		}
+		return sb.toString();
+	}
+
+	@Override
+	public int canclePro(SqlSessionTemplate sqlSessionTemplate, PaymentVO pv) {
+		int result = sqlSessionTemplate.delete("myInfo.canclePro",pv);
+		return result;
+	}
+
+	@Override
+	public ArrayList<PaymentVO> checkPur(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		List <PaymentVO> list = sqlSessionTemplate.selectList("myInfo.checkPur",mv);
+		return (ArrayList<PaymentVO>)list;
+	}
+
 }

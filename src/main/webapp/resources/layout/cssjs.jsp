@@ -14,3 +14,20 @@
 <link rel="stylesheet" type="text/css" href="/resources/SementicUI/semantic.min.css">
 <!-- Favicon(추가예정) -->
 <link rel="shortcut icon" href="/resources/image/favicon.ico" />
+
+<style>
+/* 폰트적용 */
+/* @import url('//cdn.rawgit.com/young-ha/webfont-archive/master/css/Godo.css');
+*{font-family: 'Godo', 'Sans-serif;'
+  font-style: normal;
+  font-weight: 700;
+} */
+@import url('https://fonts.googleapis.com/css?family=Jua');
+body{
+font-family: 'Jua', sans-serif;
+font-size: 110%;
+}
+
+
+
+</style>

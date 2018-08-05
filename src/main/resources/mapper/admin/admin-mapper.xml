@@ -885,7 +885,6 @@
 		DELETE ADVERTISE_IMAGE_TBL
 	</insert>
 
-
 	<!-- 광고 DB 넣기1 -->
 	<insert id="advertise1" parameterType="advertise">
 		INSERT INTO ADVERTISE_IMAGE_TBL VALUES(1, #{path1})
@@ -908,4 +907,19 @@
 		INSERT INTO ADVERTISE_IMAGE_TBL VALUES(4, #{path4})
 	</insert>
 
+	<!-- 에러로그페이지 상세 리스트 불러오기 -->
+	<select id="todayErrorLogSearchDetail" resultType="errorLog"
+		parameterType="errorLog">
+		select
+		ER_DATE as erDate,
+		ER_STAMP as erStamp,
+		ER_TYPE as erType,
+		ER_INFO_ONE as erInfoOne,
+		ER_INFO_TWO as erInfoTwo,
+		ER_INFO_THR as erInfoThr,
+		ER_INFO_FOR as erInfoFor
+		from ERROR_LOG_TBl
+		where 
+		(ER_DAte between (sysdate - (#{ch}+1)) and (sysdate - #{ch})) and er_type = #{type}
+	</select>
 </mapper>

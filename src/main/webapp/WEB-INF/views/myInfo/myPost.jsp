@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +89,9 @@ html, body {
 									<td style="width: 40%;"><a
 										href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle }</a>
 									</td>
-									<td style="width: 20%;">${m.postDateTime }</td>
+									<td style="width: 20%;"><c:set var="TextValue"
+													value="${m.postDateTime}" /> ${fn:substring(TextValue,0,11)}일
+												${fn:substring(TextValue,11,16)}분</td>
 
 								</tr>
 							</c:forEach>

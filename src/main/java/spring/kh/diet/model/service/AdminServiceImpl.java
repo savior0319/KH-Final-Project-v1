@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.AdminDAO;
-import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
+import spring.kh.diet.model.vo.BoardPostVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.ErrorLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -34,7 +35,6 @@ import spring.kh.diet.model.vo.todayPostVO;
 import spring.kh.diet.model.vo.yesterdayAnalytic;
 import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 
-@SuppressWarnings("all")
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
 
@@ -349,20 +349,26 @@ public class AdminServiceImpl implements AdminService {
 		return trpdv;
 	}
 
-
+	// 에러로그 페이지 - 일반
 	@Override
 	public ArrayList<ErrorLogVO> todayErrorLogSearch(ErrorLogVO eLVO) {
 		ArrayList<ErrorLogVO> list = aDao.todayErrorLogSearch(session,eLVO);
 		return list;
   }
 
-	//트레이너 회원에서 일반회원으로 전환
+	//트레이넝회원에서 일반회원으로 전환
 	@Override
 	public int changeGrade(int mbIndex) {
 		return aDao.changeGrade(session, mbIndex);
 
 	}
-
+	//에러로그 페이지 - 상세
+	@Override
+	public ArrayList<ErrorLogVO> todayErrorLogSearchDetail(ErrorLogVO eLVO) {
+		ArrayList<ErrorLogVO> list = aDao.todayErrorLogSearchDetail(session,eLVO);
+		return list;
+	}
+  
 	/* 광고 DB 업로드 */ 
 	@Override
 	public void advertiseImageUpload(AdvertiseVO adVo) {
@@ -370,3 +376,4 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 }
+

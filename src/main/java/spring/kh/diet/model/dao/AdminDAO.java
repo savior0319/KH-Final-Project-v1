@@ -122,5 +122,8 @@ public interface AdminDAO {
 	int changeGrade(SqlSessionTemplate session, int mbIndex);
 
 	int advertiseImageUpload(SqlSessionTemplate session, AdvertiseVO adVo);
+  
+	ArrayList<ErrorLogVO> todayErrorLogSearchDetail(SqlSessionTemplate session, ErrorLogVO eLVO);
+
 
 }

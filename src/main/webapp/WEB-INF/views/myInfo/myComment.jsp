@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,22 +47,10 @@ html, body {
 										<label></label>
 									</div>
 								</th>
-								<th>
-									<i class="question circle icon"></i>
-									게 시 물 제 목
-								</th>
-								<th>
-									<i class="question circle icon"></i>
-									댓 글 내 용
-								</th>
-								<th>
-									<i class="question circle icon"></i>
-									작 성 일
-								</th>
-								<th>
-									<i class="question circle icon"></i>
-									좋 아 요
-								</th>
+								<th><i class="question circle icon"></i> 게 시 물 제 목</th>
+								<th><i class="question circle icon"></i> 댓 글 내 용</th>
+								<th><i class="question circle icon"></i> 작 성 일</th>
+								<th><i class="question circle icon"></i> 좋 아 요</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -68,27 +58,26 @@ html, body {
 								<tr align="center">
 									<td style="width: 7%;">
 										<div class="ui checkbox">
-											<input type="checkbox" name="chk[]" value="${m.cmtIndex}" class="checkSelect">
-											<label></label>
+											<input type="checkbox" name="chk[]" value="${m.cmtIndex}"
+												class="checkSelect"> <label></label>
 										</div>
 									</td>
-									<td>
-										<c:if test="${m.dtTitle==null}">
+									<td><c:if test="${m.dtTitle==null}">
 											<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${m.postTitle}</a>
-										</c:if>
-
-										<c:if test="${m.dtTitle!=null}">
+										</c:if> <c:if test="${m.dtTitle!=null}">
 											<a href="/postedCommunity.diet?postIndex=${m.dtIndex}">${m.dtTitle}</a>
-										</c:if>
-									</td>
+										</c:if></td>
 									<td>${m.cmtContent}</td>
-									<td>${m.cmtDateTime}</td>
+									<td><c:set var="TextValue" value="${m.cmtDateTime}" />
+										${fn:substring(TextValue,0,11)}일
+										${fn:substring(TextValue,11,16)}분</td>
 									<td>${m.cmtLike}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
-					<button class="ui red button" style="float: right;" onclick="deleteMyComment();">삭제하기</button>
+					<button class="ui red button" style="float: right;"
+						onclick="deleteMyComment();">삭제하기</button>
 					<br>
 					<br>
 					<div class="ui grid">

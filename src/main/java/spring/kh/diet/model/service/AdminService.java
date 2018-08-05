@@ -103,5 +103,6 @@ public interface AdminService {
 
 	void advertiseImageUpload(AdvertiseVO adVo);
 
+	ArrayList<ErrorLogVO> todayErrorLogSearchDetail(ErrorLogVO eLVO);
 
 }

@@ -49,6 +49,9 @@
 				운동칼로리 <span style="color: red;"></span>
 			</h3>
 			<hr>
+			
+			<c:choose>
+				<c:when test="${requestScope.hcpd.hcList[0]!=null }">
 
 
 			<!-- 검색순위 TOP 들어가는 곳 -->
@@ -78,14 +81,46 @@
 				</tbody>
 			</table>
 
+		</c:when>
+		<c:otherwise>
+				<table class="ui very compact table">
+				<thead>
+					<tr align="center">
+						<th>번호</th>
+						<th>운동칼로리</th>
+						<th>강도/세트</th>
+						<th>분/초/횟수</th>
+						<th>칼로리</th>
+					</tr>
+				</thead>
+				</table>
+				<div class="ui red medium message">
+					<br>
+					<i class="exclamation huge icon"></i>
+					<div class="ui medium header">
+						<br>
+						※게시물이 존재하지 않습니다.
+						<br>
+						다른 키워드로 검색을 해주세요.
+						<br>
+						<br>
+						<br>
+					</div>
+				</div>	
+					
+				</c:otherwise>
+			</c:choose>
+
 		</div>
 		<div id="size1" class="ui grid">
 			<div class="three column row">
 				<div class="four wide column"></div>
 				<div class="eight wide column">
+				<c:if test="${requestScope.hcpd.hcList[0]!=null }">
 					<div class="ui center aligned basic segment">
 						<div class="ui pagination menu">${requestScope.hcpd.pageNavi }</div>
 					</div>
+					</c:if>
 				</div>
 				<div class="four wide column"></div>
 			</div>

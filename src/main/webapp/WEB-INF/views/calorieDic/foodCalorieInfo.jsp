@@ -144,11 +144,11 @@
 			<br>
 			<br>
 
-			<div id="size1">
+			<div id="size1" align="center">
 				<h4 class="ui left aligned header" style="text-indent: 10px;">
 					<span style="color: #4776c9;">${requestScope.fc.fcName }</span>의 칼로리<span style="color: #4776c9;">(${requestScope.fc.fcCal }kcal)</span>와 동일한 운동을 확인해 보세요.
 				</h4>
-
+				<br>
 
 				<ul class="exercise">
 					<li><strong>걷기</strong> <span><fmt:formatNumber value="${requestScope.fc.fcCal/4 }" pattern="#" />분</span></li>
@@ -171,7 +171,8 @@
 		url("http://www.dietshin.com/img/calorie_dc/bg_exercise.gif")
 		no-repeat;
 	height: 200px;
-	padding: 102px 14px 0 14px
+	width: 900px;
+	padding: 102px 14px 0 14px;
 }
 
 .exercise li {

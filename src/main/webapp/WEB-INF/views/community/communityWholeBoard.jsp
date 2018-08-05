@@ -405,7 +405,7 @@
 	/* 최신순 & 조회순 클릭 */
 	var type = $('#boardTime').val();
 	function recentlyViewBtn(rtb) {
-		var postSort = rtb.innerHTML;
+		var postSort = rtb.innerHTML();
 
 		location.href = "/communityViewBoard.diet?type=" + type + "&postSort="
 				+ postSort + "&searchText=" + st + "&category=" + cate;
@@ -440,8 +440,12 @@
 		if (category == "") {
 			alert('분류를 선택하여주세요.');
 		} else {
+			if($searchText != "")
 			location.href = "/communitySearch.diet?category=" + category
 					+ "&searchText=" + $searchText;
+			else{
+				alert('검색어를 입력해 주세요');
+			}
 		}
 
 		/* + "&type=" + type */

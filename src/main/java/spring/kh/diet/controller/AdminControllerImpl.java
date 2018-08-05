@@ -2,6 +2,7 @@ package spring.kh.diet.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -838,15 +839,63 @@ public class AdminControllerImpl implements AdminController {
 	@Override
 	@RequestMapping(value = "/errorLogManageDetail.diet")
 	public Object errorLogManageDetail(HttpServletRequest request) {
+		// 날자형식 
+				//(오늘날자 ) long time = System.currentTimeMillis()
+						Date todayDate = new Date();
+						// 데이터형식
+						// System.out.println(totalDay);
+						//
+		
 		ModelAndView view = new ModelAndView();
-		System.out.println("111");
-		String findDate = request.getParameter("Search");
-		System.out.println("1" + findDate);
-		System.out.println("2");
-//		view.addObject("currentTime",timeType);
+		String findType="";
+		String findDate="";
+		String listType="";
+		if(request.getParameter("findDate")!=null)
+		{
+		 findDate = (request.getParameter("findDate"));
+		}
+		if(request.getParameter("type")!=null)
+		{
+			 
+			 findType = (request.getParameter("type"));
+			 
+		}
+		switch(findType)
+		{
+		case "low" : findType="1"; listType="경도 : WARN"; break;
+		case "mid" : findType="2"; listType="중도 : ERROR";break;
+		case "high" : findType="3"; listType="고도 : FATAL";break;
+		}
+		// 데이터형식
+		java.sql.Date sqlDate;
+		java.sql.Date sqlToday;
+		Date SearchDate;
+				try {
+					SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+//					String toDay = dayTime.format(new Date(time));
+					SearchDate = dayTime.parse(findDate);
+					sqlDate = new java.sql.Date(SearchDate.getTime());
+					sqlToday = new java.sql.Date(todayDate.getTime());
+					ErrorLogVO ELVO = new ErrorLogVO();
+					ELVO.setType(findType);
+					ELVO.setErDate(sqlDate);
+//					System.out.println(sqlToday);
+//					System.out.println(sqlDate);
+//					System.out.println((sqlToday.getTime()-sqlDate.getTime()) / (24 * 60 * 60 * 1000));
+					ELVO.setCh((int) ((sqlToday.getTime()-sqlDate.getTime()) / (24 * 60 * 60 * 1000)));
+					ArrayList<ErrorLogVO> list = as.todayErrorLogSearchDetail(ELVO);
+					
+					view.addObject("listType",listType);
+					view.addObject("list",list);
+					view.addObject("findDate",findDate);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				// System.out.println(totalDay);
+
 		view.setViewName("admin/errorLogManageDetail");
 		return view;
-
 	}
-
 }

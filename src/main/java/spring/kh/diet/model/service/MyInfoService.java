@@ -85,4 +85,12 @@ public interface MyInfoService {
 
 	ArrayList<TrainerProgramVO> checkSale(TrainerProgramVO tv);
 
+	TrainingRegVO myTrainingReg(MemberVO mv);
+
+	MyRequestTrainerPDVO requestTrainer3(int currentPage, TrainerProgramVO tv);
+
+	int canclePro(PaymentVO pv);
+
+	ArrayList<PaymentVO> checkPur(MemberVO mv);
+
 }
