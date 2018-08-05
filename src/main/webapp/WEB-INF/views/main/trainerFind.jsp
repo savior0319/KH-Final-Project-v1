@@ -22,10 +22,10 @@
 		<div class="ui center aligned basic segment">
 			<br>
 			<div class="ui large message">
-				<div class="ui large header"><i class="sistrix icon"></i>트뤠이너 찾기</div>
+				<div class="ui large header"><i class="sistrix icon"></i>트레이너 찾기</div>
 			</div>
 			<br>
-			<div class="ui red message"><div class="ui medium header">※ 해당 지역의 트뤠이너를 검색합니다</div></div>
+			<div class="ui red message"><div class="ui medium header">※ 해당 지역의 트레이너를 검색합니다</div></div>
 			<br>
 			<div class="ui small header">시선택</div>
 			<select name="skills" class="ui fluid normal dropdown" id="dropdown1">
