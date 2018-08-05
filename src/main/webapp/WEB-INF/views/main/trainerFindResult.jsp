@@ -37,7 +37,7 @@
 			</div>
 			<c:choose>
 			<c:when test="${tList[0].trArea != null}">
-					<div class="ui red medium message"><div class="ui medium header">※ 트레이너를 클릭하셈</div></div>
+					<div class="ui red medium message"><div class="ui medium header">※ 원하는 트레이너를 클릭하세요. </div></div>
 			<!-- 트레이너가 검색 됐을 경우 -->
 			<c:forEach items="${tList}" var="tl">
 			<div class="ui relaxed divided items test"  style="padding: 15px;">
