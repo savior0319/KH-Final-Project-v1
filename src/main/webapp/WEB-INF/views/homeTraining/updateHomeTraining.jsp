@@ -118,7 +118,7 @@
 			<div class="ui grid">
 				<div class="six wide column">
 					<div style="width: 100%;">
-						<img id="img" style="width:230px; height:180px;" src="${requestScope.ht.htMainPhoto }">
+						<img id="img" style="width:230px; height:180px;" src="${requestScope.ht.htMainPhoto }" onerror='this.src="/resources/image/300x400.png"'>
 					</div>
 					<div style="width: 100%; height: 30px; margin-top:20px;">
 						<button type="button" class="ui button" onclick="uploadPictureBtn();" style="width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
@@ -135,11 +135,17 @@
 				
 			    <div class="six wide column">
 			    <div style="width:100%;">
-					
-					<!-- 유튜브 미리보기 영상 들어가는 곳 -->
-					<iframe id="lookAhead" width="230px;" height="180px"
-					src=${requestScope.ht.htVideo }" frameborder="0"
-					allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					<c:choose>
+               <c:when test="${requestScope.ht.htVideo != null}">
+               <!-- 유튜브 미리보기 영상 들어가는 곳 -->
+               <iframe id="lookAhead" width="230px;" height="180px"
+               src=${requestScope.ht.htVideo }" frameborder="0"
+               allow="autoplay; encrypted-media" allowfullscreen></iframe>
+               </c:when>
+               <c:otherwise>
+               <img id="img" style="width:230px; height:180px;" src="/resources/image/no-video.png">
+               </c:otherwise>
+               </c:choose>
 					
 				</div>
 				<div style="width:100%; height:30px; margin-top:20px;">
@@ -212,7 +218,7 @@
 	});
 
 	// 카테고리 선택
-	var category;
+	var category = '${requestScope.ht.htType}';
 	$('.select > .item').click(function() {
 		switch ($(this).text()) {
 		case '전신':
@@ -292,15 +298,15 @@
     					success : function(result) {
     						if (result == 1) {
     							alert('게시글 수정 완료');
-    							location.href = "/homeTrainingList.diet?type=all";
+    							location.href = "/homeTrainingAll.diet";
     						} else {
     							alert('게시글 등록 실패');
-    							location.href = "/homeTrainingList.diet?type=all";
+    							location.href = "/homeTrainingAll.diet";
     						}
     					},
     					error : function() {
     						alert('게시글 등록 실패(과정 오류)');
-    						location.href = "/homeTrainingList.diet?type=all";
+    						location.href = "/homeTrainingAll.diet";
     					}
     				});
     			} else {

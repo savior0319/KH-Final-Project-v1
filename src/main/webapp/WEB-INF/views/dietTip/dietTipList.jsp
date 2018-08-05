@@ -191,7 +191,7 @@ p>span {
 					</div>
 					<div class="twelve wide column">
 						<strong style="cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtTitle }</strong>
-						<div style="cursor: pointer; width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtSammary }</div>
+						<div style="cursor: pointer; width: 100%; height: 65px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtSammary }</div>
 						<br>
 						<div class="ui grid">
 							<div class="four wide column">
@@ -392,7 +392,7 @@ p>span {
 						<div class="meta">
 							<span class="date"><fmt:formatDate value="${dt.dtDate }" pattern="yyyy-MM-dd" /></span>
 						</div>
-						<div class="description" style="cursor: pointer; width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtSammary }</div>
+						<div class="description" style="cursor: pointer; width: 100%; height: 65px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtSammary }</div>
 					</div>
 					<div class="extra content">
 						<i class="eye icon"></i> ${dt.dtSee } &nbsp;&nbsp;|&nbsp;&nbsp; <i class="comment icon"></i> ${dt.dtCmtNo }
