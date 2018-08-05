@@ -58,9 +58,12 @@ body {
 			</c:forEach> 
 		</tbody>
 	</table>
-	<div class="ui center aligned basic segment">
-		<div class="ui pagination menu">${requestScope.qpd.pageNavi}</div>
-	</div>
+
+	<c:if test="${requestScope.qpd.QList[0].qsIndex ne null}">
+		<div class="ui center aligned basic segment">
+			<div class="ui pagination menu">${requestScope.qpd.pageNavi}</div>
+		</div>
+	</c:if>
 </div>
 
 
