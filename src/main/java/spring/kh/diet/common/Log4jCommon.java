@@ -51,6 +51,8 @@ public class Log4jCommon {
 		ST2.nextToken();
 		serviceName = ST2.nextToken();
 		
+		
+		// 테스트
 		// 디버그 콘솔
 //		log.debug("AOP 디버그 : "+methodName);
 //		log.debug("AOP 디버그 : "+serviceName);
