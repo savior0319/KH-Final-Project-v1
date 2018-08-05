@@ -135,7 +135,7 @@
 	function register() {
 		var $title = $('#title').val();
 		var $content = $('#summernote').summernote('code');
-		alert($content);
+
 		if (postImage == null){
 			postImage = "";
 		}
@@ -151,7 +151,7 @@
 				},
 				success : function(data) {
 					if (data == 'success') {
-						alert('게시글 등록 완료');
+						alert('게시글 등록이 완료되었습니다.');
 						if(category == 16){
 							location.href = "/recipeBoard.diet?type=" + category;
 						}
@@ -163,7 +163,7 @@
 					}
 				},
 				error : function() {
-					alert('게시글 등록 실패');
+					alert('게시글 등록에 실패하였습니다.');
 				}
 			});
 		} else {

@@ -107,7 +107,7 @@ else self.name = '';
 					<div class="column">
 						<div class="ui card" onclick="recipeLink(${c.postIndex});" style="cursor: pointer;">
 							<div class="image">
-								<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/logo.png"'>
+								<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
 								<a class="header">
@@ -159,7 +159,7 @@ else self.name = '';
 				<c:forEach items="${requestScope.cpdv.comList}" var="c">
 						<div class="ui card" onclick="recipeLink(${c.postIndex});" style="cursor: pointer;">
 							<div class="image">
-								<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/logo.png"'>
+								<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
 								<a class="header">

@@ -118,7 +118,7 @@ tr>th {
 			</table>
 
 
-
+<c:if test="${hc.hcExplain !=null}">
 			<h3 class="ui left aligned header">효과 및 참고사항</h3>
 			<hr>
 
@@ -128,7 +128,7 @@ tr>th {
 				<p id="size2">${hc.hcExplain }</p>
 			</div>
 			<hr>
-
+</c:if>
 			<!-- 동영상 강좌 부분(영상이 있는페이지와 없는 페이지가 있음 있을시 영상 보이게 -->
 			<c:if test="${hc.hcVideo!=null }">
 

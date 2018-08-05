@@ -44,7 +44,6 @@
 				</div>
 			</div>
 			<br>
-			<hr>
 
 			<h3 class="ui left aligned header">
 				운동칼로리 <span style="color: red;"></span>

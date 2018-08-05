@@ -80,20 +80,20 @@
 											</div>
 										</td>
 									</tr>
-									<tr>
-										<th><span style="color:red; margin-left: 15px; font-size: 15px; margin-bottom: 0px; margin-top: 0px;"> </span> 관심항목</th>
+							<!-- 		<tr> -->
+										<!-- <th><span style="color:red; margin-left: 15px; font-size: 15px; margin-bottom: 0px; margin-top: 0px;"> </span> 관심항목</th>
 										<td>
-											<div class="ui form">
+											<div class="ui form"> -->
 												<input type="checkbox" name="interest" value=" " style="margin-left: 5px; display: none;" checked="true">
-												<input type="checkbox" name="interest" value="다이어트 식품" style="margin-left: 5px;"> 다이어트 식품<br id="size2">
-												<input type="checkbox" name="interest" value="다이어트 레시피" style="margin-left: 5px;"> 다이어트 레시피<br id="size2">
-												<input type="checkbox" name="interest" value="다이어트 경험" style="margin-left: 5px;"> 다이어트 경험<br>  
-												<input type="checkbox" name="interest" value="운동 방법" style="margin-left: 5px; margin-top: 5px;"> 운동 방법<br id="size2">
-												<input type="checkbox" name="interest" value="연예인 다이어트" style="margin-left: 5px; margin-top: 5px;"> 연예인 다이어트<br id="size2">
-												<input type="checkbox" name="interest" value="운동 도구" style="margin-left: 5px; margin-top: 5px;"> 운동 도구
-											</div>
-										</td>
-									</tr>
+											<!-- 	<input type="checkbox" name="interest" value="다이어트 식품" style="margin-left: 5px;"> 다이어트 식품
+											<input type="checkbox" name="interest" value="다이어트 레시피" style="margin-left: 5px;"> 다이어트 레시피
+											<input type="checkbox" name="interest" value="다이어트 경험" style="margin-left: 5px;"> 다이어트 경험<br>  
+											<input type="checkbox" name="interest" value="운동 방법" style="margin-left: 5px; margin-top: 5px;"> 운동 방법
+											<input type="checkbox" name="interest" value="연예인 다이어트" style="margin-left: 5px; margin-top: 5px;"> 연예인 다이어트
+											<input type="checkbox" name="interest" value="운동 도구" style="margin-left: 5px; margin-top: 5px;"> 운동 도구 -->
+					<!-- 						</div>
+															</td> -->
+									<!-- </tr> -->
 								</thead>
 							</table>
 							<hr style="width: 70%;">
