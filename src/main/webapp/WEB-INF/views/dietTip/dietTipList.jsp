@@ -164,7 +164,7 @@ p>span {
 
 		</c:if>
 
-
+	
 
 		<div class="ui celled grid" style="box-shadow: 0 0 0 0px #d4d4d5;">
 			<div class="row" id="main_title" style="padding-bottom: 10px; padding-top: 10px; border-bottom: 3px solid black">
@@ -180,8 +180,10 @@ p>span {
 				</div>
 				<div style="width: 20%; height: 100%;"></div>
 			</div>
-
-
+			
+			
+		<c:choose>
+		<c:when test="${requestScope.dtpd.dtList[0].dtIndex != null }">
 
 			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
 
@@ -214,6 +216,25 @@ p>span {
 				</div>
 
 			</c:forEach>
+		</c:when>
+
+		<c:otherwise>
+
+				<div class="ui red medium message" style="text-align:center; width:100%;">
+					<br>
+					<i class="exclamation huge icon"></i>
+					<div class="ui medium header">
+						<br>
+						※게시물이 존재하지 않습니다.
+						<br>
+						다른 키워드로 검색을 해주세요.
+						<br>
+						<br>
+						<br>
+					</div>
+				</div>
+			</c:otherwise>
+			</c:choose>
 
 		</div>
 
@@ -242,8 +263,7 @@ p>span {
 			</div>
 			<br>
 		</div>
-
-
+		
 
 		<div class="ui center aligned basic segment">
 			<div class="ui secondary segment">

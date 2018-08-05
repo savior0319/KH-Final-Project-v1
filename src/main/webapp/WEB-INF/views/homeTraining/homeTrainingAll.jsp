@@ -63,6 +63,9 @@
 
 			<h1 class="ui left aligned header">홈트레이닝</h1>
 			<hr>
+			
+			<c:choose>
+			<c:when test="${requestScope.htpd.htList[0].indexNo !=null }">
 
 			<c:if test="${sessionScope.member!=null  }">
 				<h3 class="ui left aligned header">맞춤 홈트레이닝 동영상</h3>
@@ -212,6 +215,8 @@
 					</div>
 				</div>
 			</c:if>
+			
+			
 
 			<h3 class="ui left aligned header">최신 홈트레이닝 동영상</h3>
 			<hr>
@@ -257,15 +262,38 @@
 						</c:if>
 					</div>
 					<div class="four wide column">
+					<c:choose>
+					<c:when test="${sessionScope.member != null }">
 						<div class="ui right aligned container">
 							<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="homeTrainingWrite();">
 								<i class="edit icon"></i> 등록
 							</button>
 						</div>
+						</c:when>
+						</c:choose>
 					</div>
 				</div>
 				<br> <br>
 			</div>
+			
+			</c:when>
+			<c:otherwise>
+			
+			<div class="ui red medium message">
+					<br>
+					<i class="exclamation huge icon"></i>
+					<div class="ui medium header">
+						<br>
+						※게시물이 존재하지 않습니다.
+						<br>
+						다른 키워드로 검색을 해주세요.
+						<br>
+						<br>
+						<br>
+					</div>
+				</div>
+			</c:otherwise>
+			</c:choose>
 
 			<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 			<div class="ui center aligned basic segment">
