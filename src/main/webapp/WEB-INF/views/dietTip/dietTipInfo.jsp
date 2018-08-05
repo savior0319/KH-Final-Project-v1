@@ -115,12 +115,12 @@ p>span {
 		
 		<!-- 모바일용 사이즈 -->
 		<div id="size2" class="ui black segment">
-			<div class="ui grid">
-					<div class="ui left aligned"> 
+			<div class="ui grid" style="padding-top:7px;">
+					<div class="ui left aligned" style="margin-right:15%;"> 
 						<img class="ui avatar image" src="${requestScope.dt.dtWriterPhoto }">
 							${requestScope.dt.dtNickname }
 					</div>
-					 <!-- 날짜 --> 
+					 <!-- 날짜, 조회수, 댓글 수 --> 
 					 <div>
 						<span class="ui right aligned"> 
 							<i class="calendar icon"></i> 
@@ -996,7 +996,13 @@ p>span {
 
 <!-- 미디어 태그 1200px 보다 작아질 때-->
 <style type="text/css" media="screen">
-@media ( max-width : 1200px) {
+@media ( min-width : 650px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
 	#resize {
 		display: none;
 	}
@@ -1009,9 +1015,16 @@ p>span {
 	#removePadding {
 		margin-left: 500px;
 	}
+	
 }
 
-@media ( max-width : 455px) {
+@media ( max-width : 649px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
 	#bookMark {
 		display: none;
 	}
@@ -1026,26 +1039,7 @@ p>span {
 		display:none !important;
 	}
 	
-}
-</style>
-<style type="text/css" media="screen">
-/* 모바일용 아닌 사이즈 */
-@media ( min-width : 550px) {
-	#size1 {
-		display: block;
-	}
-	#size2 {
-		display: none;
-	}
-}
-/* 모바일용 사이즈 */
-@media ( max-width : 549px) {
-	#size1 {
-		display: none;
-	}
-	#size2 {
-		display: block;
-	}
+	
 }
 </style>
 </html>
