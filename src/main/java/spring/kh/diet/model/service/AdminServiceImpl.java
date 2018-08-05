@@ -368,5 +368,12 @@ public class AdminServiceImpl implements AdminService {
 		ArrayList<ErrorLogVO> list = aDao.todayErrorLogSearchDetail(session,eLVO);
 		return list;
 	}
+  
+	/* 광고 DB 업로드 */ 
+	@Override
+	public void advertiseImageUpload(AdvertiseVO adVo) {
+		aDao.advertiseImageUpload(session, adVo);
+	}
 
 }
+

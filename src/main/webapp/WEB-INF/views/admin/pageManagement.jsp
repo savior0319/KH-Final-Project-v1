@@ -44,16 +44,16 @@ body {
 			<tbody>
 				<tr align="center">
 					<td>
-						<img src="/resources/image/mainPic.jpg" style="width: 100%;" id="image1">
+						<img src="#" style="width: 100%;" id="image1">
 					</td>
 					<td>
-						<img src="/resources/image/mainPic1.jpg" style="width: 100%;" id="image2">
+						<img src="#" style="width: 100%;" id="image2">
 					</td>
 					<td>
-						<img src="/resources/image/mainPic2.jpg" style="width: 100%;" id="image3">
+						<img src="#" style="width: 100%;" id="image3">
 					</td>
 					<td>
-						<img src="/resources/image/mainPic3.jpg" style="width: 100%;" id="image4">
+						<img src="#" style="width: 100%;" id="image4">
 					</td>
 				</tr>
 				<form id="frm" action="/logoImageUpload.diet" method="post">
@@ -84,36 +84,55 @@ body {
 <!-- SCRIPT -->
 <script type="text/javascript">
 
-	/* 아아아아아앙ㅇ아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ */
+/* 아아아아아앙ㅇ아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ */
 
-	$(function(){
-		$("#uploadbutton").click(function(){
-			var form = $('form')[0];
-			var formData = new FormData(form);
-			$.ajax({
-				url: '/logoImageUpload.diet',
-				data: formData,
-				cache : false,
-				contentType : false,
-				processData : false,
-				encType : "multipart/form-data",
-				type: 'POST',
-				success: function(result){
-					alert("업로드 성공!!");
-				}
-			});
-		});
-	})
-
-	function imageURL(input,num) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				$('#image'+num).attr('src', e.target.result);
+$(function(){
+	$("#uploadbutton").click(function(){
+		var form = $('form')[0];
+		var formData = new FormData(form);
+		$.ajax({
+			url: '/logoImageUpload.diet',
+			data: formData,
+			cache : false,
+			contentType : false,
+			processData : false,
+			encType : "multipart/form-data",
+			type: 'POST',
+			success: function(result){
+				alert("업로드 성공!!");
+				location.reload();
 			}
-			reader.readAsDataURL(input.files[0]);
+		});
+	});
+})
+
+function imageURL(input,num) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('#image'+num).attr('src', e.target.result);
 		}
+		reader.readAsDataURL(input.files[0]);
 	}
+}
+
+/* 이미지 불러오기 */
+$(document).ready(function() {
+	$.ajax({
+		url : '/advertiseImageLoad.diet',
+		type : 'post',
+		success : function(img){
+			$("#image1").attr("src",img[0].path1);
+			$("#image2").attr("src",img[1].path1);
+			$("#image3").attr("src",img[2].path1);
+			$("#image4").attr("src",img[3].path1);
+
+		},
+		error : function(){
+			console.log('[ERROR] - 이미지 불러오기 오류');
+		}
+	});
+});
 
 </script>
 

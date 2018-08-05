@@ -74,12 +74,12 @@
 		INSERT INTO
 		NOTICE_TBL
 		VALUES(NOTICE_SEQ.NEXTVAL, DEFAULT, #{noticeTitle},
-		#{noticeContent}, DEFAULT, DEFAULT,#{noticeType})
+		#{noticeContent},
+		DEFAULT, DEFAULT,#{noticeType})
 	</insert>
 
 	<!-- 관리자 전체 회원 조회 리스트 -->
-	<select id="getMemberList" parameterType="memberListPageData"
-		resultType="member">
+	<select id="getMemberList" parameterType="memberListPageData" resultType="member">
 		SELECT
 		MB_AGE as mbAge,
 		MB_Index as mbIndex,
@@ -94,7 +94,8 @@
 		MB_GENDER as mbGender,
 		MB_IMAGE as
 		mbImage,
-		MB_Promise as mbPromise,
+		MB_Promise
+		as mbPromise,
 		MB_PHONE as mbPhone,
 		MB_REPORT as
 		mbReport,
@@ -103,7 +104,8 @@
 		mbInterest,
 		MB_GRADE as
 		mbGrade,
-		MB_ENROLLDATE as mbEnrollDate
+		MB_ENROLLDATE as
+		mbEnrollDate
 		FROM (SELECT MEMBER_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
 		WHERE
@@ -111,15 +113,13 @@
 	</select>
 
 	<!-- 관리자 전체 회원 리스트 네비게이션 -->
-	<select id="getMemberNavi" resultType="java.lang.Integer"
-		parameterType="memberListPageData">
+	<select id="getMemberNavi" resultType="java.lang.Integer" parameterType="memberListPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM MEMBER_TBL
 	</select>
 
 	<!-- 관리자 탈퇴 회원 조회 리스트 -->
-	<select id="getDeleteMemberList" parameterType="memberListPageData"
-		resultType="member">
+	<select id="getDeleteMemberList" parameterType="memberListPageData" resultType="member">
 		SELECT
 		MB_AGE as mbAge,
 		MB_Index as mbIndex,
@@ -144,22 +144,21 @@
 		mbInterest,
 		MB_GRADE AS
 		MBGRADE,
-		DELETE_DATE as mbEnrollDate
+		DELETE_DATE as
+		mbEnrollDate
 		FROM (SELECT DEL_MEMBER_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM FROM DEL_MEMBER_TBL)
 		WHERE NUM BETWEEN #{start} and #{end}
 	</select>
 
 	<!-- 관리자 탈퇴 회원 리스트 네비게이션 -->
-	<select id="getDeleteMemberNavi" resultType="java.lang.Integer"
-		parameterType="memberListPageData">
+	<select id="getDeleteMemberNavi" resultType="java.lang.Integer" parameterType="memberListPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM DEL_MEMBER_TBL
 	</select>
 
 	<!-- 1:1문의 리스트 -->
-	<select id="getAnswerList" parameterType="answerListPageData"
-		resultType="question">
+	<select id="getAnswerList" parameterType="answerListPageData" resultType="question">
 		SELECT * from
 		(SELECT
 		QS_INDEX AS qsIndex,
@@ -170,25 +169,25 @@
 		QS_WRITETIME AS qsWriteTime,
 		QS_ANSWERCHECK AS qsAnswerCheck,
 		ROW_NUMBER() OVER(ORDER BY
-		QS_INDEX DESC) AS NUM
+		QS_INDEX
+		DESC) AS NUM
 		FROM MEMBER_TBL JOIN
 		QUESTION_TBL USING (MB_INDEX)
 		LEFT OUTER JOIN ANSWER_TBL
 		USING(QS_INDEX) ORDER BY qsIndex DESC)
-		WHERE NUM BETWEEN #{start} AND
+		WHERE NUM BETWEEN
+		#{start} AND
 		#{end}
 	</select>
 
 	<!-- 관리자 탈퇴 회원 리스트 네비게이션 -->
-	<select id="getAnserListNavi" resultType="java.lang.Integer"
-		parameterType="answerListPageData">
+	<select id="getAnserListNavi" resultType="java.lang.Integer" parameterType="answerListPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM QUESTION_TBL
 	</select>
 
 	<!-- 관리자 1:1문의 질문 내용 -->
-	<select id="getQuestionContent" resultType="question"
-		parameterType="question">
+	<select id="getQuestionContent" resultType="question" parameterType="question">
 		SELECT
 		QS_INDEX AS qsIndex,
 		QS_TITLE AS qsTitle,
@@ -198,14 +197,14 @@
 		qsWriteTime,
 		QS_ANSWERCHECK AS qsAnswerCheck,
 		ANS_CONTENT AS ansContent
-		FROM MEMBER_TBL JOIN QUESTION_TBL USING (MB_INDEX) LEFT OUTER JOIN
+		FROM MEMBER_TBL JOIN QUESTION_TBL
+		USING (MB_INDEX) LEFT OUTER JOIN
 		ANSWER_TBL USING(QS_INDEX)
 		WHERE QS_INDEX = #{qsIndex}
 	</select>
 
 	<!-- 관리자 접속자 통계 : 현제접속자 list 가져오가 -->
-	<select id="getSessionList" parameterType="allSessionListPDVO"
-		resultType="allSession">
+	<select id="getSessionList" parameterType="allSessionListPDVO" resultType="allSession">
 		SELECT
 		SS_Index as indexNo,
 		SS_ID as sessionId,
@@ -218,13 +217,13 @@
 		SS_Login as logInNickName,
 		SS_device as device
 		FROM (SELECT
-		On_SESSION_TBL.*, ROW_NUMBER() OVER(ORDER BY SS_INDEX ASC) AS NUM FROM
+		On_SESSION_TBL.*,
+		ROW_NUMBER() OVER(ORDER BY SS_INDEX ASC) AS NUM FROM
 		ON_SESSION_TBL)
 	</select>
 
 	<!-- 관리자 접속자 통계 : 현제접속자 리스트 네비게이션 -->
-	<select id="getSessionListPageNavi" resultType="java.lang.Integer"
-		parameterType="allSessionListPDVO">
+	<select id="getSessionListPageNavi" resultType="java.lang.Integer" parameterType="allSessionListPDVO">
 		SELECT COUNT(*) AS TOTALCOUNT
 		FROM ON_SESSION_TBL
 	</select>
@@ -249,13 +248,15 @@
 		SS_ID as sessionId,
 		SS_IP as sessionIp,
 		SS_firstOn as firstOn,
-		ss_stay as stay,
+		ss_stay as
+		stay,
 		ss_login as nickName,
 		ss_device as device,
 		ss_LastIn as
 		lastIn
 		from off_session_tbl where (ss_firstOn between trunc(sysdate) and
-		trunc(sysdate+1)) and (ss_Lastin between trunc(sysdate) and trunc(sysdate+1))
+		trunc(sysdate+1))
+		and (ss_Lastin between trunc(sysdate) and trunc(sysdate+1))
 		order by ss_index desc
 	</select>
 
@@ -364,7 +365,8 @@
 		FROM off_session_tbl
 		where ss_firstOn between trunc(sysdate) and
 		trunc(sysdate+1)
-		order by ss_index desc
+		order by
+		ss_index desc
 	</select>
 
 	<select id="getOnSessionList" resultType="onSession">
@@ -395,7 +397,8 @@
 		DT_HITS as dtHits,
 		HT_HITS as htHits,
 		BR_HITS as brHits,
-		DT_COMMENTS As dtComments,
+		DT_COMMENTS As
+		dtComments,
 		HT_COMMENTS as htComments,
 		BR_COMMENTS As
 		brComments,
@@ -404,7 +407,8 @@
 		BR_BOARD as
 		brBoard,
 		DT_LIKE as dtLike,
-		HT_LIKE as htLike,
+		HT_LIKE
+		as htLike,
 		BR_LIKE as brLike,
 		BD_TODAY as bdToday
 		from BEFORE_DAY_TBL where
@@ -423,7 +427,8 @@
 		MB_AGE as mbAge,
 		MB_Index as mbIndex,
 		MB_HEIGHT as mbHeight,
-		MB_WEIGHT as mbWeight,
+		MB_WEIGHT as
+		mbWeight,
 		MB_ID as mbId,
 		MB_PWD as mbPwd,
 		MB_NAME as
@@ -438,12 +443,14 @@
 		MB_INTEREST as mbInterest,
 		MB_GRADE as mbGrade,
 		MB_ENROLLDATE as mbEnrollDate
-		FROM (SELECT MEMBER_TBL.*,
+		FROM
+		(SELECT MEMBER_TBL.*,
 		ROW_NUMBER()
 		OVER(ORDER BY MB_INDEX ASC) AS NUM FROM MEMBER_TBL)
 		WHERE NUM BETWEEN
 		#{start} AND #{end} AND MB_INDEX IN
-		(SELECT TARGET_MB_INDEX
+		(SELECT
+		TARGET_MB_INDEX
 		FROM
 		BOARD_BLAME_TBL
 		GROUP BY TARGET_MB_INDEX
@@ -451,14 +458,14 @@
 	</select>
 
 	<!-- 블랙리스트 전체 갯수 -->
-	<select id="getBlackListNavi" resultType="Integer"
-		parameterType="Integer">
+	<select id="getBlackListNavi" resultType="Integer" parameterType="Integer">
 		SELECT COUNT(*) FROM
 		(SELECT
 		MB_AGE as mbAge,
 		MB_Index as
 		mbIndex,
-		MB_HEIGHT as mbHeight,
+		MB_HEIGHT as
+		mbHeight,
 		MB_WEIGHT as mbWeight,
 		MB_ID as mbId,
 		MB_PWD as mbPwd,
@@ -475,13 +482,15 @@
 		MB_INTEREST as
 		mbInterest,
 		MB_GRADE as mbGrade,
-		MB_ENROLLDATE as mbEnrollDate
+		MB_ENROLLDATE
+		as mbEnrollDate
 		FROM
 		(SELECT MEMBER_TBL.*,
 		ROW_NUMBER() OVER(ORDER BY MB_INDEX ASC) AS NUM
 		FROM MEMBER_TBL)
 		WHERE NUM BETWEEN 1 AND 10 AND
-		MB_INDEX IN (SELECT
+		MB_INDEX IN
+		(SELECT
 		TARGET_MB_INDEX
 		FROM BOARD_BLAME_TBL
 		GROUP BY TARGET_MB_INDEX
@@ -502,8 +511,7 @@
 	</update>
 
 	<!-- 블랙리스트 신고 내역 조회 -->
-	<select id="blackListContent" resultType="blackContent"
-		parameterType="Integer">
+	<select id="blackListContent" resultType="blackContent" parameterType="Integer">
 		SELECT DISTINCT
 		BPT.POST_INDEX AS postIndex,
 		POST_TITLE AS
@@ -532,18 +540,19 @@
 	<insert id="insertAnalytics" parameterType="todayAnalyticsDetail">
 		INSERT INTO
 		today_Analytics VALUES(#{hits}, #{likes}, #{comments}, #{post},
-		sysdate, #{timeType},#{listType})
+		sysdate,
+		#{timeType},#{listType})
 	</insert>
 
 	<!-- 오늘 사이트값 가져오사ㅓ 분석하는데 시간대별로 맞춰서가져오기 있냐 없냐를확인 -->
-	<select id="selectAnalytics" parameterType="java.lang.Integer"
-		resultType="todayAnalyticsDetail">
+	<select id="selectAnalytics" parameterType="java.lang.Integer" resultType="todayAnalyticsDetail">
 		select
 		T_HITS as hits,
 		T_LIKE as likes,
 		T_COMMENTS as
 		comments,
-		T_POST as post,
+		T_POST as
+		post,
 		T_UPDATE_TIME as updateTime,
 		T_TIME_TYPE as
 		timeType,
@@ -579,13 +588,15 @@
 		BR_COMMENTS = #{tCVO.brComments},
 		DT_BOARD =
 		#{tPVO.dtBoard},
-		HT_BOARD = #{tPVO.htBoard},
+		HT_BOARD =
+		#{tPVO.htBoard},
 		BR_BOARD = #{tPVO.brBoard},
 		DT_LIKE = #{tLVO.dtLike},
 		HT_LIKE = #{tLVO.htLike},
 		BR_LIKE =
 		#{tLVO.brLike}
-		where to_date(bd_today,'yyyy/MM/dd') like sysdate-1
+		where
+		to_date(bd_today,'yyyy/MM/dd') like sysdate-1
 	</update>
 
 	<!-- 통계 - 사이트통계 이전날 데이터 있는지 확인하는것 반환 -> 숫자, or null -->
@@ -602,7 +613,8 @@
 		T_LIKE as likes,
 		T_COMMENTS as comments,
 		T_POST as post,
-		T_Time_Type as timeType,
+		T_Time_Type as
+		timeType,
 		T_LIST_TYPE as listType,
 		T_UPDATE_TIME as
 		updateTime
@@ -613,8 +625,7 @@
 
 
 	<!-- 트레이너 전환 신청 리스트 -->
-	<select id="trainerRegList" parameterType="trainingRegPDVO"
-		resultType="trainerReg" resultMap="trainerRegDB">
+	<select id="trainerRegList" parameterType="trainingRegPDVO" resultType="trainerReg" resultMap="trainerRegDB">
 		SELECT * FROM
 		(SELECT
 		TRAINER_REG_TBL.*,
@@ -626,7 +637,8 @@
 		)TRT LEFT JOIN MEMBER_TBL MT
 		ON(TRT.MB_INDEX=MT.MB_INDEX)
 		WHERE NUM BETWEEN
-		#{start} AND #{end}
+		#{start}
+		AND #{end}
 	</select>
 
 	<!-- 트레이너 전환 신청 네비 -->
@@ -668,25 +680,24 @@
 		WHERE TRT.TR_INDEX = #{trIndex}
 		) SET MB_GRADE = '트레이너'
 	</update>
-	
-	
+
+
 	<!-- 트레이너 회원 리스트 -->
-	<select id="trainerList" parameterType="trainingRegPDVO"
-		resultType="trainerReg" resultMap="trainerRegDB">
-		 SELECT * FROM
+	<select id="trainerList" parameterType="trainingRegPDVO" resultType="trainerReg" resultMap="trainerRegDB">
+		SELECT * FROM
 		(SELECT TRT.*,
-        MT.MB_NICKNAME,
-        MT.MB_NAME,
-        MT.MB_GRADE,
-        MT.MB_ID,
+		MT.MB_NICKNAME,
+		MT.MB_NAME,
+		MT.MB_GRADE,
+		MT.MB_ID,
 		ROW_NUMBER() OVER
 		(ORDER BY TR_INDEX DESC)
 		AS NUM FROM TRAINER_REG_TBL TRT
-        LEFT JOIN MEMBER_TBL MT
+		LEFT JOIN MEMBER_TBL MT
 		ON(TRT.MB_INDEX=MT.MB_INDEX)
 		WHERE MT.MB_GRADE = '트레이너')
 		WHERE NUM BETWEEN #{start} AND #{end}
-		
+
 	</select>
 
 	<!-- 트레이너 회원 네비 -->
@@ -694,11 +705,12 @@
 		SELECT COUNT(*) AS
 		TOTALCOUNT
 		FROM TRAINER_REG_TBL
-        LEFT JOIN MEMBER_TBL USING(MB_INDEX)
-        WHERE MB_GRADE = '트레이너'
+		LEFT JOIN MEMBER_TBL USING(MB_INDEX)
+		WHERE MB_GRADE
+		= '트레이너'
 	</select>
-	
-		<!-- 트레이너 회원에서 일반회원으로 전환 -->
+
+	<!-- 트레이너 회원에서 일반회원으로 전환 -->
 	<update id="changeGrade" parameterType="member">
 		UPDATE
 		MEMBER_TBL SET
@@ -707,8 +719,7 @@
 	</update>
 
 	<!-- 에러로그 VO 리스트 찾기, 매개변수는 1개, 값이 있냐 없냐에 따라서 진행. -->
-	<select id="todayErrorLogSearch" resultType="errorLog"
-		parameterType="errorLog">
+	<select id="todayErrorLogSearch" resultType="errorLog" parameterType="errorLog">
 
 		<choose>
 			<when test="type.equals('before')">
@@ -718,7 +729,8 @@
 				ER_TYPE as erType,
 				ER_INFO_ONE as erInfoOne,
 				ER_INFO_TWO as erInfoTwo,
-				ER_INFO_THR as erInfoThr,
+				ER_INFO_THR as
+				erInfoThr,
 				ER_INFO_FOR as erInfoFor
 				from ERROR_LOG_TBl
 				where ER_DAte like sysdate-1
@@ -728,7 +740,8 @@
 				select
 				(select count(*) from error_log_Tbl where (er_date like sysdate-10) and
 				(er_type=1)) as low,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-10)
+				(select count(*) as low from
+				error_log_Tbl where (er_date like sysdate-10)
 				and
 				(er_type=2))as mid ,
 				(select count(*) as low from error_log_Tbl where (er_date like sysdate-10)
@@ -739,30 +752,35 @@
 				union
 				select
 				(select count(*) from error_log_Tbl where (er_date like sysdate-9) and
-				(er_type=1)) as low,
+				(er_type=1)) as
+				low,
 				(select count(*) as low from error_log_Tbl where (er_date like sysdate-9)
 				and
 				(er_type=2))as mid ,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-9)
+				(select count(*) as low from error_log_Tbl
+				where (er_date like sysdate-9)
 				and
 				(er_type=3))as high,
 				sysdate-9 erDate
 				from dual
 				union
 				select
-				(select count(*) from error_log_Tbl where (er_date like sysdate-8) and
+				(select count(*) from error_log_Tbl where (er_date like
+				sysdate-8) and
 				(er_type=1)) as low,
 				(select count(*) as low from error_log_Tbl where (er_date like sysdate-8)
 				and
 				(er_type=2))as mid ,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-8)
+				(select count(*)
+				as low from error_log_Tbl where (er_date like sysdate-8)
 				and
 				(er_type=3))as high,
 				sysdate-8 erDate
 				from dual
 				union
 				select
-				(select count(*) from error_log_Tbl where (er_date like sysdate-7) and
+				(select count(*) from
+				error_log_Tbl where (er_date like sysdate-7) and
 				(er_type=1)) as low,
 				(select count(*) as low from error_log_Tbl where (er_date like sysdate-7)
 				and
@@ -776,67 +794,81 @@
 				select
 				(select count(*) from error_log_Tbl where (er_date like sysdate-6) and
 				(er_type=1)) as low,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-6)
+				(select count(*) as low from error_log_Tbl
+				where (er_date like sysdate-6)
 				and
 				(er_type=2))as mid ,
 				(select count(*) as low from error_log_Tbl where (er_date like sysdate-6)
 				and
-				(er_type=3))as high,
+				(er_type=3))as
+				high,
 				sysdate-6 erDate
 				from dual
 				union
 				select
 				(select count(*) from error_log_Tbl where (er_date like sysdate-5) and
 				(er_type=1)) as low,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-5)
+				(select
+				count(*) as low from error_log_Tbl where (er_date like sysdate-5)
 				and
 				(er_type=2))as mid ,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-5)
+				(select count(*) as low from error_log_Tbl where (er_date
+				like sysdate-5)
 				and
 				(er_type=3))as high,
 				sysdate-5 erDate
-				from dual 
+				from dual
 				union
 				select
 				(select count(*) from error_log_Tbl where (er_date like sysdate-4) and
 				(er_type=1)) as low,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-4)
+				(select count(*) as low from error_log_Tbl where
+				(er_date like sysdate-4)
 				and
 				(er_type=2))as mid ,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-4)
+				(select count(*) as low from
+				error_log_Tbl where (er_date like sysdate-4)
 				and
 				(er_type=3))as high,
 				sysdate-4 erDate
 				from dual
 				union
 				select
-				(select count(*) from error_log_Tbl where (er_date like sysdate-3) and
+				(select count(*) from error_log_Tbl where
+				(er_date like sysdate-3) and
 				(er_type=1)) as low,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-3)
+				(select count(*) as
+				low from error_log_Tbl where (er_date like sysdate-3)
 				and
 				(er_type=2))as mid ,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-3)
+				(select count(*) as low from error_log_Tbl where (er_date like
+				sysdate-3)
 				and
 				(er_type=3))as high,
 				sysdate-3 erDate
 				from dual
 				union
 				select
-				(select count(*) from error_log_Tbl where (er_date like sysdate-2) and
+				(select
+				count(*) from error_log_Tbl where (er_date like sysdate-2) and
 				(er_type=1)) as low,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-2)
+				(select count(*) as low from error_log_Tbl where (er_date like
+				sysdate-2)
 				and
 				(er_type=2))as mid ,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-2)
+				(select count(*) as low from
+				error_log_Tbl where (er_date like sysdate-2)
 				and
 				(er_type=3))as high,
 				sysdate-2 erDate
-				from dual 
+				from dual
 				union
 				select
 				(select count(*) from error_log_Tbl where (er_date like sysdate-1) and
 				(er_type=1)) as low,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-1)
+				(select count(*) as low from
+				error_log_Tbl where
+				(er_date like sysdate-1)
 				and
 				(er_type=2))as mid ,
 				(select count(*) as low from error_log_Tbl where (er_date like sysdate-1)
@@ -846,14 +878,38 @@
 				from dual order by erDate desc
 			</when>
 		</choose>
-
 	</select>
+
+	<!-- 광고 DB 삭제 -->
+	<insert id="advertiseDelete">
+		DELETE ADVERTISE_IMAGE_TBL
+	</insert>
+
+	<!-- 광고 DB 넣기1 -->
+	<insert id="advertise1" parameterType="advertise">
+		INSERT INTO ADVERTISE_IMAGE_TBL VALUES(1, #{path1})
+	</insert>
+
+	<!-- 광고 DB 넣기2 -->
+	<insert id="advertise2" parameterType="advertise">
+		INSERT INTO ADVERTISE_IMAGE_TBL VALUES(2, #{path2})
+	</insert>
+
+
+	<!-- 광고 DB 넣기3 -->
+	<insert id="advertise3" parameterType="advertise">
+		INSERT INTO ADVERTISE_IMAGE_TBL VALUES(3, #{path3})
+	</insert>
+
+
+	<!-- 광고 DB 넣기4 -->
+	<insert id="advertise4" parameterType="advertise">
+		INSERT INTO ADVERTISE_IMAGE_TBL VALUES(4, #{path4})
+	</insert>
 
 	<!-- 에러로그페이지 상세 리스트 불러오기 -->
 	<select id="todayErrorLogSearchDetail" resultType="errorLog"
 		parameterType="errorLog">
-
-
 		select
 		ER_DATE as erDate,
 		ER_STAMP as erStamp,
@@ -866,6 +922,4 @@
 		where 
 		(ER_DAte between (sysdate - (#{ch}+1)) and (sysdate - #{ch})) and er_type = #{type}
 	</select>
-	
-
 </mapper>
