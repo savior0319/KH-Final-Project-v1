@@ -174,7 +174,6 @@ public class CommonControllerImpl implements CommonController {
 	@RequestMapping(value = "/advertiseImageLoad.diet")
 	public void advertiseImageLoad(HttpServletResponse response) throws IOException {
 		ArrayList<AdvertiseVO> aList = commonService.advertiseImageLoad();
-		System.out.println(aList.toString());
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(aList, response.getWriter());

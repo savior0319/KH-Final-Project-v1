@@ -34,6 +34,7 @@ import spring.kh.diet.model.vo.todayPostVO;
 import spring.kh.diet.model.vo.yesterdayAnalytic;
 import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 
+@SuppressWarnings("all")
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
 
