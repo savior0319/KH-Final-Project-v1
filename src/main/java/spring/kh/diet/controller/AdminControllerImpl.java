@@ -438,7 +438,7 @@ public class AdminControllerImpl implements AdminController {
 		req.setCharacterEncoding("utf-8");
 
 		// 파일 경로
-		String path = request.getSession().getServletContext().getRealPath("imageUpload");
+		String path = request.getSession().getServletContext().getRealPath("imageUpload/advertise");
 
 		Map<String, MultipartFile> file = req.getFileMap();
 
@@ -459,7 +459,7 @@ public class AdminControllerImpl implements AdminController {
 		File reFile1 = new File(path, reName1);
 		file.get("uploadfile1").transferTo(reFile1);
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().print("/imageUpload" + "/" + reName1);
+		response.getWriter().print("/imageUpload/advertise" + "/" + reName1);
 
 		// 두번째 파일
 		UUID randomString2 = UUID.randomUUID();
@@ -473,7 +473,7 @@ public class AdminControllerImpl implements AdminController {
 		File reFile2 = new File(path, reName2);
 		file.get("uploadfile2").transferTo(reFile2);
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().print("/imageUpload" + "/" + reName2);
+		response.getWriter().print("/imageUpload/advertise" + "/" + reName2);
 
 		// 세번째 파일
 		UUID randomString3 = UUID.randomUUID();
@@ -487,7 +487,7 @@ public class AdminControllerImpl implements AdminController {
 		File reFile3 = new File(path, reName3);
 		file.get("uploadfile3").transferTo(reFile3);
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().print("/imageUpload" + "/" + reName3);
+		response.getWriter().print("/imageUpload/advertise" + "/" + reName3);
 
 		// 네번째 파일
 		UUID randomString4 = UUID.randomUUID();
@@ -501,7 +501,16 @@ public class AdminControllerImpl implements AdminController {
 		File reFile4 = new File(path, reName4);
 		file.get("uploadfile4").transferTo(reFile4);
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().print("/imageUpload" + "/" + reName4);
+		response.getWriter().print("/imageUpload/advertise" + "/" + reName4);
+
+		AdvertiseVO adVo = new AdvertiseVO();
+		adVo.setPath1("/imageUpload/advertise" + "/" + reName1);
+		adVo.setPath2("/imageUpload/advertise" + "/" + reName2);
+		adVo.setPath3("/imageUpload/advertise" + "/" + reName3);
+		adVo.setPath4("/imageUpload/advertise" + "/" + reName4);
+
+		// DB 이미지 저장
+		as.advertiseImageUpload(adVo);
 
 		AdvertiseVO adVo = new AdvertiseVO();
 		adVo.setPath1("/imageUpload" + "/" + reName1);
