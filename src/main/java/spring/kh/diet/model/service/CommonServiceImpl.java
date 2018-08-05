@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.CommonDAO;
+import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
@@ -97,13 +98,11 @@ public class CommonServiceImpl implements CommonService {
 		return commonDAO.cmtBlameUp(session, report);
 	}
 
-
-
-
-
 	
-
-	
-	
+	/* 광고 가져오기 */
+	@Override
+	public ArrayList<AdvertiseVO> advertiseImageLoad() {
+		return commonDAO.advertiseImageLoad(session);
+	}
 	
 }

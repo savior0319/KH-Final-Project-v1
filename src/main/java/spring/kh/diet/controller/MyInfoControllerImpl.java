@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
+import com.sun.jmx.snmp.Timestamp;
 
 import spring.kh.diet.model.service.MyInfoService;
 import spring.kh.diet.model.vo.ApplyTrainerPDVO;
@@ -467,9 +468,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 		TrainingRegVO tr = new TrainingRegVO(); // 자격신청
 		tr.setMbIndex(mv.getMbIndex());
 
-		PaymentVO pv = new PaymentVO(); // 판매여부
-		pv.setMbIndex(mv.getMbIndex());
-
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
@@ -478,15 +476,17 @@ public class MyInfoControllerImpl implements MyInfoController {
 		ModelAndView view = new ModelAndView();
 
 		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tr);
-		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer(currentPage, tv);
+		MyRequestTrainerPDVO myRequest1 = myInfoService.requestTrainer(currentPage, tv);
+		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer3(currentPage, tv);
 		ArrayList<TrainerProgramVO> checkSale = myInfoService.checkSale(tv);
+		TrainingRegVO trv = myInfoService.myTrainingReg(mv);
 
+		view.addObject("trv", trv);
 		view.addObject("applyTrainer", applyTrainer);
+		view.addObject("myRequest1", myRequest1);
 		view.addObject("myRequest", myRequest);
 		view.addObject("checkSale", checkSale);
-		
-		System.out.println(checkSale);
-		
+
 		view.setViewName("myInfo/imTrainer");
 		return view;
 
@@ -515,12 +515,36 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 		ModelAndView view = new ModelAndView();
 		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer2(currentPage, tr);
-		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer2(currentPage, tv);
 
+		
+		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer2(currentPage, tv);
+		TrainingRegVO trv = myInfoService.myTrainingReg(mv);
+
+		view.addObject("trv", trv);
 		view.addObject("applyTrainer", applyTrainer);
 		view.addObject("myRequest", myRequest);
+
 		view.setViewName("myInfo/myTrainer");
+
 		return view;
+
+	}
+
+	/* 프로그램 구매 취소 */
+	@Override
+	@RequestMapping(value = "/canclePro.diet")
+	public void canclePro(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws JsonIOException, IOException {
+
+		int tpIndex = Integer.parseInt(request.getParameter("tpIndex"));
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		PaymentVO pv = new PaymentVO();
+		pv.setMbIndex(mv.getMbIndex());
+		pv.setTpIndex(tpIndex);
+		int result = myInfoService.canclePro(pv);
+
+		response.getWriter().print(String.valueOf(result));
+		response.getWriter().close();
 
 	}
 

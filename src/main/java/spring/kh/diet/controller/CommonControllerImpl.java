@@ -1,6 +1,7 @@
 package spring.kh.diet.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import spring.kh.diet.model.service.CommonService;
+import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
@@ -154,8 +156,6 @@ public class CommonControllerImpl implements CommonController {
 
 		int result = commonService.blameCmd(report);
 
-		System.out.println(result);
-
 		if (result > 0) {
 			int result2 = commonService.cmtBlameUp(report);
 			if (result2 > 0) {
@@ -166,6 +166,18 @@ public class CommonControllerImpl implements CommonController {
 			return "failed";
 		}
 
+	}
+
+	/* 광고 사진 불러오기 */
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/advertiseImageLoad.diet")
+	public void advertiseImageLoad(HttpServletResponse response) throws IOException {
+		ArrayList<AdvertiseVO> aList = commonService.advertiseImageLoad();
+		System.out.println(aList.toString());
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(aList, response.getWriter());
 	}
 
 }

@@ -111,12 +111,12 @@
 				<i class="big tint icon"></i>&ensp;${requestScope.ht.htStepKal }
 			</div>
 			
-			<div id="size2" class="programIntroduction" >
-				<i class="big clock outline icon"></i>&ensp;${requestScope.ht.htStepTime }&emsp;&emsp;&emsp;&emsp;&emsp;
-				<i class="big child icon"></i>&ensp;${requestScope.ht.htStepType }&emsp;&emsp;&emsp;&emsp;&emsp;
+			<div id="size2" class="programIntroduction" align="center">
+				<i class="big clock outline icon"></i>&ensp;${requestScope.ht.htStepTime }&emsp;&emsp;
+				<i class="big child icon"></i>&ensp;&emsp;${requestScope.ht.htStepType }&emsp;&emsp;&emsp;&emsp;&emsp;
 				<br><br>
-				<i class="big male icon"></i>&ensp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-				<i class="big tint icon"></i>&ensp;${requestScope.ht.htStepKal }&emsp;&emsp;&emsp;&emsp;
+				&emsp;<i class="big male icon"></i>&ensp;&emsp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;&emsp;&emsp;
+				<i class="big tint icon"></i>${requestScope.ht.htStepKal }&emsp;&emsp;&emsp;&emsp;
 			</div>
 			
 			<hr style="border: 1px solid #D5D5D5;">
@@ -890,7 +890,7 @@
 </script>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */
-@media ( min-width : 550px) {
+@media ( min-width : 650px) {
 	#size1 {
 		display: block;
 	}
@@ -911,7 +911,7 @@
 	}
 }
 /* 모바일용 사이즈 */
-@media ( max-width : 549px) {
+@media ( max-width : 649px) {
 	#size1 {
 		display: none;
 	}

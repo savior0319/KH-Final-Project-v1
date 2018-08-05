@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
 import spring.kh.diet.model.vo.BoardPostVO;
@@ -35,6 +36,6 @@ public interface CommonDAO {
 
 	int cmtBlameUp(SqlSessionTemplate session, BoardBlameVO report);
 
-
+	ArrayList<AdvertiseVO> advertiseImageLoad(SqlSessionTemplate session);
 
 }

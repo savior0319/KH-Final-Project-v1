@@ -22,4 +22,6 @@ public interface CommonController {
 
 	String blameCmd(BoardBlameVO report, HttpSession session) throws IOException;
 
+	void advertiseImageLoad(HttpServletResponse response) throws IOException;
+
 }

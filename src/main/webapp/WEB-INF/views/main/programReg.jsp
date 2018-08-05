@@ -433,7 +433,6 @@
 
 				// 사진 저장 성공하면 전체 등록 진행				
 				if (tpTrainType != null && tpTitle != '' && tpContent != '') {
-					alert('아무거나');
 					$.ajax({
 						url : '/registTrainerProgram.diet',
 						type : 'post',

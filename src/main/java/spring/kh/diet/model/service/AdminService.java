@@ -2,12 +2,14 @@ package spring.kh.diet.model.service;
 
 import java.util.ArrayList;
 
+import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
+import spring.kh.diet.model.vo.ErrorLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -95,7 +97,12 @@ public interface AdminService {
 
 	TrainingRegPageDataVO trainerChange(int currentPage);
 
+	ArrayList<ErrorLogVO> todayErrorLogSearch(ErrorLogVO eLVO);
+
 	int changeGrade(int mbIndex);
 
+	void advertiseImageUpload(AdvertiseVO adVo);
+
+	ArrayList<ErrorLogVO> todayErrorLogSearchDetail(ErrorLogVO eLVO);
 
 }

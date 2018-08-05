@@ -63,6 +63,9 @@
 
 			<h1 class="ui left aligned header">홈트레이닝</h1>
 			<hr>
+			
+			<c:choose>
+			<c:when test="${requestScope.htpd.htList[0].indexNo !=null }">
 
 			<c:if test="${sessionScope.member!=null  }">
 				<h3 class="ui left aligned header">맞춤 홈트레이닝 동영상</h3>
@@ -73,7 +76,7 @@
 						<div class="ui card">
 							<div class="image">
 								<img src="${requestScope.matchedList[0].htMainPhoto}" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })"
-									style="width: 100%; height: 200px; cursor: pointer;">
+									style="width: 100%; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })" style="height: 50px;">${requestScope.matchedList[0].htTitle }</a>
@@ -120,7 +123,7 @@
 						<div class="ui card">
 							<div class="image">
 								<img src="${requestScope.matchedList[1].htMainPhoto} " onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType } )"
-									style="width: 100%; height: 200px; cursor: pointer;">
+									style="width: 100%; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType })" style="height: 50px;">${requestScope.matchedList[1].htTitle }</a>
@@ -167,7 +170,7 @@
 						<div class="ui card">
 							<div class="image">
 								<img src="${requestScope.matchedList[2].htMainPhoto} " onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType } )"
-									style="width: 100%; height: 200px; cursor: pointer;">
+									style="width: 100%; height: 200px; cursor: pointer;" onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType })" style="height: 50px;">${requestScope.matchedList[2].htTitle }</a>
@@ -212,6 +215,8 @@
 					</div>
 				</div>
 			</c:if>
+			
+			
 
 			<h3 class="ui left aligned header">최신 홈트레이닝 동영상</h3>
 			<hr>
@@ -224,7 +229,7 @@
 					<div class="column">
 						<div class="ui card">
 							<div class="image">
-								<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="width: 290px; height: 200px; cursor: pointer;">
+								<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="width: 290px; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="height: 50px;">${ht.htTitle }</a>
@@ -257,15 +262,38 @@
 						</c:if>
 					</div>
 					<div class="four wide column">
+					<c:choose>
+					<c:when test="${sessionScope.member != null }">
 						<div class="ui right aligned container">
 							<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="homeTrainingWrite();">
 								<i class="edit icon"></i> 등록
 							</button>
 						</div>
+						</c:when>
+						</c:choose>
 					</div>
 				</div>
 				<br> <br>
 			</div>
+			
+			</c:when>
+			<c:otherwise>
+			
+			<div class="ui red medium message">
+					<br>
+					<i class="exclamation huge icon"></i>
+					<div class="ui medium header">
+						<br>
+						※게시물이 존재하지 않습니다.
+						<br>
+						다른 키워드로 검색을 해주세요.
+						<br>
+						<br>
+						<br>
+					</div>
+				</div>
+			</c:otherwise>
+			</c:choose>
 
 			<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 			<div class="ui center aligned basic segment">
@@ -300,7 +328,7 @@
 					<div class="ui card">
 						<div class="image">
 							<img src="${requestScope.matchedList[0].htMainPhoto}" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })"
-								style="width: 100%; height: 200px; cursor: pointer;">
+								style="width: 100%; height: 200px; cursor: pointer;" onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
 							<a class="header" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })" style="height: 50px;">${requestScope.matchedList[0].htTitle }</a>
@@ -345,7 +373,7 @@
 					<div class="ui card">
 						<div class="image">
 							<img src="${requestScope.matchedList[1].htMainPhoto} " onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType } )"
-								style="width: 100%; height: 200px; cursor: pointer;">
+								style="width: 100%; height: 200px; cursor: pointer;" onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
 							<a class="header" onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType })" style="height: 50px;">${requestScope.matchedList[1].htTitle }</a>
@@ -390,7 +418,7 @@
 					<div class="ui card">
 						<div class="image">
 							<img src="${requestScope.matchedList[2].htMainPhoto} " onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType } )"
-								style="width: 100%; height: 200px; cursor: pointer;">
+								style="width: 100%; height: 200px; cursor: pointer;" onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
 							<a class="header" onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType })" style="height: 50px;">${requestScope.matchedList[2].htTitle }</a>
@@ -445,7 +473,7 @@
 
 					<div class="ui card">
 						<div class="image">
-							<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="width: 290px; height: 200px; cursor: pointer;">
+							<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="width: 290px; height: 200px; cursor: pointer;" onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
 							<a class="header" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="height: 50px;">${ht.htTitle }</a>
@@ -640,7 +668,7 @@ $(function() {
 </script>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */
-@media ( min-width : 550px) {
+@media ( min-width : 650px) {
 	#size1 {
 		display: block;
 	}
@@ -649,7 +677,7 @@ $(function() {
 	}
 }
 /* 모바일용 사이즈 */
-@media ( max-width : 549px) {
+@media ( max-width : 649px) {
 	#size1 {
 		display: none;
 	}

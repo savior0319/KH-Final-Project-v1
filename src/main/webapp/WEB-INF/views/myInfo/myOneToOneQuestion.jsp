@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 
 <!DOCTYPE html>
 <html>
@@ -59,7 +60,9 @@
 									<td>
 										<a href="javascript:void(0);" onclick="showMyQuestion(${m.qsIndex});">${m.qsTitle}</a>
 									</td>
-									<td>${m.qsWriteTime}</td>
+									<td><c:set var="TextValue"
+													value="${m.qsWriteTime}" /> ${fn:substring(TextValue,0,11)}일
+												${fn:substring(TextValue,11,16)}분</td>
 									<c:if test="${m.qsAnswerCheck=='n'}">
 										<td>답변대기중</td>
 									</c:if>

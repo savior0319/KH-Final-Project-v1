@@ -106,7 +106,7 @@
 			<span class="menu">
 				<a href="/logout.diet">로그아웃</a>
 			</span>
-			<span id="size1" class="menu">
+			<span id="resize1" class="menu">
 				<a href="/myInfo.diet">마이페이지</a>
 			</span>
 		</c:if>

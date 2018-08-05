@@ -191,7 +191,7 @@
 		<div class="ui relaxed divided items">
 			<div class="item">
 				<div class="ui small image">
-					<img id="matchedImg0" src="" style="height: 100%; cursor:pointer;">
+					<img id="matchedImg0" src="" style="height: 100%; cursor:pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 				</div>
 				<div class="content">
 					<div class="header" id="matchedTitle0" style="cursor:pointer;"></div>
@@ -204,7 +204,7 @@
 			</div>
 			<div class="item">
 				<div class="ui small image">
-					<img id="matchedImg1"  src="" style="height: 100%; cursor:pointer;">
+					<img id="matchedImg1"  src="" style="height: 100%; cursor:pointer;" onerror='this.src="/resources/image/300x400.png"'>
 				</div>
 				<div class="content">
 					<div class="header" id="matchedTitle1" style="cursor:pointer;"></div>
@@ -217,7 +217,7 @@
 			</div>
 			<div class="item">
 				<div class="ui small image">
-					<img id="matchedImg2" src="" style="height: 100%; cursor:pointer;">
+					<img id="matchedImg2" src="" style="height: 100%; cursor:pointer;" onerror='this.src="/resources/image/300x400.png"'>
 				</div>
 				<div class="content">
 					<div class="header" id="matchedTitle2" style="cursor:pointer;"></div>
@@ -233,7 +233,7 @@
 		</div>
 		
 		
-		<div class="ui three column grid">
+		<div id="size11" class="ui three column grid">
 			<div class="column">
 				<table id="boardTbl1" class="ui table">
 					<thead>
@@ -274,6 +274,26 @@
 								공지사항
 								<span style="margin-left: 20px;">
 									<a href="/notice.diet" style="color: rgb(250, 40, 40);">
+										<i class="plus square outline icon"></i>
+									</a>
+								</span>
+							</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		
+		
+		<div id="size2" class="ui one column grid">
+			<div class="column">
+				<table id="mobile-boardTbl1" class="ui table">
+					<thead>
+						<tr align="center">
+							<th>
+								커뮤니티
+								<span style="margin-left: 20px;">
+									<a href="/communityWholeBoard.diet?type=comAll" style="color: rgb(250, 40, 40);">
 										<i class="plus square outline icon"></i>
 									</a>
 								</span>
@@ -412,7 +432,33 @@
 					+ link + "'>" + tempChar + "</a>");
 
 				tr.append(title);
+				
 				$('#boardTbl1').append(tr);
+				
+				
+				// 모바일 용
+				var tr2 = $('<tr>');
+				
+
+				var tempChar2 = '';
+				var charSize2 = (data.comList[i].postTitle).length;
+
+				if (charSize2 > 21) {
+					var value2 = data.comList[i].postTitle;
+					tempChar2 = value2.substring(0, 21) + '...';
+				} else {
+					tempChar2 = data.comList[i].postTitle;
+				}
+				var link2 = data.comList[i].postIndex;
+				var title2 = $('<td>').html(
+					'ㆍ ' + "<a href='/postedCommunity.diet?postIndex="
+					+ link2 + "'>" + tempChar2 + "</a>");
+
+				tr2.append(title2);
+				
+				
+				
+				$('#mobile-boardTbl1').append(tr2);
 			}
 		},
 		error : function() {
@@ -526,6 +572,12 @@
 
 @media ( min-width : 768px) {
 	#mainBoardResize {
+		display: none;
+	}
+	
+}
+@media ( max-width : 649px) {
+	#size11{
 		display: none;
 	}
 }

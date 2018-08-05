@@ -107,7 +107,7 @@ else self.name = '';
 					<div class="column">
 						<div class="ui card" onclick="recipeLink(${c.postIndex});" style="cursor: pointer;">
 							<div class="image">
-								<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/logo.png"'>
+								<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
 								<a class="header">
@@ -155,11 +155,11 @@ else self.name = '';
 		</div>
 		
 		<div id="size2" class="ui center aligned basic segment">
-
+			<div align="center">
 				<c:forEach items="${requestScope.cpdv.comList}" var="c">
 						<div class="ui card" onclick="recipeLink(${c.postIndex});" style="cursor: pointer;">
 							<div class="image">
-								<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/logo.png"'>
+								<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
 								<a class="header">
@@ -196,7 +196,7 @@ else self.name = '';
 							</div>
 						</div>
 				</c:forEach>
-			
+			</div>
 		</div>
 
 		<!-- 네비게이션 + 등록 -->
@@ -347,7 +347,7 @@ else self.name = '';
 </script>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */
-@media ( min-width : 550px) {
+@media ( min-width : 650px) {
 	#size1 {
 		display: block;
 	}
@@ -356,7 +356,7 @@ else self.name = '';
 	}
 }
 /* 모바일용 사이즈 */
-@media ( max-width : 549px) {
+@media ( max-width : 649px) {
 	#size1 {
 		display: none;
 	}

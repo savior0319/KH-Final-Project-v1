@@ -227,7 +227,7 @@ a {
 </script>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */
-@media ( min-width : 550px) {
+@media ( min-width : 650px) {
 	#size1 {
 		display: block;
 	}
@@ -236,7 +236,7 @@ a {
 	}
 }
 /* 모바일용 사이즈 */
-@media ( max-width : 549px) {
+@media ( max-width : 649px) {
 	#size1 {
 		display: none;
 	}
