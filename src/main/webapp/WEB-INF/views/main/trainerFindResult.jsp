@@ -107,13 +107,11 @@
 			data : {
 				'trIndex' : trIndex
 			},success : function(data){
-				console.log(data.proList);
 				var dataLength = data.proList.length;
-				console.log(dataLength);
 				$('#programList').html('');
 				if(dataLength!=0){
-				var table = '<table class="ui very compact table">'+'<thead>'+'<tr align="center">'+'<th style="width: 10%;">PT 유형</th>'+'<th style="width: 40%;">프로그램 명</th>'
-				+'<th style="width: 10%;">시작일</th>'+'<th style="width: 15%;">종료일</th>'+'<th style="width: 25%;">장소</th>'+'</tr>'+'</thead>'+'<tbody>';
+				var table = '<table class="ui very compact table">'+'<thead>'+'<tr align="center">'+'<th style="width: 10%;">PT 유형</th>'+'<th style="width: 45%;">프로그램 명</th>'
+				+'<th style="width: 15%;">시작일</th>'+'<th style="width: 15%;">종료일</th>'+'<th style="width: 25%;">장소</th>'+'</tr>'+'</thead>'+'<tbody>';
 				for (var i = 0; i < data.proList.length; i++) {
 					table += '<tr align="center">';
 					table += '<td>'+data.proList[i].tpTrainType+'</td>';
