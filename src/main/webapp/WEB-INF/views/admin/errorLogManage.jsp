@@ -45,8 +45,8 @@ body {
 					<div class="ui grid">
 
 						<div class="four wide column"></div>
-						<div class="seven wide column"></div>
-						<div class="five wide column" style="border-left: none;">
+						<div class="eight wide column"></div>
+						<div class="four wide column" style="border-left: none;">
 							<!--  -->
 							<div class="ui center basic aligned segment"
 								style="float: left; margin: 0px;">
@@ -56,16 +56,7 @@ body {
 								</div>
 							</div>
 
-							<div class="ui basic floating dropdown button"
-								style="float: left; margin-top: 15px;">
-								<div class="text">선택</div>
-								<i class="dropdown icon"></i>
-								<div class="menu">
-									<div class="item">경도</div>
-									<div class="item">중도</div>
-									<div class="item">고도</div>
-								</div>
-							</div>
+							
 							<!--  -->
 						</div>
 					</div>
@@ -73,92 +64,32 @@ body {
 					<!-- 날자검색창 종료 -->
 					<!-- 테이블시작 -->
 					<div class="ui center aligned segment">
-								<table class="ui celled table">
-									<thead>
-										<tr align="center">
-											<th>날 짜</th>
-											<th>경도 경고</th>
-											<th>중도 경고</th>
-											<th>고도 경고</th>
-											<th>비 고</th>
-										</tr>
-									</thead>
-									<!--  -->
-									<tbody>
-										<tr align="center">
-											<td>2018-08-03</td>
-											<td>4개</td>
-											<td>2개</td>
-											<td>0개</td>
-											<td><button class="ui secondary button"
-													onclick="goDetail()">자세히</button></td>
-										</tr>
-										<tr align="center">
-											<td>2018-08-03</td>
-											<td>4개</td>
-											<td>2개</td>
-											<td>0개</td>
-											<td><button class="ui secondary button">자세히</button></td>
-										</tr>
-										<tr align="center">
-											<td>2018-08-03</td>
-											<td>4개</td>
-											<td>2개</td>
-											<td>0개</td>
-											<td><button class="ui secondary button">자세히</button></td>
-										</tr>
-										<tr align="center">
-											<td>2018-08-03</td>
-											<td>4개</td>
-											<td>2개</td>
-											<td>0개</td>
-											<td><button class="ui secondary button">자세히</button></td>
-										</tr>
-										<tr align="center">
-											<td>2018-08-03</td>
-											<td>4개</td>
-											<td>2개</td>
-											<td>0개</td>
-											<td><button class="ui secondary button">자세히</button></td>
-										</tr>
-										<tr align="center">
-											<td>2018-08-03</td>
-											<td>4개</td>
-											<td>2개</td>
-											<td>0개</td>
-											<td><button class="ui secondary button">자세히</button></td>
-										</tr>
-										<tr align="center">
-											<td>2018-08-03</td>
-											<td>4개</td>
-											<td>2개</td>
-											<td>0개</td>
-											<td><button class="ui secondary button">자세히</button></td>
-										</tr>
-										<tr align="center">
-											<td>2018-08-03</td>
-											<td>4개</td>
-											<td>2개</td>
-											<td>0개</td>
-											<td><button class="ui secondary button">자세히</button></td>
-										</tr>
-										<tr align="center">
-											<td>2018-08-03</td>
-											<td>4개</td>
-											<td>2개</td>
-											<td>0개</td>
-											<td><button class="ui secondary button">자세히</button></td>
-										</tr>
-										<tr align="center">
-											<td>2018-08-03</td>
-											<td>4개</td>
-											<td>2개</td>
-											<td>0개</td>
-											<td><button class="ui secondary button">자세히</button></td>
-										</tr>
-									</tbody>
-									<!--  -->
-								</table>
+						<table class="ui celled table">
+							<thead>
+								<tr align="center">
+									<th>날 짜</th>
+									<th>경도 경고</th>
+									<th>중도 경고</th>
+									<th>고도 경고</th>
+									<th>비 고</th>
+								</tr>
+							</thead>
+							<!--  -->
+							<tbody>
+								<c:forEach items="${dAll}" var="dall">
+									<tr align="center">
+										<td>${dall.erDate}</td>
+										<td>${dall.low}개</td>
+										<td>${dall.mid}개</td>
+										<td>${dall.high}개</td>
+										<td><a href="/errorLogManageDetail.diet?date="+${dall.erDate}><button class="ui secondary button">자세히</button></a></td>
+												
+												
+									</tr>
+								</c:forEach>
+							</tbody>
+							<!--  -->
+						</table>
 
 					</div>
 					<!-- 테이블 종료 -->
@@ -175,9 +106,6 @@ body {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	function goDetail() {
-		location.href = "/errorLogManageDetail.diet";
-	};
 	
 	//날자선택
 	$.datepicker.setDefaults({
@@ -195,9 +123,15 @@ body {
 		yearSuffix : '년'
 	});
 
-	$(function() {
-		$("#datepicker1").datepicker();
-	});
+	$("#datepicker1").datepicker({ onSelect: function(dateText) {  
+
+		alert("선택하신 날자 : " + dateText + " 해당날자 로그로 이동합니다"); 
+		var findDate = this.value;
+		location.href = "/errorLogManageDetail.diet?date="+findDate;
+		  }
+		}); 
+
+
 </script>
 
 </html>

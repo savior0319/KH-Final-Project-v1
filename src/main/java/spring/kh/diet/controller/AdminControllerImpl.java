@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,7 @@ import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.DelMemberVO;
+import spring.kh.diet.model.vo.ErrorLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -775,9 +777,55 @@ public class AdminControllerImpl implements AdminController {
 	@Override
 	@RequestMapping(value = "/errorLogManage.diet")
 	public Object errorLogManage(HttpServletRequest request) {
+		// 날자형식 
+		//(오늘날자 ) long time = System.currentTimeMillis()
+				// 어제날자
+				long time = System.currentTimeMillis() - (long) ((1000 * 60 * 60 * 24));
+				// 스탬프형식
+				SimpleDateFormat dayTimeTamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String toDayTamp = dayTimeTamp.format(new Date(time));
+				// 데이터형식
+				SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+				String toDay = dayTime.format(new Date(time));
+				// System.out.println(totalDay);
+				//
+		
 		ModelAndView view = new ModelAndView();
-
-		// view.addObject("currentTime",timeType);
+    
+		// 1차 DB 접속해서 오늘 날자있는지 값 확인하기.
+		// 없으면 insert, 있다면 다음로직
+		// 
+		ErrorLogVO ELVO = new ErrorLogVO();
+		ELVO.setType("before");
+		ArrayList<ErrorLogVO> list = as.todayErrorLogSearch(ELVO);
+		// 오늘값이 있을떄
+		if(!list.isEmpty()) 
+		{
+			ELVO.setType("list");
+			list = as.todayErrorLogSearch(ELVO);
+			if(!list.isEmpty())
+			{
+				view.addObject("d1",list.get(0));
+				view.addObject("d2",list.get(1));
+				view.addObject("d3",list.get(2));
+				view.addObject("d4",list.get(3));
+				view.addObject("d5",list.get(4));
+				view.addObject("d6",list.get(5));
+				view.addObject("d7",list.get(6));
+				view.addObject("d8",list.get(7));
+				view.addObject("d9",list.get(8));
+				view.addObject("d10",list.get(9));
+				view.addObject("dAll",list);
+			}
+			
+		}
+		// 없을떄
+		else 
+		{
+			System.out.println("없음");
+		}
+		
+//		view.addObject("currentTime",timeType);
 		view.setViewName("admin/errorLogManage");
 		return view;
 	}
@@ -787,11 +835,16 @@ public class AdminControllerImpl implements AdminController {
 	@RequestMapping(value = "/errorLogManageDetail.diet")
 	public Object errorLogManageDetail(HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
-
-		// view.addObject("currentTime",timeType);
+		String findDate = request.getParameter("date");
+		String findDate2 = (String) request.getAttribute("date");
+		System.out.println("1"+findDate);
+		System.out.println("32"+findDate2);
+		System.out.println("2");
+//		view.addObject("currentTime",timeType);
 		view.setViewName("admin/errorLogManageDetail");
 		return view;
 
 	}
+
 
 }

@@ -15,6 +15,7 @@ import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.DelMemberVO;
+import spring.kh.diet.model.vo.ErrorLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -747,6 +748,14 @@ public class AdminDAOImpl implements AdminDAO {
 
 		return sb.toString();
 	}
+
+
+	@Override
+	public ArrayList<ErrorLogVO> todayErrorLogSearch(SqlSessionTemplate session, ErrorLogVO ELVO) {
+		List<?> list = session.selectList("admin.todayErrorLogSearch",ELVO);
+	
+		return (ArrayList<ErrorLogVO>) list;
+ }
 
 	//트레이너 회원에서 일반 회원으로 전환
 	@Override

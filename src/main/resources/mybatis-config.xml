@@ -64,9 +64,8 @@
 		<typeAlias type="spring.kh.diet.model.vo.TrainerAreaListVO" alias="trainerAreaList" />
 		<typeAlias type="spring.kh.diet.model.vo.TrainerProgramMemberVO" alias="trainerProgramMember" />
 		<typeAlias type="spring.kh.diet.model.vo.PaymentVO" alias="payment" />
-		<typeAlias type="spring.kh.diet.model.vo.PaymentPDVO" alias="paymentPDVO" />
-		
-		
+		<typeAlias type="spring.kh.diet.model.vo.ErrorLogVO" alias="errorLog"/>
+		<typeAlias type="spring.kh.diet.model.vo.PaymentPDVO" alias="paymentPDVO" />	
 	</typeAliases>
 
 </configuration>

@@ -706,4 +706,148 @@
 		WHERE MB_INDEX = #{mbIndex}
 	</update>
 
+	<!-- 에러로그 VO 리스트 찾기, 매개변수는 1개, 값이 있냐 없냐에 따라서 진행. -->
+	<select id="todayErrorLogSearch" resultType="errorLog"
+		parameterType="errorLog">
+
+		<choose>
+			<when test="type.equals('before')">
+				select
+				ER_DATE as erDate,
+				ER_STAMP as erStamp,
+				ER_TYPE as erType,
+				ER_INFO_ONE as erInfoOne,
+				ER_INFO_TWO as erInfoTwo,
+				ER_INFO_THR as erInfoThr,
+				ER_INFO_FOR as erInfoFor
+				from ERROR_LOG_TBl
+				where ER_DAte like sysdate-1
+			</when>
+			<when test="type.equals('list')">
+
+				select
+				(select count(*) from error_log_Tbl where (er_date like sysdate-10) and
+				(er_type=1)) as low,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-10)
+				and
+				(er_type=2))as mid ,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-10)
+				and
+				(er_type=3))as high,
+				sysdate-10 as erDate
+				from dual
+				union
+				select
+				(select count(*) from error_log_Tbl where (er_date like sysdate-9) and
+				(er_type=1)) as low,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-9)
+				and
+				(er_type=2))as mid ,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-9)
+				and
+				(er_type=3))as high,
+				sysdate-9 erDate
+				from dual
+				union
+				select
+				(select count(*) from error_log_Tbl where (er_date like sysdate-8) and
+				(er_type=1)) as low,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-8)
+				and
+				(er_type=2))as mid ,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-8)
+				and
+				(er_type=3))as high,
+				sysdate-8 erDate
+				from dual
+				union
+				select
+				(select count(*) from error_log_Tbl where (er_date like sysdate-7) and
+				(er_type=1)) as low,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-7)
+				and
+				(er_type=2))as mid ,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-7)
+				and
+				(er_type=3))as high,
+				sysdate-7 erDate
+				from dual
+				union
+				select
+				(select count(*) from error_log_Tbl where (er_date like sysdate-6) and
+				(er_type=1)) as low,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-6)
+				and
+				(er_type=2))as mid ,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-6)
+				and
+				(er_type=3))as high,
+				sysdate-6 erDate
+				from dual
+				union
+				select
+				(select count(*) from error_log_Tbl where (er_date like sysdate-5) and
+				(er_type=1)) as low,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-5)
+				and
+				(er_type=2))as mid ,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-5)
+				and
+				(er_type=3))as high,
+				sysdate-5 erDate
+				from dual 
+				union
+				select
+				(select count(*) from error_log_Tbl where (er_date like sysdate-4) and
+				(er_type=1)) as low,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-4)
+				and
+				(er_type=2))as mid ,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-4)
+				and
+				(er_type=3))as high,
+				sysdate-4 erDate
+				from dual
+				union
+				select
+				(select count(*) from error_log_Tbl where (er_date like sysdate-3) and
+				(er_type=1)) as low,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-3)
+				and
+				(er_type=2))as mid ,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-3)
+				and
+				(er_type=3))as high,
+				sysdate-3 erDate
+				from dual
+				union
+				select
+				(select count(*) from error_log_Tbl where (er_date like sysdate-2) and
+				(er_type=1)) as low,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-2)
+				and
+				(er_type=2))as mid ,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-2)
+				and
+				(er_type=3))as high,
+				sysdate-2 erDate
+				from dual 
+				union
+				select
+				(select count(*) from error_log_Tbl where (er_date like sysdate-1) and
+				(er_type=1)) as low,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-1)
+				and
+				(er_type=2))as mid ,
+				(select count(*) as low from error_log_Tbl where (er_date like sysdate-1)
+				and
+				(er_type=3))as high,
+				sysdate-1 erDate
+				from dual order by erDate desc
+			</when>
+		</choose>
+
+	</select>
+	
+
 </mapper>

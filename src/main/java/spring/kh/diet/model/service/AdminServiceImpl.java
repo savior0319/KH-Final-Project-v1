@@ -17,6 +17,7 @@ import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.DelMemberVO;
+import spring.kh.diet.model.vo.ErrorLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -348,12 +349,18 @@ public class AdminServiceImpl implements AdminService {
 		return trpdv;
 	}
 
+
+	@Override
+	public ArrayList<ErrorLogVO> todayErrorLogSearch(ErrorLogVO eLVO) {
+		ArrayList<ErrorLogVO> list = aDao.todayErrorLogSearch(session,eLVO);
+		return list;
+  }
+
 	//트레이넝회원에서 일반회원으로 전환
 	@Override
 	public int changeGrade(int mbIndex) {
 		return aDao.changeGrade(session, mbIndex);
+
 	}
-
-
 
 }

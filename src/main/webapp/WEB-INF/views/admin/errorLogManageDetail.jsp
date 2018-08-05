@@ -204,6 +204,7 @@ body {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+
 	$('.ui.dropdown').dropdown({
 		allowAdditions : true,
 		allowCategorySelection : true
