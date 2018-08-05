@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
@@ -115,9 +116,11 @@ public interface AdminDAO {
 
 	String getTrainerChangeListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage);
+
 	ArrayList<ErrorLogVO> todayErrorLogSearch(SqlSessionTemplate session, ErrorLogVO eLVO);
-  
+
 	int changeGrade(SqlSessionTemplate session, int mbIndex);
 
+	int advertiseImageUpload(SqlSessionTemplate session, AdvertiseVO adVo);
 
 }

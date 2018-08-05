@@ -54,18 +54,19 @@
 		<typeAlias type="spring.kh.diet.model.vo.MyRequestTrainerPDVO" alias="myRequestTrainerPDVO" />
 		<typeAlias type="spring.kh.diet.model.vo.TrainerProgramVO" alias="trainerProgramVO" />
 		<typeAlias type="spring.kh.diet.model.vo.ApplyTrainerPDVO" alias="applyTrainerPDVO" />
-		<typeAlias type="spring.kh.diet.model.vo.TodayAnalyticsDetail" alias="todayAnalyticsDetail"/>
-		<typeAlias type="spring.kh.diet.model.vo.TrainingRegVO" alias="trainerReg"/><!-- 트레이너 전환 신청 -->
-		<typeAlias type="spring.kh.diet.model.vo.TrainingRegPageDataVO" alias="trainingRegPDVO"/><!-- 트레이너 전환 신청 페이징 처리 -->
-		<typeAlias type="spring.kh.diet.model.vo.TrainerProgramVO" alias="trainerProgram"/>
+		<typeAlias type="spring.kh.diet.model.vo.TodayAnalyticsDetail" alias="todayAnalyticsDetail" />
+		<typeAlias type="spring.kh.diet.model.vo.TrainingRegVO" alias="trainerReg" /><!-- 트레이너 전환 신청 -->
+		<typeAlias type="spring.kh.diet.model.vo.TrainingRegPageDataVO" alias="trainingRegPDVO" /><!-- 트레이너 전환 신청 페이징 처리 -->
+		<typeAlias type="spring.kh.diet.model.vo.TrainerProgramVO" alias="trainerProgram" />
 		<typeAlias type="spring.kh.diet.model.vo.TodayAnalyticsDetail" alias="todayAnalyticsDetail" />
 		<typeAlias type="spring.kh.diet.model.vo.MyRequestTrainerPDVO" alias="myRequestTrainerPDVO" />
 		<typeAlias type="spring.kh.diet.model.vo.ProgramPageDataVO" alias="programPageData" />
 		<typeAlias type="spring.kh.diet.model.vo.TrainerAreaListVO" alias="trainerAreaList" />
 		<typeAlias type="spring.kh.diet.model.vo.TrainerProgramMemberVO" alias="trainerProgramMember" />
 		<typeAlias type="spring.kh.diet.model.vo.PaymentVO" alias="payment" />
-		<typeAlias type="spring.kh.diet.model.vo.ErrorLogVO" alias="errorLog"/>
-		<typeAlias type="spring.kh.diet.model.vo.PaymentPDVO" alias="paymentPDVO" />	
+		<typeAlias type="spring.kh.diet.model.vo.ErrorLogVO" alias="errorLog" />
+		<typeAlias type="spring.kh.diet.model.vo.PaymentPDVO" alias="paymentPDVO" />
+		<typeAlias type="spring.kh.diet.model.vo.AdvertiseVO" alias="advertise" /> <!-- 광고 DB -->
 	</typeAliases>
 
 </configuration>

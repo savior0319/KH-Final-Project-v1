@@ -9,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.AdminDAO;
+import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
-import spring.kh.diet.model.vo.BoardPostVO;
-import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.ErrorLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -35,6 +34,7 @@ import spring.kh.diet.model.vo.todayPostVO;
 import spring.kh.diet.model.vo.yesterdayAnalytic;
 import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 
+@SuppressWarnings("all")
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
 
@@ -356,11 +356,17 @@ public class AdminServiceImpl implements AdminService {
 		return list;
   }
 
-	//트레이넝회원에서 일반회원으로 전환
+	//트레이너 회원에서 일반회원으로 전환
 	@Override
 	public int changeGrade(int mbIndex) {
 		return aDao.changeGrade(session, mbIndex);
 
+	}
+
+	/* 광고 DB 업로드 */ 
+	@Override
+	public void advertiseImageUpload(AdvertiseVO adVo) {
+		aDao.advertiseImageUpload(session, adVo);
 	}
 
 }

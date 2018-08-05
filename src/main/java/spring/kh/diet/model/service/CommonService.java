@@ -1,5 +1,8 @@
 package spring.kh.diet.model.service;
 
+import java.util.ArrayList;
+
+import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.BoardBlameVO;
 import spring.kh.diet.model.vo.BoardCommentPDVO;
 import spring.kh.diet.model.vo.BoardCommentVO;
@@ -27,6 +30,6 @@ public interface CommonService {
 
 	int cmtBlameUp(BoardBlameVO report);
 
-
+	ArrayList<AdvertiseVO> advertiseImageLoad();
 
 }

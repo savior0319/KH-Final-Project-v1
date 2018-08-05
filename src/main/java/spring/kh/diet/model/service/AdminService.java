@@ -2,6 +2,7 @@ package spring.kh.diet.model.service;
 
 import java.util.ArrayList;
 
+import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
@@ -99,6 +100,8 @@ public interface AdminService {
 	ArrayList<ErrorLogVO> todayErrorLogSearch(ErrorLogVO eLVO);
 
 	int changeGrade(int mbIndex);
+
+	void advertiseImageUpload(AdvertiseVO adVo);
 
 
 }

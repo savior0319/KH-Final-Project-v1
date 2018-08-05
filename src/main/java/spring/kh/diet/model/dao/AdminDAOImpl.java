@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
@@ -557,7 +558,7 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public int yesterdayUpdate(SqlSessionTemplate session, yesterdayAnalyticsPDVO yAPDVO) {
-		int result =  session.update("admin.yesterdayUpdate",yAPDVO);
+		int result = session.update("admin.yesterdayUpdate", yAPDVO);
 		return result;
 	}
 
@@ -573,14 +574,14 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public ArrayList<TodayAnalyticsDetail> TodayAnalyticsDetailList(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.TodayAnalyticsDetailList");
-		return (ArrayList<TodayAnalyticsDetail>)list;
+		return (ArrayList<TodayAnalyticsDetail>) list;
 	}
 
-	//트레이너 회원 신청
+	// 트레이너 회원 신청
 	@Override
 	public ArrayList<TrainingRegVO> trainerRegList(SqlSessionTemplate session, int currentPage,
 			int recordCountPerPage) {
-		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
+		TrainingRegPageDataVO trpdv = new TrainingRegPageDataVO();
 
 		trpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
 		trpdv.setEnd(currentPage * recordCountPerPage);
@@ -590,11 +591,11 @@ public class AdminDAOImpl implements AdminDAO {
 		return (ArrayList<TrainingRegVO>) list;
 	}
 
-	//트레이너 회원 신청 네비
+	// 트레이너 회원 신청 네비
 	@Override
 	public String getTrainerRegListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage) {
-		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
+		TrainingRegPageDataVO trpdv = new TrainingRegPageDataVO();
 
 		int recordTotalCount = session.selectOne("admin.getTrainerRegNavi", trpdv);
 
@@ -654,48 +655,46 @@ public class AdminDAOImpl implements AdminDAO {
 	// 트레이너 등급 신청 회원 등록된 글 들어가는 곳
 	@Override
 	public TrainingRegVO trainerRegContents(SqlSessionTemplate session, int trIndex) {
-		TrainingRegVO trv = session.selectOne("admin.trRegContent",trIndex);
+		TrainingRegVO trv = session.selectOne("admin.trRegContent", trIndex);
 		return trv;
 	}
 
 	@Override
 	public int denyTrainerReg(SqlSessionTemplate session, int trIndex) {
-		return session.update("admin.denyTrainerReg",trIndex);
+		return session.update("admin.denyTrainerReg", trIndex);
 	}
 
 	@Override
 	public int acceptTrainerReg(SqlSessionTemplate session, int trIndex) {
-		return session.update("admin.acceptTrainerReg",trIndex);
+		return session.update("admin.acceptTrainerReg", trIndex);
 	}
 
 	@Override
 	public int changeTrainerGrade(SqlSessionTemplate session, int trIndex) {
-		return session.update("admin.changeTrainerGrade",trIndex);
+		return session.update("admin.changeTrainerGrade", trIndex);
 	}
 
-	
-	//트레이너 회원 관리
+	// 트레이너 회원 관리
 	@Override
 	public ArrayList<TrainingRegVO> trainerChange(SqlSessionTemplate session, int currentPage, int recordCountPerPage) {
-		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
+		TrainingRegPageDataVO trpdv = new TrainingRegPageDataVO();
 
 		trpdv.setStart((currentPage - 1) * recordCountPerPage + 1);
 		trpdv.setEnd(currentPage * recordCountPerPage);
-		
+
 		List<TrainingRegVO> list = session.selectList("admin.trainerList", trpdv);
-		
+
 		return (ArrayList<TrainingRegVO>) list;
 	}
 
-	//트레이너 회원 관리 네비
+	// 트레이너 회원 관리 네비
 	@Override
 	public String getTrainerChangeListPageNavi(SqlSessionTemplate session, int currentPage, int recordCountPerPage,
 			int naviCountPerPage) {
-		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
+		TrainingRegPageDataVO trpdv = new TrainingRegPageDataVO();
 
 		int recordTotalCount = session.selectOne("admin.getTrainerListNavi", trpdv);
 
-		
 		int pageTotalCount = 0;
 		if (recordTotalCount % recordCountPerPage != 0) {
 			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
@@ -749,20 +748,27 @@ public class AdminDAOImpl implements AdminDAO {
 		return sb.toString();
 	}
 
-
 	@Override
 	public ArrayList<ErrorLogVO> todayErrorLogSearch(SqlSessionTemplate session, ErrorLogVO ELVO) {
-		List<?> list = session.selectList("admin.todayErrorLogSearch",ELVO);
-	
-		return (ArrayList<ErrorLogVO>) list;
- }
+		List<?> list = session.selectList("admin.todayErrorLogSearch", ELVO);
 
-	//트레이너 회원에서 일반 회원으로 전환
-	@Override
-	public int changeGrade(SqlSessionTemplate session, int mbIndex) {
-		return session.update("admin.changeGrade",mbIndex);
+		return (ArrayList<ErrorLogVO>) list;
 	}
 
-	
+	// 트레이너 회원에서 일반 회원으로 전환
+	@Override
+	public int changeGrade(SqlSessionTemplate session, int mbIndex) {
+		return session.update("admin.changeGrade", mbIndex);
+	}
+
+	// 광고 DB 넣기
+	@Override
+	public int advertiseImageUpload(SqlSessionTemplate session, AdvertiseVO adVo) {
+		session.delete("admin.advertiseDelete");
+		session.insert("admin.advertise1", adVo);
+		session.insert("admin.advertise2", adVo);
+		session.insert("admin.advertise3", adVo);
+		return session.insert("admin.advertise4", adVo);
+	}
 
 }
