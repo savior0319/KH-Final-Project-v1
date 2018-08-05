@@ -79,7 +79,7 @@ p>span {
 				<div class="column">
 					<div class="ui card">
 						<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">
-							<img src="${requestScope.matchedList[0].dtMainPhoto} " style="width: 100%; height: 200px;">
+							<img src="${requestScope.matchedList[0].dtMainPhoto} " style="width: 100%; height: 200px;"   onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
 							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[0].dtTitle }</a>
@@ -107,7 +107,7 @@ p>span {
 				<div class="column">
 					<div class="ui card">
 						<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[1].dtIndex}, ${requestScope.matchedList[1].dtType});">
-							<img src="${requestScope.matchedList[1].dtMainPhoto} " style="width: 100%; height: 200px;">
+							<img src="${requestScope.matchedList[1].dtMainPhoto} " style="width: 100%; height: 200px;"   onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
 							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[1].dtTitle }</a>
@@ -135,7 +135,7 @@ p>span {
 				<div class="column">
 					<div class="ui card">
 						<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[2].dtIndex}, ${requestScope.matchedList[2].dtType});">
-							<img src="${requestScope.matchedList[2].dtMainPhoto} " style="width: 100%; height: 200px;">
+							<img src="${requestScope.matchedList[2].dtMainPhoto} " style="width: 100%; height: 200px;"  onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
 							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[2].dtTitle }</a>
@@ -187,7 +187,7 @@ p>span {
 
 				<div class="row" style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;">
 					<div class="four wide column">
-						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">
+						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });"  onerror='this.src="/resources/image/300x600.png"'>
 					</div>
 					<div class="twelve wide column">
 						<strong style="cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtTitle }</strong>
@@ -257,7 +257,7 @@ p>span {
 							<div class="item">작성자</div>
 						</div>
 					</div>
-					<input type="text" placeholder="Search..." id="searchText"> <i class="circular search link icon" onclick="searchBtn()"></i>
+					<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)"> <i class="circular search link icon" onclick="searchBtn()"></i>
 				</div>
 			</div>
 
@@ -283,85 +283,85 @@ p>span {
 
 			<!-- 제목 이미지 출력  -->
 			<div align="center">
-					<div class="ui card">
-						<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">
-							<img src="${requestScope.matchedList[0].dtMainPhoto} " style="width: 100%; height: 200px;">
-						</div>
-						<div class="content">
-							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[0].dtTitle }</a>
-							<div class="meta">
-								<span class="date"> <c:choose>
-										<c:when test="${requestScope.matchedList[0].dtType==1 }">
-										칼럼 |
-									</c:when>
-										<c:when test="${requestScope.matchedList[0].dtType==2 }">
-										운동 |
-									</c:when>
-										<c:when test="${requestScope.matchedList[0].dtType==3 }">
-										식단 |
-									</c:when>
-										<c:when test="${requestScope.matchedList[0].dtType==4 }">
-										성공후기 |
-									</c:when>
-									</c:choose>
-
-								</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[0].dtLike }</span>
-							</div>
-						</div>
+				<div class="ui card">
+					<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">
+						<img src="${requestScope.matchedList[0].dtMainPhoto} " style="width: 100%; height: 200px;"  onerror='this.src="/resources/image/300x400.png"'>
 					</div>
-					<div class="ui card">
-						<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[1].dtIndex}, ${requestScope.matchedList[1].dtType});">
-							<img src="${requestScope.matchedList[1].dtMainPhoto} " style="width: 100%; height: 200px;">
-						</div>
-						<div class="content">
-							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[1].dtTitle }</a>
-							<div class="meta">
-								<span class="date"> <c:choose>
-										<c:when test="${requestScope.matchedList[1].dtType==1 }">
+					<div class="content">
+						<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[0].dtTitle }</a>
+						<div class="meta">
+							<span class="date"> <c:choose>
+									<c:when test="${requestScope.matchedList[0].dtType==1 }">
 										칼럼 |
 									</c:when>
-										<c:when test="${requestScope.matchedList[1].dtType==2 }">
+									<c:when test="${requestScope.matchedList[0].dtType==2 }">
 										운동 |
 									</c:when>
-										<c:when test="${requestScope.matchedList[1].dtType==3 }">
+									<c:when test="${requestScope.matchedList[0].dtType==3 }">
 										식단 |
 									</c:when>
-										<c:when test="${requestScope.matchedList[1].dtType==4 }">
+									<c:when test="${requestScope.matchedList[0].dtType==4 }">
 										성공후기 |
 									</c:when>
-									</c:choose>
+								</c:choose>
 
-								</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[1].dtLike }</span>
-							</div>
-						</div>
-					</div>
-					<div class="ui card">
-						<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[2].dtIndex}, ${requestScope.matchedList[2].dtType});">
-							<img src="${requestScope.matchedList[2].dtMainPhoto} " style="width: 100%; height: 200px;">
-						</div>
-						<div class="content">
-							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[2].dtTitle }</a>
-							<div class="meta">
-								<span class="date"> <c:choose>
-										<c:when test="${requestScope.matchedList[2].dtType==1 }">
-										칼럼 |
-									</c:when>
-										<c:when test="${requestScope.matchedList[2].dtType==2 }">
-										운동 |
-									</c:when>
-										<c:when test="${requestScope.matchedList[2].dtType==3 }">
-										식단 |
-									</c:when>
-										<c:when test="${requestScope.matchedList[2].dtType==4 }">
-										성공후기 |
-									</c:when>
-									</c:choose>
-
-								</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[2].dtLike }</span>
-							</div>
+							</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[0].dtLike }</span>
 						</div>
 					</div>
 				</div>
+				<div class="ui card">
+					<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[1].dtIndex}, ${requestScope.matchedList[1].dtType});">
+						<img src="${requestScope.matchedList[1].dtMainPhoto} " style="width: 100%; height: 200px;"   onerror='this.src="/resources/image/300x400.png"'>
+					</div>
+					<div class="content">
+						<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[1].dtTitle }</a>
+						<div class="meta">
+							<span class="date"> <c:choose>
+									<c:when test="${requestScope.matchedList[1].dtType==1 }">
+										칼럼 |
+									</c:when>
+									<c:when test="${requestScope.matchedList[1].dtType==2 }">
+										운동 |
+									</c:when>
+									<c:when test="${requestScope.matchedList[1].dtType==3 }">
+										식단 |
+									</c:when>
+									<c:when test="${requestScope.matchedList[1].dtType==4 }">
+										성공후기 |
+									</c:when>
+								</c:choose>
+
+							</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[1].dtLike }</span>
+						</div>
+					</div>
+				</div>
+				<div class="ui card">
+					<div class="image" style="cursor: pointer;" onclick="goInfo(${requestScope.matchedList[2].dtIndex}, ${requestScope.matchedList[2].dtType});">
+						<img src="${requestScope.matchedList[2].dtMainPhoto} " style="width: 100%; height: 200px;"  onerror='this.src="/resources/image/300x400.png"'>
+					</div>
+					<div class="content">
+						<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[2].dtTitle }</a>
+						<div class="meta">
+							<span class="date"> <c:choose>
+									<c:when test="${requestScope.matchedList[2].dtType==1 }">
+										칼럼 |
+									</c:when>
+									<c:when test="${requestScope.matchedList[2].dtType==2 }">
+										운동 |
+									</c:when>
+									<c:when test="${requestScope.matchedList[2].dtType==3 }">
+										식단 |
+									</c:when>
+									<c:when test="${requestScope.matchedList[2].dtType==4 }">
+										성공후기 |
+									</c:when>
+								</c:choose>
+
+							</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${requestScope.matchedList[2].dtLike }</span>
+						</div>
+					</div>
+				</div>
+			</div>
 			<br>
 		</c:if>
 
@@ -383,9 +383,9 @@ p>span {
 
 			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
 
-				<div class="ui card">
+				<div class="ui card" style="margin:10px;">
 					<div class="image">
-						<img src="${dt.dtMainPhoto }" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });" style="cursor:pointer;">
+						<img src="${dt.dtMainPhoto }" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });" style="cursor: pointer;"  onerror='this.src="/resources/image/300x600.png"'>
 					</div>
 					<div class="content">
 						<a class="header" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtTitle }</a>
@@ -396,12 +396,7 @@ p>span {
 					</div>
 					<div class="extra content">
 						<i class="eye icon"></i> ${dt.dtSee } &nbsp;&nbsp;|&nbsp;&nbsp; <i class="comment icon"></i> ${dt.dtCmtNo }
-						<c:if test="${dt.dtWriterNo == sessionScope.member.mbIndex }">
-						<div style="float:right;">
-								<a style="cursor: pointer; margin-right:10px" onclick="updateDietTip(${dt.dtIndex})">수정</a>
-								<a style="cursor: pointer; " onclick="deleteDietTip(${dt.dtIndex});">삭제</a>
-								</div>
-						</c:if>
+						
 					</div>
 				</div>
 
@@ -435,23 +430,23 @@ p>span {
 
 
 
-		<div class="ui center aligned basic segment">
-			<div class="ui secondary segment">
-				<div class="ui left action right icon input">
-					<div class="ui basic floating dropdown button">
-						<div class="text">선택</div>
-						<i class="dropdown icon"></i>
-						<div class="menu">
-							<div class="item">제목</div>
-							<div class="item">제목+내용</div>
-							<div class="item">작성자</div>
-						</div>
+		<br>
+		<div class="ui secondary segment">
+			<div class="ui left action right icon input">
+				<div class="ui basic floating dropdown button">
+					<div class="text">선택</div>
+					<i class="dropdown icon"></i>
+					<div class="menu">
+						<div class="item">제목</div>
+						<div class="item">제목+내용</div>
+						<div class="item">작성자</div>
 					</div>
-					<input type="text" placeholder="Search..." id="searchText" style="width: 70%;"> <i class="circular search link icon" onclick="searchBtn()"></i>
 				</div>
+				<input type="text" placeholder="Search..." id="searchText2" style="width: 70%;" onkeypress="runScript(event)"> <i class="circular search link icon" onclick="searchBtn()"></i>
 			</div>
-
 		</div>
+
+
 
 	</div>
 
@@ -526,14 +521,41 @@ p>span {
 		}
 	});
 	
+	/* 검색  - 엔터*/
+	function runScript(e) {
+		if (e.keyCode == 13) {
+			searchBtn();
+		}
+	}
+	
 	/* 검색 */
 	function searchBtn(){
+		
 		if(category==''){
-			alert('분류를 선택해 주세요');
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.noCategory();
+			}else{
+				alert('분류를 선택해 주세요');
+			}
 			return;
 		}
+		
 		$searchText = $('#searchText').val();
+		$searchText2 = $('#searchText2').val();
 		$type = $('#type').val();
+		
+		if($searchText==""){
+			$searchText = $searchText2;
+		}
+		if($searchText==""){
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.noSearchText();
+			}else{
+				alert('검색어를 입력해 주세요');
+			}
+			return;
+		}		
+		
 		location.href = "/dietTipList.diet?category="+ category +"&searchText=" + $searchText + "&type=" + $type;
 	}
 	
@@ -568,7 +590,7 @@ p>span {
 </script>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */
-@media ( min-width : 550px) {
+@media ( min-width : 650px) {
 	#size1 {
 		display: block;
 	}
@@ -577,7 +599,7 @@ p>span {
 	}
 }
 /* 모바일용 사이즈 */
-@media ( max-width : 549px) {
+@media ( max-width : 649px) {
 	#size1 {
 		display: none;
 	}

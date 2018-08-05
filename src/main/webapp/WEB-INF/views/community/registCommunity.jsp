@@ -135,10 +135,11 @@
 	function register() {
 		var $title = $('#title').val();
 		var $content = $('#summernote').summernote('code');
+
 		if (postImage == null){
 			postImage = "";
 		}
-		if (category != null && $title != '' && $content != '') {
+		if (category != null && $title != '' && $content != '<p><br></p>') {
 			$.ajax({
 				url : '/communityPostRegist.diet',
 				type : 'post',
@@ -150,7 +151,7 @@
 				},
 				success : function(data) {
 					if (data == 'success') {
-						alert('게시글 등록 완료');
+						alert('게시글 등록이 완료되었습니다.');
 						if(category == 16){
 							location.href = "/recipeBoard.diet?type=" + category;
 						}
@@ -162,13 +163,15 @@
 					}
 				},
 				error : function() {
-					alert('게시글 등록 실패');
+					alert('게시글 등록에 실패하였습니다.');
 				}
 			});
 		} else {
 			if (category == null) {
 				alert('카테고리를 선택하여주세요.');
-			} else {
+			}else if($title == ''){
+				alert('제목을 반드시 기입하여주세요.')	
+			}else {
 				alert('내용을 반드시 기입하여주세요.');
 			}
 		}

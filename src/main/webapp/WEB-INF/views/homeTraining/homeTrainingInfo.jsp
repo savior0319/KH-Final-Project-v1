@@ -88,8 +88,14 @@
 			
 			<!-- 유튜브 영상 들어가는곳 -->
 
-			<div class="homeTrainingVideo" style="text-align:center">
+			<div id="size1" class="homeTrainingVideo" style="text-align:center">
 				<iframe width="760" height="455"
+					src="${requestScope.ht.htVideo }" frameborder="0"
+					allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			</div>
+			
+			<div id="size2" class="homeTrainingVideo" style="text-align:center">
+				<iframe width="350px" height="300px"
 					src="${requestScope.ht.htVideo }" frameborder="0"
 					allow="autoplay; encrypted-media" allowfullscreen></iframe>
 			</div>
@@ -98,17 +104,27 @@
 			<h2 style="text-align:center" >프로그램 소개</h2>
 			<br> <br>
 
-			<div class="programIntroduction" style="text-align:center">
+			<div id="size1" class="programIntroduction" style="text-align:center">
 				<i class="big clock outline icon"></i>&ensp;${requestScope.ht.htStepTime }&emsp;&emsp;&emsp;&emsp;&emsp;
 				<i class="big child icon"></i>&ensp;${requestScope.ht.htStepType }&emsp;&emsp;&emsp;&emsp;&emsp;
 				<i class="big male icon"></i>&ensp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;&emsp;&emsp;
 				<i class="big tint icon"></i>&ensp;${requestScope.ht.htStepKal }
 			</div>
+			
+			<div id="size2" class="programIntroduction" align="center">
+				<i class="big clock outline icon"></i>&ensp;${requestScope.ht.htStepTime }&emsp;&emsp;
+				<i class="big child icon"></i>&ensp;&emsp;${requestScope.ht.htStepType }&emsp;&emsp;&emsp;&emsp;&emsp;
+				<br><br>
+				&emsp;<i class="big male icon"></i>&ensp;&emsp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;&emsp;&emsp;
+				<i class="big tint icon"></i>${requestScope.ht.htStepKal }&emsp;&emsp;&emsp;&emsp;
+			</div>
+			
 			<hr style="border: 1px solid #D5D5D5;">
 			<br>
 			<!-- 프로그램 설명 부분 -->
 			<div class="programExplain" style="text-align:center; font-family: 나눔고딕, NanumGothic, sans-serif; font-size: 12pt;">
-				<pre>${requestScope.ht.htExplain }</pre>
+				<pre id="size1">${requestScope.ht.htExplain }</pre>
+				<p id="size2" style="text-indent:10px;">${requestScope.ht.htExplain }</p>
 			</div>
 			<br> <br> <br>
 
@@ -136,8 +152,8 @@
 			
 			
 			
-			
-				
+		<div id="size1">	
+		
 		<c:if test="${requestScope.list[0]!=null }">
 			<div class="next" onclick="goInfo(${requestScope.list[0].indexNo})" style="height: 30px; width: 100%; margin: 2%; cursor: pointer;">
 				<div class="next" style="height: 100%; width: 20%; float: left;">이전글
@@ -159,6 +175,30 @@
 					&ensp;| &ensp; 조회수 : ${requestScope.list[1].htHits }</a>
 			</div>
 		</c:if>
+		</div>
+		
+		<div id="size2">	
+		
+		<c:if test="${requestScope.list[0]!=null }">
+			<div class="next" onclick="goInfo(${requestScope.list[0].indexNo})" style="height: 30px; width: 100%; margin: 2%; cursor: pointer;">
+				<div class="next" style="height: 100%; width: 20%; float: left;">이전글
+					&ensp;▲</div>
+				<a class="nextTitle" style="height: 100%; width: 50%; float: left;">${requestScope.list[0].htTitle } </a> 
+				<a class="nextHits"	style="height: 100%; width: 30%; float: left;">
+				<fmt:formatDate value="${requestScope.list[0].htEnrollDate }" pattern="yyyy-MM-dd" /></a>
+			</div>
+		</c:if>
+		<hr>
+		<c:if test="${requestScope.list[1]!=null }">
+			<div class="next" onclick="goInfo(${requestScope.list[1].indexNo})" style="height: 30px; width: 100%; margin: 2%; cursor: pointer;">
+				<div class="next" style="height: 100%; width: 20%; float: left;">다음글
+					&ensp;▼</div>
+				<a class="nextTitle" style="height: 100%; width: 50%; float: left;">${requestScope.list[1].htTitle } </a> 
+				<a class="nextHits"	style="height: 100%; width: 30%; float: left;">
+				<fmt:formatDate value="${requestScope.list[1].htEnrollDate }" pattern="yyyy-MM-dd" /></a>
+			</div>
+		</c:if>
+		</div>
 			
 			<hr>
 			<br>
@@ -213,10 +253,10 @@
 								style="width: 40px; height: 40px; border-radius: 25px;">
 							</a>
 							<div class="content" style="width: 93%;">
-								<a class="author" style="position: absolute; width: 10%; text-align:center;">${bc.mbNickname}</a>
+								<a class="author" style="position: absolute; width: 90px; text-align:center;">${bc.mbNickname}</a>
 								<div class="metadata" style="width: 100%; text-align:left;">
 									<span class="date"
-										style="width: 30%; display: inline; margin-left: 10%;">
+										style="width: 30%; display: inline; margin-left: 100px;">
 										<fmt:formatDate value="${bc.cmtDateTime }"
 											pattern="yyyy-MM-dd HH:mm:ss" />
 									</span>
@@ -238,7 +278,7 @@
 										href="javascript:void(0)">취소</a>
 										
 									<c:if test="${sessionScope.member!=null}">
-									<div class="ui right aligned container" align="right" style="width: 70%; float: right;">
+									<div class="ui right aligned container" align="right" style="width: 70%; float: right; margin-top:10px;">
 										<button class="ui red basic tiny button" onclick="cmtLike(${bc.cmtIndex},${bc.mbIndex})" style="margin-right: 10px;">
 											<i class="thumbs up outline icon"></i>
 											좋아요 <label id="cmtLikeCount_${bc.cmtIndex}">${bc.cmtLike}</label>
@@ -378,7 +418,11 @@
 		var commentContent = $('#commentContent').val();
 		
 		if(commentContent==''){
-			alert('댓글을 입력해 주세요');
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.noComment();
+			}else{
+				alert('댓글을 입력해 주세요');
+			}
 			return;
 		}
 
@@ -434,14 +478,14 @@
 					contentDiv.attr("class", "content");
 
 					var aAuthor = $("<a>").attr("class", "author");
-					aAuthor.attr("style", "position: absolute; width: 10%; text-align:center;");
+					aAuthor.attr("style", "position: absolute; width: 90px; text-align:center;");
 					aAuthor.html(data.bcList[i].mbNickname);
 
 					var metadataDiv = $("<div>").attr("class", "metadata");
 					metadataDiv.attr("style", "width:100%; text-align:left;");
 				
 					var span = $("<span>").attr("class", "date");
-					span.attr("style","width: 30%; display: inline; margin-left: 10%;");
+					span.attr("style","width: 30%; display: inline; margin-left: 100px;");
 					var date = new Date(data.bcList[i].cmtDateTime);
 					var dateFor = date.getFullYear() + "-"+
 					doublePos((date.getMonth() + 1)) +"-"+doublePos(date.getDate()) + " " + doublePos(date.getHours())+":"+
@@ -481,7 +525,7 @@
 					var containerDiv = $("<div>").attr("class",
 							"ui right aligned container");
 					containerDiv.attr("align", "right");
-					containerDiv.attr("style", "width: 70%; float: right;");
+					containerDiv.attr("style", "width: 70%; float: right; margin-top:10px;");
 
 					var likeBtn = $("<button>").attr("class",
 							"ui red basic tiny button");
@@ -642,7 +686,7 @@
 						}
 					},
 						error : function() {
-						alert('실패');
+						alert('로그인을 해주세요.');
 					}
 				});
 			});	
@@ -764,7 +808,11 @@
 				} else if(data=='failed') {
 					alert('페이지에 오류가 발생하였습니다.');
 				} else if(data=='used') {
-					alert('이미 추천한 게시물 입니다.');
+					if(typeof Android !== "undefined" && Android !==null){
+						Android.alreadyLike();
+					}else{
+						alert('이미 추천한 댓글 입니다.');
+					}
 				}
 			}
 		})
@@ -840,9 +888,15 @@
 	});
 	
 </script>
-
 <style type="text/css" media="screen">
-@media ( max-width : 1200px) {
+/* 모바일용 아닌 사이즈 */
+@media ( min-width : 650px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
 	#resize {
 		display: none;
 	}
@@ -856,8 +910,14 @@
 		margin-left: 500px;
 	}
 }
-
-@media ( max-width : 455px) {
+/* 모바일용 사이즈 */
+@media ( max-width : 649px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
 	#heartBtn {
 		display: block;
 	}
@@ -868,8 +928,6 @@
 	button[id^="cmdReportBtn_"]{
 		display:none !important;
 	}
-	
 }
 </style>
-
 </html>

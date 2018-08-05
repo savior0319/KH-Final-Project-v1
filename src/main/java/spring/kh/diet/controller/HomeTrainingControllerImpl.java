@@ -247,12 +247,8 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 	private BoardLikeVO checkLike(int hits, int sessionIndex) {
 		BoardLikeVO likeCheckVO = new BoardLikeVO();
 		likeCheckVO.setTargetIndex(hits);
-		System.out.println("postIndexController : " + hits);
 		likeCheckVO.setMbIndex(sessionIndex);
-		System.out.println("sessionController : " + sessionIndex);
-		System.out.println("likecheckVOController : " + likeCheckVO);
 		BoardLikeVO blv = communityService.checkBoardLike(likeCheckVO);
-		System.out.println("blvController : " + blv);
 		return blv;
 	}
 

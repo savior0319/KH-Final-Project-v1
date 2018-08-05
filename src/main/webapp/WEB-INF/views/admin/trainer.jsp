@@ -72,8 +72,8 @@ body {
 							</button>
 							</c:when>
 							<c:otherwise>
-							<button disabled="disabled" id="trInfo_${tr.trIndex}" class="big ui red button" style="margin-right: 0px; padding-top: 7px; padding-bottom: 7px; padding-left: 6px; padding-right: 6px;">
-								<span style="font-size: 70%;">심사완료</span>
+							<button id="trInfo_${tr.trIndex}" onclick="trainerInfo(${tr.trIndex});" class="big ui gray button" style="margin-right: 0px; padding-top: 7px; padding-bottom: 7px; padding-left: 6px; padding-right: 6px;">
+								<span style="font-size: 70%; color: white;">심사완료</span>
 							</button>
 							</c:otherwise>
 							</c:choose>

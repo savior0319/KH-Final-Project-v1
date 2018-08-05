@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NoticeVO {
-	private String noticeTitle, noticeContent, noticeWriter;
+	private String noticeTitle, noticeContent, noticeWriter, noticeType;
 	private int noticeIndex, noticeView;
 	private Timestamp noticeWriteDay;
 }

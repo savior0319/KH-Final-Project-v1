@@ -26,7 +26,7 @@
 						<span id="text1">트레이너 자격</span>
 					</a>
 					<a class="item" href="javascript:void(0);" onclick="applyList();" id="apply2">
-						<span id="text2">프로그램 구매  리스트</span>
+						<span id="text2">프로그램 구매 리스트</span>
 					</a>
 				</div>
 				<br>
@@ -102,6 +102,7 @@
 						</div>
 					</c:when>
 				</c:choose>
+				
 				<c:choose>
 					<c:when test="${!myRequest.comList.isEmpty()}">
 						<div id="memberApply">
@@ -113,7 +114,7 @@
 									<tr id="title" align="center">
 										<th>
 											<i class="h square icon"></i>
-											번 호
+											프 로 그 램 번 호
 										</th>
 										<th>
 											<i class="h square icon"></i>
@@ -134,9 +135,9 @@
 										<tr align="center">
 											<td style="width: 10%;">${m.tpIndex}</td>
 											<td style="width: 30%;">
-												<a href="javascript:void(0);" onclick="showMyTrainer1();">${m.tpTitle}</a>
+												<a href="/requestTrainer.diet?tpIndex=${m.tpIndex}">${m.tpTitle}</a>
 											</td>
-											<td style="width: 15%;">${m.tpCost}</td>
+											<td style="width: 15%;">${m.tpCost}원</td>
 											<td style="width: 15%;">${m.tpRegDate}</td>
 										</tr>
 									</c:forEach>

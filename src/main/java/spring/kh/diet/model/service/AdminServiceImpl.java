@@ -287,7 +287,7 @@ public class AdminServiceImpl implements AdminService {
 	//트레이너 등급으로 전환 신청
 	@Override
 	public TrainingRegPageDataVO trainerRegList(int currentPage) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 
 		TrainingRegPageDataVO trpdv =  new TrainingRegPageDataVO();
@@ -341,6 +341,7 @@ public class AdminServiceImpl implements AdminService {
 				currentPage, recordCountPerPage);
 		String pageNavi = aDao.getTrainerChangeListPageNavi(session, currentPage, recordCountPerPage,
 				naviCountPerPage);
+
 		
 		trpdv.setTrList(list);
 		trpdv.setPageNavi(pageNavi);
@@ -348,12 +349,18 @@ public class AdminServiceImpl implements AdminService {
 		return trpdv;
 	}
 
+
 	@Override
 	public ArrayList<ErrorLogVO> todayErrorLogSearch(ErrorLogVO eLVO) {
 		ArrayList<ErrorLogVO> list = aDao.todayErrorLogSearch(session,eLVO);
 		return list;
+  }
+
+	//트레이넝회원에서 일반회원으로 전환
+	@Override
+	public int changeGrade(int mbIndex) {
+		return aDao.changeGrade(session, mbIndex);
+
 	}
-
-
 
 }

@@ -187,42 +187,66 @@
 
 		$("#numberCheck1").focus(function() {
 			if (!regExp.test($("#numberCheck1").val())) {
-				alert("숫자만 입력하세요");
+				if(typeof Android !== "undefined" && Android !==null){
+					Android.onlyNumber();
+				}else{
+					alert("숫자만 입력하세요");
+				}
 				$("#numberCheck1").val("");
 			}
 		});
 
 		$("#numberCheck1").keyup(function() {
 			if (!regExp.test($("#numberCheck1").val())) {
-				alert("숫자만 입력하세요");
+				if(typeof Android !== "undefined" && Android !==null){
+					Android.onlyNumber();
+				}else{
+					alert("숫자만 입력하세요");
+				}
 				$("#numberCheck1").val("");
 			}
 		});
 
 		$("#numberCheck2").focus(function() {
 			if (!regExp.test($("#numberCheck2").val())) {
-				alert("숫자만 입력하세요");
+				if(typeof Android !== "undefined" && Android !==null){
+					Android.onlyNumber();
+				}else{
+					alert("숫자만 입력하세요");
+				}
 				$("#numberCheck2").val("");
 			}
 		});
 
 		$("#numberCheck2").keyup(function() {
 			if (!regExp.test($("#numberCheck2").val())) {
-				alert("숫자만 입력하세요");
+				if(typeof Android !== "undefined" && Android !==null){
+					Android.onlyNumber();
+				}else{
+					alert("숫자만 입력하세요");
+				}
 				$("#numberCheck2").val("");
 			}
 		});
 
 		$("#numberCheck3").focus(function() {
 			if (!regExp.test($("#numberCheck3").val())) {
-				alert("숫자만 입력하세요");
+				if(typeof Android !== "undefined" && Android !==null){
+					Android.onlyNumber();
+				}else{
+					alert("숫자만 입력하세요");
+				}
 				$("#numberCheck2").val("");
 			}
 		});
 
 		$("#numberCheck3").keyup(function() {
 			if (!regExp.test($("#numberCheck3").val())) {
-				alert("숫자만 입력하세요");
+				if(typeof Android !== "undefined" && Android !==null){
+					Android.onlyNumber();
+				}else{
+					alert("숫자만 입력하세요");
+				}
 				$("#numberCheck2").val("");
 			}
 		});

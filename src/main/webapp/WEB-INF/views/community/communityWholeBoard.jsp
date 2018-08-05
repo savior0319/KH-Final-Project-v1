@@ -67,10 +67,18 @@
 	<div class="ui center aligned container">
 		<!-- 슬라이드-->
 		<ul class="rslides">
-			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
+			<li>
+				<img src="/resources/image/mainPic.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic1.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic2.jpg" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/mainPic3.jpg" style="height: 250px;">
+			</li>
 		</ul>
 		<br>
 		<div class="ui left aligned container">
@@ -105,72 +113,212 @@
 
 		<!-- 최신순, 조회순 -->
 		<br>
+		<c:choose>
+			<c:when test="${requestScope.cpdv.comList[0].postIndex!=null}">
+				<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
+					<div class="small ui basic buttons">
+						<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
+						<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
+					</div>
+				</div>
 
-		<%-- <c:if test="${requestScope.cpdv.category == null}"> --%>
-		<div class="ui right aligned basic segment" style="margin: 0px; padding: 0px;">
-			<div class="small ui basic buttons">
-				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">최신순</div>
-				<div class="ui button" style="padding-top: 7px; padding-bottom: 7px; padding-right: 10px; padding-left: 10px;" onclick="recentlyViewBtn(this);">조회순</div>
-			</div>
-		</div>
-		<%-- </c:if> --%>
-		<br>
-		<!-- 글목록 -->
-		<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
+				<br>
+				<!-- 글목록 -->
+				<div class="ui center aligned basic segment" style="margin-top: 0px; padding: 0px;">
 
-			<table class="ui very compact table">
-				<thead>
-					<tr align="center">
-						<th style="width: 15%;">게시판</th>
-						<th style="width: 50%;">제목</th>
-						<th style="width: 15%;">작성자</th>
-						<th style="width: 10%;">조회수</th>
-						<th style="width: 10%;">작성일</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<c:forEach items="${requestScope.cpdv.comList}" var="c">
-						<tr align="center">
-							<td>${c.bcaName}</td>
-							<td style="padding-top: 15px; padding-bottom: 15px;"><a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}"> <c:choose>
-										<c:when test="${fn:length(c.postTitle)>30}">
-											<c:out value="${fn:substring(c.postTitle,0,29)}" />...
+					<table class="ui very compact table">
+						<thead>
+							<tr align="center">
+								<th style="width: 15%;">게시판</th>
+								<th style="width: 50%;">제목</th>
+								<th style="width: 15%;">작성자</th>
+								<th style="width: 10%;">조회수</th>
+								<th style="width: 10%;">작성일</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+<!-- 공지사항 넣기! -->
+
+
+					<c:if test="${requestScope.cpdv.type.equals('15') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'자유게시판'}">
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);" class="aa">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td><a href="/noticeContent.diet?index=${nv.noticeIndex}">${nv.noticeTitle}</a></td>
+										<td><img class="ui avatar image" src="/resources/image/admin.png" />${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
+
+
 								</c:when>
-										<c:otherwise>
-									${c.postTitle}
-								</c:otherwise>
-									</c:choose>
-							</a></td>
-							<td><img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'> ${c.postNickname}</td>
-							<td>${c.postHit}</td>
-							<td><fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" /></td>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+
+
+
+
+					<c:if test="${requestScope.cpdv.type.equals('17') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'팁&노하우'}">
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);" class="aa">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td><a href="/noticeContent.diet?index=${nv.noticeIndex}">${nv.noticeTitle}</a></td>
+										<td><img class="ui avatar image" src="/resources/image/admin.png" />${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+
+					<c:if test="${requestScope.cpdv.type.equals('18') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'고민&질문'}">
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);" class="aa">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td><a href="/noticeContent.diet?index=${nv.noticeIndex}">${nv.noticeTitle}</a></td>
+										<td><img class="ui avatar image" src="/resources/image/admin.png" />${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+
+					<c:if test="${requestScope.cpdv.type.equals('19') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'비포&애프터'}">
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);" class="aa">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td><a href="/noticeContent.diet?index=${nv.noticeIndex}">${nv.noticeTitle}</a></td>
+										<td><img class="ui avatar image" src="/resources/image/admin.png" />${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+
+					<c:if test="${requestScope.cpdv.type.equals('comAll') }">
+						<c:forEach items="${requestScope.nvList}" var="nv">
+							<c:choose>
+								<c:when test="${nv.noticeType eq'전체'}">
+									<tr align="center" style="background: rgba(171, 171, 171, 0.1);" class="aa">
+										<td style="padding-top: 15px; padding-bottom: 15px; color: red;">공지</td>
+										<td><a href="/noticeContent.diet?index=${nv.noticeIndex}">${nv.noticeTitle}</a></td>
+										<td><img class="ui avatar image" src="/resources/image/admin.png" />${nv.noticeWriter}</td>
+										<td>${nv.noticeView}</td>
+										<td>
+											<fmt:formatDate value="${nv.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+									</tr>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</c:if>
+
+					<!-- 공지사항 넣기 -->
+					<%-- 게시판 공지 끝 --%>
+							<c:forEach items="${requestScope.cpdv.comList}" var="c">
+								<tr align="center">
+									<td>${c.bcaName}</td>
+									<td style="padding-top: 15px; padding-bottom: 15px;">
+										<a class="item" href="/postedCommunity.diet?postIndex=${c.postIndex}">
+											<c:choose>
+												<c:when test="${fn:length(c.postTitle)>30}">
+													<c:out value="${fn:substring(c.postTitle,0,29)}" />...
+                        </c:when>
+												<c:otherwise>
+                           ${c.postTitle}
+                        </c:otherwise>
+											</c:choose>
+										</a>
+									</td>
+									<td>
+										<img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
+										${c.postNickname}
+									</td>
+									<td>${c.postHit}</td>
+									<td>
+										<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+
+					</table>
+				</div>
+
+				<br>
+			</c:when>
+			<c:otherwise>
+				<table class="ui very compact table">
+					<thead>
+						<tr align="center">
+							<th style="width: 15%;">게시판</th>
+							<th style="width: 50%;">제목</th>
+							<th style="width: 15%;">작성자</th>
+							<th style="width: 10%;">조회수</th>
+							<th style="width: 10%;">작성일</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-				
-			</table>
-		</div>
+					</thead>
+				</table>
 
-		<br>
+				<div class="ui red medium message">
+					<br>
+					<i class="exclamation huge icon"></i>
+					<div class="ui medium header">
+						<br>
+						※게시물이 존재하지 않습니다.
+						<br>
+						다른 키워드로 검색을 해주세요.
+						<br>
+						<br>
+						<br>
+					</div>
+				</div>
 
+
+			</c:otherwise>
+		</c:choose>
 
 
 		<div id="size1" class="ui grid">
 			<div class="three column row">
 				<div class="column"></div>
 				<div class="column">
-				<c:if test="${requestScope.cpdv.comList[0] !=null}">
-					<div class="ui center aligned basic segment">
-						<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
-					</div>
+					<c:if test="${requestScope.cpdv.comList[0] !=null}">
+						<div class="ui center aligned basic segment">
+							<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
+						</div>
 					</c:if>
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
 						<c:if test="${sessionScope.member!=null}">
 							<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn" onclick="return loginCheck();">
-								<i class="edit icon"></i> 등록
+								<i class="edit icon"></i>
+								등록
 							</button>
 						</c:if>
 					</div>
@@ -178,7 +326,7 @@
 			</div>
 			<br>
 		</div>
-		
+
 		<div id="size2" class="ui center aligned grid">
 
 			<c:if test="${requestScope.cpdv.comList[0]!=null }">
@@ -189,8 +337,8 @@
 
 			<br>
 		</div>
-		
-		
+
+
 		<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 		<br>
 		<div class="ui secondary segment">
@@ -204,7 +352,8 @@
 						<div class="item">작성자</div>
 					</div>
 				</div>
-				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)" /> <i class="circular search link icon" onclick="searchBtn()"></i>
+				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)" />
+				<i class="circular search link icon" onclick="searchBtn()"></i>
 			</div>
 		</div>
 
@@ -215,6 +364,12 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+	$(document).ready(function() {
+		$('.aa').hide();
+		$('.aa').eq(0).show();
+		$('.aa').eq(1).show();
+	});
+
 	var st = $('#searchT').val();
 	var cate = $('#category').val();
 
@@ -231,15 +386,15 @@
 			data : {
 				'mbId' : mbId
 			},
-			success : function(data){
-				if(data=='n'){
-					location.href = "/registCommunity.diet";			
+			success : function(data) {
+				if (data == 'n') {
+					location.href = "/registCommunity.diet";
 				} else {
 					alert('\n글쓰기 정지당한 회원입니다. \n\n관리자에게 문의하세요.')
 				}
 			}
 		});
-		
+
 	});
 
 	/* 클릭시 각 페이지로 이동 ????????????????????????????????????????? */
@@ -281,14 +436,14 @@
 	}
 	function searchBtn() {
 		$searchText = $('#searchText').val();
-		
+
 		if (category == "") {
-			alert('카테고리를 선택하여주세요.');
-		}else{
+			alert('분류를 선택하여주세요.');
+		} else {
 			location.href = "/communitySearch.diet?category=" + category
-			+ "&searchText=" + $searchText;
+					+ "&searchText=" + $searchText;
 		}
-		
+
 		/* + "&type=" + type */
 
 	}

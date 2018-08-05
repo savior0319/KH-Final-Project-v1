@@ -5,6 +5,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 <title>트레이너 프로그램 등록</title>
 <!-- 달력 추가 -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -108,7 +109,7 @@
 							&nbsp;&nbsp;&nbsp;
 							<div class="ui left icon input">
 								<i class="calendar icon"></i>
-								<input type="text" placeholder="날짜" id="endDay" required readonly>
+								<input type="text" placeholder="날짜" id="endDay" required readonly">
 							</div>
 						</div>
 					</div>
@@ -245,8 +246,10 @@
 	});
 
 	$(function() {
-		$("#startDay").datepicker();
-		$("#endDay").datepicker();
+		$("#startDay").datepicker({minDate:0});
+		$("#endDay").datepicker({minDate:0});	
+		
+		
 	});
 
 	/* 주소 검색 API */
@@ -416,7 +419,7 @@
 		var tpCost = $('#tpCost').val();
 		tpCost = tpCost.replace(/[^0-9\.]+/g, "");
 		var tpPersonnel = $('#personnel option:selected').val();
-		
+
 		var tpActiveDays = $('#dropdown4').val();			
 		$.ajax({
 			url : 'saveDietTipMainPhotoPath.diet',
@@ -449,6 +452,7 @@
 						success : function(result) {
 							if (result == 1) {
 								alert('게시글 등록 완료');
+								location.href="/trainerMatch.diet";
 								
 							} else {
 								alert('게시글 등록 실패');

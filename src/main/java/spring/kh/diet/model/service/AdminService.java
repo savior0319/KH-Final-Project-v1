@@ -98,5 +98,7 @@ public interface AdminService {
 
 	ArrayList<ErrorLogVO> todayErrorLogSearch(ErrorLogVO eLVO);
 
+	int changeGrade(int mbIndex);
+
 
 }

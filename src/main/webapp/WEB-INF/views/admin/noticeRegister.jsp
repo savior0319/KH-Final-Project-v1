@@ -34,9 +34,23 @@ body {
 				<div class="ui large header" align="center">공지사항 등록</div>
 			</div>
 			<br>
-			<div class="ui form">
+						<div class="ui form" style="max-width: 1220px;">
 				<div class="ui medium header" style="margin-bottom: 5px;">제목</div>
-				<input type="text" id="title" placeholder="제목을 입력해주세요">
+				<div class="ui fluid left action icon input">
+					<div class="ui basic floating dropdown button">
+						<div class="text">카테고리</div>
+						<i class="dropdown icon"></i>
+						<div class="menu select">
+							<div class="item">전체</div>
+							<div class="item">자유게시판</div>
+							<div class="item">팁&#38;노하우</div>
+							<div class="item">고민&#38;질문</div>
+							<div class="item">비포&#38;애프터</div>
+						</div>
+					</div>
+					<input type="text" id="title" placeholder="제목을 입력해주세요" />
+				</div>
+
 			</div>
 			<br>
 			<div id="summernote"></div>
@@ -99,17 +113,48 @@ body {
 			}
 		});
 	}
+	
+	
+	$('.ui.dropdown').dropdown({
+		allowAdditions : true,
+		allowCategorySelection : true
+	});
+
+	// 카테고리 선택
+	var noticeType;
+	$('.select > .item').click(function() {
+		switch ($(this).text()) {
+		case '전체':
+			noticeType = '전체';
+			break;
+		case '자유게시판':
+			noticeType = '자유게시판';
+			break;
+		case '팁&노하우':
+			noticeType = '팁&노하우';
+			break;
+		case '고민&질문':
+			noticeType = '고민&질문';
+			break;
+		case '비포&애프터':
+			noticeType = '비포&애프터';
+			break;
+		}
+	});
+
 
 	function register() {
 		var title = $('#title').val();
 		var content = $('#summernote').summernote('code');
 
+		if (noticeType != null) {
 		$.ajax({
 			url : '/noticeRegisterData.diet',
 			type : 'post',
 			data : {
 				'title' : title,
-				'content' : content
+				'content' : content,
+				'noticeType' : noticeType
 			},
 
 			success : function(data) {
@@ -122,6 +167,11 @@ body {
 				alert('공지등록 실패');
 			}
 		});
+		
+		} else {
+				alert('카테고리를 선택하여주세요.');
+		}
+		
 	}
 </script>
 

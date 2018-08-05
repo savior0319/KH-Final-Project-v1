@@ -115,12 +115,12 @@ p>span {
 		
 		<!-- 모바일용 사이즈 -->
 		<div id="size2" class="ui black segment">
-			<div class="ui grid">
-					<div class="ui left aligned"> 
+			<div class="ui grid" style="padding-top:7px;">
+					<div class="ui left aligned" style="margin-right:15%;"> 
 						<img class="ui avatar image" src="${requestScope.dt.dtWriterPhoto }">
 							${requestScope.dt.dtNickname }
 					</div>
-					 <!-- 날짜 --> 
+					 <!-- 날짜, 조회수, 댓글 수 --> 
 					 <div>
 						<span class="ui right aligned"> 
 							<i class="calendar icon"></i> 
@@ -137,7 +137,7 @@ p>span {
 		</div>
 
 		<!-- 내용 들어가는 부분! -->
-		<div class="ui clearing segment">
+		<div class="ui clearing segment" style="word-break:break-all;">
 			${requestScope.dt.dtExplain } <br> <br> <br> <br>
 			<hr style="border: 1px dashed #D5D5D5;">
 			<br> <br>
@@ -279,16 +279,36 @@ p>span {
 			</h3>
 
 
-			<form class="ui reply form">
-				<div class="field">
-					<textarea id="commentContent" style="resize: none;" name="content"></textarea>
-				</div>
-				<div class="ui right aligned container">
-					<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="addComment();">
-						<i class="icon edit"></i>등록
+			<c:choose>
+				<c:when test="${sessionScope.member!=null}">
+				<!-- 로그인 한경우 -->
+				<form class="ui reply form">
+					<div class="field">
+						<textarea style="resize: none;" id="commentContent"></textarea>
 					</div>
-				</div>
-			</form>
+					<div class="ui right aligned container">
+						<div class="ui labeled submit icon button"
+							style="background-color: #fa2828; color: white;"
+							onclick="addComment();">
+							<i class="icon edit"></i> 등록
+						</div>
+					</div>
+				</form>
+				</c:when>
+				<c:otherwise>
+					<!-- 로그인 하지 않았을 경우 -->
+					<form class="ui reply form">
+						<div class="field">
+							<textarea id="commentContent" style="resize: none;" name="content" placeholder="로그인 후 이용이 가능합니다." readonly></textarea>
+						</div>
+
+					</form>
+				</c:otherwise>
+				</c:choose>
+			
+			
+			
+			
 			<br> <br>
 
 			<div id="comment">
@@ -487,7 +507,7 @@ p>span {
 						}
 					},
 					error : function() {
-						alert('실패');
+						alert('로그인 후 이용가능합니다.');
 					}
 				});
 			});
@@ -566,7 +586,12 @@ p>span {
 		var indexNo = $('#indexNo').val();
 		var commentContent = $('#commentContent').val();
 		if(commentContent==''){
-			alert('댓글을 입력해 주세요');
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.noComment();
+			}else{
+				alert('댓글을 입력해 주세요');
+			}
+			
 			return;
 		}
 
@@ -893,8 +918,6 @@ p>span {
 		var blameReport = $(':input:radio[name=blameText]:checked').val();
 		/* 신고 수정☆ */
 		var targetMbIndex = $('#cmdWriter_'+blameCmd).val();
-		alert(blameReport);
-		alert(targetMbIndex);
  		$.ajax({
 			url : '/blameCmd.diet',
 			type : 'post',
@@ -917,7 +940,6 @@ p>span {
 	/* 댓글신고버튼 : 댓글 신고 여부 확인 -> 댓글 Index,  신고 회원 */
 	function cmdBlame(ci){
 		var mbIndex = '${sessionScope.member.mbIndex}';
-		//alert(ci);
 		blameCmd = ci;
 		$.ajax({
 			url : '/checkBlameCmd.diet',
@@ -961,7 +983,11 @@ p>span {
 				} else if(data=='failed') {
 					alert('페이지에 오류가 발생하였습니다.');
 				} else if(data=='used') {
-					alert('이미 추천한 게시물 입니다.');
+					if(typeof Android !== "undefined" && Android !==null){
+						Android.alreadyLike();
+					}else{
+						alert('이미 추천한 댓글 입니다.');
+					}
 				}
 			}
 		})
@@ -970,7 +996,13 @@ p>span {
 
 <!-- 미디어 태그 1200px 보다 작아질 때-->
 <style type="text/css" media="screen">
-@media ( max-width : 1200px) {
+@media ( min-width : 650px) {
+	#size1 {
+		display: block;
+	}
+	#size2 {
+		display: none;
+	}
 	#resize {
 		display: none;
 	}
@@ -983,9 +1015,16 @@ p>span {
 	#removePadding {
 		margin-left: 500px;
 	}
+	
 }
 
-@media ( max-width : 455px) {
+@media ( max-width : 649px) {
+	#size1 {
+		display: none;
+	}
+	#size2 {
+		display: block;
+	}
 	#bookMark {
 		display: none;
 	}
@@ -1000,26 +1039,7 @@ p>span {
 		display:none !important;
 	}
 	
-}
-</style>
-<style type="text/css" media="screen">
-/* 모바일용 아닌 사이즈 */
-@media ( min-width : 550px) {
-	#size1 {
-		display: block;
-	}
-	#size2 {
-		display: none;
-	}
-}
-/* 모바일용 사이즈 */
-@media ( max-width : 549px) {
-	#size1 {
-		display: none;
-	}
-	#size2 {
-		display: block;
-	}
+	
 }
 </style>
 </html>
