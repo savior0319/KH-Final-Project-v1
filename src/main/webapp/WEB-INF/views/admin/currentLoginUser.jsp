@@ -62,30 +62,38 @@ var data = new google.visualization.DataTable();
 
 <!-- 선형차트 - 7일간 접속자명단  -->
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+	google.charts.load('current', {
+		'packages' : [ 'corechart' ]
+	});
+	google.charts.setOnLoadCallback(drawVisualization);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ]);
+	function drawVisualization() {
+		var data = google.visualization.arrayToDataTable([
+				[ '기간','회원', '비회원', '합계'],
+				[ '1일 전', ${requestScope.graph7b.count}, ${requestScope.graph7a.count},${requestScope.graph7b.count}+${requestScope.graph7a.count}],
+				[ '2일 전', ${requestScope.graph6b.count}, ${requestScope.graph6a.count},${requestScope.graph6b.count}+${requestScope.graph6a.count}],
+				[ '3일 전', ${requestScope.graph5b.count}, ${requestScope.graph5a.count},${requestScope.graph5b.count}+${requestScope.graph5a.count}],
+				[ '4일 전',  ${requestScope.graph4b.count}, ${requestScope.graph4a.count},${requestScope.graph4b.count}+${requestScope.graph4a.count}],
+				[ '5일 전',  ${requestScope.graph3b.count}, ${requestScope.graph3a.count},${requestScope.graph3b.count}+${requestScope.graph3a.count}],
+				[ '6일 전',  ${requestScope.graph2b.count}, ${requestScope.graph2a.count},${requestScope.graph2b.count}+${requestScope.graph2a.count}],
+				[ '7일 전', ${requestScope.graph1b.count}, ${requestScope.graph1a.count},${requestScope.graph1b.count}+${requestScope.graph1a.count}]]);
+		var options = {
+			selectionMode: 'multiple',
+			tooltip: {trigger: 'selection'},
+			aggregationTarget: 'category',
+			seriesType : 'bars',
+			series : {
+				3 : {
+					type : 'line'
+				}
+			}
+		};
 
-        var options = {
-          title: 'Company Performance',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
-    </script>
-
+		var chart = new google.visualization.ComboChart(document
+				.getElementById('chart_div_7seven'));
+		chart.draw(data, options);
+	}
+</script>
 
 
 <title>관리자 - 현재 접속자</title>
@@ -544,10 +552,9 @@ body {
 			<div class="ui center aligned segment">
 				<h3> 지난 7일간 접속자 분석</h3>
 			</div>
-			<br>
 			<div class="ui horizontal segments">
 				<!-- 그래프 보여주기 -->
-				<div id="curve_chart" style="width: 60%; height: 500px">
+		<div id="chart_div_7seven" style="width: 60%;">
 				
 				</div>
 				
@@ -564,13 +571,42 @@ body {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${requestScope.7days}" var="li">
-						<tr>
-								<td>${li.date}</td>
-								<td>${li.user}</td>
-								<td>${li.non}</td>
+						<tr align="center">
+								<td>${requestScope.graph7a.day}</td>
+								<td>${requestScope.graph7b.count} 명</td>
+								<td>${requestScope.graph7a.count} 명</td>
 						</tr>
-						</c:forEach>
+						<tr align="center">
+								<td>${requestScope.graph6a.day}</td>
+								<td>${requestScope.graph6b.count} 명</td>
+								<td>${requestScope.graph6a.count} 명</td>
+						</tr>
+						<tr align="center">
+								<td>${requestScope.graph5a.day}</td>
+								<td>${requestScope.graph5b.count} 명</td>
+								<td>${requestScope.graph5a.count} 명</td>
+						</tr>
+						<tr align="center">
+								<td>${requestScope.graph4a.day}</td>
+								<td>${requestScope.graph4b.count} 명</td>
+								<td>${requestScope.graph4a.count} 명</td>
+						</tr>
+						<tr align="center">
+								<td>${requestScope.graph3a.day}</td>
+								<td>${requestScope.graph3b.count} 명</td>
+								<td>${requestScope.graph3a.count} 명</td>
+						</tr>
+						<tr align="center">
+								<td>${requestScope.graph2a.day}</td>
+								<td>${requestScope.graph2b.count} 명</td>
+								<td>${requestScope.graph2a.count} 명</td>
+						</tr>
+						<tr align="center">
+								<td>${requestScope.graph1a.day}</td>
+								<td>${requestScope.graph1b.count} 명</td>
+								<td>${requestScope.graph1a.count} 명</td>
+						</tr>
+						
 					</tbody>
 				</table>
 				</div>
