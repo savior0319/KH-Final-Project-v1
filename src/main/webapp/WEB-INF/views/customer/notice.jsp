@@ -6,9 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>공지사항</title>
-<script src="/resources/slider/responsiveslides.min.js"></script>
+	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+	<title>공지사항</title>
+	<script src="/resources/slider/responsiveslides.min.js"></script>
 </head>
 
 <!-- CSS -->
@@ -56,11 +56,22 @@
 
 	<div class="ui center aligned container">
 		<!-- 슬라이드-->
-		<ul class="rslides">
-			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
+		<ul class="rslides" style="padding-bottom: 15px;">
+			<li>
+				<img src="#"" id="image1" style="height: 300px;">
+			</li>
+			<li>
+				<img src="#"" id="image2" style="height: 300px;">
+			</li>
+			<li>
+				<img src="#"" id="image3" style="height: 300px;">
+			</li>
+			<li>
+				<img src="#"" id="image4" style="height: 300px;">
+			</li>
+			<li>
+				<img src="/resources/image/advertise.png">
+			</li>
 		</ul>
 		<br>
 		<div class="ui left aligned container">
@@ -80,31 +91,50 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${requestScope.npd.noList}" var="n">
-						<tr align="center">
-							<td style="padding-top: 15px; padding-bottom: 15px;">
-								<a href="/noticeContent.diet?index=${n.noticeIndex}">${n.noticeTitle}</a>
-							</td>
-							<td><img class="ui avatar image" src="/resources/image/admin.png" /> ${n.noticeWriter}</td>
-							<td>${n.noticeView}</td>
-							<td>
-								<fmt:formatDate value="${n.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
-							</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<div class="ui center aligned basic segment">
-				<div class="ui pagination menu">${requestScope.npd.pageNavi}</div>
-			</div>
+					<tr align="center">
+						<td style="padding-top: 15px; padding-bottom: 15px;">
+							<a href="/noticeContent.diet?index=${n.noticeIndex}">${n.noticeTitle}</a>
+						</td>
+						<td><img class="ui avatar image" src="/resources/image/admin.png" /> ${n.noticeWriter}</td>
+						<td>${n.noticeView}</td>
+						<td>
+							<fmt:formatDate value="${n.noticeWriteDay}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<div class="ui center aligned basic segment">
+			<div class="ui pagination menu">${requestScope.npd.pageNavi}</div>
 		</div>
-		<br>
 	</div>
-	<!-- FOOTER -->
-	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
+	<br>
+</div>
+<!-- FOOTER -->
+<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+
+	/* 광고 이미지 불러오기 */
+	$(document).ready(function() {
+		$.ajax({
+			url : '/advertiseImageLoad.diet',
+			type : 'post',
+			success : function(img){
+				$("#image1").attr("src",img[0].path1);
+				$("#image2").attr("src",img[1].path1);
+				$("#image3").attr("src",img[2].path1);
+				$("#image4").attr("src",img[3].path1);
+
+			},
+			error : function(){
+				console.log('[ERROR] - 이미지 불러오기 오류');
+			}
+		});
+	});
+
 	// 슬라이드
 	$(function() {
 		$(".rslides").responsiveSlides({
@@ -117,7 +147,7 @@
 		self.name = 'reload';
 		self.location.reload(true);
 	} else
-		self.name = '';
+	self.name = '';
 </script>
 
 </html>
