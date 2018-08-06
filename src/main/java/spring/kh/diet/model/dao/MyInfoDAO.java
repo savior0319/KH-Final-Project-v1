@@ -123,4 +123,7 @@ public interface MyInfoDAO {
 	int canclePro(SqlSessionTemplate sqlSessionTemplate, PaymentVO pv);
 
 	ArrayList<PaymentVO> checkPur(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+
+	int idCheck2(SqlSessionTemplate sqlSessionTemplate, String id);
+
 }
