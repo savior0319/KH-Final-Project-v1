@@ -112,6 +112,38 @@
 		NUM BETWEEN #{start} and #{end}
 	</select>
 
+	<!-- 관리자 전체 회원 리스트 엑셀 memberListExcel -->
+	<select id="memberListExcel" resultType="member">
+		SELECT
+		MB_AGE as mbAge,
+		MB_Index as mbIndex,
+		MB_HEIGHT as
+		mbHeight,
+		MB_WEIGHT as mbWeight,
+		MB_ID as mbId,
+		MB_PWD as mbPwd,
+		MB_NAME
+		as mbName,
+		MB_NICKNAME as mbNickName,
+		MB_GENDER as mbGender,
+		MB_IMAGE as
+		mbImage,
+		MB_Promise
+		as mbPromise,
+		MB_PHONE as mbPhone,
+		MB_REPORT as
+		mbReport,
+		MB_ADDRESS as mbAddress,
+		MB_INTEREST as
+		mbInterest,
+		MB_GRADE as
+		mbGrade,
+		MB_ENROLLDATE as
+		mbEnrollDate
+		FROM MEMBER_TBL
+	</select>
+
+
 	<!-- 관리자 전체 회원 리스트 네비게이션 -->
 	<select id="getMemberNavi" resultType="java.lang.Integer" parameterType="memberListPageData">
 		SELECT COUNT(*) AS TOTALCOUNT
@@ -174,7 +206,8 @@
 		FROM MEMBER_TBL JOIN
 		QUESTION_TBL USING (MB_INDEX)
 		LEFT OUTER JOIN ANSWER_TBL
-		USING(QS_INDEX) ORDER BY qsIndex DESC)
+		USING(QS_INDEX)
+		ORDER BY qsIndex DESC)
 		WHERE NUM BETWEEN
 		#{start} AND
 		#{end}
@@ -360,7 +393,8 @@
 		ss_stay as stay,
 		ss_login as nickName,
 		ss_device as device,
-		ss_LastIn as
+		ss_LastIn
+		as
 		lastIn
 		FROM off_session_tbl
 		where ss_firstOn between trunc(sysdate) and
@@ -412,7 +446,8 @@
 		BR_LIKE as brLike,
 		BD_TODAY as bdToday
 		from BEFORE_DAY_TBL where
-		to_date(bd_today,'yyyy/MM/dd') like sysdate
+		to_date(bd_today,'yyyy/MM/dd')
+		like sysdate
 	</select>
 
 	<select id="yesterdayAutoInsertBefore" resultType="java.lang.Integer">
@@ -468,7 +503,8 @@
 		mbHeight,
 		MB_WEIGHT as mbWeight,
 		MB_ID as mbId,
-		MB_PWD as mbPwd,
+		MB_PWD
+		as mbPwd,
 		MB_NAME as mbName,
 		MB_NICKNAME as mbNickName,
 		MB_GENDER
@@ -527,7 +563,8 @@
 		BOARD_COMMENT_TBL BCT, MEMBER_TBL MT,
 		MEMBER_TBL MT2
 		WHERE
-		BBL.TARGET_INDEX = BPT.POST_INDEX(+) AND
+		BBL.TARGET_INDEX =
+		BPT.POST_INDEX(+) AND
 		BBL.TARGET_INDEX =
 		BCT.CMT_INDEX(+)
 		AND BBL.MB_INDEX = MT.MB_INDEX(+)
@@ -691,7 +728,8 @@
 		MT.MB_GRADE,
 		MT.MB_ID,
 		ROW_NUMBER() OVER
-		(ORDER BY TR_INDEX DESC)
+		(ORDER BY
+		TR_INDEX DESC)
 		AS NUM FROM TRAINER_REG_TBL TRT
 		LEFT JOIN MEMBER_TBL MT
 		ON(TRT.MB_INDEX=MT.MB_INDEX)
@@ -751,7 +789,8 @@
 				from dual
 				union
 				select
-				(select count(*) from error_log_Tbl where (er_date like sysdate-9) and
+				(select count(*) from error_log_Tbl
+				where (er_date like sysdate-9) and
 				(er_type=1)) as
 				low,
 				(select count(*) as low from error_log_Tbl where (er_date like sysdate-9)
@@ -768,7 +807,8 @@
 				(select count(*) from error_log_Tbl where (er_date like
 				sysdate-8) and
 				(er_type=1)) as low,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-8)
+				(select count(*)
+				as low from error_log_Tbl where (er_date like sysdate-8)
 				and
 				(er_type=2))as mid ,
 				(select count(*)
@@ -776,7 +816,8 @@
 				and
 				(er_type=3))as high,
 				sysdate-8 erDate
-				from dual
+				from
+				dual
 				union
 				select
 				(select count(*) from
@@ -784,7 +825,8 @@
 				(er_type=1)) as low,
 				(select count(*) as low from error_log_Tbl where (er_date like sysdate-7)
 				and
-				(er_type=2))as mid ,
+				(er_type=2))as
+				mid ,
 				(select count(*) as low from error_log_Tbl where (er_date like sysdate-7)
 				and
 				(er_type=3))as high,
@@ -792,13 +834,15 @@
 				from dual
 				union
 				select
-				(select count(*) from error_log_Tbl where (er_date like sysdate-6) and
+				(select count(*) from error_log_Tbl where (er_date like
+				sysdate-6) and
 				(er_type=1)) as low,
 				(select count(*) as low from error_log_Tbl
 				where (er_date like sysdate-6)
 				and
 				(er_type=2))as mid ,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-6)
+				(select count(*) as low from error_log_Tbl where (er_date like
+				sysdate-6)
 				and
 				(er_type=3))as
 				high,
@@ -809,7 +853,8 @@
 				(select count(*) from error_log_Tbl where (er_date like sysdate-5) and
 				(er_type=1)) as low,
 				(select
-				count(*) as low from error_log_Tbl where (er_date like sysdate-5)
+				count(*) as low from
+				error_log_Tbl where (er_date like sysdate-5)
 				and
 				(er_type=2))as mid ,
 				(select count(*) as low from error_log_Tbl where (er_date
@@ -835,7 +880,8 @@
 				union
 				select
 				(select count(*) from error_log_Tbl where
-				(er_date like sysdate-3) and
+				(er_date like sysdate-3)
+				and
 				(er_type=1)) as low,
 				(select count(*) as
 				low from error_log_Tbl where (er_date like sysdate-3)
@@ -852,7 +898,8 @@
 				(select
 				count(*) from error_log_Tbl where (er_date like sysdate-2) and
 				(er_type=1)) as low,
-				(select count(*) as low from error_log_Tbl where (er_date like
+				(select count(*) as low from error_log_Tbl where
+				(er_date like
 				sysdate-2)
 				and
 				(er_type=2))as mid ,
@@ -864,14 +911,16 @@
 				from dual
 				union
 				select
-				(select count(*) from error_log_Tbl where (er_date like sysdate-1) and
+				(select count(*)
+				from error_log_Tbl where (er_date like sysdate-1) and
 				(er_type=1)) as low,
 				(select count(*) as low from
 				error_log_Tbl where
 				(er_date like sysdate-1)
 				and
 				(er_type=2))as mid ,
-				(select count(*) as low from error_log_Tbl where (er_date like sysdate-1)
+				(select count(*) as low from
+				error_log_Tbl where (er_date like sysdate-1)
 				and
 				(er_type=3))as high,
 				sysdate-1 erDate
@@ -908,8 +957,7 @@
 	</insert>
 
 	<!-- 에러로그페이지 상세 리스트 불러오기 -->
-	<select id="todayErrorLogSearchDetail" resultType="errorLog"
-		parameterType="errorLog">
+	<select id="todayErrorLogSearchDetail" resultType="errorLog" parameterType="errorLog">
 		select
 		ER_DATE as erDate,
 		ER_STAMP as erStamp,
@@ -919,15 +967,14 @@
 		ER_INFO_THR as erInfoThr,
 		ER_INFO_FOR as erInfoFor
 		from ERROR_LOG_TBl
-		where 
+		where
 		(ER_DAte between (sysdate - (#{ch}+1)) and (sysdate - #{ch})) and er_type = #{type}
 	</select>
-	
-	
+
+
 	<!-- 지난 7일간의 유저데이터를 가져와서, 회원,비회원의 접속량을 보여줄 그래프리스트 -->
 	<select id="findSevenDays" resultType="servenDays">
-  
-     
+    
     select count(distinct(ss_index)) as count ,sysdate-1 as day from off_session_tbl where (ss_firston between sysdate-2 and sysdate-1) and (ss_login = 'NULL')
     union all
     select count(distinct(ss_index)) as count ,sysdate-1 as day from off_session_tbl where (ss_firston between sysdate-2 and sysdate-1) and (ss_login !='NULL')
@@ -969,6 +1016,7 @@
     select count(distinct(ss_index)) as count ,sysdate-7 as day from off_session_tbl where (ss_firston between sysdate-8 and sysdate-7) and (ss_login !='NULL')
     
     order by day desc
+    
 	</select>
 
 </mapper>

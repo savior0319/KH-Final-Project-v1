@@ -107,5 +107,7 @@ public interface AdminService {
 	ArrayList<SevenDaysUserVO> select7Days();
   
 	ArrayList<ErrorLogVO> todayErrorLogSearchDetail(ErrorLogVO eLVO);
+
+	ArrayList<MemberVO> memberListExcel();
   
 }

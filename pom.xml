@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>spring.kh</groupId>
 	<artifactId>diet</artifactId>
@@ -23,13 +22,28 @@
 	</repositories>
 
 	<dependencies>
-	
-	<!-- COS -->
-	  <dependency>
-          <groupId>servlets.com</groupId>
-          <artifactId>cos</artifactId>
-          <version>05Nov2002</version>
-      </dependency> 
+
+		<!-- POI OOXML -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
+		</dependency>
+
+		<!-- POI -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.17</version>
+		</dependency>
+
+
+		<!-- COS -->
+		<dependency>
+			<groupId>servlets.com</groupId>
+			<artifactId>cos</artifactId>
+			<version>05Nov2002</version>
+		</dependency>
 		<!-- Apache Commons File Upload / 혜윤 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -70,7 +84,7 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
- 
+
 		<!-- Mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>

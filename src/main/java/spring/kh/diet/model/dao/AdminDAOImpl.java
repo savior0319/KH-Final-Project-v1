@@ -806,4 +806,11 @@ public class AdminDAOImpl implements AdminDAO {
 		return (ArrayList<SevenDaysUserVO>) list;
 	}
 
+	/* 엑셀 출력용 전체 회원 리스트 */ 
+	@Override
+	public ArrayList<MemberVO> memberListExcel(SqlSessionTemplate session) {
+		List<MemberVO> list = session.selectList("admin.memberListExcel");
+		return (ArrayList<MemberVO>) list;
+	}
+
 }

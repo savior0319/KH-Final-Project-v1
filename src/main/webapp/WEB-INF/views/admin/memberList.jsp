@@ -110,12 +110,21 @@ body {
 		</div>
 </div>
 </div>
+<div align="center">
+<button class="ui button" type="button" onclick="out();" style="background: rgb(250,40,40); color: white;">Excel 파일로 출력</button>
+</div>
+<br>
+<br>
+<br>
 <!-- FOOTER -->
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	
+	function out(){
+		location.href="/excelOut.diet";
+		alert('회원 정보가 출력 되었습니다')
+	}
 </script>
 
 </html>
