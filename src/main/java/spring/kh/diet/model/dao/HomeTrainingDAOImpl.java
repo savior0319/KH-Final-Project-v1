@@ -173,7 +173,6 @@ public class HomeTrainingDAOImpl implements HomeTrainingDAO {
 
 	@Override
 	public int homeTrainingHits(SqlSessionTemplate session, int hits) {
-		System.out.println(hits);
 		int result = session.update("homeTraining.hits", hits);
 		return result;
 	}

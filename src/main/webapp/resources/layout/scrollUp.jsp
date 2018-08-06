@@ -13,7 +13,7 @@
 }
 </style>
 
-<a id="up-scroll" href="javascript:scroll(0,0)"><i class="angle double up icon" style="margin-left:15px; margin-top:15px;"></i></a>
+<a id="up-scroll" href="javascript:scroll(0,0)"><i class="angle red double up icon" style="margin-left:15px; margin-top:15px;"></i></a>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */
 @media ( min-width : 550px) {
