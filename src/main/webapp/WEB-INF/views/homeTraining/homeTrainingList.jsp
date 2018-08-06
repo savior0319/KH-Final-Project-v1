@@ -108,7 +108,7 @@
 						<div class="ui card" >
 							<div class="image">
 								<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo})"
-									style="width: 290px; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
+									style="width: 100%; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${ht.indexNo})" style="height: 50px;">${ht.htTitle }</a>
