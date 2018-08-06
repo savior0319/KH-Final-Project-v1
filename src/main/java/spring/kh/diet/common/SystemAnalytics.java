@@ -1,6 +1,7 @@
 package spring.kh.diet.common;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -33,8 +34,10 @@ public class SystemAnalytics {
 	int cLikes = 0;
 	int cComments = 0;
 	int cPost = 0; // 게시물
-	private SystemAnalyticsDetailTotalVO SADTVO;
 	
+	
+	private SystemAnalyticsDetailTotalVO SADTVO;
+
 	long time = System.currentTimeMillis();
 	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	String totalDay = dayTime.format(new Date(time));
@@ -46,29 +49,28 @@ public class SystemAnalytics {
 	String todayYear = tD2.nextToken();
 	String todayMonth = tD2.nextToken();
 	String todayDay = tD2.nextToken();
-
+	String beforserviceName = "";
 	StringTokenizer tD3 = new StringTokenizer(hhmmss, ":");
 	int todayHour = Integer.parseInt(tD3.nextToken());
 	int todayMinute = Integer.parseInt(tD3.nextToken());
 	int todaySecond = Integer.parseInt(tD3.nextToken());
 	int timeType = 0;
-	
-	
-//	@Resource(name="SystemAnalyticsController")
-//	private SystemAnalyticsController sai;
 
-	@Resource(name="adminAnalyticsService")
+	// @Resource(name="SystemAnalyticsController")
+	// private SystemAnalyticsController sai;
+
+	@Resource(name = "adminAnalyticsService")
 	private AdminAnalyticService an;
 
-	
-	@Pointcut("execution(* spring.kh.diet.model.service.DietTipServiceImpl.*(*)) || execution(* spring.kh.diet.model.service.HomeTrainingServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommunityServiceImpl.*(*))")
+	@Pointcut("execution(* spring.kh.diet.model.service.DietTipServiceImpl.*(*)) || execution(* spring.kh.diet.model.service.HomeTrainingServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommunityServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommonServiceImpl.*(*))")
 	public void allPointcut() {
-		
+
 	}
 
 	@After("allPointcut()")
 	public void test(JoinPoint JP) {
-		
+
+	
 		String methodName = JP.getSignature().getName();
 		String shortString = JP.toShortString();
 		String serviceName = "";
@@ -78,18 +80,21 @@ public class SystemAnalytics {
 		ST2.nextToken();
 		serviceName = ST2.nextToken();
 
-		
-//		System.out.println("숏트링 : " + shortString);
-//		System.out.println("메소드네임:" + methodName);
+		// Object targetName = JP.getTarget();
+		// System.out.println(JP.getSignature().getDeclaringTypeName());
+		// System.out.println(targetName.toString());
+		// System.out.println("서비스 : "+serviceName);
+		// System.out.println("숏트링 : " + shortString);
+		// System.out.println("메소드네임:" + methodName);
 		boolean timeSet = false;
-		
+
 		boolean oneTime = false;
-		
+
 		// 시간대별로 시간을 우선적으로 확인해주고, 시간의 타입에맞춰 해당값들을 계속해서 증가시킨다.
 		// 디비에 갔다오면 카운트들은 초기화를 한번 해야한다.
 		// 분이 딱 15분 59초 이하일경우 인설트를 시키고, 리스트에 해당 값이 있을경우는 update를해준다.
 		//
-		
+
 		if (todayHour < 12) {
 			timeType = 1;
 			timeSet = true;
@@ -111,9 +116,42 @@ public class SystemAnalytics {
 			timeSet = true;
 		}
 		
+
+		ArrayList<TodayAnalyticsDetail> list2 = an.selectAnalytics2(timeType);
+		for(int i=0; i<list2.size();i++)
+		{
+			switch(list2.get(i).getListType())
+			{
+			case 1 :
+				tHits = list2.get(i).getHits();
+				tLikes =list2.get(i).getLikes();
+				tComments = list2.get(i).getComments();
+				tPost = list2.get(i).getPost();
+				// 팁
+				break;
+				
+			case 2 :
+				hHits = list2.get(i).getHits();
+				hLikes =list2.get(i).getLikes();
+				hComments = list2.get(i).getComments();
+				hPost = list2.get(i).getPost();
+				break;
+				
+			case 3 :
+				cHits = list2.get(i).getHits();
+				cLikes =list2.get(i).getLikes();
+				cComments = list2.get(i).getComments();
+				cPost = list2.get(i).getPost();
+				break;
+			
+			}
+			
+		}
+
 		if (timeSet) {
 			switch (serviceName) {
 			case "DietTipServiceImpl":
+				beforserviceName = serviceName;
 				if (methodName.equals("postHit")) // 다이어트팁 조회수
 				{
 					tHits++;
@@ -146,6 +184,7 @@ public class SystemAnalytics {
 				break; // 다이어트팁 게시물 조회수
 
 			case "HomeTrainingServiceImpl":
+				beforserviceName = serviceName;
 				if (methodName.equals("homeTrainingHits")) // 홈트레이닝 조회수
 				{
 					hHits++;
@@ -178,79 +217,203 @@ public class SystemAnalytics {
 				break;
 
 			case "CommunityServiceImpl":
+				beforserviceName = serviceName;
 				if (methodName.equals("postHit")) // 커뮤니티 조회수
 				{
 					cHits++;
 				}
-				if(methodName.equals("boardLikeUp")) //커뮤니티 좋아요  증가
+				if (methodName.equals("boardLikeUp")) // 커뮤니티 좋아요 증가
 				{
 					cLikes++;
 				}
-				if(methodName.equals("boardLikeDown")) // 커뮤니티 좋아요 감소 
+				if (methodName.equals("boardLikeDown")) // 커뮤니티 좋아요 감소
 				{
 					cLikes--;
 				}
-				if(methodName.equals("addComment"))  // 댓글수 증가
+				if (methodName.equals("addComment")) // 댓글수 증가
 				{
 					cComments++;
 				}
-				if(methodName.equals("deleteComment")) // 댓글수 감소
+				if (methodName.equals("deleteComment")) // 댓글수 감소
 				{
 					cComments--;
 				}
-				if(methodName.equals("registCommunity")) // 게시물수 증가
+				if (methodName.equals("registCommunity")) // 게시물수 증가
 				{
 					cPost++;
 				}
-				if(methodName.equals("deletePost")) // 게시물수 감소 
+				if (methodName.equals("deletePost")) // 게시물수 감소
 				{
 					cPost--;
 				}
 				timeSet = false;
 				break;
+			case "CommonServiceImpl":
+				// System.out.println(beforserviceName);
+				if (methodName.equals("addComment")) // 댓글수 증가
+				{
+					if (beforserviceName.equals("HomeTrainingServiceImpl")) {
+						hComments++;
+					}
+					if (beforserviceName.equals("CommunityServiceImpl")) {
+						cComments++;
+					}
+					if (beforserviceName.equals("DietTipServiceImpl")) {
+						tComments++;
+					}
+				}
+				if (methodName.equals("deleteComment")) {
+					if (beforserviceName.equals("HomeTrainingServiceImpl")) {
+						hComments--;
+					}
+					if (beforserviceName.equals("CommunityServiceImpl")) {
+						cComments--;
+					}
+					if (beforserviceName.equals("DietTipServiceImpl")) {
+						tComments--;
+					}
+				}
+				break;
+
 			}
 		}
-		SADTVO = new SystemAnalyticsDetailTotalVO(tHits,tLikes,tComments,tPost,hHits,hLikes,hComments,hPost,cHits,cLikes,cComments,cPost,timeType);
-		int result = an.selectAnalytics(SADTVO.getTimeType());	
-		if(result==0)
-		{
+
+		SADTVO = new SystemAnalyticsDetailTotalVO(tHits, tLikes, tComments, tPost, hHits, hLikes, hComments, hPost,
+				cHits, cLikes, cComments, cPost, timeType);
+		ArrayList<TodayAnalyticsDetail> list = an.selectAnalytics(SADTVO.getTimeType());
+		if (list.isEmpty()) {
 			// 추가
-			TodayAnalyticsDetail TAD = new TodayAnalyticsDetail(tHits, tLikes, tComments, tPost, timeType, 1, "sysdate");
+			TodayAnalyticsDetail TAD = new TodayAnalyticsDetail(tHits, tLikes, tComments, tPost, timeType, 1,
+					"sysdate");
 			an.insertAnalytics(TAD);
-			TAD.setHits(hHits); TAD.setLikes(hLikes); TAD.setComments(hComments); TAD.setPost(hPost); TAD.setListType(2);
+			TAD.setHits(hHits);
+			TAD.setLikes(hLikes);
+			TAD.setComments(hComments);
+			TAD.setPost(hPost);
+			TAD.setListType(2);
 			an.insertAnalytics(TAD);
-			TAD.setHits(cHits); TAD.setLikes(cLikes); TAD.setComments(cComments); TAD.setPost(cPost); TAD.setListType(3);
+			TAD.setHits(cHits);
+			TAD.setLikes(cLikes);
+			TAD.setComments(cComments);
+			TAD.setPost(cPost);
+			TAD.setListType(3);
 			an.insertAnalytics(TAD);
-		}
-		else 
-		{
-			if(todaySecond>0)
-			{		
-				TodayAnalyticsDetail TAD = new TodayAnalyticsDetail(tHits, tLikes, tComments, tPost, timeType, 1, "sysdate");
-				an.updateAnalytics(TAD);
-				TAD.setHits(hHits); TAD.setLikes(hLikes); TAD.setComments(hComments); TAD.setPost(hPost); TAD.setListType(2);
-				an.updateAnalytics(TAD);
-				TAD.setHits(cHits); TAD.setLikes(cLikes); TAD.setComments(cComments); TAD.setPost(cPost); TAD.setListType(3);
-				an.updateAnalytics(TAD);
+		} else {
+			TodayAnalyticsDetail TAD = new TodayAnalyticsDetail(tHits, tLikes, tComments, tPost, timeType, 1,
+					"sysdate");
+			if (todaySecond > 0) {
+			
+				for (int i = 0; i < list.size(); i++) {
+
+					switch (list.get(i).getListType()) {
+					case 1:
+//						System.out.println(list.get(i).getHits());
+//						System.out.println(tComments);
+//						System.out.println("테스트:"+list.get(i).getHits());
+						tHits += list.get(i).getHits();
+						tComments += list.get(i).getComments();
+						tPost += list.get(i).getPost();
+						tLikes += list.get(i).getLikes();
+						TAD.setListType(1);
+						an.updateAnalytics(TAD);
+						break;
+					case 2:
+						hHits += list.get(i).getHits();
+						hComments += list.get(i).getComments();
+						hPost += list.get(i).getPost();
+						hLikes += list.get(i).getLikes();
+						TAD.setHits(hHits);
+						TAD.setLikes(hLikes);
+						TAD.setComments(hComments);
+						TAD.setPost(hPost);
+						TAD.setListType(2);
+						an.updateAnalytics(TAD);
+						break;
+					case 3:
+						cHits += list.get(i).getHits();
+						cComments += list.get(i).getComments();
+						cPost += list.get(i).getPost();
+						cLikes += list.get(i).getLikes();
+						TAD.setHits(cHits);
+						TAD.setLikes(cLikes);
+						TAD.setComments(cComments);
+						TAD.setPost(cPost);
+						TAD.setListType(3);
+						an.updateAnalytics(TAD);
+						break;
+					}
+				}
+				tHits = 0;
+				tLikes = 0;
+				tComments = 0;
+				tPost = 0;
+				hHits = 0;
+				hLikes = 0;
+				hComments = 0;
+				hPost = 0;
+				cHits = 0;
+				cLikes = 0;
+				cComments = 0;
+				cPost = 0;
+
 			}
 			// 00시일경우 값을 업데이트 한번하고, 초기화
-			if ((todayHour == 12 && todayMinute == 00 && todaySecond == 00) || (todayHour == 15 && todayMinute == 00 && todaySecond == 00) || (todayHour == 18&& todayMinute == 00 && todaySecond == 00 )|| (todayHour == 21&& todayMinute == 00 && todaySecond == 00) || (todayHour == 00&& todayMinute == 00 && todaySecond == 00)) 
-			{
-				TodayAnalyticsDetail TAD = new TodayAnalyticsDetail(tHits, tLikes, tComments, tPost, timeType, 1, "sysdate");
-				an.updateAnalytics(TAD);
-				TAD.setHits(hHits); TAD.setLikes(hLikes); TAD.setComments(hComments); TAD.setPost(hPost); TAD.setListType(2);
-				an.updateAnalytics(TAD);
-				TAD.setHits(cHits); TAD.setLikes(cLikes); TAD.setComments(cComments); TAD.setPost(cPost); TAD.setListType(3);
-				an.updateAnalytics(TAD);
-				tHits = 0; tLikes = 0;
-				tComments = 0; tPost = 0;
-				hHits = 0; hLikes = 0;
-				hComments = 0; hPost = 0;
-				cHits = 0; cLikes = 0;
-				cComments = 0; cPost = 0;
+			if ((todayHour == 12 && todayMinute == 00 && todaySecond == 00)
+					|| (todayHour == 15 && todayMinute == 00 && todaySecond == 00)
+					|| (todayHour == 18 && todayMinute == 00 && todaySecond == 00)
+					|| (todayHour == 21 && todayMinute == 00 && todaySecond == 00)
+					|| (todayHour == 00 && todayMinute == 00 && todaySecond == 00)) {
+				for (int i = 0; i < list.size(); i++) {
+
+					switch (list.get(i).getListType()) {
+					case 1:
+						tHits += list.get(i).getHits();
+						tComments += list.get(i).getComments();
+						tPost += list.get(i).getPost();
+						tLikes += list.get(i).getLikes();
+						TAD.setListType(1);
+						an.updateAnalytics(TAD);
+						break;
+					case 2:
+						hHits += list.get(i).getHits();
+						hComments += list.get(i).getComments();
+						hPost += list.get(i).getPost();
+						hLikes += list.get(i).getLikes();
+						TAD.setHits(hHits);
+						TAD.setLikes(hLikes);
+						TAD.setComments(hComments);
+						TAD.setPost(hPost);
+						TAD.setListType(2);
+						an.updateAnalytics(TAD);
+						break;
+					case 3:
+						cHits += list.get(i).getHits();
+						cComments += list.get(i).getComments();
+						cPost += list.get(i).getPost();
+						cLikes += list.get(i).getLikes();
+						TAD.setHits(cHits);
+						TAD.setLikes(cLikes);
+						TAD.setComments(cComments);
+						TAD.setPost(cPost);
+						TAD.setListType(3);
+						an.updateAnalytics(TAD);
+						break;
+					}
+				}
+				tHits = 0;
+				tLikes = 0;
+				tComments = 0;
+				tPost = 0;
+				hHits = 0;
+				hLikes = 0;
+				hComments = 0;
+				hPost = 0;
+				cHits = 0;
+				cLikes = 0;
+				cComments = 0;
+				cPost = 0;
 			}
 		}
 	}
-	
-	
+
 }
