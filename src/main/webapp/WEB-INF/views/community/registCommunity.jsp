@@ -11,25 +11,7 @@
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script src="/resources/slider/responsiveslides.min.js"></script>
 <script>
-	/* summernote에서 이미지 업로드시 실행할 함수 */
-	var postImage;
-	function sendFile(file, el) {
-		form = new FormData();
-		form.append("file", file);
-		$.ajax({
-			data : form,
-			type : "POST",
-			url : "/imageUpload.diet",
-			cache : false,
-			contentType : false,
-			processData : false,
-			encType : "multipart/form-data",
-			success : function(url) {
-				$(el).summernote('editor.insertImage', url);
-				postImage = url;
-			}
-		});
-	}
+
 </script>
 </head>
 
@@ -179,13 +161,29 @@ $(document).ready(function() {
 					for (var i = files.length - 1; i >= 0; i--) {
 						sendFile(files[i], this);
 					}
-				},
-				onMediaDelete : function() {
-					alert('이미지 삭제 콜백');
-				}
+				}				
 			}
 		});
 	});
+	/* summernote에서 이미지 업로드시 실행할 함수 */
+	var postImage;
+	function sendFile(file, el) {
+		form = new FormData();
+		form.append("file", file);
+		$.ajax({
+			data : form,
+			type : "POST",
+			url : "/imageUpload.diet",
+			cache : false,
+			contentType : false,
+			processData : false,
+			encType : "multipart/form-data",
+			success : function(url) {
+				$(el).summernote('editor.insertImage', url);
+				postImage = url;
+			}
+		});
+	}
 
 	$('.ui.dropdown').dropdown({
 		allowAdditions : true,
