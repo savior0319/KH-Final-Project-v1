@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -84,11 +83,12 @@ a {
 					</div>
 					<div class="login box">
 						<p style="padding-top: 20px; font-size: 13px; font-weight: 800;">
-							다이어트신의 다양한 서비스를 이용하시려면 로그인을 해주세요. <br> 회원가입을 하시면 다양한 서비스를
-							받으실 수 있습니다.
+							다이어트신의 다양한 서비스를 이용하시려면 로그인을 해주세요.
+							<br>
+							회원가입을 하시면 다양한 서비스를 받으실 수 있습니다.
 						</p>
 						<br>
-						<form action="/loginRequest.diet" method="post">
+						<form action="/loginRequest.diet" method="post" onsubmit="return login1();">
 							<div class="ui input">
 								<input type="text" placeholder="아이디.." name="memberId" />
 							</div>
@@ -96,17 +96,21 @@ a {
 							<div class="ui input">
 								<input type="password" placeholder="비밀번호.." name="memberPwd" />
 							</div>
-							<br> <input type="submit" class="ui button loginBtn"
-								id="loginBtn" value="로그인" style="color:white;"/>
+							<br>
+							<input type="submit" class="ui button loginBtn" id="loginBtn" value="로그인" style="color: white;" />
 						</form>
-						<br> <br>
+						<br>
+						<br>
 						<div>
-							<a class="ui simple item findPwd" href="#"><h3>비밀번호재설정</h3></a>
+							<a class="ui simple item findPwd" href="#">
+								<h3>비밀번호재설정</h3>
+							</a>
 						</div>
-						<br> <br>
-						<button type="button" class="ui negative basic button"
-							id="joinBtn" onclick="joinBtn1();">회원가입</button>
-						<br> <br>
+						<br>
+						<br>
+						<button type="button" class="ui negative basic button" id="joinBtn" onclick="joinBtn1();">회원가입</button>
+						<br>
+						<br>
 						<jsp:include page="/resources/SNSLogin/kakaoLogin.jsp"></jsp:include>
 					</div>
 				</c:if>
@@ -118,32 +122,34 @@ a {
 					</script>
 				</c:if>
 			</div>
-			
-			<div id="size2" class="contents login" style="width:350px;">
+
+			<div id="size2" class="contents login" style="width: 350px;">
 				<c:if test="${sessionScope.member==null}">
 					<div class="login title">
 						<h1>LOGIN</h1>
 					</div>
-					<div class="login box" style="height:400px;">
+					<div class="login box" style="height: 400px;">
 						<p style="padding-top: 20px; font-size: 13px; font-weight: 800;">
-							다이어트신의 다양한 서비스를 <br>이용하시려면 로그인을 해주세요. <br> 회원가입을 하시면 다양한 서비스를
-							받으실 수 있습니다.
+							다이어트신의 다양한 서비스를
+							<br>
+							이용하시려면 로그인을 해주세요.
+							<br>
+							회원가입을 하시면 다양한 서비스를 받으실 수 있습니다.
 						</p>
 						<br>
-						<form action="/loginRequest.diet" method="post">
-							<div class="ui input" style="width:90%;">
+						<form action="/loginRequest.diet" method="post" onsubmit="return login1();">
+							<div class="ui input" style="width: 90%;">
 								<input type="text" placeholder="아이디.." name="memberId" />
 							</div>
 							<br>
-							<div class="ui input" style="width:90%;">
+							<div class="ui input" style="width: 90%;">
 								<input type="password" placeholder="비밀번호.." name="memberPwd" />
 							</div>
-							<br> <input type="submit" class="ui button loginBtn"
-								id="loginBtn" value="로그인" style="color:white; width:90%;"/>
+							<br>
+							<input type="submit" class="ui button loginBtn" id="loginBtn" value="로그인" style="color: white; width: 90%;" />
 						</form>
 						<br>
-						<button type="button" class="ui negative basic button"
-							id="joinBtn" onclick="joinBtn1();" style="width:90%;">회원가입</button>
+						<button type="button" class="ui negative basic button" id="joinBtn" onclick="joinBtn1();" style="width: 90%;">회원가입</button>
 					</div>
 				</c:if>
 
@@ -154,27 +160,25 @@ a {
 					</script>
 				</c:if>
 			</div>
-			
-			
 		</div>
 	</div>
+
+
 
 	<!-- 비밀번호 찾기 모달 -->
 
 	<div class="ui modal" id="findPwdModal">
 		<i class="close icon"></i>
 		<div class="header">비밀번호 재설정</div>
-		<h5 style="padding-left:3%;">※SNS계정으로 로그인한 회원은 비밀번호 찾기를 하실 수 없습니다.회원 가입 후 이용 바랍니다.</h5>
+		<h5 style="padding-left: 3%;">※SNS계정으로 로그인한 회원은 비밀번호 찾기를 하실 수 없습니다.회원 가입 후 이용 바랍니다.</h5>
 		<div class="image content">
 			<div class="description">
 				<div class="ui header">
-					
+
 					<div class="ui input">
-						<input type="text" placeholder="인증받을 이메일 입력 " id="mbId"
-							style="width: 400px;">
+						<input type="text" placeholder="인증받을 이메일 입력 " id="mbId" style="width: 400px;">
 					</div>
-					<button type="button" class="ui red button" onclick="updatePwd();">비밀번호
-						변경</button>
+					<button type="button" class="ui red button" onclick="updatePwd();">비밀번호 변경</button>
 					<button class="ui gray button" type="reset">취소</button>
 				</div>
 			</div>
@@ -187,43 +191,53 @@ a {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-							
 	/* 회원가입하기 버튼 클릭시 */
-	function joinBtn1(){
-		location.href="/signup.diet";
+	function joinBtn1() {
+		location.href = "/signup.diet";
 	}
 	/* 비밀번호 찾기 모달 */
 	$(".findPwd").click(function() {
 		$('#findPwdModal').modal('show');
 	});
 
-	/* 비밀번호 재설정 - 이메일로 임시비밀번호 발송 */
-	function updatePwd(){
+	/*로그인시 입력 오류 발생 */
+	function login1() {
+		var memberId = $("input[name='memberId']").val();
+		var memberPwd = $("input[name='memberPwd']").val();
 
+		if (memberId == '' || memberPwd == '' ) {
+			alert("아이디  또는 비밀번호를 입력해주세요");
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	/* 비밀번호 재설정 - 이메일로 임시비밀번호 발송 */
+	function updatePwd() {
 		var mbId = $("#mbId").val();
 		var pwdRegExp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,16}$/;
 
-					$.ajax({
-					url : '/updatePassword.diet',
-					data : {
-						'mbId' : mbId,
-					},		
-					type : "post",
-					success : function(data) {
-						console.log(data);
-						if (data == '1') {
-							alert("임시비밀번호가 발급되었습니다. 메일을 확인해주세요");
-							location.href = "/"
-						} else {
-							alert("비밀번호 변경 실패하였습니다.");
-						}
-					},
-					error : function() {
-						alert("비밀번호 변경 실패하였습니다.");
-					}
-				});			
+		$.ajax({
+			url : '/updatePassword.diet',
+			data : {
+				'mbId' : mbId,
+			},
+			type : "post",
+			success : function(data) {
+				console.log(data);
+				if (data == '1') {
+					alert("임시비밀번호가 발급되었습니다. 메일을 확인해주세요");
+					location.href = "/"
+				} else {
+					alert("비밀번호 변경 실패하였습니다.");
+				}
+			},
+			error : function() {
+				alert("비밀번호 변경 실패하였습니다.");
 			}
-
+		});
+	}
 </script>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */

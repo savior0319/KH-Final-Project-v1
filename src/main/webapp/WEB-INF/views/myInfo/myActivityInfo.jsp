@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>마이페이지</title>
+<title>마이페이지-활동내역</title>
 </head>
 
 <!-- CSS -->
@@ -40,23 +40,23 @@ html, body {
 					<table class="ui celled padded table">
 						<thead>
 							<tr align="center">
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="github alternate icon"></i>
 									출 석 횟 수
 								</th>
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="edit outline icon"></i>
 									게 시 물 작 성 수
 								</th>
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="pencil alternate icon"></i>
 									댓 글 작 성 수
 								</th>
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="shield alternate icon"></i>
 									나의 등급
 								</th>
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="user icon"></i>
 									가 입 일
 								</th>
@@ -66,27 +66,27 @@ html, body {
 							<tr align="center">
 								<td>
 									<c:if test="${loginCount == 0}">
-										<h3 class="ui center aligned header">1</h3>
+										<h3 class="ui center aligned header">1&nbsp;회</h3>
 									</c:if>
 									<c:if test="${loginCount != 0}">
-										<h3 class="ui center aligned header">${loginCount}</h3>
+										<h3 class="ui center aligned header">${loginCount}&nbsp;회</h3>
 									</c:if>
 								</td>
 								<td class="single line">
 									<c:if test="${ma.myBoardCount == null}">
-										<h3>0</h3>
+										<h3>0&nbsp;회</h3>
 									</c:if>
 									<c:if test="${ma.myBoardCount != null}">
-										<h3>${ma.myBoardCount }</h3>
+										<h3>${ma.myBoardCount }&nbsp;번</h3>
 									</c:if>
 
 								</td>
 								<td>
 									<c:if test="${ma.myCommentCount == null}">
-										<h3>0</h3>
+										<h3>0&nbsp;회</h3>
 									</c:if>
 									<c:if test="${ma.myCommentCount != null}">
-										<h3>${ma.myCommentCount}</h3>
+										<h3>${ma.myCommentCount}&nbsp;회</h3>
 									</c:if>
 								</td>
 								<td>

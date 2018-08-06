@@ -104,6 +104,16 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return result;
 	}
 
+	@Override
+	public int idCheck2(SqlSessionTemplate sqlSessionTemplate, String id) {
+		MemberVO mv = sqlSessionTemplate.selectOne("myInfo.selectOneMember2", id);
+		int result = 0;
+		if (mv != null) {
+			result = 1;
+		}
+		return result;
+	}
+
 	// 닉네임 중복 체크
 	@Override
 	public int nickNameCheck(SqlSessionTemplate sqlSessionTemplate, String nickName) {
@@ -805,7 +815,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public TrainingRegVO myTrainingReg(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		TrainingRegVO trv = sqlSessionTemplate.selectOne("myInfo.myTrainingReg",mv);
+		TrainingRegVO trv = sqlSessionTemplate.selectOne("myInfo.myTrainingReg", mv);
 		return trv;
 	}
 
@@ -887,14 +897,14 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public int canclePro(SqlSessionTemplate sqlSessionTemplate, PaymentVO pv) {
-		int result = sqlSessionTemplate.delete("myInfo.canclePro",pv);
+		int result = sqlSessionTemplate.delete("myInfo.canclePro", pv);
 		return result;
 	}
 
 	@Override
 	public ArrayList<PaymentVO> checkPur(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		List <PaymentVO> list = sqlSessionTemplate.selectList("myInfo.checkPur",mv);
-		return (ArrayList<PaymentVO>)list;
+		List<PaymentVO> list = sqlSessionTemplate.selectList("myInfo.checkPur", mv);
+		return (ArrayList<PaymentVO>) list;
 	}
 
 }

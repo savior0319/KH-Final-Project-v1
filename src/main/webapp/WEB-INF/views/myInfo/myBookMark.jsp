@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>마이페이지</title>
+<title>마이페이지-북마크</title>
 </head>
 
 <!-- CSS -->
@@ -40,29 +40,29 @@ html, body {
 					<table class="ui gray table">
 						<thead>
 							<tr id="title" align="center">
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<div class="ui checkbox">
 										<input type="checkbox" name="allCheck" id="allCheck1" />
 										<label></label>
 									</div>
 								</th>
-								<th>
-									<i class="question circle icon"></i>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
+									<i class="bookmark outline icon"></i>
 									게 시 판
 								</th>
-								<th>
-									<i class="question circle icon"></i>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
+									<i class="bookmark outline icon"></i>
 									제 목
 								</th>
-								<th>
-									<i class="question circle icon"></i>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
+									<i class="bookmark outline icon"></i>
 									작 성 자
 								</th>
-								<th>
-									<i class="question circle icon"></i>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
+									<i class="bookmark outline icon"></i>
 									조 회 수
 								</th>
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="heart icon"></i>
 									좋 아 요
 								</th>
@@ -127,23 +127,50 @@ html, body {
 										</c:choose>
 									</td>
 									<td style="width: 40%;">
-										<c:if test="${m.dtIndex==null}">
+
+										<c:if test="${m.dtIndex==''}">
 											<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${m.postTitle}</a>
+
 										</c:if>
-										<c:if test="${m.dtIndex!=null}">
+										<c:if test="${m.dtIndex!=''}">
 											<a href="/dietTipInfo.diet?indexNo=${m.dtIndex}">${m.dtTitle}</a>
 										</c:if>
 									</td>
 									<td>${m.mbId }</td>
 									<td style="width: 10%;">
-										<c:if test="${m.dtSee==0}">${m.postHit}</c:if>
-										<c:if test="${m.dtSee!=0}">${m.dtSee}</c:if>
+										<c:if test="${m.dtSee==0}">
+											<c:set var="index" value="${m.postHit}" />
+											<c:if test="${index>99998}">
+												99999+&nbsp;번
+											</c:if>
+											<c:if test="${m.postHit<=99998}">${m.postHit}&nbsp;번
+											</c:if>
+										</c:if>
+										<c:if test="${m.dtSee!=0}">
+											<c:if test="${m.dtSee>99999}">
+												99999<span style="color:red;">+</span>
+											</c:if>
+											<c:if test="${m.dtSee<=99998}">${m.dtSee}번
+											</c:if>
+										</c:if>
 									</td>
 									<td style="width: 10%;">
 										<i class="heart icon"></i>
-										&nbsp;&nbsp;
-										<c:if test="${m.dtLike==0}">${m.postLike}</c:if>
-										<c:if test="${m.dtLike!=0}">${m.dtLike}</c:if>
+										<c:if test="${m.dtLike==0}">
+											<c:set var="index" value="${m.postLike}" />
+											<c:if test="${index>99998}">
+												99999+&nbsp;번
+											</c:if>
+											<c:if test="${m.postHit<=99998}">${m.postHit}&nbsp;번
+											</c:if>
+										</c:if>
+										<c:if test="${m.dtLike!=0}">
+											<c:if test="${m.dtLike>99999}">
+												99999<span style="color:red;">+</span>
+											</c:if>
+											<c:if test="${m.dtLike<=99998}">${m.dtSee}번
+											</c:if>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>
@@ -152,7 +179,7 @@ html, body {
 					<button class="ui red button" style="float: right;" onclick="deleteMyBookMark();">삭제하기</button>
 					<br>
 					<br>
-					
+
 					<div class="ui grid">
 						<div class="three column row">
 							<div class="column"></div>

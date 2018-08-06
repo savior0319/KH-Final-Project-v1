@@ -105,6 +105,12 @@ public class MyInfoServiceImpl implements MyInfoService {
 	@Override
 	public int idCheck(String id) {
 		int result = myInfoDAO.idCheck(SqlSessionTemplate, id);
+		int result1 = myInfoDAO.idCheck2(SqlSessionTemplate, id);
+		if (result == 1 || result1 == 1) {
+			result = 1;
+		} else {
+			result = 0;
+		}
 		return result;
 	}
 
@@ -227,7 +233,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public MyRequestTrainerPDVO requestTrainer(int currentPage, TrainerProgramVO tv) {
-		int recordCountPerPage = 3;
+		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
@@ -245,7 +251,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public ApplyTrainerPDVO applyTrainer(int currentPage, TrainingRegVO tv) {
-		int recordCountPerPage = 3;
+		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 
 		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
@@ -263,7 +269,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public ApplyTrainerPDVO applyTrainer2(int currentPage, TrainingRegVO tr) {
-		int recordCountPerPage = 3;
+		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 
 		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
@@ -281,7 +287,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public MyRequestTrainerPDVO requestTrainer2(int currentPage, TrainerProgramVO tv) {
-		int recordCountPerPage = 3;
+		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
@@ -322,13 +328,13 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public TrainingRegVO myTrainingReg(MemberVO mv) {
-		TrainingRegVO trv = myInfoDAO.myTrainingReg(SqlSessionTemplate,mv);
+		TrainingRegVO trv = myInfoDAO.myTrainingReg(SqlSessionTemplate, mv);
 		return trv;
 	}
 
 	@Override
 	public MyRequestTrainerPDVO requestTrainer3(int currentPage, TrainerProgramVO tv) {
-		int recordCountPerPage = 3;
+		int recordCountPerPage = 10;
 		int naviCountPerPage = 5;
 
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
@@ -346,13 +352,13 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public int canclePro(PaymentVO pv) {
-		int result = myInfoDAO.canclePro(SqlSessionTemplate,pv);
+		int result = myInfoDAO.canclePro(SqlSessionTemplate, pv);
 		return result;
 	}
 
 	@Override
 	public ArrayList<PaymentVO> checkPur(MemberVO mv) {
-		ArrayList<PaymentVO> list = myInfoDAO.checkPur(SqlSessionTemplate,mv);
+		ArrayList<PaymentVO> list = myInfoDAO.checkPur(SqlSessionTemplate, mv);
 		return list;
 	}
 

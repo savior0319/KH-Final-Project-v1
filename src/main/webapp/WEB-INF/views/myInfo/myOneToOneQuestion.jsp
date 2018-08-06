@@ -7,7 +7,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>마이페이지</title>
+<title>마이페이지-일대일문의</title>
 </head>
 
 <body>
@@ -23,25 +23,25 @@
 					<table class="ui gray table">
 						<thead>
 							<tr id="title" align="center">
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<div class="ui checkbox">
 										<input type="checkbox" name="allCheck" id="allCheck1">
 										<label></label>
 									</div>
 								</th>
-								<th>
-									<i class="question circle icon"></i>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
+									<i class=" star icon"></i>
 									문의번호
 								</th>
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="question circle icon"></i>
 									제 목
 								</th>
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="question circle icon"></i>
 									작 성 일
 								</th>
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="question circle icon"></i>
 									답 변 여 부
 								</th>
@@ -60,14 +60,15 @@
 									<td>
 										<a href="javascript:void(0);" onclick="showMyQuestion(${m.qsIndex});">${m.qsTitle}</a>
 									</td>
-									<td><c:set var="TextValue"
-													value="${m.qsWriteTime}" /> ${fn:substring(TextValue,0,11)}일
-												${fn:substring(TextValue,11,16)}분</td>
+									<td>
+										<c:set var="TextValue" value="${m.qsWriteTime}" />
+										${fn:substring(TextValue,0,11)}일 ${fn:substring(TextValue,11,16)}분
+									</td>
 									<c:if test="${m.qsAnswerCheck=='n'}">
-										<td>답변대기중</td>
+										<td style=" font-size:18px;">답변대기중</td>
 									</c:if>
 									<c:if test="${m.qsAnswerCheck =='y'}">
-										<td>답변완료</td>
+										<td style="color:red; font-size:18px;">답변완료</td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -97,25 +98,26 @@
 					</div>
 				</c:if>
 
-
 				<!-- 1:1 문의하기 -->
 				<div class="ui modal" id="questionModal1">
 					<i class="close icon"></i>
 					<div class="ui large header">일대일 문의</div>
 					<div class="ui left aligned basic segment">
-						<br>
 						<div class="ui form" style="font-weight: 600;">
-							<label style="margin-right: 3%;">제목</label>
-							<lavel id="qsTitle12"></lavel>
-							<br>
+							<div class="ui blue message">
+								<label style="margin-right: 3%; font-size: 20px;">제 &nbsp;목 &nbsp;:</label>
+								<lavel id="qsTitle12" style="font-size:20px;"></lavel>
+							</div>
 							<br>
 							<div class="field">
-								<label>문의내용</label>
-								<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none;" id="contentQuestion"></textarea>
+								<label style="font-size: 20px;">&nbsp;※&nbsp;문 &nbsp;의&nbsp;내&nbsp;용</label>
+								<br>
+								<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none; color: grey" id="contentQuestion"></textarea>
 							</div>
 							<div class="field">
-								<label>관리자 답변 입니다.</label>
-								<textarea placeholder="관리자 답변" style="height: 150px; overflow: hidden; resize: none;" id="contentAnswer"></textarea>
+								<label style="font-size: 20px;">&nbsp;※&nbsp;관&nbsp;리&nbsp;자&nbsp;답&nbsp;변</label>
+								<br>
+								<textarea placeholder="관리자 답변" style="height: 150px; overflow: hidden; resize: none; color: blue" id="contentAnswer"></textarea>
 							</div>
 						</div>
 						<br>

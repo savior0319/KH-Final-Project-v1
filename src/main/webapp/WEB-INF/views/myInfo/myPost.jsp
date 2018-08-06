@@ -2,18 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>마이페이지</title>
+<title>마이페이지-나의게시물</title>
 </head>
 
 <!-- CSS -->
 <style>
 html, body {
 	margin: 0 auto;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 .myActivity1 {
@@ -41,16 +44,16 @@ html, body {
 					<table class="ui gray table">
 						<thead>
 							<tr id="title" align="center">
-								<th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<div class="ui checkbox">
 										<input type="checkbox" name="allCheck" id="allCheck1">
 										<label></label>
 									</div>
 								</th>
-								<th><i class="question circle icon"></i> 게 시 물 번 호</th>
-								<th><i class="question circle icon"></i> 게 시 판</th>
-								<th><i class="question circle icon"></i> 제 목</th>
-								<th><i class="question circle icon"></i> 작 성 일</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);"><i class="star icon"></i> 게 시 물 번 호</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);"><i class="clipboard outline icon"></i> 게 시 판</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);"><i class="clipboard outline icon"></i> 제 목</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);"><i class="clipboard outline icon"></i> 작 성 일</th>
 
 							</tr>
 						</thead>

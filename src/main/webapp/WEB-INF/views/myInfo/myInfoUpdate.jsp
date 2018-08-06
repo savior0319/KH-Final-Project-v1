@@ -6,6 +6,8 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<link href="https://fonts.googleapis.com/css?family=Stylish" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <title>마이페이지</title>
 </head>
 
@@ -102,6 +104,8 @@
 	margin: -1px;
 	overflow: hidden;
 }
+
+
 </style>
 
 <body>
@@ -112,7 +116,6 @@
 	<!-- CONTENTS -->
 
 	<div class="ui container">
-
 		<div class="ui center aligned basic segment">
 			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
 			<br>
@@ -194,9 +197,9 @@
 							</c:if>
 						</div>
 						<div class="Btn">
-							<button type="button" class="ui button" id="updatePictureBtn1" onclick="updatePictureBtn();" style="width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
+							<button type="button" class="ui button" id="updatePictureBtn1" onclick="updatePictureBtn();" style=" font-family: 'Do Hyeon', sans-serif;width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
 							<br>
-							<button type="button" class="ui button" id="deletePictureBtn1" onclick="deletePictureBtn();" style="margin-top: 10px; width: 140px;">사진 삭제</button>
+							<button type="button" class="ui button" id="deletePictureBtn1" onclick="deletePictureBtn();" style=" font-family: 'Do Hyeon', sans-serif;margin-top: 10px; width: 140px;">사진 삭제</button>
 						</div>
 						<br>
 
@@ -204,22 +207,22 @@
 							<table class="ui celled table">
 								<tbody>
 									<tr>
-										<td class="firstTd" style="width: 250px;">
-											<h3>
-												<i class="shield alternate icon"></i>
+										<td class="firstTd" style="width: 250px; background-color: rgba(255, 185, 185, 0.5);">
+											<h3 style=" font-size: 20px;">
+												<i class=" trophy icon"></i>
 												등급
 											</h3>
 										</td>
 										<td>
-											<strong>${sessionScope.member.mbGrade}&nbsp;&nbsp;</strong>
+											<strong style="font-size: 20px; ">${sessionScope.member.mbGrade}&nbsp;&nbsp;</strong>
 											<button type="button" class="ui button" onclick="gradeInfo();">
-												<strong>등급안내</strong>
+												<strong style=" font-size: 20px;">등급안내</strong>
 											</button>
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd">
-											<h3>
+										<td class="firstTd"  style="background-color: rgba(255, 185, 185, 0.5);" >
+											<h3 style=" font-size: 20px; ">
 												<i class="shield alternate icon"></i>
 												계정
 											</h3>
@@ -231,9 +234,9 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd">
-											<h3>
-												<i class="shield alternate icon"></i>
+										<td class="firstTd"  style="background-color: rgba(255, 185, 185, 0.5);">
+											<h3 style=" font-size: 20px;">
+												<i class="expeditedssl icon"></i>
 												비밀번호 재설정
 											</h3>
 										</td>
@@ -244,9 +247,10 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd">
-											<h3>
-												<i class="shield alternate icon"></i>
+										<td class="firstTd"  style="background-color: rgba(255, 185, 185, 0.5);">
+											<h3 style=" font-size: 20px;">
+												<i class="tree icon"></i>
+											
 												닉네임
 											</h3>
 										</td>
@@ -256,9 +260,9 @@
 											</div>
 										</td>
 									<tr>
-										<td class="firstTd">
-											<h3>
-												<i class="shield alternate icon"></i>
+										<td class="firstTd"  style="background-color: rgba(255, 185, 185, 0.5);">
+											<h3 style="font-size: 20px;">
+												<i class="phone  icon"></i>
 												핸드폰번호
 											</h3>
 										</td>
@@ -269,9 +273,9 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd">
-											<h3>
-												<i class="shield alternate icon"></i>
+										<td class="firstTd"  style="background-color: rgba(255, 185, 185, 0.5);">
+											<h3 style=" font-size: 20px;">
+												<i class="paw  icon"></i>
 												다짐
 											</h3>
 										</td>
@@ -282,15 +286,15 @@
 										</td>
 									</tr>
 
-									
+
 								</tbody>
 							</table>
-							
+							<h4>※정보 수정을 원하시면 수정 버튼을 눌러주세요</h4>
 							<input type="submit" value="수정" class="ui red button" id="updateInfoBtn" />
 							<input type="reset" value="취소" class="ui button" id="updateCancleBtn" />
 							<br>
 							<br>
-							<br>
+
 						</div>
 					</div>
 				</form>
@@ -471,7 +475,6 @@
 			alert("사진 삭제 취소하셨습니다.");
 		}
 	}
-
 </script>
 
 </html>

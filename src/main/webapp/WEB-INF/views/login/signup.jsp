@@ -702,6 +702,7 @@
 							data : {'id' : id},
 							type : 'post',
 							success : function(data){
+							
 								if(data == '0'){
 									$('#idMessage').html('* 사용 가능한 아이디 입니다').css('display', 'block').css('color', 'blue');
 									idPass = true;

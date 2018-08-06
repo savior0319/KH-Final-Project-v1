@@ -404,6 +404,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 
 		MyCommentPageDataVO myComment = myInfoService.myCommentList(currentPage, type, ma);
+		System.out.println(myComment);
 		request.setAttribute("myComment", myComment);
 		return "myInfo/myComment";
 
@@ -426,7 +427,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 
 		MyBookMarkPageDataVO myBookMark = myInfoService.myBookMarkList(currentPage, type, ma);
-
+		System.out.println(myBookMark);
 		request.setAttribute("myBookMark", myBookMark);
 		return "myInfo/myBookMark";
 
@@ -453,8 +454,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	}
 
-	/* 트레이너 자격 신청 & 요청 (트레이너) */
-
+	/* 트레이너 매칭 */
 	@Override
 	@RequestMapping(value = "/applyTrainer.diet")
 	public Object requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
@@ -496,8 +496,8 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	@Override
 	@RequestMapping(value = "/requestTrainer.diet")
-	public Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
-			throws JsonIOException, IOException {
+	public Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			String type) throws JsonIOException, IOException {
 
 		int currentPage; // 현재 페이지 값을 저장하는 변수
 		MemberVO mv = (MemberVO) session.getAttribute("member");
@@ -513,10 +513,9 @@ public class MyInfoControllerImpl implements MyInfoController {
 		} else {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+
 		ModelAndView view = new ModelAndView();
 		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer2(currentPage, tr);
-
-		
 		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer2(currentPage, tv);
 		TrainingRegVO trv = myInfoService.myTrainingReg(mv);
 
@@ -545,7 +544,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 		response.getWriter().print(String.valueOf(result));
 		response.getWriter().close();
-
 	}
 
 	/* 블랙리스트 확인 */
