@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%-- 
 <jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include> 
@@ -472,11 +473,12 @@ data.addColumn('number', '좋아요');
 						<thead>
 							<tr align="center">
 								<th style="width: 10%">비고</th>
-								<th style="width: 30%"><i class="address card outline icon"></i>
+								<th style="width: 20%"><i class="address card outline icon"></i>
 									아이디</th>
-								<th style="width: 30%"><i class="address card icon"></i>
+								<th style="width: 20%"><i class="address card icon"></i>
 									닉네임</th>
-								<th style="width: 30%"><i class="venus mars icon"></i> 성 별</th>
+								<th style="width: 20%"><i class="venus mars icon"></i> 성 별</th>
+								<th style="width: 30%"><i class="user secret icon"></i></i> 등 급</th>
 
 							</tr>
 						</thead>
@@ -488,9 +490,11 @@ data.addColumn('number', '좋아요');
 										<td></td>
 										<td></td>
 										<td></td>
+										<td></td>
 									</tr>
 									<tr>
 										<td style="height: 100px"></td>
+										<td></td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -501,15 +505,24 @@ data.addColumn('number', '좋아요');
 										varStatus="status">
 										<tr align="center">
 											<td style="width: 10%"><c:out value="${status.index+1}" /></td>
-											<td style="width: 30%">${is.mbId}</td>
-											<td style="width: 30%">${is.mbNickName}</td>
+											<c:choose>
+														<c:when test="${fn:length(is.mbId)>17}">
+															<td style="width: 20%">
+															<c:out value="${fn:substring(is.mbId,0,13)}"/>..
+															</td>
+														</c:when>
+														<c:otherwise>
+															<td style="width: 20%">${is.mbId}</td>
+														</c:otherwise>
+											</c:choose>
+											<td style="width: 20%">${is.mbNickName}</td>
 											<c:choose>
 												<c:when test="${is.mbGender eq 'm'}">
-													<td style="width: 30%">남 성 ( <i class="male icon"></i>)
+													<td style="width: 20%">남 성 ( <i class="male icon"></i>)
 													</td>
 												</c:when>
 												<c:when test="${is.mbGender eq 'f'}">
-													<td style="width: 30%">여 성 ( <i class="female icon"></i>)
+													<td style="width: 20%">여 성 ( <i class="female icon"></i>)
 													</td>
 												</c:when>
 												<c:otherwise>
@@ -518,7 +531,7 @@ data.addColumn('number', '좋아요');
 													</td>
 												</c:otherwise>
 											</c:choose>
-
+											<td style="width: 30%">${is.mbGrade}</td>
 
 										</tr>
 									</c:forEach>
@@ -552,11 +565,12 @@ data.addColumn('number', '좋아요');
 					<table class="ui celled table">
 						<thead>
 							<tr align="center">
-								<th style="width: 15%">비고</th>
+								<th style="width: 10%">비고</th>
 								<th style="width: 25%"><i class="address card outline icon"></i>
 									아이디</th>
 								<th style="width: 20%"><i class="venus mars icon"></i> 성 별</th>
 								<th style="width: 25%"><i class="calendar plus icon"></i>가입일</th>
+								<th style="width: 20%"><i class="user secret icon"></i></i> 등 급</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -567,9 +581,11 @@ data.addColumn('number', '좋아요');
 										<td></td>
 										<td></td>
 										<td></td>
+										<td></td>
 									</tr>
 									<tr>
 										<td style="height: 100px"></td>
+										<td></td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -579,8 +595,17 @@ data.addColumn('number', '좋아요');
 									<c:forEach items="${requestScope.todayDelMember}" var="ds"
 										varStatus="status">
 										<tr align="center">
-											<td style="width: 15%"><c:out value="${status.index+1}" /></td>
-											<td style="width: 25%">${ds.mbId}</td>
+											<td style="width: 10%"><c:out value="${status.index+1}" /></td>
+											<c:choose>
+														<c:when test="${fn:length(ds.mbId)>17}">
+															<td style="width: 25%">
+															<c:out value="${fn:substring(ds.mbId,0,13)}"/>..
+															</td>
+														</c:when>
+														<c:otherwise>
+															<td style="width: 25%">${ds.mbId}</td>
+														</c:otherwise>
+											</c:choose>
 											<c:choose>
 												<c:when test="${ds.mbGender eq 'm'}">
 													<td style="width: 20%">남 성 ( <i class="male icon"></i>)
@@ -597,6 +622,7 @@ data.addColumn('number', '좋아요');
 												</c:otherwise>
 											</c:choose>
 											<td style="width: 25%">${ds.mbDeleteDate}</td>
+											<td style="width: 20%">${ds.mbGrade}</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
