@@ -5,11 +5,44 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<script src="/resources/slider/responsiveslides.min.js"></script>
 <title>다이어트</title>
 </head>
 
 <!-- CSS -->
 <style>
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
+
 </style>
 
 <body>
@@ -18,6 +51,26 @@
 
 	<!-- CONTENTS -->
 	<div class="ui container">
+	
+	<!-- 슬라이드-->
+               <ul class="rslides" style="padding-bottom: 15px;">
+                  <li>
+                     <img src="#" id="image1" style="height:250px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image2" style="height:250px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image3" style="height:250px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image4" style="height:250px;">
+                  </li>
+                  <li>
+                     <img src="/resources/image/advertise.png" style="height:250px;">
+                  </li>
+               </ul>
+               
 		<div class="ui center aligned basic segment">
 
 			<h1 class="ui left aligned header">음식칼로리</h1>
@@ -156,6 +209,33 @@
 
 		location.href = "/foodCalorieList.diet?searchText=" + searchText;
 	}
+	
+	//슬라이드
+	$(function() {
+		$(".rslides").responsiveSlides({
+			auto : true,
+			timeout : 1500,
+		});
+	});
+
+	/* 광고 이미지 불러오기 */
+	$(document).ready(function() {
+	   $.ajax({
+	      url : '/advertiseImageLoad.diet',
+	      type : 'post',
+	      success : function(img){
+	         $("#image1").attr("src",img[0].path1);
+	         $("#image2").attr("src",img[1].path1);
+	         $("#image3").attr("src",img[2].path1);
+	         $("#image4").attr("src",img[3].path1);
+	      },
+	      error : function(){
+	         console.log('[ERROR] - 이미지 불러오기 오류');
+	      }
+	   });
+	});
+	
+	
 </script>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */

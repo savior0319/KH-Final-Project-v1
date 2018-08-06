@@ -6,11 +6,43 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<script src="/resources/slider/responsiveslides.min.js"></script>
 <title>다이어트</title>
 </head>
 
 <!-- CSS -->
 <style>
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
 </style>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -72,6 +104,26 @@
 
 	<!-- CONTENTS -->
 	<div class="ui container">
+	
+	<!-- 슬라이드-->
+               <ul class="rslides" style="padding-bottom: 15px;">
+                  <li>
+                     <img src="#" id="image1" style="height:250px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image2" style="height:250px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image3" style="height:250px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image4" style="height:250px;">
+                  </li>
+                  <li>
+                     <img src="/resources/image/advertise.png" style="height:250px;">
+                  </li>
+               </ul>
+	
 		<div class="ui center aligned basic segment">
 
 			<h1 class="ui left aligned header">음식칼로리</h1>
@@ -82,7 +134,7 @@
 
 			<div class="ui secondary segment">
 				<div class="ui right action left icon input" style="width: 80%;">
-					<i class="search icon"></i> <input id="searchText" type="text" placeholder="검색어 입력" style="width: 80%;">
+					<i class="search icon"></i> <input id="searchText" type="text" placeholder="검색어 입력" style="width: 80%;" onkeypress="runScript(event)">
 					<div class="ui basic floating dropdown button" onclick="foodCalSearch();">
 						<div class="text">검색</div>
 					</div>
@@ -145,7 +197,7 @@
 			<br>
 
 			<div id="size1" align="center">
-				<h4 class="ui left aligned header" style="text-indent: 10px;">
+				<h4 class="ui left aligned header" style="text-indent: 10px; margin-left:9%;">
 					<span style="color: #4776c9;">${requestScope.fc.fcName }</span>의 칼로리<span style="color: #4776c9;">(${requestScope.fc.fcCal }kcal)</span>와 동일한 운동을 확인해 보세요.
 				</h4>
 				<br>
@@ -157,7 +209,7 @@
 					<li><strong>수영</strong> <span><fmt:formatNumber value="${requestScope.fc.fcCal/10.2 }" pattern="#" />분</span></li>
 					<li><strong>자전거</strong> <span><fmt:formatNumber value="${requestScope.fc.fcCal/9.1 }" pattern="#" />분</span></li>
 				</ul>
-				<h5 class="ui left aligned header">※&ensp;몸무게 기준은 65Kg입니다.</h5>
+				<h5 class="ui left aligned header" style="margin-left:9%;">※&ensp;몸무게 기준은 65Kg입니다.</h5>
 			</div>
 		</div>
 
@@ -226,6 +278,46 @@ tr>th {
 
 		location.href = "/foodCalorieList.diet?searchText=" + searchText;
 	}
+	
+	//슬라이드
+	$(function() {
+		$(".rslides").responsiveSlides({
+			auto : true,
+			timeout : 1500,
+		});
+	});
+
+	/* 광고 이미지 불러오기 */
+	$(document).ready(function() {
+	   $.ajax({
+	      url : '/advertiseImageLoad.diet',
+	      type : 'post',
+	      success : function(img){
+	         $("#image1").attr("src",img[0].path1);
+	         $("#image2").attr("src",img[1].path1);
+	         $("#image3").attr("src",img[2].path1);
+	         $("#image4").attr("src",img[3].path1);
+	      },
+	      error : function(){
+	         console.log('[ERROR] - 이미지 불러오기 오류');
+	      }
+	   });
+	});
+	
+	
+	/* 검색  - 엔터*/
+	function runScript(e) {
+		if (e.keyCode == 13) {
+			foodCalSearch();
+		}
+	}
+
+	function foodCalSearch() {
+		var searchText = $('#searchText').val();
+
+		location.href = "/foodCalorieList.diet?searchText=" + searchText;
+	}
+	
 </script>
 <style type="text/css" media="screen">
 /* 모바일용 아닌 사이즈 */

@@ -186,16 +186,27 @@ public class AdminControllerImpl implements AdminController {
 		// 그래프용 값가져오기
 		ArrayList<SevenDaysUserVO> sevenList = as.select7Days();
 
-		for (int i = 0; i < sevenList.size(); i++) {
-			if (!sevenList.get(i).getDate().equals(sevenList.get(i + 1).getDate())) {
-				// 데이터 값이 두개씩일때.
-
-			} else // 데이터 값이 하나일떄???
-			{
-
-			}
-		}
-
+//		for(int i=0; i<sevenList.size();i++) {
+//			System.out.println(sevenList.get(i).toString());
+//		}
+		
+		// 짝수가 비회원, 홀수가 회원  // a는 비회원 b는 회원
+		// 1이 가장 먼날, 7이 가장가까운날 7은어제
+		request.setAttribute("graph7a",sevenList.get(0));
+		request.setAttribute("graph7b",sevenList.get(1));
+		request.setAttribute("graph6a",sevenList.get(2));
+		request.setAttribute("graph6b",sevenList.get(3));
+		request.setAttribute("graph5a",sevenList.get(4));
+		request.setAttribute("graph5b",sevenList.get(5));
+		request.setAttribute("graph4a",sevenList.get(6));
+		request.setAttribute("graph4b",sevenList.get(7));
+		request.setAttribute("graph3a",sevenList.get(8));
+		request.setAttribute("graph3b",sevenList.get(9));
+		request.setAttribute("graph2a",sevenList.get(10));
+		request.setAttribute("graph2b",sevenList.get(11));
+		request.setAttribute("graph1a",sevenList.get(12));
+		request.setAttribute("graph1b",sevenList.get(13));
+		
 		ASLPDVO.setType(request.getParameter("type"));
 
 		request.setAttribute("currentSession", ASLPDVO);

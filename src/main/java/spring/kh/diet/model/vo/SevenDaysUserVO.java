@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SevenDaysUserVO {
 
-	private Date date;
-	private int user,non;
+	private Date date,day;
+	private int user,non,count;
 }

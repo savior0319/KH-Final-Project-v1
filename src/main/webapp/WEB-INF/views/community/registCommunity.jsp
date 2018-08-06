@@ -9,6 +9,7 @@
 <link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
 <script src="/resources/summernote/dist/summernote-lite.js"></script>
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+<script src="/resources/slider/responsiveslides.min.js"></script>
 <script>
 	/* summernote에서 이미지 업로드시 실행할 함수 */
 	var postImage;
@@ -34,6 +35,41 @@
 
 <!-- CSS -->
 <style>
+.ui.card {
+	width: 400px;
+}
+
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
 </style>
 
 
@@ -47,6 +83,26 @@
 	<br>
 	<br>
 	<div class="ui container">
+<!-- 슬라이드-->
+               <ul class="rslides" style="padding-bottom: 15px;">
+                  <li>
+                     <img src="#" id="image1" style="height:300px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image2" style="height:300px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image3" style="height:300px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image4" style="height:300px;">
+                  </li>
+                  <li>
+                     <img src="/resources/image/advertise.png" style="height:300px;">
+                  </li>
+               </ul>
+	
+	
 		<div class="ui left aligned basic segment">
 			<div class="ui medium message">
 				<div class="ui large header" align="center">게시글 등록</div>
@@ -86,6 +142,32 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+// 슬라이드
+$(function() {
+	$(".rslides").responsiveSlides({
+		auto : true,
+		timeout : 1500,
+	});
+});
+
+/* 광고 이미지 불러오기 */
+$(document).ready(function() {
+   $.ajax({
+      url : '/advertiseImageLoad.diet',
+      type : 'post',
+      success : function(img){
+         $("#image1").attr("src",img[0].path1);
+         $("#image2").attr("src",img[1].path1);
+         $("#image3").attr("src",img[2].path1);
+         $("#image4").attr("src",img[3].path1);
+      },
+      error : function(){
+         console.log('[ERROR] - 이미지 불러오기 오류');
+      }
+   });
+});
+
+
 	$(document).ready(function() {
 		$('#summernote').summernote({
 			lang : 'ko-KR',

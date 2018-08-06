@@ -64,12 +64,23 @@ p>span {
 	<!-- CONTENTS -->
 	<div id="size1" class="ui container">
 		<!-- 슬라이드-->
-		<ul class="rslides">
-			<li><img src="/resources/image/mainPic.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic1.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic2.jpg" style="height: 250px;"></li>
-			<li><img src="/resources/image/mainPic3.jpg" style="height: 250px;"></li>
-		</ul>
+               <ul class="rslides" style="padding-bottom: 15px;">
+                  <li>
+                     <img src="#" id="image1" style="height:300px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image2" style="height:300px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image3" style="height:300px;">
+                  </li>
+                  <li>
+                     <img src="#" id="image4" style="height:300px;">
+                  </li>
+                  <li>
+                     <img src="/resources/image/advertise.png" style="height:300px;">
+                  </li>
+               </ul>
 
 		<c:if test="${requestScope.dtpd.type.equals('all') && sessionScope.member!=null }">
 			<h3 class="ui left aligned header">맞춤 다이어트 꿀팁</h3>
@@ -477,6 +488,24 @@ p>span {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+/* 광고 이미지 불러오기 */
+$(document).ready(function() {
+   $.ajax({
+      url : '/advertiseImageLoad.diet',
+      type : 'post',
+      success : function(img){
+         $("#image1").attr("src",img[0].path1);
+         $("#image2").attr("src",img[1].path1);
+         $("#image3").attr("src",img[2].path1);
+         $("#image4").attr("src",img[3].path1);
+      },
+      error : function(){
+         console.log('[ERROR] - 이미지 불러오기 오류');
+      }
+   });
+});
+
+
 //슬라이드
 	$(function() {
 		$(".rslides").responsiveSlides({
