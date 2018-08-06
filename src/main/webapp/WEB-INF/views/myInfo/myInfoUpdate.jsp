@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 
 <!DOCTYPE html>
 <html>
@@ -282,65 +282,10 @@
 										</td>
 									</tr>
 
-									<tr>
-										<td class="firstTd">
-											<h3>
-												<i class="shield alternate icon"></i>
-												키
-											</h3>
-										</td>
-										<c:if test="${member.mbHeight!=0}">
-											<td>
-												<div class="ui input focus">
-													<input type="text" placeholder="키.." id="mbHeight" value="${member.mbHeight}" name="mbHeight" style="width: 100px;">
-													<span style="margin-top: 14px; margin-left: 5px; font-size: 18px; font-weight: 800;">
-														<strong>cm</strong>
-													</span>
-												</div>
-											</td>
-										</c:if>
-										<c:if test="${member.mbHeight==0}">
-											<td>
-												<div class="ui input focus">
-													<input type="text" placeholder="키.." id="mbHeight" name="mbHeight" style="width: 100px;">
-													<span style="margin-top: 14px; margin-left: 5px; font-size: 18px; font-weight: 800;">
-														<strong>cm</strong>
-													</span>
-												</div>
-											</td>
-										</c:if>
-									</tr>
-									<tr>
-										<td class="firstTd">
-											<h3>
-												<i class="shield alternate icon"></i>
-												몸무게
-											</h3>
-										</td>
-										<c:if test="${member.mbWeight!=0}">
-											<td>
-												<div class="ui input focus">
-													<input type="text" placeholder="몸무게.." id="mbWeight" value="${member.mbWeight}" name="mbWeight" style="width: 100px;">
-													<span style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;">
-														<strong>Kg</strong>
-													</span>
-												</div>
-											</td>
-										</c:if>
-										<c:if test="${member.mbWeight==0}">
-											<td>
-												<div class="ui input focus">
-													<input type="text" placeholder="몸무게.." id="mbWeight" name="mbWeight" style="width: 100px;">
-													<span style="margin-top: 14px; font-size: 18px; margin-left: 5px; font-weight: 800;">
-														<strong>Kg</strong>
-													</span>
-												</div>
-											</td>
-										</c:if>
-									</tr>
+									
 								</tbody>
 							</table>
-							<h4>※ 키와 몸무게를 입력하시면 맞춤 정보를 제공해 드립니다~</h4>
+							
 							<input type="submit" value="수정" class="ui red button" id="updateInfoBtn" />
 							<input type="reset" value="취소" class="ui button" id="updateCancleBtn" />
 							<br>
@@ -527,46 +472,6 @@
 		}
 	}
 
-	/* 사진 변경 업로드 */
-	/* 	var return_rt;
-	 var rs_folder;
-	 var IMGNAME;
-
-	 $("form#data").submit(function(event) {
-	 //disable the default form submission
-	 event.preventDefault();
-	 var sex = $(':radio[name="sex"]:checked').val();
-	 $("#hiddensex").val(sex);
-
-	 //grab all form data  
-	 var formData = new FormData($(this)[0]);
-	 alert("g");
-	 $.ajax({
-	 url : '/updateMyPicture.diet',
-	 type : 'POST',
-	 data : formData,
-	 async : false,
-	 cache : false,
-	 contentType : false,
-	 processData : false,
-	 success : function(returndata) {
-	 alert("성공");
-	 return_rt = returndata.split("|");
-	 rs_folder = return_rt[0];
-	 IMGNAME = return_rt[1];
-
-	 if (rs_folder != 'none') {
-	 setPicture(rs_folder, IMGNAME);
-	 } else {
-	 alert('등록할 사진을 첨부해주세요.');
-	 }
-	 return;
-	 }
-
-	 });
-
-	 return false;
-	 }); */
 </script>
 
 </html>

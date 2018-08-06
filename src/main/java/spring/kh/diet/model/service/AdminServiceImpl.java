@@ -376,5 +376,12 @@ public class AdminServiceImpl implements AdminService {
 		ArrayList<SevenDaysUserVO> list = aDao.select7Days(session);
 		return list;
 	}
+  
+  	/* 광고 DB 업로드 */ 
+	@Override
+	public void advertiseImageUpload(AdvertiseVO adVo) {
+		aDao.advertiseImageUpload(session, adVo);
+	}
 
 }
+

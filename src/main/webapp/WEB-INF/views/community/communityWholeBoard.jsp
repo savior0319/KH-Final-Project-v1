@@ -440,8 +440,12 @@
 		if (category == "") {
 			alert('분류를 선택하여주세요.');
 		} else {
+			if($searchText != "")
 			location.href = "/communitySearch.diet?category=" + category
 					+ "&searchText=" + $searchText;
+			else{
+				alert('검색어를 입력해 주세요');
+			}
 		}
 
 		/* + "&type=" + type */

@@ -97,5 +97,11 @@
 		WHERE CMT_INDEX = #{targetIndex}
 	</update>
 	
-
+	<!-- 이미지 가져오기 -->
+	<select id="advertise" resultType="advertise">
+		SELECT IMG_INDEX AS imgIndex,
+		IMG_PATH AS path1
+		FROM ADVERTISE_IMAGE_TBL
+	</select>
+	
 </mapper>

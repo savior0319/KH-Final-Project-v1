@@ -54,6 +54,7 @@
 
 
 	<!-- CONTENTS -->
+		
 	<div class="ui center aligned basic segment">
 
 		<div id="size1" class="ui center aligned container">
@@ -84,6 +85,10 @@
 			<br>
 
 			<!-- 운동부위별 값 넣을곳 -->
+			
+			<c:choose>
+			<c:when test="${requestScope.htpd.htList[0].indexNo !=null }">
+			
 			<div class="ui three column grid">
 				<c:forEach items="${requestScope.htpd.htList }" var="ht">
 
@@ -113,9 +118,11 @@
 					</div>
 
 
+
 				</c:forEach>
 			</div>
-
+		
+		
 			<br> <br>
 
 
@@ -123,11 +130,15 @@
 				<div class="three column row">
 					<div class="four wide column"></div>
 					<div class="eight wide column">
+					<c:if test="${requestScope.htpd.htList[0]!=null }">
 						<div class="ui center aligned basic segment">
 							<div class="ui pagination menu">${requestScope.htpd.pageNavi }</div>
 						</div>
+						</c:if>
 					</div>
 					<div class="four wide column">
+					<c:choose>
+					<c:when test="${sessionScope.member !=null }">
 						<div class="ui right aligned container">
 							<button class="ui right red basic button"
 								style="margin-top: 19px;" id="writeBtn"
@@ -135,10 +146,31 @@
 								<i class="edit icon"></i> 등록
 							</button>
 						</div>
+						</c:when>
+						</c:choose>
 					</div>
 				</div>
 				<br>
 			</div>
+			
+			</c:when>
+		<c:otherwise>
+			
+			<div class="ui red medium message">
+					<br>
+					<i class="exclamation huge icon"></i>
+					<div class="ui medium header">
+						<br>
+						※게시물이 존재하지 않습니다.
+						<br>
+						다른 키워드로 검색을 해주세요.
+						<br>
+						<br>
+						<br>
+					</div>
+				</div>
+			</c:otherwise>
+			</c:choose>
 
 			<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 			<div class="ui center aligned basic segment">
@@ -247,6 +279,8 @@
 		</div>
 		</div>
 	</div>
+
+
 
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>

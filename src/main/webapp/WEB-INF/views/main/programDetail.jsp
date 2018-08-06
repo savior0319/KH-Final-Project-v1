@@ -51,13 +51,13 @@
 								</div>
 								<br>
 								<div class="column">
-									<span style="color: gray">시작일 </span>&nbsp;&nbsp;&nbsp;&nbsp;
+									<span style="color: gray">시작일 </span>&nbsp;&nbsp;
 									:&nbsp;
 									<span>${requestScope.tpv.tpActiveStart}</span>
 								</div>
 								<br>
 								<div class="column">
-									<span style="color: gray">종료일 </span>&nbsp;&nbsp;&nbsp;&nbsp;
+									<span style="color: gray">종료일 </span>&nbsp;&nbsp;
 									:&nbsp;
 									<span>${requestScope.tpv.tpActiveEnd}</span>
 								</div>
@@ -89,7 +89,7 @@
 								</div>
 								<br>
 								<div class="column">
-									<span style="color: gray">가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;격</span>
+									<span style="color: gray">가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;격</span>
 									:&nbsp;
 									<span><fmt:formatNumber value="${requestScope.tpv.tpCost}" pattern="#,##0"/></span>
 									원
@@ -132,6 +132,8 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 function pricePayment() {
+	var mbId = '${sessionScope.member.mbNickName}';
+	if(mbId!=''){
     var IMP = window.IMP; // 생략가능
     IMP.init('imp27415949'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
     
@@ -150,12 +152,11 @@ function pricePayment() {
         m_redirect_url: 'https://www.yourdomain.com/payments/complete'
     }, function(rsp) {
         if (rsp.success) {
-            var msg = '결제가 완료되었습니다.';
-            msg += '고유ID : ' + rsp.imp_uid;
-            msg += '상점 거래ID : ' + rsp.merchant_uid;
-            msg += '결제 금액 : ' + rsp.paid_amount;
-            msg += '카드 승인번호 : ' + rsp.apply_num;
-            msg += '혹시 : ' + rsp.custom_data;
+            var msg = '결제가 완료되었습니다. \n';
+            msg += '고유ID : ' + rsp.imp_uid +'\n';
+            msg += '상점 거래ID : ' + rsp.merchant_uid +'\n';
+            msg += '결제 금액 : ' + rsp.paid_amount +'\n';
+            msg += '카드 승인번호 : ' + rsp.apply_num +'\n';
             $.ajax({
             	url : '/paymentSuccess.diet',
             	data : {
@@ -170,12 +171,15 @@ function pricePayment() {
             	}
             });
         } else {
-            var msg = '결제에 실패하였습니다.';
+            var msg = '결제에 실패하였습니다. \n';
             msg += '에러내용 : ' + rsp.error_msg;
         }
         
         alert(msg);
     });
+	}else{
+		alert('로그인 후 이용해주세요.');	
+	}
 }
 </script>
 

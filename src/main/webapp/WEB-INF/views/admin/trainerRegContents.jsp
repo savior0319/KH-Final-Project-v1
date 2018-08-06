@@ -206,8 +206,7 @@ body {
 		</div>
 
 	</div>
-	<!-- FOOTER -->
-	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
+
 </body>
 
 

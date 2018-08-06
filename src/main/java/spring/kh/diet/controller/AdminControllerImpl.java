@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.kh.diet.model.service.AdminService;
+import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
@@ -75,8 +76,8 @@ public class AdminControllerImpl implements AdminController {
 	/* 공지사항 등록 */
 	@Override
 	@RequestMapping(value = "/noticeRegisterData.diet")
-	public void noticeRegisterData(@RequestParam String title, @RequestParam String content, @RequestParam String noticeType,
-			HttpServletResponse response) throws IOException {
+	public void noticeRegisterData(@RequestParam String title, @RequestParam String content,
+			@RequestParam String noticeType, HttpServletResponse response) throws IOException {
 
 		NoticeVO nv = new NoticeVO();
 		nv.setNoticeTitle(title);
@@ -175,7 +176,7 @@ public class AdminControllerImpl implements AdminController {
 				}
 			}
 		}
-		
+
 		CurrentDate CD = new CurrentDate(PC, MOBILE, AtoBOn, BtoCOn, CtoDOn, DtoEOn, EtoFOn, AtoBOff, BtoCOff, CtoDOff,
 				DtoEOff, EtoFOff);
 		// System.out.println(list.toString());
@@ -366,7 +367,6 @@ public class AdminControllerImpl implements AdminController {
 		return "admin/trainerChange";
 	}
 
-	
 	// 트레이너 회원에서 일반 회원으로 전환
 	@Override
 	@ResponseBody
@@ -380,8 +380,6 @@ public class AdminControllerImpl implements AdminController {
 			return "failed";
 		}
 	}
-	
-
 
 	/* 1:1문의 답변하기 */
 	@Override
@@ -456,12 +454,12 @@ public class AdminControllerImpl implements AdminController {
 	/* 광고 이미지 업로드 */
 	@Override
 	@RequestMapping(value = "/logoImageUpload.diet", method = RequestMethod.POST, produces = "text/plain")
-	public void logoImageUpload(HttpServletRequest request, HttpServletResponse response,
+	public void advertiseImageUpload(HttpServletRequest request, HttpServletResponse response,
 			MultipartHttpServletRequest req) throws IOException {
 		req.setCharacterEncoding("utf-8");
 
 		// 파일 경로
-		String path = request.getSession().getServletContext().getRealPath("imageUpload");
+		String path = request.getSession().getServletContext().getRealPath("imageUpload/advertise");
 
 		Map<String, MultipartFile> file = req.getFileMap();
 
@@ -482,7 +480,7 @@ public class AdminControllerImpl implements AdminController {
 		File reFile1 = new File(path, reName1);
 		file.get("uploadfile1").transferTo(reFile1);
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().print("/imageUpload" + "/" + reName1);
+		response.getWriter().print("/imageUpload/advertise" + "/" + reName1);
 
 		// 두번째 파일
 		UUID randomString2 = UUID.randomUUID();
@@ -496,7 +494,7 @@ public class AdminControllerImpl implements AdminController {
 		File reFile2 = new File(path, reName2);
 		file.get("uploadfile2").transferTo(reFile2);
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().print("/imageUpload" + "/" + reName2);
+		response.getWriter().print("/imageUpload/advertise" + "/" + reName2);
 
 		// 세번째 파일
 		UUID randomString3 = UUID.randomUUID();
@@ -510,7 +508,7 @@ public class AdminControllerImpl implements AdminController {
 		File reFile3 = new File(path, reName3);
 		file.get("uploadfile3").transferTo(reFile3);
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().print("/imageUpload" + "/" + reName3);
+		response.getWriter().print("/imageUpload/advertise" + "/" + reName3);
 
 		// 네번째 파일
 		UUID randomString4 = UUID.randomUUID();
@@ -524,9 +522,18 @@ public class AdminControllerImpl implements AdminController {
 		File reFile4 = new File(path, reName4);
 		file.get("uploadfile4").transferTo(reFile4);
 		response.setCharacterEncoding("utf-8");
-		response.getWriter().print("/imageUpload" + "/" + reName4);
+		response.getWriter().print("/imageUpload/advertise" + "/" + reName4);
 
-	}
+		AdvertiseVO adVo = new AdvertiseVO();
+		adVo.setPath1("/imageUpload/advertise" + "/" + reName1);
+		adVo.setPath2("/imageUpload/advertise" + "/" + reName2);
+		adVo.setPath3("/imageUpload/advertise" + "/" + reName3);
+		adVo.setPath4("/imageUpload/advertise" + "/" + reName4);
+
+		// DB 이미지 저장
+		as.advertiseImageUpload(adVo);
+
+  }
 
 	////////////////////////////
 	////////////////////////////
@@ -589,13 +596,23 @@ public class AdminControllerImpl implements AdminController {
 		int todayMinute = Integer.parseInt(tD3.nextToken());
 		int todaySecond = Integer.parseInt(tD3.nextToken());
 		/// 그래프 분석할 자료들고오기.
-		int timeType = 0; 
-		if (todayHour < 12) {timeType = 1;}
-		if (12 <= todayHour && todayHour < 15) {timeType = 2;}
-		if (15 <= todayHour && todayHour < 18) {timeType = 3;}
-		if (18 <= todayHour && todayHour < 21) {timeType = 4;}
-		if (21 <= todayHour && todayHour < 24) {timeType = 5;}
-		/// 그래프 분석할 자료들고오기. 
+		int timeType = 0;
+		if (todayHour < 12) {
+			timeType = 1;
+		}
+		if (12 <= todayHour && todayHour < 15) {
+			timeType = 2;
+		}
+		if (15 <= todayHour && todayHour < 18) {
+			timeType = 3;
+		}
+		if (18 <= todayHour && todayHour < 21) {
+			timeType = 4;
+		}
+		if (21 <= todayHour && todayHour < 24) {
+			timeType = 5;
+		}
+		/// 그래프 분석할 자료들고오기.
 		ArrayList<TodayAnalyticsDetail> TotalList = as.TodayAnalyticsDetailList();
 		ModelAndView view = new ModelAndView();
 		int thits = 0;
@@ -799,47 +816,48 @@ public class AdminControllerImpl implements AdminController {
 	@Override
 	@RequestMapping(value = "/errorLogManage.diet")
 	public Object errorLogManage(HttpServletRequest request) {
-		// 날자형식 
-		//(오늘날자 ) long time = System.currentTimeMillis()
-				// 어제날자
-				long time = System.currentTimeMillis() - (long) ((1000 * 60 * 60 * 24));
-				// 스탬프형식
-				SimpleDateFormat dayTimeTamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String toDayTamp = dayTimeTamp.format(new Date(time));
-				// 데이터형식
-				SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
-				String toDay = dayTime.format(new Date(time));
-				// System.out.println(totalDay);
-				//
-		
+		// 날자형식
+		// (오늘날자 ) long time = System.currentTimeMillis()
+		// 어제날자
+		long time = System.currentTimeMillis() - (long) ((1000 * 60 * 60 * 24));
+		// 스탬프형식
+		SimpleDateFormat dayTimeTamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String toDayTamp = dayTimeTamp.format(new Date(time));
+		// 데이터형식
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+		String toDay = dayTime.format(new Date(time));
+		// System.out.println(totalDay);
+		//
+
 		ModelAndView view = new ModelAndView();
-    
+
 		// 1차 DB 접속해서 오늘 날자있는지 값 확인하기.
 		// 없으면 insert, 있다면 다음로직
-		// 
+		//
 		ErrorLogVO ELVO = new ErrorLogVO();
 		ELVO.setType("before");
 		// 하나의 값만 가져오는것 < 어제의 디비가 있는지만 확인함.
 		ArrayList<ErrorLogVO> list = as.todayErrorLogSearch(ELVO);
+
 		// 값이 있을경우
 		if(!list.isEmpty()) 
 		{
 			// 리스트 대상을 다시 전체로 바꿔서 들고옴
 			ELVO.setType("list");
 			list = as.todayErrorLogSearch(ELVO);
-			if(!list.isEmpty())
-			{
-				view.addObject("dAll",list);
+			if (!list.isEmpty()) {
+				view.addObject("dAll", list);
 			}
-			
+
 		}
 		// 없을떄
+
 		else 
 		{
 			// 없으므로 어제의 파일을  것을 읽어서, 오늘것에 인설트하기.
 			// 로직이 기므로 따로 빼서 작성하겠음.
 		}
-		
+
 //		view.addObject("currentTime",timeType);
 		view.setViewName("admin/errorLogManage");
 		return view;
@@ -847,7 +865,7 @@ public class AdminControllerImpl implements AdminController {
 
 	/* 관리자 - 에러로그관리 페이지 > 디테일 페이진 호출 매핑 */
 	@Override
-	@RequestMapping(value = "/errorLogManageDetail.diet") 
+	@RequestMapping(value = "/errorLogManageDetail.diet")
 	public Object errorLogManageDetail(HttpServletRequest request) {
 		// 날자형식 
 				//(오늘날자 ) long time = System.currentTimeMillis()
@@ -904,14 +922,8 @@ public class AdminControllerImpl implements AdminController {
 				}
 				
 				// System.out.println(totalDay);
-						
-		
-				
-		
+
 		view.setViewName("admin/errorLogManageDetail");
 		return view;
-
 	}
-
-
 }

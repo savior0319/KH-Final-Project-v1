@@ -58,7 +58,7 @@ public interface AdminController {
 	void noticeRegisterData(String title, String content, String noticeType, HttpServletResponse response)
 			throws IOException;
 
-	void logoImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest req)
+	void advertiseImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest req)
 			throws IOException;
 
 }

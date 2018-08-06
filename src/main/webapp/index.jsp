@@ -94,29 +94,19 @@
 					<!-- 슬라이드-->
 					<ul class="rslides" style="padding-bottom: 15px;">
 						<li>
-							<a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-								<img src="/resources/image/mainPic.jpg">
-							</a>
+							<img src="#"" id="image1">
 						</li>
 						<li>
-							<a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-								<img src="/resources/image/mainPic1.jpg">
-							</a>
+							<img src="#"" id="image2">
 						</li>
 						<li>
-							<a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-								<img src="/resources/image/mainPic2.jpg">
-							</a>
+							<img src="#"" id="image3">
 						</li>
 						<li>
-							<a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-								<img src="/resources/image/mainPic3.jpg">
-							</a>
+							<img src="#"" id="image4">
 						</li>
 						<li>
-							<a href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-								<img src="/resources/image/advertise.png">
-							</a>
+							<img src="/resources/image/advertise.png">
 						</li>
 					</ul>
 				</div>
@@ -177,126 +167,165 @@
 		</div>
 		<br>
 		<c:choose>
-			<c:when test="${sessionScope.member==null }">
-				<label class="ui large header">홈트레이닝</label>
-			</c:when>
-			<c:when test="${sessionScope.member!=null }">
-				<label class="ui large header">추천 영상</label>
-			</c:when>
-		</c:choose>
-		
-		<hr>
+		<c:when test="${sessionScope.member==null }">
+		<label class="ui large header">홈트레이닝</label>
+	</c:when>
+	<c:when test="${sessionScope.member!=null }">
+	<label class="ui large header">추천 영상</label>
+</c:when>
+</c:choose>
 
-		<!-- 반응형 메뉴 출력 -->
-		<div class="ui relaxed divided items">
-			<div class="item">
-				<div class="ui small image">
-					<img id="matchedImg0" src="" style="height: 100%; cursor:pointer;"  onerror='this.src="/resources/image/300x400.png"'>
-				</div>
-				<div class="content">
-					<div class="header" id="matchedTitle0" style="cursor:pointer;"></div>
-					<div id="matchedType0" class="meta"></div>
-					<div class="description" id="matchedExplain0" style="text-indent:10px; cursor:pointer;"></div>
-					<div class="extra" id="matchedWriter0">
-						<img id="matchedWriterImg0" src="" class="ui circular avatar image">
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ui small image">
-					<img id="matchedImg1"  src="" style="height: 100%; cursor:pointer;" onerror='this.src="/resources/image/300x400.png"'>
-				</div>
-				<div class="content">
-					<div class="header" id="matchedTitle1" style="cursor:pointer;"></div>
-					<div id="matchedType1" class="meta"></div>
-					<div class="description" id="matchedExplain1" style="text-indent:10px; cursor:pointer;"></div>
-					<div class="extra" id="matchedWriter1">
-						<img id="matchedWriterImg1" src="" class="ui circular avatar image">
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="ui small image">
-					<img id="matchedImg2" src="" style="height: 100%; cursor:pointer;" onerror='this.src="/resources/image/300x400.png"'>
-				</div>
-				<div class="content">
-					<div class="header" id="matchedTitle2" style="cursor:pointer;"></div>
-					<div id="matchedType2" class="meta"></div>
-					<div class="description" id="matchedExplain2" style="text-indent:10px; cursor:pointer;"></div>
-					<div class="extra" id="matchedWriter2">
-						<img id="matchedWriterImg2" src="" class="ui circular avatar image">
-					</div>
-				</div>
-				<br>
-			</div>
-			<hr>
+<hr>
+
+<!-- 반응형 메뉴 출력 -->
+<div class="ui relaxed divided items">
+	<div class="item">
+		<div class="ui small image">
+			<img id="matchedImg0" src="" style="height: 100%; cursor:pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 		</div>
-		
-		
-		<div class="ui three column grid">
-			<div class="column">
-				<table id="boardTbl1" class="ui table">
-					<thead>
-						<tr align="center">
-							<th>
-								커뮤니티
-								<span style="margin-left: 20px;">
-									<a href="/communityWholeBoard.diet?type=comAll" style="color: rgb(250, 40, 40);">
-										<i class="plus square outline icon"></i>
-									</a>
-								</span>
-							</th>
-						</tr>
-					</thead>
-				</table>
-			</div>
-			<div class="column">
-				<table id="boardTbl2" class="ui table">
-					<thead>
-						<tr align="center">
-							<th>
-								다이어트꿀팁
-								<span style="margin-left: 20px;">
-									<a href="/dietTipList.diet?type=all" style="color: rgb(250, 40, 40);">
-										<i class="plus square outline icon"></i>
-									</a>
-								</span>
-							</th>
-						</tr>
-					</thead>
-				</table>
-			</div>
-			<div class="column">
-				<table id="boardTbl3" class="ui table">
-					<thead>
-						<tr align="center">
-							<th>
-								공지사항
-								<span style="margin-left: 20px;">
-									<a href="/notice.diet" style="color: rgb(250, 40, 40);">
-										<i class="plus square outline icon"></i>
-									</a>
-								</span>
-							</th>
-						</tr>
-					</thead>
-				</table>
+		<div class="content">
+			<div class="header" id="matchedTitle0" style="cursor:pointer;"></div>
+			<div id="matchedType0" class="meta"></div>
+			<div class="description" id="matchedExplain0" style="text-indent:10px; cursor:pointer;"></div>
+			<div class="extra" id="matchedWriter0">
+				<img id="matchedWriterImg0" src="" class="ui circular avatar image">
 			</div>
 		</div>
-		
-		
-		
-		
-		<br>
-		<hr>
+	</div>
+	<div class="item">
+		<div class="ui small image">
+			<img id="matchedImg1"  src="" style="height: 100%; cursor:pointer;" onerror='this.src="/resources/image/300x400.png"'>
+		</div>
+		<div class="content">
+			<div class="header" id="matchedTitle1" style="cursor:pointer;"></div>
+			<div id="matchedType1" class="meta"></div>
+			<div class="description" id="matchedExplain1" style="text-indent:10px; cursor:pointer;"></div>
+			<div class="extra" id="matchedWriter1">
+				<img id="matchedWriterImg1" src="" class="ui circular avatar image">
+			</div>
+		</div>
+	</div>
+	<div class="item">
+		<div class="ui small image">
+			<img id="matchedImg2" src="" style="height: 100%; cursor:pointer;" onerror='this.src="/resources/image/300x400.png"'>
+		</div>
+		<div class="content">
+			<div class="header" id="matchedTitle2" style="cursor:pointer;"></div>
+			<div id="matchedType2" class="meta"></div>
+			<div class="description" id="matchedExplain2" style="text-indent:10px; cursor:pointer;"></div>
+			<div class="extra" id="matchedWriter2">
+				<img id="matchedWriterImg2" src="" class="ui circular avatar image">
+			</div>
+		</div>
 		<br>
 	</div>
+	<hr>
+</div>
+
+
+<div id="size11" class="ui three column grid">
+	<div class="column">
+		<table id="boardTbl1" class="ui table">
+			<thead>
+				<tr align="center">
+					<th>
+						커뮤니티
+						<span style="margin-left: 20px;">
+							<a href="/communityWholeBoard.diet?type=comAll" style="color: rgb(250, 40, 40);">
+								<i class="plus square outline icon"></i>
+							</a>
+						</span>
+					</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<div class="column">
+		<table id="boardTbl2" class="ui table">
+			<thead>
+				<tr align="center">
+					<th>
+						다이어트꿀팁
+						<span style="margin-left: 20px;">
+							<a href="/dietTipList.diet?type=all" style="color: rgb(250, 40, 40);">
+								<i class="plus square outline icon"></i>
+							</a>
+						</span>
+					</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<div class="column">
+		<table id="boardTbl3" class="ui table">
+			<thead>
+				<tr align="center">
+					<th>
+						공지사항
+						<span style="margin-left: 20px;">
+							<a href="/notice.diet" style="color: rgb(250, 40, 40);">
+								<i class="plus square outline icon"></i>
+							</a>
+						</span>
+					</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+
+<div id="size2" class="ui one column grid">
+	<div class="column">
+		<table id="mobile-boardTbl1" class="ui table">
+			<thead>
+				<tr align="center">
+					<th>
+						커뮤니티
+						<span style="margin-left: 20px;">
+							<a href="/communityWholeBoard.diet?type=comAll" style="color: rgb(250, 40, 40);">
+								<i class="plus square outline icon"></i>
+							</a>
+						</span>
+					</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+
+
+
+<br>
+<hr>
+<br>
+</div>
 <!-- FOOTER -->
 <jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+
+	/* 광고 이미지 불러오기 */
+	$(document).ready(function() {
+		$.ajax({
+			url : '/advertiseImageLoad.diet',
+			type : 'post',
+			success : function(img){
+				$("#image1").attr("src",img[0].path1);
+				$("#image2").attr("src",img[1].path1);
+				$("#image3").attr("src",img[2].path1);
+				$("#image4").attr("src",img[3].path1);
+
+			},
+			error : function(){
+				console.log('[ERROR] - 이미지 불러오기 오류');
+			}
+		});
+	});
+
 	function bmiCal() {
 		window.location.href = "/bmiCal.diet";
 	}
@@ -356,22 +385,22 @@
 				$('#matchedImg'+i).attr("src",data[i].htMainPhoto);
 				$('#matchedTitle'+i).html(data[i].htTitle);
 				switch(data[i].htType){
-				case '1' : $('#matchedType'+i).html("전신");
-				break;
-				case '2' : $('#matchedType'+i).html("복부");
-				break;
-				case '3' : $('#matchedType'+i).html("상체");
-				break;
-				case '4' : $('#matchedType'+i).html("하체");
-				break;
-				case '5' : $('#matchedType'+i).html("스트레칭");
-				break;
-				case '6' : $('#matchedType'+i).html("요가");
-				break;
-				case '7' : $('#matchedType'+i).html("댄스");
-				break;
-				case '8' : $('#matchedType'+i).html("4주 챌린지");
-				break;
+					case '1' : $('#matchedType'+i).html("전신");
+					break;
+					case '2' : $('#matchedType'+i).html("복부");
+					break;
+					case '3' : $('#matchedType'+i).html("상체");
+					break;
+					case '4' : $('#matchedType'+i).html("하체");
+					break;
+					case '5' : $('#matchedType'+i).html("스트레칭");
+					break;
+					case '6' : $('#matchedType'+i).html("요가");
+					break;
+					case '7' : $('#matchedType'+i).html("댄스");
+					break;
+					case '8' : $('#matchedType'+i).html("4주 챌린지");
+					break;
 				}
 				
 				$('#matchedExplain'+i).html(data[i].htExplain);
@@ -412,7 +441,33 @@
 					+ link + "'>" + tempChar + "</a>");
 
 				tr.append(title);
+				
 				$('#boardTbl1').append(tr);
+				
+				
+				// 모바일 용
+				var tr2 = $('<tr>');
+				
+
+				var tempChar2 = '';
+				var charSize2 = (data.comList[i].postTitle).length;
+
+				if (charSize2 > 21) {
+					var value2 = data.comList[i].postTitle;
+					tempChar2 = value2.substring(0, 21) + '...';
+				} else {
+					tempChar2 = data.comList[i].postTitle;
+				}
+				var link2 = data.comList[i].postIndex;
+				var title2 = $('<td>').html(
+					'ㆍ ' + "<a href='/postedCommunity.diet?postIndex="
+					+ link2 + "'>" + tempChar2 + "</a>");
+
+				tr2.append(title2);
+				
+				
+				
+				$('#mobile-boardTbl1').append(tr2);
 			}
 		},
 		error : function() {
@@ -521,14 +576,20 @@
 	}
 	/* #trainer-match{
 		display:none;
-	} */
-}
-
-@media ( min-width : 768px) {
-	#mainBoardResize {
-		display: none;
+		} */
 	}
-}
+
+	@media ( min-width : 768px) {
+		#mainBoardResize {
+			display: none;
+		}
+
+	}
+	@media ( max-width : 649px) {
+		#size11{
+			display: none;
+		}
+	}
 
 
 </style>
