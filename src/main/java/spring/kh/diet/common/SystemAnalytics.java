@@ -144,12 +144,12 @@ public class SystemAnalytics {
 //		System.out.println(cLikes);
 //		System.out.println(cComments);
 //		System.out.println(cPost);
-		System.out.println(serviceName);
+//		System.out.println(serviceName);
 			switch (serviceName) {
 			
 			case "DietTipServiceImpl":
 				beforserviceName = serviceName;
-				System.out.println(methodName);
+//				System.out.println(methodName);
 				if (methodName.equals("postHit")) // 다이어트팁 조회수
 				{
 					tHits++;
