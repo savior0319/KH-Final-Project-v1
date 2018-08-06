@@ -506,9 +506,9 @@ data.addColumn('number', '좋아요');
 										<tr align="center">
 											<td style="width: 10%"><c:out value="${status.index+1}" /></td>
 											<c:choose>
-														<c:when test="${fn:length(is.mbId)>20}">
+														<c:when test="${fn:length(is.mbId)>17}">
 															<td style="width: 20%">
-															<c:out value="${fn:substring(is.mbId,0,15)}"/>...
+															<c:out value="${fn:substring(is.mbId,0,13)}"/>..
 															</td>
 														</c:when>
 														<c:otherwise>
@@ -597,9 +597,9 @@ data.addColumn('number', '좋아요');
 										<tr align="center">
 											<td style="width: 10%"><c:out value="${status.index+1}" /></td>
 											<c:choose>
-														<c:when test="${fn:length(ds.mbId)>20}">
+														<c:when test="${fn:length(ds.mbId)>17}">
 															<td style="width: 25%">
-															<c:out value="${fn:substring(ds.mbId,0,15)}"/>...
+															<c:out value="${fn:substring(ds.mbId,0,13)}"/>..
 															</td>
 														</c:when>
 														<c:otherwise>
