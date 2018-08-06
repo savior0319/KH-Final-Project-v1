@@ -226,9 +226,10 @@
 				} else {
 					var msg = '결제에 실패하였습니다. \n';
 					msg += '에러내용 : ' + rsp.error_msg;
+					alert(msg);
 				}
 
-				alert(msg);
+				
 			});
 		} else {
 			alert('로그인 후 이용해주세요.');
