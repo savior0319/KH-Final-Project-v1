@@ -52,7 +52,7 @@ body {
 						<input type="hidden" id="" />
 						<tr align="center">
 							<td>${tr.trIndex}</td>
-							<td>${tr.mbId}</td>
+							<td><a href = "/trainerRegContents.diet?trIndex=${tr.trIndex}" style="color: rgb(250,40,40);">${tr.mbId}</a></td>
 							<td>${tr.trName}</td>
 							<td>${tr.mbNickName}</td>
 							<td>${tr.trPhone}</td>
