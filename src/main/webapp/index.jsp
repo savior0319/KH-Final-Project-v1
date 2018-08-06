@@ -298,7 +298,7 @@
 
 
 <br>
-<hr>
+
 <br>
 </div>
 <!-- FOOTER -->
@@ -561,35 +561,36 @@
 	}
 </script>
 <style type="text/css" media="screen">
-@media ( max-width : 1200px) {
+
+@media ( max-width : 1200px) {		/* 1200px 이하 */
 	.disappear {
 		display: none;
 	}
 }
 
-@media ( max-width : 768px) {
+@media ( max-width : 768px) {		/* 768 이하 */
 	#mainBoard {
 		display: none;
 	}
 	.rslides {
 		margin-top: 15px;
 	}
-	/* #trainer-match{
-		display:none;
-		} */
-	}
+}
 
-	@media ( min-width : 768px) {
-		#mainBoardResize {
-			display: none;
-		}
-
+@media ( min-width : 768px) {		/* 768 이상 */
+	#mainBoardResize {
+		display: none;
 	}
-	@media ( max-width : 649px) {
-		#size11{
-			display: none;
-		}
+}
+	
+@media ( max-width : 1000px) {
+	#size11 {
+		display: none;
 	}
+	#size2{
+		display:block;
+	}
+}
 
 
 </style>
