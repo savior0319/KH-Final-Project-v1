@@ -595,8 +595,8 @@
 		timeType,
 		T_LIST_TYPE as listType
 		from TODAY_ANALYTICS
-		where T_TIME_TYPE
-		= #{type}
+		where (T_TIME_TYPE
+		= #{type}) and  (t_update_time between sysdate-1 and sysdate)
 	</select>
 
 	<!-- 오늘 사이트 값 가져와서 분석하기 -->
@@ -1019,4 +1019,20 @@
     
 	</select>
 
+	<!-- 업데이트용 현제디비가져오기  -->
+	<select id="selectAnalytics2" parameterType="java.lang.Integer" resultType="todayAnalyticsDetail">
+		select
+		T_HITS as hits,
+		T_LIKE as likes,
+		T_COMMENTS as
+		comments,
+		T_POST as
+		post,
+		T_UPDATE_TIME as updateTime,
+		T_TIME_TYPE as
+		timeType,
+		T_LIST_TYPE as listType
+		from TODAY_ANALYTICS
+		where (t_update_time between sysdate-1 and sysdate) and t_time_type = #{time}
+	</select>
 </mapper>

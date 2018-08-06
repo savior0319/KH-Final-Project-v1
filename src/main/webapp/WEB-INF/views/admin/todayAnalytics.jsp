@@ -34,6 +34,7 @@ body {
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 
+
 <!-- 구글차트1 - 조회수  -->
 <script type="text/javascript">
 	google.charts.load('current', {
@@ -253,7 +254,7 @@ data.addColumn('number', '좋아요');
 
 
 	<!-- 변선언 -->
-
+	
 
 	<c:set var="cdthits" value="${requestScope.Current.THVO.dtHits}" />
 	<c:set var="chthits" value="${requestScope.Current.THVO.htHits}" />
@@ -261,12 +262,13 @@ data.addColumn('number', '좋아요');
 	<c:set var="ctotalhits" value="${cdthits+chthits+cbrhits }" />
 	<c:set var="cdtComments"
 		value="${requestScope.Current.TCVO.dtComments}" />
+	
 	<c:set var="chtComments"
 		value="${requestScope.Current.TCVO.htComments}" />
 	<c:set var="cbrComments"
 		value="${requestScope.Current.TCVO.brComments}" />
 	<c:set var="ctotalComments"
-		value="${cdtComments+chtComments+cbrComments }" />
+		value="${cdtComments+chtComments+cbrComments}" />
 
 	<c:set var="cdtBoard" value="${requestScope.Current.TPVO.dtBoard}" />
 	<c:set var="chtBoard" value="${requestScope.Current.TPVO.htBoard}" />
@@ -287,7 +289,7 @@ data.addColumn('number', '좋아요');
 	<c:set var="bhtComments" value="${requestScope.Before.htComments}" />
 	<c:set var="bbrComments" value="${requestScope.Before.brComments}" />
 	<c:set var="btotalComments"
-		value="${bdtComments+bhtComments+bbrComments }" />
+		value="${bdtComments+bhtComments+bbrComments}" />
 	<c:set var="bdtBoard" value="${requestScope.Before.dtBoard}" />
 	<c:set var="bhtBoard" value="${requestScope.Before.htBoard}" />
 	<c:set var="bbrBoard" value="${requestScope.Before.brBoard}" />
@@ -298,10 +300,8 @@ data.addColumn('number', '좋아요');
 	<c:set var="btotalLike" value="${bdtLike+bhtLike+bbrLike }" />
 
 
-
-
 	<c:set var="todayhits" value="${ctotalhits - btotalhits}" />
-	<c:set var="todayComments" value="${ctotalComments - btotalComments }" />
+	<c:set var="todayComments" value="${ctotalComments - btotalComments}" />
 	<c:set var="todayBoard" value="${ctotalBoard - btotalBoard}" />
 	<c:set var="todayLike" value="${ctotalLike - btotalLike}" />
 	<!-- 변종료 -->

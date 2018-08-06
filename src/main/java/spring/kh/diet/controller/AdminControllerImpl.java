@@ -625,9 +625,10 @@ public class AdminControllerImpl implements AdminController {
 	public Object todayAnalytics(HttpServletRequest request) {
 
 		todayAnalyticPDVO tAPDVO = todayAutoAnalytics();
+		System.out.println(tAPDVO.getTCVO());
 		tAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Current", tAPDVO);
-
+		
 		// BEFORE_DAY_TBL 를 불러와서 데이터를 가져오는것.
 		yesterdayAnalytic yAPDVO = yesterdayAnalytics();
 		yAPDVO.setType(request.getParameter("type"));
@@ -706,6 +707,7 @@ public class AdminControllerImpl implements AdminController {
 		for (int i = 0; i < TotalList.size(); i++) {
 			int ListType = TotalList.get(i).getListType();
 			int TimeType = TotalList.get(i).getTimeType();
+//			System.out.println(TotalList.get(i).toString());
 			switch (ListType) {
 			case 1:
 				// 다이어트 팁에 대한 전체 정보
@@ -801,7 +803,9 @@ public class AdminControllerImpl implements AdminController {
 		view.addObject("cpost", cpost);
 		view.addObject("currentTime", timeType);
 		view.setViewName("admin/todayAnalytics");
-
+//		System.out.println(tcomments);
+//		System.out.println(hcomments);
+//		System.out.println(ccomments);
 		// request.setAttribute("TAD", TotalList);
 
 		return view;
@@ -820,7 +824,7 @@ public class AdminControllerImpl implements AdminController {
 
 		// 현재 좋아요 가져오기
 		todayLikeVO tLVO = as.searchLike();
-
+		
 		// 오늘 가입한 맴버 가져오기
 		ArrayList<MemberVO> MVO = as.searchMember();
 
