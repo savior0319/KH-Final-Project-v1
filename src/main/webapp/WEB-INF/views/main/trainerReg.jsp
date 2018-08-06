@@ -11,12 +11,45 @@
 	<!-- 달력 추가 -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-
+	<script src="/resources/slider/responsiveslides.min.js"></script>
 	<title>트레이너 신청</title>
 </head>
 
 <!-- CSS -->
 <style>
+
+.rslides {
+	position: relative;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li {
+	-webkit-backface-visibility: hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
+
 </style>
 
 
@@ -27,7 +60,25 @@
 	<!-- CONTENTS -->
 	<input id="mainPhotoPath" type="hidden">
 	<div class="ui container">
-		<div class="ui center aligned basic segment">
+			<!-- 슬라이드-->
+		<ul class="rslides">
+			<li>
+				<img src="#" id="image1" style="height: 250px;">
+			</li>
+			<li>
+				<img src="#" id="image2" style="height: 250px;">
+			</li>
+			<li>
+				<img src="#" id="image3" style="height: 250px;">
+			</li>
+			<li>
+				<img src="#" id="image4" style="height: 250px;">
+			</li>
+			<li>
+				<img src="/resources/image/advertise.png" style="height: 250px;">
+			</li>
+		</ul>
+		<div class="ui center aligned basic segment" style="margin-top:0; padding-top:0;">
 			<br>
 			<div class="ui large message">
 				<div class="ui large header">트레이너 신청</div>
@@ -636,6 +687,32 @@
 					}
 				}).open();
 	}
+
+	// 슬라이드
+	$(function() {
+		$(".rslides").responsiveSlides({
+			auto : true,
+			timeout : 1500,
+		});
+	});
+
+
+   /* 광고 이미지 불러오기 */
+   $(document).ready(function() {
+      $.ajax({
+         url : '/advertiseImageLoad.diet',
+         type : 'post',
+         success : function(img){
+            $("#image1").attr("src",img[0].path1);
+            $("#image2").attr("src",img[1].path1);
+            $("#image3").attr("src",img[2].path1);
+            $("#image4").attr("src",img[3].path1);
+         },
+         error : function(){
+            console.log('[ERROR] - 이미지 불러오기 오류');
+         }
+      });
+   });
 </script>
 
 </html>
