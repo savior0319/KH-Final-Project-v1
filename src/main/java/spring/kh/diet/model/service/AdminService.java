@@ -17,6 +17,7 @@ import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.SevenDaysUserVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.TrainingRegPageDataVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -103,6 +104,8 @@ public interface AdminService {
 
 	void advertiseImageUpload(AdvertiseVO adVo);
 
+	ArrayList<SevenDaysUserVO> select7Days();
+  
 	ArrayList<ErrorLogVO> todayErrorLogSearchDetail(ErrorLogVO eLVO);
-
+  
 }

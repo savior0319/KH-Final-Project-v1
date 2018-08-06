@@ -17,6 +17,7 @@ import spring.kh.diet.model.vo.NoticeVO;
 import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.SevenDaysUserVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.TrainingRegVO;
 import spring.kh.diet.model.vo.todayCommentsVO;
@@ -124,6 +125,8 @@ public interface AdminDAO {
 	int advertiseImageUpload(SqlSessionTemplate session, AdvertiseVO adVo);
   
 	ArrayList<ErrorLogVO> todayErrorLogSearchDetail(SqlSessionTemplate session, ErrorLogVO eLVO);
+
+	ArrayList<SevenDaysUserVO> select7Days(SqlSessionTemplate session);
 
 
 }

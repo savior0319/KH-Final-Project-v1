@@ -60,8 +60,31 @@ var data = new google.visualization.DataTable();
 }
 </script>
 
+<!-- 선형차트 - 7일간 접속자명단  -->
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2004',  1000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
+        ]);
 
+        var options = {
+          title: 'Company Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 
 
 
@@ -515,6 +538,43 @@ body {
 				</table>
 			</div>
 			<br> <br>
+		</div>
+		<!-- 일주일 단위 접속자 내역 보여주기 -->
+		<div class="ui center aligned segment">
+			<div class="ui center aligned segment">
+				<h3> 지난 7일간 접속자 분석</h3>
+			</div>
+			<br>
+			<div class="ui horizontal segments">
+				<!-- 그래프 보여주기 -->
+				<div id="curve_chart" style="width: 60%; height: 500px">
+				
+				</div>
+				
+				<!-- 리스트보여주기  -->
+				<div class="ui center aligned segment" ;style="width: 40%">
+				<table class="ui celled table">
+					<thead>
+						<tr align="center">
+							<th style="width: 33%"><i class="clock outline icon"></i> 기간</th>
+							<th style="width: 33%"><i class="user plus icon"></i>
+								&nbsp;&nbsp;회원</th>
+							<th style="width: 33%"><i class="user times icon"></i>
+								&nbsp;&nbsp;비회원</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${requestScope.7days}" var="li">
+						<tr>
+								<td>${li.date}</td>
+								<td>${li.user}</td>
+								<td>${li.non}</td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<br>

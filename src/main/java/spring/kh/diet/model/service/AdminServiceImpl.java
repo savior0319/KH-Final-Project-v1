@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.kh.diet.model.dao.AdminDAO;
-import spring.kh.diet.model.vo.AdvertiseVO;
 import spring.kh.diet.model.vo.AllSessionListPDVO;
 import spring.kh.diet.model.vo.AllSessionVO;
 import spring.kh.diet.model.vo.AnswerVO;
 import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
+import spring.kh.diet.model.vo.BoardPostVO;
+import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.ErrorLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
@@ -24,6 +25,7 @@ import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.SevenDaysUserVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.TrainingRegPageDataVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -34,7 +36,6 @@ import spring.kh.diet.model.vo.todayPostVO;
 import spring.kh.diet.model.vo.yesterdayAnalytic;
 import spring.kh.diet.model.vo.yesterdayAnalyticsPDVO;
 
-@SuppressWarnings("all")
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
 
@@ -368,8 +369,15 @@ public class AdminServiceImpl implements AdminService {
 		ArrayList<ErrorLogVO> list = aDao.todayErrorLogSearchDetail(session,eLVO);
 		return list;
 	}
+	
+	// 접속자 페이지 - 7일간접속한유저들고오기.
+	@Override
+	public ArrayList<SevenDaysUserVO> select7Days() {
+		ArrayList<SevenDaysUserVO> list = aDao.select7Days(session);
+		return list;
+	}
   
-	/* 광고 DB 업로드 */ 
+  	/* 광고 DB 업로드 */ 
 	@Override
 	public void advertiseImageUpload(AdvertiseVO adVo) {
 		aDao.advertiseImageUpload(session, adVo);

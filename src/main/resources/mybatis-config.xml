@@ -64,9 +64,11 @@
 		<typeAlias type="spring.kh.diet.model.vo.TrainerAreaListVO" alias="trainerAreaList" />
 		<typeAlias type="spring.kh.diet.model.vo.TrainerProgramMemberVO" alias="trainerProgramMember" />
 		<typeAlias type="spring.kh.diet.model.vo.PaymentVO" alias="payment" />
-		<typeAlias type="spring.kh.diet.model.vo.ErrorLogVO" alias="errorLog" />
+		<typeAlias type="spring.kh.diet.model.vo.ErrorLogVO" alias="errorLog"/>
 		<typeAlias type="spring.kh.diet.model.vo.PaymentPDVO" alias="paymentPDVO" />
-		<typeAlias type="spring.kh.diet.model.vo.AdvertiseVO" alias="advertise" /> <!-- 광고 DB -->
+		<typeAlias type="spring.kh.diet.model.vo.SevenDaysUserVO" alias="servenDays"/>	
+    <typeAlias type="spring.kh.diet.model.vo.AdvertiseVO" alias="advertise" /> <!-- 광고 DB -->
+
 	</typeAliases>
 
 </configuration>

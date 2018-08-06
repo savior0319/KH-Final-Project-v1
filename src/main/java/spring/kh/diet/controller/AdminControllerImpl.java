@@ -48,6 +48,7 @@ import spring.kh.diet.model.vo.OffSessionVO;
 import spring.kh.diet.model.vo.OnSessionVO;
 import spring.kh.diet.model.vo.QuestionAnswerPDVO;
 import spring.kh.diet.model.vo.QuestionVO;
+import spring.kh.diet.model.vo.SevenDaysUserVO;
 import spring.kh.diet.model.vo.TodayAnalyticsDetail;
 import spring.kh.diet.model.vo.TrainingRegPageDataVO;
 import spring.kh.diet.model.vo.TrainingRegVO;
@@ -179,7 +180,27 @@ public class AdminControllerImpl implements AdminController {
 		CurrentDate CD = new CurrentDate(PC, MOBILE, AtoBOn, BtoCOn, CtoDOn, DtoEOn, EtoFOn, AtoBOff, BtoCOff, CtoDOff,
 				DtoEOff, EtoFOff);
 		// System.out.println(list.toString());
+		
+		// 그래프용 값가져오기
+		ArrayList<SevenDaysUserVO> sevenList = as.select7Days();
+		
+		for(int i=0; i<sevenList.size();i++)
+		{
+			if(!sevenList.get(i).getDate().equals(sevenList.get(i+1).getDate()))
+			{
+				// 데이터 값이 두개씩일때.
+				
+				
+			}
+			else // 데이터 값이 하나일떄???  
+			{
+				
+			}
+		}
+		
+		
 		ASLPDVO.setType(request.getParameter("type"));
+		
 		request.setAttribute("currentSession", ASLPDVO);
 		request.setAttribute("size", ASLPDVO.getSsList().size());
 		request.setAttribute("totalSize", list.size());
@@ -512,16 +533,7 @@ public class AdminControllerImpl implements AdminController {
 		// DB 이미지 저장
 		as.advertiseImageUpload(adVo);
 
-		AdvertiseVO adVo = new AdvertiseVO();
-		adVo.setPath1("/imageUpload" + "/" + reName1);
-		adVo.setPath2("/imageUpload" + "/" + reName2);
-		adVo.setPath3("/imageUpload" + "/" + reName3);
-		adVo.setPath4("/imageUpload" + "/" + reName4);
-
-		// DB 이미지 저장
-		as.advertiseImageUpload(adVo);
-
-	}
+  }
 
 	////////////////////////////
 	////////////////////////////
@@ -824,9 +836,13 @@ public class AdminControllerImpl implements AdminController {
 		//
 		ErrorLogVO ELVO = new ErrorLogVO();
 		ELVO.setType("before");
+		// 하나의 값만 가져오는것 < 어제의 디비가 있는지만 확인함.
 		ArrayList<ErrorLogVO> list = as.todayErrorLogSearch(ELVO);
-		// 오늘값이 있을떄
-		if (!list.isEmpty()) {
+
+		// 값이 있을경우
+		if(!list.isEmpty()) 
+		{
+			// 리스트 대상을 다시 전체로 바꿔서 들고옴
 			ELVO.setType("list");
 			list = as.todayErrorLogSearch(ELVO);
 			if (!list.isEmpty()) {
@@ -835,8 +851,11 @@ public class AdminControllerImpl implements AdminController {
 
 		}
 		// 없을떄
-		else {
-			System.out.println("없음");
+
+		else 
+		{
+			// 없으므로 어제의 파일을  것을 읽어서, 오늘것에 인설트하기.
+			// 로직이 기므로 따로 빼서 작성하겠음.
 		}
 
 //		view.addObject("currentTime",timeType);
