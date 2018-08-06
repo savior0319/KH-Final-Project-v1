@@ -185,12 +185,12 @@ public class SystemAnalytics {
 				beforserviceName = serviceName;
 				if (methodName.equals("homeTrainingHits")) // 홈트레이닝 조회수
 				{
-					System.out.println("조회수");
+//					System.out.println("조회수");
 					hHits++;
 				}
 				if (methodName.equals("postLikeUp")) // 좋아요 증가
 				{
-					System.out.println("좋아요");
+//					System.out.println("좋아요");
 					hLikes++;
 				}
 				if (methodName.equals("postLikeDown"))// 좋아요감소
@@ -199,7 +199,7 @@ public class SystemAnalytics {
 				}
 				if (methodName.equals("addComment")) // 댓글증가
 				{
-					System.out.println("댓글");
+//					System.out.println("댓글");
 					hComments++;
 				}
 				if (methodName.equals("deleteComment")) // 댓글감소\
@@ -208,7 +208,7 @@ public class SystemAnalytics {
 				}
 				if (methodName.equals("registHomeTraining")) // 게시물증가
 				{
-					System.out.println("게시물");
+//					System.out.println("게시물");
 					hPost++;
 				}
 				if (methodName.equals("deleteHomeTraining")) // 게시물감소
