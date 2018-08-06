@@ -128,5 +128,7 @@ public interface AdminDAO {
 
 	ArrayList<SevenDaysUserVO> select7Days(SqlSessionTemplate session);
 
+	ArrayList<MemberVO> memberListExcel(SqlSessionTemplate session);
+
 
 }

@@ -61,4 +61,6 @@ public interface AdminController {
 	void advertiseImageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest req)
 			throws IOException;
 
+	void excelOut(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
 }

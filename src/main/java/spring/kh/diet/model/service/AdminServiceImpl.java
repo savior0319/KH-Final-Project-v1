@@ -382,6 +382,12 @@ public class AdminServiceImpl implements AdminService {
 		aDao.advertiseImageUpload(session, adVo);
 	}
 
+	/* 엑셀 출력용 전체 회원 리스트 */
+	@Override
+	public ArrayList<MemberVO> memberListExcel() {
+		return aDao.memberListExcel(session);
+	}
+
 
 
 }

@@ -1,13 +1,12 @@
 package spring.kh.diet.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.UUID;
@@ -18,8 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,7 +107,7 @@ public class AdminControllerImpl implements AdminController {
 	public String currentLoginUser(HttpServletRequest request, HttpServletResponse response) {
 		int currentPage;
 		// 현재 접속중인인원
-//		 페이징 처리 < 바꿧음 18년 8월 3일 -> 그냥 스크롤로 보여주는걸로
+		// 페이징 처리 < 바꿧음 18년 8월 3일 -> 그냥 스크롤로 보여주는걸로
 		if (request.getParameter("currentPage") == null) {
 			currentPage = 1;
 		} else {
@@ -180,27 +182,22 @@ public class AdminControllerImpl implements AdminController {
 		CurrentDate CD = new CurrentDate(PC, MOBILE, AtoBOn, BtoCOn, CtoDOn, DtoEOn, EtoFOn, AtoBOff, BtoCOff, CtoDOff,
 				DtoEOff, EtoFOff);
 		// System.out.println(list.toString());
-		
+
 		// 그래프용 값가져오기
 		ArrayList<SevenDaysUserVO> sevenList = as.select7Days();
-		
-		for(int i=0; i<sevenList.size();i++)
-		{
-			if(!sevenList.get(i).getDate().equals(sevenList.get(i+1).getDate()))
-			{
+
+		for (int i = 0; i < sevenList.size(); i++) {
+			if (!sevenList.get(i).getDate().equals(sevenList.get(i + 1).getDate())) {
 				// 데이터 값이 두개씩일때.
-				
-				
-			}
-			else // 데이터 값이 하나일떄???  
+
+			} else // 데이터 값이 하나일떄???
 			{
-				
+
 			}
 		}
-		
-		
+
 		ASLPDVO.setType(request.getParameter("type"));
-		
+
 		request.setAttribute("currentSession", ASLPDVO);
 		request.setAttribute("size", ASLPDVO.getSsList().size());
 		request.setAttribute("totalSize", list.size());
@@ -533,7 +530,75 @@ public class AdminControllerImpl implements AdminController {
 		// DB 이미지 저장
 		as.advertiseImageUpload(adVo);
 
-  }
+	}
+
+	/* 엑셀 출력 POI */
+	@Override
+	@RequestMapping(value = "/excelOut.diet")
+	public void excelOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+		String cellString = "";
+
+		XSSFRow row;
+		XSSFCell cell;
+
+		XSSFWorkbook workbook = new XSSFWorkbook();
+
+		XSSFSheet sheet = workbook.createSheet("memberAllList");
+
+		// THEAD 출력
+		row = sheet.createRow(0);
+
+		row.createCell(0).setCellValue("아이디");
+		row.createCell(1).setCellValue("이름");
+		row.createCell(2).setCellValue("닉네임");
+		row.createCell(3).setCellValue("성별");
+		row.createCell(4).setCellValue("나이");
+		row.createCell(5).setCellValue("전화번호");
+		row.createCell(6).setCellValue("주소");
+		row.createCell(7).setCellValue("회원등급");
+		row.createCell(8).setCellValue("블랙리스트");
+		row.createCell(9).setCellValue("가입일");
+
+		// 전체 회원 리스트 가져오기
+		ArrayList<MemberVO> aList = as.memberListExcel();
+
+		// TBODY 출력
+		for (int i = 0; i < aList.size(); i++) {
+
+			MemberVO mv = aList.get(i);
+
+			row = sheet.createRow(i + 1);
+
+			row.createCell(0).setCellValue(mv.getMbId());
+			row.createCell(1).setCellValue(mv.getMbName());
+			row.createCell(2).setCellValue(mv.getMbNickName());
+			row.createCell(3).setCellValue(mv.getMbGender());
+			row.createCell(4).setCellValue(mv.getMbAge());
+			row.createCell(5).setCellValue(mv.getMbPhone());
+			row.createCell(6).setCellValue(mv.getMbAddress());
+			row.createCell(7).setCellValue(mv.getMbGrade());
+			row.createCell(8).setCellValue(mv.getMbReport());
+			row.createCell(9).setCellValue(formatter.format(mv.getMbEnrollDate()));
+
+		}
+
+		String path = request.getSession().getServletContext().getRealPath("excelOut");
+
+		FileOutputStream outFile;
+
+		try {
+			outFile = new FileOutputStream(path + "/memberAllList.xls");
+			workbook.write(outFile);
+			outFile.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			response.sendRedirect("memberList.diet");
+		}
+	}
 
 	////////////////////////////
 	////////////////////////////
@@ -840,8 +905,7 @@ public class AdminControllerImpl implements AdminController {
 		ArrayList<ErrorLogVO> list = as.todayErrorLogSearch(ELVO);
 
 		// 값이 있을경우
-		if(!list.isEmpty()) 
-		{
+		if (!list.isEmpty()) {
 			// 리스트 대상을 다시 전체로 바꿔서 들고옴
 			ELVO.setType("list");
 			list = as.todayErrorLogSearch(ELVO);
@@ -852,13 +916,12 @@ public class AdminControllerImpl implements AdminController {
 		}
 		// 없을떄
 
-		else 
-		{
-			// 없으므로 어제의 파일을  것을 읽어서, 오늘것에 인설트하기.
+		else {
+			// 없으므로 어제의 파일을 것을 읽어서, 오늘것에 인설트하기.
 			// 로직이 기므로 따로 빼서 작성하겠음.
 		}
 
-//		view.addObject("currentTime",timeType);
+		// view.addObject("currentTime",timeType);
 		view.setViewName("admin/errorLogManage");
 		return view;
 	}
@@ -867,61 +930,68 @@ public class AdminControllerImpl implements AdminController {
 	@Override
 	@RequestMapping(value = "/errorLogManageDetail.diet")
 	public Object errorLogManageDetail(HttpServletRequest request) {
-		// 날자형식 
-				//(오늘날자 ) long time = System.currentTimeMillis()
-						Date todayDate = new Date();
-						// 데이터형식
-						// System.out.println(totalDay);
-						//
-		
+		// 날자형식
+		// (오늘날자 ) long time = System.currentTimeMillis()
+		Date todayDate = new Date();
+		// 데이터형식
+		// System.out.println(totalDay);
+		//
+
 		ModelAndView view = new ModelAndView();
-		String findType="";
-		String findDate="";
-		String listType="";
-		if(request.getParameter("findDate")!=null)
-		{
-		 findDate = (request.getParameter("findDate"));
+		String findType = "";
+		String findDate = "";
+		String listType = "";
+		if (request.getParameter("findDate") != null) {
+			findDate = (request.getParameter("findDate"));
 		}
-		if(request.getParameter("type")!=null)
-		{
-			 
-			 findType = (request.getParameter("type"));
-			 
+		if (request.getParameter("type") != null) {
+
+			findType = (request.getParameter("type"));
+
 		}
-		switch(findType)
-		{
-		case "low" : findType="1"; listType="경도 : WARN"; break;
-		case "mid" : findType="2"; listType="중도 : ERROR";break;
-		case "high" : findType="3"; listType="고도 : FATAL";break;
+		switch (findType) {
+		case "low":
+			findType = "1";
+			listType = "경도 : WARN";
+			break;
+		case "mid":
+			findType = "2";
+			listType = "중도 : ERROR";
+			break;
+		case "high":
+			findType = "3";
+			listType = "고도 : FATAL";
+			break;
 		}
 		// 데이터형식
 		java.sql.Date sqlDate;
 		java.sql.Date sqlToday;
 		Date SearchDate;
-				try {
-					SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
-//					String toDay = dayTime.format(new Date(time));
-					SearchDate = dayTime.parse(findDate);
-					sqlDate = new java.sql.Date(SearchDate.getTime());
-					sqlToday = new java.sql.Date(todayDate.getTime());
-					ErrorLogVO ELVO = new ErrorLogVO();
-					ELVO.setType(findType);
-					ELVO.setErDate(sqlDate);
-//					System.out.println(sqlToday);
-//					System.out.println(sqlDate);
-//					System.out.println((sqlToday.getTime()-sqlDate.getTime()) / (24 * 60 * 60 * 1000));
-					ELVO.setCh((int) ((sqlToday.getTime()-sqlDate.getTime()) / (24 * 60 * 60 * 1000)));
-					ArrayList<ErrorLogVO> list = as.todayErrorLogSearchDetail(ELVO);
-					
-					view.addObject("listType",listType);
-					view.addObject("list",list);
-					view.addObject("findDate",findDate);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				// System.out.println(totalDay);
+		try {
+			SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+			// String toDay = dayTime.format(new Date(time));
+			SearchDate = dayTime.parse(findDate);
+			sqlDate = new java.sql.Date(SearchDate.getTime());
+			sqlToday = new java.sql.Date(todayDate.getTime());
+			ErrorLogVO ELVO = new ErrorLogVO();
+			ELVO.setType(findType);
+			ELVO.setErDate(sqlDate);
+			// System.out.println(sqlToday);
+			// System.out.println(sqlDate);
+			// System.out.println((sqlToday.getTime()-sqlDate.getTime()) / (24 * 60 * 60 *
+			// 1000));
+			ELVO.setCh((int) ((sqlToday.getTime() - sqlDate.getTime()) / (24 * 60 * 60 * 1000)));
+			ArrayList<ErrorLogVO> list = as.todayErrorLogSearchDetail(ELVO);
+
+			view.addObject("listType", listType);
+			view.addObject("list", list);
+			view.addObject("findDate", findDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// System.out.println(totalDay);
 
 		view.setViewName("admin/errorLogManageDetail");
 		return view;
