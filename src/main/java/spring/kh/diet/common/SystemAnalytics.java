@@ -62,7 +62,7 @@ public class SystemAnalytics {
 	@Resource(name = "adminAnalyticsService")
 	private AdminAnalyticService an;
 
-	@Pointcut("execution(* spring.kh.diet.model.service.DietTipServiceImpl.*(*)) || execution(* spring.kh.diet.model.service.HomeTrainingServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommunityServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommonServiceImpl.*(*))")
+	@Pointcut("execution(* spring.kh.diet.model.service.DietTipServiceImpl.*(*)) || execution(* spring.kh.diet.model.service.HomeTrainingServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommunityServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommonServiceImpl.addComment(*))")
 	public void allPointcut() {
 
 	}
@@ -118,40 +118,38 @@ public class SystemAnalytics {
 		
 
 		ArrayList<TodayAnalyticsDetail> list2 = an.selectAnalytics2(timeType);
-		for(int i=0; i<list2.size();i++)
-		{
-			switch(list2.get(i).getListType())
-			{
-			case 1 :
-				tHits = list2.get(i).getHits();
-				tLikes =list2.get(i).getLikes();
-				tComments = list2.get(i).getComments();
-				tPost = list2.get(i).getPost();
+		if(!list2.isEmpty()) {
+				tHits = list2.get(0).getHits();
+				tLikes =list2.get(0).getLikes();
+				tComments = list2.get(0).getComments();
+				tPost = list2.get(0).getPost();
 				// 팁
-				break;
 				
-			case 2 :
-				hHits = list2.get(i).getHits();
-				hLikes =list2.get(i).getLikes();
-				hComments = list2.get(i).getComments();
-				hPost = list2.get(i).getPost();
-				break;
+				hHits = list2.get(1).getHits();
+				hLikes =list2.get(1).getLikes();
+				hComments = list2.get(1).getComments();
+				hPost = list2.get(1).getPost();
 				
-			case 3 :
-				cHits = list2.get(i).getHits();
-				cLikes =list2.get(i).getLikes();
-				cComments = list2.get(i).getComments();
-				cPost = list2.get(i).getPost();
-				break;
-			
-			}
-			
+				cHits = list2.get(2).getHits();
+				cLikes =list2.get(2).getLikes();
+				cComments = list2.get(2).getComments();
+				cPost = list2.get(2).getPost();
 		}
-
-		if (timeSet) {
+			
+//		System.out.println(hHits);
+//		System.out.println(hLikes);
+//		System.out.println(hComments);
+//		System.out.println(hPost);
+//		System.out.println(cHits);
+//		System.out.println(cLikes);
+//		System.out.println(cComments);
+//		System.out.println(cPost);
+//		System.out.println(serviceName);
 			switch (serviceName) {
+			
 			case "DietTipServiceImpl":
 				beforserviceName = serviceName;
+//				System.out.println(methodName);
 				if (methodName.equals("postHit")) // 다이어트팁 조회수
 				{
 					tHits++;
@@ -187,10 +185,12 @@ public class SystemAnalytics {
 				beforserviceName = serviceName;
 				if (methodName.equals("homeTrainingHits")) // 홈트레이닝 조회수
 				{
+					System.out.println("조회수");
 					hHits++;
 				}
 				if (methodName.equals("postLikeUp")) // 좋아요 증가
 				{
+					System.out.println("좋아요");
 					hLikes++;
 				}
 				if (methodName.equals("postLikeDown"))// 좋아요감소
@@ -199,6 +199,7 @@ public class SystemAnalytics {
 				}
 				if (methodName.equals("addComment")) // 댓글증가
 				{
+					System.out.println("댓글");
 					hComments++;
 				}
 				if (methodName.equals("deleteComment")) // 댓글감소\
@@ -207,6 +208,7 @@ public class SystemAnalytics {
 				}
 				if (methodName.equals("registHomeTraining")) // 게시물증가
 				{
+					System.out.println("게시물");
 					hPost++;
 				}
 				if (methodName.equals("deleteHomeTraining")) // 게시물감소
@@ -276,11 +278,9 @@ public class SystemAnalytics {
 				break;
 
 			}
-		}
 
-		SADTVO = new SystemAnalyticsDetailTotalVO(tHits, tLikes, tComments, tPost, hHits, hLikes, hComments, hPost,
-				cHits, cLikes, cComments, cPost, timeType);
-		ArrayList<TodayAnalyticsDetail> list = an.selectAnalytics(SADTVO.getTimeType());
+
+		ArrayList<TodayAnalyticsDetail> list = an.selectAnalytics(timeType);
 		if (list.isEmpty()) {
 			// 추가
 			TodayAnalyticsDetail TAD = new TodayAnalyticsDetail(tHits, tLikes, tComments, tPost, timeType, 1,
@@ -298,51 +298,46 @@ public class SystemAnalytics {
 			TAD.setPost(cPost);
 			TAD.setListType(3);
 			an.insertAnalytics(TAD);
-		} else {
-			TodayAnalyticsDetail TAD = new TodayAnalyticsDetail(tHits, tLikes, tComments, tPost, timeType, 1,
-					"sysdate");
+		} else 
+		{
+			TodayAnalyticsDetail TAD = new TodayAnalyticsDetail();
+			TAD.setUpdateTime("sysdate");
+			TAD.setTimeType(timeType);
 			if (todaySecond > 0) {
 			
-				for (int i = 0; i < list.size(); i++) {
-
-					switch (list.get(i).getListType()) {
-					case 1:
 //						System.out.println(list.get(i).getHits());
 //						System.out.println(tComments);
 //						System.out.println("테스트:"+list.get(i).getHits());
-						tHits += list.get(i).getHits();
-						tComments += list.get(i).getComments();
-						tPost += list.get(i).getPost();
-						tLikes += list.get(i).getLikes();
+//						tHits = list.get(0).getHits();
+//						tComments = list.get(0).getComments();
+//						tPost = list.get(0).getPost();
+//						tLikes = list.get(0).getLikes();
+						TAD.setHits(tHits);
+						TAD.setLikes(tLikes);
+						TAD.setComments(tComments);
+						TAD.setPost(tPost);
 						TAD.setListType(1);
 						an.updateAnalytics(TAD);
-						break;
-					case 2:
-						hHits += list.get(i).getHits();
-						hComments += list.get(i).getComments();
-						hPost += list.get(i).getPost();
-						hLikes += list.get(i).getLikes();
+//						hHits += list.get(1).getHits();
+//						hComments += list.get(1).getComments();
+//						hPost += list.get(1).getPost();
+//						hLikes += list.get(1).getLikes();
 						TAD.setHits(hHits);
 						TAD.setLikes(hLikes);
 						TAD.setComments(hComments);
 						TAD.setPost(hPost);
 						TAD.setListType(2);
 						an.updateAnalytics(TAD);
-						break;
-					case 3:
-						cHits += list.get(i).getHits();
-						cComments += list.get(i).getComments();
-						cPost += list.get(i).getPost();
-						cLikes += list.get(i).getLikes();
+//						cHits += list.get(2).getHits();
+//						cComments += list.get(2).getComments();
+//						cPost += list.get(2).getPost();
+//						cLikes += list.get(2).getLikes();
 						TAD.setHits(cHits);
 						TAD.setLikes(cLikes);
 						TAD.setComments(cComments);
 						TAD.setPost(cPost);
 						TAD.setListType(3);
 						an.updateAnalytics(TAD);
-						break;
-					}
-				}
 				tHits = 0;
 				tLikes = 0;
 				tComments = 0;
@@ -363,42 +358,36 @@ public class SystemAnalytics {
 					|| (todayHour == 18 && todayMinute == 00 && todaySecond == 00)
 					|| (todayHour == 21 && todayMinute == 00 && todaySecond == 00)
 					|| (todayHour == 00 && todayMinute == 00 && todaySecond == 00)) {
-				for (int i = 0; i < list.size(); i++) {
-
-					switch (list.get(i).getListType()) {
-					case 1:
-						tHits += list.get(i).getHits();
-						tComments += list.get(i).getComments();
-						tPost += list.get(i).getPost();
-						tLikes += list.get(i).getLikes();
-						TAD.setListType(1);
+//						tHits += list.get(0).getHits();
+//						tComments += list.get(0).getComments();
+//						tPost += list.get(0).getPost();
+//						tLikes += list.get(0).getLikes();
+				TAD.setHits(tHits);
+				TAD.setLikes(tLikes);
+				TAD.setComments(tComments);
+				TAD.setPost(tPost);
+				TAD.setListType(1);
 						an.updateAnalytics(TAD);
-						break;
-					case 2:
-						hHits += list.get(i).getHits();
-						hComments += list.get(i).getComments();
-						hPost += list.get(i).getPost();
-						hLikes += list.get(i).getLikes();
+//						hHits += list.get(1).getHits();
+//						hComments += list.get(1).getComments();
+//						hPost += list.get(1).getPost();
+//						hLikes += list.get(1).getLikes();
 						TAD.setHits(hHits);
 						TAD.setLikes(hLikes);
 						TAD.setComments(hComments);
 						TAD.setPost(hPost);
 						TAD.setListType(2);
 						an.updateAnalytics(TAD);
-						break;
-					case 3:
-						cHits += list.get(i).getHits();
-						cComments += list.get(i).getComments();
-						cPost += list.get(i).getPost();
-						cLikes += list.get(i).getLikes();
+//						cHits += list.get(2).getHits();
+//						cComments += list.get(2).getComments();
+//						cPost += list.get(2).getPost();
+//						cLikes += list.get(2).getLikes();
 						TAD.setHits(cHits);
 						TAD.setLikes(cLikes);
 						TAD.setComments(cComments);
 						TAD.setPost(cPost);
 						TAD.setListType(3);
 						an.updateAnalytics(TAD);
-						break;
-					}
 				}
 				tHits = 0;
 				tLikes = 0;
@@ -414,6 +403,5 @@ public class SystemAnalytics {
 				cPost = 0;
 			}
 		}
-	}
 
 }
