@@ -550,7 +550,7 @@ body {
 		<!-- 일주일 단위 접속자 내역 보여주기 -->
 		<div class="ui center aligned segment">
 			<div class="ui center aligned segment">
-				<h3> 지난 7일간 접속자 분석</h3>
+				<h3><i class="signal icon"></i> 지난 7일간 접속자 분석</h3>
 			</div>
 			<div class="ui horizontal segments">
 				<!-- 그래프 보여주기 -->
@@ -563,46 +563,46 @@ body {
 				<table class="ui celled table">
 					<thead>
 						<tr align="center">
-							<th style="width: 33%"><i class="clock outline icon"></i> 기간</th>
-							<th style="width: 33%"><i class="user plus icon"></i>
+							<th style="width: 50%"><i class="clock outline icon"></i> 기간</th>
+							<th style="width: 25%"><i class="user plus icon"></i>
 								&nbsp;&nbsp;회원</th>
-							<th style="width: 33%"><i class="user times icon"></i>
+							<th style="width: 25%"><i class="user times icon"></i>
 								&nbsp;&nbsp;비회원</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr align="center">
-								<td>${requestScope.graph7a.day}</td>
+								<td>${requestScope.graph7a.day} / 1일전</td>
 								<td>${requestScope.graph7b.count} 명</td>
 								<td>${requestScope.graph7a.count} 명</td>
 						</tr>
 						<tr align="center">
-								<td>${requestScope.graph6a.day}</td>
+								<td>${requestScope.graph6a.day} / 2일전</td>
 								<td>${requestScope.graph6b.count} 명</td>
 								<td>${requestScope.graph6a.count} 명</td>
 						</tr>
 						<tr align="center">
-								<td>${requestScope.graph5a.day}</td>
+								<td>${requestScope.graph5a.day} / 3일전</td>
 								<td>${requestScope.graph5b.count} 명</td>
 								<td>${requestScope.graph5a.count} 명</td>
 						</tr>
 						<tr align="center">
-								<td>${requestScope.graph4a.day}</td>
+								<td>${requestScope.graph4a.day} / 4일전</td>
 								<td>${requestScope.graph4b.count} 명</td>
 								<td>${requestScope.graph4a.count} 명</td>
 						</tr>
 						<tr align="center">
-								<td>${requestScope.graph3a.day}</td>
+								<td>${requestScope.graph3a.day} / 5일전</td>
 								<td>${requestScope.graph3b.count} 명</td>
 								<td>${requestScope.graph3a.count} 명</td>
 						</tr>
 						<tr align="center">
-								<td>${requestScope.graph2a.day}</td>
+								<td>${requestScope.graph2a.day} / 6일전</td>
 								<td>${requestScope.graph2b.count} 명</td>
 								<td>${requestScope.graph2a.count} 명</td>
 						</tr>
 						<tr align="center">
-								<td>${requestScope.graph1a.day}</td>
+								<td>${requestScope.graph1a.day} / 7일전</td>
 								<td>${requestScope.graph1b.count} 명</td>
 								<td>${requestScope.graph1a.count} 명</td>
 						</tr>
