@@ -926,54 +926,49 @@
 	
 	<!-- 지난 7일간의 유저데이터를 가져와서, 회원,비회원의 접속량을 보여줄 그래프리스트 -->
 	<select id="findSevenDays" resultType="servenDays">
-	select count(ss_login) as count ,sysdate-1 as day from off_session_tbl where (ss_firston between sysdate-1 and sysdate) and ss_login != 'NULL'
+  
+     
+    select count(distinct(ss_index)) as count ,sysdate-1 as day from off_session_tbl where (ss_firston between sysdate-2 and sysdate-1) and (ss_login = 'NULL')
     union all
-    select count(ss_login) as count ,sysdate-1 as day from off_session_tbl where (ss_firston between sysdate-1 and sysdate) and ss_login = 'NULL'
+    select count(distinct(ss_index)) as count ,sysdate-1 as day from off_session_tbl where (ss_firston between sysdate-2 and sysdate-1) and (ss_login !='NULL')
     
-    union
-    
-    select count(ss_login) as count ,sysdate-2 as day from off_session_tbl where (ss_firston between sysdate-2 and sysdate-1) and ss_login != 'NULL'
     union all
-    select count(ss_login) as count ,sysdate-2 as day from off_session_tbl where (ss_firston between sysdate-2 and sysdate-1) and ss_login = 'NULL'
     
-    union
-    
-    select count(ss_login) as count ,sysdate-3 as day from off_session_tbl where (ss_firston between sysdate-3 and sysdate-2) and ss_login != 'NULL'
+    select count(distinct(ss_index)) as count ,sysdate-2 as day from off_session_tbl where (ss_firston between sysdate-3 and sysdate-2) and (ss_login = 'NULL')
     union all
-    select count(ss_login) as count ,sysdate-3 as day from off_session_tbl where (ss_firston between sysdate-3 and sysdate-2) and ss_login = 'NULL'
+    select count(distinct(ss_index)) as count ,sysdate-2 as day from off_session_tbl where (ss_firston between sysdate-3 and sysdate-2) and (ss_login !='NULL')
     
-    union
+      union all
     
-    select count(ss_login) as count ,sysdate-4 as day from off_session_tbl where (ss_firston between sysdate-4 and sysdate-3) and ss_login != 'NULL'
+    select count(distinct(ss_index)) as count ,sysdate-3 as day from off_session_tbl where (ss_firston between sysdate-4 and sysdate-3)and (ss_login = 'NULL')
+      union all
+    select count(distinct(ss_index)) as count ,sysdate-3 as day from off_session_tbl where (ss_firston between sysdate-4 and sysdate-3) and (ss_login !='NULL')
+    
     union all
-    select count(ss_login) as count ,sysdate-4 as day from off_session_tbl where (ss_firston between sysdate-4 and sysdate-3) and ss_login = 'NULL'
     
-    union
+    select count(ss_index) as count ,sysdate-4 as day from off_session_tbl where (ss_firston between sysdate-5 and sysdate-4)and (ss_login = 'NULL')
+      union all
+    select count(distinct(ss_index)) as count ,sysdate-4 as day from off_session_tbl where (ss_firston between sysdate-5 and sysdate-4) and (ss_login !='NULL')
     
-    select count(ss_login) as count ,sysdate-5 as day from off_session_tbl where (ss_firston between sysdate-5 and sysdate-4) and ss_login != 'NULL'
     union all
-    select count(ss_login) as count ,sysdate-5 as day from off_session_tbl where (ss_firston between sysdate-5 and sysdate-4) and ss_login = 'NULL'
     
-    union
+    select count(distinct(ss_index)) as count ,sysdate-5 as day from off_session_tbl where (ss_firston between sysdate-6 and sysdate-5)and (ss_login = 'NULL')
+      union all
+    select count(distinct(ss_index)) as count ,sysdate-5 as day from off_session_tbl where (ss_firston between sysdate-6 and sysdate-5) and (ss_login !='NULL')
     
-    select count(ss_login) as count ,sysdate-6 as day from off_session_tbl where (ss_firston between sysdate-6 and sysdate-5) and ss_login != 'NULL'
-    union all
-    select count(ss_login) as count ,sysdate-6 as day from off_session_tbl where (ss_firston between sysdate-6 and sysdate-5) and ss_login = 'NULL'
+     union all
     
-    union
+    select count(distinct(ss_index)) as count ,sysdate-6 as day from off_session_tbl where (ss_firston between sysdate-7 and sysdate-6)and (ss_login = 'NULL')
+     union all
+    select count(distinct(ss_index)) as count ,sysdate-6 as day from off_session_tbl where (ss_firston between sysdate-7 and sysdate-6) and (ss_login !='NULL')
     
-    select count(ss_login) as count ,sysdate-7 as day from off_session_tbl where (ss_firston between sysdate-7 and sysdate-6) and ss_login != 'NULL'
-    union all
-    select count(ss_login) as count ,sysdate-7 as day from off_session_tbl where (ss_firston between sysdate-7 and sysdate-6) and ss_login = 'NULL'
+      union all
     
-    union
-    
-    select count(ss_login) as count ,sysdate-8 as day from off_session_tbl where (ss_firston between sysdate-8 and sysdate-7) and ss_login != 'NULL'
-    union all
-    select count(ss_login) as count ,sysdate-8 as day from off_session_tbl where (ss_firston between sysdate-8 and sysdate-7) and ss_login = 'NULL'
+    select count(distinct(ss_index)) as count ,sysdate-7 as day from off_session_tbl where (ss_firston between sysdate-8 and sysdate-7)and (ss_login = 'NULL')
+      union all
+    select count(distinct(ss_index)) as count ,sysdate-7 as day from off_session_tbl where (ss_firston between sysdate-8 and sysdate-7) and (ss_login !='NULL')
     
     order by day desc
- 
 	</select>
 
 </mapper>

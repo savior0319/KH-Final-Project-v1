@@ -796,6 +796,13 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public ArrayList<SevenDaysUserVO> select7Days(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.findSevenDays");
+//		if(list.isEmpty())
+//		{
+//			System.out.println("비엇");
+//		}
+//		else {
+//			System.out.println(list.toString());
+//		}
 		return (ArrayList<SevenDaysUserVO>) list;
 	}
 
