@@ -89,9 +89,9 @@ public class AdminControllerImpl implements AdminController {
 		int result = as.noticeRegisterData(nv);
 
 		if (result > 0) {
-			System.out.println("공지등록 완료");
+//			System.out.println("공지등록 완료");
 		} else {
-			System.out.println("공지등록 실패");
+//			System.out.println("공지등록 실패");
 		}
 
 		response.getWriter().print("success");
