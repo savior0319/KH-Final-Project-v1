@@ -93,7 +93,7 @@ p>span {
 							<img src="${requestScope.matchedList[0].dtMainPhoto} " style="width: 100%; height: 200px;"   onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
-							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[0].dtTitle }</a>
+							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});" style="font-size:18px; height:75px; text-indent:10px;">${requestScope.matchedList[0].dtTitle }</a>
 							<div class="meta">
 								<span class="date"> <c:choose>
 										<c:when test="${requestScope.matchedList[0].dtType==1 }">
@@ -121,7 +121,7 @@ p>span {
 							<img src="${requestScope.matchedList[1].dtMainPhoto} " style="width: 100%; height: 200px;"   onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
-							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[1].dtTitle }</a>
+							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});" style="font-size:18px; height:75px; text-indent:10px;">${requestScope.matchedList[1].dtTitle }</a>
 							<div class="meta">
 								<span class="date"> <c:choose>
 										<c:when test="${requestScope.matchedList[1].dtType==1 }">
@@ -149,7 +149,7 @@ p>span {
 							<img src="${requestScope.matchedList[2].dtMainPhoto} " style="width: 100%; height: 200px;"  onerror='this.src="/resources/image/300x400.png"'>
 						</div>
 						<div class="content">
-							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});">${requestScope.matchedList[2].dtTitle }</a>
+							<a class="header" onclick="goInfo(${requestScope.matchedList[0].dtIndex}, ${requestScope.matchedList[0].dtType});" style="font-size:18px; height:75px; text-indent:10px;">${requestScope.matchedList[2].dtTitle }</a>
 							<div class="meta">
 								<span class="date"> <c:choose>
 										<c:when test="${requestScope.matchedList[2].dtType==1 }">
@@ -198,13 +198,13 @@ p>span {
 
 			<c:forEach items="${requestScope.dtpd.dtList }" var="dt">
 
-				<div class="row" style="padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;">
+				<div class="row" style="height:230px; padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid lightgrey;">
 					<div class="four wide column">
 						<img src="${dt.dtMainPhoto }" style="width: 100%; height: 100%; cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });"  onerror='this.src="/resources/image/300x600.png"'>
 					</div>
 					<div class="twelve wide column">
-						<strong style="cursor: pointer;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtTitle }</strong>
-						<div style="cursor: pointer; width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtSammary }</div>
+						<strong style="cursor: pointer; font-size:25px;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtTitle }</strong>
+						<div style="cursor: pointer; width: 100%; height: 55px; overflow: hidden; text-overflow: ellipsis; text-indent: 5px; margin-top:20px;" onclick="goInfo(${dt.dtIndex}, ${dt.dtType });">${dt.dtSammary }</div>
 						<br>
 						<div class="ui grid">
 							<div class="four wide column">

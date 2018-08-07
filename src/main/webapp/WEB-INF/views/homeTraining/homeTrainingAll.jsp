@@ -71,7 +71,7 @@
                   </li>
                </ul>
 		
-
+			<div id="size1">
 			<h1 class="ui left aligned header">홈트레이닝</h1>
 			<hr>
 			
@@ -90,7 +90,7 @@
 									style="width: 100%; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
-								<a class="header" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })" style="height: 50px;">${requestScope.matchedList[0].htTitle }</a>
+								<a class="header" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })" style="font-size:18px; height: 50px;">${requestScope.matchedList[0].htTitle }</a>
 								<br>
 								<div class="meta">
 									<span class="date"> <c:choose>
@@ -138,7 +138,7 @@
 									style="width: 100%; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
-								<a class="header" onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType })" style="height: 50px;">${requestScope.matchedList[1].htTitle }</a>
+								<a class="header" onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType })" style="font-size:18px; height: 50px;">${requestScope.matchedList[1].htTitle }</a>
 								<br>
 								<div class="meta">
 									<span class="date"> <c:choose>
@@ -186,7 +186,7 @@
 									style="width: 100%; height: 200px; cursor: pointer;" onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
-								<a class="header" onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType })" style="height: 50px;">${requestScope.matchedList[2].htTitle }</a>
+								<a class="header" onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType })" style="font-size:18px; height: 50px;">${requestScope.matchedList[2].htTitle }</a>
 								<br>
 								<div class="meta">
 									<span class="date"> <c:choose>
@@ -246,13 +246,13 @@
 								<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="width: 100%; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
-								<a class="header" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="height: 50px;">${ht.htTitle }</a>
+								<a class="header" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="font-size:18px; height: 50px;">${ht.htTitle }</a>
 								<br>
 								<div class="meta">
 									<span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${ht.htLike }</span>
 								</div>
 								<c:if test="${ht.htWriterNo == sessionScope.member.mbIndex }">
-									<div class="four wide column">
+									<div class="four wide column"  style="margin-top:10px;">
 										<a style="cursor: pointer;" onclick="updateHomeTraining(${ht.indexNo})">수정</a> &nbsp;|&nbsp;&nbsp; <a style="cursor: pointer;" onclick="deleteHomeTraining(${ht.indexNo});">삭제</a>
 									</div>
 								</c:if>
@@ -327,7 +327,7 @@
 				</div>
 
 			</div>
-		
+		</div>
 
 
 		<div id="size2" class="ui center aligned basic segment">

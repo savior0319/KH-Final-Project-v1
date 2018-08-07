@@ -73,7 +73,7 @@
 										내 BMI 지수는? (비만도 계산)
 									</button>
 								</td>
-								<td style="padding: 0px; width: 70px;">
+								<td style="padding: 0px; width: 70px; margin-top:7.6px;">
 									<button onclick="bmrCal();" type="button" style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px; padding: 8px; cursor:pointer;">
 										<i class="large sticky note outline icon" id="icon2"></i>
 										칼로리처방 받기
@@ -120,7 +120,7 @@
 					<table class="ui table" style="width: 100%; height: 100%;">
 						<tr align="center">
 							<td style="padding: 0px; width: 70px;">
-								<button onclick="bmiCal();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+								<button onclick="bmiCal();" type="button" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; cursor:pointer;">
 									<i class="large calculator icon" id="icon1"></i>
 									<div class="disappear">
 										<br>
@@ -131,7 +131,7 @@
 								</button>
 							</td>
 							<td style="padding: 0px; width: 70px;">
-								<button onclick="bmrCal();" type="button" style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px;">
+								<button onclick="bmrCal();" type="button" style="height: 100%; width: 100%; background: orange; border: 0; color: white; font-weight: 600; font-size: 15px; cursor:pointer;">
 									<i class="large sticky note outline icon" id="icon2"></i>
 									<div class="disappear">
 										<br>
@@ -144,7 +144,7 @@
 						</tr>
 						<tr align="center">
 							<td style="padding: 0px; width: 70px;">
-								<button type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px;">
+								<button type="button" onclick="findTrainer();" style="height: 100%; width: 100%; background: gray; border: 0; color: white; font-weight: 600; font-size: 15px; cursor:pointer;">
 									<i class="large child icon" id="icon3"></i>
 									<div class="disappear">
 										<br>
@@ -154,7 +154,7 @@
 								</button>
 							</td>
 							<td style="padding: 0px; width: 70px;">
-								<button type="button" onclick="healthCenter();" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px;">
+								<button type="button" onclick="healthCenter();" style="height: 100%; width: 100%; background: rgb(250, 40, 40); border: 0; color: white; font-weight: 600; font-size: 15px; cursor:pointer;">
 									<i class="large sistrix icon" id="icon4"></i>
 									<div class="disappear">
 										<br>
@@ -310,6 +310,7 @@
 <hr>
 <br>
 	<div class="ui three column grid" align="center" id="mainRecipe"></div>
+	<div class="ui one column grid" align="center" id="mainRecipe2"></div>
 	<br>
 	<hr>
 </div>
@@ -578,7 +579,8 @@
 				type : 'post',
 				data : {'type' : 16},
 				success : function(data) {
-					var str = '';
+					
+					/* 웹용 레시피식단 출력 */
 					for (var i = 0; i < 3; i++) {
 						var column = $("<div>").attr("class","column");
 						
@@ -657,6 +659,89 @@
 						column.append(card);
 						
 						$('#mainRecipe').append(column);
+						
+					}
+					
+					
+					/* 모바일용 레시피 식단 출력 */
+					for (var i = 0; i < 3; i++) {
+						var column = $("<div>").attr("class","column");
+						
+						var card = $("<div>").attr("class","ui card");
+						card.attr("onclick","recipeLink("+data.comList[i].postIndex+")");
+						card.attr("style","cursor:pointer;");
+						var imgDiv = $("<div>").attr("class","image");
+						
+						 if(data.comList[i].postImage!=null){
+		                     var img = $('<img>').attr("src",data.comList[i].postImage);
+		                     img.attr("style","height: 200px;");
+		                  }else{
+		                     var img = $('<img>').attr("src","/resources/image/300x400.png");
+		                     img.attr("style","height: 200px;");
+		                  }
+
+						imgDiv.append(img);
+						var content = $("<div>").attr("class","content");
+						var header = $("<a>").attr("class","header");
+						header.attr("href","/postedCommunity.diet?postIndex="+data.comList[i].postIndex);
+						
+						var tempChar = data.comList[i].postTitle;
+						var charSize = (data.comList[i].postTitle).length;
+						if (charSize > 15) {
+							var value = data.comList[i].postTitle;
+							tempChar = value.substring(0, 14) + '...';
+						} else {
+							tempChar = data.comList[i].postTitle;
+						}
+						header.html(tempChar);
+						
+						var metaDiv = $("<div>").attr("class","meta");
+						var dateSpan = $("<span>").attr("class","date");
+						var date = new Date(data.comList[i].postDateTime);
+						var dateFor = date.getFullYear() + "-"+
+						doublePos((date.getMonth() + 1)) +"-"+doublePos(date.getDate()) + " " + doublePos(date.getHours())+":"+
+						doublePos(date.getMinutes()) 
+								+":"+ doublePos(date.getSeconds());
+						dateSpan.html(dateFor);
+						
+						metaDiv.append(dateSpan);
+						
+						var description = $("<div>").attr("class","description");
+						var eyeIcon = $("<i>").attr("class","eye icon");
+						var boldHit = $("<b>").html(data.comList[i].postHit);
+						
+						var heartIcon = $("<i>").attr("class","heart outline icon");
+						heartIcon.attr("id","emptyHeart");
+						var boldLike = $("<b>").html(data.comList[i].postLike);
+						description.append(eyeIcon);
+						description.append("조회&nbsp;&nbsp;");
+						description.append(boldHit);
+						description.append("&emsp;|| &emsp;");
+						description.append(heartIcon);
+						description.append("좋아요&nbsp;&nbsp;");
+						description.append(boldLike);
+						
+						content.append(header);
+						content.append(metaDiv);
+						content.append(description);
+						
+						var extraDiv = $("<div>").attr("class","extra content");
+						var mbImage = $("<img>").attr("class","ui avatar image");
+						mbImage.attr("src",data.comList[i].mbImage);
+						mbImage.attr("onerror",'this.src="/resources/image/avatar.png"');
+						var mbA = $("<a>").append(mbImage);
+						mbA.attr("href","/postedCommunity.diet?postIndex="+data.comList[i].postIndex);
+						mbA.append(data.comList[i].postNickname);
+						
+						extraDiv.append(mbA);
+						
+						card.append(imgDiv);
+						card.append(content);
+						card.append(extraDiv);
+						
+						column.append(card);
+						
+						$('#mainRecipe2').append(column);
 					}
 					
 				},
@@ -690,10 +775,22 @@
 	.rslides {
 		margin-top: 15px;
 	}
+	#mainRecipe{
+		display: none;
+	}
+	#mainRecipe2{
+		display: block;
+	}
 }
 
 @media ( min-width : 768px) {		/* 768 이상 */
 	#mainBoardResize {
+		display: none;
+	}
+	#mainRecipe{
+		display: block;
+	}
+	#mainRecipe2{
 		display: none;
 	}
 }
@@ -705,6 +802,7 @@
 	#size2{
 		display:block;
 	}
+	
 }
 
 
