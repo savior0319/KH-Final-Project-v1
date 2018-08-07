@@ -76,10 +76,11 @@ a {
 	<!-- CONTENTS -->
 	<div class="ui center aligned basic segment">
 		<div class="ui container">
+			<br>
 			<div id="size1" class="contents login">
 				<c:if test="${sessionScope.member==null}">
 					<div class="login title">
-						<h1>LOGIN</h1>
+						<h1>로그인</h1>
 					</div>
 					<div class="login box">
 						<p style="padding-top: 20px; font-size: 13px; font-weight: 800;">
