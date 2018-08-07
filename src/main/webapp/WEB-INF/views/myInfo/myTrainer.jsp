@@ -9,13 +9,13 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>트레이너</title>
+<title>마이페이지 - 나의 트레이너</title>
 </head>
 
 <!-- CSS -->
 <style>
-</style>
 
+</style>
 <body>
 	<!-- HEADER -->
 	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
@@ -357,7 +357,6 @@
 						alert("구매 취소가 불가합니다. 관리자에게 문의 바랍니다.");
 						location.href = "/";
 					}
-
 				},
 				error : function() {
 					alert("구매 취소가 불가합니다. 관리자에게 문의 바랍니다.");
@@ -385,10 +384,10 @@
 		$("#text1").css('font-weight', 900);
 		$("#text2").css('color', 'black');
 		$("#text2").css('font-weight', 900);
+
 	}
 
 	function applyList() {
-		console.log("here");
 		$("#trainerApply").hide();
 		$("#memberApply").show();
 		$("#apply1").css('background-color', 'white');

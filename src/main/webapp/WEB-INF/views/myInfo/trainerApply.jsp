@@ -5,7 +5,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>트레이너신청</title>
+<title>트레이너자격신청</title>
 </head>
 
 <!-- CSS -->

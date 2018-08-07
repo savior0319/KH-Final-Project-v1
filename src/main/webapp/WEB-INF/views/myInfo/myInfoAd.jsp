@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 
 <!DOCTYPE html>
@@ -12,8 +11,7 @@
 <title>트레이너</title>
 </head>
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" class="ui"
-	href="/stylesheets/shape.css">
+<link rel="stylesheet" type="text/css" class="ui" href="/stylesheets/shape.css">
 <style>
 .rslides {
 	position: relative;
@@ -53,26 +51,21 @@
 		<div class="ui center aligned basic segment">
 			<!-- 슬라이드-->
 			<ul class="rslides" style="padding-bottom: 15px;">
-				<li><a
-					href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-						<img style="height:300px" src="/resources/image/mainPic.jpg">
-				</a></li>
-				<li><a
-					href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-						<img style="height:300px;" src="/resources/image/mainPic1.jpg">
-				</a></li>
-				<li><a
-					href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-						<img style="height:300px;" src="/resources/image/mainPic2.jpg">
-				</a></li>
-				<li><a
-					href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-						<img style="height:300px;" src="/resources/image/mainPic3.jpg">
-				</a></li>
-				<li><a
-					href="https://www.google.co.kr/search?q=%EA%B7%80%EC%8B%A0&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjfktevrcjcAhXEdt4KHXnfAb8Q_AUICigB&biw=1920&bih=974">
-						<img style="height:300px;" src="/resources/image/advertise.png">
-				</a></li>
+				<li>
+					<img src="#" id="image1" style="height: 300px;">
+				</li>
+				<li>
+					<img src="#" id="image2" style="height: 300px;">
+				</li>
+				<li>
+					<img src="#" id="image3" style="height: 300px;">
+				</li>
+				<li>
+					<img src="#" id="image4" style="height: 300px;">
+				</li>
+				<li>
+					<img src="/resources/image/advertise.png" style="height: 300px;">
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -87,6 +80,22 @@
 			auto : true,
 			timeout : 1500,
 			random : true,
+		});
+	});
+	/* 광고 이미지 불러오기 */
+	$(document).ready(function() {
+		$.ajax({
+			url : '/advertiseImageLoad.diet',
+			type : 'post',
+			success : function(img) {
+				$("#image1").attr("src", img[0].path1);
+				$("#image2").attr("src", img[1].path1);
+				$("#image3").attr("src", img[2].path1);
+				$("#image4").attr("src", img[3].path1);
+			},
+			error : function() {
+				console.log('[ERROR] - 이미지 불러오기 오류');
+			}
 		});
 	});
 </script>

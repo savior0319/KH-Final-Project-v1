@@ -55,23 +55,23 @@
 	<!-- 슬라이드-->
                <ul class="rslides" style="padding-bottom: 15px;">
                   <li>
-                     <img src="#" id="image1" style="height:250px;">
+                     <img src="#" id="image1" style="height:300px;">
                   </li>
                   <li>
-                     <img src="#" id="image2" style="height:250px;">
+                     <img src="#" id="image2" style="height:300px;">
                   </li>
                   <li>
-                     <img src="#" id="image3" style="height:250px;">
+                     <img src="#" id="image3" style="height:300px;">
                   </li>
                   <li>
-                     <img src="#" id="image4" style="height:250px;">
+                     <img src="#" id="image4" style="height:300px;">
                   </li>
                   <li>
-                     <img src="/resources/image/advertise.png" style="height:250px;">
+                     <img src="/resources/image/advertise.png" style="height:300px;">
                   </li>
                </ul>
                
-		<div class="ui center aligned basic segment">
+		
 
 			<h1 class="ui left aligned header">음식칼로리</h1>
 			<hr>
@@ -142,7 +142,7 @@
 							</tr>
 						</thead>
 					</table>
-						<div class="ui red medium message">
+						<div class="ui red medium message" style="text-align:center;">
 					<br>
 					<i class="exclamation huge icon"></i>
 					<div class="ui medium header">
@@ -188,7 +188,7 @@
 			<br>
 		</div>
 
-	</div>
+
 
 
 	<!-- FOOTER -->

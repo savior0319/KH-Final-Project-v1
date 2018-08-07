@@ -43,6 +43,8 @@
 	width: 100%;
 	border: 0;
 }
+
+
 </style>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -92,6 +94,7 @@
 					var chart = new google.visualization.BarChart(document
 							.getElementById("barchart_values"));
 					chart.draw(view, options);
+					
 				}
 
 			});
@@ -108,23 +111,23 @@
 	<!-- 슬라이드-->
                <ul class="rslides" style="padding-bottom: 15px;">
                   <li>
-                     <img src="#" id="image1" style="height:250px;">
+                     <img src="#" id="image1" style="height:300px;">
                   </li>
                   <li>
-                     <img src="#" id="image2" style="height:250px;">
+                     <img src="#" id="image2" style="height:300px;">
                   </li>
                   <li>
-                     <img src="#" id="image3" style="height:250px;">
+                     <img src="#" id="image3" style="height:300px;">
                   </li>
                   <li>
-                     <img src="#" id="image4" style="height:250px;">
+                     <img src="#" id="image4" style="height:300px;">
                   </li>
                   <li>
-                     <img src="/resources/image/advertise.png" style="height:250px;">
+                     <img src="/resources/image/advertise.png" style="height:300px;">
                   </li>
                </ul>
 	
-		<div class="ui center aligned basic segment">
+		
 
 			<h1 class="ui left aligned header">음식칼로리</h1>
 			<hr>
@@ -190,7 +193,7 @@
 
 
 			<div class="ui center aligned basic segment">
-				<div id="barchart_values" style="width: 100%;"></div>
+				<div id="barchart_values" style="width: 100%; font-size:10px;"></div>
 			</div>
 
 			<br>
@@ -213,7 +216,7 @@
 			</div>
 		</div>
 
-	</div>
+
 
 
 	<!-- 음식과 동일한 운동  -->

@@ -61,19 +61,19 @@
 		<!-- 슬라이드-->
                <ul class="rslides" style="padding-bottom: 15px;">
                   <li>
-                     <img src="#" id="image1" style="height:250px;">
+                     <img src="#" id="image1" style="height:300px;">
                   </li>
                   <li>
-                     <img src="#" id="image2" style="height:250px;">
+                     <img src="#" id="image2" style="height:300px;">
                   </li>
                   <li>
-                     <img src="#" id="image3" style="height:250px;">
+                     <img src="#" id="image3" style="height:300px;">
                   </li>
                   <li>
-                     <img src="#" id="image4" style="height:250px;">
+                     <img src="#" id="image4" style="height:300px;">
                   </li>
                   <li>
-                     <img src="/resources/image/advertise.png" style="height:250px;">
+                     <img src="/resources/image/advertise.png" style="height:300px;">
                   </li>
                </ul>
              
@@ -108,10 +108,11 @@
 						<div class="ui card" >
 							<div class="image">
 								<img src="${ht.htMainPhoto}" onclick="InfoPage(${ht.indexNo})"
-									style="width: 290px; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
+									style="width: 100%; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${ht.indexNo})" style="height: 50px;">${ht.htTitle }</a>
+								<br>
 								<div class="meta">
 									<span class="date">${ht.htPart } |</span> <i
 										class="heart outline icon"></i> 좋아요 <span class="like"

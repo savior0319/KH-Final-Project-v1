@@ -46,7 +46,8 @@ public interface MyInfoController {
 
 	String checkReport(MemberVO mbIndex);
 
-	void deleteMyQuestion(HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException;
+	void deleteMyQuestion(HttpServletResponse response, HttpServletRequest request, HttpSession session)
+			throws IOException;
 
 	void deleteMyPost(HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException;
 
@@ -58,14 +59,13 @@ public interface MyInfoController {
 
 	Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request, MyActivityVO ma);
 
-	Object requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException;
-
-	Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+	Object requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws JsonIOException, IOException;
 
 	void canclePro(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws JsonIOException, IOException;
 
-
+	Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response, String type)
+			throws JsonIOException, IOException;
 
 }

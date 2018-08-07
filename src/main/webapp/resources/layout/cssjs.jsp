@@ -22,10 +22,14 @@
   font-style: normal;
   font-weight: 700;
 } */
-@import url('https://fonts.googleapis.com/css?family=Jua');
-body{
-font-family: 'Jua', sans-serif;
-font-size: 110%;
+/* @import url('https://fonts.googleapis.com/css?family=Jua'); */
+@import url('https://fonts.googleapis.com/css?family=Sunflower:300');
+
+*{
+/* font-family: 'Jua', sans-serif; */
+font-family: 'Sunflower', sans-serif;
+font-size: 103%;
+font-weight:600;
 }
 
 
