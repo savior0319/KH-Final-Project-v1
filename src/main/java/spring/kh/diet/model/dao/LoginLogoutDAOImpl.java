@@ -31,7 +31,6 @@ public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 
 	@Override
 	public int joinKaKao(SqlSessionTemplate sqlSessionTemplate, MemberVO m) {
-		System.out.println(m.getMbNickName());
 		int result = sqlSessionTemplate.insert("login.joinKaKao", m);
 		return result;
 	}
@@ -54,7 +53,6 @@ public class LoginLogoutDAOImpl implements LoginLogoutDAO {
 
 	public MemberVO kakaoLoginService(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
 		MemberVO m = sqlSessionTemplate.selectOne("login.kakaoLoginService", mv);
-		System.out.println(m.getMbGender());
 		return m;
 	}
 

@@ -625,7 +625,6 @@ public class AdminControllerImpl implements AdminController {
 	public Object todayAnalytics(HttpServletRequest request) {
 
 		todayAnalyticPDVO tAPDVO = todayAutoAnalytics();
-//		System.out.println(tAPDVO.getTCVO());
 		tAPDVO.setType(request.getParameter("type"));
 		request.setAttribute("Current", tAPDVO);
 		

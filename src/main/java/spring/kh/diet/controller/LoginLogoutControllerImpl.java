@@ -43,7 +43,6 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 			session.setAttribute("member", m);		
 			return "redirect:/";
 		} else {
-			System.out.println("로그인 실패");
 			return "login/loginFailed";
 		}
 	}
@@ -90,12 +89,10 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 				session.setAttribute("member", mv2);
 				return "redirect:/index.jsp";
 			} else {
-				System.out.println("kakao로그인 실패");
 				return "login/login";
 			}
 		} else { // id가 없을 경우
 			String setNick = kakaoNickNum();
-			System.out.println("닉네임:"+setNick);
 			mv.setMbNickName(setNick);
 			int result = loginService.joinKaKao(mv);// 카카오톡 처음 로그인시 자동으로 가입처리됨.
 			if (result > 0) {// 가입성공하면
@@ -106,11 +103,9 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 					session.setAttribute("member", mv2);
 					return "redirect:/index.jsp";
 				} else {
-					System.out.println("kakao로그인 실패");
 					return "login/login";
 				}
 			} else {
-				System.out.println("카카오톡으로 가입 실패 ");
 				return "login/login";
 			}
 		}
@@ -160,12 +155,10 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 			MemberVO mv = new MemberVO();
 			mv.setMbId(mbId);
 			result = loginService.existUserFindingId(mv); // 등록된 이메일이 있는지 확인
-			System.out.println("result:" + result);
 			if (result > 0) {
 				authReturn = new EmailConfirm().connectEmail(mbId);
 				result2 = this.updateMypass(authReturn, mbId);
 			} else {
-				System.out.println("미등록 이메일 주소입니다.");
 			}
 
 		}

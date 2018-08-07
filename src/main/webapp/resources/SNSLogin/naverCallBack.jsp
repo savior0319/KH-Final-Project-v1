@@ -27,14 +27,12 @@
     apiURL += "&state=" + state;
     String access_token = "";
     String refresh_token = "";
-    System.out.println("apiURL="+apiURL);
     try {
       URL url = new URL(apiURL);
       HttpURLConnection con = (HttpURLConnection)url.openConnection();
       con.setRequestMethod("GET");
       int responseCode = con.getResponseCode();
       BufferedReader br;
-      System.out.println("responseCode="+responseCode);
       if(responseCode==200) { // 정상 호출
         br = new BufferedReader(new InputStreamReader(con.getInputStream()));
       } else {  // 에러 발생
@@ -57,13 +55,11 @@
     	    str = access_token.replace("\"", "");
     	    access_token = str.replace(",", "");
 
-    	  System.out.println("inputLine : " + access_token);
         out.println(res.toString());
       }
       
       
     } catch (Exception e) {
-      System.out.println(e);
     }
     
     RequestDispatcher view = request.getRequestDispatcher("/navercallback");
