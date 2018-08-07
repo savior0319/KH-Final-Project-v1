@@ -126,4 +126,8 @@ public interface MyInfoDAO {
 
 	int idCheck2(SqlSessionTemplate sqlSessionTemplate, String id);
 
+	int trainerUpdate(SqlSessionTemplate sqlSessionTemplate, TrainingRegVO tr);
+
+	TrainingRegVO selectOneTrainer(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+
 }

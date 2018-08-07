@@ -362,4 +362,16 @@ public class MyInfoServiceImpl implements MyInfoService {
 		return list;
 	}
 
+	@Override
+	public int trainerUpdate(TrainingRegVO tr) {
+		int result = myInfoDAO.trainerUpdate(SqlSessionTemplate, tr);
+		return result;
+	}
+
+	@Override
+	public TrainingRegVO selectOneTrainer(MemberVO mv) {
+		TrainingRegVO trv = myInfoDAO.selectOneTrainer(SqlSessionTemplate,mv);
+		return trv;
+	}
+
 }

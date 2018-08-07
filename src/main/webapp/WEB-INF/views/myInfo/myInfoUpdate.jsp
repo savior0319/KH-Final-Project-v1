@@ -6,13 +6,16 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<link href="https://fonts.googleapis.com/css?family=Stylish" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet">
 <title>마이페이지</title>
 </head>
 
 <!-- CSS -->
 <style>
+
+	
+
+
 .myInfoUpdateContents {
 	width: 100%;
 	height: 100%;
@@ -104,8 +107,6 @@
 	margin: -1px;
 	overflow: hidden;
 }
-
-
 </style>
 
 <body>
@@ -197,9 +198,10 @@
 							</c:if>
 						</div>
 						<div class="Btn">
-							<button type="button" class="ui button" id="updatePictureBtn1" onclick="updatePictureBtn();" style=" font-family: 'Do Hyeon', sans-serif;width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
+							<button type="button" class="ui button" id="updatePictureBtn1" onclick="updatePictureBtn();"
+								style="font-family: 'Do Hyeon', sans-serif; width: 140px; background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
 							<br>
-							<button type="button" class="ui button" id="deletePictureBtn1" onclick="deletePictureBtn();" style=" font-family: 'Do Hyeon', sans-serif;margin-top: 10px; width: 140px;">사진 삭제</button>
+							<button type="button" class="ui button" id="deletePictureBtn1" onclick="deletePictureBtn();" style="font-family: 'Do Hyeon', sans-serif; margin-top: 10px; width: 140px;">사진 삭제</button>
 						</div>
 						<br>
 
@@ -208,80 +210,79 @@
 								<tbody>
 									<tr>
 										<td class="firstTd" style="width: 250px; background-color: rgba(255, 185, 185, 0.5);">
-											<h3 style=" font-size: 20px;">
+											<h3 style="font-size: 20px; font-family: 'Sunflower', sans-serif;">
 												<i class=" trophy icon"></i>
 												등급
 											</h3>
 										</td>
 										<td>
-											<strong style="font-size: 20px; ">${sessionScope.member.mbGrade}&nbsp;&nbsp;</strong>
+											<strong style="font-size: 20px; font-family: 'Sunflower', sans-serif;">${sessionScope.member.mbGrade}&nbsp;&nbsp;</strong>
 											<button type="button" class="ui button" onclick="gradeInfo();">
-												<strong style=" font-size: 20px;">등급안내</strong>
+												<strong style="font-size: 20px;">등급안내</strong>
 											</button>
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd"  style="background-color: rgba(255, 185, 185, 0.5);" >
-											<h3 style=" font-size: 20px; ">
+										<td class="firstTd" style="background-color: rgba(255, 185, 185, 0.5);">
+											<h3 style="font-size: 20px; font-family: 'Sunflower', sans-serif;">
 												<i class="shield alternate icon"></i>
 												계정
 											</h3>
 										</td>
 										<td>
 											<div class="ui input focus">
-												<input type="text" id="account" name="mbId" value="${sessionScope.member.mbId}" readonly placeholder="아이디.." style="width: 300px;">
+												<input type="text" id="account" name="mbId" value="${sessionScope.member.mbId}" readonly placeholder="아이디.." style="width: 300px; font-family: 'Sunflower', sans-serif;">
 											</div>
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd"  style="background-color: rgba(255, 185, 185, 0.5);">
-											<h3 style=" font-size: 20px;">
+										<td class="firstTd" style="background-color: rgba(255, 185, 185, 0.5);">
+											<h3 style="font-size: 20px; font-family: 'Sunflower', sans-serif;">
 												<i class="expeditedssl icon"></i>
 												비밀번호 재설정
 											</h3>
 										</td>
 										<td>
 											<div class="ui input focus">
-												<input type="password" placeholder="변경할 비밀번호.." id="mbPwd" name="mbPwd" style="width: 300px;">
+												<input type="password" placeholder="변경할 비밀번호.." id="mbPwd" name="mbPwd" style="width: 300px; font-family: 'Sunflower', sans-serif;">
 											</div>
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd"  style="background-color: rgba(255, 185, 185, 0.5);">
-											<h3 style=" font-size: 20px;">
+										<td class="firstTd" style="background-color: rgba(255, 185, 185, 0.5);">
+											<h3 style="font-size: 20px; font-family: 'Sunflower', sans-serif;">
 												<i class="tree icon"></i>
-											
 												닉네임
 											</h3>
 										</td>
 										<td>
 											<div class="ui input focus">
-												<input type="text" placeholder="닉네임.." id="nickName" value="${sessionScope.member.mbNickName}" name="mbNickName" style="width: 300px;">
+												<input type="text" placeholder="닉네임.." id="nickName" value="${sessionScope.member.mbNickName}" name="mbNickName" style="width: 300px; font-family: 'Sunflower', sans-serif;">
 											</div>
 										</td>
 									<tr>
-										<td class="firstTd"  style="background-color: rgba(255, 185, 185, 0.5);">
-											<h3 style="font-size: 20px;">
+										<td class="firstTd" style="background-color: rgba(255, 185, 185, 0.5);">
+											<h3 style="font-size: 20px; font-family: 'Sunflower', sans-serif;">
 												<i class="phone  icon"></i>
 												핸드폰번호
 											</h3>
 										</td>
 										<td>
 											<div class="ui input focus">
-												<input type="text" placeholder="폰번호.." id="phone" value="${sessionScope.member.mbPhone}" name="mbPhone" style="width: 300px;">
+												<input type="text" placeholder="폰번호.." id="phone" value="${sessionScope.member.mbPhone}" name="mbPhone" style="width: 300px; font-family: 'Sunflower', sans-serif;">
 											</div>
 										</td>
 									</tr>
 									<tr>
-										<td class="firstTd"  style="background-color: rgba(255, 185, 185, 0.5);">
-											<h3 style=" font-size: 20px;">
+										<td class="firstTd" style="background-color: rgba(255, 185, 185, 0.5);">
+											<h3 style="font-size: 20px; font-family: 'Sunflower', sans-serif;">
 												<i class="paw  icon"></i>
 												다짐
 											</h3>
 										</td>
 										<td>
 											<div class="ui input focus">
-												<input type="text" placeholder="한 줄 다짐.." id="promise" value="${sessionScope.member.mbPromise}" name="mbPromise" style="width: 500px;">
+												<input type="text" placeholder="한 줄 다짐.." id="promise" value="${sessionScope.member.mbPromise}" name="mbPromise" style="width: 500px; font-family: 'Sunflower', sans-serif;">
 											</div>
 										</td>
 									</tr>
