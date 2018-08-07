@@ -44,8 +44,4 @@ public interface RedirectController {
 
 	String redirectLoginPage(HttpServletRequest request);
   
-	String loginLogManageTest1();
-
-	String loginLogManageDetailTest1();
-
 }
