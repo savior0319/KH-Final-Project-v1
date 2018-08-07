@@ -225,7 +225,6 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public BoardLikeVO checkCommnetLike(BoardLikeVO likeCheckVO) {
-		System.out.println(likeCheckVO);
 		BoardLikeVO blv = communityDAO.checkCommentLike(SqlSessionTemplate, likeCheckVO);
 		return blv;
 	}

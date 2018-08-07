@@ -62,7 +62,7 @@
 	<div class="ui container">
 		
 <!-- 슬라이드-->
-               <ul class="rslides"">
+               <ul class="rslides">
                   <li>
                      <img src="#" id="image1" style="height:300px;">
                   </li>
@@ -118,7 +118,7 @@
 			<c:otherwise>
 				<br>
 				<br>
-					<div class="ui red medium message"><br><i class="exclamation huge icon"></i><div class="ui medium header"><br>※ 해당지역에 트레이너가 어ㅄ습니다<br>다른 지역을 선택해주세요<br><br><br></div></div>
+					<div class="ui red medium message"><br><i class="exclamation huge icon"></i><div class="ui medium header"><br>※ 해당지역에 트레이너가 없습니다<br>다른 지역을 선택해주세요<br><br><br></div></div>
 				<br>
 				<br>
 				<br>
