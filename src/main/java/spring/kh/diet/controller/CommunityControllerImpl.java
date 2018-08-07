@@ -287,15 +287,8 @@ public class CommunityControllerImpl implements CommunityController {
 	@RequestMapping(value = "/deletePost.diet")
 	public Object deletePost(HttpServletRequest request) {
 		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
-
-		int result = communityService.deletePost(postIndex);
-
-		if (result > 0) {
-			return "community/postedCommunity";
-		} else {
-			return null;
-		}
-
+		 communityService.deletePost(postIndex);
+		return "community/postedCommunity";
 	}
 
 	// 최신순 | 조회순 출력 : 전체, 자유, 팁&노하우, 고민&질문, 비포&애프터 게시판 페이징 처리 출력
