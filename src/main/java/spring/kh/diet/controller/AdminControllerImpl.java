@@ -1001,7 +1001,6 @@ public class AdminControllerImpl implements AdminController {
 			view.addObject("list", list);
 			view.addObject("findDate", findDate);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

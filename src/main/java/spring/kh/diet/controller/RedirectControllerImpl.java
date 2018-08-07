@@ -1,5 +1,7 @@
 package spring.kh.diet.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -77,7 +79,9 @@ public class RedirectControllerImpl implements RedirectController {
 	/* 로그인 */
 	@Override
 	@RequestMapping(value = "/login.diet")
-	public String redirectLoginPage() {
+	public String redirectLoginPage(HttpServletRequest request) {
+		String referrer = request.getHeader("referer");
+		request.getSession().setAttribute("referer", referrer);
 		return "login/login";
 	}
 
@@ -137,20 +141,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "myInfo/myDiary";
 	}
 
-	/* 커뮤니티 - 글등록할 페이지 */
-	@Override
-	@RequestMapping(value = "/registCommunity.diet")
-	public String redirectRegistCommunity() {
-		return "community/registCommunity";
-	}
-
-	/* 고객센터 - 트레이너 회원 등록 */
-	@Override
-	@RequestMapping(value = "/trainerReg.diet")
-	public String trainerReg() {
-		return "main/trainerReg";
-	}
-
 	/* 마이페이지 - 나의 트레이너(일반) */
 	@Override
 	@RequestMapping(value = "myTrainer.diet")
@@ -164,23 +154,4 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectMyPageTrainer() {
 		return "myInfo/imTrainer";
 	}
-
-	/* 트레이너 상품 등록 */
-	@Override
-	@RequestMapping(value = "/programReg.diet")
-	public String redirectSangpoom() {
-		return "main/programReg";
-	}
-	@Override
-	@RequestMapping(value = "/loginLogManage.diet")
-	public String loginLogManageTest1() {
-		return "admin/loginManage";
-	}
-	
-	@Override
-	@RequestMapping(value = "/loginLogManageDetail.diet")
-	public String loginLogManageDetailTest1() {
-		return "admin/loginLogManageDetail";
-	}
-
 }

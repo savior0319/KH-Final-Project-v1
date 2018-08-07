@@ -54,4 +54,6 @@ public interface CommunityController {
 
 	BoardLikeVO checkCommentLike(int postIndex, int sessionIndex);
 
+	String redirectRegistCommunity(HttpSession session);
+
 }

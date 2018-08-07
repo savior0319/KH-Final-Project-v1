@@ -58,19 +58,19 @@
 		<!-- 슬라이드-->
 		<ul class="rslides" style="padding-bottom: 15px;">
 			<li>
-				<img src="#"" id="image1" style="height: 300px;">
+				<img src="#" id="image1" style="height: 300px;">
 			</li>
 			<li>
-				<img src="#"" id="image2" style="height: 300px;">
+				<img src="#" id="image2" style="height: 300px;">
 			</li>
 			<li>
-				<img src="#"" id="image3" style="height: 300px;">
+				<img src="#" id="image3" style="height: 300px;">
 			</li>
 			<li>
-				<img src="#"" id="image4" style="height: 300px;">
+				<img src="#" id="image4" style="height: 300px;">
 			</li>
 			<li>
-				<img src="/resources/image/advertise.png">
+				<img src="/resources/image/advertise.png" style="height: 300px;">
 			</li>
 		</ul>
 		<br>

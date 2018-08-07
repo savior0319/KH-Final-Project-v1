@@ -64,7 +64,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		htpd.setSearchText(pdvo.getSearchText());
 
 		request.setAttribute("htpd", htpd);
-		
+
 		request.setAttribute("type", "all");
 
 		// 종류별로 해당 회원이 게시물을 봤던 횟수 불러오기
@@ -199,7 +199,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 
 		// 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기
 		MemberVO user = (MemberVO) session.getAttribute("member");
-		if (user != null &&  type!=null) {
+		if (user != null && type != null) {
 			UpMbSeeVO ums = new UpMbSeeVO();
 			ums.setMbIndex(user.getMbIndex());
 			ums.setType(type);
@@ -301,8 +301,15 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 	// 홈트레이닝 글쓰기 불러오기
 	@Override
 	@RequestMapping(value = "/loadHomeTrainingWrite.diet")
-	public String redirectLoadHomeTrainingWrite() {
-		return "homeTraining/registHomeTraining";
+	public String redirectLoadHomeTrainingWrite(HttpSession session) {
+
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+
+		if (mv != null) {
+			return "homeTraining/registHomeTraining";
+		} else {
+			return "redirect:/";
+		}
 	}
 
 	// 홈트레이닝 글 등록
@@ -425,9 +432,9 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		}
 
 		ht.setHtVideo(request.getParameter("video"));
-		
+
 		String imgPath = request.getParameter("mainPhotoPath");
-		if(imgPath.substring(0, 13).equals("/imageUpload/")) {
+		if (imgPath.substring(0, 13).equals("/imageUpload/")) {
 			imgPath = imgPath.substring(13);
 		}
 		ht.setHtMainPhoto("/imageUpload/" + imgPath);

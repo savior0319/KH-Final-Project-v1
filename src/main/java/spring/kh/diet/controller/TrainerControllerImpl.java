@@ -63,6 +63,30 @@ public class TrainerControllerImpl implements TrainerController {
 		return view;
 	}
 
+	/* 고객센터 - 트레이너 회원 등록 */
+	@Override
+	@RequestMapping(value = "/trainerReg.diet")
+	public String redirectTrainerReg(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		if (mv != null) {
+			return "main/trainerReg";
+		} else {
+			return "redirect:/";
+		}
+	}
+
+	/* 트레이너 상품 등록 */
+	@Override
+	@RequestMapping(value = "/programReg.diet")
+	public String redirectSangpoom(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		if (mv != null) {
+			return "main/programReg";
+		} else {
+			return "redirect:/";
+		}
+	}
+
 	/* 트레이너 프로그램 등록 */
 	@Override
 	@ResponseBody
@@ -86,7 +110,7 @@ public class TrainerControllerImpl implements TrainerController {
 		tpv.setTpActiveDay(tpActiveDay);
 
 		int result = trService.registTrainerProgram(tpv);
-		
+
 		return result;
 	}
 
@@ -156,7 +180,7 @@ public class TrainerControllerImpl implements TrainerController {
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(ppdv, response.getWriter());
 	}
-	
+
 	/* 프로그램 상세페이지 */
 	@Override
 	@RequestMapping(value = "/programDetail.diet")
@@ -165,7 +189,7 @@ public class TrainerControllerImpl implements TrainerController {
 		request.setAttribute("tpv", tpv);
 		return "main/programDetail";
 	}
-	
+
 	/* 프로그램 구매 완료 */
 	@Override
 	@ResponseBody
@@ -175,34 +199,31 @@ public class TrainerControllerImpl implements TrainerController {
 		int mbIndex = 0;
 		int tpIndex = 0;
 		int trIndex = 0;
-		
-		while(st.hasMoreTokens()) {
+
+		while (st.hasMoreTokens()) {
 			mbIndex = Integer.parseInt(st.nextToken());
 			tpIndex = Integer.parseInt(st.nextToken());
 			trIndex = Integer.parseInt(st.nextToken());
 		}
 		PaymentVO pv = new PaymentVO();
-		
+
 		pv.setMbIndex(mbIndex);
 		pv.setTpIndex(tpIndex);
 		pv.setTrIndex(trIndex);
 		pv.setPrice(price);
-		
+
 		int result = trService.paymentSuccess(pv);
-		
-		if(result>0) {
+
+		if (result > 0) {
 			int result2 = trService.programPersonnel(pv);
-			if(result2>0)
-			{
+			if (result2 > 0) {
 				return "success";
-			}else {
+			} else {
 				return "failed";
 			}
-		}else {
+		} else {
 			return "failed";
 		}
-		
-	
-		
+
 	}
 }

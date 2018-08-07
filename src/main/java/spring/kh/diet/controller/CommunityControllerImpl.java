@@ -37,6 +37,18 @@ public class CommunityControllerImpl implements CommunityController {
 	public CommunityControllerImpl() {
 
 	}
+	
+	/* 커뮤니티 - 글등록할 페이지 */
+	@Override
+	@RequestMapping(value = "/registCommunity.diet")
+	public String redirectRegistCommunity(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		if(mv != null) {
+		return "community/registCommunity";
+		} else {
+		return "redirect:/";
+		}
+	}
 
 	// 게시글 등록 메소드
 	@Override

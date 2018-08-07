@@ -363,8 +363,8 @@
 			'노력의 의미를 모르면 함부로 말하지 마라.', '세상에서 가장 안전한 성형은 다이어트다.',
 			'내가 결심한 순간 반은 성공한 것이다.', '내 사전엔 불가능이란 없다.',
 			'탄산음료와 커피도 물이다. 음료와 커피를 끊고 물을 마셔라.' ];
-			var randonNum = Math.floor(Math.random() * (title.length));
-			var fs = $('#fs').html(title[randonNum]);
+			var randomNum = Math.floor(Math.random() * (title.length));
+			var fs = $('#fs').html(title[randomNum]);
 		});
 
 	// 슬라이드
