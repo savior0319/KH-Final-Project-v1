@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -46,26 +47,16 @@ html, body {
 										<label></label>
 									</div>
 								</th>
-								<th style="background-color: rgba(255, 185, 185, 0.5);">
-									<i class="star icon"></i>
-									게 시 물 제 목
-								</th>
-								<th style="background-color: rgba(255, 185, 185, 0.5);">
-									<i class="comment outline icon"></i>
-									댓 글 내 용
-								</th>
-								<th style="background-color: rgba(255, 185, 185, 0.5);">
-									<i class="comment outline icon"></i>
-									작 성 일
-								</th>
-								<th style="background-color: rgba(255, 185, 185, 0.5);">
-									<i class="heart icon"></i>
-									댓 글 좋 아 요
-								</th>
-								<th style="background-color: rgba(255, 185, 185, 0.5);">
-									<i class="heart icon"></i>
-									댓 글 신 고
-								</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);"><i
+									class="star icon"></i> 게 시 물 제 목</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);"><i
+									class="comment outline icon"></i> 댓 글 내 용</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);"><i
+									class="comment outline icon"></i> 작 성 일</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);"><i
+									class="heart icon"></i> 댓 글 좋 아 요</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);"
+									class="warningT"><i class="heartbeat icon"></i>댓 글 신 고</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -73,40 +64,36 @@ html, body {
 								<tr align="center">
 									<td style="width: 7%;">
 										<div class="ui checkbox">
-											<input type="checkbox" name="chk[]" value="${m.cmtIndex}" class="checkSelect">
-											<label></label>
+											<input type="checkbox" name="chk[]" value="${m.cmtIndex}"
+												class="checkSelect"> <label></label>
 										</div>
 									</td>
-									<td style="width: 21%;">
-										<c:set var="postTitle" value="${m.postTitle}" />
-										<c:if test="${m.dtTitle==null&&m.htTitle==null}">
+									<td style="width: 21%;"><c:set var="postTitle"
+											value="${m.postTitle}" /> <c:if
+											test="${m.dtTitle==null&&m.htTitle==null}">
 											<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${fn:substring(postTitle,0,18)}..</a>
-										</c:if>
-										<c:set var="htTitle" value="${m.htTitle}" />
-										<c:if test="${m.dtTitle==null&&m.postTitle==null}">
+										</c:if> <c:set var="htTitle" value="${m.htTitle}" /> <c:if
+											test="${m.dtTitle==null&&m.postTitle==null}">
 											<a href="/homeTrainingInfo.diet?indexNo=${m.indexNo}">${fn:substring(htTitle,0,18)}..</a>
-										</c:if>
-										<c:set var="dtTitle" value="${m.dtTitle}" />
-										<c:if test="${m.postTitle==null&&m.htTitle==null}">
+										</c:if> <c:set var="dtTitle" value="${m.dtTitle}" /> <c:if
+											test="${m.postTitle==null&&m.htTitle==null}">
 											<a href="/dietTipInfo.diet?indexNo=${m.dtIndex}">${fn:substring(dtTitle,0,18)}..</a>
-										</c:if>
-									</td>
-									<td style="width: 25%;">
-										<c:set var="cmtContent" value="${m.cmtContent}" />
-										${fn:substring(cmtContent,0,18)}..
-									</td>
-									<td style="width: 17%;">
-										<c:set var="TextValue" value="${m.cmtDateTime}" />
-										${fn:substring(TextValue,0,11)}일 ${fn:substring(TextValue,11,16)}분
-									</td>
+										</c:if></td>
+									<td style="width: 25%;"><c:set var="cmtContent"
+											value="${m.cmtContent}" />
+										${fn:substring(cmtContent,0,18)}..</td>
+									<td style="width: 17%;"><c:set var="TextValue"
+											value="${m.cmtDateTime}" /> ${fn:substring(TextValue,0,11)}
+										${fn:substring(TextValue,11,16)}</td>
 									<td style="width: 13%;">${m.cmtLike}&nbsp;개</td>
-									<td style="width: 13%;">${m.cmtBlame}&nbsp;개</td>
+									<td style="width: 13%;" class="warningT">${m.cmtBlame}&nbsp;개</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
-						<div class="ui red message">※ 댓글 신고 5번이 되면 강제 탈퇴 처리됩니다.</div>
-					<button class="ui red button" style="float: right;" onclick="deleteMyComment();">삭제하기</button>
+					<div class="ui red message warning">※ 댓글 신고 5번이 되면  활동제한(게시글,댓글작성금지)됩니다.</div>
+					<button class="ui red button" style="float: right;"
+						onclick="deleteMyComment();">삭제하기</button>
 					<br>
 					<div class="ui grid">
 						<div class="three column row">
@@ -150,6 +137,17 @@ html, body {
 <!-- SCRIPT -->
 <script type="text/javascript">
 	$(document).ready(function() {
+		$(".warningT").mouseleave(function() {
+			$(".warning").hide();
+		});
+		$(".warningT").mouseenter(function() {
+			$(".warning").show();
+		});
+
+	});
+
+	$(document).ready(function() {
+		$(".warning").hide();
 		$("#allCheck1").click(function() {
 			if ($("#allCheck1").prop("checked")) {
 				$("input[name='chk[]']").prop("checked", true);
@@ -164,7 +162,7 @@ html, body {
 		var send_array = Array();
 		var send_cnt = 0;
 		var chkbox = $(".checkSelect");
-		var result = confirm("북마크 게시물을 삭제하시겠습니까?");
+		var result = confirm("댓글을 삭제하시겠습니까?");
 
 		for (i = 0; i < chkbox.length; i++) {
 			if (chkbox[i].checked == true) {

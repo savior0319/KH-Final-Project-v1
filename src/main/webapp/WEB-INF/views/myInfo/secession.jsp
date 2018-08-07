@@ -62,28 +62,22 @@
 		<div class="ui center aligned basic segment">
 
 			<jsp:include page="/WEB-INF/views/myInfo/myInfoHeader.jsp"></jsp:include>
-			<br>
-			<br>
+			<br> <br>
 			<div class="explan">
-				<strong>사용하고 계신 아이디<span style="font-size: 20px; color: red;">
-				[${sessionScope.member.mbId}]</span>
-				는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</strong>
-				<br> 
-				<strong>탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.</strong> 
-				<br> 
-				<strong>탈퇴 후에는 아이디 <span style="font-size: 20px; color: red;"><strong>[${sessionScope.member.mbId}]</strong></span>
-				로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수 없습니다.
-				</strong> 
-				<br> 
-				<strong>게시판형 서비스에 남아 있는 게시글은 탈퇴 후 삭제할 수 없습니다.</strong>
-				<br>
+				<strong>사용하고 계신 아이디<span
+					style="font-size: 20px; color: red;">
+						[${sessionScope.member.mbId}]</span> 는 탈퇴할 경우 재사용 및 복구가 불가능합니다.
+				</strong> <br> <strong>탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게
+					선택하시기 바랍니다.</strong> <br> <strong>탈퇴 후에는 아이디 <span
+					style="font-size: 20px; color: red;"><strong>[${sessionScope.member.mbId}]</strong></span>
+					로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수 없습니다.
+				</strong> <br> <strong>게시판형 서비스에 남아 있는 게시글은 탈퇴 후 삭제할 수 없습니다.</strong> <br>
 			</div>
 			<br>
 			<div class="secssionContents">
 				<div>
 					<ul>
-						<li><strong>계정</strong>
-							<span style="font-size: 20px;">[${sessionScope.member.mbId}]</span>
+						<li><strong>계정</strong> <span style="font-size: 20px;">[${sessionScope.member.mbId}]</span>
 						</li>
 						<li><strong>탈퇴동의</strong> <input type="checkbox"
 							class="checkbox" id="agreeChk" value="Y" /> <label>탈퇴에
@@ -95,7 +89,7 @@
 			<div class="Btn">
 				<button class="ui red button" id="loginBtn" type="button"
 					onclick="okayBtn();">확인</button>
-				<button class="ui button" id="loginBtn" type="button">취소</button>
+				<button class="ui button" onclick="home();" type="button">홈으로</button>
 			</div>
 			<input type="hidden" value="${sessionScope.member.mbId}"
 				id="memberId" />
@@ -110,6 +104,9 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 <!-- 회원 탈퇴 ajax -->
+	function home() {
+		location.href = "/";
+	}
 	function okayBtn() {
 		var checkBox = $("#agreeChk").is(":checked");
 		var memberId = $("#memberId").val();

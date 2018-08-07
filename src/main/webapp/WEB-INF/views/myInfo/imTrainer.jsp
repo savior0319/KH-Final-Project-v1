@@ -71,7 +71,7 @@
 											</td>
 											<td style="width: 20%;">
 												<c:set var="TextValue" value="${m.trRegDate}" />
-												${fn:substring(TextValue,0,11)}일 ${fn:substring(TextValue,11,16)}분
+												${fn:substring(TextValue,0,11)}&nbsp; ${fn:substring(TextValue,11,16)}
 											</td>
 											<td style="width: 23%;">
 												<c:if test="${m.trStatus == '승인'}">
@@ -178,7 +178,7 @@
 											<td style="width: 15%;">${m.tpCost}원</td>
 											<td style="width: 15%;">
 												<c:set var="TextValue" value="${m.tpRegDate}" />
-												${fn:substring(TextValue,0,11)}일 ${fn:substring(TextValue,11,16)}분
+												${fn:substring(TextValue,0,11)}&nbsp; ${fn:substring(TextValue,11,16)}
 											</td>
 											<td style="width: 15%;">
 												<c:set var="check" value="false" />
@@ -280,7 +280,7 @@
 											<td style="width: 15%;">${m.tpCost}원</td>
 											<td style="width: 15%;">
 												<c:set var="TextValue" value="${m.tpRegDate}" />
-												${fn:substring(TextValue,0,11)}일 ${fn:substring(TextValue,11,16)}분
+												${fn:substring(TextValue,0,11)}&nbsp; ${fn:substring(TextValue,11,16)}
 											</td>
 											<td style="width: 15%;">
 												<button id="canBtn" class="ui blue button" onclick="canclePro(${m.tpIndex});">구매취소</button>

@@ -93,8 +93,8 @@ html, body {
 										href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle }</a>
 									</td>
 									<td style="width: 20%;"><c:set var="TextValue"
-													value="${m.postDateTime}" /> ${fn:substring(TextValue,0,11)}일
-												${fn:substring(TextValue,11,16)}분</td>
+													value="${m.postDateTime}" /> ${fn:substring(TextValue,0,11)}&nbsp;
+												${fn:substring(TextValue,11,16)}</td>
 
 								</tr>
 							</c:forEach>
@@ -147,7 +147,7 @@ html, body {
 		var send_array = Array();
 		var send_cnt = 0;
 		var chkbox = $(".checkSelect");
-		var result = confirm("북마크 게시물을 삭제하시겠습니까?");
+		var result = confirm("작성한 게시물을 삭제하시겠습니까?");
 		for (i = 0; i < chkbox.length; i++) {
 			if (chkbox[i].checked == true) {
 				send_array[send_cnt] = chkbox[i].value;

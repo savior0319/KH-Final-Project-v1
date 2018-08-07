@@ -62,7 +62,7 @@
 									</td>
 									<td style="width: 23%;">
 										<c:set var="TextValue" value="${m.qsWriteTime}" />
-										${fn:substring(TextValue,0,11)}일 ${fn:substring(TextValue,11,16)}분
+										${fn:substring(TextValue,0,11)} ${fn:substring(TextValue,11,16)}
 									</td>
 									<c:if test="${m.qsAnswerCheck=='n'}">
 										<td style=" font-size:18px;">답변대기중</td>
