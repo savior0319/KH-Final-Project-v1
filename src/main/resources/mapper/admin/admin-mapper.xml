@@ -549,6 +549,7 @@
 	<!-- 블랙리스트 신고 내역 조회 -->
 	<select id="blackListContent" resultType="blackContent" parameterType="Integer">
 		SELECT DISTINCT
+		CMT_INDEX AS cmtIndex,
 		BPT.POST_INDEX AS postIndex,
 		POST_TITLE AS
 		postTitle,
