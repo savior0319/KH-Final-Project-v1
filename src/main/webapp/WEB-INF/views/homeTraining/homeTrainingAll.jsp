@@ -82,7 +82,7 @@
 				<h3 class="ui left aligned header">맞춤 홈트레이닝 동영상</h3>
 
 				<!-- 제목 이미지 출력  -->
-				<div class="ui three column grid">
+				<div class="ui three column grid" style="text-align:center;">
 					<div class="column">
 						<div class="ui card">
 							<div class="image">
@@ -91,6 +91,7 @@
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${requestScope.matchedList[0].indexNo}, ${requestScope.matchedList[0].htType })" style="height: 50px;">${requestScope.matchedList[0].htTitle }</a>
+								<br>
 								<div class="meta">
 									<span class="date"> <c:choose>
 											<c:when test="${requestScope.matchedList[0].htType==1 }">
@@ -138,6 +139,7 @@
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${requestScope.matchedList[1].indexNo}, ${requestScope.matchedList[1].htType })" style="height: 50px;">${requestScope.matchedList[1].htTitle }</a>
+								<br>
 								<div class="meta">
 									<span class="date"> <c:choose>
 											<c:when test="${requestScope.matchedList[1].htType==1 }">
@@ -185,6 +187,7 @@
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${requestScope.matchedList[2].indexNo}, ${requestScope.matchedList[2].htType })" style="height: 50px;">${requestScope.matchedList[2].htTitle }</a>
+								<br>
 								<div class="meta">
 									<span class="date"> <c:choose>
 											<c:when test="${requestScope.matchedList[2].htType==1 }">
@@ -233,7 +236,7 @@
 			<hr>
 			<br>
 
-			<div class="ui three column grid">
+			<div class="ui three column grid" style="text-align:center;">
 				<c:forEach items="${requestScope.htpd.htList }" var="ht">
 
 
@@ -244,6 +247,7 @@
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${ht.indexNo}, ${ht.htType })" style="height: 50px;">${ht.htTitle }</a>
+								<br>
 								<div class="meta">
 									<span class="date">${ht.htPart } |</span> <i class="heart outline icon"></i> 좋아요 <span class="like" style="color: red">${ht.htLike }</span>
 								</div>
@@ -290,7 +294,7 @@
 			</c:when>
 			<c:otherwise>
 			
-			<div class="ui red medium message">
+			<div class="ui red medium message" style="text-align:center;">
 					<br>
 					<i class="exclamation huge icon"></i>
 					<div class="ui medium header">

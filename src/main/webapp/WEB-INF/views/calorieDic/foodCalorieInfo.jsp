@@ -43,6 +43,8 @@
 	width: 100%;
 	border: 0;
 }
+
+
 </style>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -92,6 +94,7 @@
 					var chart = new google.visualization.BarChart(document
 							.getElementById("barchart_values"));
 					chart.draw(view, options);
+					
 				}
 
 			});
@@ -190,7 +193,7 @@
 
 
 			<div class="ui center aligned basic segment">
-				<div id="barchart_values" style="width: 100%;"></div>
+				<div id="barchart_values" style="width: 100%; font-size:10px;"></div>
 			</div>
 
 			<br>
