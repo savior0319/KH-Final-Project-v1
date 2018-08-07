@@ -136,7 +136,7 @@
 			<!-- 프로그램 설명 부분 -->
 			<div class="programExplain" style="text-align:center; font-family: 나눔고딕, NanumGothic, sans-serif; font-size: 12pt;">
 				<pre id="size1">${requestScope.ht.htExplain }</pre>
-				<p id="size2" style="text-indent:10px;">${requestScope.ht.htExplain }</p>
+				<div id="size2" style="text-indent:10px;">${requestScope.ht.htExplain }</div>
 			</div>
 			<br> <br> <br>
 
