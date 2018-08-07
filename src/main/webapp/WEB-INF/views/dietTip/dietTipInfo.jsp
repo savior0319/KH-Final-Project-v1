@@ -100,15 +100,16 @@ p>span {
 		<!-- 닉네임, 날짜, 뷰수, 댓글 수 -->
 		<!-- 모바일용이 아닌 사이즈 -->
 		<div id="size1" class="ui black segment">
-			<div class="ui grid">
-				<div class="three column row">
-					<span class="left floated column"> 
+				<div class="ui grid">
+					<div class="three wide column"> 
 						<span class="ui left aligned"> 
 							<img class="ui avatar image" src="${requestScope.dt.dtWriterPhoto }">
 							${requestScope.dt.dtNickname }
 						</span>
-					</span> 
-					<div class="right floated column"> <!-- 날짜 --> 
+					</div> 
+					<div class="three wide column"></div>
+					<div class="ten wide column"> <!-- 날짜 -->
+						<div style="float:right; padding-right:20px;"> 
 						<span class="ui right aligned"> 
 							<i class="calendar icon"></i> 
 							<fmt:formatDate value="${requestScope.dt.dtDate }" pattern="yyyy-MM-dd HH:mm" />
@@ -119,9 +120,9 @@ p>span {
 						<span class="ui right aligned"> 
 							<i class="pen square icon"></i> ${requestScope.bcpd.totalCommentNo }
 						</span>
+						</div>
 					</div>
 				</div>
-			</div>
 		</div>
 		
 		<!-- 모바일용 사이즈 -->

@@ -45,6 +45,7 @@
 	margin: -1px;
 	overflow: hidden;
 }
+
 </style>
 
 
@@ -69,13 +70,23 @@
 				<div class="ui medium header" style="margin-bottom: 5px;">제목</div>
 				<div class="ui fluid left action icon input">
 					<div class="ui basic floating dropdown button">
-						<div class="text">카테고리</div>
+						<div id="category-text" class="text">카테고리</div>
 						<i class="dropdown icon"></i>
 						<div class="menu select">
-							<div class="item">칼럼</div>
-							<div class="item">운동</div>
-							<div class="item">식단</div>
-							<div class="item">성공후기</div>
+							<c:choose>
+								<c:when test="${sessionScope.member.mbGrade=='관리자' }">
+									<div class="item">칼럼</div>
+									<div class="item">운동</div>
+									<div class="item">식단</div>
+									<div class="item">성공후기</div>
+								</c:when>
+								<c:otherwise>
+									<div class="item disabled">칼럼</div>
+									<div class="item">운동</div>
+									<div class="item disabled">식단</div>
+									<div class="item disabled">성공후기</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 					<input type="text" id="title" placeholder="제목을 입력해주세요" />
@@ -210,39 +221,27 @@
 	$('.ui.dropdown').dropdown({
 		allowAdditions : true,
 		allowCategorySelection : true
+		, success : function ddd(){
+			alert(111);
+		}
 	});
 
 	// 카테고리 선택
 	var category = '';
 	$('.select > .item').click(function() {
-		
 		switch ($(this).text()) {
 		case '칼럼':
-			if(${sessionScope.member.mbGrade=='관리자'}){
 				category = 1;
-			}else{
-				alert('권한이 없습니다.');
-				category = '';
-			}
+			
 			break;
 		case '운동':
 			category = 2;
 			break;
 		case '식단':
-			if(${sessionScope.member.mbGrade=='관리자'}){
-				category = 3;
-			}else{
-				alert('권한이 없습니다.');
-				category = '';
-			}
+			category = 3;
 			break;
 		case '성공후기':
-			if(${sessionScope.member.mbGrade=='관리자'}){
-				category = 4;
-			}else{
-				alert('권한이 없습니다.');
-				category = '';
-			}
+			category = 4;
 			break;
 		}
 	});

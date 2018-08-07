@@ -111,7 +111,7 @@
 									style="width: 100%; height: 200px; cursor: pointer;"  onerror='this.src="/resources/image/300x400.png"'>
 							</div>
 							<div class="content">
-								<a class="header" onclick="InfoPage(${ht.indexNo})" style="height: 50px;">${ht.htTitle }</a>
+								<a class="header" onclick="InfoPage(${ht.indexNo})" style="height: 60px;">${ht.htTitle }</a>
 								<br>
 								<div class="meta">
 									<span class="date">${ht.htPart } |</span> <i
