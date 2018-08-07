@@ -586,9 +586,15 @@
 						card.attr("onclick","recipeLink("+data.comList[i].postIndex+")");
 						card.attr("style","cursor:pointer;");
 						var imgDiv = $("<div>").attr("class","image");
-						var img = $('<img>').attr("src",data.comList[i].postImage);
-						img.attr("style","height: 200px;");
-						img.attr("onerror",'this.src="/resources/image/300x400.png"');
+						
+						 if(data.comList[i].postImage!=null){
+		                     var img = $('<img>').attr("src",data.comList[i].postImage);
+		                     img.attr("style","height: 200px;");
+		                  }else{
+		                     var img = $('<img>').attr("src","/resources/image/300x400.png");
+		                     img.attr("style","height: 200px;");
+		                  }
+
 						imgDiv.append(img);
 						var content = $("<div>").attr("class","content");
 						var header = $("<a>").attr("class","header");
