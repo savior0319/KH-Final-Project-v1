@@ -304,6 +304,11 @@
 <br>
 <hr>
 <br>
+<label class="ui large header">레시피 & 식단</label>
+<br>
+<br>
+<hr>
+<br>
 	<div class="ui three column grid" align="center" id="mainRecipe"></div>
 	<br>
 	<hr>
@@ -578,7 +583,7 @@
 						var column = $("<div>").attr("class","column");
 						
 						var card = $("<div>").attr("class","ui card");
-						card.attr("onclick","recipeLink("+data.comList[i].PostIndex+")");
+						card.attr("onclick","recipeLink("+data.comList[i].postIndex+")");
 						card.attr("style","cursor:pointer;");
 						var imgDiv = $("<div>").attr("class","image");
 						var img = $('<img>').attr("src",data.comList[i].postImage);
@@ -587,6 +592,7 @@
 						imgDiv.append(img);
 						var content = $("<div>").attr("class","content");
 						var header = $("<a>").attr("class","header");
+						header.attr("href","/postedCommunity.diet?postIndex="+data.comList[i].postIndex);
 						
 						var tempChar = data.comList[i].postTitle;
 						var charSize = (data.comList[i].postTitle).length;
@@ -633,6 +639,7 @@
 						mbImage.attr("src",data.comList[i].mbImage);
 						mbImage.attr("onerror",'this.src="/resources/image/avatar.png"');
 						var mbA = $("<a>").append(mbImage);
+						mbA.attr("href","/postedCommunity.diet?postIndex="+data.comList[i].postIndex);
 						mbA.append(data.comList[i].postNickname);
 						
 						extraDiv.append(mbA);
@@ -656,6 +663,11 @@
 	{
 		return num>9?num:"0"+num;
 	}
+	
+	/* 카드 클릭시 각 페이지로 이동 */
+	function recipeLink(pi){
+		 location.href="/postedCommunity.diet?postIndex="+pi;
+	 }
 </script>
 <style type="text/css" media="screen">
 

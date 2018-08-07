@@ -167,8 +167,8 @@ else self.name = '';
 						<div class="content">
 							<a class="header">
 								<c:choose>
-									<c:when test="${fn:length(c.postTitle)>20}">
-										<c:out value="${fn:substring(c.postTitle,0,19)}" />...
+									<c:when test="${fn:length(c.postTitle)>15}">
+										<c:out value="${fn:substring(c.postTitle,0,14)}" />...
 								</c:when>
 									<c:otherwise>
 									${c.postTitle}
