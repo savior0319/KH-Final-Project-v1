@@ -914,4 +914,10 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		return trv;
 	}
 
+	@Override
+	public MemberVO checkNick(SqlSessionTemplate sqlSessionTemplate,MemberVO mv) {
+		MemberVO mv2 = sqlSessionTemplate.selectOne("myInfo.selectOneMember3", mv);
+		return mv2;
+	}
+
 }

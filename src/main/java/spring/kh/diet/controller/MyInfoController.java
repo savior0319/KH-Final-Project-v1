@@ -73,4 +73,8 @@ public interface MyInfoController {
 
 	String redirectSignup(HttpSession session);
 
+
+	void checkNick(HttpSession session, HttpServletRequest request, HttpServletResponse response, String nickName)
+			throws IOException;
+
 }

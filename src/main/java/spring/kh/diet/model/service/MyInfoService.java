@@ -97,4 +97,6 @@ public interface MyInfoService {
 
 	TrainingRegVO selectOneTrainer(MemberVO mv);
 
+	MemberVO checkNick(MemberVO mv);
+
 }

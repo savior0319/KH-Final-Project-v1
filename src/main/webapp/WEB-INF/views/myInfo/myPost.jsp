@@ -43,7 +43,8 @@ html, body {
 				<c:if test="${!myPost.comList.isEmpty()}">
 					<table class="ui gray table">
 						<thead>
-							<tr id="title" align="center">
+						<div class="ui red message warning" style="margin-top:-10px;font-size:10px; width:350px; float:right;">※ 댓글 신고 5번이상이 되면 활동제한(게시글,댓글작성금지)됩니다.</div>
+							<tr id="title" align="center" class="warningT">
 								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<div class="ui checkbox">
 										<input type="checkbox" name="allCheck" id="allCheck1">
@@ -89,7 +90,7 @@ html, body {
 												</label>
 											</c:when>
 										</c:choose></td>
-									<td style="width: 40%;"><a
+									<td style="width: 40%;" ><a 
 										href="/postedCommunity.diet?postIndex=${m.postIndex }">${m.postTitle }</a>
 									</td>
 									<td style="width: 20%;"><c:set var="TextValue"
@@ -187,6 +188,7 @@ html, body {
 	}
 
 	$(document).ready(function() {
+		$(".warning").hide();
 		$("#allCheck1").click(function() {
 			if ($("#allCheck1").prop("checked")) {
 				$("input[name='chk[]']").prop("checked", true);
@@ -203,6 +205,16 @@ html, body {
 			sBtn.find('a').removeClass("active");
 			$(this).addClass("active");
 		});
+	});
+	
+	$(document).ready(function() {
+		$(".warningT").mouseleave(function() {
+			$(".warning").hide();
+		});
+		$(".warningT").mouseenter(function() {
+			$(".warning").show();
+		});
+
 	});
 </script>
 

@@ -370,8 +370,14 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public TrainingRegVO selectOneTrainer(MemberVO mv) {
-		TrainingRegVO trv = myInfoDAO.selectOneTrainer(SqlSessionTemplate,mv);
+		TrainingRegVO trv = myInfoDAO.selectOneTrainer(SqlSessionTemplate, mv);
 		return trv;
+	}
+
+	@Override
+	public MemberVO checkNick(MemberVO mv) {
+		MemberVO mv2 = myInfoDAO.checkNick(SqlSessionTemplate,mv);
+		return mv2;
 	}
 
 }
