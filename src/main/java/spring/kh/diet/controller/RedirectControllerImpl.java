@@ -85,13 +85,6 @@ public class RedirectControllerImpl implements RedirectController {
 		return "login/login";
 	}
 
-	/* 회원가입 */
-	@Override
-	@RequestMapping(value = "/signup.diet")
-	public String redirectSignup() {
-		return "login/signup";
-	}
-
 	/* 마이페이지 - 회원 정보 */
 	@Override
 	@RequestMapping(value = "/myInfo.diet")

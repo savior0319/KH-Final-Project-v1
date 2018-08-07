@@ -71,4 +71,6 @@ public interface MyInfoController {
 	String trainerUpdate(HttpServletResponse response, HttpServletRequest request, HttpSession session)
 			throws IOException;
 
+	String redirectSignup(HttpSession session);
+
 }

@@ -64,7 +64,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		int heightCheck1 = Integer.parseInt(request.getParameter("height"));
 		int weightCheck1 = Integer.parseInt(request.getParameter("weight"));
 		String activeArea = request.getParameter("activeArea");
-		
+
 		TrainingRegVO tr = new TrainingRegVO();
 
 		tr.setTrContent(trCareer);
@@ -333,6 +333,20 @@ public class MyInfoControllerImpl implements MyInfoController {
 		} else {
 			System.out.println("로그인 되어 있지 않습니다.");
 			return "redirect:/";
+		}
+	}
+
+	/* 회원가입 페이지로 이동 */
+	@Override
+	@RequestMapping(value = "/signup.diet")
+	public String redirectSignup(HttpSession session) {
+
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		
+		if (mv != null) {
+			return "redirect:/";
+		} else {
+			return "login/signup";
 		}
 	}
 
