@@ -235,12 +235,16 @@
 								<thead>
 									<tr id="title" align="center">
 										<th style="background-color: rgba(255, 185, 185, 0.5);">
-											<i class="h star icon"></i>
-											프 로 그 램 번 호
+											<i class="star icon"></i>
+											번 호
 										</th>
 										<th style="background-color: rgba(255, 185, 185, 0.5);">
 											<i class="h square icon"></i>
-											프 로 그 램 명
+											트 레 이 너 정 보
+										</th>
+										<th style="background-color: rgba(255, 185, 185, 0.5);">
+											<i class="h square icon"></i>
+											프 로 그 램 정 보
 										</th>
 										<th style="background-color: rgba(255, 185, 185, 0.5);">
 											<i class="h square icon"></i>
@@ -260,8 +264,18 @@
 									<c:forEach items="${myRequest.comList}" var="m">
 										<tr align="center">
 											<td style="width: 10%;">${m.tpIndex}</td>
-											<td style="width: 30%;">
-												<a href="programDetail.diet?tpIndex=${m.tpIndex}">${m.tpTitle}</a>
+											<td style="width: 20%;">
+												<a href="javascript:void(0);" onclick="showTrainerInfo();">
+													정보보기
+													<i class="zoom-in icon"></i>
+												</a>
+											</td>
+											<td style="width: 25%;">
+												<a href="programDetail.diet?tpIndex=${m.tpIndex}">
+													<c:set var="tpTitle" value="${m.tpTitle}" />
+													${fn:substring(tpTitle,0,11)}
+												</a>
+
 											</td>
 											<td style="width: 15%;">${m.tpCost}원</td>
 											<td style="width: 15%;">
@@ -298,9 +312,9 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<div class="ui modal" id="questionModal3">
+			<div class="ui modal" id="trainerInfo">
 				<i class="close icon"></i>
-				<div class="ui large header">자격 신청 내용</div>
+				<div class="ui large header"><i class="info circle icon"></i>트레이너 정보</div>
 				<div class="ui left aligned basic segment">
 					<br>
 					<div class="ui form" style="font-weight: 600;">
@@ -333,6 +347,86 @@
 												</tbody>
 											</table>
 										<td>
+											<table class="ui very basic table">
+												<thead align="center">
+													<tr>
+														<td style="width: 13%;">이름</td>
+														<td style="padding-bottom: 30px; padding-top: 30px;">
+															<span class="ui form">
+																<input type="text" name="trVame" id="nameCheck" maxlength="5" autocomplete="off" required value="${trv.trName}" readonly="readonly" />
+															</span>
+															<div id="nameMessage" style="display: none;"></div>
+														</td>
+													</tr>
+													<tr>
+														<td style="width: 13%;">연락처</td>
+														<td style="border-top: 1px solid #EAEAEA; padding-top: 30px; padding-bottom: 30px;">
+															<span class="ui form">
+																<input type="text" readonly name="phone" id="numberCheck" value="${trv.trPhone}" maxlength="11" required autocomplete="off" />
+															</span>
+															<div id="phoneMessage" style="display: none;"></div>
+														</td>
+													</tr>
+													<tr>
+														<td style="width: 17%;">활동 지역</td>
+														<td style="border-top: 1px solid #EAEAEA; padding-bottom: 30px;">
+															<span class="ui form">
+																<input type="text" id="roadAddress" name="roadAddress" style="margin-top: 20px;" class="form-control" value="${trv.trArea}" readonly />
+															</span>
+														</td>
+													</tr>
+												</thead>
+											</table>
+										</td>
+									</tr>
+								</thead>
+							</table>
+							<br>
+							<div class="ui small red message">
+								<div class="ui small header">※ 프로그램 관련 궁금하신 사항은 트레이너 문의 바랍니다.</div>
+							</div>
+							<button style="float: right; margin-top: 13px;" class="ui grey button closeBtn" onclick="closeBtn2();">닫기</button>
+						</div>
+						<br>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui modal" id="questionModal3">
+				<i class="close icon"></i>
+				<div class="ui large header"><i class="edit icon"></i>자격 신청 내용</div>
+				<div class="ui left aligned basic segment">
+					<br>
+					<div class="ui form" style="font-weight: 600;">
+						<div class="ui center aligned basic segment">
+							<h3 class="ui block header">기본 정보</h3>
+							<table class="ui celled table">
+								<thead>
+									<tr>
+										<td style="width: 30%;">
+											<table class="ui collapsing table" style="width: 100%;">
+												<thead align="center">
+													<tr>
+														<th>
+															<strong>사 진</strong>
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>
+															<!-- 사진 첨부 -->
+															<div class="six wide column">
+																<div style="width: 100%;">
+																	<img id="img" style="width: 300px; height: 300px;" src="${trv.trImagePath}">
+																</div>
+															</div>
+															<!-- 사진 첨부 끝 -->
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<td>
 											<table class="ui very basic table">
 												<thead align="center">
 													<tr>
@@ -442,9 +536,7 @@
 										<td>
 											<div class="ui form">
 												<div class="field">
-													<textarea id="trComment" style="margin-top: 0px; margin-bottom: 0px; height: 203px; resize: none;" required="required" autocomplete="off" readonly>
-														${trv.trContent}
-														</textarea>
+													<textarea id="trComment" style="margin-top: 0px; margin-bottom: 0px; height: 203px; resize: none;" required="required" autocomplete="off" readonly>${trv.trContent}</textarea>
 												</div>
 											</div>
 										</td>
@@ -571,6 +663,17 @@
 			centered : false
 		}).modal('show');
 	}
+	function showTrainerInfo() {
+		$('#trainerInfo').modal({
+			centered : false
+		}).modal('show');
+	}
+
+	function closeBtn2() {
+		$('#trainerInfo').modal({
+			centered : false
+		}).modal('hide');
+	}
 	function closeBtn() {
 		$('#questionModal3').modal({
 			centered : false
@@ -590,5 +693,6 @@
 		$("#text3").css('color', 'white');
 		$("#text3").css('font-weight', 900);
 	}
-</script>
-</html>
+
+</script></
+										html>

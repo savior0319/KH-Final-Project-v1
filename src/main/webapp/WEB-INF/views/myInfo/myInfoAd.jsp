@@ -11,7 +11,6 @@
 <title>트레이너</title>
 </head>
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" class="ui" href="/stylesheets/shape.css">
 <style>
 .rslides {
 	position: relative;
