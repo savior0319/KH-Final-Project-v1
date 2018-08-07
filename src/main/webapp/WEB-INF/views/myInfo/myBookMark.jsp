@@ -155,7 +155,7 @@ html, body {
 										</c:if>
 									</td>
 									<td style="width: 10%;">
-										<i class="heart icon"></i>
+										
 										<c:if test="${m.dtLike==0}">
 											<c:set var="index" value="${m.postLike}" />
 											<c:if test="${index>99998}">
