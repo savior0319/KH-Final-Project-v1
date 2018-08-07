@@ -112,6 +112,7 @@
 							</div>
 							<div class="content">
 								<a class="header" onclick="InfoPage(${ht.indexNo})" style="height: 50px;">${ht.htTitle }</a>
+								<br>
 								<div class="meta">
 									<span class="date">${ht.htPart } |</span> <i
 										class="heart outline icon"></i> 좋아요 <span class="like"

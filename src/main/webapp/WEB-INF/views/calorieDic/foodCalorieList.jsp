@@ -142,7 +142,7 @@
 							</tr>
 						</thead>
 					</table>
-						<div class="ui red medium message">
+						<div class="ui red medium message" style="text-align:center;">
 					<br>
 					<i class="exclamation huge icon"></i>
 					<div class="ui medium header">
