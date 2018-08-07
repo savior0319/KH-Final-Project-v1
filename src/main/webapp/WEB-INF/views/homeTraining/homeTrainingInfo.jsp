@@ -127,7 +127,7 @@
 				<i class="big clock outline icon"></i>&ensp;${requestScope.ht.htStepTime }&emsp;&emsp;
 				<i class="big child icon"></i>&ensp;&emsp;${requestScope.ht.htStepType }&emsp;&emsp;&emsp;&emsp;&emsp;
 				<br><br>
-				&emsp;<i class="big male icon"></i>&ensp;&emsp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;&emsp;&emsp;
+				&emsp;<i class="big male icon"></i>&ensp;&emsp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;
 				<i class="big tint icon"></i>${requestScope.ht.htStepKal }&emsp;&emsp;&emsp;&emsp;
 			</div>
 			

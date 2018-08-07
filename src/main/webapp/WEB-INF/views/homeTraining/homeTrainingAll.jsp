@@ -630,16 +630,18 @@ function deleteHomeTraining(me){
 		success : function(data){
 			if(data>0){
 				alert('삭제 완료');
+				location.href = '/homeTrainingAll.diet';
 			}else{
 				alert('삭제 실패');
+				location.href = '/homeTrainingAll.diet';
 			}
 		},
 		error : function(data){
 			alert('에러 발생');
+			location.href = '/homeTrainingAll.diet';
 		}
 	});
 	
-	location.href = 'homeTrainingList.diet?type='+type;
 }
 
 // 게시물 수정

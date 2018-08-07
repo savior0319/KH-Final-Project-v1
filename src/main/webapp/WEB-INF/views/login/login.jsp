@@ -76,7 +76,8 @@ a {
 	<!-- CONTENTS -->
 	<div class="ui center aligned basic segment">
 		<div class="ui container">
-			<br>
+		
+			<!-- 모바일용 아닌 사이즈 -->
 			<div id="size1" class="contents login">
 				<c:if test="${sessionScope.member==null}">
 					<div class="login title">
@@ -124,7 +125,8 @@ a {
 				</c:if>
 			</div>
 
-			<div id="size2" class="contents login" style="width: 350px;">
+			<!-- 모바일용 사이즈 -->
+			<div id="size2" class="contents login" style="width: 300px;">
 				<c:if test="${sessionScope.member==null}">
 					<div class="login title">
 						<h1>LOGIN</h1>
@@ -138,13 +140,13 @@ a {
 							회원가입을 하시면 다양한 서비스를 받으실 수 있습니다.
 						</p>
 						<br>
-						<form action="/loginRequest.diet" method="post" onsubmit="return login1();">
+						<form action="/loginRequest.diet" method="post" onsubmit="return login2();">
 							<div class="ui input" style="width: 90%;">
-								<input type="text" placeholder="아이디.." name="memberId" />
+								<input type="text" placeholder="아이디.." name="memberId" id="memberId2" />
 							</div>
 							<br>
 							<div class="ui input" style="width: 90%;">
-								<input type="password" placeholder="비밀번호.." name="memberPwd" />
+								<input type="password" placeholder="비밀번호.." name="memberPwd" id="memberPwd2" />
 							</div>
 							<br>
 							<input type="submit" class="ui button loginBtn" id="loginBtn" value="로그인" style="color: white; width: 90%;" />
@@ -208,6 +210,23 @@ a {
 
 		if (memberId == '' || memberPwd == '' ) {
 			alert("아이디  또는 비밀번호를 입력해주세요");
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	/*로그인시 입력 오류 발생 */
+	function login2() {
+		var memberId = $("#memberId2").val();
+		var memberPwd = $("#memberPwd2").val();
+
+		if (memberId == '' || memberPwd == '' ) {
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.inputIdPw();
+			}else{
+				alert("아이디  또는 비밀번호를 입력해주세요");
+			}
 			return false;
 		}else{
 			return true;

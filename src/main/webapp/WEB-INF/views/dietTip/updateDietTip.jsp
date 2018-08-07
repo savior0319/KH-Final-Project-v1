@@ -229,20 +229,36 @@ function imgUpload(file, el) {
 	});
 
 	// 카테고리 선택
-	var category;
+	var category = '';
 	$('.select > .item').click(function() {
+		
 		switch ($(this).text()) {
 		case '칼럼':
-			category = 1;
+			if(${sessionScope.member.mbGrade=='관리자'}){
+				category = 1;
+			}else{
+				alert('권한이 없습니다.');
+				category = '';
+			}
 			break;
 		case '운동':
 			category = 2;
 			break;
 		case '식단':
-			category = 3;
+			if(${sessionScope.member.mbGrade=='관리자'}){
+				category = 3;
+			}else{
+				alert('권한이 없습니다.');
+				category = '';
+			}
 			break;
 		case '성공후기':
-			category = 4;
+			if(${sessionScope.member.mbGrade=='관리자'}){
+				category = 4;
+			}else{
+				alert('권한이 없습니다.');
+				category = '';
+			}
 			break;
 		}
 	});
@@ -275,7 +291,7 @@ function imgUpload(file, el) {
 				var $sammary = $('#sammary').val();
 				var $mainPhotoPath = $('#mainPhotoPath').val();
 				var $indexNo = $('#indexNo').val();
-				if (category != null && $title != '' && $content != '') {
+				if (category != '' && $title != '' && $content != '<p><br></p>' && $sammary != '') {
 					$.ajax({
 						url : '/updateDietTip.diet',
 						type : 'post',
@@ -302,7 +318,7 @@ function imgUpload(file, el) {
 						}
 					});
 				} else {
-					if (category == null) {
+					if (category == '') {
 						alert('카테고리를 선택하여주세요.');
 					} else {
 						alert('내용을 반드시 기입하여주세요.');
