@@ -10,6 +10,10 @@
 </head>
 
 <style>
+.ui.card {
+	width: 400px;
+}
+
 .rslides {
 	position: relative;
 	list-style: none;
@@ -298,8 +302,16 @@
 
 
 <br>
-
+<hr>
 <br>
+<label class="ui large header">레시피 & 식단</label>
+<br>
+<br>
+<hr>
+<br>
+	<div class="ui three column grid" align="center" id="mainRecipe"></div>
+	<br>
+	<hr>
 </div>
 <!-- FOOTER -->
 <jsp:include page="/resources/layout/footer.jsp"></jsp:include>
@@ -363,8 +375,8 @@
 			'노력의 의미를 모르면 함부로 말하지 마라.', '세상에서 가장 안전한 성형은 다이어트다.',
 			'내가 결심한 순간 반은 성공한 것이다.', '내 사전엔 불가능이란 없다.',
 			'탄산음료와 커피도 물이다. 음료와 커피를 끊고 물을 마셔라.' ];
-			var randonNum = Math.floor(Math.random() * (title.length));
-			var fs = $('#fs').html(title[randonNum]);
+			var randomNum = Math.floor(Math.random() * (title.length));
+			var fs = $('#fs').html(title[randomNum]);
 		});
 
 	// 슬라이드
@@ -559,6 +571,103 @@
 		
 		location.href="/homeTrainingInfo.diet?indexNo="+me+"&type="+type;
 	}
+	
+	/* 메인 페이지 - 레시피&식단 출력 */
+	$.ajax({
+				url : '/mainRecipe.diet',
+				type : 'post',
+				data : {'type' : 16},
+				success : function(data) {
+					var str = '';
+					for (var i = 0; i < 3; i++) {
+						var column = $("<div>").attr("class","column");
+						
+						var card = $("<div>").attr("class","ui card");
+						card.attr("onclick","recipeLink("+data.comList[i].postIndex+")");
+						card.attr("style","cursor:pointer;");
+						var imgDiv = $("<div>").attr("class","image");
+						var img = $('<img>').attr("src",data.comList[i].postImage);
+						img.attr("style","height: 200px;");
+						img.attr("onerror",'this.src="/resources/image/300x400.png"');
+						imgDiv.append(img);
+						var content = $("<div>").attr("class","content");
+						var header = $("<a>").attr("class","header");
+						header.attr("href","/postedCommunity.diet?postIndex="+data.comList[i].postIndex);
+						
+						var tempChar = data.comList[i].postTitle;
+						var charSize = (data.comList[i].postTitle).length;
+						if (charSize > 15) {
+							var value = data.comList[i].postTitle;
+							tempChar = value.substring(0, 14) + '...';
+						} else {
+							tempChar = data.comList[i].postTitle;
+						}
+						header.html(tempChar);
+						
+						var metaDiv = $("<div>").attr("class","meta");
+						var dateSpan = $("<span>").attr("class","date");
+						var date = new Date(data.comList[i].postDateTime);
+						var dateFor = date.getFullYear() + "-"+
+						doublePos((date.getMonth() + 1)) +"-"+doublePos(date.getDate()) + " " + doublePos(date.getHours())+":"+
+						doublePos(date.getMinutes()) 
+								+":"+ doublePos(date.getSeconds());
+						dateSpan.html(dateFor);
+						
+						metaDiv.append(dateSpan);
+						
+						var description = $("<div>").attr("class","description");
+						var eyeIcon = $("<i>").attr("class","eye icon");
+						var boldHit = $("<b>").html(data.comList[i].postHit);
+						
+						var heartIcon = $("<i>").attr("class","heart outline icon");
+						heartIcon.attr("id","emptyHeart");
+						var boldLike = $("<b>").html(data.comList[i].postLike);
+						description.append(eyeIcon);
+						description.append("조회&nbsp;&nbsp;");
+						description.append(boldHit);
+						description.append("&emsp;|| &emsp;");
+						description.append(heartIcon);
+						description.append("좋아요&nbsp;&nbsp;");
+						description.append(boldLike);
+						
+						content.append(header);
+						content.append(metaDiv);
+						content.append(description);
+						
+						var extraDiv = $("<div>").attr("class","extra content");
+						var mbImage = $("<img>").attr("class","ui avatar image");
+						mbImage.attr("src",data.comList[i].mbImage);
+						mbImage.attr("onerror",'this.src="/resources/image/avatar.png"');
+						var mbA = $("<a>").append(mbImage);
+						mbA.attr("href","/postedCommunity.diet?postIndex="+data.comList[i].postIndex);
+						mbA.append(data.comList[i].postNickname);
+						
+						extraDiv.append(mbA);
+						
+						card.append(imgDiv);
+						card.append(content);
+						card.append(extraDiv);
+						
+						column.append(card);
+						
+						$('#mainRecipe').append(column);
+					}
+					
+				},
+				error : function() {
+					console.log('[Error] 메인 - 다이어트꿀팁 출력 실패');
+				}
+			});
+	
+	function doublePos(num)
+	{
+		return num>9?num:"0"+num;
+	}
+	
+	/* 카드 클릭시 각 페이지로 이동 */
+	function recipeLink(pi){
+		 location.href="/postedCommunity.diet?postIndex="+pi;
+	 }
 </script>
 <style type="text/css" media="screen">
 

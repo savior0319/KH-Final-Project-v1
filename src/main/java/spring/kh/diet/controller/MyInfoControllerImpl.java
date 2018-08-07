@@ -51,6 +51,42 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public MyInfoControllerImpl() {
 	}
 
+	/* 트레이너 자격신청 (심사중) 업데이트 */
+	@Override
+	@RequestMapping(value = "/trainerUpdate.diet")
+	public String trainerUpdate(HttpServletResponse response, HttpServletRequest request, HttpSession session)
+			throws IOException {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+
+		String numberCheck = request.getParameter("phone");
+		String roadAddress = request.getParameter("roadAddress");
+		String trCareer = request.getParameter("trCareer");
+		int heightCheck1 = Integer.parseInt(request.getParameter("height"));
+		int weightCheck1 = Integer.parseInt(request.getParameter("weight"));
+		String activeArea = request.getParameter("activeArea");
+		
+		TrainingRegVO tr = new TrainingRegVO();
+
+		tr.setTrContent(trCareer);
+		tr.setTrPhone(numberCheck);
+		tr.setTrAddress(roadAddress);
+		tr.setTrHeight(heightCheck1);
+		tr.setTrWeight(weightCheck1);
+		tr.setTrArea(activeArea);
+		tr.setMbIndex(mv.getMbIndex());
+
+		int result = myInfoService.trainerUpdate(tr);
+
+		if (result > 0) {
+			System.out.println("업데이트 완료");
+			return "myInfo/successUpdate";
+		} else {
+			System.out.println("업데이트 실패");
+			return "myInfo/failUpdate";
+		}
+
+	}
+
 	/* 나의 북마크 삭제 */
 	@Override
 	@RequestMapping(value = "deleteMyBookMark.diet")
@@ -404,7 +440,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 
 		MyCommentPageDataVO myComment = myInfoService.myCommentList(currentPage, type, ma);
-		System.out.println(myComment);
 		request.setAttribute("myComment", myComment);
 		return "myInfo/myComment";
 
@@ -427,7 +462,6 @@ public class MyInfoControllerImpl implements MyInfoController {
 		}
 
 		MyBookMarkPageDataVO myBookMark = myInfoService.myBookMarkList(currentPage, type, ma);
-		System.out.println(myBookMark);
 		request.setAttribute("myBookMark", myBookMark);
 		return "myInfo/myBookMark";
 

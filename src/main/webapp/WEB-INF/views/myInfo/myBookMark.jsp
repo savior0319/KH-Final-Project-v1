@@ -232,36 +232,44 @@ html, body {
 		var send_array = Array();
 		var send_cnt = 0;
 		var chkbox = $(".checkSelect");
-
-		for (i = 0; i < chkbox.length; i++) {
-			if (chkbox[i].checked == true) {
-				send_array[send_cnt] = chkbox[i].value;
-				send_cnt++;
-			}
-		}
-		$.ajaxSettings.traditional = true;
-		$.ajax({
-			url : "/deleteMyBookMark.diet",
-			type : 'POST',
-			data : {
-				'bmkIndex' : send_array
-			},
-			success : function(data) {
-				if (data != 0) {
-					alert("성공");
-					for (i = 0; i < data.length; i++) {
-						$(data[i]).parent().parent().parent().remove();
-						location.reload();
-					}
-				} else {
-					alert("북마크 삭제 실패하였습니다. 관리자에게 문의해주세요 ~");
+		var result = confirm("북마크 게시물을 삭제하시겠습니까?");
+		if(result==true){
+			for (i = 0; i < chkbox.length; i++) {
+				if (chkbox[i].checked == true) {
+					send_array[send_cnt] = chkbox[i].value;
+					send_cnt++;
 				}
-			},
-			error : function() {
-				alert("북마크 실패하였습니다. 관리자에게 문의해주세요 ~");
 			}
-		});
+			$.ajaxSettings.traditional = true;
+			$.ajax({
+				url : "/deleteMyBookMark.diet",
+				type : 'POST',
+				data : {
+					'bmkIndex' : send_array
+				},
+				success : function(data) {
+					if (data != 0) {
+						alert("북마크 게시물을 삭제하였습니다.");
+						for (i = 0; i < data.length; i++) {
+						
+							$(data[i]).parent().parent().parent().remove();
+							location.reload();
+							
+						}
+						
+					} else {
+						alert("북마크 삭제 실패하였습니다. 관리자에게 문의해주세요 ~");
+					}
+				},
+				error : function() {
+					alert("북마크 실패하였습니다. 관리자에게 문의해주세요 ~");
+				}
+			});
 
+		}else{
+			alert("북마크 게시물 삭제 취소하셨습니다.");
+		}
+		
 	}
 
 	$(function() {

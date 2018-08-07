@@ -134,7 +134,7 @@
 
 
 			<!-- 음식 검색 -->
-
+			<div class="ui center aligned basic segment">
 			<div class="ui secondary segment">
 				<div class="ui right action left icon input" style="width: 80%;">
 					<i class="search icon"></i> <input id="searchText" type="text" placeholder="검색어 입력" style="width: 80%;" onkeypress="runScript(event)">
@@ -148,6 +148,7 @@
 				<div id="size2" style="text-align: center; margin-top: 3%; height: 20px;">
 					<i class="chevron circle right icon"></i> 알아 보고 싶은 음식을 검색하세요
 				</div>
+			</div>
 			</div>
 			<br>
 			<hr>

@@ -371,9 +371,6 @@
 				</div>
 				<br>
 			</div>
-											
-							
-							
 							<button type="submit" class="ui red button" id="signupCheck">가입하기</button>
 							<button type="button" class="ui black button" onclick="back();">뒤로가기</button>
 						</form>

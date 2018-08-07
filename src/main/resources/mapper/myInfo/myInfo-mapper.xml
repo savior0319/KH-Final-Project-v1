@@ -43,7 +43,8 @@
 		<result property="mbGrade" column="MB_GRADE" />
 		<result property="trStatus" column="TR_STATUS" /> <!-- 혜윤 추가 / 충돌시 삭제 -->
 	</resultMap>
-	<!-- -->
+
+	<!-- 구매 여부 확인 -->
 	<select id="checkPur" resultType="payment" parameterType="member">
 		SELECT TP_INDEX AS tpIndex
 		FROM PAYMENT_TBL WHERE MB_INDEX = #{mbIndex}
@@ -452,8 +453,7 @@
 		AS NUM
 		FROM BOARD_POST_TBL
 		WHERE MB_INDEX = #{mbIndex}
-		) WHERE NUM BETWEEN
-		#{start} AND #{end}
+		) WHERE NUM BETWEEN #{start} AND #{end}
 
 	</select>
 
@@ -514,7 +514,8 @@
 		DT_TYPE AS dtType,
 		DT_INDEX AS dtIndex,
 		POST_TITLE AS postTitle,
-		DT_TITLE AS dtTitle,
+		DT_TITLE AS
+		dtTitle,
 		DT_DATE AS dtDate,
 		DT_LIKE AS dtLike,
 		DT_SEE AS dtSee,
@@ -526,17 +527,21 @@
 		cmtLike,
 		CMT_INDEX AS
 		cmtIndex,
-        ht.INDEX_NO AS indexNo,
-        ht.HT_TITLE AS htTitle
+		CMT_BLAME AS cmtBlame,
+		ht.INDEX_NO AS indexNo,
+		ht.HT_TITLE AS htTitle
 		FROM (SELECT
 		BOARD_COMMENT_TBL.*,ROW_NUMBER() OVER(ORDER BY CMT_DATETIME DESC)
 		AS
 		NUM FROM BOARD_COMMENT_TBL WHERE MB_INDEX =#{mbIndex}) BCT,
-		BOARD_POST_TBL BPT, DIETTIP_TB DT, hometraining_tb HT
+		BOARD_POST_TBL BPT, DIETTIP_TB DT,
+		hometraining_tb HT
 		WHERE
 		(BCT.POST_INDEX = BPT.POST_INDEX(+))
 		AND (BCT.POST_INDEX = DT.DT_INDEX(+)) AND (HT.index_no(+) = BCT.POST_INDEX)
-		AND BCT.MB_INDEX = #{mbIndex} AND NUM BETWEEN #{start} AND #{end}
+		AND BCT.MB_INDEX = #{mbIndex}
+		AND NUM BETWEEN #{start} AND
+		#{end}
 
 	</select>
 
@@ -576,7 +581,8 @@
 		FROM
 		BOARD_BOOKMARK_TBL WHERE MB_INDEX = #{mbIndex}) BMK, MEMBER_TBL
 		MBT,DIETTIP_TB DT ,BOARD_POST_TBL BPT
-		WHERE BMK.MB_INDEX =
+		WHERE
+		BMK.MB_INDEX =
 		MBT.MB_INDEX(+) AND BMK.POST_INDEX = DT.DT_INDEX(+) AND
 		BPT.POST_INDEX(+) =
 		BMK.POST_INDEX AND BMK.MB_INDEX= #{mbIndex}
@@ -606,7 +612,18 @@
 		DT.DT_INDEX IS NOT NULL)
 
 	</select>
-
+	<!-- 트레이너 신청자 정보 업데이트 (심사중상태만) -->
+	<update id="trainerUpdate" parameterType="trainerReg">
+		UPDATE TRAINER_REG_TBL SET TR_ADDRESS = #{trAddress},TR_PHONE =#{trPhone},TR_AREA =#{trArea}, TR_HEIGHT = #{trHeight}, TR_WEIGHT = #{trWeight},
+		TR_CONTENT= #{trContent} WHERE MB_INDEX = #{mbIndex}
+	</update>
+	
+	<!-- 트레이너 자격신청 정보 가져오기  -->
+	<select id="selectOneTrainer" parameterType="member" resultType="trainerReg" resultMap="trainerRegDB">
+		SELECT *
+		FROM TRAINER_REG_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</select>
 
 </mapper>
 

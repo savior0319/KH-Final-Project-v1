@@ -93,4 +93,8 @@ public interface MyInfoService {
 
 	ArrayList<PaymentVO> checkPur(MemberVO mv);
 
+	int trainerUpdate(TrainingRegVO tr);
+
+	TrainingRegVO selectOneTrainer(MemberVO mv);
+
 }

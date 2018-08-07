@@ -72,15 +72,13 @@ public class DietTipControllerImpl implements DietTipController {
 
 		request.setAttribute("dtpd", dtpd);
 		request.setAttribute("type", type);
-		
-		
-		// 종류별로 해당 회원이 게시물을 봤던 횟수 불러오기 
+
+		// 종류별로 해당 회원이 게시물을 봤던 횟수 불러오기
 		HttpSession session = request.getSession();
-		MemberVO user = (MemberVO)session.getAttribute("member");
-		if(user!=null && type.equals("all")) {
+		MemberVO user = (MemberVO) session.getAttribute("member");
+		if (user != null && type.equals("all")) {
 			MemberVO seeList = dietTipService.getDtSeeList(user.getMbIndex());
-			
-			
+
 			ArrayList<Integer> list = new ArrayList<Integer>();
 			list.add(seeList.getMbDtColSee());
 			list.add(seeList.getMbDtSpoSee());
@@ -88,22 +86,22 @@ public class DietTipControllerImpl implements DietTipController {
 			list.add(seeList.getMbDtSlSee());
 			java.util.Collections.sort(list);
 			java.util.Collections.reverse(list);
-			
-			String type1 = ""; 
-			if(list.get(0) == seeList.getMbDtColSee()) {
+
+			String type1 = "";
+			if (list.get(0) == seeList.getMbDtColSee()) {
 				type1 = "coloumn";
-			}else if(list.get(0) == seeList.getMbDtSpoSee()) {
+			} else if (list.get(0) == seeList.getMbDtSpoSee()) {
 				type1 = "sport";
-			}else if(list.get(0) == seeList.getMbDtDfSee()) {
+			} else if (list.get(0) == seeList.getMbDtDfSee()) {
 				type1 = "dietFood";
-			}else {
+			} else {
 				type1 = "successLatter";
 			}
-			
+
 			ArrayList<DietTipVO> matchedList = dietTipService.getMatchedDtList(type1);
 			request.setAttribute("matchedList", matchedList);
 		}
-		
+
 		return "dietTip/dietTipList";
 	}
 
@@ -159,17 +157,16 @@ public class DietTipControllerImpl implements DietTipController {
 		BoardCommentPDVO bcpd = commonService.getComment(currentPage, servletName, indexNo);
 
 		request.setAttribute("bcpd", bcpd);
-		
+
 		// 이전글 다음글 보여주는 거
 		ArrayList<DietTipVO> nextPreDt = dietTipService.getNextPreDt(dt.getDtIndex());
 		request.setAttribute("nextPreDt", nextPreDt);
-		
+
 		request.setAttribute("type", type);
-		
-		
+
 		// 해당 게시물을 보면 회원 정보의 게시물 본 횟수 늘려 주기
-		MemberVO user = (MemberVO)session.getAttribute("member");
-		if(user!=null && type!=null) {
+		MemberVO user = (MemberVO) session.getAttribute("member");
+		if (user != null && type != null) {
 			UpMbSeeVO ums = new UpMbSeeVO();
 			ums.setMbIndex(user.getMbIndex());
 			ums.setType(type);
@@ -195,8 +192,14 @@ public class DietTipControllerImpl implements DietTipController {
 	// 다이어트 팁 글쓰기 불러오기
 	@Override
 	@RequestMapping(value = "/loadDietTipWrite.diet")
-	public String redirectLoadDietTipWrite() {
-		return "dietTip/registDietTip";
+	public String redirectLoadDietTipWrite(HttpSession session) {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+
+		if (mv != null) {
+			return "dietTip/registDietTip";
+		} else {
+			return "redirect:/";
+		}
 	}
 
 	// 다이어트 팁 글 등록
@@ -285,7 +288,7 @@ public class DietTipControllerImpl implements DietTipController {
 		dt.setDtType(Integer.parseInt(request.getParameter("category")));
 		dt.setDtSammary(request.getParameter("sammary"));
 		String imgPath = request.getParameter("mainPhotoPath");
-		if(imgPath.substring(0, 13).equals("/imageUpload/")) {
+		if (imgPath.substring(0, 13).equals("/imageUpload/")) {
 			imgPath = imgPath.substring(13);
 		}
 		dt.setDtMainPhoto("/imageUpload/" + imgPath);
@@ -389,7 +392,5 @@ public class DietTipControllerImpl implements DietTipController {
 		return bbmv;
 
 	}
-	
-	
 
 }

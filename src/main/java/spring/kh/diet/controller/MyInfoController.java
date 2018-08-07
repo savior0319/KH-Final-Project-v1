@@ -68,4 +68,7 @@ public interface MyInfoController {
 	Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response, String type)
 			throws JsonIOException, IOException;
 
+	String trainerUpdate(HttpServletResponse response, HttpServletRequest request, HttpSession session)
+			throws IOException;
+
 }

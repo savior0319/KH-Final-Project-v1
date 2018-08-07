@@ -60,7 +60,11 @@ html, body {
 								</th>
 								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="heart icon"></i>
-									좋 아 요
+									댓 글 좋 아 요
+								</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
+									<i class="heart icon"></i>
+									댓 글 신 고
 								</th>
 							</tr>
 						</thead>
@@ -73,33 +77,36 @@ html, body {
 											<label></label>
 										</div>
 									</td>
-									<td style="width: 27%;">
+									<td style="width: 21%;">
+										<c:set var="postTitle" value="${m.postTitle}" />
 										<c:if test="${m.dtTitle==null&&m.htTitle==null}">
-											<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${m.postTitle}</a>
-
+											<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${fn:substring(postTitle,0,18)}..</a>
 										</c:if>
+										<c:set var="htTitle" value="${m.htTitle}" />
 										<c:if test="${m.dtTitle==null&&m.postTitle==null}">
-											<a href="/homeTrainingInfo.diet?indexNo=${m.indexNo}">${m.htTitle}</a>
+											<a href="/homeTrainingInfo.diet?indexNo=${m.indexNo}">${fn:substring(htTitle,0,18)}..</a>
 										</c:if>
+										<c:set var="dtTitle" value="${m.dtTitle}" />
 										<c:if test="${m.postTitle==null&&m.htTitle==null}">
-											<a href="/dietTipInfo.diet?indexNo=${m.dtIndex}">${m.dtTitle}</a>
+											<a href="/dietTipInfo.diet?indexNo=${m.dtIndex}">${fn:substring(dtTitle,0,18)}..</a>
 										</c:if>
 									</td>
-									<td style="width: 40%;">
+									<td style="width: 25%;">
 										<c:set var="cmtContent" value="${m.cmtContent}" />
-										${fn:substring(cmtContent,0,20)}..
+										${fn:substring(cmtContent,0,18)}..
 									</td>
 									<td style="width: 17%;">
 										<c:set var="TextValue" value="${m.cmtDateTime}" />
 										${fn:substring(TextValue,0,11)}일 ${fn:substring(TextValue,11,16)}분
-									</td >
-									<td>${m.cmtLike}&nbsp;개</td>
+									</td>
+									<td style="width: 13%;">${m.cmtLike}&nbsp;개</td>
+									<td style="width: 13%;">${m.cmtBlame}&nbsp;개</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
+						<div class="ui red message">※ 댓글 신고 5번이 되면 강제 탈퇴 처리됩니다.</div>
 					<button class="ui red button" style="float: right;" onclick="deleteMyComment();">삭제하기</button>
-					<br>
 					<br>
 					<div class="ui grid">
 						<div class="three column row">
@@ -112,11 +119,12 @@ html, body {
 							<div class="column">
 								<div class="ui right aligned container"></div>
 							</div>
+
 						</div>
 						<br>
+
 					</div>
 				</c:if>
-
 				<c:if test="${myComment.comList.isEmpty()}">
 					<div class="ui small red message">
 						<div class="ui small header">※등록된 댓글이 없습니다 ~ ^^</div>
@@ -156,6 +164,7 @@ html, body {
 		var send_array = Array();
 		var send_cnt = 0;
 		var chkbox = $(".checkSelect");
+		var result = confirm("북마크 게시물을 삭제하시겠습니까?");
 
 		for (i = 0; i < chkbox.length; i++) {
 			if (chkbox[i].checked == true) {
@@ -163,27 +172,33 @@ html, body {
 				send_cnt++;
 			}
 		}
-		$.ajaxSettings.traditional = true;
-		$.ajax({
-			url : "/deleteMyComment.diet",
-			type : 'POST',
-			data : {
-				'cmtIndex' : send_array
-			},
-			success : function(data) {
-				if (data != 0) {
-					for (i = 0; i < data.length; i++) {
-						$(data[i]).parent().parent().parent().remove();
-						location.reload();
+
+		if (result) {
+			$.ajaxSettings.traditional = true;
+			$.ajax({
+				url : "/deleteMyComment.diet",
+				type : 'POST',
+				data : {
+					'cmtIndex' : send_array
+				},
+				success : function(data) {
+					if (data != 0) {
+						alert("댓글을 삭제하였습니다. 감사합니다.")
+						for (i = 0; i < data.length; i++) {
+							$(data[i]).parent().parent().parent().remove();
+							location.reload();
+						}
+					} else {
+						alert("댓글 삭제 실패하였습니다. 관리자에게 문의해주세요 ~");
 					}
-				} else {
+				},
+				error : function() {
 					alert("댓글 삭제 실패하였습니다. 관리자에게 문의해주세요 ~");
 				}
-			},
-			error : function() {
-				alert("댓글 삭제 실패하였습니다. 관리자에게 문의해주세요 ~");
-			}
-		});
+			});
+		} else {
+			alert("댓글 삭제 실패하였습니다. 관리자에게 문의해주세요 ~");
+		}
 
 	}
 

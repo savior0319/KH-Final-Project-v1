@@ -27,23 +27,27 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 
 	public LoginLogoutControllerImpl() {
 	}
+
 	/* 일반 로그인 */
 	@Override
 	@RequestMapping(value = "/loginRequest.diet")
-	public String login(HttpServletRequest request, @RequestParam String memberId, @RequestParam String memberPwd) {
+	public String login(HttpSession reSession, HttpServletRequest request, @RequestParam String memberId,
+			@RequestParam String memberPwd, HttpServletResponse response) throws IOException {
 
 		MemberVO mv = new MemberVO();
 		mv.setMbId(memberId);
 		mv.setMbPwd(memberPwd);
 		MemberVO m = loginService.login(mv);
-		
+
 		HttpSession session;
+		String referer = (String) reSession.getAttribute("referer");
+
 		if (m != null) {
 			session = request.getSession();
-			session.setAttribute("member", m);		
-			return "redirect:/";
+			session.setAttribute("member", m);
+		    return "redirect:"+ referer;
 		} else {
-			return "login/loginFailed";
+		return "login/loginFailed";
 		}
 	}
 
@@ -116,23 +120,24 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 	@Override
 	@RequestMapping(value = "/logout.diet")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
-
-		HttpSession session = request.getSession();		
+		
+		String referer = (String) request.getHeader("referer");
+		
+		HttpSession session = request.getSession();
 		if (session.getAttribute("member") != null) {
 			// 인보부분(세션 파기전 세션의 정보를 넘겨야합니다)
 			// Onsession 값을 가져와서 OffSession TB에 값을 넣어주주고
 			OneSessionVO OSV = loginService.selectOneSession(session.getId());
-			
+
 			int result = loginService.insertSession(OSV);
 			// Onsession TB에서의 데이터삭제
 
-			if(result>0)
-			{
-				loginService.transSession(session.getId());				
+			if (result > 0) {
+				loginService.transSession(session.getId());
 			}
-			
-			session.invalidate();						
-			//카카오톡 자동로그인 방지용으로 만든 쿠키 작동불 
+
+			session.invalidate();
+			// 카카오톡 자동로그인 방지용으로 만든 쿠키 작동불
 			Cookie[] cookies = request.getCookies();
 			if (cookies != null) {
 				for (int i = 0; i < cookies.length; i++) {
@@ -141,7 +146,7 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 				}
 			}
 		}
-		return "redirect:/";
+	    return "redirect:"+ referer;
 	}
 
 	/* 비밀번호 재설정 - 이메일로 임시비밀번호 보내기 */
@@ -176,7 +181,5 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 		return result;
 
 	}
-	
-	
 
 }
