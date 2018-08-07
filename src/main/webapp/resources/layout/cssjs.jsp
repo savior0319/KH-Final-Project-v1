@@ -12,26 +12,17 @@
 <script type="text/javascript" src="/resources/SementicUI/semantic.min.js"></script>
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="/resources/SementicUI/semantic.min.css">
-<!-- Favicon(추가예정) -->
+<!-- Favicon -->
 <link rel="shortcut icon" href="/resources/image/favicon.ico" />
 
 <style>
 /* 폰트적용 */
-/* @import url('//cdn.rawgit.com/young-ha/webfont-archive/master/css/Godo.css');
-*{font-family: 'Godo', 'Sans-serif;'
-  font-style: normal;
-  font-weight: 700;
-} */
-/* @import url('https://fonts.googleapis.com/css?family=Jua'); */
 @import url('https://fonts.googleapis.com/css?family=Sunflower:300');
 
 *{
-/* font-family: 'Jua', sans-serif; */
 font-family: 'Sunflower', sans-serif;
 font-size: 103%;
 font-weight:600;
 }
-
-
 
 </style>
