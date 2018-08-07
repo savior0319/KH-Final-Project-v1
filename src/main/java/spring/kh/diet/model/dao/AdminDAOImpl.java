@@ -17,6 +17,7 @@ import spring.kh.diet.model.vo.BoardPostVO;
 import spring.kh.diet.model.vo.CommunityPageDataVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.ErrorLogVO;
+import spring.kh.diet.model.vo.LoginLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -779,30 +780,12 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public ArrayList<ErrorLogVO> todayErrorLogSearchDetail(SqlSessionTemplate session, ErrorLogVO eLVO) {
 		List<?> list = session.selectList("admin.todayErrorLogSearchDetail",eLVO);
-//		if(list.isEmpty())
-//		{
-//			System.out.println("실패");
-//		}
-//		else {
-//			for(int i=0; i<list.size();i++)
-//			{
-//				System.out.println(list.get(i).toString());
-//			}
-//		}
-//		
 		return (ArrayList<ErrorLogVO>) list;
 	}
 
 	@Override
 	public ArrayList<SevenDaysUserVO> select7Days(SqlSessionTemplate session) {
 		List<?> list = session.selectList("admin.findSevenDays");
-//		if(list.isEmpty())
-//		{
-//			System.out.println("비엇");
-//		}
-//		else {
-//			System.out.println(list.toString());
-//		}
 		return (ArrayList<SevenDaysUserVO>) list;
 	}
 
@@ -811,6 +794,22 @@ public class AdminDAOImpl implements AdminDAO {
 	public ArrayList<MemberVO> memberListExcel(SqlSessionTemplate session) {
 		List<MemberVO> list = session.selectList("admin.memberListExcel");
 		return (ArrayList<MemberVO>) list;
+	}
+
+	// 로그인 로그 리스트 리스트페이지
+	@Override
+	public ArrayList<LoginLogVO> loginLogManage(SqlSessionTemplate session, LoginLogVO vO) {
+		List<?> list = session.selectList("admin.loginLogManage",vO);
+		
+		return (ArrayList<LoginLogVO>) list;
+	}
+
+	// 로그인 로그 상세 리스트 페이지
+	@Override
+	public ArrayList<LoginLogVO> loginLogManageDetail(SqlSessionTemplate session, LoginLogVO vO) {
+		List<?> list = session.selectList("admin.loginLogManageDetail",vO);
+		
+		return (ArrayList<LoginLogVO>) list;
 	}
 
 }

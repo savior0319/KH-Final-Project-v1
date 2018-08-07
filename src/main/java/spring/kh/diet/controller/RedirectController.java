@@ -48,8 +48,5 @@ public interface RedirectController {
 
 	String redirectFaq();
 
-	String loginLogManageTest1();
-
-	String loginLogManageDetailTest1();
 
 }

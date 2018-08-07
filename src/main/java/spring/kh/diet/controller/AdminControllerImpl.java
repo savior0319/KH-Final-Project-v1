@@ -16,6 +16,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -43,6 +44,7 @@ import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.CurrentDate;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.ErrorLogVO;
+import spring.kh.diet.model.vo.LoginLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -1008,6 +1010,84 @@ public class AdminControllerImpl implements AdminController {
 		// System.out.println(totalDay);
 
 		view.setViewName("admin/errorLogManageDetail");
+		return view;
+	}
+	
+	// 접속자 로그 관리 
+	@Override
+	@RequestMapping(value = "/loginLogManage.diet")
+	public Object loginLogManage() {
+		
+		ModelAndView view = new ModelAndView();
+		// 리스트 불러오기 최근 10일것. // TYPE으로 값이 있을떈 특정날, 없으면 10일치
+		LoginLogVO LLVO = new LoginLogVO();
+		LLVO.setType(0);
+		ArrayList<LoginLogVO> list = as.loginLogManage(LLVO);
+		
+		// 어제부터 최근 10일치것을 가져오는것으로. 하나씩 하나씩 해야하는게 맞을듯.
+		// 0~1 이 어제의날
+		
+		view.addObject("list",list); // 최근 10일 리스트넘기기
+		
+
+		view.setViewName("admin/loginManage");
+		return view;
+	}
+	// 접속자 로그관리 - 상세페이지
+	@Override
+	@RequestMapping(value = "/loginLogManageDetail.diet")
+	public Object loginLogManageDetail(HttpServletRequest request) {
+		String findType = "non";
+		ModelAndView view = new ModelAndView();
+		String findDate = "";
+		String search=null;
+		if (request.getParameter("findDate") != null) {
+			findDate = (request.getParameter("findDate")); // 특정 날자
+		}
+		if (request.getParameter("type") != null) {
+
+			findType = (request.getParameter("type")); // 특정사람
+
+		}
+		if (request.getParameter("search") != null)
+		{
+			search = (request.getParameter("search")); // 서치
+		}
+//		System.out.println(findDate);
+		
+		LoginLogVO LLVO = new LoginLogVO();
+		// 데이터형식
+				java.sql.Date sqlDate;
+				java.sql.Date sqlToday;
+				Date SearchDate;
+				Date todayDate = new Date();
+				SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+				// String toDay = dayTime.format(new Date(time));
+				try {
+					SearchDate = dayTime.parse(findDate);// 받아온날자
+					sqlDate = new java.sql.Date(SearchDate.getTime()); // 받아올날자
+					sqlToday = new java.sql.Date(todayDate.getTime());
+					 int num1 = (int) ((sqlToday.getTime() - sqlDate.getTime()) / (24 * 60 * 60 * 1000));
+					LLVO.setType(num1);
+					LLVO.setFindType(findType); // 사람 <  전체는 non, 일부는 다른값.
+					// 타입 < 일자 ~ 
+					if(search!=null)
+					{
+						LLVO.setFindType(search);
+					}
+					ArrayList<LoginLogVO> list = as.loginLogManageDetail(LLVO);
+					
+					view.addObject("list",list);
+					view.addObject("today",findDate);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+		
+		
+		
+		view.setViewName("admin/loginLogManageDetail");
 		return view;
 	}
 }

@@ -10,6 +10,7 @@ import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.ErrorLogVO;
+import spring.kh.diet.model.vo.LoginLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -109,5 +110,9 @@ public interface AdminService {
 	ArrayList<ErrorLogVO> todayErrorLogSearchDetail(ErrorLogVO eLVO);
 
 	ArrayList<MemberVO> memberListExcel();
+
+	ArrayList<LoginLogVO> loginLogManage(LoginLogVO lLVO);
+
+	ArrayList<LoginLogVO> loginLogManageDetail(LoginLogVO lLVO);
   
 }

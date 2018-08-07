@@ -1035,4 +1035,239 @@
 		from TODAY_ANALYTICS
 		where (t_update_time between sysdate-1 and sysdate) and t_time_type = #{time}
 	</select>
+
+	<!-- 접속자 로그인 로그 페이지 리스트 -->
+	<select id="loginLogManage" parameterType="loginLog"
+		resultType="loginLog">
+		<choose>
+			<when test="type==0">
+                select count(A.mb_index) as count,sysdate-1 as day from member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-1,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count, sysdate-1 as day from del_member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-1,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count,sysdate-2 as day from member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-2,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-1,'YYYY-MM-DD')))and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count, sysdate-2 as day from del_member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-2,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-1,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+
+				select count(A.mb_index) as count,sysdate-3 as day from member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-3,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-2,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count, sysdate-3 as day from del_member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-3,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-2,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+
+				union all
+
+				select count(A.mb_index) as count,sysdate-4 as day from member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-4,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-3,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count, sysdate-4 as day from del_member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-4,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-3,'YYYY-MM-DD'))) and ss_login != 'NULL')
+				union all
+
+				select count(A.mb_index) as count,sysdate-5 as day from member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where(B.ss_firstOn between to_date(TO_CHAR(SYSDATE-5,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-4,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count, sysdate-5 as day from del_member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-5,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-4,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count,sysdate-6 as day from member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-6,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-5,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count, sysdate-6 as day from del_member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-6,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-5,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count,sysdate-7 as day from member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-7,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-6,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count, sysdate-7 as day from del_member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-7,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-6,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count,sysdate-8 as day from member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-8,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-7,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count, sysdate-8 as day from del_member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-8,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-7,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count,sysdate-9 as day from member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-9,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-8,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count, sysdate-9 as day from del_member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-9,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-8,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count,sysdate-10 as day from member_tbl A,
+				off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-10,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-11,'YYYY-MM-DD'))) and ss_login != 'NULL')
+
+				union all
+
+				select count(A.mb_index) as count, sysdate-10 as day from del_member_tbl
+				A, off_session_tbl B where A.MB_NICKNAME = B.ss_login(+) and
+				A.mb_nickNAME in
+				(select ss_login from off_session_tbl where (B.ss_firstOn between to_date(TO_CHAR(SYSDATE-10,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE-11,'YYYY-MM-DD'))) and ss_login != 'NULL')
+			</when>
+		</choose>
+	</select>
+
+	<select id="loginLogManageDetail" parameterType="loginLog"
+	resultType="loginLog">
+	<choose>
+		<when test="findType.equals('non')">
+			<choose>
+				<when test="type==1">
+					select A.mb_index as userNo, A.mb_ID as id, A.mb_nickName as nickName,
+					B.ss_IP as ip, B.ss_firstOn as login, B.ss_lastIn as logout,
+					B.ss_stay as stay, B.ss_device as device
+					from member_tbl A, off_Session_tbl B where (A.mb_nickName =
+					B.ss_login(+)) and (B.ss_firstOn is not null) and (B.ss_firstOn
+					between to_date(TO_CHAR(SYSDATE-1,'YYYY-MM-DD')) and
+					to_date(TO_CHAR(SYSDATE,'YYYY-MM-DD')))
+
+					union all
+
+					select A.mb_index as userNo, A.mb_ID as id, A.mb_nickName as nickName,
+					B.ss_IP as ip, B.ss_firstOn as login, B.ss_lastIn as logout,
+					B.ss_stay as stay, B.ss_device as device
+					from del_member_tbl A, off_Session_tbl B where (A.mb_nickName =
+					B.ss_login(+)) and (B.ss_firstOn is not null) and (B.ss_firstOn
+					between to_date(TO_CHAR(SYSDATE-1,'YYYY-MM-DD')) and
+					to_date(TO_CHAR(SYSDATE,'YYYY-MM-DD')))
+
+				</when>
+				<otherwise>
+				select A.mb_index as userNo, A.mb_ID as id, A.mb_nickName as nickName,
+					B.ss_IP as ip, B.ss_firstOn as login, B.ss_lastIn as logout,
+					B.ss_stay as stay, B.ss_device as device, sysdate-#{type} as day
+					from member_tbl A, off_Session_tbl B where (A.mb_nickName =
+					B.ss_login(+)) and (B.ss_firstOn is not null) and (B.ss_firstOn
+					between to_date(TO_CHAR(SYSDATE-(#{type}),'YYYY-MM-DD')) and
+					to_date(TO_CHAR(SYSDATE-(#{type}-1),'YYYY-MM-DD')))
+
+					union all
+
+					select A.mb_index as userNo, A.mb_ID as id, A.mb_nickName as nickName,
+					B.ss_IP as ip, B.ss_firstOn as login, B.ss_lastIn as logout,
+					B.ss_stay as stay, B.ss_device as device, sysdate-#{type} as day
+					from del_member_tbl A, off_Session_tbl B where (A.mb_nickName =
+					B.ss_login(+)) and (B.ss_firstOn is not null) and (B.ss_firstOn
+					between to_date(TO_CHAR(SYSDATE-(#{type}),'YYYY-MM-DD')) and
+					to_date(TO_CHAR(SYSDATE-(#{type}-1),'YYYY-MM-DD')))
+				</otherwise>
+			</choose>
+		</when>
+		<when test="findType.equals('all')">
+					select A.mb_index as userNo, A.mb_ID as id, A.mb_nickName as nickName,
+					B.ss_IP as ip, B.ss_firstOn as login, B.ss_lastIn as logout,
+					B.ss_stay as stay, B.ss_device as device,sysdate-#{type} as day
+					from member_tbl A, off_Session_tbl B where (A.mb_nickName =
+					B.ss_login(+)) and (B.ss_firstOn is not null) and (B.ss_firstOn
+					between to_date(TO_CHAR(SYSDATE-(#{type}),'YYYY-MM-DD')) and
+					to_date(TO_CHAR(SYSDATE-(#{type}-1),'YYYY-MM-DD')))
+
+					union all
+
+					select A.mb_index as userNo, A.mb_ID as id, A.mb_nickName as nickName,
+					B.ss_IP as ip, B.ss_firstOn as login, B.ss_lastIn as logout,
+					B.ss_stay as stay, B.ss_device as device,sysdate-#{type} as day
+					from del_member_tbl A, off_Session_tbl B where (A.mb_nickName =
+					B.ss_login(+)) and (B.ss_firstOn is not null) and (B.ss_firstOn
+					between to_date(TO_CHAR(SYSDATE-(#{type}),'YYYY-MM-DD')) and
+					to_date(TO_CHAR(SYSDATE-(#{type}-1),'YYYY-MM-DD'))) 
+		</when>
+		<otherwise>
+					select A.mb_index as userNo, A.mb_ID as id, A.mb_nickName as nickName,
+					B.ss_IP as ip, B.ss_firstOn as login, B.ss_lastIn as logout,
+					B.ss_stay as stay, B.ss_device as device,sysdate-#{type} as day
+					from member_tbl A, off_Session_tbl B where (A.mb_nickName =
+					B.ss_login(+)) and (B.ss_firstOn is not null) and (B.ss_firstOn
+					between to_date(TO_CHAR(SYSDATE-(#{type}),'YYYY-MM-DD')) and
+					to_date(TO_CHAR(SYSDATE-(#{type}-1),'YYYY-MM-DD'))) and(A.mb_id like '%'||#{findType}||'%')
+
+					union all
+
+					select A.mb_index as userNo, A.mb_ID as id, A.mb_nickName as nickName,
+					B.ss_IP as ip, B.ss_firstOn as login, B.ss_lastIn as logout,
+					B.ss_stay as stay, B.ss_device as device,sysdate-#{type} as day
+					from del_member_tbl A, off_Session_tbl B where (A.mb_nickName =
+					B.ss_login(+)) and (B.ss_firstOn is not null) and (B.ss_firstOn
+					between to_date(TO_CHAR(SYSDATE-(#{type}),'YYYY-MM-DD')) and
+					to_date(TO_CHAR(SYSDATE-(#{type}-1),'YYYY-MM-DD')))  and(A.mb_id like '%'||#{findType}||'%')
+		</otherwise>
+	</choose>
+</select>
+	
 </mapper>

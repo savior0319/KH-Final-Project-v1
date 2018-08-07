@@ -17,6 +17,7 @@ import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.ErrorLogVO;
+import spring.kh.diet.model.vo.LoginLogVO;
 import spring.kh.diet.model.vo.MemberListPDVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
@@ -386,6 +387,20 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public ArrayList<MemberVO> memberListExcel() {
 		return aDao.memberListExcel(session);
+	}
+
+	// 로그인 로그 리스트 
+	@Override
+	public ArrayList<LoginLogVO> loginLogManage(LoginLogVO VO) {
+		ArrayList<LoginLogVO> list = aDao.loginLogManage(session,VO);
+		return list;
+	}
+
+	// 로그인 로그 상세리스트
+	@Override
+	public ArrayList<LoginLogVO> loginLogManageDetail(LoginLogVO VO) {
+		ArrayList<LoginLogVO> list = aDao.loginLogManageDetail(session,VO);
+		return list;
 	}
 
 

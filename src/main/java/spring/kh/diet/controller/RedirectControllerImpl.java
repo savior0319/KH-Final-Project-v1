@@ -171,16 +171,6 @@ public class RedirectControllerImpl implements RedirectController {
 	public String redirectSangpoom() {
 		return "main/programReg";
 	}
-	@Override
-	@RequestMapping(value = "/loginLogManage.diet")
-	public String loginLogManageTest1() {
-		return "admin/loginManage";
-	}
-	
-	@Override
-	@RequestMapping(value = "/loginLogManageDetail.diet")
-	public String loginLogManageDetailTest1() {
-		return "admin/loginLogManageDetail";
-	}
+
 
 }
