@@ -14,7 +14,7 @@ public class PasswordToSHA256Advice {
 
 	public PasswordToSHA256Advice() {
 	}
-
+ 
 	@Pointcut("execution(int spring.kh.diet.model.service.*ServiceImpl.signupsave(..))")
 	public void encryptSHA256() {
 	}	
