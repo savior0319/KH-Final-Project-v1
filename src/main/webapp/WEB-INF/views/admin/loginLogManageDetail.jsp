@@ -1,13 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
 
 <!-- 달력 추가 -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
 <title>관리자 - 접속자 로그 상세관리</title>
@@ -51,49 +55,77 @@ body {
 							<!-- 달력선택, 난이도선택  -->
 							<div class="ui grid">
 
-								<div class="four wide column"></div>
-								<div class="seven wide column"></div>
+								<div class="four wide column">
+								</div>
+								<div class="seven wide column">
+									<div class="ui center basic aligned segment"
+										style="float: right; margin: 0px;">
+										<div class="ui input">
+											<input type="text" id="datepicker1" name="date"
+												readonly="readonly" placeholder="날짜 조회">
+										</div>
+									</div>
+								</div>
 								<div class="five wide column" style="border-left: none;">
 									<!--  -->
-									<div class="ui center basic aligned segment" style="float: left; margin: 0px;">
-										<div class="ui input">
-											<input type="text" id="datepicker1" name="date" readonly="readonly" placeholder="날짜 조회">
-										</div>
+									<div class="ui center basic aligned segment"
+										style="float: left; margin: 0px;">
+										<div class="ui icon input">
+											<input type="text" id ="textWord" placeholder="아이디  ||전체검색(all)" onkeypress="runScript(event)"> 
+											<i class="inverted circular search link icon" onclick="searchBtn()"></i>
+										</div>	
 									</div>
 									<!--  -->
 								</div>
 							</div>
 							<!-- 달력선택, 난이도선택 종료-->
 							<!-- 경도시작 -->
-							<div id="chart1" class="ui center aligned segment" style="width: 100%;">
+							<div id="chart1" class="ui center aligned segment"
+								style="width: 100%;">
 								<div class=" ui center aligned segment">
-									<h2>${requestScope.listType}</h2>
-								</div>
-								<div class="ui center aligned segment" style="overflow: auto; height: 700px;">
+									<h2 id="todayDate">${requestScope.today}</h2>
+								</div>	
+								<div class="ui center aligned segment"
+									style="overflow: auto; height: 700px;">
 
 									<table class="ui celled table">
 										<thead>
 											<tr align="center">
-												
+												<th style="display:none">날자</th>
+												<th>번호</th>
 												<th>로그인 시간</th>
 												<th>로그아웃 시간</th>
 												<th>IP 주소</th>
 												<th>접속 기기</th>
 												<th>유지 시간</th>
-												<th>회원아이디(닉네임)</th>
+												<th>회원아이디</th>
+												<th>닉네임</th>
 											</tr>
 										</thead>
 										<!--  -->
 										<tbody>
-											<tr>
-												
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
+											<c:forEach items="${requestScope.list}" var="li"
+												varStatus="ss">
+												<tr>
+													<td class ="todate" style="display:none">${li.day}</td>
+													<td>${li.userNo}</td>
+													<td>${li.login}</td>
+													<td>${li.logout}</td>
+													<td>${li.ip}</td>
+													<td>${li.device}</td>
+													<c:choose>
+														<c:when test="${li.stay>60}">
+															<td><fmt:formatNumber value="${li.stay/60}"
+																	pattern="0" /> 분</td>
+														</c:when>
+														<c:otherwise>
+															<td>${li.stay}초</td>
+														</c:otherwise>
+													</c:choose>
+													<td>${li.id}</td>
+													<td>${li.nickName}</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 										<!--  -->
 									</table>
@@ -119,24 +151,51 @@ body {
 				</div>
 			</div>
 		</div>
-		<div class="ui right aligned basic segment" style="padding-top: 0px; margin-top: 0px;"></div>
+		<div class="ui right aligned basic segment"
+			style="padding-top: 0px; margin-top: 0px;"></div>
 	</div>
-
-	<script type="text/javascript">
-		function info(index, test) {
-			var findDate = $("#Date" + index + test).html();
-			$('#content').html(findDate);
-			$('#questionModal').modal({
-				centered : false
-			}).modal('show');
-		}
-	</script>
-
 	<!-- FOOTER -->
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+/* 검색  - 엔터*/
+function runScript(e) {
+	if (e.keyCode == 13) {
+		searchBtn();
+	}
+}
+function searchBtn() {
+	var searchText = $('#textWord').val();
+	var findDate = $('#todayDate').html();
+		if(searchText != "")
+		{
+			$.ajax({
+				url : '/loginLogManageDetail.diet',
+				type : 'post',
+				data : {
+					'findDate' : findDate,
+					'search' : searchText
+				},
+				success : function() {
+					
+					location.href = "/loginLogManageDetail.diet?findDate="
+							+ findDate + "&type=non" + "&search="+searchText;
+
+				},
+				error : function() {
+					alert('해당 대상자는 없습니다, 관리자에게 문의하세요');
+				}
+			});
+		}
+		else{
+			alert('아이디를 입력해 주세요');
+		}
+	}
+
+	/* + "&type=" + type */
+
+
 	$('.ui.dropdown').dropdown({
 		allowAdditions : true,
 		allowCategorySelection : true
@@ -158,16 +217,33 @@ body {
 		yearSuffix : '년'
 	});
 
-	$("#datepicker1").datepicker(
-			{
-				onSelect : function(dateText) {
+	$("#datepicker1")
+			.datepicker(
+					{
+						onSelect : function(dateText) {
 
-					alert("선택하신 날짜 : " + dateText + " 해당날짜 로그로 이동합니다");
-					var findDate = this.value;
-					location.href = "/errorLogManageDetail.diet?findDate="
-							+ findDate + "&type=low";
-				}
-			});
+							var findDate = this.value;
+							$.ajax({
+										url : '/loginLogManageDetail.diet',
+										type : 'post',
+										data : {
+											'findDate' : findDate,
+											'type' : 'non'
+										},
+										success : function() {
+											alert("선택하신 날짜 : " + dateText
+													+ " 해당날짜 로그로 이동합니다");
+											location.href = "/loginLogManageDetail.diet?findDate="
+													+ findDate + "&type=non";
+
+										},
+										error : function() {
+											alert('해당 로그는 없습니다, 관리자에게 문의하세요');
+										}
+									});
+
+						}
+					});
 </script>
 
 </html>

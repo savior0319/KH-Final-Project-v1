@@ -12,6 +12,7 @@ import spring.kh.diet.model.vo.BlackListContentVO;
 import spring.kh.diet.model.vo.BlackListRegVO;
 import spring.kh.diet.model.vo.DelMemberVO;
 import spring.kh.diet.model.vo.ErrorLogVO;
+import spring.kh.diet.model.vo.LoginLogVO;
 import spring.kh.diet.model.vo.MemberVO;
 import spring.kh.diet.model.vo.NoticeVO;
 import spring.kh.diet.model.vo.OffSessionVO;
@@ -129,6 +130,10 @@ public interface AdminDAO {
 	ArrayList<SevenDaysUserVO> select7Days(SqlSessionTemplate session);
 
 	ArrayList<MemberVO> memberListExcel(SqlSessionTemplate session);
+
+	ArrayList<LoginLogVO> loginLogManage(SqlSessionTemplate session, LoginLogVO vO);
+
+	ArrayList<LoginLogVO> loginLogManageDetail(SqlSessionTemplate session, LoginLogVO vO);
 
 
 }

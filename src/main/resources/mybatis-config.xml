@@ -66,8 +66,10 @@
 		<typeAlias type="spring.kh.diet.model.vo.PaymentVO" alias="payment" />
 		<typeAlias type="spring.kh.diet.model.vo.ErrorLogVO" alias="errorLog"/>
 		<typeAlias type="spring.kh.diet.model.vo.PaymentPDVO" alias="paymentPDVO" />
-		<typeAlias type="spring.kh.diet.model.vo.SevenDaysUserVO" alias="servenDays"/>	
+		<typeAlias type="spring.kh.diet.model.vo.SevenDaysUserVO" alias="servenDays"/>
+		<typeAlias type="spring.kh.diet.model.vo.LoginLogVO" alias="loginLog"/>	
     <typeAlias type="spring.kh.diet.model.vo.AdvertiseVO" alias="advertise" /> <!-- 광고 DB -->
+    <typeAlias type="spring.kh.diet.model.vo.LoginLogVO" alias="loginLog"/><!-- 로그인 로그  -->
 
 	</typeAliases>
 

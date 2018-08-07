@@ -63,4 +63,8 @@ public interface AdminController {
 
 	void excelOut(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
+	Object loginLogManage();
+
+	Object loginLogManageDetail(HttpServletRequest request);
+
 }

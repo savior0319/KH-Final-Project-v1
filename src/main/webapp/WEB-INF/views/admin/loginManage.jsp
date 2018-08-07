@@ -32,7 +32,7 @@ body {
 	<div class="ui container">
 		<div class="ui center aligned basic segment">
 			<div class="ui center aligned segment">
-				<h1>접속자 로그 관리 (리스트)</h1>
+				<h1>회원 접속 로그 관리 (리스트)</h1>
 			</div>
 			<br>
 			<br>
@@ -61,19 +61,84 @@ body {
 							<thead>
 								<tr align="center">
 									<th style="width: 30%;">날 짜</th>
-									<th style="width: 30%;">총 접속자수</th>
+									<th style="width: 30%;">총 접속자수(회원)</th>
 									<th style="width: 30%;">비 고</th>
 								</tr>
 							</thead>
 							<!--  -->
 							<tbody>
+								
 								<tr align="center">
-									<td id="searchDate"></td>
-									<td></td>
+									<td id="searchDate1">${list[0].day}</td>
+									<td>${list[0].count+list[1].count}</td>
 									<td>
-										<button class="ui secondary button" onclick="move();">자세히</button>
+										<button class="ui secondary button" onclick="move(1);">자세히</button>
 									</td>
 								</tr>
+								<tr align="center">
+									<td id="searchDate2">${list[2].day}</td>
+									<td>${list[2].count+list[3].count}</td>
+									<td>
+										<button class="ui secondary button" onclick="move(2);">자세히</button>
+									</td>
+								</tr>
+								<tr align="center">
+									<td id="searchDate3">${list[4].day}</td>
+									<td>${list[4].count+list[5].count}</td>
+									<td>
+										<button class="ui secondary button" onclick="move(3);">자세히</button>
+									</td>
+								</tr>
+								<tr align="center">
+									<td id="searchDate4">${list[6].day}</td>
+									<td>${list[6].count+list[7].count}</td>
+									<td>
+										<button class="ui secondary button" onclick="move(4);">자세히</button>
+									</td>
+								</tr>
+								<tr align="center">
+									<td id="searchDate5">${list[8].day}</td>
+									<td>${list[8].count+list[9].count}</td>
+									<td>
+										<button class="ui secondary button" onclick="move(5);">자세히</button>
+									</td>
+								</tr>
+								<tr align="center">
+									<td id="searchDate6">${list[10].day}</td>
+									<td>${list[10].count+list[11].count}</td>
+									<td>
+										<button class="ui secondary button" onclick="move(6);">자세히</button>
+									</td>
+								</tr>
+								<tr align="center">
+									<td id="searchDate7">${list[12].day}</td>
+									<td>${list[12].count+list[13].count}</td>
+									<td>
+										<button class="ui secondary button" onclick="move(7);">자세히</button>
+									</td>
+								</tr>
+								<tr align="center">
+									<td id="searchDate8">${list[14].day}</td>
+									<td>${list[14].count+list[15].count}</td>
+									<td>
+										<button class="ui secondary button" onclick="move(8);">자세히</button>
+									</td>
+								</tr>
+								<tr align="center">
+									<td id="searchDate9">${list[16].day}</td>
+									<td>${list[16].count+list[17].count}</td>
+									<td>
+										<button class="ui secondary button" onclick="move(9);">자세히</button>
+									</td>
+								</tr>
+								<tr align="center">
+									<td id="searchDate10">${list[18].day}</td>
+									<td>${list[18].count+list[19].count}</td>
+									<td>
+										<button class="ui secondary button" onclick="move(10);">자세히</button>
+									</td>
+								</tr>
+								
 							</tbody>
 						</table>
 
@@ -93,9 +158,23 @@ body {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	function move() {
+	function move(num) {
+		var findDate ="";
+		switch(num)
+		{
+		case 1 : findDate = $("#searchDate1").html();break;
+		case 2 : findDate = $("#searchDate2").html();break;
+		case 3 : findDate = $("#searchDate3").html();break;
+		case 4 : findDate = $("#searchDate4").html();break;
+		case 5 : findDate = $("#searchDate5").html();break;
+		case 6 : findDate = $("#searchDate6").html();break;
+		case 7 : findDate = $("#searchDate7").html();break;
+		case 8 : findDate = $("#searchDate8").html();break;
+		case 9 : findDate = $("#searchDate9").html();break;
+		case 10 : findDate = $("#searchDate10").html();break;
+		}
+		location.href = "/loginLogManageDetail.diet?findDate="+findDate+"&type=non";
 		/* var findDate = $("#searchDate" + test).html(); */
-		location.href = "/loginLogManageDetail.diet";
 		/* ?findDate=" + findDate
 				+ "&type=low"; */
 	}
@@ -120,10 +199,27 @@ body {
 			{
 				onSelect : function(dateText) {
 
-					alert("선택하신 날짜 : " + dateText + " 해당날짜 로그로 이동합니다");
+					
 					var findDate = this.value;
-					location.href = "/loginLogManageDetail.diet?findDate="
-							+ findDate + "&type=low";
+					$.ajax({
+						url : '/loginLogManageDetail.diet',
+						type : 'post',
+						data : {
+							'findDate' : findDate,
+							'type' : 'non'
+						},
+						success : function() {
+							alert("선택하신 날짜 : " + dateText + " 해당날짜 로그로 이동합니다");
+							location.href = "/loginLogManageDetail.diet?findDate="
+								+ findDate + "&type=non";
+							
+						},
+						error : function() {
+								alert('해당 로그는 없습니다, 관리자에게 문의하세요');
+							}
+						});
+					
+					
 				}
 			});
 </script>
