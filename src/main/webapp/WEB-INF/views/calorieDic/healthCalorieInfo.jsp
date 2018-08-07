@@ -89,7 +89,7 @@ tr>th {
 
 
 			<!-- 운동 검색 -->
-
+			<div class="ui center aligned basic segment">
 			<div class="ui secondary segment">
 				<div class="ui right action left icon input" style="width:80%;">
 					<i class="search icon"></i> <input id="searchText" type="text"
@@ -107,6 +107,7 @@ tr>th {
 				<div id="size2" style="text-align: center; margin-top: 3%; height: 20px;">
 					<i class="chevron circle right icon"></i> 알고 싶은 운동을 검색해 주세요
 				</div>
+			</div>
 			</div>
 			<br>
 			<hr>

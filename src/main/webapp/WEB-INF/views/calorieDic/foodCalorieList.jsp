@@ -77,6 +77,7 @@
 			<hr>
 
 			<!-- 음식검색 -->
+			<div class="ui center aligned basic segment">
 			<div class="ui secondary segment">
 				<div class="ui right action left icon input" style="width: 80%;">
 					<i class="search icon"></i>
@@ -95,6 +96,7 @@
 					<i class="chevron circle right icon"></i>
 					알아보고 싶은 음식을 검색해 주세요
 				</div>
+			</div>
 			</div>
 			<br>
 
@@ -161,6 +163,7 @@
 
 		</div>
 
+		<br><br>
 		<div id="size1" class="ui grid">
 			<div class="three column row">
 				<div class="four wide column"></div>
