@@ -380,6 +380,27 @@ public class MainControllerImpl implements MainController {
 			new Gson().toJson(matchedList, response.getWriter());
 		}
 	}
+	
+	// 메인페이지에서 레시피 목록 출력
+			@Override
+			@RequestMapping(value = "/mainRecipe.diet")
+			public void getRecipeList(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+				String type = request.getParameter("type");
+
+				int currentPage; // 현재 페이지 값을 저장하는 변수
+				if (request.getParameter("currentPage") == null) {
+					currentPage = 1;
+				} else {
+					currentPage = Integer.parseInt(request.getParameter("currentPage"));
+					// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+				}
+
+				CommunityPageDataVO cpdv = communityService.recipeBoardList(currentPage, type);
+
+				response.setContentType("application/json");
+				response.setCharacterEncoding("utf-8");
+				new Gson().toJson(cpdv, response.getWriter());
+			}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
