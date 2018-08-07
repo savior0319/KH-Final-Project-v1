@@ -4,9 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%-- 
 <jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include> 
---%>
 
 <!DOCTYPE html>
 <html>

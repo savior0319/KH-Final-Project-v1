@@ -33,4 +33,7 @@ public interface MainController {
 
 	void getMainHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
+	void getRecipeList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws JsonIOException, IOException;
+
 }

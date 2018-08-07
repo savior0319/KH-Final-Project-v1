@@ -34,7 +34,7 @@ body {
 				<div class="ui large header" align="center">공지사항 등록</div>
 			</div>
 			<br>
-						<div class="ui form" style="max-width: 1220px;">
+			<div class="ui form" style="max-width: 1220px;">
 				<div class="ui medium header" style="margin-bottom: 5px;">제목</div>
 				<div class="ui fluid left action icon input">
 					<div class="ui basic floating dropdown button">
@@ -66,77 +66,77 @@ body {
 
 <!-- SCRIPT -->
 <script>
-	$(document).ready(function() {
-		$('#summernote').summernote({ 
-			toolbar: [
-			['style', ['bold', 'italic', 'underline', 'clear']],
-			['fontsize', ['fontsize']], 
-			['color', ['color']],
-			['hr'],
-			['para', ['ul', 'ol', 'paragraph']],
-			['table'], 
-			['height', ['height']],
-			['codeview'],
-			['link'],
-			['video'],
-			['picture']
-			],
-			lang : 'ko-KR',
-			placeholder : '내용을 입력해주세요',
-			tabsize : 2,
-			height : 500,
-			callbacks : {
-				onImageUpload : function(files, editor, welEditable) {
-					for (var i = files.length - 1; i >= 0; i--) {
-						imgUpload(files[i], this);
-					}
-				},
-				onMediaDelete : function() {
+$(document).ready(function() {
+	$('#summernote').summernote({ 
+		toolbar: [
+		['style', ['bold', 'italic', 'underline', 'clear']],
+		['fontsize', ['fontsize']], 
+		['color', ['color']],
+		['hr'],
+		['para', ['ul', 'ol', 'paragraph']],
+		['table'], 
+		['height', ['height']],
+		['codeview'],
+		['link'],
+		['video'],
+		['picture']
+		],
+		lang : 'ko-KR',
+		placeholder : '내용을 입력해주세요',
+		tabsize : 2,
+		height : 500,
+		callbacks : {
+			onImageUpload : function(files, editor, welEditable) {
+				for (var i = files.length - 1; i >= 0; i--) {
+					imgUpload(files[i], this);
 				}
+			},
+			onMediaDelete : function() {
 			}
-		});
+		}
 	});
+});
 
-	function imgUpload(file, el) {
-		form = new FormData();
-		form.append("file", file);
-		$.ajax({
-			data : form,
-			type : "POST",
-			url : "/imageUpload.diet",
-			cache : false,
-			contentType : false,
-			processData : false,
-			encType : "multipart/form-data",
-			success : function(url) {
-				$(el).summernote('editor.insertImage', url);
-			}
-		});
-	}
-	
-	
-	$('.ui.dropdown').dropdown({
-		allowAdditions : true,
-		allowCategorySelection : true
+function imgUpload(file, el) {
+	form = new FormData();
+	form.append("file", file);
+	$.ajax({
+		data : form,
+		type : "POST",
+		url : "/imageUpload.diet",
+		cache : false,
+		contentType : false,
+		processData : false,
+		encType : "multipart/form-data",
+		success : function(url) {
+			$(el).summernote('editor.insertImage', url);
+		}
 	});
+}
+
+
+$('.ui.dropdown').dropdown({
+	allowAdditions : true,
+	allowCategorySelection : true
+});
 
 	// 카테고리 선택
 	var noticeType;
 	$('.select > .item').click(function() {
 		switch ($(this).text()) {
-		case '전체':
+			case '전체':
 			noticeType = '전체';
 			break;
-		case '자유게시판':
+			case '자유게시판':
 			noticeType = '자유게시판';
 			break;
-		case '팁&노하우':
+			case '팁&노하우':
 			noticeType = '팁&노하우';
 			break;
-		case '고민&질문':
+			case '고민&질문':
 			noticeType = '고민&질문';
 			break;
-		case '비포&애프터':
+			case '비포&애프터':
 			noticeType = '비포&애프터';
 			break;
 		}
@@ -148,28 +148,28 @@ body {
 		var content = $('#summernote').summernote('code');
 
 		if (noticeType != null) {
-		$.ajax({
-			url : '/noticeRegisterData.diet',
-			type : 'post',
-			data : {
-				'title' : title,
-				'content' : content,
-				'noticeType' : noticeType
-			},
+			$.ajax({
+				url : '/noticeRegisterData.diet',
+				type : 'post',
+				data : {
+					'title' : title,
+					'content' : content,
+					'noticeType' : noticeType
+				},
 
-			success : function(data) {
-				if (data == 'success') {
-					alert('공지등록 완료');
-					location.href = "/admin.diet"
+				success : function(data) {
+					if (data == 'success') {
+						alert('공지등록 완료');
+						location.href = "/admin.diet"
+					}
+				},
+				error : function() {
+					alert('공지등록 실패');
 				}
-			},
-			error : function() {
-				alert('공지등록 실패');
-			}
-		});
-		
+			});
+			
 		} else {
-				alert('카테고리를 선택하여주세요.');
+			alert('카테고리를 선택하여주세요.');
 		}
 		
 	}

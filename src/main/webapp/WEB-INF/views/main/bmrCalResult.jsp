@@ -26,12 +26,30 @@
 				['칼로리', bmr1, bmr2, bmr4, bmrStr + 'Kcal']
 				]);
 
-			var options = {
-				width: 900,
-				height: 200,
-				legend: { position: 'bottom', maxLines: 1 },
-				isStacked: true
-			};
+			
+			var options;
+
+			if (window.innerWidth < 650) {
+				options = {				// 모바일용이 아닌 화면
+						width: 350,
+						height: 200,
+						legend: { position: 'bottom', maxLines: 1 },
+						isStacked: true
+					};
+			} else {				// 모바일용 화면
+				options = {
+						width: 900,
+						height: 200,
+						legend: { position: 'bottom', maxLines: 1 },
+						isStacked: true
+					};
+			}
+			
+			
+			
+			
+			
+			
 			var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
 			chart.draw(view, options);
 		}
@@ -90,7 +108,7 @@
 				<span class="ui large header">하루 소비 칼로리는 <span style="color: red;">'${bmr.needCal}'</span>kcal</span>
 			</div>
 			<div class="ui center aligned basic segment">
-				<div id="barchart_values" style="width: 100%;"></div>
+				<div id="barchart_values" style="width: 100%; font-size:10px;"></div>
 			</div>
 			<div align="left">
 				※ 하루 소비 칼로리는 일상생활을 하는데 기본적으로 소비되는 칼로리입니다. <br>

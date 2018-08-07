@@ -101,7 +101,7 @@
 				<!-- 1:1 문의하기 -->
 				<div class="ui modal" id="questionModal1">
 					<i class="close icon"></i>
-					<div class="ui large header">일대일 문의</div>
+					<div class="ui large header"><i class="question circle outline icon"></i>일대일 문의</div>
 					<div class="ui left aligned basic segment">
 						<div class="ui form" style="font-weight: 600;">
 							<div class="ui blue message">
@@ -117,7 +117,7 @@
 							<div class="field">
 								<label style="font-size: 20px;">&nbsp;※&nbsp;관&nbsp;리&nbsp;자&nbsp;답&nbsp;변</label>
 								<br>
-								<textarea placeholder="관리자 답변"  readonly style="height: 150px; overflow: hidden; resize: none; color: blue" id="contentAnswer"></textarea>
+								<textarea placeholder="관리자 답변"  readonly style="height: 150px; overflow: hidden; resize: none; color: black" id="contentAnswer"></textarea>
 							</div>
 						</div>
 						<br>

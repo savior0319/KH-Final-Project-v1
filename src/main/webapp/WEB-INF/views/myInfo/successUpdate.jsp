@@ -20,13 +20,9 @@
 
 	<!-- CONTENTS -->
 	<div class="ui center aligned basic segment">
-		<script>
-			if (typeof Android !== "undefined" && Android !== null) {
-				Android.loginFail();
-			} else {
-				alert("로그인 실패하였습니다.");
-			}
-			location.href = "/loginFailed.diet";
+		<script type="text/javascript">
+			alert("정보를 업데이트 하였습니다.");
+			location.href = "/requestTrainer.diet";
 		</script>
 	</div>
 

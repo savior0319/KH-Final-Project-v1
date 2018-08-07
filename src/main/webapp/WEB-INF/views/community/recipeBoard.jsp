@@ -66,24 +66,24 @@ else self.name = '';
 	<input type="hidden" id="searchT" value="${requestScope.cpdv.searchText}">
 
 	<div class="ui center aligned container">
-<!-- 슬라이드-->
-               <ul class="rslides" style="padding-bottom: 15px;">
-                  <li>
-                     <img src="#" id="image1" style="height:300px;">
-                  </li>
-                  <li>
-                     <img src="#" id="image2" style="height:300px;">
-                  </li>
-                  <li>
-                     <img src="#" id="image3" style="height:300px;">
-                  </li>
-                  <li>
-                     <img src="#" id="image4" style="height:300px;">
-                  </li>
-                  <li>
-                     <img src="/resources/image/advertise.png" style="height:300px;">
-                  </li>
-               </ul>
+		<!-- 슬라이드-->
+		<ul class="rslides" style="padding-bottom: 15px;">
+			<li>
+				<img src="#" id="image1" style="height: 300px;">
+			</li>
+			<li>
+				<img src="#" id="image2" style="height: 300px;">
+			</li>
+			<li>
+				<img src="#" id="image3" style="height: 300px;">
+			</li>
+			<li>
+				<img src="#" id="image4" style="height: 300px;">
+			</li>
+			<li>
+				<img src="/resources/image/advertise.png" style="height: 300px;">
+			</li>
+		</ul>
 		<br>
 		<br>
 		<div class="ui left aligned container">
@@ -149,55 +149,55 @@ else self.name = '';
 					</div>
 				</c:forEach>
 			</div>
-			
-			
-			
+
+
+
 			<br>
 			<br>
 			<br>
 		</div>
-		
+
 		<div id="size2" class="ui center aligned basic segment">
 			<div align="center">
 				<c:forEach items="${requestScope.cpdv.comList}" var="c">
-						<div class="ui card" onclick="recipeLink(${c.postIndex});" style="cursor: pointer;">
-							<div class="image">
-								<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/300x400.png"'>
-							</div>
-							<div class="content">
-								<a class="header">
-									<c:choose>
-										<c:when test="${fn:length(c.postTitle)>20}">
-											<c:out value="${fn:substring(c.postTitle,0,19)}" />...
+					<div class="ui card" onclick="recipeLink(${c.postIndex});" style="cursor: pointer;">
+						<div class="image">
+							<img src="${c.postImage}" style="height: 200px;" onerror='this.src="/resources/image/300x400.png"'>
+						</div>
+						<div class="content">
+							<a class="header">
+								<c:choose>
+									<c:when test="${fn:length(c.postTitle)>15}">
+										<c:out value="${fn:substring(c.postTitle,0,14)}" />...
 								</c:when>
-										<c:otherwise>
+									<c:otherwise>
 									${c.postTitle}
 								</c:otherwise>
-									</c:choose>
-								</a>
-								<div class="meta">
-									<span class="date">
-										<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
-									</span>
-								</div>
-								<div class="description">
-									<i class="eye icon"></i>
-									조회&nbsp;&nbsp;
-									<b>${c.postHit}</b>
-									&emsp;|| &emsp;
-									<i class="heart outline icon" id="emptyHeart"></i>
-									좋아요&nbsp;&nbsp;
-									<b>${c.postLike}</b>
-								</div>
+								</c:choose>
+							</a>
+							<div class="meta">
+								<span class="date">
+									<fmt:formatDate value="${c.postDateTime}" pattern="yyyy-MM-dd HH:mm" />
+								</span>
 							</div>
-							<div class="extra content">
-								<a>
-									<!-- 프로필 & 이미지 -->
-									<img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
-									${c.postNickname}
-								</a>
+							<div class="description">
+								<i class="eye icon"></i>
+								조회&nbsp;&nbsp;
+								<b>${c.postHit}</b>
+								&emsp;|| &emsp;
+								<i class="heart outline icon" id="emptyHeart"></i>
+								좋아요&nbsp;&nbsp;
+								<b>${c.postLike}</b>
 							</div>
 						</div>
+						<div class="extra content">
+							<a>
+								<!-- 프로필 & 이미지 -->
+								<img class="ui avatar image" src="${c.mbImage}" onerror='this.src="/resources/image/avatar.png"'>
+								${c.postNickname}
+							</a>
+						</div>
+					</div>
 				</c:forEach>
 			</div>
 		</div>
@@ -207,10 +207,10 @@ else self.name = '';
 			<div class="three column row">
 				<div class="column"></div>
 				<div class="column">
-				<c:if test="${requestScope.cpdv.comList[0] !=null}">
-					<div class="ui center aligned basic segment">
-						<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
-					</div>
+					<c:if test="${requestScope.cpdv.comList[0] !=null}">
+						<div class="ui center aligned basic segment">
+							<div class="ui pagination menu">${requestScope.cpdv.pageNavi }</div>
+						</div>
 					</c:if>
 				</div>
 				<div class="column">
@@ -226,7 +226,7 @@ else self.name = '';
 			</div>
 			<br>
 		</div>
-		
+
 		<div id="size2" class="ui center aligned grid">
 
 			<c:if test="${requestScope.cpdv.comList[0]!=null }">
@@ -236,7 +236,7 @@ else self.name = '';
 			</c:if>
 			<br>
 		</div>
-		
+
 		<br>
 		<!-- 검색 +  dropdown : 제목, 내용, 작성자 -->
 		<div class="ui secondary segment">
@@ -251,7 +251,7 @@ else self.name = '';
 					</div>
 				</div>
 
-				<input type="text" placeholder="Search..." id="searchText"  onkeypress="runScript(event)" >
+				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)">
 				<i class="circular search link icon" onclick="searchBtn()"></i>
 
 			</div>

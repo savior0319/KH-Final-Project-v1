@@ -183,9 +183,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	/* 마이페이지 - 트레이너, 구매여부 체크 */
 	@Override
 	public ArrayList<TrainerProgramVO> checkSale(SqlSessionTemplate sqlSessionTemplate, TrainerProgramVO tv) {
-
 		List<TrainerProgramVO> list = sqlSessionTemplate.selectList("myInfo.checkSale", tv);
-
 		return (ArrayList) list;
 	}
 
@@ -196,7 +194,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 			int recordCountPerPage, String type, MyActivityVO ma) {
 
 		MyPostPageDataVO myPost = new MyPostPageDataVO();
-
 		myPost.setStart((currentPage - 1) * recordCountPerPage + 1);
 		myPost.setEnd(currentPage * recordCountPerPage);
 		myPost.setType(type);
@@ -513,7 +510,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	public ArrayList<TrainerProgramVO> requestTrainerList(SqlSessionTemplate sqlSessionTemplate, int currentPage,
 			int recordCountPerPage, TrainerProgramVO tv) {
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
-
 		myRequest.setStart((currentPage - 1) * recordCountPerPage + 1);
 		myRequest.setEnd(currentPage * recordCountPerPage);
 		myRequest.setMbIndex(tv.getMbIndex());
@@ -593,7 +589,6 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 		applyTrainer.setStart((currentPage - 1) * recordCountPerPage + 1);
 		applyTrainer.setEnd(currentPage * recordCountPerPage);
 		applyTrainer.setMbIndex(tv.getMbIndex());
-
 		List<TrainingRegVO> list = sqlSessionTemplate.selectList("myInfo.applyTrainerList", applyTrainer);
 
 		return (ArrayList<TrainingRegVO>) list;
@@ -905,6 +900,18 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	public ArrayList<PaymentVO> checkPur(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
 		List<PaymentVO> list = sqlSessionTemplate.selectList("myInfo.checkPur", mv);
 		return (ArrayList<PaymentVO>) list;
+	}
+
+	@Override
+	public int trainerUpdate(SqlSessionTemplate sqlSessionTemplate, TrainingRegVO tr) {
+		int result = sqlSessionTemplate.update("myInfo.trainerUpdate", tr);
+		return result;
+	}
+
+	@Override
+	public TrainingRegVO selectOneTrainer(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		TrainingRegVO trv = sqlSessionTemplate.selectOne("myInfo.selectOneTrainer", mv);
+		return trv;
 	}
 
 }

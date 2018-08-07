@@ -127,7 +127,7 @@
 				<i class="big clock outline icon"></i>&ensp;${requestScope.ht.htStepTime }&emsp;&emsp;
 				<i class="big child icon"></i>&ensp;&emsp;${requestScope.ht.htStepType }&emsp;&emsp;&emsp;&emsp;&emsp;
 				<br><br>
-				&emsp;<i class="big male icon"></i>&ensp;&emsp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;&emsp;&emsp;
+				&emsp;<i class="big male icon"></i>&ensp;&emsp;${requestScope.ht.htStepHard }&emsp;&emsp;&emsp;
 				<i class="big tint icon"></i>${requestScope.ht.htStepKal }&emsp;&emsp;&emsp;&emsp;
 			</div>
 			
@@ -136,7 +136,7 @@
 			<!-- 프로그램 설명 부분 -->
 			<div class="programExplain" style="text-align:center; font-family: 나눔고딕, NanumGothic, sans-serif; font-size: 12pt;">
 				<pre id="size1">${requestScope.ht.htExplain }</pre>
-				<p id="size2" style="text-indent:10px;">${requestScope.ht.htExplain }</p>
+				<div id="size2" style="text-indent:10px;">${requestScope.ht.htExplain }</div>
 			</div>
 			<br> <br> <br>
 

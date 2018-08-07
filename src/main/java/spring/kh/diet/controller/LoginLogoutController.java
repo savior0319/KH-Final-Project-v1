@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 
@@ -16,7 +17,7 @@ public interface LoginLogoutController {
 
 	String logout(HttpServletRequest request, HttpServletResponse response);
 
-	String login(HttpServletRequest request, String memberId, String memberPwd);
-	
+	String login(HttpSession reSession, HttpServletRequest request, String memberId, String memberPwd,
+			HttpServletResponse response) throws IOException;
 	
 }
