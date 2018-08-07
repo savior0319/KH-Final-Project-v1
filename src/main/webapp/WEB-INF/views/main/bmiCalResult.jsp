@@ -97,21 +97,46 @@
 				role: "annotation" },
 				2]);
 
-			var options = {
-				title: "비만도(BMI) 검사 결과",
-				width: 900,
-				height: 150,
-				bar: {groupWidth: "55%"},
-				legend: { position: "none" },
+			var options;
 
-				hAxis: {
-					viewWindow: {
-						min: 0,
-						max: 35
-					},
-					ticks: [0,5,10,15,20,25,30,35]
-				}
-			};
+			if (window.innerWidth < 650) {
+				options = {
+						title: "비만도(BMI) 검사 결과",
+						width: 300,
+						height: 150,
+						bar: {groupWidth: "55%"},
+						legend: { position: "none" },
+
+						hAxis: {
+							viewWindow: {
+								min: 0,
+								max: 35
+							},
+							ticks: [0,5,10,15,20,25,30,35]
+						}
+					};
+			} else {
+				options = {
+						title: "비만도(BMI) 검사 결과",
+						width: 900,
+						height: 150,
+						bar: {groupWidth: "55%"},
+						legend: { position: "none" },
+
+						hAxis: {
+							viewWindow: {
+								min: 0,
+								max: 35
+							},
+							ticks: [0,5,10,15,20,25,30,35]
+						}
+					};
+			}
+			
+			
+			
+			
+			
 			var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
 			chart.draw(view, options);
 		}

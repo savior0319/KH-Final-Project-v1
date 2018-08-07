@@ -126,10 +126,53 @@
 				</div>
 				<div class="ten wide column">
 					<div style="width: 100%; height: 30px; margin-top:8%;"><h2>4단계 작성 및 유튜브 주소</h2><br><br>
+					
+					<table class="ui celled table">
+							<thead>
+								<tr>
+									<th>영상 시간</th>
+									<td>
+										<div class="ui input">
+											<input type="text" id="time" value="${requestScope.ht.htStepTime }">
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>운동 난이도</th>
+									<td>
+										<div class="ui input">
+											<input type="text" id="hard" value="${requestScope.ht.htStepHard }">
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>칼로리 소모량</th>
+									<td>		
+										<div class="ui input">
+											<input type="text" id="kal" value="${requestScope.ht.htStepKal }">
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>유튜브 주소</th>
+									<td>
+										<div class="ui input">
+											<input type="text" id="video" value="${requestScope.ht.htVideo }" onchange="videoChange();">
+										</div>
+									</td>
+								</tr>
+							</thead>
+						</table>
+					
+					
+					
+					<%-- 
 					<h3>영상 시간 : <input type="text" id="time" value="${requestScope.ht.htStepTime }"></h3>
 					<h3>운동 난이도 : <input type="text" id="hard" value="${requestScope.ht.htStepHard }"></h3>
 					<h3>칼로리 소모량 : <input type="text" id="kal" value="${requestScope.ht.htStepKal }"></h3>
-					<h3>유튜브 주소 : <input type="text" id="video" value="${requestScope.ht.htVideo }" onchange="videoChange();"></h3>
+					<h3>유튜브 주소 : <input type="text" id="video" value="${requestScope.ht.htVideo }" onchange="videoChange();"></h3> --%>
+					
+					
 					</div>
 				</div>
 				
@@ -138,7 +181,7 @@
 					<c:choose>
                <c:when test="${requestScope.ht.htVideo != null}">
                <!-- 유튜브 미리보기 영상 들어가는 곳 -->
-               <iframe id="lookAhead" width="230px;" height="180px"
+               <iframe id="lookAhead" width="230px;" height="180px" style="border: 2px solid red;"
                src=${requestScope.ht.htVideo }" frameborder="0"
                allow="autoplay; encrypted-media" allowfullscreen></iframe>
                </c:when>
@@ -392,8 +435,11 @@
     function videoChange(){
     	var videoIframe = $('#lookAhead');
     	var video = $('#video').val();
-    	    	
-    	videoIframe.attr("src",video);  	
+    	var subVideo = '###';
+		if(video.length>29){
+			subVideo = video.substring(30,video.length-1);
+		}
+		videoIframe.attr("src", 'https://www.youtube.com/embed/' + subVideo);  	
     }
     
 </script>

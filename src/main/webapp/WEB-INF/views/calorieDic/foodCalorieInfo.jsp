@@ -67,9 +67,9 @@
 							[ '뭔가', '탄수 화물', '단백질', '지방', '당류', '나트륨' ],
 							[ '구성', tan, dan, fat, sugar, nat ] ]);
 
-					var options
+					var options;
 
-					if (window.innerWidth < 500) {
+					if (window.innerWidth < 650) {
 						options = {
 							width : 350,
 							height : 200,

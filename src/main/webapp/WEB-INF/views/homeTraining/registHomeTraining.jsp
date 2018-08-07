@@ -132,7 +132,7 @@
 									<th>유튜브 주소</th>
 									<td>
 										<div class="ui input">
-											<input type="text" id="video" placeholder="유튜브 주소 입력" onchange="videoChange();">
+											<input type="text" id="video" value="https://www.youtube.com/embed/" onchange="videoChange();">
 										</div>
 									</td>
 								</tr>
@@ -382,8 +382,12 @@
 	function videoChange() {
 		var videoIframe = $('#lookAhead');
 		var video = $('#video').val();
-
-		videoIframe.attr("src", video);
+		var subVideo = '###';
+		if(video.length>29){
+			subVideo = video.substring(30,video.length-1);
+		}
+		videoIframe.attr("src", 'https://www.youtube.com/embed/' + subVideo);
+		
 
 	}
 </script>

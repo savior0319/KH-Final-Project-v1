@@ -10,31 +10,34 @@
 
 <!-- CSS -->
 <style>
-
 </style>
 
 
 <body>
-   <!-- HEADER -->
-   <jsp:include page="/resources/layout/header.jsp"></jsp:include>
+	<!-- HEADER -->
+	<jsp:include page="/resources/layout/header.jsp"></jsp:include>
 
 
-   <!-- CONTENTS -->
-   <div class="ui center aligned basic segment">
-	<script>
-		alert("로그인 실패하였습니다.");
-		location.href ="/loginFailed.diet";
-	</script>
-   </div>
+	<!-- CONTENTS -->
+	<div class="ui center aligned basic segment">
+		<script>
+			if (typeof Android !== "undefined" && Android !== null) {
+				Android.loginFail();
+			} else {
+				alert("로그인 실패하였습니다.");
+			}
+			location.href = "/loginFailed.diet";
+		</script>
+	</div>
 
 
-   <!-- FOOTER -->
-   <jsp:include page="/resources/layout/footer.jsp"></jsp:include>
+	<!-- FOOTER -->
+	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-   
+	
 </script>
 
 </html>
