@@ -26,8 +26,6 @@ public interface RedirectController {
 
 	String redirectMyDiary();
 
-	String redirectSignup();
-
 	String redirectLogin();
 
 	String redirectMyTrainer();
