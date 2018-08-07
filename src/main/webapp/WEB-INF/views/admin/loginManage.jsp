@@ -1,18 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>관리자 - 에러 로그 관리 리스트</title>
+<title>관리자 - 접속자 로그 관리 리스트</title>
 </head>
 
 
 <!-- 달력 추가 -->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
 <!-- CSS -->
@@ -34,9 +32,10 @@ body {
 	<div class="ui container">
 		<div class="ui center aligned basic segment">
 			<div class="ui center aligned segment">
-				<h1>에러 로그 관리 (리스트)</h1>
+				<h1>접속자 로그 관리 (리스트)</h1>
 			</div>
-			<br> <br>
+			<br>
+			<br>
 			<!--중간 div -->
 			<div class="ui center aligned segment">
 				<div class="ui center aligned segment">
@@ -46,15 +45,11 @@ body {
 						<div class="eight wide column"></div>
 						<div class="four wide column" style="border-left: none;">
 							<!--  -->
-							<div class="ui center basic aligned segment"
-								style="float: left; margin: 0px;">
+							<div class="ui center basic aligned segment" style="float: left; margin: 0px;">
 								<div class="ui input">
-									<input type="text" id="datepicker1" name="date"
-										readonly="readonly" placeholder="날짜 조회">
+									<input type="text" id="datepicker1" name="date" readonly="readonly" placeholder="날짜 조회">
 								</div>
 							</div>
-
-							
 							<!--  -->
 						</div>
 					</div>
@@ -65,26 +60,21 @@ body {
 						<table class="ui celled table">
 							<thead>
 								<tr align="center">
-									<th>날 짜</th>
-									<th>경도 경고</th>
-									<th>중도 경고</th>
-									<th>고도 경고</th>
-									<th>비 고</th>
+									<th style="width: 30%;">날 짜</th>
+									<th style="width: 30%;">총 접속자수</th>
+									<th style="width: 30%;">비 고</th>
 								</tr>
 							</thead>
 							<!--  -->
 							<tbody>
-								<c:forEach items="${dAll}" var="dall" varStatus="status">
-									<tr align="center">
-										<td id="searchDate${status.index}">${dall.erDate}</td>
-										<td>${dall.low}개</td>
-										<td>${dall.mid}개</td>
-										<td>${dall.high}개</td>
-										<td><button class="ui secondary button" onclick="move(${status.index});">자세히</button></td>
-									</tr>
-								</c:forEach>
+								<tr align="center">
+									<td id="searchDate"></td>
+									<td></td>
+									<td>
+										<button class="ui secondary button" onclick="move();">자세히</button>
+									</td>
+								</tr>
 							</tbody>
-							<!--  -->
 						</table>
 
 					</div>
@@ -95,20 +85,22 @@ body {
 			</div>
 		</div>
 		<!--  -->
-		<br> <br>
-	</div>	
+		<br>
+		<br>
+	</div>
 	<!-- FOOTER -->
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	function move(test){
-		var findDate = $("#searchDate"+test).html();
-		location.href = "/errorLogManageDetail.diet?findDate="+findDate+"&type=low";
+	function move() {
+		/* var findDate = $("#searchDate" + test).html(); */
+		location.href = "/loginLogManageDetail.diet";
+		/* ?findDate=" + findDate
+				+ "&type=low"; */
 	}
-	
-	
-	//날자선택
+
+	//날짜선택
 	$.datepicker.setDefaults({
 		dateFormat : 'yy-mm-dd',
 		prevText : '이전 달',
@@ -124,20 +116,16 @@ body {
 		yearSuffix : '년'
 	});
 
-/* 	$(function() {
-		$("#datepicker1").datepicker();
-		alret()
-	}); */	
+	$("#datepicker1").datepicker(
+			{
+				onSelect : function(dateText) {
 
-	$("#datepicker1").datepicker({ onSelect: function(dateText) {  
-
-		alert("선택하신 날자 : " + dateText + " 해당날자 로그로 이동합니다"); 
-		var findDate = this.value;
-		location.href = "/errorLogManageDetail.diet?findDate="+findDate+"&type=low";
-		  }
-		}); 
-
-
+					alert("선택하신 날짜 : " + dateText + " 해당날짜 로그로 이동합니다");
+					var findDate = this.value;
+					location.href = "/loginLogManageDetail.diet?findDate="
+							+ findDate + "&type=low";
+				}
+			});
 </script>
 
 </html>

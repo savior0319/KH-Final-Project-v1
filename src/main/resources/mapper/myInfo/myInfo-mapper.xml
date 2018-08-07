@@ -452,8 +452,7 @@
 		AS NUM
 		FROM BOARD_POST_TBL
 		WHERE MB_INDEX = #{mbIndex}
-		) WHERE NUM BETWEEN
-		#{start} AND #{end}
+		) WHERE NUM BETWEEN	#{start} AND #{end}
 
 	</select>
 
