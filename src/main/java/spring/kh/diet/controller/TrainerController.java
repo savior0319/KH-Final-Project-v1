@@ -29,4 +29,8 @@ public interface TrainerController {
 
 	String paymentSuccess(String mbtptr, int price);
 
+	String redirectSangpoom(HttpSession session);
+
+	String redirectTrainerReg(HttpSession session);
+
 }

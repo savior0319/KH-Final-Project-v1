@@ -75,7 +75,7 @@
 			<a class="ui simple item" href="/errorLogManage.diet">에러 로그 관리</a>
 		</div>
 	</div>
-	<div class="item">
+	<!--<div class="item">
 		<h3>
 			<i class="clipboard iternate icon"></i>
 			기타 관리
@@ -83,7 +83,7 @@
 		<div class="menu dropdown">
 			<a class="ui simple item" href="#">추가예정</a>
 		</div>
-	</div>
+	</div>-->
 
 
 	<a class="item" href="/">

@@ -23,8 +23,6 @@ public interface DietTipController {
 
 	void dtWriteAuthorityCheck(HttpSession session, HttpServletResponse response) throws IOException;
 
-	String redirectLoadDietTipWrite();
-
 	void dietTipDelete(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 	String loadUpdateDietTip(HttpServletRequest request);
@@ -36,4 +34,6 @@ public interface DietTipController {
 	BoardLikeVO checkLike(int postIndex, int sessionIndex);
 
 	BoardBookMarkVO checkBookMark(int postIndex, int sessionIndex);
+
+	String redirectLoadDietTipWrite(HttpSession session);
 }

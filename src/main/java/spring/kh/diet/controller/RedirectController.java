@@ -1,12 +1,12 @@
 package spring.kh.diet.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface RedirectController {
 
 	String redirectAdminPage();
 
 	String redirectNoticeRegisterPage();
-
-	String redirectLoginPage();
 
 	String redirectMyInfo();
 
@@ -26,13 +26,9 @@ public interface RedirectController {
 
 	String redirectMyDiary();
 
-	String redirectRegistCommunity();
-
 	String redirectSignup();
 
 	String redirectLogin();
-
-	String trainerReg();
 
 	String redirectMyTrainer();
 
@@ -42,10 +38,10 @@ public interface RedirectController {
 
 	String redirectTrainerFind();
 
-	String redirectSangpoom();
-
 	String redirectPageManagement();
 
 	String redirectFaq();
+
+	String redirectLoginPage(HttpServletRequest request);
 
 }
