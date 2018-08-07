@@ -31,7 +31,7 @@
 								</th>
 								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class=" star icon"></i>
-									문의번호
+									문 의 번 호
 								</th>
 								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="question circle icon"></i>
@@ -56,11 +56,11 @@
 											<label></label>
 										</div>
 									</td>
-									<td>${m.qsIndex}</td>
-									<td>
+									<td  style="width: 15%;">${m.qsIndex}</td>
+									<td style="width: 38%;">
 										<a href="javascript:void(0);" onclick="showMyQuestion(${m.qsIndex});">${m.qsTitle}</a>
 									</td>
-									<td>
+									<td style="width: 23%;">
 										<c:set var="TextValue" value="${m.qsWriteTime}" />
 										${fn:substring(TextValue,0,11)}일 ${fn:substring(TextValue,11,16)}분
 									</td>
@@ -112,12 +112,12 @@
 							<div class="field">
 								<label style="font-size: 20px;">&nbsp;※&nbsp;문 &nbsp;의&nbsp;내&nbsp;용</label>
 								<br>
-								<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none; color: grey" id="contentQuestion"></textarea>
+								<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none; color: grey" id="contentQuestion" readonly></textarea>
 							</div>
 							<div class="field">
 								<label style="font-size: 20px;">&nbsp;※&nbsp;관&nbsp;리&nbsp;자&nbsp;답&nbsp;변</label>
 								<br>
-								<textarea placeholder="관리자 답변" style="height: 150px; overflow: hidden; resize: none; color: blue" id="contentAnswer"></textarea>
+								<textarea placeholder="관리자 답변"  readonly style="height: 150px; overflow: hidden; resize: none; color: blue" id="contentAnswer"></textarea>
 							</div>
 						</div>
 						<br>
