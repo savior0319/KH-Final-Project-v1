@@ -130,4 +130,6 @@ public interface MyInfoDAO {
 
 	TrainingRegVO selectOneTrainer(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
 
+	MemberVO checkNick(SqlSessionTemplate sqlSessionTemplate,MemberVO mv);
+
 }

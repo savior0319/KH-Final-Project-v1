@@ -272,6 +272,7 @@
 													value="${sessionScope.member.mbNickName}" name="mbNickName"
 													style="width: 300px; font-family: 'Sunflower', sans-serif;">
 											</div>
+											<div id="checkNick"></div>
 										</td>
 									<tr>
 										<td class="firstTd"
@@ -393,25 +394,48 @@
 	function gradeInfo() {
 		$("#gradeInfoModal").modal('show');
 	}
+
+	$('#nickName').keyup(function(){
+				var nickName = $("#nickName").val();
+				var nickNameRegExp = /^[가-힣]{2,5}$/;
+				nickNameCheck = nickNameRegExp.test(nickName);
+				if (nickNameCheck == true) {
+				$.ajax({
+					url : "/checkNick.diet",
+					type : 'POST',
+					data : {
+						'nickName' : nickName
+					},
+					success : function(data) {
+						if (data == 0) {
+							$('#checkNick').html('* 사용 가능한 닉네임 입니다').css('display', 'block').css('color','blue');		
+							
+						} else {
+							$('#checkNick').html('* 이미 사용 중인 닉네임 입니다').css('display', 'block').css('color', 'red');		
+						
+						}
+					},
+					error : function() {
+						alert("실패");
+					}
+			});
+		}
+	});		
 	/* 정보업데이트 시 별명 null 아닌지 */
 	/* 비밀번호값 정규표현식에 맞게 되었는지 */
-
 	function checkInfo() {
-		var nickName = $("#nickName").val();
 
 		var mbPwd = $("#mbPwd").val();
 		var pwdRegExp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,16}$/;
-
 		var resultPwd = pwdRegExp.test(mbPwd);
-		if (resultPwd == true) {
-			return true;
-
-		} else {
-			alert("비밀번호 6~16자리 사이 대문자,소문자,숫자를 섞어서 입력해주세요");
-			return false;
-		}
-
-	}
+				if (resultPwd == true) {
+					return true;
+				} else {
+					alert("비밀번호 6~16자리 사이 대문자,소문자,숫자를 섞어서 입력해주세요");
+					return false;
+				}
+		
+			}
 	/* 모달 창 종료 */
 	$("#modalOff").click(function() {
 		$("#updateProfile").modal('hide');

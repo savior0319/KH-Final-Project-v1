@@ -228,6 +228,25 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	}
 
+	@Override
+	@RequestMapping(value = "/checkNick.diet")
+	public void checkNick(HttpSession session, HttpServletRequest request, HttpServletResponse response, @RequestParam String nickName)
+			throws IOException {
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		mv.setMbNickName(nickName);
+		int result = 0;
+		MemberVO mv2 = myInfoService.checkNick(mv);
+		if(mv2==null) {
+			result = 0;
+			response.getWriter().print(String.valueOf(result));
+			response.getWriter().close();
+		}else {
+			result = 1;
+			response.getWriter().print(String.valueOf(result));
+			response.getWriter().close();
+		}
+
+	}
 	/* 회원탈퇴 */
 	@Override
 	@RequestMapping(value = "/secessionMember.diet")
