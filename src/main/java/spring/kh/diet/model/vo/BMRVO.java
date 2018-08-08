@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BMRVO {
 
-	private String gender, age, height, weight, period, periodUnit, activeMass, bmr, needCal;
+	private String gender, age, height, weight, period, periodUnit, activeMass, bmr, needCal, goalWeight;
 
 }
