@@ -1,6 +1,7 @@
 package spring.kh.diet.common;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -32,6 +33,7 @@ public class PasswordToSHA256Advice {
 	@Pointcut("execution(* spring.kh.diet.model.service.*ServiceImpl.updateMyInfo(..))")
 	public void encryptSHA256_3() {
 	}
+	
 	
 	/*로그인 비밀번호 재설정 암호화 */
 	@Pointcut("execution(* spring.kh.diet.model.service.*ServiceImpl.updateMypass(..))")

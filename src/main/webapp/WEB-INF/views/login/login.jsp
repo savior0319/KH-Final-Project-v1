@@ -41,7 +41,7 @@
 	margin: 3px;
 }
 
-#loginBtn {
+#loginBtn1 {
 	width: 350px;
 	height: 50px;
 	background-color: #fa2828;
@@ -85,7 +85,7 @@ a {
 					</div>
 					<div class="login box">
 						<p style="padding-top: 20px; font-size: 13px; font-weight: 800;">
-							다이어트신의 다양한 서비스를 이용하시려면 로그인을 해주세요.
+							<span style="color:red;">다이어트를부탁해</span>의 다양한 서비스를 이용하시려면 로그인을 해주세요.
 							<br>
 							회원가입을 하시면 다양한 서비스를 받으실 수 있습니다.
 						</p>
@@ -99,7 +99,7 @@ a {
 								<input type="password" placeholder="비밀번호.." name="memberPwd" />
 							</div>
 							<br>
-							<input type="submit" class="ui button loginBtn" id="loginBtn" value="로그인" style="color: white;" />
+							<input type="submit" class="ui button loginBtn" id="loginBtn1" value="로그인" style="color: white;" />
 						</form>
 						<br>
 						<br>
@@ -126,7 +126,7 @@ a {
 			</div>
 
 			<!-- 모바일용 사이즈 -->
-			<div id="size2" class="contents login" style="width: 300px;">
+			 <div id="size2" class="contents login" style="width: 300px;">
 				<c:if test="${sessionScope.member==null}">
 					<div class="login title">
 						<h1>LOGIN</h1>
@@ -149,7 +149,7 @@ a {
 								<input type="password" placeholder="비밀번호.." name="memberPwd" id="memberPwd2" />
 							</div>
 							<br>
-							<input type="submit" class="ui button loginBtn" id="loginBtn" value="로그인" style="color: white; width: 90%;" />
+							<input type="submit" class="ui button loginBtn" id="loginBtn1" value="로그인" style="color: white; width: 90%;" />
 						</form>
 						<br>
 						<button type="button" class="ui negative basic button" id="joinBtn" onclick="joinBtn1();" style="width: 90%;">회원가입</button>
@@ -162,7 +162,7 @@ a {
 						alert("로그인상태입니다.");
 					</script>
 				</c:if>
-			</div>
+			</div> 
 		</div>
 	</div>
 
@@ -182,7 +182,7 @@ a {
 						<input type="text" placeholder="인증받을 이메일 입력 " id="mbId" style="width: 400px;">
 					</div>
 					<button type="button" class="ui red button" onclick="updatePwd();">비밀번호 변경</button>
-					<button class="ui gray button" type="reset">취소</button>
+				
 				</div>
 			</div>
 		</div>
@@ -194,6 +194,7 @@ a {
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+
 	/* 회원가입하기 버튼 클릭시 */
 	function joinBtn1() {
 		location.href = "/signup.diet";
@@ -250,7 +251,7 @@ a {
 					alert("임시비밀번호가 발급되었습니다. 메일을 확인해주세요");
 					location.href = "/"
 				} else {
-					alert("비밀번호 변경 실패하였습니다.");
+					alert("비밀번호 변경 실패하였습니다. 가입계정인지 확인 후 시도 바랍니다.");
 				}
 			},
 			error : function() {

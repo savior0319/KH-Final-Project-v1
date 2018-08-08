@@ -132,4 +132,8 @@ public interface MyInfoDAO {
 
 	MemberVO checkNick(SqlSessionTemplate sqlSessionTemplate,MemberVO mv);
 
+	int warningCountPost(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+
+	int warningCountComment(SqlSessionTemplate sqlSessionTemplate, MemberVO mv);
+
 }

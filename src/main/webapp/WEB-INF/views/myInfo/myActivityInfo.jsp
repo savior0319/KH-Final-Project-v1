@@ -6,6 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
+<link href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet">
 <title>마이페이지-활동내역</title>
 </head>
 
@@ -39,6 +40,7 @@ html, body {
 				<div class="myActivity1">
 					<table class="ui celled padded table">
 						<thead>
+							<div class="ui red message warning" style="margin-top: -10px; font-size: 10px; width: 350px; float: right;">※ 댓글 신고 5번이상이 되면 활동제한(게시글,댓글작성금지)됩니다.</div>
 							<tr align="center">
 								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="github alternate icon"></i>
@@ -48,17 +50,23 @@ html, body {
 									<i class="edit outline icon"></i>
 									게 시 물 작 성 수
 								</th>
+
 								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="pencil alternate icon"></i>
 									댓 글 작 성 수
 								</th>
+
 								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="shield alternate icon"></i>
-									나의 등급
+									나 의 등 급
 								</th>
 								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<i class="user icon"></i>
 									가 입 일
+								</th>
+								<th style="background-color: rgba(255, 185, 185, 0.5);">
+									<i class="edit outline icon"></i>
+									신 고 당 한 횟 수
 								</th>
 							</tr>
 						</thead>
@@ -66,36 +74,66 @@ html, body {
 							<tr align="center">
 								<td>
 									<c:if test="${loginCount == 0}">
-										<h3 class="ui center aligned header">1&nbsp;회</h3>
+										<h3 class="ui center aligned header">
+											<span style="font-family: 'Sunflower', sans-serif;">1&nbsp;회</span>
+										</h3>
 									</c:if>
 									<c:if test="${loginCount != 0}">
-										<h3 class="ui center aligned header">${loginCount}&nbsp;회</h3>
+										<h3 class="ui center aligned header">
+											<span style="font-family: 'Sunflower', sans-serif;">${loginCount}&nbsp;회</span>
+										</h3>
 									</c:if>
 								</td>
 								<td class="single line">
 									<c:if test="${ma.myBoardCount == null}">
-										<h3>0&nbsp;회</h3>
+										<h3>
+											<span style="font-family: 'Sunflower', sans-serif;">0&nbsp;회</span>
+										</h3>
 									</c:if>
 									<c:if test="${ma.myBoardCount != null}">
-										<h3>${ma.myBoardCount }&nbsp;번</h3>
+										<h3>
+											<span style="font-family: 'Sunflower', sans-serif;">${ma.myBoardCount }&nbsp;회</span>
+										</h3>
 									</c:if>
 
 								</td>
-								<td>
+								<td style="font-family: 'Sunflower', sans-serif;">
 									<c:if test="${ma.myCommentCount == null}">
-										<h3>0&nbsp;회</h3>
+										<h3>
+											<span style="font-family: 'Sunflower', sans-serif;">0&nbsp;회</span>
+										</h3>
 									</c:if>
 									<c:if test="${ma.myCommentCount != null}">
-										<h3>${ma.myCommentCount}&nbsp;회</h3>
+										<h3>
+											<span style="font-family: 'Sunflower', sans-serif;">${ma.myCommentCount}&nbsp;회</span>
+										</h3>
 									</c:if>
 								</td>
-								<td>
-									<h3>${ma.mbGrade}</h3>
+								<td style="font-family: 'Sunflower', sans-serif;">
+									<h3>
+										<span style="font-family: 'Sunflower', sans-serif;">${ma.mbGrade}</span>
+									</h3>
+								</td>
+								<td style="font-family: 'Sunflower', sans-serif;">
+									<h3>
+										<span style="font-family: 'Sunflower', sans-serif;">${ma.mbEnrollDate}</span>
+									</h3>
 								</td>
 								<td>
-									<h3>${ma.mbEnrollDate}</h3>
-								</td>
+									<c:if test="${ma.warningComment == 0}">
+										<h3>
+											댓 글 :
+											<span style="font-family: 'Sunflower', sans-serif;">0</span>
+											회
 
+										</h3>
+									</c:if>
+									<c:if test="${ma.warningComment != 0}">
+										<h3>
+											<span style="font-family: 'Sunflower', sans-serif;">댓 글 :${ma.warningComment}번</span>
+										</h3>
+									</c:if>
+								</td>
 							</tr>
 						</tbody>
 					</table>
