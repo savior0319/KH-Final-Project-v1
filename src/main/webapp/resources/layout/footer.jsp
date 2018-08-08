@@ -6,9 +6,10 @@
 	<div class="ui center aligned container">
 		<div class="ui stackable divided grid">
 			<div id="size1" class="five wide column">
-				<h3 class="ui header" style="text-decoration: underline;">고객센터</h3>
+				<h3 class="ui header">고객센터</h3>
+				<hr style="width: 100px;">
 				<i class="envelope icon"></i>
-				<span class="ui small header">savior0319@gmail.com</span>
+				<span class="ui small header"><a href="mailto:savior0319@gmail.com" style="color:rgb(250,40,40);">savior0319@gmail.com</a></span>
 				<br>
 				<br>
 				<div style="color: gray;">
@@ -20,13 +21,15 @@
 				<button class="ui gray button" style="margin-top: 15px;" onclick="question();">관리자에게</button>
 			</div>
 			<div class="six wide column">
-				<h3 class="ui header" style="text-decoration: underline;">사이트 정보</h3>
+				<h3 class="ui header">사이트 정보</h3>
+				<hr style="width: 100px;">
 				<div style="color: gray">
 					(주)다이어트를 부탁해 Diet Co.,Ltd. 대표 안형조
 					<br>
 					본점 : 사업자등록번호 000-00-00000
 					<br>
 					서울시 영등포구 영등포로 00, 000호(당산동1가, 이레빌딩)
+					<br>
 					<br>
 					사업자번호조회
 					<br>
@@ -36,25 +39,24 @@
 					<br>
 					통신판매업신고 제2018-서울영등포0000
 					<br>
-					건강기능식품판매업 제2018-0000000 (영등포)
-					<br>
 				</div>
 			</div>
 			<div id="size1" class="five wide column">
-				<h3 class="ui header" style="text-decoration: underline;">사이트 이용약관</h3>
+				<h3 class="ui header">사이트 이용약관</h3>
+				<hr style="width: 100px;">
 				<div style="color: gray;">
 					<br>
 					<br>
-					<a href='javascript:void(0);' onClick='term1(); return false' style="color: black; text-decoration: underline;">이용약관</a>
+					<a href='javascript:void(0);' onClick='term1(); return false' style="color: gray;">이용약관</a>
 					<br>
 					<br>
-					<a href='javascript:void(0);' onClick='term2(); return false' style="color: black; text-decoration: underline;">개인정보 취급방침</a>
+					<a href='javascript:void(0);' onClick='term2(); return false' style="color: gray;">개인정보 취급방침</a>
 				</div>
 			</div>
 		</div>
 		<div class="ui section divider" style="margin-bottom: 10px;"></div>
 		<div style="color: gray">
-			사이트에서 제공하는 모든 콘텐츠의 저작권은 제공처 또는 다이어트에 있으며, 이를 무단 이용 및 재배포하는 경우 저작권 법에 등에 따라 법적책임을 질 수 있습니다
+			사이트에서 제공하는 모든 콘텐츠의 저작권은 제공처 또는 다이어트를 부탁해에 있으며, 이를 무단 이용 및 재배포하는 경우 저작권 법에 등에 따라 법적책임을 질 수 있습니다
 			<br>
 			<br>
 		</div>
