@@ -161,7 +161,7 @@
 							&nbsp;&nbsp;&nbsp;
 							<div class="ui left icon input">
 								<i class="calendar icon"></i>
-								<input type="text" placeholder="날짜" id="endDay" required readonly">
+								<input type="text" placeholder="날짜" id="endDay" required readonly>
 							</div>
 						</div>
 					</div>

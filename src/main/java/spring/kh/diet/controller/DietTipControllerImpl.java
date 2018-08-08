@@ -232,6 +232,8 @@ public class DietTipControllerImpl implements DietTipController {
 			MultipartHttpServletRequest req) throws IOException {
 		String path = request.getSession().getServletContext().getRealPath("imageUpload");
 
+		req.setCharacterEncoding("utf-8");
+		
 		// 이름 짓기
 		UUID randomString = UUID.randomUUID();
 		// 게시글 수정에서 save를 호출하는 경우
@@ -246,7 +248,7 @@ public class DietTipControllerImpl implements DietTipController {
 			// 파일 저장
 			File reFile = new File(path, reName);
 			req.getFile("uploadFile").transferTo(reFile);
-
+			response.setCharacterEncoding("utf-8");
 			response.getWriter().print(reName);
 			response.getWriter().close();
 		} else {
