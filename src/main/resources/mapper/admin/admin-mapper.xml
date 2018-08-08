@@ -1270,5 +1270,10 @@
 		</otherwise>
 	</choose>
 </select>
-	
-</mapper>
+
+	<!-- 에러로그 추가하기 , 기준은 어제기준임.-->
+	<insert id="insertErrorLog" parameterType="errorLog" >
+	insert into ERROR_LOG_TBL VALUES
+	(SYSDATE-1,#{erStamp},#{erType},#{erInfoOne},#{erInfoTwo},#{erInfoThr},#{erInfoFor})
+	</insert>
+    </mapper>

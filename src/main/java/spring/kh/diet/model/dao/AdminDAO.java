@@ -135,5 +135,7 @@ public interface AdminDAO {
 
 	ArrayList<LoginLogVO> loginLogManageDetail(SqlSessionTemplate session, LoginLogVO vO);
 
+	void insertErrorLog(SqlSessionTemplate session, ErrorLogVO eLVO);
+
 
 }

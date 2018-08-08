@@ -812,4 +812,9 @@ public class AdminDAOImpl implements AdminDAO {
 		return (ArrayList<LoginLogVO>) list;
 	}
 
+	@Override
+	public void insertErrorLog(SqlSessionTemplate session, ErrorLogVO eLVO) {
+		session.insert("admin.insertErrorLog",eLVO);
+	}
+
 }

@@ -114,5 +114,7 @@ public interface AdminService {
 	ArrayList<LoginLogVO> loginLogManage(LoginLogVO lLVO);
 
 	ArrayList<LoginLogVO> loginLogManageDetail(LoginLogVO lLVO);
+
+	void insertErrorLog(ErrorLogVO eLVO);
   
 }
