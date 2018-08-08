@@ -96,10 +96,10 @@ body {
 						<td>${mb.mbGrade}</td>
 						<c:choose>
 							<c:when test="${mb.mbReport eq 'n'}">
-						<td><a href="/blackListReg.diet?index=${mb.mbIndex}&status=x">X</a></td>
+						<td><a href="/blackListReg.diet?index=${mb.mbIndex}&status=x"><i class="window close icon"></a></td>
 							</c:when>
 							<c:otherwise>
-						<td><a href="/blackListReg.diet?index=${mb.mbIndex}&status=o">O</a></td>
+						<td><a href="/blackListReg.diet?index=${mb.mbIndex}&status=o"><i class="circle icon"></i></a></td>
 							</c:otherwise>
 						</c:choose>
 

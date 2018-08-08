@@ -6,7 +6,7 @@
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
 <script src="/resources/slider/responsiveslides.min.js"></script>
-<title>다이어트</title>
+<title>음식 칼로리</title>
 </head>
 
 <!-- CSS -->

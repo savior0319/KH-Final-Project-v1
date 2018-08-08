@@ -31,18 +31,18 @@
 
 			if (window.innerWidth < 650) {
 				options = {				// 모바일용이 아닌 화면
-						width: 350,
-						height: 200,
-						legend: { position: 'bottom', maxLines: 1 },
-						isStacked: true
-					};
+					width: 350,
+					height: 200,
+					legend: { position: 'bottom', maxLines: 1 },
+					isStacked: true
+				};
 			} else {				// 모바일용 화면
 				options = {
-						width: 900,
-						height: 200,
-						legend: { position: 'bottom', maxLines: 1 },
-						isStacked: true
-					};
+					width: 900,
+					height: 200,
+					legend: { position: 'bottom', maxLines: 1 },
+					isStacked: true
+				};
 			}
 			
 			
@@ -72,11 +72,9 @@
 	<div class="ui container">
 		<div class="ui center aligned basic segment">
 			<br>
-			<br>
 			<div class="ui large message">
-				<div class="ui large header">칼로리 처방(내용추가 필요)</div>
+				<div class="ui large header">칼로리 처방</div>
 			</div>
-			<br>
 			<table class="ui table">
 				<thead>
 					<tr align="center">
@@ -84,7 +82,6 @@
 						<th>나이</th>
 						<th>몸무게</th>
 						<th>키</th>
-						<th>다이어트 기간</th>
 						<th>활동량</th>
 						<th>기초대사량</th>
 						<th>하루소비칼로리</th>
@@ -96,7 +93,6 @@
 						<td>만 ${bmr.age}세</td>
 						<td>${bmr.height}cm</td>
 						<td>${bmr.weight}kg</td>
-						<td>${bmr.period}${bmr.periodUnit}</td>
 						<td>${bmr.activeMass}</td>
 						<td>${bmr.bmr}Kcal</td>
 						<td>${bmr.needCal}Kcal</td>
@@ -114,11 +110,43 @@
 				※ 하루 소비 칼로리는 일상생활을 하는데 기본적으로 소비되는 칼로리입니다. <br>
 				※ 칼로리 처방 시, 선택하는 활동량에 따라 달라질 수 있습니다.  <br>
 			</div>
+			<hr style="margin-top: 8px;">
+			<br>
+			<div align="left" style="margin-bottom: 8px;">
+				<div align="left">
+					※ 한달 동안 감량해야 할 몸무게 <span style="color: rgb(250,40,40);">'${bmr.period}' kg</span>
+				</div>
+				<br>
+				<hr>
+				<br>
+				<label>처방칼로리</label>
+			</div>
+			<div align="center">
+				<table class="ui celled table">
+					<thead>
+						<tr>
+							<th>하루동안 섭취 해야 할 음식 칼로리</th>
+							<th>하루 동안 운동으로 소모해야 할 칼로리</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>${bmr.needCal}Kcal</td>
+							<td id="consumeKcal"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br>
+			<div align="left">
+				일일 음식 섭취 칼로리가 1000kcal 이하일 때는 감량 목표를 하향 조절해 주세요.<br>
+				1000kcal 이하의 음식 섭취는 영양 불균형 및 요요 현상의 원인이 될 수 있어요.<br>
+			</div>
+			<br>
 			<br>
 			<button id="back"type="button" class="ui button" style="background:rgb(250,40,40); color:white;">다시하기</button>
 		</div>
 	</div>
-
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
@@ -126,9 +154,14 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 
-	$('#back').click(function(){
-		location.href="/bmrCal.diet";
-	});
+$('#back').click(function(){
+	location.href="/bmrCal.diet";
+});
+
+$(document).ready(function() {
+	var consumeKcal = Number(${bmr.needCal});
+	$('#consumeKcal').html(Math.ceil(consumeKcal / 4) + "Kcal");
+});
 
 </script>
 

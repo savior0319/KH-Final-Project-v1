@@ -233,6 +233,8 @@ public class DietTipControllerImpl implements DietTipController {
 		request.setCharacterEncoding("utf-8");
 		String path = request.getSession().getServletContext().getRealPath("imageUpload");
 
+		req.setCharacterEncoding("utf-8");
+		
 		// 이름 짓기
 		UUID randomString = UUID.randomUUID();
 		// 게시글 수정에서 save를 호출하는 경우
@@ -270,12 +272,19 @@ public class DietTipControllerImpl implements DietTipController {
 	// 다이어트 팁 수정 페이지 불러오기
 	@Override
 	@RequestMapping(value = "loadUpdateDietTip.diet")
-	public String loadUpdateDietTip(HttpServletRequest request) {
+	public String loadUpdateDietTip(HttpServletRequest request, HttpSession session) {
 		DietTipVO dt = dietTipService.loadUpdateDietTip(Integer.parseInt(request.getParameter("indexNo")));
 
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		
+		if(mv == null) {
+			return "redirect:/";
+		} else {
+		
 		request.setAttribute("dt", dt);
 
 		return "dietTip/updateDietTip";
+		}
 	}
 
 	// 다이어트 팁 수정

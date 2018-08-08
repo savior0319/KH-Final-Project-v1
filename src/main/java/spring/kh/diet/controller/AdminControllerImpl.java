@@ -439,8 +439,10 @@ public class AdminControllerImpl implements AdminController {
 	/* 블랙리스트 등록 */
 	@Override
 	@RequestMapping(value = "/blackListReg.diet")
-	public void blackListReg(@RequestParam int index, @RequestParam String status, HttpServletResponse response)
+	public String blackListReg(@RequestParam int index, @RequestParam String status, HttpServletResponse response, HttpServletRequest request)
 			throws IOException {
+		
+		String referer = request.getHeader("referer");
 
 		BlackListRegVO bVo = new BlackListRegVO();
 
@@ -449,7 +451,7 @@ public class AdminControllerImpl implements AdminController {
 
 		int result = as.blackListReg(bVo);
 
-		response.sendRedirect("/blackList.diet");
+		return "redirect:" + referer;
 	}
 
 	/* 블랙리스트 신고당한 회원 조회 */

@@ -251,7 +251,7 @@ else self.name = '';
 					</div>
 				</div>
 
-				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)">
+				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)"  maxlength="30" >
 				<i class="circular search link icon" onclick="searchBtn()"></i>
 
 			</div>
@@ -289,8 +289,23 @@ $(document).ready(function() {
 
 	
 	/* 글 등록 페이지로 이동 */
-	$('#writeBtn').click(function() {
-		location.href = "/registCommunity.diet";
+		$('#writeBtn').click(function() {
+		var mbId = '${sessionScope.member.mbId}';
+		$.ajax({
+			url : '/checkReport.diet',
+			type : 'post',
+			data : {
+				'mbId' : mbId
+			},
+			success : function(data) {
+				if (data == 'n') {
+					location.href = "/registCommunity.diet";
+				} else {
+					alert('\n글쓰기 정지당한 회원입니다. \n\n관리자에게 문의하세요.')
+				}
+			}
+		});
+
 	});
 	
 	

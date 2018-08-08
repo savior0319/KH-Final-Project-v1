@@ -358,7 +358,7 @@ p>span {
 									</div>
 								</div>
 								<div class="text" id="cmd_${bc.cmtIndex}">
-									<pre>${bc.cmtContent }</pre>
+									<pre style="white-space: pre-wrap;">${bc.cmtContent }</pre>
 								</div>
 							</div>
 						</div>
@@ -616,37 +616,51 @@ $(document).ready(function() {
 
 	/* 댓글 쓰기 버튼 */
 	function addComment() {
-		var indexNo = $('#indexNo').val();
-		var commentContent = $('#commentContent').val();
-		if(commentContent==''){
-			if(typeof Android !== "undefined" && Android !==null){
-				Android.noComment();
-			}else{
-				alert('댓글을 입력해 주세요');
-			}
-			
-			return;
-		}
-
+		var mbId = '${sessionScope.member.mbId}';
 		$.ajax({
-			url : '/addComment.diet',
+			url : '/checkReport.diet',
 			type : 'post',
 			data : {
-				'indexNo' : indexNo,
-				'commentContent' : commentContent
+				'mbId' : mbId
 			},
+			success : function(data){
+				if(data=='n'){
+				
+					var indexNo = $('#indexNo').val();
+					var commentContent = $('#commentContent').val();
+					if(commentContent==''){
+						if(typeof Android !== "undefined" && Android !==null){
+							Android.noComment();
+						}else{
+							alert('댓글을 입력해 주세요');
+						}
+						return;
+					}
 
-			success : function(data) {
-				if (data > 0) {
-					alert('댓글을 작성하였습니다.');
-				} else {
-					alert('댓글을 등록하지 못했습니다.');
+					$.ajax({
+						url : '/addComment.diet',
+						type : 'post',
+						data : {
+							'indexNo' : indexNo,
+							'commentContent' : commentContent
+						},
+
+						success : function(data) {
+							if (data > 0) {
+								
+							} else {
+								alert('댓글을 등록하지 못했습니다.');
+							}
+
+							location.href = "/dietTipInfo.diet?indexNo=" + indexNo + "&type=${requestScope.type}";
+						},
+						error : function() {
+							alert('댓글을 등록하지 못했습니다.');
+						}
+					});
+				}else {
+					alert('\n댓글쓰기 정지당한 회원입니다. \n\n관리자에게 문의하세요.');
 				}
-
-				location.href = "/dietTipInfo.diet?indexNo=" + indexNo + "&type=${requestScope.type}";
-			},
-			error : function() {
-				alert('댓글을 등록하지 못했습니다.');
 			}
 		});
 	}
@@ -835,6 +849,7 @@ $(document).ready(function() {
 					var textDiv = $("<div>").attr("class", "text");
 
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
+					pre.css("white-space","pre-wrap");
 
 					likeBtn.append(likeI);
 					likeBtn.append("좋아요" + data.bcList[i].cmtLike);

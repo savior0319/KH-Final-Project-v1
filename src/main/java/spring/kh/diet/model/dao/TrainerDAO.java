@@ -32,5 +32,7 @@ public interface TrainerDAO {
 
 	int programPersonnel(SqlSessionTemplate session, PaymentVO pv);
 
+	TrainingRegVO checkReg(SqlSessionTemplate session, String mbIndex);
+
 
 }

@@ -43,7 +43,7 @@ body {
 			<hr>
 			<h3>문의 내용</h3> 
 			<br>
-<pre>
+<pre style="white-space: pre-wrap;">
 ${requestScope.qData.qsContent}
 </pre>
 		</div>
@@ -56,7 +56,7 @@ ${requestScope.qData.qsContent}
 			답변 대기 중
 		</c:when>
 		<c:otherwise>
-<pre>
+<pre style="white-space: pre-wrap;">
 ${requestScope.qData.ansContent}
 </pre>
 	</c:otherwise>

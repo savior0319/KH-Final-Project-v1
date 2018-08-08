@@ -7,7 +7,7 @@
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
 <script src="/resources/slider/responsiveslides.min.js"></script>
-<title>다이어트</title>
+<title>다이어트 꿀팁</title>
 </head>
 
 <!-- CSS -->
@@ -546,22 +546,43 @@ $(document).ready(function() {
 	
 	// 게시물 등록
 	function dietTipWrite(){
-		
+		var mbId = '${sessionScope.member.mbId}';
 		$.ajax({
-			url : '/dtWriteAuthorityCheck.diet',
+			url : '/checkReport.diet',
 			type : 'post',
-			success : function(result){
-				if(result>0){
-					location.href = "/loadDietTipWrite.diet";
-				}else{
-					alert('권한이 없습니다.');
-				}
-				
+			data : {
+				'mbId' : mbId
 			},
-			error : function(result){
-				alert('권한이 없습니다.');
+			success : function(data) {
+				if (data == 'n') {
+					$.ajax({
+						url : '/dtWriteAuthorityCheck.diet',
+						type : 'post',
+						success : function(result){
+							if(result>0){
+								location.href = "/loadDietTipWrite.diet";
+							}else{
+								alert('권한이 없습니다.');
+							}
+							
+						},
+						error : function(result){
+							alert('권한이 없습니다.');
+						}
+					});
+					
+				}else {
+					alert('\n글쓰기 정지당한 회원입니다. \n\n관리자에게 문의하세요.')
+				}
 			}
 		});
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	$('.ui.dropdown').dropdown({

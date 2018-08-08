@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>다이어트</title>
+<title>홈트레이닝 수정</title>
 <link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
 <script src="/resources/summernote/dist/summernote-lite.js"></script>
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
@@ -198,7 +198,9 @@
 				
 			</div>
 			<br>
-			<div id="summernote"></div>
+			<div id="summernote">
+				${requestScope.ht.htExplain }
+			</div>
 			<br>
 			<div align="center">
 				<button class="ui red basic button" onclick="register();">수정완료</button>
