@@ -14,7 +14,7 @@
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
-<title>관리자 - 접속자 로그 상세관리</title>
+<title>관리자 - 접속자 로그 상세내용</title>
 </head>
 
 <!-- CSS -->
@@ -106,7 +106,7 @@ body {
 										<tbody>
 											<c:forEach items="${requestScope.list}" var="li"
 												varStatus="ss">
-												<tr>
+												<tr align="center">
 													<td class ="todate" style="display:none">${li.day}</td>
 													<td>${li.userNo}</td>
 													<td>${li.login}</td>
@@ -214,7 +214,8 @@ function searchBtn() {
 		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
 		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
 		showMonthAfterYear : true,
-		yearSuffix : '년'
+		yearSuffix : '년',
+        maxDate: "0D"
 	});
 
 	$("#datepicker1")

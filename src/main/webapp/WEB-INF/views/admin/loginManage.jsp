@@ -5,7 +5,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>관리자 - 접속자 로그 관리 리스트</title>
+<title>관리자 - 회원 접속 로그 리스트</title>
 </head>
 
 
@@ -32,7 +32,7 @@ body {
 	<div class="ui container">
 		<div class="ui center aligned basic segment">
 			<div class="ui center aligned segment">
-				<h1>회원 접속 로그 관리 (리스트)</h1>
+				<h1>회원 접속 로그 (리스트)</h1>
 			</div>
 			<br>
 			<br>
@@ -192,7 +192,8 @@ body {
 		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
 		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
 		showMonthAfterYear : true,
-		yearSuffix : '년'
+		yearSuffix : '년',
+        maxDate: "0D"
 	});
 
 	$("#datepicker1").datepicker(

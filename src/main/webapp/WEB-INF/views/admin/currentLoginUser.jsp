@@ -96,7 +96,7 @@ var data = new google.visualization.DataTable();
 </script>
 
 
-<title>관리자 - 현재 접속자</title>
+<title>관리자 - 접속자 통계</title>
 </head>
 
 <!-- CSS -->
