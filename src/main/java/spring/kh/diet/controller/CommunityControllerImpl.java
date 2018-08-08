@@ -157,6 +157,8 @@ public class CommunityControllerImpl implements CommunityController {
 		CommunityPageDataVO cpdv = communityService.recipeBoardList(currentPage, type);
 
 		request.setAttribute("cpdv", cpdv);
+		
+		
 
 		return "community/recipeBoard";
 	}
@@ -315,6 +317,9 @@ public class CommunityControllerImpl implements CommunityController {
 		cpdv.setType(type);
 		request.setAttribute("cpdv", cpdv);
 
+		ArrayList<NoticeVO> nvList = communityService.noticeList(type);
+		
+		request.setAttribute("nvList", nvList);		
 		return "community/communityWholeBoard";
 	}
 
