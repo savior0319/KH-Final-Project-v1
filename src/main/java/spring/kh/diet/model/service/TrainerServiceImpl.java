@@ -89,6 +89,12 @@ public class TrainerServiceImpl implements TrainerService {
 	public int programPersonnel(PaymentVO pv) {
 		return trDao.programPersonnel(session, pv);
 	}
+
+	//트레이닝 신청 확인
+	@Override
+	public TrainingRegVO checkReg(String mbIndex) {
+		return trDao.checkReg(session, mbIndex);
+	}
 	
 
 }

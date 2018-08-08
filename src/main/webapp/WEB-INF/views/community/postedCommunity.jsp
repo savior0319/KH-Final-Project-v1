@@ -810,7 +810,21 @@ $(document).ready(function() {
 	
 	/* 글쓰기 등록하기 버튼 */
 	$('#writeBtn').click(function() {
-		location.href = "/registCommunity.diet";
+		var mbId = '${sessionScope.member.mbId}';
+		$.ajax({
+			url : '/checkReport.diet',
+			type : 'post',
+			data : {
+				'mbId' : mbId
+			},
+			success : function(data) {
+				if (data == 'n') {
+					location.href = "/registCommunity.diet";
+				} else {
+					alert('\n글쓰기 정지당한 회원입니다. \n\n관리자에게 문의하세요.')
+				}
+			}
+		});
 	});
 	/* 목록으로 돌아가기 버튼 */
 	$('#listBtn').click(function() {
