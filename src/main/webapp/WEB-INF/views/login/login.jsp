@@ -55,10 +55,6 @@
 	margin-top: 5px;
 }
 
-h3 {
-	text-decoration-line: underline;
-}
-
 ul li {
 	list-style: none;
 	float: left;
