@@ -5,46 +5,133 @@
 <html>
 <head>
 	<jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-	<title>칼로리 처방 결과</title>
+	<title>BMI 계산 결과</title>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 
 	$(document).ready(function() {
 
-		var bmr1 = Number('${bmr.bmr}');
-		var bmr2 = bmr1 * 0.1;
-		var bmrStr = '${bmr.needCal}';
-		var bmr3 = Number('${bmr.needCal}');
-		var bmr4 = bmr3 - bmr2 - bmr1;
+
+		var bmiPoint = ${bmi.bmi};
+		var bmigender = '${bmi.gender}';
+		var color;
+
+		if(18.5>= bmiPoint && bmiPoint >= 0){
+			color='lightgray';
+			$('#bmiMsg').html('저체중').css('color', 'red');
+
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body1.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body1.png' height='120px;'>");
+			} 
+
+		} else if(23> bmiPoint && bmiPoint > 18.5) {
+			color='green';
+			$('#bmiMsg').html('정상').css('color', 'green');
+
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body2.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body2.png' height='120px;'>");
+			} 
+
+		} else if(25> bmiPoint && bmiPoint >= 23){
+			color='orange';
+			$('#bmiMsg').html('비만 전단계').css('color', 'orange');
+
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body3.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body3.png' height='120px;'>");
+			} 
+
+		} else if(30> bmiPoint && bmiPoint >= 25){
+			color='red';
+			$('#bmiMsg').html('1단계 비만').css('color', 'red');
+
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body4.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body4.png' height='120px;'>");
+			} 
+
+		} else if(35> bmiPoint && bmiPoint >= 30){
+			color='red';
+			$('#bmiMsg').html('2단계 비만').css('color', 'red');
+
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body5.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body5.png' height='120px;'>");
+			} 
+
+		} else if(bmiPoint >= 35){
+			color='red';
+			$('#bmiMsg').html('3단계 비만').css('color', 'red');
+
+			if(bmigender == '여자'){
+				$('#imageBody').html("<img src='/resources/image/body/W_Body6.png' height='120px;'>");
+			} else {
+				$('#imageBody').html("<img src='/resources/image/body/M_Body6.png' height='120px;'>");
+			} 
+		}
+
 
 		google.charts.load("current", {packages:["corechart"]});
 		google.charts.setOnLoadCallback(drawChart);
 
 		function drawChart() {
-			var view = google.visualization.arrayToDataTable([
-				['칼로리 처방', '기초대사량', '활동대사량', '소화를 위한 에너지', { role: 'annotation' } ],
-				['칼로리', bmr1, bmr2, bmr4, bmrStr + 'Kcal']
+			var data = google.visualization.arrayToDataTable([
+
+				["Element", "BMI", { role: "style" } ],
+				["BMI", bmiPoint, color],
+
 				]);
 
-			
+			var view = new google.visualization.DataView(data);
+			view.setColumns([0, 1,
+				{ calc: "stringify",
+				sourceColumn: 1,
+				type: "string",
+				role: "annotation" },
+				2]);
+
 			var options;
 
 			if (window.innerWidth < 650) {
-				options = {				// 모바일용이 아닌 화면
-					width: 350,
-					height: 200,
-					legend: { position: 'bottom', maxLines: 1 },
-					isStacked: true
-				};
-			} else {				// 모바일용 화면
 				options = {
-					width: 900,
-					height: 200,
-					legend: { position: 'bottom', maxLines: 1 },
-					isStacked: true
-				};
+						title: "비만도(BMI) 검사 결과",
+						width: 300,
+						height: 150,
+						bar: {groupWidth: "55%"},
+						legend: { position: "none" },
+
+						hAxis: {
+							viewWindow: {
+								min: 0,
+								max: 35
+							},
+							ticks: [0,5,10,15,20,25,30,35]
+						}
+					};
+			} else {
+				options = {
+						title: "비만도(BMI) 검사 결과",
+						width: 900,
+						height: 150,
+						bar: {groupWidth: "55%"},
+						legend: { position: "none" },
+
+						hAxis: {
+							viewWindow: {
+								min: 0,
+								max: 35
+							},
+							ticks: [0,5,10,15,20,25,30,35]
+						}
+					};
 			}
-			
 			
 			
 			
@@ -53,10 +140,8 @@
 			var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
 			chart.draw(view, options);
 		}
-
 	});
 </script>
-
 </head>
 
 <!-- CSS -->
@@ -72,81 +157,59 @@
 	<div class="ui container">
 		<div class="ui center aligned basic segment">
 			<br>
-			<div class="ui large message">
-				<div class="ui large header">칼로리 처방</div>
-			</div>
-			<table class="ui table">
+			<div class="ui large message"><div class="ui large header">나의 BMI 지수 확인</div></div>
+			<table class="ui celled table">
 				<thead>
 					<tr align="center">
 						<th>성별</th>
 						<th>나이</th>
-						<th>몸무게</th>
 						<th>키</th>
-						<th>활동량</th>
-						<th>기초대사량</th>
-						<th>하루소비칼로리</th>
+						<th>몸무게</th>
+						<th>BMI 지수</th>
+					</tr>
+					<tr align="center">
+						<td>${bmi.gender}</td>
+						<td>만 ${bmi.age}세</td>
+						<td>${bmi.height}cm</td>
+						<td>${bmi.weight}kg</td>
+						<td>${bmi.bmi}</td>
 					</tr>
 				</thead>
-				<tbody>
-					<tr align="center">
-						<td>${bmr.gender}</td>
-						<td>만 ${bmr.age}세</td>
-						<td>${bmr.height}cm</td>
-						<td>${bmr.weight}kg</td>
-						<td>${bmr.activeMass}</td>
-						<td>${bmr.bmr}Kcal</td>
-						<td>${bmr.needCal}Kcal</td>
-					</tr>
-				</tbody>
 			</table>
-			<br>
-			<div align="left">
-				<span class="ui large header">하루 소비 칼로리는 <span style="color: red;">'${bmr.needCal}'</span>kcal</span>
-			</div>
 			<div class="ui center aligned basic segment">
-				<div id="barchart_values" style="width: 100%; font-size:10px;"></div>
+				<div id="barchart_values" style="width: 100%; height: 150px;"></div>
 			</div>
-			<div align="left">
-				※ 하루 소비 칼로리는 일상생활을 하는데 기본적으로 소비되는 칼로리입니다. <br>
-				※ 칼로리 처방 시, 선택하는 활동량에 따라 달라질 수 있습니다.  <br>
-			</div>
-			<hr style="margin-top: 8px;">
+			<div id="imageBody"></div>
 			<br>
-			<div align="left" style="margin-bottom: 8px;">
-				<div align="left">
-					※ 한달 동안 감량해야 할 몸무게 <span style="color: rgb(250,40,40);">'${bmr.period}' kg</span>
-				</div>
-				<br>
-				<hr>
-				<br>
-				<label>처방칼로리</label>
-			</div>
-			<div align="center">
-				<table class="ui celled table">
-					<thead>
-						<tr>
-							<th>하루동안 섭취 해야 할 음식 칼로리</th>
-							<th>하루 동안 운동으로 소모해야 할 칼로리</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>${bmr.needCal}Kcal</td>
-							<td id="consumeKcal"></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<div class="ui gray message"><div class="ui medium header">당신의 BMI는 ${bmi.bmi}로 "<span id="bmiMsg"></span>"입니다</div></div>
 			<br>
-			<div align="left">
-				일일 음식 섭취 칼로리가 1000kcal 이하일 때는 감량 목표를 하향 조절해 주세요.<br>
-				1000kcal 이하의 음식 섭취는 영양 불균형 및 요요 현상의 원인이 될 수 있어요.<br>
-			</div>
-			<br>
-			<br>
-			<button id="back"type="button" class="ui button" style="background:rgb(250,40,40); color:white;">다시하기</button>
+			<table class="ui celled table">
+				<thead>
+					<span class="ui medium header">BMI 표</span>(대한비만학회 기준)
+					<tr align="center">
+						<th>저체중</th>
+						<th>정상</th>
+						<th>비만 전단계</th>
+						<th>1단계 비만</th>
+						<th>2단계 비만</th>
+						<th>3단계 비만</th>
+					</tr>
+					<tr align="center">
+						<td>18.5미만</td>
+						<td>18.5이상 &nbsp; 23미만</td>
+						<td>23이상 &nbsp; 25미만</td>
+						<td>25이상 &nbsp; 30미만</td>
+						<td>30이상 &nbsp; 35미만</td>
+						<td>35이상</td>
+					</tr>
+				</thead>
+			</table>
+
+
+			<button type="button" class="ui button" onclick="back();" style="color: white; background: rgb(250,40,40);">다시하기</button>
 		</div>
 	</div>
+	<br>
 	<!-- FOOTER -->
 	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
@@ -154,14 +217,9 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 
-$('#back').click(function(){
-	location.href="/bmrCal.diet";
-});
-
-$(document).ready(function() {
-	var consumeKcal = Number(${bmr.needCal});
-	$('#consumeKcal').html(Math.ceil(consumeKcal / 4) + "Kcal");
-});
+function back(){
+	location.href="/bmiCal.diet"
+}
 
 </script>
 
