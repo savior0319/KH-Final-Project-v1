@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
-<title>글 등록하기페이지</title>
+<title>다이어트 팁 수정</title>
 <link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
 <script src="/resources/summernote/dist/summernote-lite.js"></script>
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
