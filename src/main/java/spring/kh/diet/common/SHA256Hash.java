@@ -5,7 +5,6 @@ import java.security.MessageDigest;
 public class SHA256Hash {
 
 	public String encryptData(String data) throws Exception {
-		System.out.println(data);
 		MessageDigest mDigest = MessageDigest.getInstance("SHA-256");
 		mDigest.update(data.getBytes());
 		byte[] msgStr = mDigest.digest();

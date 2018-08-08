@@ -34,7 +34,6 @@ public class PasswordToSHA256Advice {
 	public void encryptSHA256_3() {
 	}
 	
-	
 	/*로그인 비밀번호 재설정 암호화 */
 	@Pointcut("execution(* spring.kh.diet.model.service.*ServiceImpl.updateMypass(..))")
 	public void encryptSHA256_4() {
