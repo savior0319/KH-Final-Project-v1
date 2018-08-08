@@ -402,7 +402,7 @@
 		<!-- 글쓰기, 목록으로 돌아가기 버튼 -->
 		<div class="ui right aligned container">
 			<c:if test="${sessionScope.member!=null}">
-				<button id="size1" class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
+				<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
 					<i class="edit icon"></i>
 					글쓰기
 				</button>
@@ -429,7 +429,7 @@
 					<!-- 로그인 한경우 -->
 					<form class="ui reply form">
 						<div class="field">
-							<textarea id="commentContent" style="resize: none;" name="content"></textarea>
+							<textarea id="commentContent" style="resize: none;" name="content" maxlength="100" ></textarea>
 						</div>
 						<div class="ui right aligned container">
 							<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="addComment();">
@@ -443,7 +443,7 @@
 					<!-- 로그인 하지 않았을 경우 -->
 					<form class="ui reply form">
 						<div class="field">
-							<textarea id="commentContent" style="resize: none;" name="content" placeholder="로그인 후 이용이 가능합니다." readonly></textarea>
+							<textarea id="commentContent" style="resize: none;" name="content" placeholder="로그인 후 이용이 가능합니다." readonly  maxlength="100" ></textarea>
 						</div>
 
 					</form>
@@ -810,11 +810,32 @@ $(document).ready(function() {
 	
 	/* 글쓰기 등록하기 버튼 */
 	$('#writeBtn').click(function() {
-		location.href = "/registCommunity.diet";
+		var mbId = '${sessionScope.member.mbId}';
+		$.ajax({
+			url : '/checkReport.diet',
+			type : 'post',
+			data : {
+				'mbId' : mbId
+			},
+			success : function(data) {
+				if (data == 'n') {
+					location.href = "/registCommunity.diet";
+				} else {
+					alert('\n글쓰기 정지당한 회원입니다. \n\n관리자에게 문의하세요.')
+				}
+			}
+		});
 	});
 	/* 목록으로 돌아가기 버튼 */
 	$('#listBtn').click(function() {
+		var bcaName = '${requestScope.bpv.bcaName }';
+		
+ 		if(bcaName != "레시피&식단"){
 		location.href = "/communityWholeBoard.diet?type=" + category;
+		}else{
+		location.href = "/recipeBoard.diet?type=" + category;
+		} 
+		
 	});
 	/* 수정하기 버튼 */
 	$('#modifyBtn').click(function() {
@@ -1189,6 +1210,7 @@ $(document).ready(function() {
 					modifyField.css('margin-top','8px');
 					
 					var textArea = $("<textarea>").attr("id","modifyText_"+data.bcList[i].cmtIndex);
+					textArea.attr("maxlength","100");
 					textArea.attr("style","resize:none;");
 					textArea.attr("name","content");
 					textArea.append(data.bcList[i].cmtContent);
@@ -1278,6 +1300,9 @@ $(document).ready(function() {
 	}
 	button[id^="cmdReportBtn_"] {
 		display: none !important;
+	}
+	#writeBtn{
+	display : none;
 	}
 }
 </style>

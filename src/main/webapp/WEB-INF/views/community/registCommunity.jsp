@@ -105,7 +105,7 @@
 							<div class="item">비포&#38;애프터</div>
 						</div>
 					</div>
-					<input type="text" id="title" placeholder="제목을 입력해주세요" />
+					<input type="text" id="title" placeholder="제목을 입력해주세요" maxlength="30" />
 				</div>
 
 			</div>

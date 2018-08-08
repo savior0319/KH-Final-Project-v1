@@ -198,7 +198,9 @@
 				
 			</div>
 			<br>
-			<div id="summernote"></div>
+			<div id="summernote">
+				${requestScope.ht.htExplain }
+			</div>
 			<br>
 			<div align="center">
 				<button class="ui red basic button" onclick="register();">수정완료</button>

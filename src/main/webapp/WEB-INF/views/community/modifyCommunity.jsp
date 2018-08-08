@@ -25,7 +25,7 @@
 			encType : "multipart/form-data",
 			success : function(url) {
 				$(el).summernote('editor.insertImage', url);
-				var postImage = url;
+				postImage = url;
 			}
 		});
 	}
@@ -67,7 +67,7 @@
 							<div class="item">비포&#38;애프터</div>
 						</div>
 					</div>
-					<input type="text" id="title" value = "${requestScope.bpv.postTitle}"/>
+					<input type="text" id="title" value = "${requestScope.bpv.postTitle}"  maxlength="30" />
 				</div>
 
 			</div>

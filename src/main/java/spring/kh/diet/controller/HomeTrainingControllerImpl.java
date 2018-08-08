@@ -293,7 +293,7 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 		if (session.getAttribute("member") != null && ((MemberVO) session.getAttribute("member")).getMbIndex() == 1) {
 			result = 1;
 		}
-
+		
 		response.getWriter().println(result);
 		response.getWriter().close();
 	}
@@ -381,13 +381,20 @@ public class HomeTrainingControllerImpl implements HomeTrainingController {
 	// 홈트레이닝 수정 페이지 불러오기
 	@Override
 	@RequestMapping(value = "/loadUpdateHomeTraining.diet")
-	public String loadUpdateHomeTraining(HttpServletRequest request) {
+	public String loadUpdateHomeTraining(HttpServletRequest request, HttpSession session) {
 		HomeTrainingVO ht = homeTrainingService
 				.loadUpdateHomeTraining(Integer.parseInt(request.getParameter("indexNo")));
 
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		
+		if(mv == null) {
+			return "redirect:/";
+		} else {
+		
 		request.setAttribute("ht", ht);
 
 		return "homeTraining/updateHomeTraining";
+		}
 	}
 
 	// 홈트레이닝 수정

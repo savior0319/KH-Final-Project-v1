@@ -38,26 +38,18 @@ public class SystemAnalytics {
 	
 	private SystemAnalyticsDetailTotalVO SADTVO;
 
-	long time = System.currentTimeMillis();
-	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	String totalDay = dayTime.format(new Date(time));
-	StringTokenizer tD1 = new StringTokenizer(totalDay, " ");
-	String yymmdd = tD1.nextToken();
-	String hhmmss = tD1.nextToken();
+	
 
-	StringTokenizer tD2 = new StringTokenizer(yymmdd, "-");
-	String todayYear = tD2.nextToken();
-	String todayMonth = tD2.nextToken();
-	String todayDay = tD2.nextToken();
-	String beforserviceName = "";
-	StringTokenizer tD3 = new StringTokenizer(hhmmss, ":");
-	int todayHour = Integer.parseInt(tD3.nextToken());
-	int todayMinute = Integer.parseInt(tD3.nextToken());
-	int todaySecond = Integer.parseInt(tD3.nextToken());
-	int timeType = 0;
+	
 
 	// @Resource(name="SystemAnalyticsController")
 	// private SystemAnalyticsController sai;
+	
+	// 시간값가져오기
+	public long returnTime() {
+		long time = System.currentTimeMillis();
+		return time;
+	}
 
 	@Resource(name = "adminAnalyticsService")
 	private AdminAnalyticService an;
@@ -69,7 +61,24 @@ public class SystemAnalytics {
 
 	@After("allPointcut()")
 	public void test(JoinPoint JP) {
+		long time = this.returnTime();
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String totalDay = dayTime.format(new Date(time));
+		StringTokenizer tD1 = new StringTokenizer(totalDay, " ");
+		String yymmdd = tD1.nextToken();
+		String hhmmss = tD1.nextToken();
 
+		StringTokenizer tD2 = new StringTokenizer(yymmdd, "-");
+		String todayYear = tD2.nextToken();
+		String todayMonth = tD2.nextToken();
+		String todayDay = tD2.nextToken();
+		String beforserviceName = "";
+		StringTokenizer tD3 = new StringTokenizer(hhmmss, ":");
+		int todayHour = Integer.parseInt(tD3.nextToken());
+		int todayMinute = Integer.parseInt(tD3.nextToken());
+		int todaySecond = Integer.parseInt(tD3.nextToken());
+		int timeType = 0;
+		
 	
 		String methodName = JP.getSignature().getName();
 		String shortString = JP.toShortString();
@@ -116,7 +125,8 @@ public class SystemAnalytics {
 			timeSet = true;
 		}
 		
-
+//		System.out.println(timeType);
+//		System.out.println(todayHour);
 		ArrayList<TodayAnalyticsDetail> list2 = an.selectAnalytics2(timeType);
 		if(!list2.isEmpty()) {
 				tHits = list2.get(0).getHits();
@@ -282,6 +292,8 @@ public class SystemAnalytics {
 
 		ArrayList<TodayAnalyticsDetail> list = an.selectAnalytics(timeType);
 		if (list.isEmpty()) {
+//			System.out.println("시간변경 진입");
+//			System.out.println("테스트:  "+timeType);
 			// 추가
 			TodayAnalyticsDetail TAD = new TodayAnalyticsDetail(tHits, tLikes, tComments, tPost, timeType, 1,
 					"sysdate");

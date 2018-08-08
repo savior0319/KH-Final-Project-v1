@@ -33,4 +33,9 @@ public interface TrainerController {
 
 	String redirectTrainerReg(HttpSession session);
 
+	String checkReg(String mbIndex);
+
+
+
+
 }

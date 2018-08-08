@@ -230,8 +230,11 @@ public class DietTipControllerImpl implements DietTipController {
 	@RequestMapping(value = "/saveDietTipMainPhotoPath.diet", method = RequestMethod.POST, produces = "text/plain")
 	public void saveDietTipMainPhotoPath(HttpServletRequest request, HttpServletResponse response,
 			MultipartHttpServletRequest req) throws IOException {
+		request.setCharacterEncoding("utf-8");
 		String path = request.getSession().getServletContext().getRealPath("imageUpload");
 
+		req.setCharacterEncoding("utf-8");
+		
 		// 이름 짓기
 		UUID randomString = UUID.randomUUID();
 		// 게시글 수정에서 save를 호출하는 경우
@@ -246,7 +249,7 @@ public class DietTipControllerImpl implements DietTipController {
 			// 파일 저장
 			File reFile = new File(path, reName);
 			req.getFile("uploadFile").transferTo(reFile);
-
+			response.setCharacterEncoding("utf-8");
 			response.getWriter().print(reName);
 			response.getWriter().close();
 		} else {
@@ -269,12 +272,19 @@ public class DietTipControllerImpl implements DietTipController {
 	// 다이어트 팁 수정 페이지 불러오기
 	@Override
 	@RequestMapping(value = "loadUpdateDietTip.diet")
-	public String loadUpdateDietTip(HttpServletRequest request) {
+	public String loadUpdateDietTip(HttpServletRequest request, HttpSession session) {
 		DietTipVO dt = dietTipService.loadUpdateDietTip(Integer.parseInt(request.getParameter("indexNo")));
 
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		
+		if(mv == null) {
+			return "redirect:/";
+		} else {
+		
 		request.setAttribute("dt", dt);
 
 		return "dietTip/updateDietTip";
+		}
 	}
 
 	// 다이어트 팁 수정

@@ -135,8 +135,8 @@ body {
 					<table class="ui celled table">
 						<thead>
 							<tr align="center">
-								<th>IP</th>
-								<th>로그인</th>
+								<th >IP</th>
+								<!-- <th>로그인</th> -->
 								<th>닉네임</th>
 								<th>접속 시간</th>
 								<th>기기</th>
@@ -148,35 +148,35 @@ body {
 									<tr>
 										<td style="height: 40px"></td>
 										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td style="height: 40px"></td>
-										<td></td>
-										<td></td>
+										<!-- <td></td> -->
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<td style="height: 40px"></td>
 										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td style="height: 40px"></td>
-										<td></td>
-										<td></td>
+										<!-- <td></td> -->
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<td style="height: 40px"></td>
 										<td></td>
+										<!-- <td></td> -->
 										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td style="height: 40px"></td>
+										<td></td>
+									<!-- 	<td></td> -->
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td style="height: 40px"></td>
+										<td></td>
+										<!-- <td></td> -->
 										<td></td>
 										<td></td>
 									</tr>
@@ -185,23 +185,23 @@ body {
 									<c:forEach items="${requestScope.currentSession.ssList}"
 										var="ss">
 										<tr align="center">
-											<td>${ss.sessionIp}</td>
-											<td>${ss.state }</td>
+											<td >${ss.sessionIp}</td>
+											<%-- <td style="width:15%">${ss.state }</td> --%>
 											<c:choose>
 												<c:when test="${ss.state eq 'OFF'}">
-													<td>비회원</td>
+													<td style="width:20%">비회원</td>
 												</c:when>
 												<c:when test="${ss.state eq 'ON'}">
-													<td>${ss.logInNickName }</td>
+													<td style="width:20%">${ss.logInNickName }</td>
 												</c:when>
-											</c:choose>
-											<td>${ss.firstOn }</td>
+											</c:choose> 
+											<td style="width:40%">${ss.firstOn }</td>
 											<c:choose>
 												<c:when test="${ss.device eq 'pc'}">
-													<td>PC</td>
+													<td><i class="desktop icon"></i></td>
 												</c:when>
 												<c:otherwise>
-													<td>MOBILE</td>
+													<td><i class="mobile alternate icon"></i></td>
 												</c:otherwise>
 											</c:choose>
 										</tr>
@@ -209,6 +209,20 @@ body {
 									<tr>
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
+								<!-- 	<td style="height: 40px"></td> -->
+									<td style="height: 40px"></td>
+									<td style="height: 40px"></td>
+									</tr>
+									<tr>
+									<td style="height: 40px"></td>
+									<!-- <td style="height: 40px"></td> -->
+									<td style="height: 40px"></td>
+									<td style="height: 40px"></td>
+									<td style="height: 40px"></td>
+									</tr>
+									<tr>
+									<td style="height: 40px"></td>
+									<!-- <td style="height: 40px"></td> -->
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
@@ -216,21 +230,7 @@ body {
 									<tr>
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									</tr>
-									<tr>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									</tr>
-									<tr>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
+									<!-- <td style="height: 40px"></td> -->
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
 									</tr>
@@ -240,43 +240,43 @@ body {
 										var="ss">
 										<tr align="center">
 											<td>${ss.sessionIp}</td>
-											<td>${ss.state }</td>
+											<%-- <td style="width:15%">${ss.state }</td> --%>
 											<c:choose>
 												<c:when test="${ss.state eq 'OFF'}">
-													<td>비회원</td>
+													<td style="width:20%">비회원</td>
 												</c:when>
 												<c:when test="${ss.state eq 'ON'}">
-													<td>${ss.logInNickName }</td>
+													<td style="width:20%">${ss.logInNickName }</td>
 												</c:when>
 											</c:choose>
-											<td>${ss.firstOn }</td>
+											<td style="width:40%">${ss.firstOn }</td>
 											<c:choose>
 												<c:when test="${ss.device eq 'pc'}">
-													<td>PC</td>
+													<td><i class="desktop icon"></i></td>
 												</c:when>
 												<c:otherwise>
-													<td>MOBILE</td>
+													<td><i class="mobile alternate icon"></i></td>
 												</c:otherwise>
 											</c:choose>
 										</tr>
 									</c:forEach>
 									<tr>
 									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
-									</tr>
-									<tr>
-									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
+									<!-- <td style="height: 40px"></td> -->
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
 									</tr>
 									<tr>
 									<td style="height: 40px"></td>
+									<!-- <td style="height: 40px"></td> -->
 									<td style="height: 40px"></td>
+									<td style="height: 40px"></td>
+									<td style="height: 40px"></td>
+									</tr>
+									<tr>
+									<td style="height: 40px"></td>
+									<!-- <td style="height: 40px"></td> -->
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
@@ -287,7 +287,7 @@ body {
 										var="ss">
 										<tr align="center">
 											<td>${ss.sessionIp}</td>
-											<td>${ss.state }</td>
+											<%-- <td>${ss.state }</td> --%>
 											<c:choose>
 												<c:when test="${ss.state eq 'OFF'}">
 													<td>비회원</td>
@@ -299,24 +299,24 @@ body {
 											<td>${ss.firstOn }</td>
 											<c:choose>
 												<c:when test="${ss.device eq 'pc'}">
-													<td>PC</td>
+													<td><i class="desktop icon"></i></td>
 												</c:when>
 												<c:otherwise>
-													<td>MOBILE</td>
+													<td><i class="mobile alternate icon"></i></td>
 												</c:otherwise>
 											</c:choose>
 										</tr>
 									</c:forEach>
 									<tr>
 									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
+									<!-- <td style="height: 40px"></td> -->
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
 									</tr>
 									<tr>
 									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
+									<!-- <td style="height: 40px"></td> -->
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
@@ -327,7 +327,7 @@ body {
 										var="ss">
 										<tr align="center">
 											<td>${ss.sessionIp}</td>
-											<td>${ss.state }</td>
+											<%-- <td>${ss.state }</td> --%>
 											<c:choose>
 												<c:when test="${ss.state eq 'OFF'}">
 													<td>비회원</td>
@@ -339,29 +339,27 @@ body {
 											<td>${ss.firstOn }</td>
 											<c:choose>
 												<c:when test="${ss.device eq 'pc'}">
-													<td>PC</td>
+													<td><i class="desktop icon"></i></td>
 												</c:when>
 												<c:otherwise>
-													<td>MOBILE</td>
+													<td><i class="mobile alternate icon"></i></td>
 												</c:otherwise>
 											</c:choose>
 										</tr>
 									</c:forEach>
 									<tr>
 									<td style="height: 40px"></td>
-									<td style="height: 40px"></td>
+									<!-- <td style="height: 40px"></td> -->
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
 									<td style="height: 40px"></td>
 									</tr>
 								</c:when>
-								
 								<c:otherwise>
-									<c:forEach items="${requestScope.currentSession.ssList}"
-										var="ss">
+									<c:forEach items="${requestScope.currentSession.ssList}" var="ss">
 										<tr align="center">
 											<td>${ss.sessionIp}</td>
-											<td>${ss.state }</td>
+										<%-- 	<td>${ss.state }</td> --%>
 											<c:choose>
 												<c:when test="${ss.state eq 'OFF'}">
 													<td>비회원</td>
@@ -373,15 +371,15 @@ body {
 											<td>${ss.firstOn }</td>
 											<c:choose>
 												<c:when test="${ss.device eq 'pc'}">
-													<td>PC</td>
+													<td><i class="desktop icon"></i></td>
 												</c:when>
 												<c:otherwise>
-													<td>MOBILE</td>
+													<td><i class="mobile alternate icon"></i></td>
 												</c:otherwise>
 											</c:choose>
 										</tr>
 									</c:forEach>
-									<div class="ui center aligned basic segment"></div>
+									
 								</c:otherwise>
 							</c:choose>
 						</tbody>
@@ -408,7 +406,7 @@ body {
 								<th>닉네임</th>
 								<th>접속 시간</th>
 								<th>유지시간</th>
-								<th>기기</th>
+								<!-- <th>기기</th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -419,46 +417,47 @@ body {
 										<td></td>
 										<td></td>
 										<td></td>
-										<td></td>
+										<!-- <td></td> -->
 									</tr>
 									<tr>
 										<td style="height: 40px"></td>
 										<td></td>
 										<td></td>
 										<td></td>
-										<td></td>
+									<!-- 	<td></td> -->
 									</tr>
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${requestScope.onList}" var="aa">
 										<tr align="center">
-											<td>${aa.sessionIp}</td>
+											<td style="width:8%">${aa.sessionIp}</td>
 											<c:choose>
 												<c:when test="${aa.nickName eq 'NULL'}">
-													<td>비회원</td>
+													<td style="width:20%">비회원</td>
 												</c:when>
 												<c:otherwise>
-													<td>${aa.nickName}</td>
+													<td style="width:20%">${aa.nickName}</td>
 												</c:otherwise>
 											</c:choose>
-											<td>${aa.firstOn}</td>
+											<td style="width:35%">${aa.firstOn}</td>
 											<c:choose>
 												<c:when test="${aa.stay > 60}">
-													<td><fmt:formatNumber value="${aa.stay/60.1}"
+													<td ><fmt:formatNumber value="${aa.stay/60.1}"
 															pattern="#" />분</td>
 												</c:when>
 												<c:otherwise>
 													<td><fmt:formatNumber value="${aa.stay}" pattern="#" />초</td>
 												</c:otherwise>
 											</c:choose>
-											<c:choose>
+											<%-- <c:choose>
 												<c:when test="${aa.device eq 'pc'}">
-													<td>PC</td>
+													<td><i class="desktop icon"/></</td>
 												</c:when>
 												<c:otherwise>
-													<td>MOBILE</td>
+													<td><i class="mobile alternate icon"></i></td>
 												</c:otherwise>
-											</c:choose>
+											</c:choose> --%>
+											
 										</tr>
 									</c:forEach>
 								</c:otherwise>
@@ -563,10 +562,10 @@ body {
 				<table class="ui celled table">
 					<thead>
 						<tr align="center">
-							<th style="width: 50%"><i class="clock outline icon"></i> 기간</th>
+							<th style="width: 45%"><i class="clock outline icon"></i> 기간</th>
 							<th style="width: 25%"><i class="user plus icon"></i>
 								&nbsp;&nbsp;회원</th>
-							<th style="width: 25%"><i class="user times icon"></i>
+							<th style="width: 30%"><i class="user times icon"></i>
 								&nbsp;&nbsp;비회원</th>
 						</tr>
 					</thead>

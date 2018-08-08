@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 
@@ -43,7 +44,18 @@ body {
 				<c:forEach items="${requestScope.qpd.QList}" var="qd">
 				<tr align="center">
 					<td>${qd.qsIndex}</td>
-					<td><div style="color: rgb(65,131,196); cursor: pointer;" onclick="thclick(this);">${qd.qsTitle}</div></td>
+					<td>
+                	<div style="color: rgb(65,131,196); cursor: pointer;" onclick="thclick(this);">
+                	<c:choose>
+					<c:when test="${fn:length(qd.qsTitle)>30}">
+					<c:out value="${fn:substring(qd.qsTitle,0,29)}" />...
+                    </c:when>  
+					<c:otherwise>   
+                    ${qd.qsTitle}
+                    </c:otherwise>
+					</c:choose>
+					</div>
+					</td>
 					<td>${qd.mbNickName}</td>
 					<td><fmt:formatDate value="${qd.qsWriteTime}" pattern="yyyy-MM-dd HH:mm"/></td>
 				<c:choose>
@@ -64,7 +76,7 @@ body {
 			<div class="ui pagination menu">${requestScope.qpd.pageNavi}</div>
 		</div>
 	</c:if>
-</div>
+</div>                             
 
 
 <!-- FOOTER -->

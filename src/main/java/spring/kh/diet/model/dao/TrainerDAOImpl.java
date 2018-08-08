@@ -168,4 +168,10 @@ public class TrainerDAOImpl implements TrainerDAO {
 		return session.insert("trainer.programPersonnel",pv);
 	}
 
+	//트레이닝 신청 확인
+	@Override
+	public TrainingRegVO checkReg(SqlSessionTemplate session, String mbIndex) {
+		return session.selectOne("trainer.checkReg",mbIndex);
+	}
+
 }

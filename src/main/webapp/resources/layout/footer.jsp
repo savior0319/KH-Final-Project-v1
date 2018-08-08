@@ -71,7 +71,7 @@
 		<br>
 		<div class="ui form" style="font-weight: 600;">
 			<label style="font-size: 20px;">※ &nbsp;제 목</label>
-			<input type="text" placeholder="제목입력" id="title1" style="margin-top: 5px;">
+			<input type="text" placeholder="제목입력" id="title1" style="margin-top: 5px;" maxlength="50">
 			<br>
 			<br>
 			<div class="field">

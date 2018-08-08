@@ -29,5 +29,7 @@ public interface TrainerService {
 
 	int programPersonnel(PaymentVO pv);
 
+	TrainingRegVO checkReg(String mbIndex);
+
 
 }

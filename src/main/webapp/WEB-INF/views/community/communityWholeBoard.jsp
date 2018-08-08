@@ -355,7 +355,7 @@
 						<div class="item">작성자</div>
 					</div>
 				</div>
-				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)" />
+				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)" maxlength="30"  />
 				<i class="circular search link icon" onclick="searchBtn()"></i>
 			</div>
 		</div>
@@ -425,7 +425,7 @@ $(document).ready(function() {
 	/* 최신순 & 조회순 클릭 */
 	var type = $('#boardTime').val();
 	function recentlyViewBtn(rtb) {
-		var postSort = rtb.innerHTML();
+		var postSort = rtb.innerHTML;
 
 		location.href = "/communityViewBoard.diet?type=" + type + "&postSort="
 				+ postSort + "&searchText=" + st + "&category=" + cate;
