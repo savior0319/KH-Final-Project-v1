@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -8,10 +9,12 @@
 <jsp:include page="/resources/common/preventDirectAccessUrl.jsp"></jsp:include>
 <title>트레이너 프로그램 등록</title>
 <!-- 달력 추가 -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-<link href="/resources/summernote/dist/summernote-lite.css" rel="stylesheet">
+<link href="/resources/summernote/dist/summernote-lite.css"
+	rel="stylesheet">
 <script src="/resources/summernote/dist/summernote-lite.js"></script>
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script src="/resources/slider/responsiveslides.min.js"></script>
@@ -50,7 +53,6 @@
 	width: 100%;
 	border: 0;
 }
-
 </style>
 
 
@@ -62,33 +64,25 @@
 	<!-- CONTENTS -->
 	<div class="ui container" style="border: 0;">
 
-<!-- 슬라이드-->
-               <ul class="rslides">
-                  <li>
-                     <img src="#" id="image1" style="height:300px;">
-                  </li>
-                  <li>
-                     <img src="#" id="image2" style="height:300px;">
-                  </li>
-                  <li>
-                     <img src="#" id="image3" style="height:300px;">
-                  </li>
-                  <li>
-                     <img src="#" id="image4" style="height:300px;">
-                  </li>
-                  <li>
-                     <img src="/resources/image/advertise.png" style="height:300px;">
-                  </li>
-               </ul>
+		<!-- 슬라이드-->
+		<ul class="rslides">
+			<li><img src="#" id="image1" style="height: 300px;"></li>
+			<li><img src="#" id="image2" style="height: 300px;"></li>
+			<li><img src="#" id="image3" style="height: 300px;"></li>
+			<li><img src="#" id="image4" style="height: 300px;"></li>
+			<li><img src="/resources/image/advertise.png"
+				style="height: 300px;"></li>
+		</ul>
 		<div class="ui left aligned basic segment">
-			
+
 			<div class="ui large message">
 				<div class="ui large header" align="center">프로그램 등록</div>
 			</div>
 			<br>
 
 			<div class="ui form" style="max-width: 1220px;">
-				<div class="ui medium header" style="margin-bottom: 5px; padding-left: 5px;">프로그램 명</div>
+				<div class="ui medium header"
+					style="margin-bottom: 5px; padding-left: 5px;">프로그램 명</div>
 				<div class="ui fluid left action icon input">
 					<div class="ui basic floating dropdown button">
 						<div class="text">PT 종류</div>
@@ -102,16 +96,18 @@
 				</div>
 			</div>
 
-			<br>
-			<br>
+			<br> <br>
 
 			<div class="ui grid">
 				<div class="six wide column">
 					<div style="width: 100%;">
 						<img id="img" style="width: 100%; height: 260px;">
 					</div>
-					<div style="width: 100%; height: 20%; margin-top: 20px;" align="center">
-						<button type="button" class="ui button" onclick="uploadPictureBtn();" style="background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
+					<div style="width: 100%; height: 20%; margin-top: 20px;"
+						align="center">
+						<button type="button" class="ui button"
+							onclick="uploadPictureBtn();"
+							style="background: rgb(250, 40, 40); color: white;">사진등록/변경</button>
 					</div>
 
 					<!-- 메인사진 등록 MODAL -->
@@ -120,13 +116,15 @@
 						<i class="close icon"></i>
 						<div class="header">메인 사진 등록</div>
 						<div class="image content">
-							<form id="photoForm" action="/getDietTipMainPhotoPath.diet" method="post" enctype="multipart/form-data">
+							<form id="photoForm" action="/getDietTipMainPhotoPath.diet"
+								method="post" enctype="multipart/form-data">
 								<div class="description">
 									<div class="ui header">
 										<div class="fileBox">
-											<input type="text" class="fileName" id="fileName" readonly="readonly" />
-											<label for="uploadBtn" class="btn_file">찾아보기</label>
-											<input type="file" id="uploadBtn" class="uploadBtn" name="uploadFile" />
+											<input type="text" class="fileName" id="fileName"
+												readonly="readonly" /> <label for="uploadBtn"
+												class="btn_file">찾아보기</label> <input type="file"
+												id="uploadBtn" class="uploadBtn" name="uploadFile" />
 										</div>
 									</div>
 								</div>
@@ -134,14 +132,15 @@
 							<br>
 
 							<div class="actions">
-								<button onclick="photoPreview();" id="photoRegist" style="background: rgb(250, 40, 40); color: white;" class="ui button">
-									사진 등록
-									<i class="checkmark icon"></i>
+								<button onclick="photoPreview();" id="photoRegist"
+									style="background: rgb(250, 40, 40); color: white;"
+									class="ui button">
+									사진 등록 <i class="checkmark icon"></i>
 								</button>
 								<button type="button" class="ui black button" id="modalOff">취소</button>
 							</div>
-							<input type="hidden" value="${sessionScope.member.mbId}" id="memberId" />
-							<input type="hidden" id="mainPhotoPath" />
+							<input type="hidden" value="${sessionScope.member.mbId}"
+								id="memberId" /> <input type="hidden" id="mainPhotoPath" />
 						</div>
 					</div>
 				</div>
@@ -150,28 +149,26 @@
 				<div class="ten wide column" style="padding-top: 0;">
 					<div class="ui grid red segment">
 						<div class="column">
-							<label>시작일 </label>
-							&nbsp;&nbsp;&nbsp;
+							<label>시작일 </label> &nbsp;&nbsp;&nbsp;
 							<div class="ui left icon input">
-								<i class="calendar icon"></i>
-								<input type="text" placeholder="날짜" id="startDay" required readonly>
+								<i class="calendar icon"></i> <input type="text"
+									placeholder="날짜" id="startDay" onchange="startCheck()" required readonly>
 							</div>
-							&nbsp;&nbsp;&nbsp;
-							<label>종료일 </label>
-							&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp; <label>종료일 </label> &nbsp;&nbsp;&nbsp;
 							<div class="ui left icon input">
-								<i class="calendar icon"></i>
-								<input type="text" placeholder="날짜" id="endDay" required readonly">
+								<i class="calendar icon"></i> <input type="text"
+									placeholder="날짜" id="endDay" onchange="endCheck()" required readonly>
 							</div>
 						</div>
 					</div>
 
 					<div class="ui grid red segment">
 						<div class="column">
-							<label>트레이닝 요일</label>
-							&nbsp;&nbsp;&nbsp;
+							<label>트레이닝 요일</label> &nbsp;&nbsp;&nbsp;
 							<div class="ui left input" style="width: 500px;">
-								<select multiple="" name="time" class="ui  search fluid normal dropdown" id="dropdown4" required>
+								<select multiple="" name="time"
+									class="ui  search fluid normal dropdown" id="dropdown4"
+									required>
 									<option value="">요일 선택</option>
 									<option value="전체">전체</option>
 									<option value="월요일">월요일</option>
@@ -187,33 +184,34 @@
 					</div>
 					<div class="ui grid red segment">
 						<div class="column">
-							<label>트레이닝 장소</label>
-							&nbsp;&nbsp;&nbsp;
+							<label>트레이닝 장소</label> &nbsp;&nbsp;&nbsp;
 							<div class="ui left icon input">
-								<i class="home icon"></i>
-								<input type="text" placeholder="주소" id="address" name="address" required readonly style="width: 400px;">
-								<button type="button" class="ui button" style="background: rgb(250, 40, 40); color: white; margin-left: 15px;" id="findAddress">주소검색</button>
+								<i class="home icon"></i> <input type="text" placeholder="주소"
+									id="address" name="address" required readonly
+									style="width: 400px;">
+								<button type="button" class="ui button"
+									style="background: rgb(250, 40, 40); color: white; margin-left: 15px;"
+									id="findAddress">주소검색</button>
 							</div>
 						</div>
 					</div>
 
 					<div class="ui grid red segment">
 						<div class="column">
-							<label>트레이닝 비용</label>
-							&nbsp;&nbsp;&nbsp;
-							<span class="ui form">
-								<input type="text" name="height" placeholder="비용" style="width: 400px;" id="tpCost" onkeyup="inputNumberFormat(this)" maxlength="9" required>
-							</span>
-							&nbsp;&nbsp;&nbsp;
-							<span class="ui medium header" style="line-height: 40px;"> 원 </span>
+							<label>트레이닝 비용</label> &nbsp;&nbsp;&nbsp; <span class="ui form">
+								<input type="text" name="height" placeholder="비용"
+								style="width: 400px;" id="tpCost"
+								onkeyup="inputNumberFormat(this)" maxlength="9" required>
+							</span> &nbsp;&nbsp;&nbsp; <span class="ui medium header"
+								style="line-height: 40px;"> 원 </span>
 						</div>
 					</div>
 
 					<div class="ui grid red segment">
 						<div class="column">
 							<label>모집&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인원</label>
-							&nbsp;&nbsp;&nbsp;
-							<select id="personnel" name="personnel" class="ui dropdown" required>
+							&nbsp;&nbsp;&nbsp; <select id="personnel" name="personnel"
+								class="ui dropdown" required>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -249,8 +247,7 @@
 					</div>
 				</div>
 			</div>
-			<br>
-			<br>
+			<br> <br>
 			<div id="summernote"></div>
 			<br>
 			<div align="center">
@@ -298,10 +295,13 @@
 	});
 
 	$(function() {
-		$("#startDay").datepicker({minDate:0});
-		$("#endDay").datepicker({minDate:0});	
-		
-		
+		$("#startDay").datepicker({
+			minDate : 0
+		});
+		$("#endDay").datepicker({
+			minDate : 0
+		});
+
 	});
 
 	/* 주소 검색 API */
@@ -466,70 +466,76 @@
 		var tpTitle = $('#title').val();
 		var tpActiveStart = $('#startDay').val();
 		var tpActiveEnd = $('#endDay').val();
+
 		var tpContent = $('#summernote').summernote('code');
 		var tpLocation = $('#address').val();
 		var tpCost = $('#tpCost').val();
 		tpCost = tpCost.replace(/[^0-9\.]+/g, "");
 		var tpPersonnel = $('#personnel option:selected').val();
 
-		var tpActiveDays = $('#dropdown4').val();			
-		$.ajax({
-			url : 'saveDietTipMainPhotoPath.diet',
-			type : 'post',
-			data : form,
-			processData : false,
-			contentType : false,
-			success : function(data) {
-				$('#mainPhotoPath').val(data);
-				var tpMainImage = $('#mainPhotoPath').val();
+		var tpActiveDays = $('#dropdown4').val();
+		if (tpActiveStart < tpActiveEnd) {
+			$.ajax({
+				url : 'saveDietTipMainPhotoPath.diet',
+				type : 'post',
+				data : form,
+				processData : false,
+				contentType : false,
+				success : function(data) {
+					$('#mainPhotoPath').val(data);
+					var tpMainImage = $('#mainPhotoPath').val();
 
-				// 사진 저장 성공하면 전체 등록 진행				
-				if (tpTrainType != null && tpTitle != '' && tpContent != '') {
-					$.ajax({
-						url : '/registTrainerProgram.diet',
-						type : 'post',
-						data : {
-							'tpTitle' : tpTitle,
-							'tpActiveStart' : tpActiveStart,
-							'tpActiveEnd' : tpActiveEnd,
-							'tpContent' : tpContent,
-							'tpLocation' : tpLocation,
-							'tpCost' : tpCost,
-							'tpPersonnel' : tpPersonnel,
-							'tpMainImage' : tpMainImage,
-							'tpActiveDays' : tpActiveDays,
-							'tpTrainType' : tpTrainType
-						},
-						success : function(result) {
-							if (result == 1) {
-								alert('게시글 등록 완료');
-								location.href="/trainerMatch.diet";
-								
-							} else {
-								alert('게시글 등록 실패');
+					// 사진 저장 성공하면 전체 등록 진행				
+					if (tpTrainType != null && tpTitle != '' && tpContent != '') {
+						$.ajax({
+							url : '/registTrainerProgram.diet',
+							type : 'post',
+							data : {
+								'tpTitle' : tpTitle,
+								'tpActiveStart' : tpActiveStart,
+								'tpActiveEnd' : tpActiveEnd,
+								'tpContent' : tpContent,
+								'tpLocation' : tpLocation,
+								'tpCost' : tpCost,
+								'tpPersonnel' : tpPersonnel,
+								'tpMainImage' : tpMainImage,
+								'tpActiveDays' : tpActiveDays,
+								'tpTrainType' : tpTrainType
+							},
+							success : function(result) {
+								if (result == 1) {
+									alert('게시글 등록 완료');
+									location.href="/trainerMatch.diet";
+									
+								} else {
+									alert('게시글 등록 실패');
+									
+								}
+							},
+							error : function() {
+								alert('게시글 등록 실패(과정 오류)');
 								
 							}
-						},
-						error : function() {
-							alert('게시글 등록 실패(과정 오류)');
-							
-						}
-					});
-				} else {
-					if (tpTrainType == null) {
-						alert('PT유형을 선택하여주세요.');
+						});
 					} else {
-						alert('내용을 반드시 기입하여주세요.');
+						if (tpTrainType == null) {
+							alert('PT유형을 선택하여주세요.');
+						} else {
+							alert('내용을 반드시 기입하여주세요.');
+						}
 					}
-				}
 
-			},
-			error : function(data) {
-				alert('실패ㅋㅋㅋ');
-			}
-		});
+				},
+				error : function(data) {
+					alert('실패ㅋㅋㅋ');
+				}
+			});
+
+		} else {
+			alert('시작일과 종료일을 확인해주세요.');
+		}
 	}
-	
+
 	// 카테고리 선택
 	var tpTrainType;
 	$('.select > .item').click(function() {
@@ -544,7 +550,7 @@
 			break;
 		}
 	});
-	
+
 	// 슬라이드
 	$(function() {
 		$(".rslides").responsiveSlides({
@@ -553,24 +559,39 @@
 		});
 	});
 
-
-   /* 광고 이미지 불러오기 */
-   $(document).ready(function() {
-      $.ajax({
-         url : '/advertiseImageLoad.diet',
-         type : 'post',
-         success : function(img){
-            $("#image1").attr("src",img[0].path1);
-            $("#image2").attr("src",img[1].path1);
-            $("#image3").attr("src",img[2].path1);
-            $("#image4").attr("src",img[3].path1);
-         },
-         error : function(){
-            console.log('[ERROR] - 이미지 불러오기 오류');
-         }
-      });
-   });
+	/* 광고 이미지 불러오기 */
+	$(document).ready(function() {
+		$.ajax({
+			url : '/advertiseImageLoad.diet',
+			type : 'post',
+			success : function(img) {
+				$("#image1").attr("src", img[0].path1);
+				$("#image2").attr("src", img[1].path1);
+				$("#image3").attr("src", img[2].path1);
+				$("#image4").attr("src", img[3].path1);
+			},
+			error : function() {
+				console.log('[ERROR] - 이미지 불러오기 오류');
+			}
+		});
+	});
 	
+	function startCheck(){
+		var tpActiveStart = $('#startDay').val();
+		var tpActiveEnd = $('#endDay').val();
+		if (tpActiveStart > tpActiveEnd&&tpActiveEnd!='') {
+		alert('시작일과 종료일을 확인해주세요.');
+		$('#startDay').val('');
+		}
+	}
+	function endCheck(){
+		var tpActiveStart = $('#startDay').val();
+		var tpActiveEnd = $('#endDay').val();
+		if (tpActiveStart > tpActiveEnd) {
+		alert('시작일과 종료일을 확인해주세요.');
+		$('#endDay').val('');
+		}
+	}
 </script>
 
 

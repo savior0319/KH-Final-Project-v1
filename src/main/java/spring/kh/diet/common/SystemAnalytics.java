@@ -125,7 +125,8 @@ public class SystemAnalytics {
 			timeSet = true;
 		}
 		
-
+//		System.out.println(timeType);
+//		System.out.println(todayHour);
 		ArrayList<TodayAnalyticsDetail> list2 = an.selectAnalytics2(timeType);
 		if(!list2.isEmpty()) {
 				tHits = list2.get(0).getHits();
@@ -291,6 +292,8 @@ public class SystemAnalytics {
 
 		ArrayList<TodayAnalyticsDetail> list = an.selectAnalytics(timeType);
 		if (list.isEmpty()) {
+//			System.out.println("시간변경 진입");
+//			System.out.println("테스트:  "+timeType);
 			// 추가
 			TodayAnalyticsDetail TAD = new TodayAnalyticsDetail(tHits, tLikes, tComments, tPost, timeType, 1,
 					"sysdate");

@@ -25,7 +25,7 @@
 			encType : "multipart/form-data",
 			success : function(url) {
 				$(el).summernote('editor.insertImage', url);
-				var postImage = url;
+				postImage = url;
 			}
 		});
 	}
