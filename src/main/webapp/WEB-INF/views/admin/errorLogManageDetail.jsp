@@ -57,8 +57,8 @@ body {
 							<div class="ui grid">
 
 								<div class="four wide column"></div>
-								<div class="seven wide column"></div>
-								<div class="five wide column" style="border-left: none;">
+								<div class="six wide column"></div>
+								<div class="six wide column" style="border-left: none;">
 									<!--  -->
 									<div class="ui center basic aligned segment"
 										style="float: left; margin: 0px;">
@@ -109,7 +109,7 @@ body {
 													<td>${ss.erStamp}</td>
 													<td>${ss.erInfoOne}</td>
 													<c:choose>
-														<c:when test="${fn:length(ss.erInfoTwo) > 100}">
+														<c:when test="${fn:length(ss.erInfoTwo) > 25}">
 															<td><button class="ui secondary button"
 																	onclick="info(${status.index},1);">자세히</button></td>
 															<td id="Date${status.index}1" ; style="display: none">
@@ -121,7 +121,7 @@ body {
 														</c:otherwise>
 													</c:choose>
 													<c:choose>
-														<c:when test="${fn:length(ss.erInfoThr) > 100}">
+														<c:when test="${fn:length(ss.erInfoThr) > 25}">
 															<td><button class="ui secondary button"
 																	onclick="info(${status.index},2);">자세히</button></td>
 															<td id="Date${status.index}2" ; style="display: none">
@@ -132,7 +132,7 @@ body {
 														</c:otherwise>
 													</c:choose>
 													<c:choose>
-														<c:when test="${fn:length(ss.erInfoFor) > 100}">
+														<c:when test="${fn:length(ss.erInfoFor) > 25}">
 															<td><button class="ui secondary button"
 																	onclick="info(${status.index},3);">자세히</button></td>
 															<td id="Date${status.index}3" ; style="display: none">
@@ -236,7 +236,7 @@ body {
 		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
 		showMonthAfterYear : true,
 		yearSuffix : '년',
-        maxDate: "-1D"
+        maxDate: "0D"
 	});
 
 	$("#datepicker1").datepicker({ onSelect: function(dateText) {  

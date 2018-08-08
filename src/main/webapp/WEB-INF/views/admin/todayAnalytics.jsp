@@ -476,7 +476,7 @@ data.addColumn('number', '좋아요');
 								<th style="width: 20%"><i class="address card icon"></i>
 									닉네임</th>
 								<th style="width: 20%"><i class="venus mars icon"></i> 성 별</th>
-								<th style="width: 30%"><i class="user secret icon"></i></i> 등 급</th>
+								<th style="width: 20%"><i class="user secret icon"></i></i> 등 급</th>
 
 							</tr>
 						</thead>
@@ -502,7 +502,7 @@ data.addColumn('number', '좋아요');
 									<c:forEach items="${requestScope.todayInsertMember}" var="is"
 										varStatus="status">
 										<tr align="center">
-											<td style="width: 10%"><c:out value="${status.index+1}" /></td>
+											<td style="width: 11%"><c:out value="${status.index+1}" /></td>
 											<c:choose>
 														<c:when test="${fn:length(is.mbId)>17}">
 															<td style="width: 20%">
@@ -529,7 +529,7 @@ data.addColumn('number', '좋아요');
 													</td>
 												</c:otherwise>
 											</c:choose>
-											<td style="width: 30%">${is.mbGrade}</td>
+											<td style="width: 20%">${is.mbGrade}</td>
 
 										</tr>
 									</c:forEach>
@@ -563,12 +563,12 @@ data.addColumn('number', '좋아요');
 					<table class="ui celled table">
 						<thead>
 							<tr align="center">
-								<th style="width: 10%">비고</th>
+								<th style="width: 11%">비고</th>
 								<th style="width: 25%"><i class="address card outline icon"></i>
 									아이디</th>
-								<th style="width: 20%"><i class="venus mars icon"></i> 성 별</th>
-								<th style="width: 25%"><i class="calendar plus icon"></i>가입일</th>
-								<th style="width: 20%"><i class="user secret icon"></i></i> 등 급</th>
+								<th style="width: 22%"><i class="venus mars icon"></i> 성 별</th>
+								<th style="width: 21%"><i class="calendar plus icon"></i>가입일</th>
+								<th style="width: 22%"><i class="user secret icon"></i></i> 등 급</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -593,7 +593,7 @@ data.addColumn('number', '좋아요');
 									<c:forEach items="${requestScope.todayDelMember}" var="ds"
 										varStatus="status">
 										<tr align="center">
-											<td style="width: 10%"><c:out value="${status.index+1}" /></td>
+											<td style="width: 11%"><c:out value="${status.index+1}" /></td>
 											<c:choose>
 														<c:when test="${fn:length(ds.mbId)>17}">
 															<td style="width: 25%">
@@ -619,8 +619,8 @@ data.addColumn('number', '좋아요');
 													</td>
 												</c:otherwise>
 											</c:choose>
-											<td style="width: 25%">${ds.mbDeleteDate}</td>
-											<td style="width: 20%">${ds.mbGrade}</td>
+											<td style="width: 23%">${ds.mbDeleteDate}</td>
+											<td style="width: 22%">${ds.mbGrade}</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>

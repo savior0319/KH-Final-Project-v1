@@ -39,6 +39,7 @@ public class SystemAnalytics {
 	private SystemAnalyticsDetailTotalVO SADTVO;
 
 	long time = System.currentTimeMillis();
+
 	SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	String totalDay = dayTime.format(new Date(time));
 	StringTokenizer tD1 = new StringTokenizer(totalDay, " ");

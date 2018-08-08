@@ -150,14 +150,14 @@
 				<div class="ten wide column" style="padding-top: 0;">
 					<div class="ui grid red segment">
 						<div class="column">
-							<label>트레이닝 시작 </label>
+							<label>시작일 </label>
 							&nbsp;&nbsp;&nbsp;
 							<div class="ui left icon input">
 								<i class="calendar icon"></i>
 								<input type="text" placeholder="날짜" id="startDay" required readonly>
 							</div>
 							&nbsp;&nbsp;&nbsp;
-							<label>트레이닝 종료 </label>
+							<label>종료일 </label>
 							&nbsp;&nbsp;&nbsp;
 							<div class="ui left icon input">
 								<i class="calendar icon"></i>
