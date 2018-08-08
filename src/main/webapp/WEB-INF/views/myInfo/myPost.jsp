@@ -70,7 +70,7 @@ html, body {
 									<td style="width: 13%;">${m.postIndex }</td>
 									<td style="width: 18%;"><c:choose>
 											<c:when test="${m.bcaIndex=='15'}">
-												<label> <a href="recipeBoard.diet?type=15">자유게시판</a>
+												<label> <a href="communityWholeBoard.diet?type=15">자유게시판</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='16' }">
@@ -78,15 +78,15 @@ html, body {
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='17' }">
-												<label> <a href="recipeBoard.diet?type=16">팁&#38;노하우</a>
+												<label> <a href="communityWholeBoard.diet?type=17">팁&#38;노하우</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='18' }">
-												<label> <a href="recipeBoard.diet?type=16">고민&#38;질문</a>
+												<label> <a href="communityWholeBoard.diet?type=18">고민&#38;질문</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='19' }">
-												<label> <a href="recipeBoard.diet?type=16">비포&#38;애프터</a>
+												<label> <a href="communityWholeBoard.diet?type=19">비포&#38;애프터</a>
 												</label>
 											</c:when>
 										</c:choose></td>
