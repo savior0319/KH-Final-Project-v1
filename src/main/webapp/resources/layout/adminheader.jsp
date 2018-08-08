@@ -13,16 +13,14 @@
 	<div class="item">
 		<h3>
 			<i class="clipboard iternate icon"></i>
-			페이지 설정
+			페이지 관리
 		</h3>
 		<div class="menu dropdown">
 			<h4>
-				<a class="ui simple item" href="/pageManagement.diet">페이지 관리</a>
+				<a class="ui simple item" href="/pageManagement.diet">페이지 광고 변경</a>
 			</h4>
 		</div>
 	</div>
-
-
 	<div class="item">
 		<h3>
 			<i class="clipboard iternate icon"></i>
@@ -36,7 +34,6 @@
 			</h4>
 		</div>
 	</div>
-
 	<div class="item">
 		<h3>
 			<i class="clipboard iternate icon"></i>
@@ -85,11 +82,8 @@
 			<a class="ui simple item" href="#">추가예정</a>
 		</div>
 	</div>-->
-
-
 	<a class="item" href="/">
 		메인으로
 		<i class="sign out iternate icon"></i>
 	</a>
-
 </div>

@@ -32,7 +32,7 @@ body {
 	<br>
 	<div class="ui container">
 		<div class="ui center aligned segment">
-			<h1>페이지 관리</h1>  
+			<h1>페이지 광고 변경</h1>  
 		</div>
 		<div class="ui large header">페이지 광고 변경</div>
 		<div class="ui red message"><div class="ui medium header">※ 광고는 716 x 258 (가로 x 세로) 사이즈로 올려주세요!</div></div>
