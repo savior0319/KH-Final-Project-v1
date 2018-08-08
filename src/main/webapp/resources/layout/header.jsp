@@ -259,4 +259,12 @@
 		location.href = "/trainerMatch.diet";
 	}
 
+	$(document).ready(function() {
+		document.addEventListener('mousedown', function() {
+			if ((event.button == 2) || (event.which == 3)) {
+				alert('마우스 오른쪽 버튼은 사용 불가능 합니다');
+			}
+		});
+	});
+
 </script>
