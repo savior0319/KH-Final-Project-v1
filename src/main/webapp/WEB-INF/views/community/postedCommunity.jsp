@@ -499,14 +499,14 @@
 
 								</div>
 								<div class="text" id="cmd_${bc.cmtIndex}">
-									<pre>${bc.cmtContent}</pre>
+									<pre style="white-space: pre-wrap;">${bc.cmtContent}</pre>
 								</div>
 							</div>
 						</div>
 
 						<!-- 수정 -->
 						<form class="ui reply form" id="modifyContents_${bc.cmtIndex}" style="display: none;">
-							<div class="field">
+							<div class="field" style="margin-top:8px;">
 								<textarea id="modifyText_${bc.cmtIndex}" style="resize: none;" name="content">${bc.cmtContent}</textarea>
 							</div>
 							<div class="ui right aligned container" id="rightContainer">
@@ -951,7 +951,10 @@ $(document).ready(function() {
 		//내용가져오기
 		var comment = $('#modifyText_'+ci).val();
 		
-		
+		if(comment==''){
+			alert('댓글을 입력해 주세요');
+			return;
+		}
 		 $.ajax({
 			url : '/modifyComment.diet',
 			type : 'post',
@@ -1137,6 +1140,8 @@ $(document).ready(function() {
 					textDiv.attr("id","cmd_"+data.bcList[i].cmtIndex);
 					
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
+					pre.css('white-space','pre-wrap');
+					
 					likeBtn.append(likeI);
 					likeBtn.append("좋아요" + data.bcList[i].cmtLike);
 					blameBtn.append(blameI);
@@ -1181,6 +1186,7 @@ $(document).ready(function() {
 					modifyContents.attr("style","display:none;");
 					
 					var modifyField = $("<div>").attr("class","field");
+					modifyField.css('margin-top','8px');
 					
 					var textArea = $("<textarea>").attr("id","modifyText_"+data.bcList[i].cmtIndex);
 					textArea.attr("style","resize:none;");
