@@ -402,7 +402,7 @@
 		<!-- 글쓰기, 목록으로 돌아가기 버튼 -->
 		<div class="ui right aligned container">
 			<c:if test="${sessionScope.member!=null}">
-				<button id="size1" class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
+				<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
 					<i class="edit icon"></i>
 					글쓰기
 				</button>
@@ -1286,6 +1286,9 @@ $(document).ready(function() {
 	}
 	button[id^="cmdReportBtn_"] {
 		display: none !important;
+	}
+	#writeBtn{
+	display : none;
 	}
 }
 </style>
