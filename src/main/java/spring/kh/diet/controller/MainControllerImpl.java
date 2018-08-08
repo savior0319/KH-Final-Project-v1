@@ -116,23 +116,24 @@ public class MainControllerImpl implements MainController {
 	@Override
 	@RequestMapping(value = "/bmrCalResult.diet")
 	public Object BMRCalResult(@RequestParam String[] gender, @RequestParam String age, @RequestParam String height,
-			@RequestParam String weight, @RequestParam String period, @RequestParam String[] periodUnit,
-			@RequestParam String[] activeMass) {
-
+			@RequestParam String weight, @RequestParam String period, @RequestParam String goalWeight, @RequestParam String[] activeMass) {
+		
+		String goalWeightStr = String.valueOf((Integer.parseInt(weight) - Integer.parseInt(goalWeight)) / Integer.parseInt(period));
+		
 		String genderVal = "";
-		String periodUnitVal = "";
+		// String periodUnitVal = "";
 		String activeMassVal = "";
 		String genderStr = "";
-		String periodStr = "";
+		// String periodStr = "";
 		String activeMassStr = "";
 
 		for (int i = 0; i < gender.length; i++) {
 			genderVal = gender[i];
 		}
 
-		for (int i = 0; i < periodUnit.length; i++) {
-			periodUnitVal = periodUnit[i];
-		}
+		//	for (int i = 0; i < periodUnit.length; i++) {
+		//	periodUnitVal = periodUnit[i];
+		//	}
 
 		for (int i = 0; i < activeMass.length; i++) {
 			activeMassVal = activeMass[i];
@@ -159,10 +160,9 @@ public class MainControllerImpl implements MainController {
 		String weightStr = String.valueOf((int) weightConvertDouble);
 		String heightStr = String.valueOf((int) (heightConvertMeter * 100));
 
-		if (periodUnitVal.equals("day")) {
-			periodStr = "일";
-		} else
-			periodStr = "개월";
+		/*
+		 * if (periodUnitVal.equals("day")) { periodStr = "일"; } else periodStr = "개월";
+		 */
 
 		double bmr = 0;
 		double needCal = 0;
@@ -205,8 +205,8 @@ public class MainControllerImpl implements MainController {
 		// activeMassStr 활동량
 
 		ModelAndView view = new ModelAndView();
-
-		BMRVO bvo = new BMRVO(genderStr, ageStr, heightStr, weightStr, period, periodStr, activeMassStr, bmrStr,
+		
+		BMRVO bvo = new BMRVO(genderStr, ageStr, heightStr, weightStr, period, goalWeightStr, activeMassStr, bmrStr,
 				needCalStr);
 
 		view.addObject("bmr", bvo);
@@ -321,7 +321,7 @@ public class MainControllerImpl implements MainController {
 
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO) session.getAttribute("member");
-		if (user == null) {		// 로그인을 하지 않은 사용자 일 때
+		if (user == null) { // 로그인을 하지 않은 사용자 일 때
 			pdvo.setType("");
 
 			int currentPage;
@@ -341,7 +341,7 @@ public class MainControllerImpl implements MainController {
 			htpd.setSearchText(pdvo.getSearchText());
 
 			new Gson().toJson(htpd.getHtList(), response.getWriter());
-		}else {		// 로그인 한 사용자 일 때
+		} else { // 로그인 한 사용자 일 때
 			MemberVO seeList = homeTrainingService.getHtSeeList(user.getMbIndex());
 
 			ArrayList<Integer> list = new ArrayList<Integer>();
@@ -376,31 +376,32 @@ public class MainControllerImpl implements MainController {
 			}
 
 			ArrayList<HomeTrainingVO> matchedList = homeTrainingService.getMatchedHtList(type1);
-						
+
 			new Gson().toJson(matchedList, response.getWriter());
 		}
 	}
-	
+
 	// 메인페이지에서 레시피 목록 출력
-			@Override
-			@RequestMapping(value = "/mainRecipe.diet")
-			public void getRecipeList(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
-				String type = request.getParameter("type");
+	@Override
+	@RequestMapping(value = "/mainRecipe.diet")
+	public void getRecipeList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws JsonIOException, IOException {
+		String type = request.getParameter("type");
 
-				int currentPage; // 현재 페이지 값을 저장하는 변수
-				if (request.getParameter("currentPage") == null) {
-					currentPage = 1;
-				} else {
-					currentPage = Integer.parseInt(request.getParameter("currentPage"));
-					// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
-				}
+		int currentPage; // 현재 페이지 값을 저장하는 변수
+		if (request.getParameter("currentPage") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			// 즉, 첫 페이만 1로 세팅하고 그외 페이지라면 해당 페이지 값을 가져옴
+		}
 
-				CommunityPageDataVO cpdv = communityService.recipeBoardList(currentPage, type);
+		CommunityPageDataVO cpdv = communityService.recipeBoardList(currentPage, type);
 
-				response.setContentType("application/json");
-				response.setCharacterEncoding("utf-8");
-				new Gson().toJson(cpdv, response.getWriter());
-			}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(cpdv, response.getWriter());
+	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////

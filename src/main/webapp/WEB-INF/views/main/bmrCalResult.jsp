@@ -31,18 +31,18 @@
 
 			if (window.innerWidth < 650) {
 				options = {				// 모바일용이 아닌 화면
-						width: 350,
-						height: 200,
-						legend: { position: 'bottom', maxLines: 1 },
-						isStacked: true
-					};
+					width: 350,
+					height: 200,
+					legend: { position: 'bottom', maxLines: 1 },
+					isStacked: true
+				};
 			} else {				// 모바일용 화면
 				options = {
-						width: 900,
-						height: 200,
-						legend: { position: 'bottom', maxLines: 1 },
-						isStacked: true
-					};
+					width: 900,
+					height: 200,
+					legend: { position: 'bottom', maxLines: 1 },
+					isStacked: true
+				};
 			}
 			
 			
@@ -75,7 +75,6 @@
 			<div class="ui large message">
 				<div class="ui large header">칼로리 처방</div>
 			</div>
-			<br>
 			<table class="ui table">
 				<thead>
 					<tr align="center">
@@ -83,7 +82,6 @@
 						<th>나이</th>
 						<th>몸무게</th>
 						<th>키</th>
-						<th>다이어트 기간</th>
 						<th>활동량</th>
 						<th>기초대사량</th>
 						<th>하루소비칼로리</th>
@@ -95,7 +93,6 @@
 						<td>만 ${bmr.age}세</td>
 						<td>${bmr.height}cm</td>
 						<td>${bmr.weight}kg</td>
-						<td>${bmr.period}${bmr.periodUnit}</td>
 						<td>${bmr.activeMass}</td>
 						<td>${bmr.bmr}Kcal</td>
 						<td>${bmr.needCal}Kcal</td>
@@ -116,7 +113,13 @@
 			<hr style="margin-top: 8px;">
 			<br>
 			<div align="left" style="margin-bottom: 8px;">
-			<label>처방칼로리</label>
+				<div align="left">
+					※ 한달 동안 감량해야 할 몸무게 <span style="color: rgb(250,40,40);">'${bmr.period}' kg</span>
+				</div>
+				<br>
+				<hr>
+				<br>
+				<label>처방칼로리</label>
 			</div>
 			<div align="center">
 				<table class="ui celled table">
@@ -136,8 +139,8 @@
 			</div>
 			<br>
 			<div align="left">
-			일일 음식 섭취 칼로리가 1000kcal 이하일 때는 감량 목표를 하향 조절해 주세요.<br>
-			1000kcal 이하의 음식 섭취는 영양 불균형 및 요요 현상의 원인이 될 수 있어요.<br>
+				일일 음식 섭취 칼로리가 1000kcal 이하일 때는 감량 목표를 하향 조절해 주세요.<br>
+				1000kcal 이하의 음식 섭취는 영양 불균형 및 요요 현상의 원인이 될 수 있어요.<br>
 			</div>
 			<br>
 			<br>
@@ -151,14 +154,14 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 
-	$('#back').click(function(){
-		location.href="/bmrCal.diet";
-	});
+$('#back').click(function(){
+	location.href="/bmrCal.diet";
+});
 
-	$(document).ready(function() {
-		var consumeKcal = Number(${bmr.needCal});
-		$('#consumeKcal').html(Math.ceil(consumeKcal / 4) + "Kcal");
-	});
+$(document).ready(function() {
+	var consumeKcal = Number(${bmr.needCal});
+	$('#consumeKcal').html(Math.ceil(consumeKcal / 4) + "Kcal");
+});
 
 </script>
 
