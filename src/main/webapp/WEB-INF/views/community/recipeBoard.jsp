@@ -251,7 +251,7 @@ else self.name = '';
 					</div>
 				</div>
 
-				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)">
+				<input type="text" placeholder="Search..." id="searchText" onkeypress="runScript(event)"  maxlength="30" >
 				<i class="circular search link icon" onclick="searchBtn()"></i>
 
 			</div>

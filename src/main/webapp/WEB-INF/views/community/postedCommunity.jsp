@@ -429,7 +429,7 @@
 					<!-- 로그인 한경우 -->
 					<form class="ui reply form">
 						<div class="field">
-							<textarea id="commentContent" style="resize: none;" name="content"></textarea>
+							<textarea id="commentContent" style="resize: none;" name="content" maxlength="100" ></textarea>
 						</div>
 						<div class="ui right aligned container">
 							<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="addComment();">
@@ -443,7 +443,7 @@
 					<!-- 로그인 하지 않았을 경우 -->
 					<form class="ui reply form">
 						<div class="field">
-							<textarea id="commentContent" style="resize: none;" name="content" placeholder="로그인 후 이용이 가능합니다." readonly></textarea>
+							<textarea id="commentContent" style="resize: none;" name="content" placeholder="로그인 후 이용이 가능합니다." readonly  maxlength="100" ></textarea>
 						</div>
 
 					</form>
@@ -507,7 +507,7 @@
 						<!-- 수정 -->
 						<form class="ui reply form" id="modifyContents_${bc.cmtIndex}" style="display: none;">
 							<div class="field">
-								<textarea id="modifyText_${bc.cmtIndex}" style="resize: none;" name="content">${bc.cmtContent}</textarea>
+								<textarea id="modifyText_${bc.cmtIndex}" style="resize: none;" name="content"  maxlength="100" >${bc.cmtContent}</textarea>
 							</div>
 							<div class="ui right aligned container" id="rightContainer">
 								<div class="ui labeled submit icon button" style="background-color: #fa2828; color: white;" onclick="modifyComment(${bc.cmtIndex});">
@@ -828,7 +828,14 @@ $(document).ready(function() {
 	});
 	/* 목록으로 돌아가기 버튼 */
 	$('#listBtn').click(function() {
+		var bcaName = '${requestScope.bpv.bcaName }';
+		
+ 		if(bcaName != "레시피&식단"){
 		location.href = "/communityWholeBoard.diet?type=" + category;
+		}else{
+		location.href = "/recipeBoard.diet?type=" + category;
+		} 
+		
 	});
 	/* 수정하기 버튼 */
 	$('#modifyBtn').click(function() {
@@ -1197,6 +1204,7 @@ $(document).ready(function() {
 					var modifyField = $("<div>").attr("class","field");
 					
 					var textArea = $("<textarea>").attr("id","modifyText_"+data.bcList[i].cmtIndex);
+					textArea.attr("maxlength","100");
 					textArea.attr("style","resize:none;");
 					textArea.attr("name","content");
 					textArea.append(data.bcList[i].cmtContent);
