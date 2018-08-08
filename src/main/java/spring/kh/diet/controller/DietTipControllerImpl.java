@@ -230,6 +230,7 @@ public class DietTipControllerImpl implements DietTipController {
 	@RequestMapping(value = "/saveDietTipMainPhotoPath.diet", method = RequestMethod.POST, produces = "text/plain")
 	public void saveDietTipMainPhotoPath(HttpServletRequest request, HttpServletResponse response,
 			MultipartHttpServletRequest req) throws IOException {
+		request.setCharacterEncoding("utf-8");
 		String path = request.getSession().getServletContext().getRealPath("imageUpload");
 
 		req.setCharacterEncoding("utf-8");

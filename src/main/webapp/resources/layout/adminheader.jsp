@@ -67,7 +67,7 @@
 	<div class="item">
 		<h3>
 			<i class="clipboard iternate icon"></i>
-			통계 관리
+			통계 및 로그 관리
 		</h3>
 		<div class="menu dropdown">
 			<a class="ui simple item" href="/currentLoginUser.diet">접속자 통계</a>
