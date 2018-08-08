@@ -102,5 +102,13 @@
 		SET TP_REMAINING_PERSONNEL = TP_REMAINING_PERSONNEL -1
 		WHERE TP_INDEX = #{tpIndex}
 	</update>
+	
+	<!-- 트레이닝 신청 확인 -->
+	<select id="checkReg" resultType="trainerReg" resultMap="trainerRegDB" >
+		SELECT *
+		FROM TRAINER_REG_TBL
+		WHERE MB_INDEX = #{mbIndex}
+	</select>
+	
 </mapper>
 

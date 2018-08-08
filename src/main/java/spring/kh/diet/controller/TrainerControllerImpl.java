@@ -226,4 +226,21 @@ public class TrainerControllerImpl implements TrainerController {
 		}
 
 	}
+	
+	/* 트레이너 등록 여부 확인 */
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/checkReg.diet")
+	public String checkReg(@RequestParam String mbIndex) {
+		TrainingRegVO tr = trService.checkReg(mbIndex);
+		if(tr == null) {
+			return "noData";
+		}else {
+			return "data";
+		}
+		
+		
+
+	}
+	
 }

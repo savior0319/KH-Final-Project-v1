@@ -167,8 +167,27 @@
 <!-- SCRIPT -->
 <script type="text/javascript">
 	function trainerReg(){
+	
 		if(${sessionScope.member != null}){
-		location.href="/trainerReg.diet";
+			var mbIndex = '${sessionScope.member.mbIndex}';
+			
+			$.ajax({
+				url : '/checkReg.diet',
+				type : 'post',
+				data : {
+					'mbIndex' : mbIndex
+				},
+				success : function(data) {
+					if (data == "noData") {
+						location.href="/trainerReg.diet";
+						
+					} else if(data == "data"){
+						alert('이미 신청 내역이 있습니다. \n마이페이지에서 신청 내역을 확인 하세요.');
+					}
+					
+				}
+			});
+			
 		}else{
 			alert('로그인 후 이용이 가능합니다.');
 		}
