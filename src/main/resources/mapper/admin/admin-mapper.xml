@@ -1034,7 +1034,7 @@
 		timeType,
 		T_LIST_TYPE as listType
 		from TODAY_ANALYTICS
-		where (t_update_time between sysdate-1 and sysdate) and t_time_type = #{time}
+		where (t_update_time between to_date(TO_CHAR(SYSDATE-1,'YYYY-MM-DD')) and to_date(TO_CHAR(SYSDATE,'YYYY-MM-DD'))) and t_time_type = #{time}
 	</select>
 
 	<!-- 접속자 로그인 로그 페이지 리스트 -->
