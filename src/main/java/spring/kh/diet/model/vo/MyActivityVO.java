@@ -1,7 +1,6 @@
 package spring.kh.diet.model.vo;
 
 import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyActivityVO {
-	private int mbIndex, myAttendance, myCommentCount, myBoardCount;
+	private int mbIndex, myAttendance, myCommentCount, myBoardCount, warningComment;
 	private String mbGrade;
 	private Date mbEnrollDate;
 }

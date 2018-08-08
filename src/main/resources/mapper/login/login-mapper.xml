@@ -30,7 +30,8 @@
 		MB_PWD AS mbPwd,
 		MB_NAME AS mbName,
 		MB_NICKNAME AS mbNickName,
-		MB_GENDER AS mbGender,
+		MB_GENDER AS
+		mbGender,
 		MB_IMAGE AS mbImage,
 		MB_PROMISE AS mbPromise,
 		MB_AGE AS mbAge,
@@ -39,7 +40,8 @@
 		MB_INTEREST AS mbInterest,
 		MB_GRADE AS mbGrade,
 		MB_HEIGHT AS mbHeight,
-		MB_WEIGHT AS mbWeight,
+		MB_WEIGHT AS
+		mbWeight,
 		MB_BMI AS mbBmi,
 		MB_REPORT AS mbReport,
 		MB_ENROLLDATE AS mbEnrollDate
@@ -55,7 +57,8 @@
 		MB_NAME AS mbName,
 		MB_NICKNAME AS mbNickName,
 		MB_GENDER AS mbGender,
-		MB_IMAGE AS mbImage,
+		MB_IMAGE AS
+		mbImage,
 		MB_PROMISE AS mbPromise,
 		MB_AGE AS mbAge,
 		MB_PHONE AS mbPhone,
@@ -75,10 +78,9 @@
 		UPDATE MEMBER_TBL SET MB_PWD = #{mbPwd} WHERE MB_ID = #{mbId}
 	</update>
 
-
-<insert id="joinKaKao" parameterType="member">
-      INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{mbId},'','',#{mbNickName},'','','',0,'','','','카카오회원','','','','n',sysdate,0,0,0,0,0,0,0,0,0,0,0,0)
-   </insert>
+	<insert id="joinKaKao" parameterType="member">
+		INSERT INTO MEMBER_TBL VALUES(MEMBER_SEQ.NEXTVAL,#{mbId},'','',#{mbNickName},'','','',0,'','','','카카오회원','','','','n',sysdate,0,0,0,0,0,0,0,0,0,0,0,0)
+	</insert>
 
 	<select id="existUserFindingId" parameterType="member" resultType="member">
 		SELECT
@@ -145,30 +147,31 @@
 		MB_HEIGHT AS mbHeight,
 		MB_WEIGHT AS mbWeight,
 		MB_ENROLLDATE AS mbEnrollDate FROM MEMBER_TBL WHERE MB_ID = #{mbNickName}
-	</select> 
+	</select>
 
 	<insert id="insertSession" parameterType="oneSession">
 		INSERT INTO
 		OFF_Session_TBL
-		VALUES(#{indexNo},#{sessionId},#{sessionIp},#{firstOn},(sysdate-to_date(#{firstOn},'yy/MM/dd hh24:mi:ss'))*24*60*60,#{loginId},#{device},sysdate)
+		VALUES(#{indexNo},#{sessionId},#{sessionIp},#{firstOn},(sysdate-to_date(#{firstOn},'yy/MM/dd
+		hh24:mi:ss'))*24*60*60,#{loginId},#{device},sysdate)
 	</insert>
 	<delete id="transSession">
-	delete On_Session_Tbl where SS_Id = #{id}
+		delete On_Session_Tbl where SS_Id = #{id}
 	</delete>
-	
-	
+
+
 	<select id="selectOneSession" resultType="oneSession">
-	 select
-	SS_INDEX as indexNo,
-    SS_ID as sessionId, 
-    SS_IP as sessionIp,  
-    SS_FIRSTON as firstOn,
-    SS_INVALIDATE as invalidate,
-    SS_STATE as state,    
-    SS_LOGIN as loginId, 
-    SS_DEVICE as device    
-	 from ON_session_TBL where SS_Id = #{id}
+		select
+		SS_INDEX as indexNo,
+		SS_ID as sessionId,
+		SS_IP as sessionIp,
+		SS_FIRSTON as firstOn,
+		SS_INVALIDATE as invalidate,
+		SS_STATE as state,
+		SS_LOGIN as loginId,
+		SS_DEVICE as device
+		from ON_session_TBL where SS_Id = #{id}
 	</select>
-	   
-	
+
+
 </mapper>

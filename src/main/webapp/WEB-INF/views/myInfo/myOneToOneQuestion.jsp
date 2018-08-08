@@ -112,12 +112,12 @@
 							<div class="field">
 								<label style="font-size: 20px;">&nbsp;※&nbsp;문 &nbsp;의&nbsp;내&nbsp;용</label>
 								<br>
-								<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none; color: grey" id="contentQuestion" readonly></textarea>
+								<textarea placeholder="내용 입력" style="height: 2px; overflow: hidden; resize: none; color: black; overflow: scroll;" id="contentQuestion" readonly ></textarea>
 							</div>
 							<div class="field">
 								<label style="font-size: 20px;">&nbsp;※&nbsp;관&nbsp;리&nbsp;자&nbsp;답&nbsp;변</label>
 								<br>
-								<textarea placeholder="관리자 답변"  readonly style="height: 150px; overflow: hidden; resize: none; color: black" id="contentAnswer"></textarea>
+								<textarea placeholder="관리자 답변"  readonly style="height: 150px; overflow: hidden; resize: none; color: black; overflow: scroll;" id="contentAnswer"></textarea>
 							</div>
 						</div>
 						<br>

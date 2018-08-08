@@ -127,48 +127,51 @@ html, body {
 										</c:choose>
 									</td>
 									<td style="width: 40%;">
-
 										<c:if test="${m.dtIndex==''}">
 											<a href="/postedCommunity.diet?postIndex=${m.postIndex}">${m.postTitle}</a>
-
 										</c:if>
 										<c:if test="${m.dtIndex!=''}">
 											<a href="/dietTipInfo.diet?indexNo=${m.dtIndex}">${m.dtTitle}</a>
 										</c:if>
 									</td>
-									<td>${m.mbId }</td>
+									<td>${m.mbId}</td>
+									
+									
 									<td style="width: 10%;">
 										<c:if test="${m.dtSee==0}">
 											<c:set var="index" value="${m.postHit}" />
-											<c:if test="${index>99998}">
+											<c:if test="${index>99999}">
 												99999+&nbsp;번
 											</c:if>
-											<c:if test="${m.postHit<=99998}">${m.postHit}&nbsp;번
+											<c:if test="${index<=99998}">${m.postHit}&nbsp;번
 											</c:if>
 										</c:if>
 										<c:if test="${m.dtSee!=0}">
-											<c:if test="${m.dtSee>99999}">
-												99999<span style="color:red;">+</span>
+											<c:set var="index1" value="${m.dtSee}" />
+											<c:if test="${index1>99999}">
+												99999<span style="color: red;">+</span>
 											</c:if>
-											<c:if test="${m.dtSee<=99998}">${m.dtSee}번
+											<c:if test="${index1<=99998}">${m.dtSee}번
 											</c:if>
 										</c:if>
 									</td>
+									
+									
 									<td style="width: 10%;">
-										
 										<c:if test="${m.dtLike==0}">
-											<c:set var="index" value="${m.postLike}" />
-											<c:if test="${index>99998}">
+											<c:set var="index2" value="${m.postLike}" />
+											<c:if test="${index2>99998}">
 												99999+&nbsp;번
 											</c:if>
-											<c:if test="${m.postHit<=99998}">${m.postHit}&nbsp;번
+											<c:if test="${index2<=99998}">${m.postLike}&nbsp;번
 											</c:if>
 										</c:if>
 										<c:if test="${m.dtLike!=0}">
-											<c:if test="${m.dtLike>99999}">
-												99999<span style="color:red;">+</span>
+											<c:set var="index3" value="${m.dtLike}" />
+											<c:if test="${index3>99999}">
+												99999<span style="color: red;">+</span>
 											</c:if>
-											<c:if test="${m.dtLike<=99998}">${m.dtSee}번
+											<c:if test="${index3<=99998}">${m.dtLike}번
 											</c:if>
 										</c:if>
 									</td>
@@ -233,7 +236,7 @@ html, body {
 		var send_cnt = 0;
 		var chkbox = $(".checkSelect");
 		var result = confirm("북마크 게시물을 삭제하시겠습니까?");
-		if(result==true){
+		if (result == true) {
 			for (i = 0; i < chkbox.length; i++) {
 				if (chkbox[i].checked == true) {
 					send_array[send_cnt] = chkbox[i].value;
@@ -251,12 +254,12 @@ html, body {
 					if (data != 0) {
 						alert("북마크 게시물을 삭제하였습니다.");
 						for (i = 0; i < data.length; i++) {
-						
+
 							$(data[i]).parent().parent().parent().remove();
 							location.reload();
-							
+
 						}
-						
+
 					} else {
 						alert("북마크 삭제 실패하였습니다. 관리자에게 문의해주세요 ~");
 					}
@@ -266,10 +269,10 @@ html, body {
 				}
 			});
 
-		}else{
+		} else {
 			alert("북마크 게시물 삭제 취소하셨습니다.");
 		}
-		
+
 	}
 
 	$(function() {

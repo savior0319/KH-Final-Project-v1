@@ -37,6 +37,18 @@ public class MyInfoServiceImpl implements MyInfoService {
 	private SqlSessionTemplate SqlSessionTemplate;
 
 	@Override
+	public int warningCountPost(MemberVO mv) {
+		int result = myInfoDAO.warningCountPost(SqlSessionTemplate, mv);
+		return result;
+	}
+
+	@Override
+	public int warningCountComment(MemberVO mv) {
+		int result = myInfoDAO.warningCountComment(SqlSessionTemplate, mv);
+		return result;
+	}
+
+	@Override
 	public int question(QuestionVO qv) {
 		int result = myInfoDAO.question(SqlSessionTemplate, qv);
 		return result;
@@ -159,7 +171,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 	/* 마이페이지 - 내 게시물 정보 페이징 처리 */
 	@Override
 	public MyPostPageDataVO myPostList(int currentPage, String type, MyActivityVO ma) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 
 		MyPostPageDataVO myPost = new MyPostPageDataVO();
@@ -178,7 +190,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 	/* 마이페이지 - 작성한 댓글 페이징 처리 */
 	@Override
 	public MyCommentPageDataVO myCommentList(int currentPage, String type, MyActivityVO ma) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 
 		MyCommentPageDataVO myComment = new MyCommentPageDataVO();
@@ -197,7 +209,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 	/* 마이페이지 - 북마크 페이징 처리 */
 	@Override
 	public MyBookMarkPageDataVO myBookMarkList(int currentPage, String type, MyActivityVO ma) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 
 		MyBookMarkPageDataVO myBookMark = new MyBookMarkPageDataVO();
@@ -215,7 +227,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public MyQuestionPageDataVO allMyOneToOneQuestion(int currentPage, MyActivityVO ma) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 
 		MyQuestionPageDataVO myQuestion = new MyQuestionPageDataVO();
@@ -233,7 +245,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public MyRequestTrainerPDVO requestTrainer(int currentPage, TrainerProgramVO tv) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
@@ -251,7 +263,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public ApplyTrainerPDVO applyTrainer(int currentPage, TrainingRegVO tv) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 
 		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
@@ -269,7 +281,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public ApplyTrainerPDVO applyTrainer2(int currentPage, TrainingRegVO tr) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 
 		ApplyTrainerPDVO applyTrainer = new ApplyTrainerPDVO();
@@ -287,7 +299,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public MyRequestTrainerPDVO requestTrainer2(int currentPage, TrainerProgramVO tv) {
-		int recordCountPerPage = 10;
+		int recordCountPerPage = 15;
 		int naviCountPerPage = 5;
 
 		MyRequestTrainerPDVO myRequest = new MyRequestTrainerPDVO();
@@ -376,7 +388,7 @@ public class MyInfoServiceImpl implements MyInfoService {
 
 	@Override
 	public MemberVO checkNick(MemberVO mv) {
-		MemberVO mv2 = myInfoDAO.checkNick(SqlSessionTemplate,mv);
+		MemberVO mv2 = myInfoDAO.checkNick(SqlSessionTemplate, mv);
 		return mv2;
 	}
 
