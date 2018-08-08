@@ -27,6 +27,19 @@ import spring.kh.diet.model.vo.TrainingRegVO;
 @SuppressWarnings("all")
 @Repository("myInfoDAO")
 public class MyInfoDAOImpl implements MyInfoDAO {
+	@Override
+	public int warningCountPost(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		int mv2 = sqlSessionTemplate.selectOne("myInfo.warningCountPost", mv);
+		return mv2;
+	}
+
+	@Override
+	public int warningCountComment(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		int result = sqlSessionTemplate.selectOne("myInfo.warningCountComment", mv);
+		System.out.println(result);
+		return result;
+	
+	}
 
 	@Override
 	public int deleteMyPost(SqlSessionTemplate sqlSessionTemplate, BoardPostVO pv) {
@@ -59,7 +72,9 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public int secessionMember(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
+		System.out.println("다오 :"+mv.getMbIndex());
 		int result = sqlSessionTemplate.delete("myInfo.secessionMember", mv);
+		System.out.println(result);
 		return result;
 	}
 
@@ -915,7 +930,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	}
 
 	@Override
-	public MemberVO checkNick(SqlSessionTemplate sqlSessionTemplate,MemberVO mv) {
+	public MemberVO checkNick(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
 		MemberVO mv2 = sqlSessionTemplate.selectOne("myInfo.selectOneMember3", mv);
 		return mv2;
 	}
