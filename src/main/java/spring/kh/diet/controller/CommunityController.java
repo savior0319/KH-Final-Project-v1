@@ -38,8 +38,6 @@ public interface CommunityController {
 
 	String postReport(BoardBlameVO report, HttpSession session);
 
-	String redirectModifyCommunity(HttpServletRequest request);
-	
 	void modifyRegistCommunity(BoardPostVO bpv, HttpSession session, HttpServletResponse response) throws IOException;
 
 	String commentLike(BoardLikeVO checkVO, HttpSession session);
@@ -55,5 +53,7 @@ public interface CommunityController {
 	BoardLikeVO checkCommentLike(int postIndex, int sessionIndex);
 
 	String redirectRegistCommunity(HttpSession session);
+
+	String redirectModifyCommunity(HttpServletRequest request, HttpSession session);
 
 }

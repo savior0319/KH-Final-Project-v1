@@ -83,13 +83,19 @@ public class CommunityControllerImpl implements CommunityController {
 	// 커뮤니티 - 글수정 페이지 
 	@Override
 	@RequestMapping(value = "/modifyCommunity.diet")
-	public String redirectModifyCommunity(HttpServletRequest request) {
+	public String redirectModifyCommunity(HttpServletRequest request, HttpSession session ) {
 		int postIndex = Integer.parseInt(request.getParameter("postIndex"));
 		BoardPostVO bpv = communityService.postedCommunity(postIndex);
 		
+		MemberVO mv = (MemberVO) session.getAttribute("member");
+		
+		if(mv == null) {
+			return "redirect:/";
+		} else {
 		request.setAttribute("bpv", bpv);
 		
 		return "community/modifyCommunity";
+		}
 	}
 	
 	@Override
