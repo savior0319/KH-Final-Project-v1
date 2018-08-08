@@ -206,7 +206,7 @@
 			</table>
 
 
-			<button type="button" class="ui blue button" onclick="back();">다시하기</button>
+			<button type="button" class="ui button" onclick="back();" style="color: white; background: rgb(250,40,40);">다시하기</button>
 		</div>
 	</div>
 	<br>
