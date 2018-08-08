@@ -355,10 +355,8 @@ body {
 									<td style="height: 40px"></td>
 									</tr>
 								</c:when>
-								
 								<c:otherwise>
-									<c:forEach items="${requestScope.currentSession.ssList}"
-										var="ss">
+									<c:forEach items="${requestScope.currentSession.ssList}" var="ss">
 										<tr align="center">
 											<td>${ss.sessionIp}</td>
 										<%-- 	<td>${ss.state }</td> --%>
@@ -381,7 +379,7 @@ body {
 											</c:choose>
 										</tr>
 									</c:forEach>
-									<div class="ui center aligned basic segment"></div>
+									
 								</c:otherwise>
 							</c:choose>
 						</tbody>
