@@ -125,7 +125,7 @@ body {
 		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
 		showMonthAfterYear : true,
 		yearSuffix : '년',
-        maxDate: "-1D"
+        maxDate: "0D"
 	});
 
 /* 	$(function() {
