@@ -150,107 +150,138 @@
 									<input type="text" name="period" placeholder="기간 입력" style="width: 40%;" id="numberCheck3" maxlength="3" required>
 								</span>
 								<span class="ui medium header" style="line-height: 40px;">
-									<input type="radio" name="periodUnit" value="month" style="margin-left: 10px;" required> 개월
-									<input type="radio" name="periodUnit" value="day" style="margin-left: 10px;" required> 일
+									<!-- <input type="radio" name="periodUnit" value="month" style="margin-left: 10px;" required>  -->개월
 								</span>
 							</td>
 						</tr>
-						<tr>
-							<th>평소 활동량</th>
-							<td>
-								<span class="ui form">
-									<input type="radio" name="activeMass" value="step1" required> 활동안함<br>
-									<input type="radio" name="activeMass" value="step2" required> 가벼운 활동<br> 
-									<input type="radio" name="activeMass" value="step3" required> 보통 활동<br> 
-									<input type="radio" name="activeMass" value="step4" required> 많은 활동<br>
-									<input type="radio" name="activeMass" value="step5" required> 격심한 활동<br>
-								</span>
-							</td>
-						</tr>
-					</thead>
-				</table>
+					</tr>
+					<tr>
+						<th>목표체중</th>
+						<td>
+							<span class="ui form">
+								<input type="text" name="goalWeight" placeholder="목표 몸무게 입력" style="width: 40%;" id="numberCheck4" maxlength="3" required>
+							</span>
+							<span class="ui medium header" style="line-height: 40px;"> kg </span>
+						</td>
+					</tr>
+					<tr>
+						<th>평소 활동량</th>
+						<td>
+							<span class="ui form">
+								<input type="radio" name="activeMass" value="step1" required> 활동안함<br>
+								<input type="radio" name="activeMass" value="step2" required> 가벼운 활동<br> 
+								<input type="radio" name="activeMass" value="step3" required> 보통 활동<br> 
+								<input type="radio" name="activeMass" value="step4" required> 많은 활동<br>
+								<input type="radio" name="activeMass" value="step5" required> 격심한 활동<br>
+							</span>
+						</td>
+					</tr>
+				</thead>
+			</table>
 
-				<button style="background: rgb(250,40,40); color:white;" class="ui button" type="submit">칼로리 처방</button>
-			</form>
-		</div>
+			<button style="background: rgb(250,40,40); color:white;" class="ui button" type="submit">칼로리 처방</button>
+		</form>
 	</div>
-	<br>
-	<!-- FOOTER -->
-	<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
+</div>
+<br>
+<!-- FOOTER -->
+<jsp:include page="/resources/layout/footer.jsp"></jsp:include>
 </body>
 
 <!-- SCRIPT -->
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function() {
 
-		var regExp = /^[0-9]*$/;
+	var regExp = /^[0-9]*$/;
 
-		$("#numberCheck1").focus(function() {
-			if (!regExp.test($("#numberCheck1").val())) {
-				if(typeof Android !== "undefined" && Android !==null){
-					Android.onlyNumber();
-				}else{
-					alert("숫자만 입력하세요");
-				}
-				$("#numberCheck1").val("");
+	$("#numberCheck1").focus(function() {
+		if (!regExp.test($("#numberCheck1").val())) {
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.onlyNumber();
+			}else{
+				alert("숫자만 입력하세요");
 			}
-		});
-
-		$("#numberCheck1").keyup(function() {
-			if (!regExp.test($("#numberCheck1").val())) {
-				if(typeof Android !== "undefined" && Android !==null){
-					Android.onlyNumber();
-				}else{
-					alert("숫자만 입력하세요");
-				}
-				$("#numberCheck1").val("");
-			}
-		});
-
-		$("#numberCheck2").focus(function() {
-			if (!regExp.test($("#numberCheck2").val())) {
-				if(typeof Android !== "undefined" && Android !==null){
-					Android.onlyNumber();
-				}else{
-					alert("숫자만 입력하세요");
-				}
-				$("#numberCheck2").val("");
-			}
-		});
-
-		$("#numberCheck2").keyup(function() {
-			if (!regExp.test($("#numberCheck2").val())) {
-				if(typeof Android !== "undefined" && Android !==null){
-					Android.onlyNumber();
-				}else{
-					alert("숫자만 입력하세요");
-				}
-				$("#numberCheck2").val("");
-			}
-		});
-
-		$("#numberCheck3").focus(function() {
-			if (!regExp.test($("#numberCheck3").val())) {
-				if(typeof Android !== "undefined" && Android !==null){
-					Android.onlyNumber();
-				}else{
-					alert("숫자만 입력하세요");
-				}
-				$("#numberCheck2").val("");
-			}
-		});
-
-		$("#numberCheck3").keyup(function() {
-			if (!regExp.test($("#numberCheck3").val())) {
-				if(typeof Android !== "undefined" && Android !==null){
-					Android.onlyNumber();
-				}else{
-					alert("숫자만 입력하세요");
-				}
-				$("#numberCheck2").val("");
-			}
-		});
+			$("#numberCheck1").val("");
+		}
 	});
+
+	$("#numberCheck1").keyup(function() {
+		if (!regExp.test($("#numberCheck1").val())) {
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.onlyNumber();
+			}else{
+				alert("숫자만 입력하세요");
+			}
+			$("#numberCheck1").val("");
+		}
+	});
+
+	$("#numberCheck2").focus(function() {
+		if (!regExp.test($("#numberCheck2").val())) {
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.onlyNumber();
+			}else{
+				alert("숫자만 입력하세요");
+			}
+			$("#numberCheck2").val("");
+		}
+	});
+
+	$("#numberCheck2").keyup(function() {
+		if (!regExp.test($("#numberCheck2").val())) {
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.onlyNumber();
+			}else{
+				alert("숫자만 입력하세요");
+			}
+			$("#numberCheck2").val("");
+		}
+	});
+
+	$("#numberCheck3").focus(function() {
+		if (!regExp.test($("#numberCheck3").val())) {
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.onlyNumber();
+			}else{
+				alert("숫자만 입력하세요");
+			}
+			$("#numberCheck3").val("");
+		}
+	});
+
+	$("#numberCheck3").keyup(function() {
+		if (!regExp.test($("#numberCheck3").val())) {
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.onlyNumber();
+			}else{
+				alert("숫자만 입력하세요");
+			}
+			$("#numberCheck3").val("");
+		}
+	});
+
+	$("#numberCheck4").focus(function() {
+		if (!regExp.test($("#numberCheck4").val())) {
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.onlyNumber();
+			}else{
+				alert("숫자만 입력하세요");
+			}
+			$("#numberCheck4").val("");
+		}
+	});
+
+	$("#numberCheck4").keyup(function() {
+		if (!regExp.test($("#numberCheck4").val())) {
+			if(typeof Android !== "undefined" && Android !==null){
+				Android.onlyNumber();
+			}else{
+				alert("숫자만 입력하세요");
+			}
+			$("#numberCheck4").val("");
+		}
+	});
+});
 </script>
 
 </html>
