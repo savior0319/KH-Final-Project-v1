@@ -207,7 +207,7 @@ public class MainControllerImpl implements MainController {
 		ModelAndView view = new ModelAndView();
 		
 		BMRVO bvo = new BMRVO(genderStr, ageStr, heightStr, weightStr, period, goalWeightStr, activeMassStr, bmrStr,
-				needCalStr);
+				needCalStr, goalWeight);
 
 		view.addObject("bmr", bvo);
 		view.setViewName("main/bmrCalResult");
