@@ -332,7 +332,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(memberVO);
 				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
-				return "myInfo/myInfoUpdate";
+				return "redirect:/myInfo.diet";
 			} else {
 				return "redirect:/";
 			}
@@ -572,7 +572,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			MemberVO mv = (MemberVO) session.getAttribute("member");
 
 			TrainerProgramVO tv = new TrainerProgramVO(); // 프로그램 리스트
-			System.out.println("트레이너매칭" + tv.getMbIndex());
+		
 			tv.setMbIndex(mv.getMbIndex());
 
 			TrainingRegVO tr = new TrainingRegVO(); // 자격신청
@@ -614,7 +614,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		try {
 			int currentPage; // 현재 페이지 값을 저장하는 변수
 			MemberVO mv = (MemberVO) session.getAttribute("member");
-			System.out.println("mv:" + mv.getMbIndex());
+		
 			TrainerProgramVO tv = new TrainerProgramVO(); // 프로그램 리스트
 			tv.setMbIndex(mv.getMbIndex());
 
