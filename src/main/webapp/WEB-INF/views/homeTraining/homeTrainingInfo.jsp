@@ -9,7 +9,7 @@
 <head>
 <jsp:include page="/resources/layout/cssjs.jsp"></jsp:include>
 <script src="/resources/slider/responsiveslides.min.js"></script>
-<title>다이어트</title>
+<title>홈트레이닝</title>
 </head>
 
 <!-- CSS -->
@@ -304,7 +304,7 @@
 									</c:if>
 								</div>
 								<div class="text" style="text-align:left; margin-left: 3%;" id="cmd_${bc.cmtIndex}">
-									<pre>${bc.cmtContent }</pre>
+									<pre style="white-space:pre-wrap;">${bc.cmtContent }</pre>
 								</div>
 							</div>
 						</div>
@@ -448,10 +448,7 @@
 
 			success : function(data) {
 				if (data > 0) {
-					// 모달 띄우기
-					//$('.ui.basic.modal').modal('show');
-
-					alert('댓글을 작성하였습니다.');
+					
 				} else {
 					alert('댓글을 등록하지 못했습니다.');
 				}
@@ -466,8 +463,6 @@
 
 	function naviMove(currentPage, indexNo, servletName) {
 		$.ajax({
-			/* url : "/naviMove.diet?currentPage=" + currentPage + "&indexNo="
-					+ indexNo + "&servletName=" + servletName, */
 			url : '/naviMove.diet',
 			type : 'post',
 			data : {
@@ -565,6 +560,7 @@
 					textDiv.attr("style", "margin-left:3%;");
 
 					var pre = $("<pre>").html(data.bcList[i].cmtContent);
+					pre.css("white-space","pre-wrap");
 
 					likeBtn.append(likeI);
 					likeBtn.append("좋아요" + data.bcList[i].cmtLike);
