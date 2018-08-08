@@ -93,7 +93,7 @@
 	<div id="size1" class="ui black segment">
 		<div class="ui grid">
 			<div class="three column row">
-				<span class="left floated column"> <span class="ui left aligned"> <a> <!-- 프로필이미지 --> <img class="ui avatar image" src="/resources/image/avatar.png"> <!-- 닉네임 -->
+				<span class="left floated column"> <span class="ui left aligned"> <a> <!-- 프로필이미지 --> <img class="ui avatar image" src="/resources/image/admin.png"> <!-- 닉네임 -->
 					${nvo.noticeWriter}
 				</a>
 			</span>
@@ -110,7 +110,7 @@
 <div id="size2" class="ui black segment">
 	<div class="ui grid" style="padding: 10px;">
 		<div class="ui left aligned">
-			<img class="ui avatar image" src="/resources/image/avatar.png"> ${nvo.noticeWriter}
+			<img class="ui avatar image" src="/resources/image/admin.png"> ${nvo.noticeWriter}
 		</div>
 		<div>
 			<!-- 날짜 -->
