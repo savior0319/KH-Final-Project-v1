@@ -401,12 +401,12 @@
 
 		<!-- 글쓰기, 목록으로 돌아가기 버튼 -->
 		<div class="ui right aligned container">
-			<c:if test="${sessionScope.member!=null}">
+			<%-- <c:if test="${sessionScope.member!=null}"> --%>
 				<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
 					<i class="edit icon"></i>
 					글쓰기
 				</button>
-			</c:if>
+			<%-- </c:if> --%>
 			<button class="ui black basic button" id="listBtn">
 				<i class="list ul icon"></i>
 				목록
@@ -811,6 +811,8 @@ $(document).ready(function() {
 	/* 글쓰기 등록하기 버튼 */
 	$('#writeBtn').click(function() {
 		var mbId = '${sessionScope.member.mbId}';
+		
+		if(${sessionScope.member !=null}){
 		$.ajax({
 			url : '/checkReport.diet',
 			type : 'post',
@@ -825,6 +827,9 @@ $(document).ready(function() {
 				}
 			}
 		});
+		}else{
+			alert('로그인 후 이용이 가능합니다.');
+		}
 	});
 	/* 목록으로 돌아가기 버튼 */
 	$('#listBtn').click(function() {

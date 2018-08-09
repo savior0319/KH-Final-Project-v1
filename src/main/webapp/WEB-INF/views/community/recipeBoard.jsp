@@ -215,12 +215,12 @@ else self.name = '';
 				</div>
 				<div class="column">
 					<div class="ui right aligned container">
-						<c:if test="${sessionScope.member!=null}">
+						<%-- <c:if test="${sessionScope.member!=null}"> --%>
 							<button class="ui right red basic button" style="margin-top: 19px;" id="writeBtn">
 								<i class="edit icon"></i>
 								등록
 							</button>
-						</c:if>
+						<%-- </c:if> --%>
 					</div>
 				</div>
 			</div>
@@ -291,6 +291,8 @@ $(document).ready(function() {
 	/* 글 등록 페이지로 이동 */
 		$('#writeBtn').click(function() {
 		var mbId = '${sessionScope.member.mbId}';
+		
+		if(${sessionScope.member != null}){
 		$.ajax({
 			url : '/checkReport.diet',
 			type : 'post',
@@ -305,7 +307,9 @@ $(document).ready(function() {
 				}
 			}
 		});
-
+		}else{
+			alert('로그인 후 이용이 가능합니다.');
+		}
 	});
 	
 	
