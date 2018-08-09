@@ -772,7 +772,7 @@
 				erInfoThr,
 				ER_INFO_FOR as erInfoFor
 				from ERROR_LOG_TBl
-				where ER_DAte like sysdate-1
+				where ER_DAte like to_date(TO_CHAR(SYSDATE-1,'YYYY-MM-DD'))
 			</when>
 			<when test="type.equals('list')">
 
@@ -968,8 +968,7 @@
 		ER_INFO_THR as erInfoThr,
 		ER_INFO_FOR as erInfoFor
 		from ERROR_LOG_TBl
-		where
-		(ER_DAte between (sysdate - (#{ch}+1)) and (sysdate - #{ch})) and er_type = #{type}
+		where ((ER_DATE BETWEEN TO_dATE(TO_CHAR(SYSDATE-(#{ch}),'YYYY-MM-DD')) AND TO_DATE(TO_CHAR(SYSDATE-(#{ch}-1),'YYYY-MM-DD')))) and er_type =#{type}
 	</select>
 
 
