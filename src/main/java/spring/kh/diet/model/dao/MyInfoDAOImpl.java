@@ -36,7 +36,7 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 	@Override
 	public int warningCountComment(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
 		int result = sqlSessionTemplate.selectOne("myInfo.warningCountComment", mv);
-		System.out.println(result);
+//		System.out.println(result);
 		return result;
 	
 	}
@@ -72,9 +72,9 @@ public class MyInfoDAOImpl implements MyInfoDAO {
 
 	@Override
 	public int secessionMember(SqlSessionTemplate sqlSessionTemplate, MemberVO mv) {
-		System.out.println("다오 :"+mv.getMbIndex());
+//		System.out.println("다오 :"+mv.getMbIndex());
 		int result = sqlSessionTemplate.delete("myInfo.secessionMember", mv);
-		System.out.println(result);
+//		System.out.println(result);
 		return result;
 	}
 

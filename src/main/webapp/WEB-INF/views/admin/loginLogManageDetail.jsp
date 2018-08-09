@@ -123,7 +123,16 @@ body {
 														</c:otherwise>
 													</c:choose>
 													<td>${li.id}</td>
-													<td>${li.nickName}</td>
+													   <c:choose>
+           <c:when test="${fn:length(li.nickName) > 5}">
+            <td><c:out value="${fn:substring(li.nickName,0,3)}"/>...</td>
+           </c:when>
+           <c:otherwise>
+          	<td>  <c:out value="${li.nickName}"/></td>
+           </c:otherwise> 
+          </c:choose>
+
+
 												</tr>
 											</c:forEach>
 										</tbody>
