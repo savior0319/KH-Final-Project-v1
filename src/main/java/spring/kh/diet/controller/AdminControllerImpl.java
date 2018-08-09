@@ -1040,7 +1040,10 @@ public class AdminControllerImpl implements AdminController {
 		// 0~1 이 어제의날
 		
 		view.addObject("list",list); // 최근 10일 리스트넘기기
-		
+		for(int i=0; i<list.size();i++)
+		{
+			System.out.println(list.get(i).toString());
+		}
 
 		view.setViewName("admin/loginManage");
 		return view;
