@@ -184,6 +184,15 @@
 	function pricePayment() {
 		var mbId = '${sessionScope.member.mbNickName}';
 		var mbGrade = '${sessionScope.member.mbGrade}';
+		var mbTel = '${sessionScope.member.mbPhone}';
+		var mbAddr = '${sessionScope.member.mbAddress}';
+		
+		if (mbTel == ''){
+			mbTel = '정보없음';
+		}
+		if (mbAddr == '') {
+			mbAddr = '정보없음';
+		}
 		if (mbId != '') {
 			var IMP = window.IMP; // 생략가능
 			IMP.init('imp27415949'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -195,7 +204,7 @@
 				name : '주문명:' + '${requestScope.tpv.tpTitle}',
 				amount : '${requestScope.tpv.tpCost}',
 				buyer_email : '${sessionScope.member.mbId}',
-				buyer_name : '${sessionScope.member.mbName}',
+				buyer_name : '${sessionScope.member.mbNickName}',
 				buyer_tel : '${sessionScope.member.mbPhone}',
 				buyer_addr : '${sessionScope.member.mbAddress}',
 				buyer_postcode : '123-456',

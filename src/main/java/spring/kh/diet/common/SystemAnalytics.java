@@ -58,7 +58,7 @@ public class SystemAnalytics {
 	public void allPointcut() {
 
 	}
-
+	String beforserviceName = "";
 	@After("allPointcut()")
 	public void test(JoinPoint JP) {
 		long time = this.returnTime();
@@ -72,7 +72,7 @@ public class SystemAnalytics {
 		String todayYear = tD2.nextToken();
 		String todayMonth = tD2.nextToken();
 		String todayDay = tD2.nextToken();
-		String beforserviceName = "";
+		
 		StringTokenizer tD3 = new StringTokenizer(hhmmss, ":");
 		int todayHour = Integer.parseInt(tD3.nextToken());
 		int todayMinute = Integer.parseInt(tD3.nextToken());
@@ -159,6 +159,7 @@ public class SystemAnalytics {
 			
 			case "DietTipServiceImpl":
 				beforserviceName = serviceName;
+//				System.out.println("목록진입 : "+beforserviceName);
 //				System.out.println(methodName);
 				if (methodName.equals("postHit")) // 다이어트팁 조회수
 				{
@@ -261,9 +262,12 @@ public class SystemAnalytics {
 				timeSet = false;
 				break;
 			case "CommonServiceImpl":
+//				System.out.println("?");
 				// System.out.println(beforserviceName);
 				if (methodName.equals("addComment")) // 댓글수 증가
 				{
+//					System.out.println(serviceName);
+//					System.out.println(beforserviceName);
 					if (beforserviceName.equals("HomeTrainingServiceImpl")) {
 						hComments++;
 					}
