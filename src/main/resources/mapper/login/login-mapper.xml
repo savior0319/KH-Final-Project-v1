@@ -152,8 +152,7 @@
 	<insert id="insertSession" parameterType="oneSession">
 		INSERT INTO
 		OFF_Session_TBL
-		VALUES(#{indexNo},#{sessionId},#{sessionIp},#{firstOn},(sysdate-to_date(#{firstOn},'yy/MM/dd
-		hh24:mi:ss'))*24*60*60,#{loginId},#{device},sysdate)
+		VALUES(#{indexNo},#{sessionId},#{sessionIp},#{firstOn},trunc(((sysdate-to_date(#{firstOn},'yy/MM/dd hh24:mi:ss'))*24*60*60),0),#{loginId},#{device},sysdate)
 	</insert>
 	<delete id="transSession">
 		delete On_Session_Tbl where SS_Id = #{id}
