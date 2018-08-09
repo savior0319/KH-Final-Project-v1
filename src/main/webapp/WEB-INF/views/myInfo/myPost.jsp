@@ -43,7 +43,7 @@ html, body {
 				<c:if test="${!myPost.comList.isEmpty()}">
 					<table class="ui gray table">
 						<thead>
-						<div class="ui red message warning" style="margin-top:-10px;font-size:10px; width:350px; float:right;">※ 댓글 신고 5번이상이 되면 활동제한(게시글,댓글작성금지)됩니다.</div>
+						<div class="ui red message" style="margin-top:-10px;font-size:10px; width:350px; float:right;">※ 댓글 신고 5번이상이 되면 활동제한(게시글,댓글작성금지)됩니다.</div>
 							<tr id="title" align="center" class="warningT">
 								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<div class="ui checkbox">
@@ -70,7 +70,7 @@ html, body {
 									<td style="width: 13%;">${m.postIndex }</td>
 									<td style="width: 18%;"><c:choose>
 											<c:when test="${m.bcaIndex=='15'}">
-												<label> <a href="recipeBoard.diet?type=15">자유게시판</a>
+												<label> <a href="communityWholeBoard.diet?type=15">자유게시판</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='16' }">
@@ -78,15 +78,15 @@ html, body {
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='17' }">
-												<label> <a href="recipeBoard.diet?type=16">팁&#38;노하우</a>
+												<label> <a href="communityWholeBoard.diet?type=17">팁&#38;노하우</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='18' }">
-												<label> <a href="recipeBoard.diet?type=16">고민&#38;질문</a>
+												<label> <a href="communityWholeBoard.diet?type=18">고민&#38;질문</a>
 												</label>
 											</c:when>
 											<c:when test="${m.bcaIndex=='19' }">
-												<label> <a href="recipeBoard.diet?type=16">비포&#38;애프터</a>
+												<label> <a href="communityWholeBoard.diet?type=19">비포&#38;애프터</a>
 												</label>
 											</c:when>
 										</c:choose></td>

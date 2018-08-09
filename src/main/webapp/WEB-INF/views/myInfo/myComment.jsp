@@ -40,7 +40,7 @@ html, body {
 				<c:if test="${!myComment.comList.isEmpty()}">
 					<table class="ui gray table">
 						<thead>
-						<div class="ui red message warning" style="margin-top:-10px;font-size:10px; width:350px; float:right;">※ 댓글 신고 5번이상이 되면 활동제한(게시글,댓글작성금지)됩니다.</div>
+						<div class="ui red message" style="margin-top:-10px;font-size:10px; width:350px; float:right;">※ 댓글 신고 5번이상이 되면 활동제한(게시글,댓글작성금지)됩니다.</div>
 							<tr id="title" align="center">
 								<th style="background-color: rgba(255, 185, 185, 0.5);">
 									<div class="ui checkbox">
