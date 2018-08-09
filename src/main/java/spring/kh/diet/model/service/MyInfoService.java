@@ -99,4 +99,8 @@ public interface MyInfoService {
 
 	MemberVO checkNick(MemberVO mv);
 
+	int warningCountComment(MemberVO mv);
+
+	int warningCountPost(MemberVO mv);
+
 }

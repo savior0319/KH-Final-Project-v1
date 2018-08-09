@@ -56,33 +56,38 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/trainerUpdate.diet")
 	public String trainerUpdate(HttpServletResponse response, HttpServletRequest request, HttpSession session)
 			throws IOException {
-		MemberVO mv = (MemberVO) session.getAttribute("member");
+		try {
+			MemberVO mv = (MemberVO) session.getAttribute("member");
 
-		String numberCheck = request.getParameter("phone");
-		String roadAddress = request.getParameter("roadAddress");
-		String trCareer = request.getParameter("trCareer");
-		int heightCheck1 = Integer.parseInt(request.getParameter("height"));
-		int weightCheck1 = Integer.parseInt(request.getParameter("weight"));
-		String activeArea = request.getParameter("activeArea");
+			String numberCheck = request.getParameter("phone");
+			String roadAddress = request.getParameter("roadAddress");
+			String trCareer = request.getParameter("trCareer");
+			int heightCheck1 = Integer.parseInt(request.getParameter("height"));
+			int weightCheck1 = Integer.parseInt(request.getParameter("weight"));
+			String activeArea = request.getParameter("activeArea");
 
-		TrainingRegVO tr = new TrainingRegVO();
+			TrainingRegVO tr = new TrainingRegVO();
 
-		tr.setTrContent(trCareer);
-		tr.setTrPhone(numberCheck);
-		tr.setTrAddress(roadAddress);
-		tr.setTrHeight(heightCheck1);
-		tr.setTrWeight(weightCheck1);
-		tr.setTrArea(activeArea);
-		tr.setMbIndex(mv.getMbIndex());
+			tr.setTrContent(trCareer);
+			tr.setTrPhone(numberCheck);
+			tr.setTrAddress(roadAddress);
+			tr.setTrHeight(heightCheck1);
+			tr.setTrWeight(weightCheck1);
+			tr.setTrArea(activeArea);
+			tr.setMbIndex(mv.getMbIndex());
 
-		int result = myInfoService.trainerUpdate(tr);
+			int result = myInfoService.trainerUpdate(tr);
 
-		if (result > 0) {
-			System.out.println("업데이트 완료");
-			return "myInfo/successUpdate";
-		} else {
-			System.out.println("업데이트 실패");
-			return "myInfo/failUpdate";
+			if (result > 0) {
+				System.out.println("업데이트 완료");
+				return "myInfo/successUpdate";
+			} else {
+				System.out.println("업데이트 실패");
+				return "myInfo/failUpdate";
+			}
+		} catch (Exception e) {
+			session.invalidate();
+			return "redirect:/";
 		}
 
 	}
@@ -92,6 +97,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "deleteMyBookMark.diet")
 	public void deleteMyBookMark(HttpServletResponse response, HttpServletRequest request, HttpSession session)
 			throws IOException {
+
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		BoardBookMarkVO pv = new BoardBookMarkVO();
 
@@ -119,6 +125,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "deleteMyPost.diet")
 	public void deleteMyPost(HttpServletResponse response, HttpServletRequest request, HttpSession session)
 			throws IOException {
+
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		BoardPostVO pv = new BoardPostVO();
 
@@ -137,7 +144,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(arr2, response.getWriter());
-		;
+
 	}
 
 	/* 나의 댓글 삭제 */
@@ -145,6 +152,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "deleteMyComment.diet")
 	public void deleteMyComment(HttpServletResponse response, HttpServletRequest request, HttpSession session)
 			throws IOException {
+
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		BoardCommentVO pv = new BoardCommentVO();
 
@@ -163,7 +171,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(arr2, response.getWriter());
-		;
+
 	}
 
 	/* 1:1 질문 삭제 */
@@ -189,7 +197,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(arr2, response.getWriter());
-		;
+
 	}
 
 	/* 1:1질문 */
@@ -198,6 +206,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/question.diet")
 	public void question(@RequestParam String title, @RequestParam String content, @RequestParam String mbIndex,
 			HttpServletResponse response) throws IOException {
+
 		QuestionVO qv = new QuestionVO();
 		qv.setQsContent(content);
 		qv.setQsTitle(title);
@@ -230,23 +239,24 @@ public class MyInfoControllerImpl implements MyInfoController {
 
 	@Override
 	@RequestMapping(value = "/checkNick.diet")
-	public void checkNick(HttpSession session, HttpServletRequest request, HttpServletResponse response, @RequestParam String nickName)
-			throws IOException {
+	public void checkNick(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam String nickName) throws IOException {
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		mv.setMbNickName(nickName);
 		int result = 0;
 		MemberVO mv2 = myInfoService.checkNick(mv);
-		if(mv2==null) {
+		if (mv2 == null) {
 			result = 0;
 			response.getWriter().print(String.valueOf(result));
 			response.getWriter().close();
-		}else {
+		} else {
 			result = 1;
 			response.getWriter().print(String.valueOf(result));
 			response.getWriter().close();
 		}
 
 	}
+
 	/* 회원탈퇴 */
 	@Override
 	@RequestMapping(value = "/secessionMember.diet")
@@ -322,7 +332,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 			if (result > 0) {
 				MemberVO member = myInfoService.selectOneMember(memberVO);
 				session.setAttribute("member", member); // 업데이트 된 내용을 담은 객체를 리턴함
-				return "myInfo/myInfoUpdate";
+				return "redirect:/myInfo.diet";
 			} else {
 				return "redirect:/";
 			}
@@ -361,7 +371,7 @@ public class MyInfoControllerImpl implements MyInfoController {
 	public String redirectSignup(HttpSession session) {
 
 		MemberVO mv = (MemberVO) session.getAttribute("member");
-		
+
 		if (mv != null) {
 			return "redirect:/";
 		} else {
@@ -417,21 +427,33 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@Override
 	@RequestMapping(value = "/myActivityInfo.diet")
 	public Object myActivity(HttpServletResponse response, HttpSession session, HttpServletRequest request) {
-		MemberVO m = (MemberVO) session.getAttribute("member");
-		MyActivityVO ma = myInfoService.myActivity(m);
-		int loginCount = myInfoService.myLoginCount(m);
-		ModelAndView view = new ModelAndView();
-		if (ma != null) {
-			view.addObject("ma", ma);
-			view.addObject("loginCount", loginCount);
-			view.setViewName("myInfo/myActivityInfo");
-			return view;
-		} else {
-			view.addObject("ma", ma);
-			view.addObject("loginCount", loginCount);
-			view.setViewName("myInfo/myActivityInfo");
-			return view;
+
+		try {
+			MemberVO m = (MemberVO) session.getAttribute("member");
+			MyActivityVO ma = myInfoService.myActivity(m);
+			int loginCount = myInfoService.myLoginCount(m);
+			ModelAndView view = new ModelAndView();
+			int result2 = myInfoService.warningCountComment(m);
+			ma.setWarningComment(result2);
+
+			if (ma != null) {
+				view.addObject("ma", ma);
+				view.addObject("loginCount", loginCount);
+				view.addObject("warningCountComment", result2);
+				view.setViewName("myInfo/myActivityInfo");
+				return view;
+			} else {
+				view.addObject("ma", ma);
+				view.addObject("warningCountComment", result2);
+				view.addObject("loginCount", loginCount);
+				view.setViewName("myInfo/myActivityInfo");
+				return view;
+			}
+		} catch (Exception e) {
+			session.invalidate();
+			return "redirect:/";
 		}
+
 	}
 
 	/* 마이페이지 - 내가 작성한 게시물 */
@@ -439,21 +461,25 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/myPost.diet")
 	public String myActivityGetList(HttpSession session, HttpServletResponse response, HttpServletRequest request,
 			MyActivityVO ma) throws JsonIOException, IOException {
-		String type = request.getParameter("type");
+		try {
+			String type = request.getParameter("type");
 
-		int currentPage; // 현재 페이지 값을 저장하는 변수
-		MemberVO m = (MemberVO) session.getAttribute("member");
-		ma.setMbIndex(m.getMbIndex());
-		if (request.getParameter("currentPage") == null) {
-			currentPage = 1;
-		} else {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			int currentPage; // 현재 페이지 값을 저장하는 변수
+			MemberVO m = (MemberVO) session.getAttribute("member");
+			ma.setMbIndex(m.getMbIndex());
+			if (request.getParameter("currentPage") == null) {
+				currentPage = 1;
+			} else {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+
+			MyPostPageDataVO myPost = myInfoService.myPostList(currentPage, type, ma);
+			request.setAttribute("myPost", myPost);
+			return "myInfo/myPost";
+		} catch (Exception e) {
+			session.invalidate();
+			return "redirect:/";
 		}
-
-		MyPostPageDataVO myPost = myInfoService.myPostList(currentPage, type, ma);
-		request.setAttribute("myPost", myPost);
-		return "myInfo/myPost";
-
 	}
 
 	/* 마이페이지 - 내가 작성한 댓글 */
@@ -461,21 +487,26 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@Override
 	@RequestMapping(value = "/myComment.diet")
 	public String myCommentGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
-		String type = request.getParameter("type");
-		int currentPage; // 현재 페이지 값을 저장하는 변수
-		MemberVO m = (MemberVO) session.getAttribute("member");
-		ma.setMbIndex(m.getMbIndex());
+		try {
 
-		if (request.getParameter("currentPage") == null) {
-			currentPage = 1;
-		} else {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			String type = request.getParameter("type");
+			int currentPage; // 현재 페이지 값을 저장하는 변수
+			MemberVO m = (MemberVO) session.getAttribute("member");
+			ma.setMbIndex(m.getMbIndex());
+
+			if (request.getParameter("currentPage") == null) {
+				currentPage = 1;
+			} else {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+
+			MyCommentPageDataVO myComment = myInfoService.myCommentList(currentPage, type, ma);
+			request.setAttribute("myComment", myComment);
+			return "myInfo/myComment";
+		} catch (Exception e) {
+			session.invalidate();
+			return "redirect:/";
 		}
-
-		MyCommentPageDataVO myComment = myInfoService.myCommentList(currentPage, type, ma);
-		request.setAttribute("myComment", myComment);
-		return "myInfo/myComment";
-
 	}
 
 	/* 마이페이지 - 내 북마크 */
@@ -483,20 +514,25 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@Override
 	@RequestMapping(value = "/myBookMark.diet")
 	public String myBookMarkGetList(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
-		String type = request.getParameter("type");
-		int currentPage; // 현재 페이지 값을 저장하는 변수
-		MemberVO m = (MemberVO) session.getAttribute("member");
-		ma.setMbIndex(m.getMbIndex());
+		try {
+			String type = request.getParameter("type");
+			int currentPage; // 현재 페이지 값을 저장하는 변수
+			MemberVO m = (MemberVO) session.getAttribute("member");
+			ma.setMbIndex(m.getMbIndex());
 
-		if (request.getParameter("currentPage") == null) {
-			currentPage = 1;
-		} else {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			if (request.getParameter("currentPage") == null) {
+				currentPage = 1;
+			} else {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			
+			MyBookMarkPageDataVO myBookMark = myInfoService.myBookMarkList(currentPage, type, ma);
+			request.setAttribute("myBookMark", myBookMark);
+			return "myInfo/myBookMark";
+		} catch (Exception e) {
+			session.invalidate();
+			return "redirect:/";
 		}
-
-		MyBookMarkPageDataVO myBookMark = myInfoService.myBookMarkList(currentPage, type, ma);
-		request.setAttribute("myBookMark", myBookMark);
-		return "myInfo/myBookMark";
 
 	}
 
@@ -504,20 +540,25 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@Override
 	@RequestMapping(value = "/allMyOneToOneQuestion.diet")
 	public Object allMyOneToOneQuestion(HttpSession session, HttpServletRequest request, MyActivityVO ma) {
-		String type = request.getParameter("type");
-		int currentPage; // 현재 페이지 값을 저장하는 변수
-		MemberVO m = (MemberVO) session.getAttribute("member");
-		ma.setMbIndex(m.getMbIndex());
+		try {
+			String type = request.getParameter("type");
+			int currentPage; // 현재 페이지 값을 저장하는 변수
+			MemberVO m = (MemberVO) session.getAttribute("member");
+			ma.setMbIndex(m.getMbIndex());
 
-		if (request.getParameter("currentPage") == null) {
-			currentPage = 1;
-		} else {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			if (request.getParameter("currentPage") == null) {
+				currentPage = 1;
+			} else {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			MyQuestionPageDataVO myQuestion = myInfoService.allMyOneToOneQuestion(currentPage, ma);
+
+			request.setAttribute("myQuestion", myQuestion);
+			return "myInfo/myOneToOneQuestion";
+		} catch (Exception e) {
+			session.invalidate();
+			return "redirect:/";
 		}
-		MyQuestionPageDataVO myQuestion = myInfoService.allMyOneToOneQuestion(currentPage, ma);
-
-		request.setAttribute("myQuestion", myQuestion);
-		return "myInfo/myOneToOneQuestion";
 
 	}
 
@@ -526,36 +567,41 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/applyTrainer.diet")
 	public Object requestTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws JsonIOException, IOException {
-		int currentPage; // 현재 페이지 값을 저장하는 변수
-		MemberVO mv = (MemberVO) session.getAttribute("member");
+		try {
+			int currentPage; // 현재 페이지 값을 저장하는 변수
+			MemberVO mv = (MemberVO) session.getAttribute("member");
 
-		TrainerProgramVO tv = new TrainerProgramVO(); // 프로그램 리스트
-		tv.setMbIndex(mv.getMbIndex());
+			TrainerProgramVO tv = new TrainerProgramVO(); // 프로그램 리스트
+		
+			tv.setMbIndex(mv.getMbIndex());
 
-		TrainingRegVO tr = new TrainingRegVO(); // 자격신청
-		tr.setMbIndex(mv.getMbIndex());
+			TrainingRegVO tr = new TrainingRegVO(); // 자격신청
+			tr.setMbIndex(mv.getMbIndex());
 
-		if (request.getParameter("currentPage") == null) {
-			currentPage = 1;
-		} else {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			if (request.getParameter("currentPage") == null) {
+				currentPage = 1;
+			} else {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			ModelAndView view = new ModelAndView();
+
+			ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tr);
+			MyRequestTrainerPDVO myRequest1 = myInfoService.requestTrainer(currentPage, tv);
+			MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer3(currentPage, tv);
+			ArrayList<TrainerProgramVO> checkSale = myInfoService.checkSale(tv);
+			TrainingRegVO trv = myInfoService.myTrainingReg(mv);
+
+			view.addObject("trv", trv);
+			view.addObject("applyTrainer", applyTrainer);
+			view.addObject("myRequest1", myRequest1);
+			view.addObject("myRequest", myRequest);
+			view.addObject("checkSale", checkSale);
+			view.setViewName("myInfo/imTrainer");
+			return view;
+		} catch (Exception e) {
+			session.invalidate();
+			return "redirect:/";
 		}
-		ModelAndView view = new ModelAndView();
-
-		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer(currentPage, tr);
-		MyRequestTrainerPDVO myRequest1 = myInfoService.requestTrainer(currentPage, tv);
-		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer3(currentPage, tv);
-		ArrayList<TrainerProgramVO> checkSale = myInfoService.checkSale(tv);
-		TrainingRegVO trv = myInfoService.myTrainingReg(mv);
-
-		view.addObject("trv", trv);
-		view.addObject("applyTrainer", applyTrainer);
-		view.addObject("myRequest1", myRequest1);
-		view.addObject("myRequest", myRequest);
-		view.addObject("checkSale", checkSale);
-
-		view.setViewName("myInfo/imTrainer");
-		return view;
 
 	}
 
@@ -565,34 +611,38 @@ public class MyInfoControllerImpl implements MyInfoController {
 	@RequestMapping(value = "/requestTrainer.diet")
 	public Object applyTrainer(HttpSession session, HttpServletRequest request, HttpServletResponse response,
 			String type) throws JsonIOException, IOException {
+		try {
+			int currentPage; // 현재 페이지 값을 저장하는 변수
+			MemberVO mv = (MemberVO) session.getAttribute("member");
+		
+			TrainerProgramVO tv = new TrainerProgramVO(); // 프로그램 리스트
+			tv.setMbIndex(mv.getMbIndex());
 
-		int currentPage; // 현재 페이지 값을 저장하는 변수
-		MemberVO mv = (MemberVO) session.getAttribute("member");
+			TrainingRegVO tr = new TrainingRegVO(); // 자격신청
+			tr.setMbIndex(mv.getMbIndex());
 
-		TrainerProgramVO tv = new TrainerProgramVO(); // 프로그램 리스트
-		tv.setMbIndex(mv.getMbIndex());
+			if (request.getParameter("currentPage") == null) {
+				currentPage = 1;
+			} else {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
 
-		TrainingRegVO tr = new TrainingRegVO(); // 자격신청
-		tr.setMbIndex(mv.getMbIndex());
+			ModelAndView view = new ModelAndView();
+			ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer2(currentPage, tr);
+			MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer2(currentPage, tv);
+			TrainingRegVO trv = myInfoService.myTrainingReg(mv);
 
-		if (request.getParameter("currentPage") == null) {
-			currentPage = 1;
-		} else {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			view.addObject("trv", trv);
+			view.addObject("applyTrainer", applyTrainer);
+			view.addObject("myRequest", myRequest);
+
+			view.setViewName("myInfo/myTrainer");
+
+			return view;
+		} catch (Exception e) {
+			session.invalidate();
+			return "redirect:/";
 		}
-
-		ModelAndView view = new ModelAndView();
-		ApplyTrainerPDVO applyTrainer = myInfoService.applyTrainer2(currentPage, tr);
-		MyRequestTrainerPDVO myRequest = myInfoService.requestTrainer2(currentPage, tv);
-		TrainingRegVO trv = myInfoService.myTrainingReg(mv);
-
-		view.addObject("trv", trv);
-		view.addObject("applyTrainer", applyTrainer);
-		view.addObject("myRequest", myRequest);
-
-		view.setViewName("myInfo/myTrainer");
-
-		return view;
 
 	}
 
@@ -605,7 +655,9 @@ public class MyInfoControllerImpl implements MyInfoController {
 		int tpIndex = Integer.parseInt(request.getParameter("tpIndex"));
 		MemberVO mv = (MemberVO) session.getAttribute("member");
 		PaymentVO pv = new PaymentVO();
+
 		pv.setMbIndex(mv.getMbIndex());
+
 		pv.setTpIndex(tpIndex);
 		int result = myInfoService.canclePro(pv);
 

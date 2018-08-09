@@ -45,9 +45,9 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 		if (m != null) {
 			session = request.getSession();
 			session.setAttribute("member", m);
-		    return "redirect:"+ referer;
+			return "redirect:" + referer;
 		} else {
-		return "login/loginFailed";
+			return "login/loginFailed";
 		}
 	}
 
@@ -120,11 +120,12 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 	@Override
 	@RequestMapping(value = "/logout.diet")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		String referer = (String) request.getHeader("referer");
-		
+
 		HttpSession session = request.getSession();
 		if (session.getAttribute("member") != null) {
+
 			// 인보부분(세션 파기전 세션의 정보를 넘겨야합니다)
 			// Onsession 값을 가져와서 OffSession TB에 값을 넣어주주고
 			OneSessionVO OSV = loginService.selectOneSession(session.getId());
@@ -135,7 +136,6 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 			if (result > 0) {
 				loginService.transSession(session.getId());
 			}
-
 			session.invalidate();
 			// 카카오톡 자동로그인 방지용으로 만든 쿠키 작동불
 			Cookie[] cookies = request.getCookies();
@@ -146,7 +146,8 @@ public class LoginLogoutControllerImpl implements LoginLogoutController {
 				}
 			}
 		}
-	    return "redirect:"+ referer;
+		return "redirect:" + referer;
+
 	}
 
 	/* 비밀번호 재설정 - 이메일로 임시비밀번호 보내기 */

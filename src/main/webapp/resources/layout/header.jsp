@@ -106,13 +106,24 @@
 			<span class="menu">
 				<a href="/logout.diet">로그아웃</a>
 			</span>
-			<span id="resize1" class="menu">
-				<a href="/myInfo.diet">마이페이지</a>
-			</span>
+			<c:if test="${sessionScope.member.mbId!='admin'}">
+				<span id="resize1" class="menu">
+					<a href="/myInfo.diet">마이페이지</a>
+				</span>
+			</c:if>
 		</c:if>
+	<c:choose>
+		<c:when test="${sessionScope.member!=null}">
+		<span class="menu" id="resize3">
+			<a href='javascript:void(0);' onClick='requestAdvertiseLogined(); return false'>제휴·광고문의</a>
+		</span>
+		</c:when>
+		<c:otherwise>
 		<span class="menu" id="resize1">
 			<a href='javascript:void(0);' onClick='requestAdvertise(); return false'>제휴·광고문의</a>
 		</span>
+		</c:otherwise>
+	</c:choose>
 		<span class="menu" id="resize2">
 			<a href='javascript:void(0);' onClick='bookMark(); return false'>즐겨찾기</a>
 		</span>
@@ -123,12 +134,12 @@
 <div class="ui stackable menu" style="margin-top: 0;">
 	<div class="ui container">
 		<div id="resizeLogo">
-		<a href="/">
-			<img class="logo" src="/resources/image/logo.png" style="height: 80px; margin-right: 15px; margin-top: 5px;">
-		</a>
+			<a href="/">
+				<img class="logo" src="/resources/image/logo.png" style="height: 80px; margin-right: 15px; margin-top: 5px;">
+			</a>
 		</div>
 
-		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+		<div class="ui simple dropdown item" style="padding-top: 10px; padding-bottom: 10px;">
 			<div style="font-weight: 600; padding: 0;">
 				다이어트꿀팁
 				<i class="dropdown icon"></i>
@@ -142,7 +153,7 @@
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+		<div class="ui simple dropdown item" style="padding-top: 10px; padding-bottom: 10px;">
 			<div style="font-weight: 600; padding: 0;">
 				칼로리사전
 				<i class="dropdown icon"></i>
@@ -153,7 +164,7 @@
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+		<div class="ui simple dropdown item" style="padding-top: 10px; padding-bottom: 10px;">
 			<div style="font-weight: 600; padding: 0;">
 				홈트레이닝
 				<i class="dropdown icon"></i>
@@ -171,7 +182,7 @@
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+		<div class="ui simple dropdown item" style="padding-top: 10px; padding-bottom: 10px;">
 			<div style="font-weight: 600; padding: 0;">
 				커뮤니티
 				<i class="dropdown icon"></i>
@@ -186,7 +197,7 @@
 			</div>
 		</div>
 
-		<div class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;">
+		<div class="ui simple dropdown item" style="padding-top: 10px; padding-bottom: 10px;">
 			<div style="font-weight: 600; padding: 0;">
 				고객센터
 				<i class="dropdown icon"></i>
@@ -198,7 +209,7 @@
 			</div>
 		</div>
 
-		<div id="trainer-match" class="ui simple dropdown item" style="padding-top:10px; padding-bottom:10px;" onclick="trainerMatch();">
+		<div id="trainer-match" class="ui simple dropdown item" style="padding-top: 10px; padding-bottom: 10px;" onclick="trainerMatch();">
 			<div style="font-weight: 600; padding: 0;">트레이너 매칭</div>
 		</div>
 	</div>
@@ -206,8 +217,8 @@
 
 <style type="text/css" media="screen">
 @media ( max-width : 768px) {
-	#resizeLogo{
-		margin : 0 auto;
+	#resizeLogo {
+		margin: 0 auto;
 	}
 	#resize1 {
 		display: none;
@@ -215,11 +226,14 @@
 	#resize2 {
 		display: none;
 	}
+	#resize3 {
+		display: none;
+	}
 	#admin-page{
 		display:none;
 	}
-	#trainer-match{
-		display:none;
+	#trainer-match {
+		display: none;
 	}
 }
 </style>
@@ -229,14 +243,28 @@
 		alert('CTRL + D키를 누르면 즐겨찾기에 추가 할 수 있습니다');
 	}
 
-	function requestAdvertise(){
+	function requestAdvertise() {
 		alert('로그인 후 관리자에게 문의하세요');
+	}
+
+	function requestAdvertiseLogined(){
+		alert('관리자에게 문의하세요');
 	}
 
 	window.onload = function() {
 		$('#load').hide();
 	}
+
 	function trainerMatch(){
 		location.href = "/trainerMatch.diet";
 	}
+
+	$(document).ready(function() {
+		document.addEventListener('mousedown', function() {
+			if ((event.button == 2) || (event.which == 3)) {
+				alert('마우스 오른쪽 버튼은 사용 불가능 합니다');
+			}
+		});
+	});
+
 </script>

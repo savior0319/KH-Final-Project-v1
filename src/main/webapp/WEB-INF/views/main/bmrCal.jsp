@@ -190,6 +190,13 @@
 
 <!-- SCRIPT -->
 <script type="text/javascript">
+
+	$("#numberCheck4").change(function() {
+		if( Number($('#numberCheck2').val()) < Number($('#numberCheck4').val())){
+			alert('목표체중은 현재 몸무게 보다 작은 값을 입력하세요');
+		}
+	});
+
 $(document).ready(function() {
 
 	var regExp = /^[0-9]*$/;

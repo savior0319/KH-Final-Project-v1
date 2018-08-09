@@ -10,31 +10,31 @@ import com.google.gson.JsonIOException;
 
 public interface MainController {
 
-	Object BMICalResult(String[] gender, String age, String height, String weight);
+   Object BMICalResult(String[] gender, String age, String height, String weight);
 
-	void createSession(HttpServletRequest request, HttpServletResponse response) throws IOException;
+   void createSession(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-	String redirectHealthCenter(HttpServletRequest request, String location, HttpServletResponse response)
-			throws IOException;
+   String redirectHealthCenter(HttpServletRequest request, String location, HttpServletResponse response)
+         throws IOException;
 
-	void updateOnsession(HttpServletRequest request);
+   void updateOnsession(HttpServletRequest request);
 
-	void autoDeleteSession();
+   void autoDeleteSession();
 
-	void getMainCommunityList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
-			throws IOException;
+   void getMainCommunityList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+         throws IOException;
 
-	void getMainNoticeList(HttpServletRequest request, HttpServletResponse response) throws IOException;
+   void getMainNoticeList(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-	void getList(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException;
+   void getList(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException;
 
-	void getMainHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException;
+   void getMainHomeTraining(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-	void getRecipeList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
-			throws JsonIOException, IOException;
+   void getRecipeList(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+         throws JsonIOException, IOException;
 
-	Object BMRCalResult(String[] gender, String age, String height, String weight, String period, String goalWeight,
-			String[] activeMass);
+   Object BMRCalResult(String[] gender, String age, String height, String weight, String period, String goalWeight,
+         String[] activeMass);
 
 
 }

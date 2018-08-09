@@ -183,6 +183,7 @@
 <script type="text/javascript">
 	function pricePayment() {
 		var mbId = '${sessionScope.member.mbNickName}';
+		var mbGrade = '${sessionScope.member.mbGrade}';
 		if (mbId != '') {
 			var IMP = window.IMP; // 생략가능
 			IMP.init('imp27415949'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -219,7 +220,12 @@
 						success : function(data) {
 							if (data == 'success') {
 								alert('결제가 완료되었습니다.');
-								location.href='/requestTrainer.diet';
+								if(mbGrade=='일반회원'){
+									location.href='/requestTrainer.diet';
+								}else{
+									location.href='/applyTrainer.diet';
+								}
+								
 							}
 						}
 					});
