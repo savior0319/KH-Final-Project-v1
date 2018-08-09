@@ -54,7 +54,7 @@ public class SystemAnalytics {
 	@Resource(name = "adminAnalyticsService")
 	private AdminAnalyticService an;
 
-	@Pointcut("execution(* spring.kh.diet.model.service.DietTipServiceImpl.*(*)) || execution(* spring.kh.diet.model.service.HomeTrainingServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommunityServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommonServiceImpl.addComment(*))")
+	@Pointcut("execution(* spring.kh.diet.model.service.DietTipServiceImpl.*(*)) || execution(* spring.kh.diet.model.service.HomeTrainingServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommunityServiceImpl.*(*))|| execution(* spring.kh.diet.model.service.CommonServiceImpl.*Comment(*))")
 	public void allPointcut() {
 
 	}
@@ -91,10 +91,11 @@ public class SystemAnalytics {
 
 		// Object targetName = JP.getTarget();
 		// System.out.println(JP.getSignature().getDeclaringTypeName());
-		// System.out.println(targetName.toString());
+//		 System.out.println(targetName.toString());
 		// System.out.println("서비스 : "+serviceName);
 		// System.out.println("숏트링 : " + shortString);
 		// System.out.println("메소드네임:" + methodName);
+//		System.out.println(shortString);
 		boolean timeSet = false;
 
 		boolean oneTime = false;
@@ -127,6 +128,7 @@ public class SystemAnalytics {
 		
 //		System.out.println(timeType);
 //		System.out.println(todayHour);
+//		System.out.println(serviceName);
 		ArrayList<TodayAnalyticsDetail> list2 = an.selectAnalytics2(timeType);
 		if(!list2.isEmpty()) {
 				tHits = list2.get(0).getHits();
@@ -264,6 +266,7 @@ public class SystemAnalytics {
 			case "CommonServiceImpl":
 //				System.out.println("?");
 				// System.out.println(beforserviceName);
+//				System.out.println(JP.getTarget().toString());
 				if (methodName.equals("addComment")) // 댓글수 증가
 				{
 //					System.out.println(serviceName);
@@ -278,7 +281,9 @@ public class SystemAnalytics {
 						tComments++;
 					}
 				}
+//				System.out.println(methodName);
 				if (methodName.equals("deleteComment")) {
+//					System.out.println("삭제");
 					if (beforserviceName.equals("HomeTrainingServiceImpl")) {
 						hComments--;
 					}

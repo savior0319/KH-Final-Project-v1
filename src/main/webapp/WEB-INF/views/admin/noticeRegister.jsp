@@ -160,7 +160,7 @@ $('.ui.dropdown').dropdown({
 				success : function(data) {
 					if (data == 'success') {
 						alert('공지등록 완료');
-						location.href = "/admin.diet"
+						location.href = "/todayAnalytics.diet";
 					}
 				},
 				error : function() {

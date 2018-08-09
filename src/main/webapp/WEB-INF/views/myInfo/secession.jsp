@@ -122,7 +122,7 @@
 					success : function(data) {
 						if (data == '1') {
 							alert('회원탈퇴 성공하였습니다.');
-							location.href = "/"
+							location.href = "/index.jsp";
 						} else {
 							alert('회원탈퇴 실패하였습니다.');
 						}
