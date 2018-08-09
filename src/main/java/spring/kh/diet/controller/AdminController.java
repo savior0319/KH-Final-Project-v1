@@ -47,7 +47,7 @@ public interface AdminController {
 
 	Object errorLogManageDetail(HttpServletRequest request);
 
-	Object errorLogManage(HttpServletRequest request);
+	Object errorLogManage(HttpServletRequest request) throws Throwable;
 
 	String trainerChange(HttpServletRequest request, HttpServletResponse response, HttpSession session);
 
@@ -67,5 +67,13 @@ public interface AdminController {
 
 	String blackListReg(int index, String status, HttpServletResponse response, HttpServletRequest request)
 			throws IOException;
+
+	void insertErrorLog() throws Throwable;
+
+	void insertWarnLog(String currentWord) throws Throwable;
+
+	void insertErrorLog(String currentWord) throws Throwable;
+
+	void insertFatalLog(String currentWord) throws Throwable;
 
 }

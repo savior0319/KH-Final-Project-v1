@@ -107,12 +107,22 @@ body {
 												varStatus="status">
 												<tr align="center">
 													<td>${ss.erStamp}</td>
-													<td>${ss.erInfoOne}</td>
+													<c:choose>
+														<c:when test="${fn:length(ss.erInfoOne) > 25}">
+															<td><button class="ui secondary button" onclick="info(${status.index},1);">자세히</button></td>
+															<td id="Date${status.index}1" ; style="display: none">
+																${ss.erInfoOne}</td>
+
+														</c:when>
+														<c:otherwise>
+															<td>${ss.erInfoTwo}</td>
+														</c:otherwise>
+													</c:choose>
 													<c:choose>
 														<c:when test="${fn:length(ss.erInfoTwo) > 25}">
 															<td><button class="ui secondary button"
-																	onclick="info(${status.index},1);">자세히</button></td>
-															<td id="Date${status.index}1" ; style="display: none">
+																	onclick="info(${status.index},2);">자세히</button></td>
+															<td id="Date${status.index}2"; style="display: none">
 																${ss.erInfoTwo}</td>
 
 														</c:when>
@@ -123,8 +133,8 @@ body {
 													<c:choose>
 														<c:when test="${fn:length(ss.erInfoThr) > 25}">
 															<td><button class="ui secondary button"
-																	onclick="info(${status.index},2);">자세히</button></td>
-															<td id="Date${status.index}2" ; style="display: none">
+																	onclick="info(${status.index},3);">자세히</button></td>
+															<td id="Date${status.index}3" ; style="display: none">
 																${ss.erInfoThr}</td>
 														</c:when>
 														<c:otherwise>
@@ -134,8 +144,8 @@ body {
 													<c:choose>
 														<c:when test="${fn:length(ss.erInfoFor) > 25}">
 															<td><button class="ui secondary button"
-																	onclick="info(${status.index},3);">자세히</button></td>
-															<td id="Date${status.index}3" ; style="display: none">
+																	onclick="info(${status.index},4);">자세히</button></td>
+															<td id="Date${status.index}4" ; style="display: none">
 																${ss.erInfoFor}</td>
 														</c:when>
 														<c:otherwise>
@@ -167,7 +177,7 @@ body {
 		<div class="ui left aligned basic segment">
 			<div class="ui form" style="font-weight: 600;">
 				<div class="field">
-					<textarea style="height: 400px;" id="content" readonly="readonly">
+					<textarea style="height: 400px; text-align: left" id="content" readonly="readonly">
 					
 					</textarea>
 				</div>

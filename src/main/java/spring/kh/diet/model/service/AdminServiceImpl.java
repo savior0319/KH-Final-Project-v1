@@ -403,6 +403,14 @@ public class AdminServiceImpl implements AdminService {
 		return list;
 	}
 
+	// 에러로그 인설트동작 
+	@Override
+	public void insertErrorLog(ErrorLogVO eLVO) {
+		aDao.insertErrorLog(session,eLVO);
+		
+		
+	}
+
 
 
 }

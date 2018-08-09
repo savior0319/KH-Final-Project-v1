@@ -1,8 +1,12 @@
 package spring.kh.diet.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +20,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -898,7 +901,7 @@ public class AdminControllerImpl implements AdminController {
 	/* 관리자 - 에러로그관리 페이지 호출 매핑 */
 	@Override
 	@RequestMapping(value = "/errorLogManage.diet")
-	public Object errorLogManage(HttpServletRequest request) {
+	public Object errorLogManage(HttpServletRequest request)throws Throwable {
 		// 날자형식
 		// (오늘날자 ) long time = System.currentTimeMillis()
 		// 어제날자
@@ -937,6 +940,14 @@ public class AdminControllerImpl implements AdminController {
 		else {
 			// 없으므로 어제의 파일을 것을 읽어서, 오늘것에 인설트하기.
 			// 로직이 기므로 따로 빼서 작성하겠음.
+			this.insertErrorLog();
+			ELVO.setType("list");
+			list = as.todayErrorLogSearch(ELVO);
+			if (!list.isEmpty()) {
+				view.addObject("dAll", list);
+			}
+			
+			
 		}
 
 		// view.addObject("currentTime",timeType);
@@ -1090,5 +1101,240 @@ public class AdminControllerImpl implements AdminController {
 		
 		view.setViewName("admin/loginLogManageDetail");
 		return view;
+	}
+	
+	
+	// 에러로그용 전역변수 선언하기
+	String infoOne = "";
+	String infoTwo = "";
+	String infoThr = "";
+	String infoFor = "";
+	String searchTime = "";
+	String searchLevel = "";
+	// 에러로그 - 어제 DB없을때  파일 읽고 인설트하기.
+	@Override
+	public void insertErrorLog()throws Throwable {
+		String oneLongWord="";
+		 
+//	   	 File file = new File("C:\\log4j\\Sample.txt");
+	   	 File file = new File("C:\\log4j\\Warn.log.txt");
+		 //입력 스트림 생성
+		 FileReader filereader = new FileReader(file);
+		 //입력 버퍼 생성
+		 BufferedReader bufReader = new BufferedReader(filereader);
+		 String line = "";
+		 while((line = bufReader.readLine()) != null){
+		 
+			
+			 oneLongWord += line.replace("'", "").replaceAll("	", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "")+"\r\n";
+			 
+			 
+		 }
+		 bufReader.close();
+	     String FindSearchOne = oneLongWord;
+		 String longWord = "";
+	     String shortWord = "";
+	     String currentWord = "";
+	     StringTokenizer ST1 = new StringTokenizer(FindSearchOne, "@@");
+	      while(ST1.hasMoreTokens()) {
+	         
+	         longWord = ST1.nextToken();
+	         if (longWord.length() >= 3) 
+	         {
+	            
+	            BufferedReader br = new BufferedReader(new StringReader(longWord));
+	            while ((shortWord = br.readLine()) != null) 
+	            {
+	               // System.out.println("라인 : "+shortWord);
+	               if (shortWord.startsWith("2018")) {
+	                  searchTime = shortWord.substring(0, 19);
+	                  searchLevel = shortWord.substring(shortWord.lastIndexOf(":")).replace(": ", "").replaceAll(" ","");
+	               }
+	               else {
+	               currentWord += shortWord.replaceAll("'", "").replaceAll("	", " ")+"\r\n";
+	            
+	               }
+	               
+
+	               
+	            }
+	            // 읽을게 더이상 없는시점 < 토큰이 끝나는시점.
+	            switch(searchLevel)
+	            {
+	            case "WARN" : insertWarnLog(currentWord); 
+	            
+	            break;
+	            case "ERROR" : insertErrorLog(currentWord);
+	            
+	            break;
+	            case "FATAL" : insertFatalLog(currentWord); 
+	            
+	            break;
+	            }
+	            searchLevel="";
+	            currentWord="";
+	         }
+	         
+
+	      }
+	      
+	}
+	
+	// 경고로그 삽입하기
+	@Override
+	public void insertWarnLog(String currentWord)throws Throwable{
+		 BufferedReader warnBr = new BufferedReader(new StringReader(currentWord));
+         String line ="";
+         while((line = warnBr.readLine())!=null)
+         {
+        	 if(line.length()>3)
+        	 {
+//        		 System.out.println("라인 : "+line);
+        		 if(line.startsWith("["))
+        		 {
+        			 infoOne = line.substring(0, line.indexOf(":")).replace("[", "").replaceAll("	", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "").trim();
+//        			 System.out.println(currentWord);
+//        			 System.out.println(infoOne);
+        	         int onother = currentWord.length()%3500;
+        	         int other = currentWord.length()/3500;
+        			 switch(other) //목
+        			 {
+        			 case 0 : 
+        				 infoTwo = currentWord.replaceAll("	", "").replaceAll(" ", "");
+        				 break;
+        			 // 0일때? 3500자이하일때?
+        			 case 1 : 
+        				 infoTwo = currentWord.substring(0, 3500).replaceAll("	", "").replaceAll(" ", "");
+        				 infoThr = currentWord.substring(3501,currentWord.length()).replaceAll("	", "").replaceAll(" ", "");
+        				 break;
+        			 // 1일때 3500자 이상일때, info Two 에 저장하고, 나머지는 Thr
+        			 case 2 : 
+        				 infoTwo = currentWord.substring(0, 3500).replaceAll("	", "").replaceAll(" ", "");
+        				 infoThr = currentWord.substring(3501,7000).replaceAll("	", "").replaceAll(" ", "");
+        				 infoFor = currentWord.substring(7001,currentWord.length()).replaceAll("	", "").replaceAll(" ", "");
+        				 break;
+        			 // 3500자까지는 Two, 7천자까지는 Thr, 나머지는 For
+        			 case 3 : 
+        				 infoOne = currentWord.substring(0, 3500).replaceAll("	", "").replaceAll(" ", "");
+        				 infoTwo = currentWord.substring(3501,7000).replaceAll("	", "").replaceAll(" ", "");
+        				 infoThr = currentWord.substring(7001,10500).replaceAll("	", "").replaceAll(" ", "");
+        				 infoFor = currentWord.substring(10501,currentWord.length()).replaceAll("	", "").replaceAll(" ", "");
+        				 break;
+        			 // 3500자 까지는 One, 7천자까지는 Two, 10500자까지는 Thr, 나머지 For
+        			 // 이떄에는 One을 사용하지않음.
+        			 }
+        			 Timestamp sqlDate; Date SearchDate;
+        			 SimpleDateFormat dayTimeTamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        					// String toDay = dayTime.format(new Date(time));
+        			 SearchDate = dayTimeTamp.parse(searchTime);
+        			 sqlDate = new Timestamp(SearchDate.getTime());
+        			 ErrorLogVO ELVO = new ErrorLogVO();
+        			 switch(searchLevel)
+        			 {
+        			 case "WARN" : ELVO.setErType("1");; break;
+        			 case "ERROR" :ELVO.setErType("2"); break;
+        			 case "FATAL" :ELVO.setErType("3"); break;
+        			 }
+        			 
+        			 ELVO.setErStamp(sqlDate);
+        			 ELVO.setErInfoOne(infoOne);
+        			 ELVO.setErInfoTwo(infoTwo);
+        			 ELVO.setErInfoThr(infoThr);
+        			 ELVO.setErInfoFor(infoFor);
+        			 as.insertErrorLog(ELVO);
+//        			 System.out.println(" 인포 1 : "+infoOne);
+//        			 System.out.println(" 인포 2 : "+infoTwo);
+//        			 System.out.println(" 인포 3 : "+infoThr);
+//        			 System.out.println(" 인포 4 : "+infoFor);
+        			 infoOne ="";
+        			 infoTwo ="";
+        			 infoThr ="";
+        			 infoFor ="";
+        		 }
+        	 }
+         }
+	}
+	// 에러로그 삽입하기
+	@Override
+	public void insertErrorLog(String currentWord)throws Throwable{
+//		 System.out.println("에러로그");
+//         System.out.println(searchTime);
+//         System.out.println(searchLevel);
+//         System.out.print(currentWord);
+	   BufferedReader warnBr = new BufferedReader(new StringReader(currentWord));
+       String line ="";
+       while((line = warnBr.readLine())!=null)
+       {
+      	 if(line.length()>3)
+      	 {
+//      	System.out.println("라인 : "+line);
+      		 if(line.startsWith("["))
+      		 {
+      			 infoOne = line.substring(0, line.indexOf("]")).replace("[", "").replaceAll("]", "").replaceAll("	", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "").trim();
+//      			 System.out.println(currentWord);
+//      			 System.out.println(infoOne);
+      	         int onother = currentWord.length()%3500;
+      	         int other = currentWord.length()/3500;
+      			 switch(other) //목
+      			 {
+      			 case 0 : 
+      				 infoTwo = currentWord.replaceAll("	", "").replaceAll(" ", "");
+      				 break;
+      			 // 0일때? 3500자이하일때?
+      			 case 1 : 
+      				 infoTwo = currentWord.substring(0, 3500).replaceAll("	", "").replaceAll(" ", "");
+      				 infoThr = currentWord.substring(3501,currentWord.length()).replaceAll("	", "").replaceAll(" ", "");
+      				 break;
+      			 // 1일때 3500자 이상일때, info Two 에 저장하고, 나머지는 Thr
+      			 case 2 : 
+      				 infoTwo = currentWord.substring(0, 3500).replaceAll("	", "").replaceAll(" ", "");
+      				 infoThr = currentWord.substring(3501,7000).replaceAll("	", "").replaceAll(" ", "");
+      				 infoFor = currentWord.substring(7001,currentWord.length()).replaceAll("	", "").replaceAll(" ", "");
+      				 break;
+      			 // 3500자까지는 Two, 7천자까지는 Thr, 나머지는 For
+      			 case 3 : 
+      				 infoOne = currentWord.substring(0, 3500).replaceAll("	", "").replaceAll(" ", "");
+      				 infoTwo = currentWord.substring(3501,7000).replaceAll("	", "").replaceAll(" ", "");
+      				 infoThr = currentWord.substring(7001,10500).replaceAll("	", "").replaceAll(" ", "");
+      				 infoFor = currentWord.substring(10501,currentWord.length()).replaceAll("	", "").replaceAll(" ", "");
+      				 break;
+      			 // 3500자 까지는 One, 7천자까지는 Two, 10500자까지는 Thr, 나머지 For
+      			 // 이떄에는 One을 사용하지않음.
+      			 }
+      			 Timestamp sqlDate; Date SearchDate;
+    			 SimpleDateFormat dayTimeTamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    					// String toDay = dayTime.format(new Date(time));
+    			 SearchDate = dayTimeTamp.parse(searchTime);
+    			 sqlDate = new Timestamp(SearchDate.getTime());
+    			 ErrorLogVO ELVO = new ErrorLogVO();
+    			 switch(searchLevel)
+    			 {
+    			 case "WARN" : ELVO.setErType("1");; break;
+    			 case "ERROR" :ELVO.setErType("2"); break;
+    			 case "FATAL" :ELVO.setErType("3"); break;
+    			 }
+    			 ELVO.setErStamp(sqlDate);
+    			 ELVO.setErInfoOne(infoOne);
+    			 ELVO.setErInfoTwo(infoTwo);
+    			 ELVO.setErInfoThr(infoThr);
+    			 ELVO.setErInfoFor(infoFor);
+    			 as.insertErrorLog(ELVO);
+//      			 System.out.println(" 인포 1 : "+infoOne);
+//      			 System.out.println(" 인포 2 : "+infoTwo);
+//      			 System.out.println(" 인포 3 : "+infoThr);
+//      			 System.out.println(" 인포 4 : "+infoFor);
+      			 infoOne ="";
+      			 infoTwo ="";
+      			 infoThr ="";
+      			 infoFor ="";
+      		 }
+      	 }
+       }
+	}
+	
+	// 페이탈에러 삽입하기(미구현)
+	@Override
+	public void insertFatalLog(String currentWord)throws Throwable{
+	
 	}
 }
