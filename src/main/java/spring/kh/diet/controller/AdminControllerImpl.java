@@ -1115,7 +1115,7 @@ public class AdminControllerImpl implements AdminController {
 	@Override
 	public void insertErrorLog()throws Throwable {
 		String oneLongWord="";
-		   
+		 
 //	   	 File file = new File("C:\\log4j\\Sample.txt");
 	   	 File file = new File("C:\\log4j\\Warn.log.txt");
 		 //입력 스트림 생성
