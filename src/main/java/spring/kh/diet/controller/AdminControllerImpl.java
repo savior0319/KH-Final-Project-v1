@@ -1195,7 +1195,7 @@ public class AdminControllerImpl implements AdminController {
 //        		 System.out.println("라인 : "+line);
         		 if(line.startsWith("["))
         		 {
-        			 infoOne = line.substring(0, line.indexOf(":")).replace("[", "").replaceAll("	", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "").trim();
+        			 infoOne =  "\r\n"+line.substring(0, line.indexOf(":")).replace("[", "").replaceAll("	", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "").trim();
 //        			 System.out.println(currentWord);
 //        			 System.out.println(infoOne);
         	         int onother = currentWord.length()%3500;
@@ -1203,7 +1203,7 @@ public class AdminControllerImpl implements AdminController {
         			 switch(other) //목
         			 {
         			 case 0 : 
-        				 infoTwo = currentWord.replaceAll("	", "").replaceAll(" ", "");
+        				 infoTwo =currentWord.replaceAll("	", "").replaceAll(" ", "");
         				 break;
         			 // 0일때? 3500자이하일때?
         			 case 1 : 
@@ -1273,7 +1273,7 @@ public class AdminControllerImpl implements AdminController {
 //      	System.out.println("라인 : "+line);
       		 if(line.startsWith("["))
       		 {
-      			 infoOne = line.substring(0, line.indexOf("]")).replace("[", "").replaceAll("]", "").replaceAll("	", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "").trim();
+      			 infoOne = "\r\n"+line.substring(0, line.indexOf("]")).replace("[", "").replaceAll("]", "").replaceAll("	", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "").trim();
 //      			 System.out.println(currentWord);
 //      			 System.out.println(infoOne);
       	         int onother = currentWord.length()%3500;

@@ -177,9 +177,7 @@ body {
 		<div class="ui left aligned basic segment">
 			<div class="ui form" style="font-weight: 600;">
 				<div class="field">
-					<textarea style="height: 400px; text-align: left" id="content" readonly="readonly">
-					
-					</textarea>
+					<textarea style="height: 400px; text-align: left" id="content" readonly="readonly"></textarea>
 				</div>
 			</div>
 		</div>

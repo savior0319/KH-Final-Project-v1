@@ -516,15 +516,15 @@ data.addColumn('number', '좋아요');
 											<td style="width: 20%">${is.mbNickName}</td>
 											<c:choose>
 												<c:when test="${is.mbGender eq 'm'}">
-													<td style="width: 20%">남 성 ( <i class="male icon"></i>)
+													<td style="width: 22%">남 성 ( <i class="male icon"></i>)
 													</td>
 												</c:when>
 												<c:when test="${is.mbGender eq 'f'}">
-													<td style="width: 20%">여 성 ( <i class="female icon"></i>)
+													<td style="width: 22%">여 성 ( <i class="female icon"></i>)
 													</td>
 												</c:when>
 												<c:otherwise>
-													<td style="width: 20%">카카오회원 ( <i
+													<td style="width: 22%">카카오회원 ( <i
 														class="github alternate icon"></i>)
 													</td>
 												</c:otherwise>
@@ -566,7 +566,7 @@ data.addColumn('number', '좋아요');
 								<th style="width: 11%">비고</th>
 								<th style="width: 25%"><i class="address card outline icon"></i>
 									아이디</th>
-								<th style="width: 22%"><i class="venus mars icon"></i> 성 별</th>
+								<!-- <th style="width: 22%"><i class="venus mars icon"></i> 성 별</th> -->
 								<th style="width: 21%"><i class="calendar plus icon"></i>가입일</th>
 								<th style="width: 22%"><i class="user secret icon"></i></i> 등 급</th>
 							</tr>
@@ -578,14 +578,14 @@ data.addColumn('number', '좋아요');
 										<td style="height: 100px"></td>
 										<td></td>
 										<td></td>
-										<td></td>
+										<!-- <td></td> -->
 										<td></td>
 									</tr>
 									<tr>
 										<td style="height: 100px"></td>
 										<td></td>
 										<td></td>
-										<td></td>
+										<!-- <td></td> -->
 										<td></td>
 									</tr>
 								</c:when>
@@ -593,18 +593,18 @@ data.addColumn('number', '좋아요');
 									<c:forEach items="${requestScope.todayDelMember}" var="ds"
 										varStatus="status">
 										<tr align="center">
-											<td style="width: 11%"><c:out value="${status.index+1}" /></td>
+											<td style="width: 13%"><c:out value="${status.index+1}" /></td>
 											<c:choose>
 														<c:when test="${fn:length(ds.mbId)>17}">
-															<td style="width: 25%">
-															<c:out value="${fn:substring(ds.mbId,0,13)}"/>..
+															<td style="width: 20%">
+															<c:out value="${fn:substring(ds.mbId,0,10)}"/>..
 															</td>
 														</c:when>
 														<c:otherwise>
-															<td style="width: 25%">${ds.mbId}</td>
+															<td style="width: 20%">${ds.mbId}</td>
 														</c:otherwise>
 											</c:choose>
-											<c:choose>
+											<%-- <c:choose>
 												<c:when test="${ds.mbGender eq 'm'}">
 													<td style="width: 20%">남 성 ( <i class="male icon"></i>)
 													</td>
@@ -618,9 +618,9 @@ data.addColumn('number', '좋아요');
 														class="github alternate icon"></i>)
 													</td>
 												</c:otherwise>
-											</c:choose>
-											<td style="width: 23%">${ds.mbDeleteDate}</td>
-											<td style="width: 22%">${ds.mbGrade}</td>
+											</c:choose> --%>
+											<td style="width: 25%">${ds.mbDeleteDate}</td>
+											<td style="width: 28%">${ds.mbGrade}</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
