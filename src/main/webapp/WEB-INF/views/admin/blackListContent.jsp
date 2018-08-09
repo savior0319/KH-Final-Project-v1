@@ -39,13 +39,13 @@ body {
 							<th>신고사유</th>
 							<th>신고자</th>
 							<th>피신고자</th>
-							<th>삭제</th>
+							<!-- <th>삭제</th> -->
 						</tr>			
 						</thead>
 							<c:forEach items="${requestScope.content}" var="c">
 							<tr class="sagi">
 							<c:choose>
-							<c:when test="${c.postIndex eq '0' && c.targetContent ne null}">
+							<c:when test="${c.postIndex eq '0'}">
 							<td>[댓글이 신고됨]</td>
 							</c:when>
 							<c:otherwise>
@@ -53,7 +53,7 @@ body {
 							</c:otherwise>
 							</c:choose>
 							<c:choose>
-							<c:when test="${c.targetContent eq null && c.postIndex ne '0'}">
+							<c:when test="${c.targetContent eq null}">
 							<td>[게시물이 신고됨]</td>
 							</c:when>
 							<c:otherwise>
@@ -63,12 +63,12 @@ body {
 							<td>${c.cmtContent}</td>
 							<td>${c.mbNickName}</td>
 							<td>${c.targetMbNickName}</td> 
-							<c:if test="${c.postIndex eq '0'}">
-							<td><button type="button" class="ui button" style="background: rgb(250,40,40); color: white;" onclick="deleteComment(${c.cmtIndex}, ${c.postIndex});">삭제</button></td>
-							</c:if>
-							<c:if test="${c.postIndex ne '0'}">
-							<td><button type="button" class="ui button" style="background: rgb(250,40,40); color: white;" onclick="deletePost(${c.postIndex});">삭제</button></td>
-							</c:if>
+	<!-- 						<c:if test="${c.postIndex eq '0'}">
+	<td><button type="button" class="ui button" style="background: rgb(250,40,40); color: white;" onclick="deleteComment(${c.cmtIndex}, ${c.postIndex});">삭제</button></td>
+	</c:if>
+	<c:if test="${c.postIndex ne '0'}">
+	<td><button type="button" class="ui button" style="background: rgb(250,40,40); color: white;" onclick="deletePost(${c.postIndex});">삭제</button></td>
+	</c:if> -->
 							</tr>
 							</c:forEach>  
 					</table>
@@ -84,13 +84,13 @@ body {
 <!-- SCRIPT -->
 <script type="text/javascript">
 
-	$(document).ready(function() {
+	/*$(document).ready(function() {
 		if($('.sagiNumber').html() == '0'){
 			$('.sagi').hide();
 		}		
 	});
 
-
+*/
 function back(){
 	history.back(-1);
 }
