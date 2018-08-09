@@ -115,8 +115,8 @@ else self.name = '';
 							<div class="content">
 								<a class="header">
 									<c:choose>
-										<c:when test="${fn:length(c.postTitle)>20}">
-											<c:out value="${fn:substring(c.postTitle,0,19)}" />...
+										<c:when test="${fn:length(c.postTitle)>15}">
+											<c:out value="${fn:substring(c.postTitle,0,14)}" />...
 								</c:when>
 										<c:otherwise>
 									${c.postTitle}
@@ -149,14 +149,10 @@ else self.name = '';
 					</div>
 				</c:forEach>
 			</div>
-
-
-
 			<br>
 			<br>
 			<br>
 		</div>
-
 		<div id="size2" class="ui center aligned basic segment">
 			<div align="center">
 				<c:forEach items="${requestScope.cpdv.comList}" var="c">
